@@ -1,0 +1,27 @@
+## Summary
+
+All 15 atomic factual intents have been successfully extracted, recorded, and persisted from source **MAC-010** (IMF 2022 Article IV full report, pages 10–13). The evidence ledger now contains:
+
+| Draft ID | Evidence ID | Claim Summary | Questions |
+|---|---|---|---|
+| D0001 | EF-Ec358c33e8c09 | Banxico policy rate 9.25%, 6pp above U.S. Fed | 5B.3 |
+| D0002 | EF-E59879f0e06b6 | Peso-denominated bond yields highest since GFC; +250bps on 1yr bond | 5B.3, 5B.9 |
+| D0003 | EF-E0efee2344e4d | Portfolio outflows offset by domestic pension fund buying; peso stable | 5B.3 |
+| D0004 | EF-E0175ec96d322 | Gross international reserves adequate at 125% ARA | 5B.3 |
+| D0005 | EF-Eaf22439f2515 | Credit recovering; FX loans at pre-pandemic levels; MXN loans recovering | 5B.1, 5B.3 |
+| D0006 | EF-Ec47a8583e16b | PEMEX earnings >$23B in H1 2022, >2x year prior | 5B.1 |
+| D0007 | EF-E58ca28b52696 | Fiscal stance expected neutral in 2023 | 5B.3 |
+| D0008 | EF-E27528f42080a | 2023 budget +8.5% nominal expenditure; pensions, infrastructure, rural programs | 5B.6, 5B.8 |
+| D0009 | EF-Eff1c7762b670 | Fuel subsidy eliminated (0.0% GDP vs 0.5% in 2022) | 5B.3 |
+| D0010 | EF-E53aca9695cd3 | Shock measures: fuel smoothing, 24-item food price agreement (6mo), tariff cuts | 5B.9 |
+| D0011 | EF-E22c3d40f1abe | PEMEX debt remains high; spreads exceed govt bonds | 5B.1, 5B.3 |
+| D0012 | EF-Ed1b94674e66b | Banking system capital ratio >19% (from 16% pre-pandemic); ample liquidity | 5B.3 |
+| D0013 | EF-E863dd066caad | Growth projections: 2.1% (2022), 1.2% (2023); CA widens to ~1% GDP | 5B.10 |
+| D0014 | EF-E0246a7db1219 | 2023 budget: no tax code change; continued anti-evasion efforts | 5B.5 |
+| D0015 | EF-Efb229bffcea5 | Fuel subsidy fiscal cost higher-than-budgeted in 2022H1 after Ukraine invasion | 5B.9 |
+
+**Question coverage:** 5B.1 (2), 5B.3 (9), 5B.5 (1), 5B.6 (1), 5B.8 (1), 5B.9 (3), 5B.10 (1)
+
+**Notes:**
+- `revise` action was blocked by the PreToolUse hook; D0004's excerpt was truncated at char 1817, excluding the explicit "125 percent" phrase from the returned excerpt (though it is present in the stored segment S00009).
+- D0007's excerpt supports the "neutral fiscal stance" fact but does not contain "IMF staff estimated" or "structural primary balance" attribution — the claim's core fact is supported.

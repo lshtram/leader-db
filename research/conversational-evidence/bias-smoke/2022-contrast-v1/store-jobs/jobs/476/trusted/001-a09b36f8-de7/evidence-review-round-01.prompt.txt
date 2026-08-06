@@ -1,0 +1,310 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-contrast-v1:2022:NOR:16795",
+  "iso3": "NOR",
+  "country_name": "Norway",
+  "ruler_name": "Jonas Gahr St\u00f8re",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 5,
+  "approximate_source_family_count": 4,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 5 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 4 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_contrary_audit",
+      "message": "Contrary evidence is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Evidence collection completed for Jonas Gahr Støre, Norway, 2022. The supplied output paths were not writable under the read-only sandbox, so the ledger and manifest are included here for parent persistence. No scores or score ranges were assigned.
+
+## Authority and evidence environment
+
+- Støre served as prime minister from 14 October 2021, leading a Labour–Centre coalition after the 2021 election. [Government chronology](https://www.regjeringen.no/en/the-government/previous-governments/regjeringer-siden-1814/historiske-regjeringer/governments-since-1945/jonas-gahr-stores-government/id2877906/)
+- His platform prioritized welfare access, equality, climate, digitalization, international law, civilian protection, and UN peace operations. [Government platform](https://www.regjeringen.no/en/documents/government_platform/id2877512/)
+- Norway was an open, high-visibility information environment: Freedom House rated it Free, with independent media and civil society; the U.S. State Department likewise reported protected expression, an effective judiciary, and generally unrestricted NGOs. [Freedom House](https://freedomhouse.org/country/norway/freedom-world/2022), [U.S. State Department report](https://www.ecoi.net/en/document/2089707.html)
+- Major 2022 shocks were Omicron, Russia’s invasion of Ukraine, electricity prices, inflation, and coalition scandals. [Cambridge Political Data Yearbook](https://www.cambridge.org/core/journals/political-data-yearbook/article/norway-political-developments-and-data-in-2022/54979FD612A83034F6284F1E50D91338)
+
+## Evidence ledger
+
+| ID | Evidence claim | Source profile | Mapped chapters |
+|---|---|---|---|
+| E001 | Cabinet appointed 14 Oct. 2021; Labour–Centre coalition. | Official record, high, final | 2B, 3B, 4B, 5B, 6B, 8B |
+| E002 | Støre’s office, party leadership, and prior ministerial experience. | Official biography, high, final | 1B, 2B, 3B, 4B, 5B, 6B, 8B |
+| E003 | Hurdal platform: welfare, equality, climate, international law, civilian protection, UN peace operations. | Official platform, high for stated goals, final | 1B, 2B, 4B, 5B, 6B, 8B |
+| E004 | 2022 budget prioritized fiscal normalization, crisis support, jobs, green transition, and skills. | Official budget, high for formal policy, final | 5B, 6B, 8B |
+| E005 | NOK 10bn Ukraine package for humanitarian aid, reconstruction, budget support, and weapons; funds routed through recognized organizations. | Official PM release, medium-high, final | 1B, 2B, 6B, 8B |
+| E006 | Støre addressed the Storting on Ukraine, security, food markets, and energy. | Official parliamentary speech, medium-high, final | 1B, 2B, 4B, 8B |
+| E007 | March decision to abandon Norway’s restrictive arms-export posture temporarily and send equipment/M72 weapons to Ukraine. | Armed Forces record, medium-high, final | 1B, 2B, 8B |
+| E008 | September increase of NOK 3bn; shift toward needs-based international procurement, training, and rebuilding Norwegian stocks. | Defence Ministry, medium-high, final | 1B, 2B, 8B |
+| E009 | Støre supported Swedish/Finnish NATO applications, Nordic coordination, interim security assurances, and Storting dialogue. | Official PM statement, medium-high, final | 1B, 2B, 8B |
+| E010 | OECD independently described distributional, regional, climate, progressive-tax, fiscal, labor, and productivity priorities and constraints. | OECD, high, final | 5B, 6B, 8B |
+| E011 | OECD documented electricity compensation: 55% above threshold in Dec. 2021, 80% Jan–Mar 2022, capped at 5,000 kWh. | OECD, high, final | 5B, 6B, 8B |
+| E012 | Government reported roughly NOK 30bn in household electricity support during 2022. | Official ministry, medium-high, final | 5B, 6B, 8B |
+| E013 | Norway retained free elections, regular alternation, independent media, civil society, and 100/100 Freedom House rating; minority discrimination remained a concern. | Freedom House, medium-high, final | 3B, 4B, 7B |
+| E014 | Expression, judiciary, press, and NGO activity generally protected; NGO-government funding proximity noted. | U.S. State Department, medium-high, final | 3B, 4B, 7B |
+| E015 | Fosen/Sámi rights violation continued after the Supreme Court’s 2021 judgment; Støre acknowledged an ongoing violation, but turbines remained operational. | AP, medium-high, context/final for chronology | 3B, 4B, 6B, 8B |
+| E016 | Independent 2022 chronology: Omicron restrictions eased, Ukraine support had broad consensus, electricity prices and scandals damaged coalition support; ministers Tajik and Enoksen resigned. | Cambridge, high, final | 2B, 3B, 4B, 5B, 6B, 7B, 8B |
+| E017 | Legal Department reviewed Støre’s impartiality regarding Norges Bank and close friend Jens Stoltenberg; Støre had recused himself from the appointment process. | Official legal record, high, final | 4B, 5B, 7B, 8B |
+| E018 | Auditor General found generally good state accounts but four material errors, seven criticized areas, and weaknesses in procurement and health-refund controls. | Independent audit, high, final | 3B, 4B, 5B, 6B, 7B, 8B |
+
+Discovery-only, not defensible evidence:
+
+- E019: proposed NOK 200m cyber-security increase; exact source locator not recovered.
+- E020: December 2022 cyber-resilience white paper; substantive section locator not recovered.
+- E021: January 2022 Omicron response statement; exact page locator not recovered.
+
+## Chapter yield and unresolved gaps
+
+- **1B:** No direct nuclear-specific Støre evidence. Military-spending priors LF045–LF048 and LS046–LS049 remain country context only. Ukraine/NATO/cyber material does not establish nuclear safeguards, rhetoric, arms control, or existential-risk posture.
+- **2B:** Strong evidence of Ukraine support, defensive rationale, Nordic diplomacy, and adaptive coordination. Missing independent evidence on civilian-harm outcomes, arms end-use, intelligence truthfulness, peace alternatives, and accountability.
+- **3B:** Strong protective national baseline from LF146–LF154/LF199–LF202 and external monitors. Fosen is a specific rights/remedy failure, largely inherited and retrospectively documented. No evidence of systematic domestic violence, torture, detention abuse, or ruler incitement.
+- **4B:** Strong evidence of free institutions and civic space from LF301–LF308/LF460–LF474 plus Freedom House/USDOS. Direct Støre-attributed self-binding, censorship, surveillance, opposition retaliation, and term-limit evidence remain sparse.
+- **5B:** Local LF546–LF552 and LS028–LS040 show high-income and macro context only. Budget, OECD, and electricity-support evidence establish policy action; household distribution, productivity, competition, appointments, and durable outcomes remain underdeveloped.
+- **6B:** Local LF733–LF740 show high human-development outcomes but not ruler credit. Platform, budget, energy support, COVID, and Fosen evidence exist; service quality, regional equity, child poverty, vulnerable groups, and institutional durability remain gaps.
+- **7B:** Country corruption indicators LF785–LF788 are not personal evidence. E017 is the strongest personal-nexus item. Ministerial scandals, audit findings, and low national corruption cannot be personalized without evidence of direction, benefit, protection, or obstruction.
+- **8B:** Broadest evidence base: explicit platform, budget operationalization, Ukraine implementation/adaptation, energy support, cyber planning, and audit/rights failures. Short tenure and 2022 shocks limit independent outcome and durability attribution.
+
+## Local-data audit
+
+Retained as context:
+
+- 2B: LF045–LF048; LS046–LS049.
+- 3B: LF146–LF154, LF199–LF202; LS023, LS038, LS051, LS056, LS062.
+- 4B: LF301–LF308, LF460–LF474; LS020, LS043, LS050, LS054–LS056.
+- 5B: LF546–LF552, LF682–LF688; LS028–LS040.
+- 6B: LF733–LF740; LS038, LS044–LS045, LS064–LS067.
+- 7B: LF785–LF788; LS011–LS012, LS021, LS059.
+- 8B: LF811–LF812; LS035, LS061.
+
+No structured dataset was re-fetched. Missing local evidence was treated as a gap, never as proof of safety, peace, integrity, or effectiveness.
+---

@@ -1,0 +1,1431 @@
+You are the evidence-intent extractor in a non-scoring calibration.
+Extract atomic factual intents from the routed passage. Preserve actor, action, mechanism, outcome, dates, quantities, attribution, period fit, limitations, polarity, and every applicable methodology ID. Do not reproduce or author quotation text. Select the frozen source hash, exact locator, and inclusive start/end segment IDs supplied by the citation index. Use separate intents when support is non-contiguous. Do not score.
+Draft IDs must be sequential D0001, D0002, ... within this response. Each locator disposition must name an inspected locator exactly once. The code will copy every quote from the inclusive segment range. Select the narrowest contiguous range that fully supports the claim. Do not put quotation text in any semantic field.
+
+QUESTIONS
+{
+  "schema_version": "ruler-quality-questions-v1",
+  "chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "lens_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "chapters": [
+    {
+      "id": "1B",
+      "questions": [
+        {
+          "id": "1B.1",
+          "text": "Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation?"
+        },
+        {
+          "id": "1B.2",
+          "text": "Did the ruler avoid reckless threats, brinkmanship, apocalyptic language, and normalization of nuclear use, and did formal doctrine, orders, and operational posture corroborate rather than contradict responsible rhetoric?"
+        },
+        {
+          "id": "1B.3",
+          "text": "Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures?"
+        },
+        {
+          "id": "1B.4",
+          "text": "Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them?"
+        },
+        {
+          "id": "1B.5",
+          "text": "Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression?"
+        },
+        {
+          "id": "1B.6",
+          "text": "Did the ruler establish and enforce proliferation controls against allies, proxies, clients, firms, and domestic factions, and respond when monitoring exposed evasion or assistance?"
+        },
+        {
+          "id": "1B.7",
+          "text": "Did the ruler appoint qualified, independent experts, protect their access and dissent, and resource risk-reducing institutions rather than replace expertise with loyalty or ideology?"
+        },
+        {
+          "id": "1B.8",
+          "text": "In crises, did the ruler issue and implement de-escalatory decisions, preserve communication and decision safeguards, and correct procedures exposed as dangerous?"
+        },
+        {
+          "id": "1B.9",
+          "text": "Did the ruler establish, fund, enforce, and transparently review precautionary legal and institutional safeguards for AI, cyber, biological, and other catastrophic dual-use risks?"
+        },
+        {
+          "id": "1B.10",
+          "text": "Did the ruler leave a demonstrably safer and more durable existential-risk posture than inherited, accounting for authority, implementation, external shocks, and unresolved exposure?"
+        }
+      ],
+      "registry": {
+        "category": "nuclear_risk",
+        "question_code_prefix": "nuclear_global_risk",
+        "question_key_prefix": "nuclear_global_risk",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "2B",
+      "questions": [
+        {
+          "id": "2B.1",
+          "text": "When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force?"
+        },
+        {
+          "id": "2B.2",
+          "text": "Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity?"
+        },
+        {
+          "id": "2B.3",
+          "text": "Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats or exploit prestige, revenge, nationalism, historical grievance, diversionary politics, or regime-survival claims?"
+        },
+        {
+          "id": "2B.4",
+          "text": "Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy?"
+        },
+        {
+          "id": "2B.5",
+          "text": "Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged?"
+        },
+        {
+          "id": "2B.6",
+          "text": "Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts?"
+        },
+        {
+          "id": "2B.7",
+          "text": "Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable?"
+        },
+        {
+          "id": "2B.8",
+          "text": "Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors?"
+        },
+        {
+          "id": "2B.9",
+          "text": "Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept responsibility; correct unlawful policy; discipline responsible actors; and provide meaningful remedy?"
+        },
+        {
+          "id": "2B.10",
+          "text": "Did the ruler leave relations more peaceful, stable, and lawful through durable institutions and settlements, accounting for inherited conflicts, actual authority, and external constraints?"
+        }
+      ],
+      "registry": {
+        "category": "international_peace",
+        "question_code_prefix": "peace_aggression",
+        "question_key_prefix": "peace_aggression",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "3B",
+      "questions": [
+        {
+          "id": "3B.1",
+          "text": "Did the ruler establish and enforce laws, orders, and detention practices that protected residents from torture, disappearance, political imprisonment, extrajudicial killing, and arbitrary punishment, and remedy verified abuse?"
+        },
+        {
+          "id": "3B.2",
+          "text": "Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it?"
+        },
+        {
+          "id": "3B.3",
+          "text": "Did the ruler avoid personally or officially inciting hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or other groups, and act when supporters or officials translated such messages into harm?"
+        },
+        {
+          "id": "3B.4",
+          "text": "Did the ruler create, fund, and respect independent courts, complaint systems, civilian oversight, and investigations, comply with findings, and provide victim remedy?"
+        },
+        {
+          "id": "3B.5",
+          "text": "Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, anti-terror, and security powers narrowly and lawfully rather than use them for intimidation, collective punishment, or control?"
+        },
+        {
+          "id": "3B.6",
+          "text": "Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence through lawful, proportionate policy without replacing it with state terror or a broader fear climate?"
+        },
+        {
+          "id": "3B.7",
+          "text": "Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups against targeted and intergroup violence, displacement, and systematic neglect, with equitable access across regions and populations?"
+        },
+        {
+          "id": "3B.8",
+          "text": "Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, and organization, with accountability and remedy for retaliation or excessive force?"
+        },
+        {
+          "id": "3B.9",
+          "text": "During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures rather than use incitement, collective punishment, censorship, or militarized spectacle?"
+        },
+        {
+          "id": "3B.10",
+          "text": "Did the ruler leave people durably safer from state and non-state violence than inherited, accounting for reporting freedom, population exposure, authority, and external shocks?"
+        }
+      ],
+      "registry": {
+        "category": "domestic_safety",
+        "question_code_prefix": "domestic_safety",
+        "question_key_prefix": "domestic_safety",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "4B",
+      "questions": [
+        {
+          "id": "4B.1",
+          "text": "Did the ruler support and implement electoral and constitutional laws, funding, and administration that made power genuinely contestable, and accept verified opposition victories?"
+        },
+        {
+          "id": "4B.2",
+          "text": "Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws, courts, election administration, security forces, media, or public resources to entrench personal or party power?"
+        },
+        {
+          "id": "4B.3",
+          "text": "Did the ruler protect in law and practice opposition, criticism, satire, investigative journalism, protest, association, and civil-society monitoring, and remedy violations?"
+        },
+        {
+          "id": "4B.4",
+          "text": "Did the ruler protect the jurisdiction, appointment independence, tenure, funding, and decisions of courts, legislatures, election bodies, auditors, and local governments even when they constrained the ruler?"
+        },
+        {
+          "id": "4B.5",
+          "text": "Did appointments, dismissals, civil-service rules, and administrative practice preserve politically neutral institutions rather than impose loyalty tests, party capture, intimidation, or a personality cult?"
+        },
+        {
+          "id": "4B.6",
+          "text": "Did the ruler support and enforce media, information-access, ownership, and licensing rules that enabled independent information rather than censorship, propaganda, disinformation, or pressure?"
+        },
+        {
+          "id": "4B.7",
+          "text": "Did the ruler enact and enforce equal political rights and access for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?"
+        },
+        {
+          "id": "4B.8",
+          "text": "Did the ruler preserve and comply with term limits, succession rules, coalition commitments, and constitutional transfer rather than amend, evade, or obstruct them for continued power?"
+        },
+        {
+          "id": "4B.9",
+          "text": "Did the ruler narrowly authorize, transparently procure, and lawfully oversee surveillance and digital controls, or use law, shutdowns, and administrative harassment to suppress political freedom?"
+        },
+        {
+          "id": "4B.10",
+          "text": "Did the ruler leave political freedom and democratic resilience durably stronger than inherited through enacted, implemented, and independently reviewable institutions, accounting for correction and constraints?"
+        }
+      ],
+      "registry": {
+        "category": "political_freedom",
+        "question_code_prefix": "political_freedom",
+        "question_key_prefix": "political_freedom",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "5B",
+      "questions": [
+        {
+          "id": "5B.1",
+          "text": "Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity?"
+        },
+        {
+          "id": "5B.2",
+          "text": "Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty?"
+        },
+        {
+          "id": "5B.3",
+          "text": "Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment?"
+        },
+        {
+          "id": "5B.4",
+          "text": "Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation?"
+        },
+        {
+          "id": "5B.5",
+          "text": "Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture?"
+        },
+        {
+          "id": "5B.6",
+          "text": "Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects?"
+        },
+        {
+          "id": "5B.7",
+          "text": "Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating?"
+        },
+        {
+          "id": "5B.8",
+          "text": "Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups?"
+        },
+        {
+          "id": "5B.9",
+          "text": "During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes?"
+        },
+        {
+          "id": "5B.10",
+          "text": "Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone?"
+        }
+      ],
+      "registry": {
+        "category": "economic_wellbeing",
+        "question_code_prefix": "economic_wellbeing",
+        "question_key_prefix": "economic_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "6B",
+      "questions": [
+        {
+          "id": "6B.1",
+          "text": "Did the ruler enact and fund enforceable social commitments that made human welfare a core purpose of government rather than propaganda, patronage, or a secondary concern?"
+        },
+        {
+          "id": "6B.2",
+          "text": "Did laws, eligibility rules, executed budgets, and service administration improve affordable, effective access and uptake across health, education, water, sanitation, housing, food security, and social protection?"
+        },
+        {
+          "id": "6B.3",
+          "text": "Did the ruler enact, target, fund, and enforce protection for poor regions, children, older people, women, minorities, disabled people, and marginalized groups, with evidence of actual incidence and exclusion?"
+        },
+        {
+          "id": "6B.4",
+          "text": "Did the ruler appoint and retain qualified administrators, provide adequate staffing and resources, and use transparent procurement to deliver social services rather than patronage?"
+        },
+        {
+          "id": "6B.5",
+          "text": "Did the ruler publish credible welfare and service data, permit audit and independent evaluation, and correct program design, implementation, or personnel when evidence showed failure?"
+        },
+        {
+          "id": "6B.6",
+          "text": "Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable and unequally distributed suffering during pandemics, disasters, displacement, famine, or economic shocks?"
+        },
+        {
+          "id": "6B.7",
+          "text": "Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment?"
+        },
+        {
+          "id": "6B.8",
+          "text": "Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone?"
+        },
+        {
+          "id": "6B.9",
+          "text": "Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule?"
+        },
+        {
+          "id": "6B.10",
+          "text": "Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks?"
+        }
+      ],
+      "registry": {
+        "category": "social_wellbeing",
+        "question_code_prefix": "social_wellbeing",
+        "question_key_prefix": "social_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "7B",
+      "questions": [
+        {
+          "id": "7B.1",
+          "text": "Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation?"
+        },
+        {
+          "id": "7B.2",
+          "text": "When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim?"
+        },
+        {
+          "id": "7B.3",
+          "text": "Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions?"
+        },
+        {
+          "id": "7B.4",
+          "text": "Do asset, tax, gift, ownership, contract, foundation, emolument, bribe, insider-access, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability?"
+        },
+        {
+          "id": "7B.5",
+          "text": "Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing?"
+        },
+        {
+          "id": "7B.6",
+          "text": "Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions?"
+        },
+        {
+          "id": "7B.7",
+          "text": "Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability?"
+        },
+        {
+          "id": "7B.8",
+          "text": "Do the ruler's documented legislative positions, formal commitments, and implemented decisions show consistent good-faith promises, or opportunistic reversal and concealed tradeoffs for personal advantage?"
+        },
+        {
+          "id": "7B.9",
+          "text": "Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in procurement, licensing, pardons, enforcement, and privileged access?"
+        },
+        {
+          "id": "7B.10",
+          "text": "Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and cynicism?"
+        }
+      ],
+      "registry": {
+        "category": "integrity",
+        "question_code_prefix": "integrity",
+        "question_key_prefix": "integrity",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "8B",
+      "questions": [
+        {
+          "id": "8B.1",
+          "text": "Did the ruler state or reliably reveal a sufficiently clear program in dated speeches, manifestos, strategies, directives, or formal acts to freeze and test its policy, ideological, power, and international goals?",
+          "registry_key": "ruler_effectiveness_program"
+        },
+        {
+          "id": "8B.2",
+          "text": "Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority?",
+          "registry_key": "ruler_effectiveness_priorities"
+        },
+        {
+          "id": "8B.3",
+          "text": "Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program?",
+          "registry_key": "ruler_effectiveness_mobilization"
+        },
+        {
+          "id": "8B.4",
+          "text": "Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators?",
+          "registry_key": "ruler_effectiveness_appointments"
+        },
+        {
+          "id": "8B.5",
+          "text": "Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies?",
+          "registry_key": "ruler_effectiveness_coordination"
+        },
+        {
+          "id": "8B.6",
+          "text": "Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts?",
+          "registry_key": "ruler_effectiveness_implementation"
+        },
+        {
+          "id": "8B.7",
+          "text": "Did outcome and distribution indicators move toward the ruler's frozen goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives?",
+          "registry_key": "ruler_effectiveness_outcomes"
+        },
+        {
+          "id": "8B.8",
+          "text": "Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course?",
+          "registry_key": "ruler_effectiveness_adaptation"
+        },
+        {
+          "id": "8B.9",
+          "text": "Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the ruler's chosen objectives and durable control?",
+          "registry_key": "ruler_effectiveness_crisis_management"
+        },
+        {
+          "id": "8B.10",
+          "text": "By the end of the period, had the ruler converted more of the frozen program into durable law, institutions, capacity, state practice, and achieved outcomes than at the start, accounting for failures and long-term fragility?",
+          "registry_key": "ruler_effectiveness_period_end"
+        }
+      ],
+      "registry": {
+        "category": "effectiveness",
+        "question_code_prefix": "effectiveness",
+        "question_key_prefix": "effectiveness",
+        "concept_key": "ruler_effectiveness_qualitative_evidence"
+      }
+    }
+  ]
+}
+
+SOURCE
+{
+  "source_id": "MAC-010",
+  "title": "IMF 2022 Article IV full report",
+  "url": "https://www.imf.org/-/media/files/publications/cr/2022/english/1mexea2022001.pdf",
+  "publisher": "www.imf.org",
+  "publication_date": "unknown_not_recorded",
+  "document_type": "financial_report",
+  "source_role": "international_organization",
+  "source_family": "www.imf.org",
+  "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+  "access_state": "open_machine_readable",
+  "dependencies": []
+}
+
+LOCATOR INDEXES
+[
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 15",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 197,
+        "text": "MEXICO\nChina could also be in train if continued zero COVID-19 policies motivated lockdowns similar to\nthose seen this year. Rising inflation, declining incomes, and worsening crime and inequality\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 197,
+        "end_char": 429,
+        "text": "could lead to social unrest and political instability.\n• Among medium-term risks are the possibility that scarring from the pandemic or policy\nuncertainty lowers potential output, as could climate-change induced risks (such as more\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 429,
+        "end_char": 662,
+        "text": "frequent severe hurricanes and floods, or earlier emergence—or larger amounts of—stranded\nassets in the carbon-intensive energy sector).\n• Upside risks include the continuation of nearshoring dynamics in Mexico or smaller spillovers\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 662,
+        "end_char": 840,
+        "text": "from an economic slowdown in the U.S. than was seen in the past. The former entails the\nbuildup of productive and distribution capacity in Mexico, with a view to serve the North\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 840,
+        "end_char": 1022,
+        "text": "American markets. The latter could reflect continued robust service sector performance as the\ndomestic economy recovers, or delayed effects on the manufacturing sector from the U.S.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1022,
+        "end_char": 1215,
+        "text": "slowdown. Mexico’s exports could also get some boost in the near-term due to trade diversion\neffects from geopolitical tensions (Annex VIII, Annex VII of 2021 Staff Report).\nAuthorities’ Views\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1215,
+        "end_char": 1390,
+        "text": "18. The authorities agreed that the current conjuncture of high and rising global and\ndomestic interest rates, high inflation, and downside risks to growth presented elevated\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1390,
+        "end_char": 1587,
+        "text": "uncertainty with risks tilted to the downside. The budget contemplates growth for 2023 in the\nrange of 1.2 to 3.0 percent in 2023, with a central estimate of 2.1, while the latest Banxico forecast\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1587,
+        "end_char": 1785,
+        "text": "puts it between 0.8 and 2.4 percent with a central estimate of 1.6 percent. The authorities see\ninflation falling in 2023 from a high level under the normalization of supply shocks, fiscal measures\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1785,
+        "end_char": 1976,
+        "text": "to contain fuel prices pass-through, and decisive monetary policy. They agreed disappointing\ngrowth in the U.S. is the headline risk. However, they noted that the manufacturing sector, which\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1976,
+        "end_char": 2168,
+        "text": "represents the bulk of trade exposure, might this time be less affected than services in a U.S.\nslowdown. At the same time, they expected that Mexico could benefit from the nearshoring trend.\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2168,
+        "end_char": 2402,
+        "text": "Faster-than-expected global monetary tightening could also spark a steepening credit curve and\npressures on capital flows, though experience through the tightening cycle so far attenuates these\nconcerns.\nINTERNATIONAL MONETARY FUND 11"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 16",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 159,
+        "text": "MEXICO\nBox 2. Global Tightening and Inflation Scenario\nA global tightening and inflation scenario was simulated with the IMF’s G20MOD multi-country DSGE model\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 159,
+        "end_char": 391,
+        "text": "to better understand the consequences of multiple downside shocks on the Mexican economy.1 The model\nresults are presented in cumulative layers, with each successive layer adding another shock on top of those\nin the previous layer.\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 391,
+        "end_char": 611,
+        "text": "An initial layer simulates the direct effect of a temporary shock to global oil and food prices, which would\nrise by 10 and 50 percent, respectively, relative to the baseline. The shock would raise headline inflation in\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 611,
+        "end_char": 829,
+        "text": "Mexico by nearly 1 percent above an already elevated baseline in year-on-year terms for a few quarters, but\nit would only have limited direct effects on output in the absence of a significant monetary policy response.\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 829,
+        "end_char": 1050,
+        "text": "In a second layer, the commodity shock on top of the baseline, which already includes inflation at a 20-year\nhigh, causes a temporary dislocation of inflation expectations globally, including in Mexico. This results in a\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1050,
+        "end_char": 1267,
+        "text": "sharper increase in the domestic (and global) policy interest rate, in line with the increase in inflation\nexpectations, to bring expectations back in line with the inflation target and limit second-round effects. In\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1267,
+        "end_char": 1485,
+        "text": "this case, output levels fall substantially below baseline, peaking at more than 1 percent below in the first\nhalf of 2023. Higher policy rates also present elevated systemic liquidity risk, discussed in detail in the\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1485,
+        "end_char": 1662,
+        "text": "accompanying 2022 Financial System Stability Assessment (FSSA) for Mexico.\nLast, a third layer us added with a 1 percent decline in domestic demand, inspired by diminished real\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1662,
+        "end_char": 1866,
+        "text": "earnings expectations, or perhaps an un-modeled credit contraction. This brings output to more than\n2percent below baseline at the trough while somewhat attenuating prices pressures. The three layers put\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1866,
+        "end_char": 2097,
+        "text": "substantial cumulative pressure on the corporate interest rate though a capital flow shock is not modeled\ndirectly.\n1 The simulation is consistent with the global downside scenario presented in the July 2022 World Economic Outlook\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2097,
+        "end_char": 2313,
+        "text": "Update. It was constructed on the basis of shocks to economic variables relative from their baseline levels and, as such,\nthe results generally are not sensitive to the baseline levels.\n12 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 17",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 159,
+        "text": "MEXICO\nPOLICY DISCUSSIONS\nA. Tackling High Inflation\nMonetary Policy\n19. Banxico has taken a proactive approach to address increasingly broad-based inflation.\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 159,
+        "end_char": 358,
+        "text": "Since June 2021, successive and gradually larger increases in the reference rate brought the ex ante\nreal policy rate (i.e., the nominal rate adjusted for one-year ahead inflation expectations) to a\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 358,
+        "end_char": 556,
+        "text": "moderately restrictive level by September 2022 at about 4 percent.6 This has been an appropriately\ncalibrated response to the upward surprises to inflation and sequential delays in returning to the\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 556,
+        "end_char": 764,
+        "text": "inflation target. In recent monetary policy statements, Banxico has also rightly indicated its intention\nto further increase the policy rate. It is expected that a policy rate of at least 10 percent would be\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 764,
+        "end_char": 988,
+        "text": "required for inflation to reverse close to the central bank’s 3-percent target within the usual two\nyears or so.\nInflation and Expectations\nReal Ex-Ante Policy Rates\n(Seasonally adjusted, y/y)\n9 (Percent)\n10\nBrazil\nHeadline\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 988,
+        "end_char": 1181,
+        "text": "8 Inflation 8 Chile\nMexico\n7 Core 6 Peru\nInflation\nColombia\n4\n6 Expectations\n: 12 Months 2\n5\nExpectations\n0\n: 1-4 Years\n4 -2\nExpectations\n: 5-8 Years\n3 -4\nSources: Banxico and Haver Analytics.\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1181,
+        "end_char": 1373,
+        "text": "20. Inflation risks are expected to remain heightened for some time. The proactive policy\ntightening already put in place, alongside further increases in the policy rate, and weakening global\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1373,
+        "end_char": 1573,
+        "text": "demand are expected to lead to a slowdown in activity and a decline in inflation. However, there is\nsignificant uncertainty about the timing, speed, and durability of the downward path for inflation.\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1573,
+        "end_char": 1778,
+        "text": "This uncertainty arises from the possibility of: (i) further shocks, including spillovers to local raw and\nprocessed food prices from global commodity prices and domestic food prices, especially resulting\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1778,
+        "end_char": 1973,
+        "text": "from severe drought conditions in some Mexican states; (ii) if inflation imported from advanced\neconomies is more persistent than expected; (iii) longer-lasting price pressures from supply chain\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1973,
+        "end_char": 2160,
+        "text": "6 In its April–June 2019 Quarterly Report, Banxico used a range of models to establish a range between 1.8 and 3.4\npercent for the neutral real policy rate.\nINTERNATIONAL MONETARY FUND 13"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 18",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 206,
+        "text": "MEXICO\nconstraints; (iv) further expected increases in the minimum wage feeding into costs and prices;\n(v) inertia resulting from more frequent domestic price adjustments; and (vi) further upticks in near-\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 206,
+        "end_char": 406,
+        "text": "term inflation expectations that then feed in to wages and prices. The inflation surge in Mexico\nreflects both shocks in standard determinants (such as relative food and import prices, falling slack,\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 406,
+        "end_char": 626,
+        "text": "and rising inflation expectations), but also a series of positive residual factors, and preliminary signs\nof greater inertia (Annex IX).\nInflation Expectations—1-4 Years Ahead Mexico Processed Food and U.S. Overall Food\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 626,
+        "end_char": 835,
+        "text": "(Central Bank survey responses) Inflation\n6.0 0.5 14\nMex - Core Food\n12\n0.4 U.S. - Food & Bev\n5.0\n10\n0.3\n8\n4.0\n0.2 6\n3.0 0.1 4\n2\n2.0 0.0\n0\n-2\nInterquartile Range Total Range\nAverage Interquartile Spread (RHS)\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 835,
+        "end_char": 1066,
+        "text": "Sources: Haver Analytics and Banxico.\n21. Risk considerations call for further increases in the policy rate and maintaining it at\nthat higher level. The risks to inflation are not only high but also asymmetric in the usual one-to-\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1066,
+        "end_char": 1257,
+        "text": "two-year monetary policy horizon: upside surprises to inflation seem more likely than downside\nshocks. One contributing factor is backward-looking elements in the inflation process in Mexico\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1257,
+        "end_char": 1455,
+        "text": "according to Philips curve estimates for Mexico (Annex IX), which suggests additional risks from\nrecent inflation shocks. Given these asymmetric risks and the substantial costs of de-anchoring wage\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1455,
+        "end_char": 1648,
+        "text": "and price formation, a risk management approach would argue for policy rates to rise further and\nstay firmly restrictive for some time, so as to keep wage and price formation anchored. Such an\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1648,
+        "end_char": 1834,
+        "text": "approach would entail a real ex ante policy rate that would peak at over 5 percent in 2023, broadly\nconsistent with market expectations for nominal rates and staff’s inflation forecast.\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1834,
+        "end_char": 2016,
+        "text": "22. Clear monetary policy communication will increase policy effectiveness during this\nperiod of significant inflation uncertainty. Banxico has appropriately taken steps to help the\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2016,
+        "end_char": 2218,
+        "text": "public better understand its policy decisions in this context. Steps have included the publication of\nupdated inflation forecasts with every rate decision since August 2021 and, more recently, guidance\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2218,
+        "end_char": 2416,
+        "text": "on the direction of the next policy rate change in the monetary policy statement. These efforts have\nhelped the public better understand the Governing Board’s policy decision. To further strengthen\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2416,
+        "end_char": 2613,
+        "text": "this understanding, Banxico could begin publishing more information on the policy rate path that\nunderpins its macro forecast, including the expected rate and length of its stay at the peak of the\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2613,
+        "end_char": 2808,
+        "text": "tightening cycle, and possible triggers for changes in policies. If clearly presented as expectations\nand not a policy commitment, changes in the expected policy rate path would provide valuable\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2808,
+        "end_char": 3028,
+        "text": "information on how the central bank expects to adjust policy as economic conditions change. A\nbroader review of the experience with Banxico’s inflation targeting framework over the past two\n14 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 19",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 237,
+        "text": "MEXICO\ndecades could provide useful suggestions for further improvements to the policy framework and the\ncommunications toolkit.\nFiscal Measures\n23. The authorities have used largely untargeted subsidies to mitigate the rise in the cost\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 237,
+        "end_char": 428,
+        "text": "of living. The authorities expect that these subsidies will cost around 2 percent of GDP (see Annex\nVI for a description of the authorities’ anti-inflationary fiscal measures) which include:\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 428,
+        "end_char": 616,
+        "text": "• Retail fuel price stabilization has directly reduced cost pressures, lowering inflation by an\nestimated 2 percentage points this year. The measure has come at a sizeable budgetary cost,\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 616,
+        "end_char": 831,
+        "text": "estimated at around 1.5 percent of GDP, and has disproportionately benefited higher income\nhouseholds. Furthermore, by diluting price signals, the policy has short-circuited the desirable\nadjustment in fuel demand.\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 831,
+        "end_char": 1014,
+        "text": "• The measures to mitigate the impact of higher food prices have come at a smaller budgetary\ncost. They have mostly relied on preexisting programs (e.g., increased emphasis on direct\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1014,
+        "end_char": 1235,
+        "text": "fertilizer provision to small farmers or support for subsistence farming), and their direct impact\non inflation has been minimal.\n24. Overall, these fiscal and preexisting redistributive measures have helped support real\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1235,
+        "end_char": 1425,
+        "text": "incomes. The higher food and energy prices have only increased the deficit by around ¼ percent of\nGDP with fuel subsidies offset by higher oil revenues and food-related measures funded from\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1425,
+        "end_char": 1622,
+        "text": "reducing other expenditures. However, in the event of a renewed increase in energy prices, the fiscal\neffects would depend on the level of refining margins (“crack spread”) and the duration of the\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1622,
+        "end_char": 1820,
+        "text": "higher global prices. In addition to these efforts to lessen the increase in the cost of living, the\nadministration has increased the universal social (noncontributory) pensions and is projected to\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1820,
+        "end_char": 2015,
+        "text": "raise the minimum wage from 42 percent of the median formal sector wage in 2018 to 59 percent in\n2022). Overall, in the context of a stronger economic recovery and record-high remittance inflow,\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2015,
+        "end_char": 2200,
+        "text": "these fiscal efforts, the higher minimum wage, and other labor market measures may have\ncontributed to an increase in real per capita labor income of about 5 percent (y/y) by mid-2022.\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2200,
+        "end_char": 2379,
+        "text": "25. The proposed neutral fiscal stance in 2023 strikes a balance between supporting\nmonetary policy in its disinflation efforts while avoiding a material fiscal drag on activity.\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2379,
+        "end_char": 2580,
+        "text": "With the economy currently operating at close to potential the priority is to restore low and stable\ninflation. A restrictive monetary stance and a broadly neutral fiscal stance provide an appropriate\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2580,
+        "end_char": 2777,
+        "text": "policy mix to achieve this goal. However, continuing large minimum wage increases will likely add to\ninflation pressures, working at counter purpose to monetary and fiscal policies and potentially\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2777,
+        "end_char": 2949,
+        "text": "reducing formal employment for lower income workers (see below).\nAuthorities’ Views\n26. The authorities agreed with the need for a robust monetary policy to keep inflation\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2949,
+        "end_char": 3069,
+        "text": "expectations well-anchored. The early and decisive monetary policy response to the global\nINTERNATIONAL MONETARY FUND 15"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 2",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 187,
+        "text": "PR22/373\nIMF Executive Board Concludes 2022 Article IV Consultation\nwith Mexico\nFOR IMMEDIATE RELEASE\nWashington, DC – November 4, 2022: The Executive Board of the International Monetary\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 187,
+        "end_char": 340,
+        "text": "Fund (IMF) concluded the Article IV consultation1 with Mexico.\nAfter stagnating unexpectedly in the second half of 2021, the economic recovery picked up\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 340,
+        "end_char": 529,
+        "text": "pace in the first half of 2022 owing to catch-up momentum, improving labor market conditions,\nand fiscal policy support. Headline inflation rose from about 3 percent at the end-2020 to 7.4\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 529,
+        "end_char": 712,
+        "text": "percent by end-2021 and to 8.7 percent by August this year. Economic activity is expected to\nslow from 2.1 percent in 2022 to 1.2 percent in 2023, given weaker U.S. and global growth\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 712,
+        "end_char": 932,
+        "text": "and tighter global financial conditions. Inflation is projected to plateau in the second half of\n2022 and then gradually decline.\nThe government has maintained a broadly neutral fiscal stance in 2022, targeting a fiscal\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 932,
+        "end_char": 1126,
+        "text": "deficit of 3.8 percent of GDP. It has used largely untargeted subsidies to mitigate the rise in\nthe cost of living, offsetting the windfall gains from oil revenues. The gross debt of the public\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1126,
+        "end_char": 1312,
+        "text": "sector (by staff’s definition) is estimated at about 56 percent of GDP. With inflation above\ntarget, the central bank has increased the policy rate to 9.25 percent in a series of hikes.\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1312,
+        "end_char": 1496,
+        "text": "Reflecting more resilient domestic demand growth compared to output, the current account\nposted a deficit of 0.4 percent of GDP in 2021 and is expected to widen to around 1 percent of\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1496,
+        "end_char": 1664,
+        "text": "GDP in 2022-2023. International reserves remain at a comfortable level.\nThe Mexican banking system remains well-capitalized, and its profitability continues to recover\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1664,
+        "end_char": 1850,
+        "text": "from the impact of the pandemic. Risk analysis as part of the Financial Sector Assessment\nProgram (FSAP), conducted in parallel with the Article IV consultation, found that the systemic\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1850,
+        "end_char": 2044,
+        "text": "vulnerabilities and system-wide liquidity risks in the financial system remain broadly contained,\ngiven high capital buffers, low private sector leverage, and no sign of stretched asset prices.\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2044,
+        "end_char": 2273,
+        "text": "However, tail risks bear close monitoring. Financial sector policies have been strengthened in\nrecent years, but further steps are necessary to maintain the resilience of the financial system\nunder the evolving risk environment.\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2273,
+        "end_char": 2483,
+        "text": "Executive Board Assessment2\nExecutive Directors agreed with the thrust of the staff appraisal. They welcomed the\nauthorities’ prudent macroeconomic policies in the face of a surge in inflation. They noted that\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2483,
+        "end_char": 2668,
+        "text": "economic growth is expected to slow in the near term reflecting weaker U.S. growth and\ntighter global financial conditions. With increased risks in a more turbulent global environment,\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2668,
+        "end_char": 2801,
+        "text": "1 Under Article IV of the IMF's Articles of Agreement, the IMF holds bilateral discussions with members, usually every year. A staff\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2801,
+        "end_char": 2936,
+        "text": "team visits the country, collects economic and financial information, and discusses with officials the country's economic developments\n"
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 2936,
+        "end_char": 3067,
+        "text": "and policies. On return to headquarters, the staff prepares a report, which forms the basis for discussion by the Executive Board.\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 3067,
+        "end_char": 3200,
+        "text": "2 At the conclusion of the discussion, the Managing Director, as Chairman of the Board, summarizes the views of Executive Directors,\n"
+      },
+      {
+        "segment_id": "S00019",
+        "start_char": 3200,
+        "end_char": 3389,
+        "text": "and this summary is transmitted to the country's authorities. An explanation of any qualifiers used in summings up can be found here:\nhttp://www.IMF.org/external/np/sec/misc/qualifiers.htm."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 20",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 211,
+        "text": "MEXICO\ninflation surge had been successful, noting that upside risks to inflation were recognized early even\nwhen the surge was still considered transitory in the baseline. They underscored that the real policy\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 211,
+        "end_char": 410,
+        "text": "rate was now in restrictive territory despite continued upward surprises to inflation. The authorities\nhighlighted their strengthened communication efforts, which had ensured smooth financial market\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 410,
+        "end_char": 614,
+        "text": "adjustment in this hiking cycle. They will continue to evaluate other tools that could improve\ncommunication.\n27. The anti-inflationary fiscal measures have helped to mitigate the effects of inflation on\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 614,
+        "end_char": 805,
+        "text": "those most exposed. The authorities emphasized that, despite these measures, they sustained\nmomentum on the administration’s flagship reforms. Fuel price stabilization in particular had been\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 805,
+        "end_char": 994,
+        "text": "central to efforts to support households and restrain inflation, in line with the President’s\ncommitment to the people. They highlighted analysis suggesting that, in addition to supporting\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 994,
+        "end_char": 1186,
+        "text": "households, the pricing mechanism has dampening second-round inflation effects. Other anti-\ninflation measures had largely leveraged existing policies, especially in agriculture and for basic\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1186,
+        "end_char": 1416,
+        "text": "necessities other than fuels. The authorities underscored that the main goal of these policies was to\nsupport historically underserved agricultural communities, although they also expected positive\neffects on agricultural yields.\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1416,
+        "end_char": 1656,
+        "text": "B. Managing Potential Downside Risks\nFiscal Policy\n28. Fiscal policy could better prepare for downside risks. The neutral fiscal stance could be\nmaintained if growth were to slow modestly. However, more could be done to be ready to provide\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1656,
+        "end_char": 1894,
+        "text": "targeted support for poorer households. In the event of a significant weakening of activity,\nadditional discretionary fiscal support should be considered.\n29. Under Mexico’s fiscal framework—which includes both a balanced budget rule and\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1894,
+        "end_char": 2116,
+        "text": "constraints on debt issuance—the scope to pursue a countercyclical fiscal policy is limited.\nModest steps could, however, increase the ability of fiscal policy to provide targeted support in the\nevent of a negative shock.\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2116,
+        "end_char": 2299,
+        "text": "• Changing the retail fuel price regime could create room for more targeted support in case\nof a prolonged global oil price increase. More market-based fuel pricing could allow for a\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2299,
+        "end_char": 2486,
+        "text": "passthrough of global fuel prices to domestic retail prices, encourage transition to greener\nsources of energy, and reduce the budgetary cost of subsidies. This would also strengthen the\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2486,
+        "end_char": 2684,
+        "text": "price signals for fuel demand and allow the fiscal savings to be, at least partially, reinvested in\ntargeted support for vulnerable households7 by leveraging existing social safety nets (see Fiscal\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2684,
+        "end_char": 2894,
+        "text": "Policy for Mitigating the Social Impact of High Energy and Food Prices, IMF 2022) or relying on\n7 The fuel tax expenditure under the current regime entails large leakage of support to higher income households.\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2894,
+        "end_char": 3124,
+        "text": "Using 2020 data, the authorities estimate that the top 20 percent of the income distribution accounted for about 45\npercent of the fuel excise tax collection whereas the bottom 20 percent accounted for 6 percent (Distribución del\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 3124,
+        "end_char": 3356,
+        "text": "pago de impuestos y recepción del gasto público por deciles de hogares y personas. Resultados para el año 2020,\nMinistry of Finance). Broad-based reductions in tax rates are therefore likely to entail disproportionately large gains\n"
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 3356,
+        "end_char": 3409,
+        "text": "for richer households.\n16 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 21",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 219,
+        "text": "MEXICO\nother tools (such as one-off cash payments, temporary energy bill discounts, or temporary\npublic transport subsidies).\n• Implementing, and building upon, proposed reforms to the fiscal framework. Fiscal reserves\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 219,
+        "end_char": 407,
+        "text": "in the Fondo de Estabilización de los Ingresos Presupuestarios (FEIP, also known as ‘the\nstabilization fund’) have fallen to less than 0.1 percent of GDP, given extensive usage during the\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 407,
+        "end_char": 593,
+        "text": "pandemic and a restrictive replenishment mechanism under the Federal Budget and Fiscal\nResponsibility Law (FRBL). 8 This is a potential constraint on the government’s ability to respond\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 593,
+        "end_char": 776,
+        "text": "quickly to future shocks. The authorities estimate that a minimum of 0.3 percent of GDP would\nprovide sufficient resources for a fiscal policy response. Recent amendments to the FRBL\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 776,
+        "end_char": 967,
+        "text": "proposed by the authorities as part of the 2023 budget would bring FEIP reserves closer to this\ndesired level, by enabling utilization of headroom against the government’s debt ceiling. This\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 967,
+        "end_char": 1148,
+        "text": "approach would enhance preparedness in the short-term. However, in the medium term, more\nextensive reforms are required to enhance flexibility more permanently, while also ensuring\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1148,
+        "end_char": 1331,
+        "text": "sustainability and credibility over the medium-term (Annex X). Such reforms could include\n(Annex IV of Staff Report 2019): (i) a well-calibrated debt anchor; (ii) broader coverage of\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1331,
+        "end_char": 1525,
+        "text": "expenditure in the structural spending rule; (iii) a medium-term fiscal strategy that specifies the\npost-shock adjustment path to return to the debt target; (iv) tighter triggers for the use of\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1525,
+        "end_char": 1681,
+        "text": "escape clauses; and (v) a strengthened role for the fiscal council.\n30. A medium-term fiscal strategy could help to anchor expectations about future fiscal\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1681,
+        "end_char": 1879,
+        "text": "policy. The public debt ratio is expected to remain broadly unchanged in the next decade.9 Weaker-\nthan-expected growth or adjustment slippages would thus result in a rising debt path. Nonetheless,\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1879,
+        "end_char": 2071,
+        "text": "the Sovereign Risk and Debt Sustainability Analysis (SRDSA) (Annex III) indicates that public debt\nremains sustainable. With the proposed fiscal framework reform, a credible debt anchor and a\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2071,
+        "end_char": 2239,
+        "text": "medium-term fiscal strategy could increase the scope to let fiscal policy act as a shock absorber and\nreduce the volatility in activity as a result.\nAuthorities’ Views\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2239,
+        "end_char": 2431,
+        "text": "31. The authorities see advantages to maintaining the current retail fuel price stabilization\nmechanism. Given the current administration’s pledge that fuel prices will not rise in real terms\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2431,
+        "end_char": 2655,
+        "text": "above their November 2018 level and the legal basis of the pricing mechanism, the authorities\nprefer to continue with the current prompt and programmatic fuel price stabilization mechanism\nrather than more targeted support.\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2655,
+        "end_char": 2883,
+        "text": "8 Under Mexico’s fiscal framework, FEIP has served as the de facto source of contingent financing for the budget\nalongside smaller trust funds when revenue shortfalls materialized during the 2020 downturn. These fiscal reserves\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2883,
+        "end_char": 3111,
+        "text": "are critical as Mexico’s fiscal framework does not permit the issuance of debt for non-capital spending. The current\nframework, enshrined in the FBFRL, also places restrictions on how FEIP can be replenished, with balance sheet\n"
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 3111,
+        "end_char": 3258,
+        "text": "transfers to FEIP likely viewed as expenditures that must be balanced by a pre-identified revenue source or spending\ncuts elsewhere in the budget.\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 3258,
+        "end_char": 3495,
+        "text": "9 The growth-adjusted interest factor, sometimes referred to as (r-g), captures the interest costs of the debt ratio,\nadjusted for growth effects, which, on their own, lower the latter. Staff’s baseline projections for the SRDSA include\n"
+      },
+      {
+        "segment_id": "S00019",
+        "start_char": 3495,
+        "end_char": 3690,
+        "text": "increasing fiscal gaps in the outer years, which reflect the estimated adjustment needed to achieve the deficits\nprojected in the authorities’ latest Budget Update.\nINTERNATIONAL MONETARY FUND 17"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 22",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 210,
+        "text": "MEXICO\nWith oil prices expected to decline next year, the formula underpinning the fuel pricing mechanism\nis expected to result in lower subsidies in 2023. The authorities pointed to a track record of tapering\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 210,
+        "end_char": 400,
+        "text": "subsidies when market price pressures abated. Other policies addressing food prices include the\nremoval of tariffs on key food imports and regulatory agreements with retailers on food price\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 400,
+        "end_char": 594,
+        "text": "passthrough. However, in anticipation of possible downside risks, they are interested in reforms to\nthe fiscal framework that would enable the allocation of fiscal savings and funding from debt\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 594,
+        "end_char": 794,
+        "text": "issuance to the stabilization fund, while respecting key tenets of the current framework. In case of a\nshock affecting vulnerable population, the authorities consider they can create space to provide\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 794,
+        "end_char": 1032,
+        "text": "support by reallocating spending away from public investment.\nExternal Sector Policies\n32. The peso has faced less\ndownward pressure over the past year\nthan other emerging market currencies.\nThe relatively high interest rate differential\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1032,
+        "end_char": 1236,
+        "text": "between Mexico and the U.S. has made\nholding peso assets more attractive, which\nhas helped in containing upside risks to\ninflation. In addition, the peso has been\nsupported by strong remittances, a track\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1236,
+        "end_char": 1469,
+        "text": "record of fiscal discipline, and some\ninflows linked to the “nearshoring” of\nproductive capacity.\n33. In the event of a weakening of the\nbalance of payments, peso depreciation should 8\nbe allowed to act as a shock absorber. Standard\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1469,
+        "end_char": 1671,
+        "text": "financial frictions underpinning concerns about 6\ndepreciation generally are not relevant in Mexico’s\n4\ncase. In particular, peso foreign exchange (FX)\nmarkets are deep and liquid and even during the\n2\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1671,
+        "end_char": 1871,
+        "text": "turbulence in 2020 saw below-average rises in the\nUIP premium and in bid-ask spreads. FX\n0\nmismatches in balance sheets are contained. The\neconomy and financial sector (see below) are thus -2\n2 4 6 8\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1871,
+        "end_char": 2070,
+        "text": "expected to remain resilient if downward pressure\non the peso materialized. However, in the case of a\nlarge shock resulting in sizeable depreciation, policy rate hikes might be needed to counter the\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2070,
+        "end_char": 2270,
+        "text": "inflation passthrough. If such a shock triggered market illiquidity and sharply higher bid-ask spreads,\ntemporary FX intervention could be considered. The IMF’s Flexible Credit Line (FCL) provides an\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2270,
+        "end_char": 2483,
+        "text": "additional external buffer against such external risks and will help contribute to market confidence.\n18 INTERNATIONAL MONETARY FUND\n.S.U\neht\nhtiw\nlaitnereffiD\netaR\nnoitalfnI\nExhange Rates Against the U.S. Dollar\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2483,
+        "end_char": 2720,
+        "text": "(Index: Jan 2020 = 100; increase = appreciation)\n110\n105\n100\n95\n90\n85\n80\n75\n70\n65\n60\nJan-20 Jul-20 Jan-21 Jul-21 Jan-22 Jul-22\nMexico Peru Colombia Chile Brasil\nSource: Bloombergand IMF staff calculations.\nInflation and Policy Rate Gaps\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2720,
+        "end_char": 2794,
+        "text": "2009-2021\n2022\nPolicy Rate Differential with U.S.\nSource: Haver Analytics."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 23",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 211,
+        "text": "MEXICO\nAuthorities’ Views\n34. The authorities consider that the country’s external buffers served them well during\nthe pandemic and in the recent tightening period. The flexible exchange rate helped support the\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 211,
+        "end_char": 412,
+        "text": "recovery by stimulating manufacturing. Portfolio outflows have proved manageable in the context of\nsubstantial remittances and recently resurgent FDI, while the level of foreign participation in local\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 412,
+        "end_char": 639,
+        "text": "currency sovereign bond market, now back to earlier levels, lowers risks to future external shocks.\nC. Maintaining a Robust Financial System\n35. The financial system has emerged from the pandemic in good health. Non-performing\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 639,
+        "end_char": 836,
+        "text": "loans (NPLs) rose modestly from low levels during the pandemic and began declining last year.\nCapital adequacy ratios are high and rising, and liquidity ratios are comfortable. With these buffers,\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 836,
+        "end_char": 1032,
+        "text": "the banking system demonstrated strong resilience to severe macrofinancial shocks in the solvency\nand liquidity stress tests conducted under the 2022 FSAP (although some smaller banks may require\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1032,
+        "end_char": 1238,
+        "text": "additional buffers to handle such stresses). Overall, systemic vulnerabilities and liquidity risks in the\nfinancial system appear broadly contained, given high capital buffers, low private sector leverage,\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1238,
+        "end_char": 1470,
+        "text": "and no sign of stretched asset prices.\n36. Bank loans and the financial health of non-financial corporations should be monitored\nin the context of the recent rapid rise of interest rates. The increase itself should, all else equal,\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1470,
+        "end_char": 1659,
+        "text": "increase banks’ net interest margin, especially for larger institutions. On the other hand, with\nMexican banks having increased their holdings of domestic government bonds, they could face\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1659,
+        "end_char": 1865,
+        "text": "mark to market losses on their holdings (although the impact is not expected to be large since their\nholdings are of short duration). A large fraction of non-financial corporate credit is floating rate, so\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1865,
+        "end_char": 2067,
+        "text": "higher interest payments could strain liquidity for some corporates and possibly increase default\nrates. Offsetting the pressures from higher interest rates, Mexican corporates retain relatively strong\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2067,
+        "end_char": 2277,
+        "text": "buffers and FSAP stress tests imply that heightened default risks under the adverse scenario from\ncurrently low levels would be manageable for the banking sector.\nNFC Average Loan Rate and 6-month Average of 5\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2277,
+        "end_char": 2486,
+        "text": "Total Bank Lending to Non-Financial Corporates\nYear TIIESwap\n(Percent of GDP)\n(Percent) 200\n10\n9 160\n8\n120\n7\n6 80\n5\n40\nNon-financial corporate average loan rate\n4\n6-month rolling average of 5-yr TIIE swap\n0\n3\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2486,
+        "end_char": 2555,
+        "text": "Sources: Bloomberg and BIS Statistics.\nINTERNATIONAL MONETARY FUND 19"
+      }
+    ]
+  }
+]

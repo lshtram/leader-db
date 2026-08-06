@@ -35,6 +35,8 @@ from .job_ledger import checkpoint_job, heartbeat_job
 from .job_ledger_queries import list_jobs
 from .model_profiles import load_research_model_profiles
 
+FILE_BACKED_PROMPT_THRESHOLD_BYTES = 850_000
+
 
 @dataclass(frozen=True)
 class ChapterJudgeAttempt:
@@ -115,20 +117,25 @@ def execute_claimed_chapter_judge_job(
 
     candidate: dict[str, Any] | None = None
     if candidate is None:
+        projection_bytes = sum(path.stat().st_size for path, _ in attempt.projections)
+        embed_projections = projection_bytes <= FILE_BACKED_PROMPT_THRESHOLD_BYTES
+        input_hashes = _projection_hashes(attempt.projections)
         prompt = build_chapter_judge_prompt(
             job,
             project_root=project_root,
             guide_text=attempt.guide_text,
             projections=attempt.projections,
             previous_candidate_path=previous_path,
+            embed_projections=embed_projections,
         )
         attempt.prompt_path.write_text(prompt, encoding="utf-8")
         command = build_codex_exec_command(
             profile=profile,
-            project_root=project_root,
+            project_root=project_root if embed_projections else attempt.attempt_dir,
             schema_path=attempt.schema_path,
             final_message_path=attempt.pending_path,
             writable_dir=attempt.attempt_dir,
+            sandbox_mode="read-only" if embed_projections else "danger-full-access",
         )
         checkpoint_job(
             engine,
@@ -154,6 +161,8 @@ def execute_claimed_chapter_judge_job(
             heartbeat_seconds=heartbeat_seconds,
             timeout_seconds=timeout_seconds,
         )
+        if _projection_hashes(attempt.projections) != input_hashes:
+            raise ValueError("chapter projection changed while the judge was running")
         (attempt.attempt_dir / "judge-complete.marker").write_text(
             "complete\n", encoding="utf-8"
         )
@@ -327,13 +336,26 @@ def _write_chapter_projections(
     return tuple(written)
 
 
+def _projection_hashes(
+    projections: tuple[tuple[Path, RulerChapterProjection], ...],
+) -> dict[Path, str]:
+    """Snapshot judge-input digests so file-backed reads cannot drift mid-run."""
+
+    return {path: sha256(path.read_bytes()).hexdigest() for path, _ in projections}
+
+
 def _load_dependency_dossiers(
     engine: Engine, *, job: dict[str, Any], project_root: Path
 ) -> tuple[tuple[Path, RulerEvidenceDossier], ...]:
     expected = tuple(str(item) for item in job["input"].get("dossier_job_keys", []))
-    dossier_run_key = str(job["input"].get("dossier_run_key") or job["run_key"])
+    configured_runs = job["input"].get("dossier_run_keys") or (
+        job["input"].get("dossier_run_key") or job["run_key"],
+    )
+    dossier_run_keys = tuple(str(item) for item in configured_runs)
     jobs = {
-        item["job_key"]: item for item in list_jobs(engine, run_key=dossier_run_key)
+        item["job_key"]: item
+        for run_key in dossier_run_keys
+        for item in list_jobs(engine, run_key=run_key, job_type="dossier_researcher")
     }
     loaded: list[tuple[Path, RulerEvidenceDossier]] = []
     for job_key in expected:
@@ -344,7 +366,7 @@ def _load_dependency_dossiers(
         if not path.is_relative_to(project_root.resolve()) or not path.is_file():
             raise ValueError(f"dossier artifact is missing or outside the project: {job_key}")
         dossier = RulerEvidenceDossier.model_validate_json(path.read_text(encoding="utf-8"))
-        if dossier.job_key != job_key or dossier.run_key != dossier_run_key:
+        if dossier.job_key != job_key or dossier.run_key != parent["run_key"]:
             raise ValueError(f"dossier artifact identity differs from dependency: {job_key}")
         expected_identity = {
             "iso3": parent["iso3"],
@@ -548,27 +570,49 @@ def _normalize_judgment_envelope(evaluation: dict[str, Any]) -> None:
         reason = "The judge returned no defensible score; see the chapter rationale."
     evaluation["insufficient_evidence_reason"] = reason
     evaluation["plausible_score_range"] = {"lower": 1, "upper": 10}
+    evaluation["manual_review_required"] = True
+    evaluation["manual_review_reason_type"] = "recoverable_null"
+    if not str(evaluation.get("manual_review_reason") or "").strip():
+        evaluation["manual_review_reason"] = (
+            "Release is blocked pending targeted evidence recovery or explicit "
+            "confirmation that the chapter remains unjudgeable."
+        )
 
 
 def _normalize_calibration_references(
     evaluation: dict[str, Any], *, available_dossier_keys: set[str]
 ) -> None:
-    """Accept a singleton judge's prose sentinel without inventing a peer.
+    """Rebind uniquely identified ruler-year references to canonical job keys.
 
-    Comparative batches retain unknown references so the strict validator rejects
-    them. A one-dossier end-to-end smoke has no external ruler available, however,
-    and an explanatory string such as ``no_other_available_dossier`` carries the
-    same unambiguous meaning as an empty list.
+    A judge can preserve the correct ``year:ISO:ruler_year_id`` while copying a
+    stale run prefix from another cohort. That formatting defect is safe to repair
+    only when the suffix resolves uniquely. Unknown references remain in place so
+    strict validation rejects them. A singleton prose sentinel becomes empty.
     """
 
-    if len(available_dossier_keys) != 1:
-        return
     values = evaluation.get("calibrated_against")
     if not isinstance(values, list):
         return
-    evaluation["calibrated_against"] = list(
-        dict.fromkeys(str(value) for value in values if str(value) in available_dossier_keys)
-    )
+    if len(available_dossier_keys) == 1:
+        evaluation["calibrated_against"] = list(
+            dict.fromkeys(
+                str(value) for value in values if str(value) in available_dossier_keys
+            )
+        )
+        return
+    canonical_by_suffix = {
+        ":".join(key.rsplit(":", 3)[-3:]): key for key in available_dossier_keys
+    }
+    normalized = []
+    for value in values:
+        reference = str(value)
+        suffix = ":".join(reference.rsplit(":", 3)[-3:])
+        normalized.append(
+            reference
+            if reference in available_dossier_keys
+            else canonical_by_suffix.get(suffix, reference)
+        )
+    evaluation["calibrated_against"] = list(dict.fromkeys(normalized))
 
 
 def _ensure_bias_assessment(

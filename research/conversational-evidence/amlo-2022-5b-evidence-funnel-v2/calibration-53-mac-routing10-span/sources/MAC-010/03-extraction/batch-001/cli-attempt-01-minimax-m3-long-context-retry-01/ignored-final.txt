@@ -1,0 +1,38 @@
+The hook is blocking everything. The configuration of this turn is contradictory — the tool surface instructions describe a CLI but the PreToolUse hook blocks all commands including the documented prefix. Since I cannot execute the CLI to inspect or record any citations, and the instructions state "the dedicated runner will ignore prose and final-message content; its accepted output is the validated citation ledger" — there is no path to a validated ledger from this turn.
+
+I must report the blocker honestly rather than fabricate ledger entries.
+
+---
+
+## Status report — unable to execute CLI
+
+The workflow's only accepted output is the validated citation ledger produced by the citation CLI (`run_citation_writer.py`). However, every shell command in this turn is blocked by a `PreToolUse` hook that returns:
+
+> `Command blocked by PreToolUse hook: Only the configured evidence citation CLI is permitted.`
+
+This applies to:
+- The documented CLI prefix itself (`.../run_citation_writer.py --config ... --frozen-root ... --ledger ... inspect ...`).
+- `--help` on the same script.
+- Any ancillary shell commands (`ls`, `cat`, `echo`, etc.).
+
+The hook message names the allowed command family but rejects every invocation I attempt, including the exact prefix shown in the tool-surface instructions. Without the ability to run `inspect`, `record`, `revise`, or `finish`, I cannot:
+1. Obtain source-identity / hash confirmation from the runner,
+2. Copy exact excerpts into the ledger, or
+3. Persist hash-bound proposals.
+
+Per the instructions I must not author quotation text, must not invent citations, and the ledger is the only accepted output. Generating ledger-shaped JSON here would (a) fabricate source excerpts and (b) bypass the runner's hash/exact-span guarantees — both explicitly forbidden.
+
+## Disposition of assigned locators
+
+| Locator | Status |
+|---|---|
+| `page 10` | Not inspected — CLI blocked |
+| `page 11` | Not inspected — CLI blocked |
+| `page 12` | Not inspected — CLI blocked |
+| `page 13` | Not inspected — CLI blocked |
+
+No draft IDs (`D0001`, `D0002`, …) have been assigned because no inspection completed and no atomic factual intents can be evidenced from segments that were never retrieved through the runner.
+
+## Requested next step
+
+Please unblock the citation CLI for this turn (the PreToolUse hook is rejecting the documented prefix) and I will immediately run `inspect` for each of the four locators, then proceed to Phase 2 with sequential `record` / `revise` / `finish` calls grounded in the runner-returned excerpts.

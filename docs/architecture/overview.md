@@ -39,6 +39,101 @@ unchanged rulers, but a production release still requires complete common-meter 
 score/order audits plus the operational, source, attribution, and publication gates in
 [`../process/2022-controlled-evaluation-and-production-promotion.md`](../process/2022-controlled-evaluation-and-production-promotion.md).
 
+### Question-driven evidence funnel
+
+`src/leaders_db/evidence_funnel/` is an experimental upstream producer for
+long-document ruler evidence. It converts a frozen, access-audited source pack into
+atomic verified evidence, duplicate-aware factual clusters, and one evidence brief per
+methodology question. Document maps and routing decisions are navigation artifacts.
+One candidate is stored once and linked to every applicable methodology ID.
+
+Citation text is code-owned. A model receives an exact segment index for a frozen
+locator and returns an `EvidenceIntent` containing semantic fields plus the selected
+segment range, but no quotation. `FrozenCitationIndex` resolves that range against the
+source hash; `CitationLedger` copies and immutably stores the exact substring and
+character offsets, then returns the bound draft to the agent. The agent may confirm,
+discard, or submit a corrected span for at most the configured three attempts.
+Confirmation creates an `EvidenceCandidate` v2 with pending semantic-verification
+status. It does not itself prove that the claim follows from the passage.
+
+Non-contiguous support is represented by separate records or separately retained
+spans. Code never deletes intervening source text or concatenates passages. Optional
+machine translation is a secondary artifact linked by the original-text hash; it never
+replaces the authoritative source-language excerpt.
+
+Versioned configuration selects stage roles, model/fallback profiles, routing policy,
+verification escalation, prompts, and the gap-round limit. Model adapters consume and
+return validated stage contracts. Deterministic code owns stable IDs, immutable JSON
+persistence, hashes, resumption, source-dependency clustering, question briefs, and
+dossier v2 conversion.
+
+Each phase records its input and configuration hashes and immutable output hashes.
+Completed work is reused only when those hashes still match. The run manifest records
+actual token counts at acquisition, routing, close reading, evidence, clustering,
+briefing, premium verification, and judgment transitions; no fixed compression ratio
+is an optimization target.
+
+The first configured case is AMLO, Mexico, 2022, Chapter 5B. Its calibration gate is
+`BOOK-013`, `MAC-010`, and `LAW-005`, followed by the frozen sixteen-document pack.
+The companion judge packet and matched closed-book/reference judgments are explicitly
+experimental and non-publication. They cannot update a production ruler score.
+The earlier model-quotation runners were retired after failed calibration diagnostics.
+The active prototype surfaces are the thin `run_citation_writer.py` CLI and the
+bounded, non-publication `run_evidence_funnel_calibration.py` three-source gate.
+The calibration runner stops after semantic verification when its mechanical gate
+fails; no live sixteen-document, clustering, dossier, or judgment runner is enabled
+until the trio passes and the remaining stages are recomposed through reviewed
+package modules.
+
+The corpus-scale reader under `src/leaders_db/research/corpus_*` is a separate
+experimental implementation. It gives every discovered URL an acquisition
+disposition, content-deduplicates acquired text, packs complete source units into
+context-bounded calls, and lets the model emit simple fact intents. Code binds each
+intent to the exact frozen passage and a fresh model verifies the resulting claim.
+Question remapping and corpus-wide duplicate adjudication are later no-search passes;
+both require code-checked evidence IDs and digests. Multi-record identity failures
+fall back to isolated one-record calls rather than weakening the integrity gate.
+Batch document counts and token ceilings shape calls only; they are not corpus,
+chapter, evidence, or stopping caps.
+
+The chapter reading-list experiment is a compact consumer of that ledger. One Luna
+call drafts a chapter-specific list from the complete candidate index; a fresh call
+tries to falsify the selection by naming omissions, misreadings, duplication, period
+errors, attribution problems, and imbalance; and a revision call receives the exact
+code-bound passages for every draft item plus actionable challenges. Code validates
+all evidence IDs and chapter lenses and resolves the final citations. The artifact
+preserves the critique, omitted-candidate IDs, unresolved gaps, and explicit reasons
+for a future judge to reopen the full ledger. It is an experimental reading aid, not
+a score or a substitute for judge skepticism.
+
+The question-complete chapter-analysis experiment tests a less lossy alternative.
+Luna answers all ten chapter questions from the complete compact ruler evidence index,
+including records previously routed to other chapters so it can challenge routing
+mistakes; a fresh Luna critiques those answers against the same index; and ten bounded correction
+calls reopen exact code-bound passages question by question. Code rejects invented
+IDs and prevents a correction from citing evidence that was not reopened. After three
+identity failures, code removes only invalid references, records the removal, and
+leaves the prose as a hypothesis for exact-passage correction. A separate Sol quality
+evaluator reviews consecutive question groups sized only by transport, while every
+group retains the complete compact chapter index and the exact passages cited by its
+answers. These artifacts are non-scoring experiments and do not enter judge inputs
+without an explicit quality pass.
+
+### Clean-room simple evidence extractor
+
+`prototypes/simple-evidence-extractor/` is a standalone experimental replacement
+candidate, not a production dependency. It does not import the evidence funnel.
+MiniMax reads numbered source sentences and persists facts only through four local
+commands: show, add, correct, and confirm. Deterministic code copies the exact
+source-language span and returns the stored JSON entity for model inspection. A fresh
+reviewer must confirm the entity before it enters the accepted JSONL ledger. The
+runner issues a short-lived capability for each model call; the broker binds that
+capability to an immutable role, source range, window, and fact allowlist. Resume
+markers bind the source inputs and final registry states.
+prototype intentionally omits routing, model-authored output schemas, dialect
+normalizers, acquisition, scoring, and dossier compatibility until its small,
+three-source, chapter-package, and full-ruler quality gates pass.
+
 ## Scope
 
 **In scope (§2):** one target year at a time, initially 2023; countries above the
@@ -531,6 +626,11 @@ resumable without stale-worker writes. Eight chapter-judge jobs and their
 eligible ruler-dossier dependencies are created atomically. Judges cannot be
 claimed until usable dependencies finish; terminal unavailable dossiers are
 reconciled into the judge's missing-case manifest instead of blocking forever.
+The planner may bind one judge cohort to an explicit ordered list of completed
+dossier run keys. It rejects duplicate canonical ruler-year identities across
+those runs and persists both the source-run list and exact dossier job keys, so
+an append-only production cohort can be judged without copying or rerunning its
+dossiers.
 The executable judge reads those completed web-dossier artifacts, an independently
 built and hash-verified chapter-local evidence package, and its versioned chapter
 guide without performing new discovery. Parent-side validation requires one
@@ -541,6 +641,12 @@ trajectory, baseline, or uncertainty, but a numeric ruler score still requires a
 decisive cited `E*` record establishing the relevant ruler authority or nexus;
 all `chapter_scores` rows and ledger completion commit atomically under the active
 lease token, preventing stale or partial publication.
+
+Usage accounting reads provider counters from the trusted event logs. Fresh
+execution threads are additive, including failed and retried calls. Resumed
+chapter calls can expose cumulative counters for one persistent Codex thread;
+the aggregator groups those logs by exact thread ID and retains the largest
+complete snapshot so earlier turns are not counted repeatedly.
 
 Each validated dossier also carries a cited twelve-part evidence-environment
 assessment. Chapter projection preserves that assessment verbatim, and the judge
@@ -563,6 +669,15 @@ structured sources -> local evidence builder -> hashed full artifact
                                       |       -> bounded LF/LS chapter package -> judge
 web search -> researcher -> reviewer -> formatter -> cited web dossier ----------^
 ```
+
+Web research now has an explicit discovery/extraction boundary. One ruler-level
+overview pass builds book, biography, scholarship, archive, long-form, and
+retrospective candidates. Eight chapter discovery passes add topic-, institution-,
+event-, local-language-, favorable-, and adverse-specific candidates. Deterministic
+code canonicalizes their URLs and persists `source-candidate-catalog.json` before
+the reconnaissance or chapter evidence turns begin. Extraction receives bounded
+chapter projections of that catalogue; accepted evidence counts cannot terminate
+or substitute for source discovery.
 
 Before web research, the separate parent-side `local_structured_prior_v2` builder
 covers every selected lens across all eight chapters and persists the complete
@@ -689,11 +804,27 @@ explicit unassessed-bias marker instead of being discarded.
 An honestly sparse chapter remains valid when the researcher records the searches,
 rejections, and remaining gaps. After formatting,
 one no-search judge per chapter/year batch applies the common meter across rulers,
-and a score/order auditor checks the resulting comparative ordering and rubric drift.
+and a score/order reviewer checks the resulting comparative ordering and rubric drift.
+The production reviewer runs separately from the judge, uses high-reasoning Sol, and
+returns a complete chapter review. It may correct a numeric judgment only within ±1
+point and must revise the rationale and adjacent-anchor explanations. Deterministic
+application code preserves null status, verifies every cited evidence ID and source
+hash, and rejects partial cohorts or larger score changes.
+When a complete chapter projection batch fits the configured model but exceeds the
+Codex single-turn character transport limit, the judge receives an attempt-local
+path-and-digest manifest instead of duplicated inline JSON. The judge starts in that
+attempt directory, may read only the listed chapter inputs, and cannot browse. The
+worker validates project-local `chapter-inputs` paths before reading them and re-hashes
+every input after the model turn; any drift rejects the attempt. This transport mode
+does not compact, omit, or re-rank evidence.
 Every judge attempt also writes a null-recovery queue from the judgment's existing
 reason, weak-lens, and review fields. Recoverable nulls are marked for continuation in
 the same ruler-research workflow for no more than two targeted rounds; the queue does
 not launch that continuation and no additional worker role is introduced.
+All null judgments are canonically normalized to a full 1–10 plausible range and a
+release-blocking `recoverable_null` manual-review state before publication. Immutable
+judge outputs remain unchanged; any release-package normalization records the exact
+fields changed and retains source-artifact hashes.
 
 Trusted parent event logs also supply cached-input and reasoning-output counters.
 The checked-in `configs/research-pricing.yaml` snapshot converts them to
@@ -934,6 +1065,29 @@ so formatting cannot add evidence or silently infer mappings. A sibling batch su
 requires hash-locked, reviewed identities and successful 80-lens local-prior preflight,
 then reserves both per-ruler and batch-wide cost ceilings before launching resumable,
 staged-concurrency jobs.
+
+The experimental chapter-analysis consumer reads the completed code-bound evidence
+package without scoring. If a chapter's complete exact packet fits the active Codex
+input boundary, one Luna turn drafts, audits, and corrects all ten lens answers. If it
+does not fit, deterministic code partitions evidence records into non-overlapping
+shards below the boundary. Each record is read in exactly one shard; a final Luna turn
+receives every cited shard finding and performs the same ten-lens audit and correction.
+Code owns shard membership and evidence-ID normalization. A separate Luna quality pass
+checks the complete compact candidate index and exact cited passages, and its verdict
+and requested corrections travel with the analysis. This is an evidence-organization
+experiment, not a chapter score or a substitute for the chapter judge.
+
+Direct GPT-5.6 Luna experiments first prove Responses API explicit cache breakpoints
+independently rather than assuming Codex CLI cache behavior. For full-corpus organization,
+the preferred path reads each deterministic evidence shard once against all eighty lenses;
+this avoids eight near-duplicate calls and their cache-write charge. Code resolves compact
+model mappings back to the exact registry records before each chapter synthesis. It removes
+unknown or chapter-unsupplied IDs without guessing replacements and preserves the removal
+ledger. Strict bounded JSON schemas keep each ten-question brief complete. Provider-reported
+`cache_write_tokens`, `cached_tokens`, fresh input, output, model identity, and elapsed
+time are persisted after every request. A shared local cost ledger applies current
+Luna fresh, cached, cache-write, output, and long-context rates and blocks any request
+whose conservative preflight exposure could reach the configured experiment budget.
 The parser tolerates only conventional Markdown list and inline-code wrappers around an
 otherwise strict record. Valid sibling records are retained when one line is malformed;
 the rejected line's number, validation reason, and SHA-256 are persisted outside the
@@ -982,6 +1136,13 @@ removal. A stale dossier key may be rebound before citation filtering only when 
 one trusted cohort projection matches all immutable ruler-period identity fields;
 ambiguous or conflicting identities remain blocked. Material projection-reference cases remain flagged until a separate no-search
 review clears or returns them for rejudgment.
+For pre-judgment analysis, a validated ruler dossier can also be converted into the
+code-bound corpus contract without changing its claim, URL, locator, or many-to-many
+question routing. Each chapter then receives its complete routed packet in one Luna
+turn that drafts ten lens answers, audits them against that packet, and returns corrected
+answers. The readable Markdown view resolves every cited ID back to its source and keeps
+the full draft, critique, cited evidence, and omitted-candidate ledger in JSON. This
+stage prepares evidence for a judge and does not assign a score.
 Chapter subsets can be rerun under distinct run keys without replacing the original
 eight-chapter batch. A release-owned judgment-selection manifest chooses explicit
 chapter artifacts for the viewer. Run-scoped audit instructions may exclude identified

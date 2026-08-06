@@ -1,0 +1,339 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-contrast-v1:2022:COD:16113",
+  "iso3": "COD",
+  "country_name": "Congo, The Democratic Republic of the",
+  "ruler_name": "F\u00e9lix Tshisekedi",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 19,
+  "approximate_source_family_count": 13,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 19 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 13 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_contrary_audit",
+      "message": "Contrary evidence is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed. I did not assign scores, ranges, anchors, or ranking advice.
+
+The workspace is read-only, so I could not write the supplied `research-materials.md` or `research-ledger-manifest.json` paths. The complete handoff is below.
+
+## Reconnaissance
+
+Tshisekedi was president throughout 2022, having taken office on 24 January 2019. The official constitutional materials identify presidential responsibility for the Council of Ministers, senior appointments, and armed-forces command; practical authority was constrained by inherited institutions, coalition politics, weak administrative capacity, and donor dependence. The official presidential biography confirms his office and tenure; the constitutional text supplies the formal authority baseline. ([Presidency biography](https://www.presidence.cd/president/le-president), [DRC Constitution](https://www.presidence.cd/uploads/files/Constitution%20de%20la%20RDC%202011.pdf))
+
+The information environment was mixed: journalists and citizens could openly criticize officials, but intimidation, arbitrary detention, restrictive defamation/security laws, and state-of-siege enforcement narrowed safe reporting. The U.S. State Department recorded 43 freedom-of-expression abuses and 15 assembly abuses documented by UNJHRO in the first half of 2022. Internet access was not generally disrupted, although monitoring without adequate legal authority was reported. ([2022 human-rights report](https://www.ecoi.net/de/dokument/2089109.html))
+
+The dominant repeated event was eastern insecurity: M23, ADF, CODECO, other armed groups, FARDC conduct, displacement, the state of siege, and regional peace processes. This creates strong exposure but also attribution and visibility risks. The relevant denominators include approximately 1.78 million displaced people in Ituri and millions of displaced or out-of-school children. ([U.S. State Department report](https://www.ecoi.net/de/dokument/2089109.html), [UNICEF/ECW](https://www.unicef.org/drcongo/en/press-releases/call-substantial-increase-funding-crisis-affected-children))
+
+## Evidence ledger
+
+| ID | Source-claim unit | Role and mappings |
+|---|---|---|
+| E001 | Official Presidency biography: Tshisekedi president from 24 Jan 2019; political background and peaceful transfer context. | Authority/inherited baseline; 2B, 4B, 8B. ([source](https://www.presidence.cd/president/le-president)) |
+| E002 | Constitution: presidential role as head of state, Council of Ministers, and senior military/state appointments. | Formal authority baseline; 2B, 3B, 4B, 5B, 6B, 8B. ([source](https://www.presidence.cd/uploads/files/Constitution%20de%20la%20RDC%202011.pdf)) |
+| E003 | Amnesty: state of siege used against critics; activists arbitrarily detained; military courts used against civilians; two activists killed by security forces. | Target-period negative evidence; 3B.1–3B.5, 3B.8–3B.10, 4B.3, 4B.9. ([source](https://www.amnesty.org/en/latest/news/2022/05/drc-one-year-on-state-of-siege/)) |
+| E004 | Amnesty: Tshisekedi declared the state of siege to combat armed groups and protect civilians, while civilian deaths increased from 559 to at least 1,261 across the compared periods. | Mixed security-purpose/outcome evidence; 2B.4, 2B.9, 2B.10, 3B.6, 3B.9, 8B.7–8B.10. ([source](https://www.amnesty.org/en/latest/news/2022/05/drc-one-year-on-state-of-siege/)) |
+| E005 | U.S. State Department: armed groups and FARDC elements illegally taxed and exploited natural resources; armed-group and security-force abuses were both documented. | Attribution-separated conflict context; 2B.4–2B.5, 2B.9, 3B.2, 3B.7, 5B.5. ([source](https://www.ecoi.net/de/dokument/2089109.html)) |
+| E006 | U.S. State Department: journalists and defenders were arrested or threatened, especially in state-of-siege provinces; criticism could trigger detention. | Target-period political-freedom and safety evidence; 3B.1–3B.5, 3B.8, 4B.3, 4B.6, 4B.9. ([source](https://www.ecoi.net/de/dokument/2089109.html)) |
+| E007 | U.S. State Department: peaceful assembly was restricted; security forces sometimes used deadly force; UNJHRO documented 15 abuses of assembly rights. | Target-period negative evidence; 3B.8–3B.9, 4B.3, 4B.9. ([source](https://www.ecoi.net/de/dokument/2089109.html)) |
+| E008 | U.S. State Department: gubernatorial elections were largely peaceful and observers were accredited, but allegations of vote-buying implicated Tshisekedi’s coalition. | Mixed electoral evidence; 4B.1–4B.2, 4B.4, 4B.10. The vote-buying allegation remains an allegation. ([source](https://www.ecoi.net/de/dokument/2089109.html)) |
+| E009 | Freedom House: civil society alleged Tshisekedi’s CENI restructuring preserved presidential influence over the electoral body. | Adverse institutional evidence; 4B.1, 4B.2, 4B.4, 4B.8. This is principally 2021 baseline evidence, not a standalone 2022 act. ([source](https://freedomhouse.org/country/democratic-republic-congo/freedom-world/2022)) |
+| E010 | African Union: eastern insecurity involved multiple armed groups; Luanda and Nairobi processes, regional forces, dialogue, ceasefire, and de-escalation were supported. | International-security and diplomacy evidence; 2B.1, 2B.2, 2B.4, 2B.5, 2B.7, 2B.10. ([source](https://www.peaceau.org/en/article/communique-of-the-1103rd-meeting-of-the-peace-and-security-council-held-on-31-august-2022-on-the-situation-in-the-eastern-democratic-republic-of-congo-drc)) |
+| E011 | EAC: Kenyatta consulted Tshisekedi in November 2022; the Nairobi dialogue incorporated Congolese stakeholders and was coordinated with the Luanda process. | Direct diplomatic-process evidence; 2B.1, 2B.7, 2B.10, 8B.3, 8B.9. ([source](https://www.eac.int/statements/2671-eac-sets-out-for-kinshasa-for-dialogue-with-pres-tshisekedi-on-security-situation-in-eastern-drc)) |
+| E012 | UN Secretary-General statement: Luanda summit produced a ceasefire and proposed M23 withdrawal, with MONUSCO support for implementation. | Peace-process evidence; 2B.1, 2B.7, 2B.10. ([source](https://www.un.org/sg/en/content/sg/statement/2022-11-25/statement-attributable-the-spokesperson-for-the-secretary-general-the-democratic-republic-of-the-congo-scroll-down-for-french)) |
+| E013 | Presidential address: Tshisekedi characterized M23 as externally supported and framed the conflict around sovereignty and mineral interests. | Official threat justification; 2B.3, 2B.6, 2B.10. Requires independent corroboration; retained as an official claim, not established fact. ([source](https://presidence.cd/actualite-detail/actualite/adresse_a_la_nation_du_president_de_la_republique_felix_tshisekedi_suite_a_la_deterioration_de_la_situation_securitaire_a_lest_du_pays)) |
+| E014 | IMF July 2022 report: authorities halted central-bank financing, pursued macroeconomic reforms, and were advised to strengthen governance and natural-wealth management. | Policy/action evidence with institutional attribution; 5B.3–5B.7, 5B.10, 8B.2, 8B.6–8B.8. ([source](https://www.imf.org/en/publications/cr/issues/2022/07/05/democratic-republic-of-the-congo-staff-report-for-the-2022-article-iv-consultation-second-520400)) |
+| E015 | IMF November 2022 review: reform program continued; projected growth was 6.6%, with inflation above 12%; policies addressed buffers, inflation, and structural reform. | Target-period implementation/outcome evidence, with external-shock caveats; 5B.3, 5B.9–5B.10, 8B.6–8B.8. ([source](https://www.imf.org/en/news/articles/2022/11/18/pr22395-democratic-republic-congo-imf-staff-reach-staff-level-agreement-third-review-under-ecf)) |
+| E016 | UNICEF: government and education partners worked on the 2022–23 school year; roughly 7 million children aged 5–17 remained out of school, and sustainability of free education was under discussion. | Social-policy implementation and limitation; 6B.1–6B.6, 6B.10, 8B.2, 8B.6–8B.7. ([source](https://www.unicef.org/drcongo/communiques-presse/rentree-scolaire-2022-2023)) |
+| E017 | UNICEF/ECW: 2022 displacement and conflict severely constrained schooling; donor-supported programs worked with government and provincial authorities, but 3.2 million primary-age children were out of school. | Social outcomes, donor attribution, implementation constraints; 6B.2–6B.6, 6B.10, 8B.6–8B.10. ([source](https://www.unicef.org/drcongo/en/press-releases/call-substantial-increase-funding-crisis-affected-children)) |
+| E018 | BTI: Tshisekedi’s 100-day program and national development plan identified infrastructure, health, education, governance, peace, and growth priorities, but implementation was weak and constrained by personnel, budgets, coalition politics, and donor dependence. | Program/implementation evidence, partly retrospective; 5B.1–5B.7, 6B.1–6B.6, 8B.1–8B.10. ([PDF](https://bti-project.org/fileadmin/api/content/en/downloads/reports/country_report_2022_COD.pdf), pp. 2–3, 27–28) |
+| E019 | OCCRP: Tshisekedi commissioned an IGF audit of Gécamines; the audit alleged major revenue diversions, weak royalty collection, related-party subcontracting, and limited reinvestment. | Integrity/economic governance evidence; 5B.5, 5B.7, 7B.3–7B.7, 7B.9, 8B.2, 8B.6. The audit findings concern Gécamines and state governance; they do not establish Tshisekedi’s personal enrichment. ([source](https://www.occrp.org/en/news/dr-congo-state-mining-company-subject-to-a-damning-audit)) |
+| E020 | Reuters: presidential adviser Vidiye Tshimanga resigned after an alleged recorded attempt to negotiate a mineral deal; he denied wrongdoing, and the presidency stated that unlawful conduct would have consequences. | Integrity-specific but limited personal nexus; 7B.3–7B.7, 7B.9–7B.10. Allegation and associate conduct must remain distinct from Tshisekedi personally. ([source](https://www.investing.com/news/world-news/top-congo-presidential-adviser-resigns-after-allegedly-requesting-bribe-on-tape-2894087)) |
+| E021 | Presidency: approximately 80 senior magistrates appointed in 2022 and judicial reform presented as a presidential priority. | Official appointment/action evidence; 4B.4, 7B.5–7B.7, 8B.2–8B.4. Official self-description requires independent corroboration of independence and effect. ([source](https://www.presidence.cd/actualiteune-detail/actualite/reforme_de_la_justice_pres_de_80_hauts_magistrats_ont_prete_serment_devant_le_president_de_la_republique)) |
+| E022 | Presidency: national cybersecurity strategy 2022–25 was developed under the presidential cabinet, validated by Tshisekedi, and presented to cabinet in October 2022. | Direct target-period program/action; 1B.8–1B.10, 4B.9, 8B.1–8B.6. The source establishes adoption, not implementation or effectiveness. ([source](https://www.presidence.cd/actualite-detail/actualite/la_strategie_nationale_de_cybersecurite)) |
+| E023 | IAEA legal factsheet: DRC has NPT safeguards in force and an Additional Protocol signed in 2003. | Nuclear/legal exposure context only; 1B.1–1B.10. It does not establish a Tshisekedi-period nuclear decision. ([source](https://ola.iaea.org/Applications/FactSheets/Country/Detail?code=CD)) |
+
+## Chapter yield
+
+- **1B:** Local package had no retained nuclear/existential-risk facts. Web research found standing nonproliferation safeguards and a 2022 cybersecurity strategy, but no accepted evidence of nuclear weapons authority, nuclear coercion, proliferation, or catastrophic-risk use. Cyber governance is the only plausible target-period exposure found.
+- **2B:** Strongest chapter yield. Local UCDP/SIPRI facts establish conflict exposure and military burden, not personal responsibility. E005 and E010–E013 add attribution-separated armed-conflict, regional diplomacy, threat-justification, and peace-process evidence.
+- **3B:** Strong target-period evidence concerning state-of-siege restrictions, military courts, arrests, protests, journalists, and civilian harm. Attribution is strongest for national policy and state forces; nonstate and decentralized abuses remain separately identified.
+- **4B:** Evidence covers CENI design, gubernatorial elections, vote-buying allegations, media restrictions, assembly restrictions, and internet conditions. The electoral evidence is mixed and includes both peaceful elections/observer access and institutional-independence concerns.
+- **5B:** IMF provides the clearest ruler-period policy and implementation evidence. Mining-governance evidence adds a direct state-policy and audit trail but not personal enrichment. Local macro outcomes remain country context.
+- **6B:** Education policy and implementation evidence is usable, but donor dependence, conflict, displacement, access gaps, and quality/sustainability limits are material. Local health and HDI facts remain outcome context.
+- **7B:** Personal-nexus evidence is thin. The Gécamines audit and adviser episode are relevant but do not establish personal benefit by Tshisekedi. Official judicial and anticorruption actions are evidence of action, not proof of integrity or independence.
+- **8B:** Program evidence exists for infrastructure, education, macroeconomic reform, cybersecurity, judicial reform, and regional security diplomacy. Implementation is mixed and constrained; BTI is useful but partly retrospective and not a substitute for 2022 administrative records.
+
+## Source diversity and reuse
+
+Source families include the DRC presidency and constitutional records, AU, EAC, UN, IMF, UNICEF/ECW, Amnesty, U.S. State Department/UNJHRO reporting, Freedom House, BTI, OCCRP, Reuters, and IAEA.
+
+Same-URL splits were retained where one source supported materially distinct claims:
+
+- U.S. State Department: expression, assembly, elections, armed-group/FARDC conduct, displacement, and internet conditions.
+- Amnesty: state-of-siege purpose, civilian-harm trend, activist detention, military courts, and protest violence.
+- IMF: macro policy, reform implementation, inflation, growth, and structural-governance conditions.
+- UNICEF/ECW: education access, displacement, donor implementation, and remaining coverage gaps.
+
+Cross-chapter reuse is explicit in the ledger rather than duplicated: state-of-siege evidence informs 2B, 3B, 4B, and 8B; IMF reform evidence informs 5B and 8B; education evidence informs 6B and 8B; the Gécamines audit informs 5B, 7B, and 8B with different attribution limits.
+
+## Rejected or downgraded candidates
+
+- Supplied local country indicators were retained as structured context, never as direct ruler evidence.
+- Freedom House 2022 material was treated mainly as 2021 inherited/baseline evidence.
+- Official presidential claims about Rwanda/M23 were retained as official claims, not independently verified facts.
+- Official claims of judicial reform, free education, and cybersecurity progress establish actions or stated intent but not effectiveness, independence, or outcomes.
+- Reuters/OCCRP adviser allegations remain allegations; the adviser’s conduct was not personalized to Tshisekedi.
+- BTI’s 2022 report contains substantial 2019–2021 material and was used for program, constraint, and implementation context rather than as a pure 2022 outcome record.
+- Search-result snippets, Wikipedia, generic organization pages, and unlocated homepage material were excluded from defensible evidence.
+
+## Main unresolved gaps
+
+- No ruler-specific 2022 evidence was found for nuclear weapons, nuclear coercion, proliferation, or biological/chemical weapons governance.
+- M23/Rwanda attribution, FARDC command responsibility, civilian-protection performance, and accountability require further primary UN Group of Experts, MONUSCO, court, and military-record review.
+- CENI independence, opposition treatment, media pressure, and 2022 electoral preparation need direct CENI, parliamentary, church-observer, and civil-society records.
+- Free-education implementation needs budget execution, teacher-payment, enrollment, attendance, quality, and audit evidence.
+- Economic policy needs 2022 budget execution, distributional/household evidence, and independent assessment of mining-contract reforms.
+- Personal integrity requires direct evidence concerning Tshisekedi’s own disclosures, conflicts, decisions, correction behavior, and response to scrutiny.
+- Effectiveness requires a fuller program-to-implementation chain with dated administrative outputs and independently measured results.
+
+## Local-data audit
+
+Retained as context: all supplied 2B local facts LF001–LF112; 3B facts LF113–LF333; 4B facts LF334–LF640; 5B facts LF641–LF777; 6B facts LF778–LF837; 7B facts LF838–LF893; and 8B facts LF894–LF921, subject to their supplied warnings and period roles.
+
+Used most directly as target-period context: UCDP 2022 conflict/fatality fields, SIPRI 2022 military-spending fields, 2022 physical-integrity and political-freedom indicators, 2022 macroeconomic outcomes, 2022 HDI/service outcomes, WGI/V-Dem corruption and capacity fields.
+
+Left unused as evidentiary support for ruler conduct: all country-level facts lacking a direct ruler-action or attribution pathway; all empty 1B local mappings; all local facts explicitly marked as inherited, aggregate, or insufficient for attribution.
+---

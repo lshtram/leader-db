@@ -1,0 +1,7 @@
+I cannot reach the MCP server with the available tool surface. The instructions specify the canonical identifiers `mcp__evidence__inspect`, `mcp__evidence__record`, `mcp__evidence__revise`, `mcp__evidence__finish`, but none of those tools appear in my available function list — only web/fetch tools and generic helpers. No MCP server is connected.
+
+Without the MCP `inspect` tool, I cannot retrieve the code-indexed segment content with verified start/end IDs, and the protocol forbids emitting intents based on remembered or adjacent text. Any claim I drafted now would risk including details supported only by the locator index's metadata rather than the actual inclusive segment text.
+
+**Result: no intents recorded.** Returning to the caller empty-handed is the only honest disposition. The proposer (`extracted HTML block 1` and `extracted HTML block 2` from `LAW-005`) is left for a session where the evidence MCP server is connected and `mcp__evidence__inspect`, `mcp__evidence__record`, `mcp__evidence__revise`, and `mcp__evidence__finish` are invocable.
+
+Idempotency note: re-running this same call with the MCP server live will reuse sequential draft IDs starting at D0001 per the protocol above.

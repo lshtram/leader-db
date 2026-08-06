@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Literal
 
 from .model_profiles import ResearchModelProfile
 
@@ -16,6 +17,8 @@ def build_codex_exec_command(
     final_message_path: Path,
     writable_dir: Path,
     isolated_web_research: bool = False,
+    sandbox_mode: Literal["read-only", "danger-full-access"] = "read-only",
+    reasoning_effort: Literal["low", "medium", "high", "xhigh"] | None = None,
 ) -> tuple[str, ...]:
     """Return an argv-only Codex invocation without shell interpolation."""
 
@@ -32,7 +35,7 @@ def build_codex_exec_command(
         "--cd",
         str(project_root),
         "--sandbox",
-        "read-only",
+        sandbox_mode,
         "--add-dir",
         str(writable_dir),
         "--output-last-message",
@@ -66,6 +69,8 @@ def build_codex_exec_command(
         command.extend(("--profile", config_path.name.removesuffix(".config.toml")))
     if profile.model != "session_default":
         command.extend(("--model", profile.model))
+    if reasoning_effort is not None:
+        command.extend(("--config", f'model_reasoning_effort="{reasoning_effort}"'))
     return tuple(command)
 
 

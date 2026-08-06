@@ -1,5 +1,506 @@
 # Workplan
 
+## 2026-08-06 — Sol-only judgments and bounded high-reasoning review
+
+- Replaced the remaining Luna chapter judgment (1B) with a complete nineteen-ruler
+  Sol judgment. All eight accepted chapter judgments are now produced by
+  `gpt-5.6-sol`.
+- Added a first-class, file-backed judgment-review runner. It uses Sol with explicit
+  `high` reasoning, reads the source chapter judgment and all nineteen hash-bound
+  projections, and deterministically rejects altered inputs, foreign evidence IDs,
+  missing rulers, null-to-numeric conversion, or numeric movement beyond ±1.
+- Every accepted review returns a revised reader-facing rationale plus revised lower-
+  and higher-anchor explanations. The eight live reviews completed and made 26 bounded
+  score corrections across 152 evaluations.
+- The consolidated reviewed package is
+  `research/runs/2023-production-19-sol-high-review-v2/reviewed-judge-package.json`.
+  Accepted reviews used 8,253,696 input tokens (7,365,888 cached) and 130,399 output
+  tokens, including 36,482 reasoning-output tokens. One earlier sandbox-blocked review
+  is retained as a failed diagnostic and was not applied.
+
+## 2026-08-05 — Nineteen-ruler 2023 comparative judgment completed
+
+- Completed nineteen distinct 2023 production-series ruler dossiers across the
+  original eleven-ruler run and two four-ruler Luna expansions. Nigeria remains
+  outside this requested judge cohort.
+- Extended chapter-judge planning to accept an explicit ordered list of dossier
+  run keys. The planner preserves exact dependencies and rejects duplicate
+  canonical ruler-year identities, allowing the nineteen approved dossiers to
+  form one comparative cohort without copying or rerunning research.
+- Completed all eight chapter judgments over the exact nineteen-ruler cohort: 1B
+  used Luna; 2B–8B exceeded Luna's safe context ceiling and used the configured Sol
+  supervisor with hash-bound file-backed chapter inputs. The file-backed runner starts
+  inside the attempt directory, verifies every input digest after execution, and
+  retains the original source judgments.
+- Produced 152 ruler-chapter evaluations: 145 numeric half-point scores and seven
+  recoverable nulls. The final package checked 517 decisive web-evidence references
+  against ruler-specific projections with zero unresolved IDs.
+- The independent Luna score/order audit found one missing null-review flag. Canonical
+  null normalization was fixed and tested; an immutable corrected package records five
+  normalization-only changes. The second audit passed and recommends release subject
+  to its documented nonblocking judgment-call warnings.
+- Final artifacts and profiling are under
+  `research/runs/2023-production-19-final-audit-v1/`.
+
+## 2026-08-02 — Production pipeline frozen for cross-ruler comparability
+
+- Audited the thirteen expanded-discovery jobs. Every job has an 80-record
+  `local-priors.json` input and overview plus all eight chapter discovery artifacts.
+  Different attempt counts reflect retries; all thirteen contain the required stage
+  artifacts. This establishes artifact presence, not identical substantive depth.
+- A fairness review found that Lula, Xi, Tshisekedi, and Scholz were produced while
+  the continuation implementation was still improving. Their quality-passed outputs
+  remain useful diagnostics but are not yet a methodologically uniform production set.
+- Fixed the final observed interface defect: a corrected chapter answer now receives
+  up to three constrained retries when it cites evidence not reopened for passage
+  review. After three failures, code removes only unauthorized structured IDs and
+  records the exact removal for independent quality review.
+- Froze `production-2023-v1` in
+  `configs/evidence-funnel/production-2023-v1.freeze.yaml`, binding pipeline code,
+  methodology, configuration, operating directives, question catalogue, model
+  profile, gates, and change control. Hash mismatch stops the batch; a necessary fix
+  creates a new release and triggers a cross-ruler rerun decision.
+- Next: finish Sisi review under the frozen release, audit earlier stage equivalence,
+  and rerun every non-equivalent earlier stage before treating ruler packages as a
+  comparable 20-ruler production cohort.
+
+## 2026-08-02 — Full-catalogue continuation passes Tshisekedi and Scholz judge-prep gates
+
+- Completed the Tshisekedi 2023 package from 338 acquired unique documents. The
+  resulting ledger contains 436 verified evidence records. All eight chapter-answer
+  packages are independently safe for judge use; 3B required one targeted revision
+  and 4B required two. Revision attempts are immutable and receive fresh reviews.
+- Completed Scholz 2023 from the preserved 478-URL catalogue. Acquisition produced
+  399 readable responses and 389 unique queued documents (2.13 million estimated
+  source tokens). Two oversized/failed batches were split into 18 repair slices with
+  zero repair failures. The final ledger contains 621 accepted or corrected records
+  from 243 source documents, 603 conservative clusters, and coverage on 79 of 80
+  methodology questions.
+- All eight Scholz chapter packages are independently safe for judge use. Chapters
+  1B-7B passed the first review; 8B passed after one targeted revision and fresh
+  review. These are evidence answers for a future judge, not ruler scores.
+- Added first-class multi-directory judge-package assembly so main and repair reading
+  outputs reconcile without an ad hoc merge. Duplicate-cluster review now keeps only
+  exact ID-and-digest, non-overlapping groups; malformed groups remain singleton
+  evidence and their count is recorded. Chapter draft and critique identity failures
+  receive bounded deterministic filtering with an audit note after model retries.
+- Scholz completed-call profiling records 17,103,193 model tokens: 16,685,597 input
+  (634,368 cached) and 417,596 output. The checked-in Luna rate-card equivalent is
+  $3.724, excluding one overwritten failed clustering call and representing an
+  estimate rather than provider billing.
+- Next: preserve the passed packages in the eventual score-bearing handoff and resume
+  the remaining acquired ruler catalogues one ruler at a time with the same quality
+  gate and profiling.
+
+## 2026-08-01 — Top-20 catalogue continuation corrected and paused before paid reading
+
+- Stopped the active top-20 dossier workers after identifying that the research
+  prompt's twelve-documents-per-chapter target had become a de facto inspection
+  ceiling. Existing catalogues remain intact: the first thirteen rulers have
+  between 382 and 502 deduplicated candidate URLs each.
+- The continuation path now begins from those catalogues. Acquisition assigns a
+  disposition to every URL; the corpus planner content-deduplicates successful
+  downloads and queues every representative. Its documents-per-batch setting is
+  transport shaping only and does not limit corpus coverage.
+- Removed a hard-coded AMLO 2023 identity from the corpus reader. Reading plans now
+  persist the ruler name and period, and the CLI requires them. Focused regression
+  tests prove that forty acquired documents remain queued when batches contain at
+  most twelve documents and that the reader receives the persisted ruler-period.
+- Next: run resumable, no-model acquisition for each preserved catalogue; audit
+  acquired, blocked, duplicate, and failed counts; then start profiled corpus reading
+  only after the full catalogue reconciles.
+
+## 2026-08-01 — Preserved catalogues continued through full-corpus judge preparation
+
+- Acquired and dispositioned all 5,963 candidate URLs already present across thirteen
+  ruler catalogues. Lawful acquisition produced 3,920 readable sources; exact-content
+  deduplication queued 3,768 unique documents in 335 context batches containing an
+  estimated 16.93 million source tokens. Every blocked, missing, empty, duplicate, and
+  transient record remains explicit. A bounded three-attempt retry recovered temporary
+  failures without refetching successful sources.
+- Removed the corpus reader's hard-coded AMLO identity and persisted ruler-period
+  context in each reading plan. Tightened the reader's semantic instruction to one
+  event, policy, quantitative result, or institutional finding per record. Brazil's
+  mapping density fell from the earlier Hasina diagnostic's 10.1 average / 27 maximum
+  to 5.3 average / 13 maximum while retaining 259 accepted or corrected records.
+- Fixed mapping identity recovery. Two bad verdicts in 289 records had previously
+  caused eighty isolated Luna retries because code discarded two otherwise valid
+  forty-record batches. Recovery now retains exact ID+digest verdicts and retries only
+  the two invalid records.
+- Changed chapter preparation to expose the complete compact verified ruler ledger to
+  every chapter draft and critique, including records routed elsewhere. Exact passages
+  are reopened for question-level correction. This prevents earlier routing from
+  becoming a hidden evidence ceiling.
+- Brazil 2023 completed full-corpus reading and all eight chapter preparations. The
+  corpus reader processed 233 unique documents and retained 259 verified records from
+  117 sources. All eight independent chapter reviews returned `pass_with_corrections`
+  and `safe_for_judge_use`; each chapter produced ten detailed answers and cited 47 to
+  83 exact evidence records. Reading used 2.34 million tokens, chapter analysis 4.88
+  million, and quality review 1.42 million, for 8.64 million continuation tokens.
+- Next: retain the chapter quality reports and their concrete corrections in the judge
+  handoff, run the corrected flow over the other acquired ruler corpora, and profile
+  each ruler separately before score-bearing judgment.
+
+## 2026-08-01 — Direct Luna explicit-cache proof passed
+
+- Added a two-request Responses API probe hard-coded to `gpt-5.6-luna`, with an
+  explicit breakpoint after a 28-record, 352,597-character evidence prefix and a
+  stable cache key. The first request wrote 72,475 tokens; the second request read
+  all 72,475 from cache while changing the chapter suffix.
+- Provider usage produced an estimated $0.09088575 first-call cost and $0.00753950
+  second-call cost at the current official Luna rates, for $0.09842525 total. The
+  probe stayed below the 272k long-context tier and capped each output at 200 tokens.
+- A persistent API-cost ledger now records every completed probe call and blocks a
+  new run when prior recorded spend plus conservative preflight exposure could reach
+  the $5 boundary. The API key is read from `.env` and is never written to artifacts.
+- Next: generalize the proven shard-major schedule so every chapter receives every
+  evidence shard, preserving identical cache prefixes and measuring write, read,
+  fresh-input, output, elapsed-time, and cumulative cost before expansion.
+
+
+## 2026-07-31 — Luna-only exact-evidence chapter analysis experiment
+
+- Replaced the costly question-at-a-time experiment with one chapter-level Luna
+  analysis whenever the exact evidence packet fits the Codex 1,048,576-character
+  input boundary. Larger chapters partition exact records into non-overlapping
+  sub-megabyte shards; Luna reads each record once and a final compact Luna turn
+  performs draft, skeptical audit, and correction across all ten lenses.
+- AMLO 2023 calibration completed for `1B`, the prior-failing `7B`, and the largest
+  `8B` package. They respectively processed 52, 145, and 374 exact evidence records
+  using 172,284, 572,830, and 1,366,934 input tokens. Output usage was 6,495,
+  19,914, and 32,278 tokens. No Sol call was used.
+- A separate Luna quality review marked all three `pass_with_corrections` and safe
+  for judge use. The remaining issues are targeted citation-to-claim corrections,
+  incomplete use of the candidate index, and clearer separation of formal measures
+  from observed implementation. These reviews remain attached to the judge input;
+  they are not ruler scores.
+- Codex prompt caching was measured rather than assumed. Repeated question calls
+  cached only the stable 8,960-token execution prefix, and a developer-context
+  experiment caused repeated invalid turns despite larger cache hits. The accepted
+  design obtains the larger saving by never resubmitting an exact evidence shard.
+
+
+## 2026-07-31 — AMLO discovery separated from evidence extraction
+
+- Re-audited the thin AMLO 2023 dossier against prior work. The earlier AMLO 2022
+  all-chapter run had 102 ledger units from 83 URLs and 51 domains, while the older
+  Chapter 5B discovery-only catalogue contained 208 candidates across books,
+  scholarship, audits, government records, programme reports, journalism, and hubs.
+  The 2023 dossier's 43 URLs were therefore a retained-citation count, not a
+  sufficient source-universe measure.
+- Added a discovery-only stage before evidence extraction. One ruler-level pass
+  targets biographies, books, scholarship, long-form investigations, archives, and
+  full-period syntheses; eight chapter passes target at least thirty candidates each.
+  Models emit simple candidate records rather than evidence claims. Parent code
+  canonicalizes URLs, merges chapter routing, preserves blocked and unopened leads,
+  and writes a durable candidate catalogue for bounded extraction projections.
+- The live AMLO 2023 discovery gate found 401 deduplicated candidate URLs from 191
+  named publishers: 20 book/biography-like records, 35 academic records, 184
+  report/audit-like records, and 67 journalism/investigation-like records. Chapter
+  routing ranges from 57 candidates for 1B to 127 for 8B. Of these, 345 remain
+  unopened, 41 were opened during discovery, and 15 are access-blocked; those are
+  inspection dispositions, not evidence-quality judgments.
+- Added explicit prior-catalogue seeding to the planner and worker. Recovered AMLO
+  catalogues and accepted dossier sources from earlier runs add 321 URLs not present
+  in the new search after deterministic URL normalization, producing an expanded
+  722-URL, 310-publisher inspection universe. This includes 24 book/biography-like
+  and 46 academic records. Seed paths are persisted in the job input; discovery
+  merges them before new overview and chapter searches rather than silently starting
+  from zero.
+- The nine Luna discovery calls used 1,540,243 input tokens (1,102,848 cached) and
+  62,543 output tokens. No fact extraction or scoring was performed. Next: audit
+  catalogue validity, deduplicate equivalent document URLs and catalogue mirrors,
+  prioritize an inspection package by source family and chapter gap, then benchmark
+  whole-document extraction against this larger source universe.
+
+## 2026-07-31 — AMLO 2023 all-chapter evidence dossier completed
+
+- The updated evidence researcher completed all eighty lenses for Andrés Manuel
+  López Obrador, Mexico, 2023. The validated dossier retains 61 final evidence
+  records from 43 URLs and 32 publishers, with 277 evidence-to-lens mappings.
+  Seventy-seven lenses are partially covered and three are explicitly
+  research-blocked (`6B.7`, `7B.3`, and `7B.8`).
+- The research notebook reached 467,452 bytes and 68 source-claim records before
+  deterministic deduplication and final-use filtering. The local-prior resource
+  package was 2,803,959 bytes across all eighty lenses.
+- Corrected profiling counts cumulative usage snapshots once per persistent Codex
+  thread. The complete run used 6,901,475 input tokens (5,692,416 cached),
+  92,639 output tokens, and 6,994,114 total tokens. The checked-in Luna rate card
+  gives a $0.466827–$0.862433 PAYG-equivalent range; actual billed cost is not
+  exposed.
+- Two formatter calls failed structural/accounting validation. Deterministic
+  recovery preserved the reviewed ledger and produced the complete mapping and
+  coverage contract without another model call. Evidence quality still requires
+  chapter judging and score/order audit before this becomes a scored ruler result.
+
+## 2026-07-31 — Whole-context reader scaled to the researcher resource set
+
+- Expanded the Chapter 5B diagnostic from the 16-source frozen gate to the
+  evidence researcher's round-3 set of 35 evidence records, 33 distinct URLs,
+  and 17 publishers.
+- Lawful direct acquisition yielded 14 usable full-text sources totaling about
+  2.8 MB; duplicate URLs make these the underlying sources for 18 ledger entries.
+  The remaining sources were preserved as blocked, timed out, challenge-shell,
+  or otherwise unusable states rather than bypassed.
+- Five GPT-5.4-mini source-role readers completed in about 143 seconds wall time
+  and used 531,901 provider tokens. Four packages ran concurrently after the
+  initial IMF pass.
+- A fresh direct audit found 14 of 18 full-text-supplied ledger entries preserved
+  accurately, four partially preserved, none absent, and none materially
+  distorted. Semantic recall was 100%; exact preservation was 77.8%. Precision
+  losses were concentrated in exact rates, counts, and comparison values.
+- A generative merge is rejected for this topology. Its first version collapsed
+  the evidence to ten thematic accounts; a stricter retry stalled for 225 seconds.
+  Preserve the five detailed memos and create only a deterministic index. Keep
+  the verified researcher ledger for access-limited sources.
+- Detailed diagnostic:
+  [`docs/reviews/2026-07-30-whole-context-evidence-reader.md`](reviews/2026-07-30-whole-context-evidence-reader.md).
+
+## 2026-07-30 — Whole-context reader replaces windowed expansion candidate
+
+- Put the clean-room windowed CLI-agent experiment on hold after live profiling
+  showed that a 5,835-sentence source required 21 sequential windows and roughly
+  two model sessions per window. Seven windows completed, but the projected
+  three-source runtime was three to four hours.
+- Retained the secure Docker runner and code-owned citation work as diagnostics;
+  no windowed result was promoted. All live extractor, relay, container, and
+  network processes were terminated.
+- Ran two one-call GPT-5.4-mini diagnostics over the complete roughly 60,000-word
+  frozen trio plus all ten Chapter 5B lenses. Each completed in about two minutes.
+  The broad prompt used 120,090 provider tokens and over-selected 100 facts,
+  including 59 historical biography items. A target-period/source-role prompt used
+  117,527 tokens and produced a 2,895-word memo with 70 facts: 7 biography-context,
+  61 IMF, and 4 legal references, with source-count overlap on mixed-source facts.
+- Preliminary manual matching places the selective memo around 34–36 of the 47
+  benchmark facts, near the 75 percent recall target. The remaining issue is
+  materiality pruning and locator/support verification, not corpus throughput.
+- Next experiment: whole-context reader → deterministic locator resolution →
+  one compact package-level selection/review. Do not restore per-window or
+  per-fact model sessions unless a source exceeds the active model context.
+- Detailed diagnostic:
+  [`docs/reviews/2026-07-30-whole-context-evidence-reader.md`](reviews/2026-07-30-whole-context-evidence-reader.md).
+- Expanded to all 16 frozen sources. A single 250,846-source-token call exhausted
+  GPT-5.4-mini's context during output, so the successful bounded topology used
+  two source-role packages plus one memo-only merge. The three successful calls
+  completed in about 115 seconds and used 294,144 provider tokens. The merged
+  package has 14 consolidated accounts and covers all ten Chapter 5B questions.
+  This passes the throughput/architecture experiment but remains non-publication
+  until page/block references are deterministically resolved to exact supporting
+  spans and multi-clause accounts are checked against those passages.
+
+## 2026-07-30 — Clean-room simple evidence extractor implemented; live sandbox blocked
+
+- Added a standalone project under `prototypes/simple-evidence-extractor/`. It has
+  its own package, configuration, CLI, tests, and artifacts and imports nothing from
+  `leaders_db` or the earlier evidence funnel.
+- The model-facing surface is four short commands: `show`, `add`, `correct`, and
+  `confirm`. Code resolves allowlisted sources, copies exact sentence spans, records
+  offsets and hashes in an append-only JSONL registry, returns the stored entity to
+  the model, and requires separate extractor and reviewer confirmation. Model prose
+  and final responses are ignored.
+- A runner-owned Unix-socket broker issues a short-lived random capability for each
+  model call. The server binds it to the role, source range, window, and fact
+  allowlist; model requests cannot self-assign reviewer authority. Completion
+  markers bind both source hashes and the canonical final registry states.
+- The implementation is 2,399 lines across focused files, with no source or test
+  file over 400 lines. Twenty-one synthetic source, exact-span, registry, broker
+  confinement, resume, rejection, attempt-limit, and clean-room tests pass; Ruff is
+  clean.
+- LAW-005 loads independently as 31 stable sentences and preserves both original
+  and extracted-file hashes. The first live M3/M2.7 boundary could not call the CLI:
+  this host's Codex `workspace-write` sandbox fails before every shell command because
+  `bwrap` cannot create its loopback interface (`RTM_NEWADDR: Operation not
+  permitted`). No evidence was written, and the implementation did not weaken the
+  agreed filesystem confinement or return to MCP/hard command guards.
+- The next live gate is blocked on a functioning filesystem sandbox. Once available,
+  rerun the single LAW-005 window, manually compare all records with the four-fact
+  benchmark, and expand only after 100% citation integrity and the configured quality
+  gates pass.
+
+## 2026-07-28 — Hardened guarded-CLI LAW-005 small gate passed
+
+- Replaced the unreliable MCP tool-name route with a four-action citation CLI:
+  `inspect`, `record`, `revise`, and `finish`. A Codex `PreToolUse` guard denies
+  every other shell action and rejects shell chaining, redirection, substitution,
+  unsupported actions, and incorrect action arity.
+- The model supplies semantic intent and exact locator/segment identifiers. Code
+  reads the frozen source, derives its hash and verbatim excerpt, writes the ledger,
+  and returns the stored proposal for confirmation or revision. Model prose is not
+  an accepted extraction channel.
+- An initial passing run exposed a suffix-injection weakness in the shell guard
+  during independent code review. The run trace contained only legitimate commands,
+  but the implementation was hardened before acceptance: shell chaining,
+  redirection, and substitution are rejected; the writer and hook are bound into
+  resume hashes; and both input dialects require prior inspection.
+- Fresh calibration 44 processed LAW-005 through M3 extraction and fresh M3 review.
+  It mapped and routed both source units, extracted and confirmed four evidence
+  records, accepted all four, rejected none, and required no premium escalation.
+  The four records cover all four facts in the human benchmark. The mechanical gate
+  passed with 100% candidate precision against the configured 90% threshold. Total
+  provider-reported usage was 206,795 model tokens.
+- A manual comparison of all four claims with their code-bound excerpts found no
+  unsupported claim, date, quantity, attribution, or legal-status wording. The
+  completed run resumed without model calls in 1.7 seconds while revalidating its
+  input, implementation, hook, event, stderr, and ledger hashes. The result remains
+  an experimental, non-publication calibration; broader expansion is a separate
+  gate.
+- Immutable artifacts are under
+  `research/conversational-evidence/amlo-2022-5b-evidence-funnel-v2/calibration-44-cli-guard-hardened-small/`.
+
+## 2026-07-28 — Four-action citation-tool small gate failed; expansion blocked
+
+- Replaced the extraction final-response contract with a dedicated ledger boundary.
+  The accepted extraction output is now code-owned inspection, binding, correction,
+  and confirmation state; model prose and final-message JSON are ignored.
+- The direct CLI could not run under the Codex read-only sandbox because this host's
+  `bwrap` process cannot create its loopback namespace (`RTM_NEWADDR: Operation not
+  permitted`). Running without the sandbox was rejected because it would not enforce
+  the requested CLI-only boundary.
+- Added a local stdio MCP adapter exposing only `inspect`, `record`, `revise`, and
+  `finish`. After pre-approving those bounded tools, calibration 40 proved that M3
+  could inspect both LAW-005 locators through the server. The ledger stored both
+  immutable inspections, but M3 produced no valid record: the first MCP contract hid
+  the evidence schema inside one JSON string and M3 exhausted the turn learning it
+  through validation errors.
+- Simplified `record` to typed factual fields with code-owned source hashes and
+  defaults, and made `revise` span-only. Subsequent MiniMax M3 and M2.7 calls emitted
+  flattened provider tool names (`evidence_inspect` / `evidence_v2_inspect`) that the
+  Codex router rejected instead of the canonical MCP identifiers. No candidate was
+  confirmed in calibrations 36–42, and no prose fallback was accepted.
+- Calibration 40 used 237,922 input and 8,725 output tokens (214,912 input tokens
+  reported as cached). The earlier aggregate of 461,559 double-counted cached tokens;
+  the runner now reports input plus output unless the provider supplies a total.
+- The LAW-005 small gate therefore failed with zero confirmed evidence. The
+  three-source medium run and sixteen-source expansion remain blocked. The next gate
+  is a provider/Codex tool-name interoperability test; corpus execution must not
+  resume until M3 or M2.7 can complete inspect → record → finish on one locator.
+
+## 2026-07-27 — Three-source code-owned-citation calibration 30 failed
+
+- Added a separate, bounded calibration runner for `BOOK-013`, `MAC-010`, and
+  `LAW-005`. It executes deterministic frozen-unit mapping, M3-first/M2.7 routing,
+  semantic intent extraction, code-owned exact citation binding, and a fresh
+  M3-first/M2.7 semantic review. It is experimental and cannot publish a score.
+- M3 remained unavailable at its configured local endpoint. M2.7 read all three
+  sources but consistently ignored the requested JSON schemas. Deterministic
+  normalizers preserved explicit routing tables, semantic fields, segment selections,
+  and review verdicts; they never supplied quotation text. Unsupported elements
+  identified by the reviewer were rejected even when its prose label said “accept.”
+- The runner's initial mechanical report produced 41 exact, locator-bound candidates
+  and provisionally classified 32 accepted / 9 rejected, using 695,657
+  provider-reported model tokens. The 22.0% semantic rejection rate exceeded the
+  configured 10% ceiling. Provisionally accepted evidence did not cover `5B.2`,
+  `5B.6`, `5B.7`, or `5B.10`, so the calibration failed and stopped before
+  clustering, dossier construction, or judgment.
+- Independent code/result review invalidated that provisional 32-accepted count. At
+  least three “accepted” records contained a date, quantity, or attribution that the
+  review prose itself said was absent from the bound passage. The review also found
+  latest-attempt-wins disagreement handling, semantic invention in the Markdown
+  normalizer, and unbound normalized-stage resumption. Calibration 30 is therefore
+  an integration failure as well as an evidence-quality failure; its provisional
+  accepted set must not be used downstream.
+- The code-owned citation control passed its purpose: no model-authored excerpt
+  entered the ledger, and all 41 candidates resolved against frozen source hashes,
+  locators, segments, and character offsets. The remaining failures are semantic
+  extraction precision and coverage, M2.7 contract compliance, strict review
+  reconciliation, and normalized-stage binding.
+- Calibration artifacts are under
+  `research/conversational-evidence/amlo-2022-5b-evidence-funnel-v2/calibration-30/`.
+  Before the next run, remove semantic fabrication from format normalization, bind
+  normalized artifacts to source/config/prompt/raw-output hashes, reconcile all
+  reviewer attempts with disagreement escalation, and split dense extraction into
+  configured bounded batches. Only then should the trio be repeated and the four
+  missing lenses targeted.
+
+## 2026-07-27 — Evidence-funnel recovery: code-owned citations and runner retirement
+
+- Stopped calibration 27 and terminated its orphaned provider child. Calibration 25
+  and 26 remain failed diagnostics; calibration 27 is incomplete. No diagnostic
+  result has been promoted and no further live model run is authorized by this work.
+- Reviewed the complete experimental funnel surface. The review found cancellation
+  leakage, unsafe/stale legacy resume paths, a post-verification correction bypass,
+  wrong-account risk in question briefs, misleading default cluster relations and
+  official concentration, non-atomic aggregate writes, duplicate orchestration, and
+  files far beyond the repository's 400-line limit.
+- Retired the 1,883-line low-cost runner, the obsolete 418-line quote-authoring runner,
+  the stale diagnostic runner, and their two oversized test files. Historical research
+  artifacts remain unchanged. The 700-line compression-frontier runner and 420-line
+  reader-pack preparation script are frozen historical diagnostics: no active entry
+  point or test imports them, and they must be split below 400 lines before any
+  reactivation or substantive edit.
+- Added code-owned citation binding. Models now emit semantic `EvidenceIntent` records
+  with hash-bound locator/segment selections and no quotation text. Deterministic code
+  copies the exact contiguous source substring and offsets, writes immutable attempts,
+  returns the stored draft, and supports confirm/discard/correct for at most three
+  configured attempts. Confirmed records remain pending semantic verification.
+- Replaced the quote-authoring AMLO funnel configuration with
+  `configs/evidence-funnel/amlo-2022-5b-v2.json`; its phase order now records intent
+  extraction, citation binding, citation confirmation, and semantic verification as
+  separate lifecycle stages.
+- Added a thin citation-writer CLI and focused module-level tests, including a real
+  frozen-source CLI boundary and interruption cleanup for a descendant process group.
+  Split execution/resume/schema/process artifacts into focused modules; all active
+  evidence-funnel production, script, and test files are below 400 lines.
+- Fixed question briefs to use an evidence account applicable to the requested
+  methodology ID. Cluster construction now requires explicit typed relations and
+  calculates official concentration over deduplicated source/dependency units rather
+  than evidence-row volume.
+- The active prototype is not yet a live end-to-end funnel. Next implementation gate:
+  compose reviewed mapping, routing, intent extraction, citation confirmation,
+  semantic verification, aggregation, and typed manifest stages without restoring
+  model-authored quotations or the retired runners.
+
+## 2026-07-26 — AMLO 2022 Chapter 5B exploratory funnel diagnostic failed
+
+- Completed the three-source calibration after three bounded rounds. The final
+  calibration retained eleven manually audited claims across `BOOK-013`, `MAC-010`,
+  and `LAW-005`; four non-contiguous or altered excerpts were rejected. The remaining
+  5B.2 personnel gap stayed explicit.
+- Completed extraction and fresh verification for all sixteen frozen documents. The
+  resulting compact package contained 34 accepted candidates and covered all ten
+  lenses, with seven unresolved gaps.
+- This was not a valid full funnel gate: the experimental runner bypassed document
+  mapping and high-recall routing, and M3 service unavailability caused GPT-5.6 Sol
+  to process the complete extraction and verification inputs.
+- Ran matched GPT-5.6 Sol judgments. The closed-book funnel package scored 5.0 and the
+  complete-extract reference arm scored 5.5 under the experimental v4 guide.
+- After removing rejected candidates from the closed-book input and supplying the
+  auditor with the evidence-ID-to-passage map, the independent passage audit still
+  failed the diagnostic despite the small score difference. It found material
+  omissions in labor-income, institutional-resilience, energy-policy, Segalmex, fuel
+  support, and Sembrando Vida evidence, plus attribution compression in both arms.
+- The full-source 5.5 result matches the modal earlier AMLO 2022 v3 judgment. Earlier
+  compression-frontier papers retained several of the dense-source facts lost by the
+  atomic funnel, so compression and record counts remain diagnostic rather than
+  acceptance criteria.
+- Stopped at the requested four-step boundary. No further gap round, expanded
+  catalogue, production promotion, or additional chapter work has started.
+
+## 2026-07-26 — Question-driven Chapter 5B evidence funnel infrastructure added
+
+- Added validated, versioned contracts for document maps, routing decisions, atomic
+  evidence candidates, factual clusters, question evidence briefs, run manifests,
+  telemetry, experimental judge packets, and matched diagnostic judgments.
+- Added immutable hash-bound artifact persistence and resumption checks. Completed
+  phases are reusable only while their input, configuration, and output hashes match.
+- Added deterministic stable evidence/cluster IDs, short-record forwarding, adjacent
+  context selection, format-only JSON normalization, source-dependency and
+  official-concentration clustering, ten-question brief generation, and conversion to
+  the existing `RulerEvidenceDossier` v2 many-to-many contract.
+- Added the first authoritative funnel configuration for AMLO 2022 Chapter 5B. It
+  freezes the `BOOK-013` / `MAC-010` / `LAW-005` calibration trio, the sixteen-document
+  gate, M3-first stage roles, fallback profiles, verification escalation, and the
+  three-round gap limit. Expanded-catalogue execution remains disabled.
+- The previous document-summary/compression runs remain diagnostic history and are not
+  inputs to this funnel. The new diagnostic score contract is explicitly
+  non-publication.
+- Focused tests exercise the real frozen extracts and access audit plus schema,
+  many-to-many, short-record, adjacency, normalization, clustering, resumption,
+  dossier-conversion, and matched-judgment behavior.
+- Next gate: connect model adapters to the provider-neutral stage contracts and run a
+  human audit of the three-document calibration ledger before enabling the complete
+  sixteen-document execution.
+
 ## 2026-07-25 — Biography compression acceptance criterion corrected
 
 - Rejected the 632-token `BOOK-013` synthesis as an orientation note, not a
@@ -4934,3 +5435,78 @@ Per [`docs/sources/vetting/report.md`](sources/vetting/report.md) §8, the build
 - Next: correct or exclude the twelve flagged claims, restore decisive omissions,
   and perform a separate external/general-knowledge contradiction and gap check
   before any downstream chapter judgment.
+- **AMLO 2023 722-URL corpus evidence run (2026-07-31).** Removed the former
+  40-candidate/chapter and 12-inspected-document stopping semantics. All 722
+  discovered URLs received an acquisition disposition: 457 acquired, 120 access
+  blocked, 28 robots disallowed, 29 not found, 81 transient failures, and 7 over the
+  configured 30 MB safety limit. After six exact-content duplicates and two empty
+  extractions, 449 documents (5,946,680 estimated source tokens) entered 62
+  whole-context Luna reading calls. Code-bound extraction produced 679 verified or
+  corrected evidence records from 313 sources with zero excerpt-hash failures.
+  A first mapping arm was discarded after an identity shift. The replacement
+  digest-bound review reduced question links from 7,456 to 4,186; seven noncompliant
+  batches required isolated one-record retries. Corpus-wide conservative review
+  identified four high-confidence duplicate groups (24 records); the assembled
+  experimental package contains 657 clusters and covers 79/80 lenses. It is held
+  from judging because 61 records are now context-only/unmapped, one lens is empty,
+  mapping remains broad, verifier rejection behavior needs calibration, and transient
+  acquisition failures require a controlled retry round. Artifacts are under
+  `research/runs/amlo-2023-corpus-pipeline-v1/`.
+- **Self-correcting chapter reading-list experiment (2026-07-31).** Added a simple
+  three-turn Luna consumer over the AMLO 2023 verified ledger: draft a small
+  chapter reading list, independently attack it against the complete compact
+  candidate index, then revise after reopening exact code-bound passages for every
+  draft selection and actionable challenge. Code rejects unknown evidence IDs,
+  duplicate selections, cross-chapter lenses, and wrong chapter identities; final
+  artifacts preserve the full critique and omitted-candidate index. Trials on 1B,
+  4B, and 8B reduced 52, 229, and 374 candidates to 15, 18, and 24 records. The
+  critic materially repaired initially underinclusive drafts of 5, 5, and 8 records.
+  A fresh 8B repeat selected 33 records and shared 15 with the first final list
+  (Jaccard 0.357), establishing a stable core but unacceptable peripheral selection
+  variance. The repeat also exposed and repaired a transport failure: exact passages
+  are reopened for draft items and only challenges marked add, correct, or reconsider,
+  avoiding redundant payload from retain/remove objections. No reading-list output
+  is promoted to a judge input until disagreement handling is tested explicitly.
+- **AMLO 2023 question-complete chapter-analysis experiment (2026-07-31).** Ran
+  all eight chapters through Luna using the complete compact chapter candidate
+  index: ten evidence answers, a fresh full-index critique, and one exact-passage
+  correction per question. Final analyses cite 48/52, 22/25, 84/273, 92/229,
+  91/247, 99/210, 52/145, and 91/374 chapter candidates respectively; omitted IDs
+  remain explicit. Bounded feedback corrected invalid evidence IDs in several
+  drafts; 5B exhausted three attempts, after which code removed only the invalid
+  references and required final answers to cite reopened exact passages. A separate
+  GPT-5.6 Sol audit reviewed all eighty answers against each complete compact index
+  and exact cited passages. Result: 1B passed with corrections and was considered
+  safe for judge use; 2B-6B and 8B passed with corrections but were not safe without
+  repair; 7B failed. The principal weakness was incomplete use of the candidate
+  universe, followed by question-scope leakage, evidence-list/prose mismatch, and
+  over-credit to formal architecture or institutional resistance. The approach is
+  promising as a readable analyst layer but is not promoted as a judge input.
+- **AMLO 2023 one-pass Luna full-corpus test (2026-08-01).** Read all 679 verified
+  evidence records once across all eighty lenses in 24 deterministic shards, producing
+  683 compact routing findings. All eight strict-JSON chapter briefs answer all ten
+  questions. Routed chapter coverage ranges from 32 to 505 evidence records and 22 to
+  229 unique source IDs; final briefs cite 28 to 63 registry-backed records. Deterministic
+  validation removed one invented ID and three real but chapter-unsupplied IDs without
+  guessing replacements. The successful design replaced eight calls per shard with one
+  all-chapter routing call, then resolved selected IDs back to compact exact registry
+  records for synthesis. The persistent API ledger, including cache proof and failed
+  diagnostics, totals $4.9410303. The final run artifacts report 2,590,713 input tokens,
+  2,590,611 cache-write tokens, 46,406 output tokens, and 34 persisted request artifacts;
+  the run remains an experimental no-score organizer pending independent content audit.
+  The provider-side observed charge was approximately $6; the $4.9410303 figure is the
+  pipeline's token-derived estimate and must not be presented as the billed amount.
+  Artifacts: `research/runs/amlo-2023-corpus-pipeline-v1/luna-full-corpus-all-chapters-v3/`.
+- **Xi Jinping 2023 full evidence-to-answers run (2026-08-01).** Resolved Xi's
+  2023 ruler-year record, ran one overview and eight chapter discovery passes, and
+  retained a 469-URL candidate catalogue. Segmented GPT-5.4-mini research plus bounded
+  Luna review first produced a validated dossier, but the content audit rejected its
+  eight-record Chapter 5B slice as too thin. A targeted 5B discovery, research, review,
+  formatting, and resynthesis repair yielded a combined 108-record, 396-mapping dossier.
+  A deterministic adapter preserved dossier claims, locators, excerpts, and mappings in
+  the code-bound analysis contract. Final one-pass Luna chapter analyses produced draft,
+  critique, and corrected answers for all 80 questions without scoring. Total
+  completed-call usage, including retries and the superseded 5B analysis, was 18,958,607
+  input tokens (11,761,536 cached) and 1,225,688 output tokens. Artifacts,
+  per-call profiling, failure accounting, and readable chapter packages are under
+  `research/runs/xi-jinping-2023-full-pipeline-v1/`.

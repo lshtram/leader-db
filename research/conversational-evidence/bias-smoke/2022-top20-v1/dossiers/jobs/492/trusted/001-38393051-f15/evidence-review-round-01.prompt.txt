@@ -1,0 +1,419 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:IDN:16199",
+  "iso3": "IDN",
+  "country_name": "Indonesia",
+  "ruler_name": "Joko Widodo",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 3,
+  "approximate_source_family_count": 3,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 3 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 3 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed; no scores or score ranges assigned. The workspace is read-only, so I could not persist the requested files. The handoff below is the authoritative notebook substitute.
+
+## Reconnaissance and authority baseline
+
+Joko Widodo was Indonesia’s president in 2022, serving his second and constitutionally final term. The presidency had practical authority over national policy, cabinet appointments, foreign affairs, and security institutions. The June 2022 reshuffle was formally made under Presidential Decree 64/P of 2022. [Cabinet reshuffle record](https://setkab.go.id/en/president-jokowi-reshuffles-indonesia-onward-cabinet/)
+
+The evidence environment was comparatively open but uneven:
+
+- National media and civil-society organizations operated openly, but journalists, activists, and researchers faced defamation, surveillance, digital harassment, and pressure.
+- Papua was a major information blind spot: RSF described it as an “information black hole” where journalists could not work. [RSF Indonesia 2022](https://rsf.org/en/analyse_regionale/670)
+- Freedom House documented online surveillance, government-aligned “buzzer” networks, and possible automated amplification during 2022 student protests. [Freedom on the Net 2022](https://freedomhouse.org/country/indonesia/freedom-net/2022)
+- Official statistics and World Bank macroeconomic analysis were usable for country outcomes, but not sufficient for ruler attribution.
+- Source-family concentration is strongest around international NGOs, World Bank reports, and official government statements; independent Indonesian reporting and local-language monitoring remain important gaps.
+- The main shocks were COVID-19 recovery, food and energy price pressures from the Ukraine war, and continuing armed conflict in Papua.
+
+Stable reconnaissance IDs: `RC001`–`RC015`.
+
+## Global evidence ledger
+
+| ID | Source and claim | Profile / role | Period and attribution | Lens mapping |
+|---|---|---|---|---|
+| RC001 | SIPRI recorded nine nuclear-armed states at the start of 2022; Indonesia was not among them. | SIPRI; high; technical research; final evidence for exposure context | 2022; country exposure, not ruler conduct | 1B.1–1B.10 context |
+| RC002 | IAEA country records show Indonesia’s safeguards and Additional Protocol framework. | IAEA; high; intergovernmental/legal record; final evidence | Longstanding framework, relevant to 2022 posture | 1B.3, 1B.4, 1B.6, 1B.7, 1B.9 |
+| RC003 | In March 2022, Widodo affirmed UN Charter principles and territorial integrity in discussion with Japan’s prime minister. | Japanese government; medium-high for formal diplomatic record; final evidence for statement | 8 Mar 2022; direct presidential statement | 1B.2, 2B.1, 2B.6, 2B.7 |
+| RC004 | An expert assessment characterized Indonesia’s Ukraine policy as economically oriented and strategically ambiguous, while noting support for the UN resolution condemning Russia’s invasion. | East Asia Forum; medium; analytical scholarship/commentary; context and contrary evidence | 2022; direct policy attribution | 1B.2, 2B.1, 2B.3, 2B.6, 8B.1 |
+| RC005 | As G20 chair, Widodo planned visits to Kyiv and Moscow to advocate peace and address food-security effects of the war. | Reuters via Euronews; medium-high; reputable media; final evidence | June 2022; direct presidential diplomacy | 2B.1, 2B.7, 2B.10, 8B.9 |
+| RC006 | Widodo urged implementation of ASEAN’s Five-Point Consensus on Myanmar, cessation of violence, humanitarian access, and needs assessment. | Indonesian Cabinet Secretariat; medium-low for self-presented policy, medium-high for formal statement; final evidence for act, context for efficacy | 11 Nov 2022; direct presidential/ASEAN conduct | 2B.1, 2B.5, 2B.7, 2B.10, 8B.6 |
+| RC007 | Human Rights Monitor reported worsening Papua conflict in 2022, attacks by both TPNPB and security forces, 43 civilian deaths, and no meaningful rapprochement or implemented ceasefire. | Human Rights Monitor; medium; NGO monitoring; final evidence with attribution caveats | 2022; central government responsibility is partial/contested | 2B.4, 2B.5, 2B.7, 2B.9, 2B.10, 3B.1, 3B.2, 3B.9, 3B.10 |
+| RC008 | The U.S. State Department documented credible reports of unlawful killings, torture, arbitrary detention, abuses in Papua, restrictions on expression and assembly, and weak accountability. | State Department report; medium-high; official human-rights reporting; final evidence with official-source limitations | 2022; national government/security nexus, not necessarily personal orders | 3B.1–3B.10, 4B.3, 4B.6, 4B.9 |
+| RC009 | Amnesty reported shrinking civil-society space, threats and attacks against activists, restrictions on expression, assembly, association, personal security, and arbitrary detention. | Amnesty; medium-high; NGO; final evidence | Published Oct 2022; target-period fit | 3B.4, 3B.5, 3B.8, 3B.9, 4B.3, 4B.6, 4B.9 |
+| RC010 | Human Rights Watch reported weakening of the Corruption Eradication Commission and firing of 57 staff, including investigators. | HRW; medium-high; NGO; final evidence | 2021–2022 context; direct government institutional responsibility | 3B.4, 4B.4, 7B.6, 7B.7, 8B.4 |
+| RC011 | Freedom House rated Indonesia “Partly Free,” with 30/40 political-rights and 29/60 civil-liberties points; it documented journalist attacks, ministerial pressure on universities, online surveillance, and defamation complaints by senior officials. | Freedom House; medium-high; comparative NGO; final evidence/context | 2022 report, with some 2021 incidents; attribution varies | 3B.4, 3B.8, 4B.3–4B.9, 7B.6, 7B.7 |
+| RC012 | RSF reported that Widodo failed to keep press-freedom promises; military restrictions and the ITE law constrained journalism, while independent media institutions still operated. | RSF; medium-high; press-freedom NGO; final evidence | 2022; direct policy attribution plus institutional context | 4B.3, 4B.6, 4B.9, 7B.7 |
+| RC013 | Parliament passed the new Criminal Code on 6 Dec 2022. HRW identified provisions affecting privacy, women, minorities, LGBT people, expression, and association; it also recorded Widodo’s 2019 decision to delay an earlier version after mass protests. | HRW; medium-high; NGO/legal analysis; final evidence | 2019 and 2022; direct presidential and government legislative involvement | 3B.5, 3B.7, 3B.8, 4B.2, 4B.3, 4B.6, 4B.7, 4B.10 |
+| RC014 | World Bank projected 5.2% growth in 2022, supported by reopening and commodity prices, while warning of inflation, subsidy pressures, tax limitations, and incomplete social-protection coverage. | World Bank; high; intergovernmental economic analysis; final evidence for outcomes/context | Dec 2022; ruler attribution partial because external conditions were decisive | 5B.1, 5B.3, 5B.4, 5B.9, 5B.10, 6B.1, 6B.6, 6B.10 |
+| RC015 | World Bank identified persistent infrastructure-governance weaknesses, low tax-to-GDP capacity, inefficient public investment, fragmented contracts, and reliance on state-owned enterprises with soft budget constraints. | World Bank; high; technical evaluation; final evidence | 2022 report using earlier evidence; policy implementation context | 5B.3–5B.7, 5B.10, 8B.2–8B.7 |
+| RC016 | World Bank approved a $350m 2022 human-capital loan supporting income protection, healthcare access, nutrition, stunting reduction, TB delivery, telemedicine, and government-spending effectiveness. | World Bank; high; project record; final evidence for policy action, not independent outcome proof | 29 Jun / 5 Jul 2022; government policy alignment | 5B.6, 6B.1–6B.6, 6B.9, 8B.2, 8B.6 |
+| RC017 | World Bank reported progress since 2010 in stunting reduction, social protection, universal-health coverage, and enrollment, but continuing weaknesses in education, social insurance, and stunting. | World Bank; high; technical analysis; final evidence for outcomes/context | 2022; attribution shared with prior governments, donors, and subnational actors | 5B.6, 5B.8, 5B.10, 6B.2–6B.10 |
+| RC018 | World Bank documented COVID-related learning losses of approximately 0.9–1.2 years and reduced reading performance, with school closures continuing into early 2022. | World Bank; high; technical study; final evidence | 2020–2022; crisis outcome, attribution requiring response evidence | 6B.2, 6B.5, 6B.6, 6B.10 |
+| RC019 | Widodo chaired a June 2022 cabinet reshuffle under Presidential Decree 64/P of 2022, establishing direct appointment and replacement authority. | Indonesian Cabinet Secretariat; medium-high for formal record; final evidence | June 2022; direct ruler authority | 5B.2, 6B.4, 8B.2–8B.5 |
+| RC020 | Indonesia’s official position on Myanmar emphasized violence cessation, humanitarian access, ASEAN implementation, and engagement with stakeholders. | Indonesian Cabinet Secretariat; medium-low for efficacy, final evidence for stated action | 2022; direct policy attribution | 2B.1, 2B.7, 8B.1–8B.3, 8B.6, 8B.9 |
+
+## Chapter yields and local baseline
+
+### 1B
+
+Local prior: no relevant nuclear/existential-risk facts were supplied (`no_evidence_found` for all ten lenses). This is an explicit local gap, not evidence of safety.
+
+Retained context:
+
+- `LF001`–`LF004`, `LF037`–`LF044`, `LF069`–`LF076`: UCDP conflict observations; country exposure only.
+- `LF077`–`LF152`: SIPRI military-spending series; 2022 spending was approximately $10.05bn, 0.768% of GDP, and 4.45% of government spending. These establish military burden, not nuclear conduct.
+- `LS049`–`LS052`: audited military-spending trajectories; contextual only.
+
+Internet yield: `RC001`–`RC005`. Indonesia’s non-nuclear status and safeguards framework are documented, but ruler-specific command safety, dual-use governance, nuclear rhetoric, and consequential risk reduction remain largely unresolved.
+
+### 2B
+
+Local prior is substantial but country-level:
+
+- `LF073`–`LF076`: 20 state-based conflict events and 46 fatalities in 2022; no internationalized conflict events or fatalities.
+- `LF149`–`LF152`: 2022 military spending and burden.
+- `LS042`–`LS043`, `LS054`–`LS055`, `LS069`–`LS070`: longitudinal conflict and one-sided-violence signals, explicitly warning that attribution is not automatic.
+
+Internet yield: `RC003`–`RC007`, `RC020`.
+
+Main narrative evidence concerns Ukraine/G20 diplomacy, Myanmar peace efforts, and Papua. The Papua evidence is mixed: both state forces and TPNPB are implicated, while peace-dialogue attribution remains contested.
+
+### 3B
+
+Local prior:
+
+- `LF322`–`LF331`: 2022 CIRIGHTS, V-Dem, and PTS observations.
+- `LF440`–`LF445`: civil-political rights, repression, civil-society repression, and one-sided violence.
+- `LS003`–`LS011`, `LS024`, `LS054`–`LS061`, `LS062`–`LS064`: longitudinal signals showing mixed but materially concerning rights and violence trends.
+
+Internet yield: `RC007`–`RC013`.
+
+The strongest target-period material concerns Papua, security-force abuses, protest and civil-society restrictions, digital surveillance, journalist safety, and the December Criminal Code. Local and national attribution must remain distinct; Papua cannot be treated as automatic personal direction by Widodo.
+
+### 4B
+
+Local prior:
+
+- `LF616`–`LF623`: 2022 Freedom House/V-Dem/EIU regime and civil-liberty indicators.
+- `LF884`–`LF898`: accountability, expression, association, judicial and legislative constraints, liberal democracy, press freedom, voice, and rule-of-law measures.
+- `LS010`, `LS015`–`LS021`, `LS026`–`LS027`, `LS044`–`LS046`, `LS053`, `LS057`, `LS059`–`LS061`, `LS068`, `LS073`, `LS076`: audited trajectory signals.
+
+Internet yield: `RC011`–`RC013`.
+
+Key positive/contextual evidence is continued competitive political space and independent media. Key negative evidence concerns government-aligned online manipulation, pressure on universities and journalists, defamation complaints, restrictions in Papua, and the Criminal Code. The 2022 postponement/term-extension controversy was located through Freedom on the Net and Reuters imagery, but a strong primary source for Widodo’s own position should be added before relying on it heavily.
+
+### 5B
+
+Local prior:
+
+- `LF1019`–`LF1025`, `LF1246`–`LF1251`: 2022 current-price consumption/GDP, real GDP, PPP income, GNI, Gini, capital formation, and government consumption.
+- `LF1020`: nominal GDP per capita approximately $4,731.
+- `LF1025`: Gini index 35.5.
+- `LS029`, `LS031`–`LS038`, `LS034`, `LS041`: income, GDP, consumption, investment, and government-effectiveness trajectories.
+- Current-dollar series carry explicit warnings against interpreting nominal changes as real growth.
+
+Internet yield: `RC014`–`RC019`.
+
+The evidence supports a recovery aided by reopening and commodity prices, alongside persistent infrastructure-governance, tax-capacity, subnational-capacity, distribution, and social-protection gaps. Ruler-specific appointment and implementation evidence is still thinner than outcome evidence.
+
+### 6B
+
+Local prior:
+
+- `LF1325`–`LF1333`: 2022 HDI 0.713, life expectancy 68.25, expected schooling 13.98 years, mean schooling 8.56 years, under-five mortality 22.49/1,000, immunization around 91–93%, and secondary enrollment approximately 97.8%.
+- `LS039`, `LS047`–`LS048`, `LS072`, `LS075`: HDI, life expectancy, schooling, mortality, and enrollment signals.
+- `LF1023`, `LF1025`: GNI per capita and inequality context.
+
+Internet yield: `RC016`–`RC018`.
+
+Evidence shows broad human-capital and social-protection policy activity, but also significant learning loss, uneven quality, regional inequality, and incomplete coverage. Donor and subnational attribution remain material.
+
+### 7B
+
+Local prior is explicitly weak for personal integrity:
+
+- `LF1406`–`LF1409`: WGI/V-Dem country corruption context.
+- `LS012`–`LS013`, `LS022`, `LS065`: country corruption trajectories.
+- These cannot establish Widodo’s personal honesty, benefit, conflicts, favoritism, or obstruction.
+
+Internet yield: `RC010`–`RC013`, `RC019`.
+
+The strongest admissible personal/network nexus concerns the weakening of KPK, government-linked complaints against corruption monitors, and pressure affecting independent scrutiny. Evidence of personal enrichment, family benefit, deliberate deception, or direct obstruction by Widodo remains unresolved and should not be inferred from country-level corruption indicators.
+
+### 8B
+
+Local prior:
+
+- `LF1410`–`LF1447`: government effectiveness and regulatory-quality series.
+- `LF638`, `LF748`, `LF776`, `LF868`: BTI governance indices.
+- `LS036`, `LS067`, `LS076`: effectiveness, regulatory-quality, and rule-of-law trajectories.
+- These establish implementation context but not program ownership or success.
+
+Internet yield: `RC005`, `RC006`, `RC014`–`RC020`.
+
+The clearest attributable programs are infrastructure/public-investment expansion, human-capital/social-protection reforms, G20 diplomacy, and ASEAN Myanmar engagement. Evidence supports real implementation, but also shows coordination and governance weaknesses, external-shock dependence, and mixed diplomatic effectiveness. Moral consequences are deliberately separated from execution evidence.
+
+## Source diversity and reuse
+
+- Independent source families: World Bank, SIPRI, IAEA, Japanese government, Indonesian Cabinet Secretariat, U.S. State Department, Amnesty International, Human Rights Watch, Freedom House, RSF, Human Rights Monitor, Reuters/Euronews, East Asia Forum.
+- Source types: intergovernmental technical reports, official records, NGO monitoring, press-freedom assessments, reputable media, and analytical scholarship.
+- Same-URL splits: World Bank 2022 Economic Prospects supports multiple distinct locators and claims; it should remain split by page/box rather than duplicated by chapter.
+- Cross-chapter reuse: `RC007`, `RC008`, `RC009`, `RC011`, `RC013`, `RC014`, `RC016`, and `RC019` are legitimately reusable across multiple chapters.
+- No client-matrix material was used.
+
+## Rejected or downgraded candidates
+
+- Wikipedia pages: orientation only; not retained as final evidence.
+- Search-result pages and homepage-level results: discovery only.
+- Official statements about restraint, legitimacy, or policy success: retained only for the fact of the statement/action, not as independent proof of efficacy.
+- Post-period reporting, including later corruption arrests or later policy outcomes: excluded from target-year evidentiary claims unless directly retrospective.
+- Country-level local priors: retained as structured context, not personalized evidence.
+- Papua incident counts: retained with state/non-state attribution caveats; not treated as automatic presidential responsibility.
+- East Asia Forum analysis: retained as contrary/contextual analytical evidence, not as a definitive finding.
+
+## Main unresolved gaps
+
+- 1B: no direct ruler-attributed existential-risk decision, dual-use governance evidence, or nuclear command/safety episode.
+- 2B: limited evidence on civilian-protection orders, military rules of engagement, arms recipients, and accountability for Papua conduct.
+- 3B: incomplete evidence on direct presidential rhetoric/incitement, remedy effectiveness, prison conditions, and vulnerable-group protection.
+- 4B: primary evidence on the 2022 election-delay controversy, executive influence over election institutions, and implementation of the Criminal Code is incomplete.
+- 5B: limited ruler-specific evidence linking appointments and infrastructure decisions to independently measured implementation and distributional outcomes.
+- 6B: limited target-year evidence on affordability, quality, regional distribution, and political conditionality of services.
+- 7B: personal integrity nexus remains the thinnest chapter; no verified direct evidence of personal enrichment or deliberate deception was established.
+- 8B: program portfolio and implementation evidence is adequate for continued research, but adaptation, correction, and durable multi-program results need more direct documentation.
+---

@@ -25,7 +25,9 @@ class ResearchWorkflow(BaseModel):
     researcher_receives_compact_briefing: Literal[True] = True
     complete_local_package_stays_parent_owned: Literal[True] = True
     researcher_direct_iterative_search: Literal[True] = True
+    source_discovery_stage_enabled: bool = False
     chapter_research_turns_enabled: Literal[True] = True
+    overview_candidate_document_target: int = Field(default=50, ge=20, le=100)
     chapter_candidate_document_target: int = Field(default=30, ge=10, le=60)
     chapter_opened_document_target: int = Field(default=12, ge=5, le=30)
     research_stop_condition: Literal["reasonable_saturation_or_blocker"] = (

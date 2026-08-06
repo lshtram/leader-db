@@ -1,0 +1,301 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:ETH:16782",
+  "iso3": "ETH",
+  "country_name": "Ethiopia",
+  "ruler_name": "Abiy Ahmed",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 14,
+  "approximate_source_family_count": 12,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 14 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 12 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_contrary_audit",
+      "message": "Contrary evidence is not explicit."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed for Abiy Ahmed, Ethiopia, 2022. No score or score range was assigned.
+
+The requested files could not be written because the workspace is read-only; the complete handoff is below.
+
+## Authority and evidence environment
+
+- **E001 — Formal authority:** Ethiopia’s prime minister holds the highest federal executive power, chairs the Council of Ministers, commands the armed forces, and nominates senior Supreme Court officials. This supports federal attribution, while preserving limits from Ethiopia’s federal structure. [Office of the Prime Minister](https://pmo.gov.et/government/).
+- **E002 — Information environment:** Media space was more open than under the prior government, but RSF reports polarization, government narrative control, and regulatory pressure on dissenting journalism. [RSF Ethiopia 2022](https://rsf.org/en/analyse_regionale/817).
+- **E003 — Conflict visibility:** Amnesty and HRW documented communications blackouts and restricted physical access, making silence weak evidence and increasing underreporting risk. [Amnesty](https://www.amnesty.org/en/documents/afr25/5777/2022/en/), [HRW](https://www.hrw.org/news/2022/04/06/ethiopia-crimes-against-humanity-western-tigray-zone).
+
+## Evidence register
+
+- **E004 — Western Tigray abuses:** HRW/Amnesty documented killings, sexual violence, arbitrary detention, pillage, forcible transfer, denial of aid, and the expulsion of several hundred thousand Tigrayans. Federal acquiescence or participation was possible but not established as a personal order. [HRW report](https://www.hrw.org/news/2022/04/06/ethiopia-crimes-against-humanity-western-tigray-zone).
+- **E005 — Broader conflict and accountability:** HRW reports abuses by all parties, emergency powers, Tigray’s continuing internet shutdown, minimal accountability, and pressure against independent investigations. [HRW World Report 2022](https://www.hrw.org/world-report/2022/country-chapters/ethiopia).
+- **E006 — Political/media constraints:** Freedom House and RSF document opposition intimidation, restricted reporting, emergency powers, shutdowns, and a mixed record of earlier liberalization. [Freedom House](https://freedomhouse.org/country/ethiopia/freedom-world/2022), [Freedom on the Net](https://freedomhouse.org/country/ethiopia/freedom-net/2022).
+- **E007 — 2022 peace process:** The Pretoria agreement was identified in discovery, but the retrieved copy was only a gateway and was not accepted as final evidence pending canonical source validation.
+- **E008 — Peace implementation and reforms:** The World Bank recorded Abiy’s December 2022 discussion of implementing the peace agreement, health and flood grants, early-childhood education, human capital, exchange-rate reform, SOEs, and private-sector growth. [World Bank](https://www.worldbank.org/en/news/statement/2022/12/14/readout-from-world-bank-group-president-david-malpasss-meeting-with-prime-minister-abiy-ahmed-of-ethiopia).
+- **E009 — Macro reform and shocks:** IMF staff recorded inflation, fiscal and external pressures from multiple shocks, alongside government commitments to private-sector growth, SOE oversight, FX reform, and debt sustainability. [IMF](https://www.imf.org/en/news/articles/2022/06/21/pr22216-ethiopia-imf-staff-visit-discusses-reform-plans-and-economic-developments-in-ethiopia).
+- **E010 — Education systems:** A 2022 World Bank education expenditure and institutional review was located, but substantive findings were not retrievable from the page; retained as context only. [World Bank PEIR](https://documents.worldbank.org/en/publication/documents-reports/documentdetail/099615206172211408).
+- **E011 — Drought and health response:** UN reporting describes five failed rainy seasons, severe food insecurity affecting roughly 24 million people in southern and southeastern Ethiopia, and WHO-supported mobile health and nutrition services. [United Nations in Ethiopia](https://ethiopia.un.org/en/221722-delivering-health-services-ethiopia%E2%80%99s-drought-affected-populations).
+- **E012 — Humanitarian environment:** UNICEF records northern conflict, inter-ethnic conflict, and the worst drought in forty years affecting Afar, Oromia, and Somali. [UNICEF 2022 report](https://www.unicef.org/ethiopia/reports/annual-report-2022).
+- **E013 — Agricultural interventions:** A 2022 FAO paper associates agricultural interventions with higher yields and improved food security, with heterogeneous effects benefiting vulnerable households. It does not establish Abiy’s personal responsibility. [FAO](https://www.fao.org/agrifood-economics/publications/detail/en/c/1622675/).
+- **E014 — Wheat procurement:** A UNOPS wheat-procurement page was discovered but could not be fetched; excluded from defensible evidence.
+- **E015 — Anti-corruption agenda:** Transparency International records Abiy’s governance-reform promise and post-November 2022 anti-corruption focus, but no personal integrity finding. [Transparency International](https://knowledgehub.transparency.org/country/ethiopia).
+- **E016 — Direct reform agenda:** The World Bank meeting provides direct evidence of Abiy’s policy agenda, but not independent implementation or outcome proof.
+
+## Local structured baseline
+
+- **1B:** No local nuclear/existential-risk facts. No inference of safety, non-exposure, or inapplicability.
+- **2B:** Local UCDP facts show 697 state-based conflict events and 101,076 fatalities in 2022; SIPRI shows roughly $1.01bn military spending. These measure exposure and burden, not personal initiation or legality.
+- **3B:** Local target-year indicators show severe physical-integrity and repression concerns, including 1,821 one-sided-violence deaths and 378 government-actor killings. Warnings prohibit automatic personal attribution.
+- **4B:** Local indicators show weak political-freedom context: Freedom House civil liberties 6, political rights 5; V-Dem electoral democracy 0.30, expression 0.354, rule of law 0.341; RSF score 50.53.
+- **5B:** Local GDP, income, consumption, capital formation, and productivity facts show economic growth context but contain attribution and nominal-price caveats.
+- **6B:** Local HDI was 0.492; life expectancy 65.645 years; expected schooling 9.94 years; DTP3/HepB3 coverage 63%; under-five mortality 49.52 per 1,000. These are outcomes, not proof of policy contribution.
+- **7B:** Local corruption indicators are country-level only. No personal nexus was established for truthfulness, assets, favoritism, appointments, concealment, or obstruction.
+- **8B:** Local government-effectiveness and outcome indicators provide context, not evidence of Abiy’s program execution or adaptation.
+
+## Chapter yield and gaps
+
+- **1B:** No defensible ruler-specific evidence retained. Need nuclear, cyber, biological, dual-use, and catastrophic-risk research.
+- **2B:** Strongest evidence concerns conflict harm, federal/regional attribution limits, and the 2022 peace process. Need validated Pretoria text, implementation evidence, civilian-protection records, and accountability outcomes.
+- **3B:** Strong evidence of severe conflict-related physical harm and restricted scrutiny. Need target-year investigations, remedies, prosecutions, and non-Tigray vulnerable-group evidence.
+- **4B:** Reusable evidence covers media opening, narrative control, emergency powers, opposition constraints, and shutdowns. Need direct 2022 legal, electoral, judicial, and opposition records.
+- **5B:** Reform agenda and macroeconomic pressures are documented. Need budgets, implementation, appointments, distributional outcomes, inflation management, and correction evidence.
+- **6B:** Drought, conflict, food insecurity, health response, and human-capital agendas are documented. Need service quality, equity, affordability, donor attribution, and institutional durability.
+- **7B:** No defensible personal-integrity evidence. Country corruption indicators remain context only. Need financial, legal, appointment, disclosure, and scrutiny records.
+- **8B:** Reform, peace, human-capital, and agricultural programs are identifiable, but the implementation-to-outcome chain remains incomplete.
+
+The research used English-language sources only. Local-language archives and reporting in Amharic, Oromo, Tigrinya, and Arabic remain gaps.
+---

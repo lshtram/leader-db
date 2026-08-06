@@ -1,0 +1,308 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:IND:19645",
+  "iso3": "IND",
+  "country_name": "India",
+  "ruler_name": "Narendra Modi",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 2,
+  "approximate_source_family_count": 2,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 2 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 2 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed for Narendra Modi, India, 2022. No scores or score ranges assigned.
+
+The supplied output paths were read-only, so I could not persist `research-materials.md` or `research-ledger-manifest.json`. The complete handoff follows.
+
+## Reconnaissance and authority baseline
+
+- **E001 — Authority baseline.** Narendra Modi was India’s prime minister throughout 2022, with national responsibility for cabinet policy and appointments. The official PM profile records his 2014–2019 and 2019–2024 terms and BJP parliamentary majorities. Source: official PM India profile, “Know the PM,” lines 69–74. Confidence: medium-high for formal office; medium-low for self-described performance claims. Supports all chapters as authority context.
+- **E002 — Nuclear command authority.** India’s Nuclear Command Authority is chaired by the prime minister. This establishes formal nuclear decision authority, but not personal direction of any particular 2022 nuclear action. Source: Indian government PIB release. Confidence: high for formal institutional fact. Supports 1B.1–1B.8 as authority context.
+- **E003 — Evidence environment.** India had active private media, courts, NGOs, journalists, and parliamentary scrutiny, but the environment was uneven. Freedom House described private media as vigorous and diverse while reporting escalating pressure through security, defamation, sedition, hate-speech, and contempt laws. Amnesty described severe information restrictions in Jammu and Kashmir. Sources: [Freedom House 2022](https://freedomhouse.org/country/india/freedom-world/2022), lines 165–194; [Amnesty Kashmir briefing](https://www.amnesty.org/en/latest/news/2022/09/india-the-government-must-end-the-repression-of-rights-in-jammu-and-kashmir/), lines 75–100. Supports 3B, 4B, 7B, 8B.
+- **E004 — Bias and coverage limitations.** English-language international, NGO, official, and institutional sources were searched. Local-language archives and subnational-language reporting were not systematically searched. Kashmir and minority-rights reporting is comparatively abundant; closed or intimidated settings may underreport abuse. Official statistics and government claims should be treated as context unless independently corroborated.
+
+## Global evidence ledger
+
+| ID | Claim and locator | Source profile | Fit and mapping |
+|---|---|---|---|
+| E005 | HRW reported that in 2022 authorities arrested journalists, used politically motivated charges, restricted Kashmir expression and assembly, and used foreign-funding allegations against civil society. Exact locator: HRW World Report 2023, “Keynote” and “Freedom of Expression.” | HRW; medium-high; NGO with documented rights monitoring. | Target-year; national-government attribution. 3B.1–3B.6, 3B.8–3B.10; 4B.2–4B.7, 4B.9–4B.10. |
+| E006 | HRW reported January arrests of Kashmiri journalist Sajad Gul, arrest and rearrest of Fahad Shah, and at least 35 journalists facing interrogation, raids, threats, assault, movement restrictions, or criminal cases since 2019. Locator: HRW 2023, lines 90–98 and 110–115. | HRW; medium-high. | 2022 and ruler-period fit; direct state-authority attribution. 3B.1, 3B.5, 3B.8; 4B.3, 4B.6, 4B.9. |
+| E007 | HRW reported that authorities demolished mostly Muslim-owned property after communal clashes and that the demolitions appeared intended as collective punishment; three UN rapporteurs raised concerns about arbitrary demolitions and failure to investigate incitement. Locator: HRW 2023, lines 94–95. | HRW citing UN experts; medium-high/high for documented correspondence, but allegations remain qualified. | Target-year; central and state-level attribution must be separated. 3B.5, 3B.7, 3B.9; 4B.5, 4B.7. |
+| E008 | HRW reported early release of 11 men convicted of gang rape and murder during the 2002 anti-Muslim riots, followed by public celebration by BJP affiliates. Locator: HRW 2023, lines 96–97. | HRW; medium-high. | Target-year formal decision; national government attribution for release, but not necessarily Modi personally. 3B.4, 3B.7, 3B.9; 4B.5, 7B.7 only if a personal nexus is separately established. |
+| E009 | Amnesty documented at least 60 crackdowns on journalists and human-rights defenders since August 2019, arbitrary travel bans, the 2022 closure of the Kashmir Press Club, and at least 27 journalists arrested or detained since 2019. Locator: Amnesty, lines 65–81 and 89–100. | Amnesty; medium-high. | Target-period and ruler-period; national-government attribution. 3B.1, 3B.5, 3B.8; 4B.3, 4B.6, 4B.9–4B.10. |
+| E010 | Amnesty reported a 32% increase in habeas petitions in the J&K High Court and a 12% increase in UAPA use in J&K since 2019, while noting police-encounter deaths were highest there between April 2020 and March 2022. Locator: Amnesty, lines 89–112. | Amnesty using court and official data; medium-high, with attribution and denominator caveats. | Ruler-period context; not proof every detention or killing was personally ordered. 3B.1, 3B.4–3B.6, 3B.10; 4B.9–4B.10. |
+| E011 | Freedom House assessed India as a multiparty democracy but reported increased persecution of Muslims and increased harassment of journalists, NGOs, and critics under Modi’s government. Locator: Freedom House 2022, line 84. | Freedom House; medium-high; comparative democracy assessment. | Target-year contextual prior, not sole proof of individual conduct. 4B.1–4B.10; 3B.7–3B.8. |
+| E012 | The Supreme Court-appointed Pegasus committee found malware on 5 of 29 examined phones but no conclusive proof that it was Pegasus; the court noted that the central government had not cooperated. Locator: Indian Express, August 25, 2022, lines 45–57. | Indian Express reporting a court proceeding; medium-high for the proceeding, unresolved for actual spyware attribution. | Target-year; government obstruction is documented, but personal Modi attribution is not established. 3B.5, 3B.8; 4B.6, 4B.9; 7B.6–7B.7 only as unresolved integrity lead, not final personal evidence. |
+| E013 | India’s UN representative called for immediate cessation of hostilities in Ukraine, dialogue, diplomacy, sovereignty, and territorial integrity, while India abstained on a Security Council resolution. Locator: UN press release, February 25, 2022. | UN official record; high for India’s formal position. | Target-year; formal national-policy attribution, but the representative’s statement is not identical to a personal Modi decision. 2B.1, 2B.6–2B.7, 2B.10. |
+| E014 | India’s April 2022 UN explanation of vote reiterated peace, dialogue, diplomacy, an immediate end to violence, condemnation of reported Bucha killings, and support for an independent investigation while abstaining on suspension of Russia from the Human Rights Council. Locator: UNGA statement, April 7, 2022. | UN official record; high for formal position. | Target-year; government policy and diplomatic conduct. 2B.1, 2B.4, 2B.6–2B.7, 2B.10. |
+| E015 | Reuters reporting stated that Indian troops prevented Chinese soldiers from entering Indian territory during a December 9, 2022 Tawang border clash, with injuries on both sides. Locator: Reuters report reproduced by ThePrint, December 13, 2022. | Reuters; medium-high. | Target-year; establishes conflict exposure and defensive framing, not initiation or proportionality. 2B.1–2B.4, 2B.10. |
+| E016 | IMF’s 2022 Article IV assessed that India’s economy had rebounded from the pandemic downturn; authorities used fiscal measures to support vulnerable groups and mitigate commodity-price effects, while monetary tightening addressed inflation. It also identified the need for structural reforms for sustainable growth. Locator: IMF Article IV summary, December 23, 2022, lines 268–273. | IMF; high; intergovernmental macroeconomic assessment. | Target-year; implementation and outcome context, not proof of Modi’s personal competence. 5B.3, 5B.6, 5B.9–5B.10; 8B.2, 8B.6–8B.7. |
+| E017 | The World Bank approved $1 billion in 2022 for India’s health-sector infrastructure and pandemic preparedness, describing PM-ABHIM as a government reform agenda and noting the need to improve health-system quality, coverage, and resilience. Locator: World Bank press release, June 28, 2022, lines 34–45. | World Bank; high. | Target-year; supports attributable policy and implementation context, while noting center-state and donor contributions. 6B.1–6B.6, 6B.9–6B.10; 8B.2, 8B.6–8B.7. |
+| E018 | India’s parliamentary Standing Committee on Health reported shortcomings in COVID-19 response: fragile infrastructure, health-worker shortages, poor early rural vaccination rates, oxygen mismanagement during the second wave, reduced testing, and insufficient transparency around vaccine approvals and clinical data. Locator: PRS summary of September 12, 2022 committee report, lines 95–106. | Parliamentary committee summarized by PRS; medium-high. | Target-year retrospective; implementation and correction evidence. 6B.2, 6B.4–6B.6, 6B.8; 8B.6–8B.8. |
+| E019 | The official PM profile claims large-scale poverty reduction, Ayushman Bharat coverage, Jan Dhan accounts, Ujjwala connections, electrification, housing, and last-mile delivery. Locator: PM India profile, lines 74–86. | Official government source; medium-low for evaluative claims, medium-high for existence of stated programs. | Use as program/intent evidence and context only; independently corroborate outcomes. 5B.1, 5B.6, 6B.1–6B.3, 6B.9; 8B.1–8B.6. |
+| E020 | SIPRI’s India 2022 national-budget page and supplied local SIPRI facts establish substantial military expenditure and budget growth, but not aggression, prestige motive, or ruler intent. | SIPRI; high technical source. | Target-year structured/context evidence. 1B.10; 2B.3, 2B.8, 2B.10. |
+| E021 | Nuclear Transparency reports that India’s written doctrine presents nuclear weapons as deterrence and that the posture was reaffirmed in 2022; however, operational details remain secret. | Unlisted specialist source; medium-low, context only pending direct underlying official text. | 2022 contextual lead, not sole final evidence. 1B.1–1B.8, 1B.10. |
+
+## Chapter yield
+
+- **1B:** Local FAS facts establish nuclear exposure and scale, including 2014 inventory and operational/reserve fields, but not Modi-specific 2022 conduct. E002, E020, and E021 add authority, budget, doctrine, and secrecy context. No usable evidence was found for cyber, biological, AI, or other catastrophic-risk governance. Direct 2022 crisis-command and safeguard evidence remains a gap.
+- **2B:** E013–E015 provide formal diplomacy, Ukraine positioning, and a China-border incident. The local UCDP/SIPRI series establishes exposure and military burden. Missing: civilian-protection evidence, proxy/arms-recipient conduct, detailed India-Pakistan diplomacy, and accountability for military harm.
+- **3B:** Strongest narrative coverage. E005–E012 document repression, detention, minority vulnerability, protest restrictions, journalist treatment, alleged collective punishment, and unresolved surveillance. Local CIRIGHTS/V-Dem/PTS trends show deterioration in several physical-integrity and repression measures. Attribution is strongest for central-government laws and agencies; subnational incidents require caution.
+- **4B:** E005–E012 and E011 provide substantial evidence on civic space, media, opposition criticism, surveillance, and institutional pressure. Local V-Dem, Freedom House, RSF, WGI, and Polity facts provide strong structured trajectory context. Missing: direct 2022 election-observer evidence, term-limit/transfer conduct, legislative independence, and detailed party/state appointment evidence.
+- **5B:** E016 and E019 establish a policy portfolio and macroeconomic context; local GDP, income, consumption, capital formation, employment, Gini, and government-effectiveness facts provide outcome context. Missing: household-level distribution, job quality, appointments, procurement/capture, correction of failed policies, and independent evaluation of flagship programs.
+- **6B:** E017–E019 plus local HDI, schooling, life expectancy, immunization, literacy, enrollment, and mortality facts provide meaningful welfare and implementation evidence. E018 is important contrary evidence on COVID preparedness, oxygen, rural vaccination, and transparency. Missing: regional/group equity, affordability, service quality, political conditionality, and institutional durability.
+- **7B:** No defensible ruler-specific integrity evidence sufficient for a personal-nexus judgment was established. E012 is a documented government non-cooperation episode but does not prove Modi’s personal knowledge or direction. The 2024 electoral-bonds judgment was rejected from the target-year ledger because it is post-period and cannot silently expand the window. Country-level corruption indicators remain context only.
+- **8B:** E016–E019 identify explicit programs and observable implementation mechanisms, while local government-effectiveness and welfare/economic trajectories provide context. Contrary evidence includes COVID-management failures and unresolved implementation gaps. Missing: systematic portfolio definition, appointments, coordination, adaptation, and independent outcome attribution across multiple programs.
+
+## Rejected or discovery-only candidates
+
+- **R001:** Wikipedia pages — orientation only; not retained as final evidence.
+- **R002:** 2024 electoral-bonds Supreme Court judgment — discovery/context only; post-period and not usable as direct 2022 evidence.
+- **R003:** Later Adani bribery allegations — rejected for this 2022 pass because they are post-period, allegations concern later conduct, and no direct 2022 Modi personal nexus was established.
+- **R004:** Search-result snippets and organization homepages without precise locators — rejected from defensible evidence.
+- **R005:** Official PM claims about poverty, welfare success, and “corruption-free governance” — retained only as program/intent context, not independent outcome evidence.
+
+## Source diversity and reuse
+
+- Strongest source families: HRW, Amnesty, Freedom House, UN, IMF, World Bank, PRS/parliamentary reporting, Indian Supreme Court proceedings, official PM/government records, SIPRI, and Reuters.
+- Source types represented: NGO monitoring, intergovernmental records, official records, parliamentary analysis, court reporting, reputable media, and structured datasets.
+- Same-URL splits: HRW 2023 supports multiple distinct claims across 3B and 4B; Amnesty supports multiple Kashmir claims across 3B and 4B; PM India supports formal office, program intent, and implementation claims across 5B, 6B, and 8B. These should remain separate claim units if retained.
+- Cross-chapter reuse: E005–E012 are reused across 3B/4B, E016–E019 across 5B/6B/8B, and E002/E020/E021 across 1B/2B.
+
+No chapter was declared complete for scoring. The main unresolved issues are personal attribution for Chapter 7B, independent evaluation of economic and welfare implementation, and direct 2022 evidence on nuclear safeguards, command behavior, and military conduct.
+---

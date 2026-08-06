@@ -15,6 +15,18 @@ from sqlalchemy.engine import Engine
 from leaders_db.conversational_evidence.data import load
 
 from ._codex_worker_setup import WorkerAttempt
+from .chapter_research_artifacts import (
+    chapter_resource_index as _chapter_resource_index,
+)
+from .chapter_research_artifacts import (
+    existing_chapter_turn as _existing_chapter_turn,
+)
+from .chapter_research_artifacts import (
+    snapshot_parent_manifest as _snapshot_parent_manifest,
+)
+from .chapter_research_artifacts import (
+    validate_chapter_inspection,
+)
 from .codex_worker_command import (
     build_codex_exec_command,
     build_codex_resume_command,
@@ -28,6 +40,7 @@ from .question_lens_presentation import (
     render_lens_table,
 )
 from .research_workflow import ResearchWorkflow
+from .source_candidate_catalog import write_source_candidate_catalog
 
 ResearchCheckpoint = tuple[Path, str, Path, str, str]
 
@@ -218,6 +231,14 @@ def run_chapter_research_sequence(
         )
         notebook_path = attempt.trusted_dir / f"research-notebook-{chapter_id}.md"
         notebook_path.write_text(notebook, encoding="utf-8")
+        write_source_candidate_catalog(
+            notebook, attempt.attempt_dir / "source-candidate-catalog.json"
+        )
+        validate_chapter_inspection(
+            notebook,
+            chapter_id=chapter_id,
+            minimum=workflow.chapter_opened_document_target,
+        )
         notebook_hash = sha256(notebook_path.read_bytes()).hexdigest()
         events_hash = sha256(events_path.read_bytes()).hexdigest()
         current = (
@@ -258,7 +279,6 @@ def build_chapter_research_prompt(
 ) -> str:
     """Build the validated natural-language deep-research prompt."""
 
-    del workflow
     selected_lenses = [
         item
         for item in job["input"]["question_ids"]
@@ -274,7 +294,7 @@ def build_chapter_research_prompt(
         f'during {job["period_start_year"]}-{job["period_end_year"]}'
     )
     prompt_config = load_chapter_research_prompt()
-    return prompt_config.template.format(
+    prompt = prompt_config.template.format(
         identity=identity,
         prompt_config_version=prompt_config.version,
         lens_presentation_version=lens_presentation_version,
@@ -287,7 +307,14 @@ def build_chapter_research_prompt(
         ),
         chapter_id=chapter_id,
         selected_lenses_json=json.dumps(selected_lenses),
+        candidate_document_target=workflow.chapter_candidate_document_target,
+        opened_document_target=workflow.chapter_opened_document_target,
     )
+    boundary = load("source_extraction_boundary.json")
+    boundary_text = str(boundary["text"]).format(
+        opened_document_target=workflow.chapter_opened_document_target
+    )
+    return f"{prompt}{boundary_text}"
 
 
 def _chapter_subject(guide: str, chapter_id: str) -> str:
@@ -352,23 +379,6 @@ def _bounded_reconnaissance_summary(notebook: str) -> str:
     return summary or "No reconnaissance prose was recoverable; verify authority directly."
 
 
-def _snapshot_parent_manifest(attempt: WorkerAttempt, destination: Path) -> None:
-    """Freeze the parent ledger before a model can write a chapter delta."""
-
-    current = attempt.attempt_dir / "research-ledger-manifest.json"
-    if current.is_file():
-        payload = current.read_text(encoding="utf-8")
-    else:
-        payload = json.dumps(
-            {
-                "schema_version": "ruler_research_ledger_manifest_v1",
-                "entries": [],
-            },
-            sort_keys=True,
-        )
-    destination.write_text(payload, encoding="utf-8")
-
-
 def _selected_chapters(
     job: dict[str, Any], workflow: ResearchWorkflow
 ) -> tuple[str, ...]:
@@ -377,83 +387,6 @@ def _selected_chapters(
         for item in job["input"]["question_ids"]
     }
     return tuple(chapter for chapter in workflow.chapter_order if chapter in selected)
-
-
-def _existing_chapter_turn(
-    attempt: WorkerAttempt,
-    chapter_id: str,
-    *,
-    job_id: int,
-    chapter_session_mode: str,
-    prompt_hash: str,
-    provider_profile: str,
-) -> tuple[Path, Path, Path] | None:
-    """Recover a completed chapter turn from any prior worker attempt."""
-
-    job_dir = attempt.attempt_dir.parent.parent
-    for trusted in sorted(attempt.trusted_dir.parent.glob("*"), reverse=True):
-        events_path = trusted / f"research-chapter-{chapter_id}.events.jsonl"
-        output_path = (
-            job_dir
-            / "attempts"
-            / trusted.name
-            / f"research-chapter-{chapter_id}.md"
-        )
-        if not events_path.is_file() or not output_path.is_file():
-            continue
-        starting_path = trusted / f"research-chapter-{chapter_id}.starting.json"
-        base_manifest_path = trusted / f"research-ledger-before-{chapter_id}.json"
-        try:
-            starting = json.loads(starting_path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
-            continue
-        if (
-            starting.get("job_id") != job_id
-            or starting.get("chapter_session_mode") != chapter_session_mode
-            or starting.get("prompt_sha256") != prompt_hash
-            or starting.get("provider_profile") != provider_profile
-            or not base_manifest_path.is_file()
-        ):
-            continue
-        from .codex_worker import _events_show_completed_turn
-
-        if _events_show_completed_turn(events_path):
-            return events_path, output_path, base_manifest_path
-    return None
-
-
-def _chapter_resource_index(
-    attempt: WorkerAttempt, chapter_id: str
-) -> tuple[dict[str, Any], ...]:
-    """Expose a small list of already found chapter-relevant resources."""
-
-    path = attempt.attempt_dir / "research-ledger-manifest.json"
-    try:
-        entries = json.loads(path.read_text(encoding="utf-8")).get("entries", [])
-    except (OSError, json.JSONDecodeError, AttributeError):
-        return ()
-    relevant = []
-    cross_chapter = []
-    for entry in entries:
-        if not isinstance(entry, dict):
-            continue
-        compact = {
-            key: entry[key]
-            for key in (
-                "provisional_id",
-                "url",
-                "claim",
-                "locator",
-                "disposition",
-            )
-            if entry.get(key)
-        }
-        chapter_ids = entry.get("chapter_ids", [])
-        if chapter_id in chapter_ids:
-            relevant.append(compact)
-        elif len(chapter_ids) >= 3:
-            cross_chapter.append(compact)
-    return tuple((relevant[:15] + cross_chapter[:5])[:20])
 
 
 __all__ = ["build_chapter_research_prompt", "run_chapter_research_sequence"]

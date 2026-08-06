@@ -1,0 +1,787 @@
+You are the evidence-intent extractor in a non-scoring calibration.
+Extract atomic factual intents from the routed passage. Preserve actor, action, mechanism, outcome, dates, quantities, attribution, period fit, limitations, polarity, and every applicable methodology ID. Do not reproduce or author quotation text. Select the frozen source hash, exact locator, and inclusive start/end segment IDs supplied by the citation index. Before emitting each intent, verify that every named actor, action, date, quantity, attribution, qualifier, and outcome appears inside that exact inclusive segment range. Remove any detail supported only by adjacent or remembered text. Never combine non-contiguous support, and split compound facts into narrower intents. Prefer a short fully supported intent over a richer partly supported one. Use separate intents when support is non-contiguous. Do not score.
+Draft IDs must be sequential D0001, D0002, ... within this response. Each locator disposition must name an inspected locator exactly once. The code will copy every quote from the inclusive segment range. Select the narrowest contiguous range that fully supports the claim. Do not put quotation text in any semantic field.
+
+QUESTIONS
+{
+  "schema_version": "ruler-quality-questions-v1",
+  "chapter_ids": [
+    "5B"
+  ],
+  "lens_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "chapters": [
+    {
+      "id": "5B",
+      "questions": [
+        {
+          "id": "5B.1",
+          "text": "Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity?"
+        },
+        {
+          "id": "5B.2",
+          "text": "Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty?"
+        },
+        {
+          "id": "5B.3",
+          "text": "Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment?"
+        },
+        {
+          "id": "5B.4",
+          "text": "Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation?"
+        },
+        {
+          "id": "5B.5",
+          "text": "Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture?"
+        },
+        {
+          "id": "5B.6",
+          "text": "Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects?"
+        },
+        {
+          "id": "5B.7",
+          "text": "Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating?"
+        },
+        {
+          "id": "5B.8",
+          "text": "Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups?"
+        },
+        {
+          "id": "5B.9",
+          "text": "During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes?"
+        },
+        {
+          "id": "5B.10",
+          "text": "Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone?"
+        }
+      ],
+      "registry": {
+        "category": "economic_wellbeing",
+        "question_code_prefix": "economic_wellbeing",
+        "question_key_prefix": "economic_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    }
+  ]
+}
+
+SOURCE
+{
+  "source_id": "BOOK-013",
+  "title": "CIDOB political biography",
+  "url": "https://www.cidob.org/lider-politico/andres-manuel-lopez-obrador",
+  "publisher": "www.cidob.org",
+  "publication_date": "unknown_not_recorded",
+  "document_type": "biography",
+  "source_role": "independent_reference",
+  "source_family": "www.cidob.org",
+  "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+  "access_state": "open_machine_readable",
+  "dependencies": []
+}
+
+LOCATOR INDEXES
+[
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 1",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 239,
+        "text": "Andrés Manuel López Obrador | CIDOB, Pasar al contenido principal\nCatalà\nEspañol\nEnglish\nNavegación principal\nSobre CIDOB\nSobre CIDOB CIDOB es un centro de investigación en relaciones internacionales con sede en Barcelona. Saber más\nCIDOB\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 239,
+        "end_char": 431,
+        "text": "Equipo\nPatronato de CIDOB\nComité Científico de CIDOB\nConsejo Asesor Internacional de CIDOB\nSocios de CIDOB\nCIDOB en los medios\nNoticias\nOfertas de trabajo\nMemorias\nTransparencia\nInvestigación\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 431,
+        "end_char": 624,
+        "text": "Investigación Conoce el trabajo de investigación de CIDOB, nuestro equipo y los proyectos que llevamos a cabo. Saber más\nLíneas de investigación\nEquipo de investigación\nProyectos\nPublicaciones\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 624,
+        "end_char": 852,
+        "text": "Publicaciones Consulta todas las publicaciones de CIDOB. Saber más\nTodas las publicaciones\nOpinion CIDOB\nNotes Internacionals CIDOB\nCIDOB Report\nRevista CIDOB d’Afers Internacionals\nAnuario Internacional CIDOB\nMonografías CIDOB\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 852,
+        "end_char": 1066,
+        "text": "CIDOB Briefings\nDocuments CIDOB\nProject papers\nBiografías de líderes políticos\nActividades\nRuta de navegación\nLideres políticos\nAndrés Manuel López Obrador\nAndrés Manuel López Obrador\nMéxico\nPresidente (2018-2024)\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1066,
+        "end_char": 1238,
+        "text": "Mandato: 1 Diciembre 2018 1 Octubre 2024 Nacimiento: 13 Noviembre 1953 Tepetitán, Macuspana, estado de Tabasco Partido político: Movimiento Regeneración Nacional (MORENA); "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1238,
+        "end_char": 1438,
+        "text": "ant., del Partido de la Revolución Democrática (PRD) Profesión: Funcionario\nEditado por: Roberto Ortiz de Zárate Arce\nNota de actualización : esta versión de la biografía fue publicada el 29/11/2018. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1438,
+        "end_char": 1597,
+        "text": "El mandato de Andrés Manuel López Obrador como presidente de México concluyó el 1/10/2024. Su sucesora en la jefatura del Estado fue Claudia Sheinbaum Pardo , "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1597,
+        "end_char": 1785,
+        "text": "ex jefa de Gobierno de la Ciudad de México y ganadora para el partido gubernamental MORENA y de la coalición oficialista Sigamos Haciendo Historia de la elección presidencial del 2/6/2024."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 10",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 189,
+        "text": "En 1978 López Obrador empezó a fungir de delegado estatal de la Coordinación General del Plan Nacional de Zonas Deprimidas y Grupos Marginados de la Presidencia de la República (COPLAMAR). "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 189,
+        "end_char": 311,
+        "text": "Asumiendo quehaceres como la edición de publicaciones en lengua indígena y la ejecución de programas de impulso agrícola, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 311,
+        "end_char": 508,
+        "text": "el joven oficial priísta tomó conciencia de primera mano de los déficits sociales endémicos en un estado particularmente rico en recursos naturales pero acuciado por la pobreza y el subdesarrollo. "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 508,
+        "end_char": 685,
+        "text": "Por otro lado, aunque tenía la licenciatura por la UNAM a medio cursar, López Obrador fue invitado a dar clases de Sociología y Pedagogía en la Universidad Autónoma de Tabasco. "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 685,
+        "end_char": 866,
+        "text": "Allí inició con una de sus alumnas, Rocío Beltrán Medina, baja funcionaria de la Secretaría de Educación Pública, una relación sentimental que acabó en matrimonio en marzo de 1980. "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 866,
+        "end_char": 1076,
+        "text": "La pareja concibió tres hijos varones, José Ramón (1982), Andrés Manuel (1987) y Gonzalo Alfonso (1991).\nEn 1982 López Obrador se integró en el equipo de la campaña para gobernador de Enrique González Pedrero, "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1076,
+        "end_char": 1312,
+        "text": "antiguo senador y secretario general del partido, quien se encargó de que su asistente fuera nombrado director del Centro de Estudios Políticos, Económicos y Sociales (CEPES), el equivalente estatal del Instituto de Estudios Políticos, "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1312,
+        "end_char": 1549,
+        "text": "Económicos y Sociales (IEPES) del PRI federal. El 1 de enero de 1983 González tomó posesión del Ejecutivo de Villahermosa y entre sus primeras decisiones estuvo la de designar a su colaborador presidente del Comité Directivo Estatal del "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1549,
+        "end_char": 1564,
+        "text": "PRI tabasqueño."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 11",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 230,
+        "text": "Como jefe nominal del partido en Tabasco, López Obrador se puso al frente de la organización interna y, apoyándose en los comités de base, el campesinado en particular, comenzó por supervisar la gestión de los cargos municipales, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 230,
+        "end_char": 382,
+        "text": "para asegurarse de que este se ajustaba al programa electoral. Esta actitud celosa le granjeó de inmediato numerosas enemistades en el partido estatal, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 382,
+        "end_char": 602,
+        "text": "donde el tabasqueño adquirió una reputación de priísta dogmático y situado en el ala más a la izquierda. Las prontas quejas por su forma de trabajar lesionaron la relación de confianza que mantenía con González Pedrero, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 602,
+        "end_char": 823,
+        "text": "quien al cabo de unos meses, en noviembre de 1983, le destituyó del cargo. En 1984, tras rechazar varios puestos alternativos pero de menor rango en el PRI del estado, López Obrador optó por regresar al Distrito Federal, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 823,
+        "end_char": 949,
+        "text": "donde se hizo con un buen puesto funcionarial, la Dirección de Promoción Social del Instituto Nacional del Consumidor (INCO).\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 949,
+        "end_char": 1189,
+        "text": "En 1986 López Obrador publicó el libro Los primeros pasos; Tabasco 1810-1867 , un repaso histórico a su estado natal desde la independencia hasta la revolución juarista y al que en 1988 iba a seguir una segunda parte titulada Del esplendor "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1189,
+        "end_char": 1417,
+        "text": "a la sombra: la República restaurada; Tabasco 1867-1876 . En 1987, transcurrida una década larga desde que inició la carrera, el funcionario egresó de la UNAM con una licenciatura en Ciencias Políticas y Administración Pública, "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1417,
+        "end_char": 1606,
+        "text": "apoyada en la tesis Proceso de formación del estado nacional en México, 1821-1867 .\nFue también en 1987, discurriendo el penúltimo año de la Administración de Miguel de la Madrid Hurtado , "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1606,
+        "end_char": 1820,
+        "text": "cuando López Obrador se unió a otros priístas del sector crítico izquierdista y nacionalista para articular la denominada Corriente Democrática del PRI, cuya principal denuncia era que el partido se había alejado, "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1820,
+        "end_char": 2059,
+        "text": "hasta el punto de pervertirlos, de los principios democráticos y de justicia social que habían alumbrado su nacimiento en 1929 como un pacto político de las diversas facciones salidas de la Revolución de 1910-1917 para poner término a las "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2059,
+        "end_char": 2255,
+        "text": "luchas sectarias que en aquel entonces continuaban martirizando el país, y repartirse los cotos de poder. Los miembros más destacados de esta facción disidente eran Cuauhtémoc Cárdenas Solórzano, "
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2255,
+        "end_char": 2453,
+        "text": "hijo del ex presidente (1934-1940) Lázaro Cárdenas del Río —otra figura de la historia nacional muy admirada por López Obrador— así como ex senador y gobernador de Michoacán, y Porfirio Muñoz Ledo, "
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2453,
+        "end_char": 2596,
+        "text": "quien había sido presidente del partido entre 1975 y 1976 además de secretario (ministro) del Gobierno Federal con Echeverría y López Portillo."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 12",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 232,
+        "text": "A Cárdenas debió causarle muy buena impresión el trabajo social realizado por López Obrador con los indios chontales, ya que no dudó en encomendarle la organización de la Corriente Democrática en Tabasco con la mirada puesta en las "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 232,
+        "end_char": 445,
+        "text": "elecciones federales y estatales de 1988. Los cardenistas aglutinaron fuerzas con una pléyade de pequeños partidos del centroizquierda y la izquierda, principalmente el Auténtico de la Revolución Mexicana (PARM), "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 445,
+        "end_char": 598,
+        "text": "el del Frente Cardenista de Reconstrucción Nacional (PFCRN) y el Popular Socialista (PPS), dando lugar a la coalición Frente Democrático Nacional (FDN).\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 598,
+        "end_char": 800,
+        "text": "Cárdenas se postuló a la Presidencia de la República, mientras que López Obrador lanzó el envite gubernamental en Villahermosa, rivalizando así con los candidatos designados por el oficialismo priísta, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 800,
+        "end_char": 1011,
+        "text": "Carlos Salinas de Gortari y Salvador Neme Castillo, respectivamente. Los dos fracasaron en sus tentativas, pero revestidos de la victoria moral que entrañaba sentirse las víctimas de una estafa a la democracia. "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1011,
+        "end_char": 1244,
+        "text": "El 6 de julio Cárdenas se convertía en el gran damnificado por la caída del sistema , el más que sospechoso colapso del sistema informático de escrutinio que prologó la publicación de unos resultados finales que dieron la victoria a "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1244,
+        "end_char": 1408,
+        "text": "Salinas.\nEl 9 de noviembre era López Obrador el batido por Neme Castillo, que tenía de su lado a toda la maquinaria del partido, con un arrasador 81% de los votos. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1408,
+        "end_char": 1628,
+        "text": "Como Cárdenas en la Ciudad de México, el tabasqueño puso el grito en el cielo en Villahermosa: denunció haber sido objeto de un fraude masivo y para respaldar su afirmación dio cuenta de una retahíla de irregularidades, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1628,
+        "end_char": 1789,
+        "text": "desde la expulsión de representantes del FDN de los colegios electorales donde estaban acreditados hasta la destrucción de papeletas con su candidatura marcada. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1789,
+        "end_char": 1954,
+        "text": "Un análisis pormenorizado de las elecciones a gobernador de Tabasco iba a aparecer en 1990 en su siguiente libro, rotundamente titulado Tabasco, víctima del fraude ."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 13",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 130,
+        "text": "Los escandalosos comicios de 1988 aceleraron el cisma en el PRI. El 5 de mayo de 1989, bajo el liderazgo carismático de Cárdenas, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 130,
+        "end_char": 311,
+        "text": "y con el firme propósito de ahondar la brecha abierta en la larguísima hegemonía de una estructura política que parecía tener ya muy poco de revolucionaria y todo de institucional, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 311,
+        "end_char": 501,
+        "text": "era fundado el Partido de la Revolución Democrática (PRD) a partir de la fusión de la Corriente Democrática con algunos aliados del FDN, principalmente el Partido Mexicano Socialista (PMS), "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 501,
+        "end_char": 725,
+        "text": "el cual tenía un importante componente ex comunista. En adelante presidente del PRD en Tabasco, López Obrador amplió su red local de simpatizantes, aunque no hasta el punto de poner en peligro la supremacía del PRI estatal.\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 725,
+        "end_char": 868,
+        "text": "Dos años y medio más tarde, López Obrador adquirió su primera notoriedad a nivel nacional como el cabeza del llamado éxodo por la democracia , "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 868,
+        "end_char": 1092,
+        "text": "una marcha pacífica de medio millar de paisanos de Tabasco y Veracruz que el 20 de noviembre de 1991 partió de Villahermosa para llegar, el 11 de enero de 1992, a la plaza de la Constitución o Zócalo de la Ciudad de México, "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1092,
+        "end_char": 1326,
+        "text": "entre los vítores de 30.000 perredistas defeños. Los marchistas portaban la denuncia del caos que había presidido las elecciones municipales celebradas recientemente en ambos estados y que con indicios de fraude habían penalizado las "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1326,
+        "end_char": 1511,
+        "text": "candidaturas perredistas.\nAl día siguiente de concluir la marcha, la Secretaría de Gobernación de la Administración salinista zanjó el conflicto poselectoral a favor de los opositores, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1511,
+        "end_char": 1677,
+        "text": "que vieron reconocida su victoria en ayuntamientos tan significativos como Cárdenas y Nacajuca, donde se pactó la formación de sendos gobiernos de coalición PRD-PRI. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1677,
+        "end_char": 1877,
+        "text": "Con esta protesta política y cívica, y más con otras movilizaciones reivindicativas que le siguieron, López Obrador se dio a conocer a la opinión pública nacional como un tribuno combativo y radical, "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1877,
+        "end_char": 2110,
+        "text": "que se encontraba a gusto haciendo política en la calle y que parecía preferir la relación directa con las masas populares frente al trabajo interno en los despachos de los partidos o en las instituciones del Estado para llevar a la "
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2110,
+        "end_char": 2133,
+        "text": "práctica sus objetivos."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 14",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 153,
+        "text": "2. Presidente del partido y despegue electoral\nEl segundo intento de López Obrador por conquistar la Gubernatura de Tabasco también resultó infructuoso. "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 153,
+        "end_char": 275,
+        "text": "Fue en las elecciones estatales del 20 de noviembre de 1994, en un momento particularmente tenso de la política mexicana, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 275,
+        "end_char": 478,
+        "text": "a rebufo del alzamiento armado del Ejército Zapatista de Liberación Nacional (EZLN) en Chiapas y de los asesinatos de los dirigentes priístas Luis Donaldo Colosio Murrieta y José Francisco Ruiz Massieu, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 478,
+        "end_char": 666,
+        "text": "y cuando ya asomaban los nubarrones de una tormenta financiera que iba a descargar un mes más tarde sobre el Gobierno del por el momento presidente electo, Ernesto Zedillo Ponce de León .\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 666,
+        "end_char": 852,
+        "text": "Candidato destapado por Salinas, Zedillo se había impuesto con comodidad en la cita electoral de agosto a Cárdenas (quien el año anterior se había desprendido de la presidencia del PRD, "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 852,
+        "end_char": 1083,
+        "text": "la cual ostentaba ahora Muñoz Ledo) y al panista Diego Fernández de Cevallos. Tres meses después, en Villahermosa, el jefe del perredismo tabasqueño perdió con el 38,7% de los votos su pulso particular con Roberto Madrazo Pintado, "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1083,
+        "end_char": 1322,
+        "text": "antiguo diputado federal y senador del PRI, receptor del 57,5% de los sufragios.\nReeditando su actitud de un sexenio atrás y anticipando el que iba a ser su proceder contestatario tras las elecciones presidenciales de doce años más tarde, "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1322,
+        "end_char": 1555,
+        "text": "López Obrador impugnó los comicios como fraudulentos, presentó a la Procuraduría General de la República (PGR) un prolijo informe en el que documentaba la violación por la candidatura priísta del tope legal de los gastos de campaña, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1555,
+        "end_char": 1772,
+        "text": "y lanzó una campaña de movilizaciones y de resistencia civil que incluyó, en abril y mayo de 1995, una segunda marcha al DF, la caravana por la democracia , seguida de la creación de una Alianza Nacional Democrática. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1772,
+        "end_char": 1923,
+        "text": "Dicha Alianza elevó la bandera del rechazo a la segmentación de Pemex iniciada con Salinas, la cual parecía preludiar la privatización de la compañía. "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1923,
+        "end_char": 2155,
+        "text": "La preservación del monopolio estatal de los hidrocarburos era también uno de los puntos clave de la Proclama Nacional, manifiesto donde el perredista hacía una ardiente defensa de la soberanía de la nación y el pueblo en todos los "
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2155,
+        "end_char": 2239,
+        "text": "ámbitos, el energético, el económico, el financiero y, por supuesto, el democrático."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 17",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 164,
+        "text": "La renuncia por Cárdenas el 29 de septiembre de 1999 a la jefatura del Gobierno del DF con el objeto de preparar su candidatura presidencial situó a López Obrador, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 164,
+        "end_char": 348,
+        "text": "no obstante detectarse ya indicios de unas frías relaciones personales entre los dos dirigentes, como el único jefe perredista capaz de mantener el tirón electoral del líder fundador, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 348,
+        "end_char": 473,
+        "text": "aunque antes tendría que vencer el escepticismo de muchos cuadros locales del partido a los que extrañaba que el tabasqueño, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 473,
+        "end_char": 657,
+        "text": "que a fin de cuentas todavía no se había estrenado en la política representativa con apoyo en un mandato electoral, pretendiera gobernar una urbe con la que no tenía especiales lazos. "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 657,
+        "end_char": 889,
+        "text": "Además, la ley establecía un mínimo de cinco años de residencia para los candidatos a jefe de Gobierno.\nPor de pronto, López Obrador publicó las conclusiones de su investigación al Fondo Bancario de Protección al Ahorro (FOBAPROA), "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 889,
+        "end_char": 1128,
+        "text": "instrumento del Estado creado por la Administración Salinas con el fin de ayudar a los ahorradores afectados por situaciones de insolvencia bancaria pero que tras la debacle financiera de diciembre de 1994 se había concentrado en rescatar "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1128,
+        "end_char": 1261,
+        "text": "las pérdidas sufridas por conocidos banqueros y empresarios, inclusive mediante la conversión en deuda pública de su colosal pasivo. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1261,
+        "end_char": 1496,
+        "text": "Para López Obrador, y así lo expuso en su nuevo libro-denuncia, Fobaproa, expediente abierto: reseña y archivo , la actuación del fondo era abiertamente inconstitucional y el \"fraude más grande de la historia después de La Conquista\".\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1496,
+        "end_char": 1546,
+        "text": "3. Salto a la jefatura del Gobierno del DF en 2000"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 19",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 173,
+        "text": "El 5 de diciembre de 2000 López Obrador recibió de su correligionaria Rosario Robles Berlanga el despacho de gobernante defeño e inauguró su mandato electoral de seis años, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 173,
+        "end_char": 393,
+        "text": "asumiendo jurisdicción sobre una población de ocho millones de personas, más que muchos países del mundo. Dos días después fallecía su padre, don Andrés López Ramón, a causa de una dolencia renal, a los 87 años de edad. "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 393,
+        "end_char": 631,
+        "text": "Este fue el segundo de los tres decesos consecutivos de seres queridos que desolaron a López Obrador justo cuando su carrera política ascendía con brío: el 6 de mayo del presente año había perecido su también anciana madre, doña Manuela, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 631,
+        "end_char": 851,
+        "text": "y el 13 de enero de 2003 la muerte iba a llevarse, a los 46 años, a su esposa Rocío, que llevaba años enferma de lupus.\nEl lustro comprendido entre 2000 y 2005 fue un período decisivo en la trayectoria de López Obrador, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 851,
+        "end_char": 1053,
+        "text": "pues fue entonces cuando cimentó las bases populares de un poder y una influencia a nivel nacional que iban a convertirle en uno de los políticos más insignes y controvertidos del México contemporáneo. "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1053,
+        "end_char": 1278,
+        "text": "Para sus cada vez más numerosos simpatizantes y partidarios, López Obrador era un regidor voluntarioso y esforzado, casi hiperactivo, sinceramente entregado a las causas sociales y a la mejora del bienestar de la ciudadanía, "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1278,
+        "end_char": 1414,
+        "text": "a la vez que austero, como atestiguaban su sencillo apartamento de clase media y el coche utilitario que le llevaba de casa al trabajo. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1414,
+        "end_char": 1539,
+        "text": "Otro punto a su favor era su compromiso con la rendición regular de cuentas, la transparencia y la democracia participativa. "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1539,
+        "end_char": 1708,
+        "text": "Los posibles déficits en su preparación profesional los suplía con creces con una innata capacidad para diagnosticar certeramente los problemas y conectar con la gente. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1708,
+        "end_char": 1829,
+        "text": "Por otro lado, sus ensayos sobre historia y actualidad política reflejaban aptitudes para la investigación y el análisis."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 2",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 234,
+        "text": "Durante años, un liderazgo carismático que arrastra multitudes y un discurso combativo que agita las banderas sociales y escarnece a los poderes fácticos mantuvieron a Andrés Manuel López Obrador en la cresta de la política mexicana, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 234,
+        "end_char": 468,
+        "text": "a pesar de sus fiascos electorales y sus decisiones conflictivas. En 2018, camino de los 65 años, AMLO realizó su tercer y definitivo asalto a la Presidencia de la República disfrutando de una amplísima ventaja en todos los sondeos y "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 468,
+        "end_char": 640,
+        "text": "prodigando mensajes depurados de carga radical pero fieles a sus tesis programáticas de siempre. Su histórica victoria del 1 de julio, con un abrumador 53,2% de los votos, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 640,
+        "end_char": 816,
+        "text": "sobre Ricardo Anaya del Partido Acción Nacional (PAN) y José Antonio Meade del Partido Revolucionario Institucional (PRI, barrido en las urnas y echado del Ejecutivo federal), "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 816,
+        "end_char": 1026,
+        "text": "supone el debut en el Gobierno de México de una alternativa partidaria de corto recorrido opositor.\nProcedente del ala nacionalista de izquierda, de tradición juarista, del viejo PRI anterior al cisma de 1988, "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1026,
+        "end_char": 1266,
+        "text": "funcionario próximo a las comunidades indígenas y fogueando en las luchas populares de su Tabasco natal, López Obrador atrajo los primeros focos de la tramoya nacional como enérgico fustigador de las administraciones salinista y zedillista "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1266,
+        "end_char": 1412,
+        "text": ". En 2000 salió elegido jefe de Gobierno del DF, el gran bastión del Partido de la Revolución Democrática (PRD), el cual presidió de 1996 a 1999. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1412,
+        "end_char": 1569,
+        "text": "Su gestión municipal, de intenso calado social, se vio emborronada por el llamado videoescándalo , que sacó a la luz prácticas corruptas de sus subalternos. "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1569,
+        "end_char": 1794,
+        "text": "Aquella polvareda derivó en 2005 en un desafuero congresal que estuvo a punto de descabalgarlo de la gubernatura defeña, aunque poco después renunció voluntariamente a la misma para plantear su primer envite a la Presidencia."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 20",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 140,
+        "text": "El dirigente perredista exudaba asimismo pugnacidad, tenacidad y astucia, unos atributos que el imaginario popular asociaba al pejelagarto, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 140,
+        "end_char": 338,
+        "text": "pez depredador de agua dulce de aspecto reptiliano muy común en el sudeste mexicano y particularmente en Tabasco, así que al gobernante se le quedó el mote, aplicado en sentido positivo, del Peje . "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 338,
+        "end_char": 469,
+        "text": "Tampoco tardaría en generalizarse el apelativo de AMLO , acrónimo formado con su nombre y apellidos, hasta alcanzar uso universal. "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 469,
+        "end_char": 706,
+        "text": "Por el contrario, para sus adversarios y detractores, en número creciente también, López Obrador era un extremista y un populista sin la cualificación necesaria para gobernar una megalópolis como el DF y que no dudaba en blandir los más "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 706,
+        "end_char": 902,
+        "text": "censurables instrumentos de agitación y demagogia con tal de aferrarse al poder y realizar sus ambiciones, que parecían no detenerse en el Antiguo Palacio del Ayuntamiento de la Ciudad de México.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 902,
+        "end_char": 1106,
+        "text": "Orador deficiente, carente de la soltura retórica de adversarios con un currículum universitario y profesional más vistoso —y, por este motivo, constante objeto de burla desde las filas del PAN y el PRI, "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1106,
+        "end_char": 1333,
+        "text": "decididamente proclives a formar una pinza contra quien en el fondo temían—, López Obrador acertó sin embargo a modular su discurso al lenguaje que entendían las clases populares y además hizo un uso intensivo de los medios de "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1333,
+        "end_char": 1491,
+        "text": "comunicación. Sus conferencias de prensa a la temprana, por no decir intempestiva, hora de las seis de la mañana, conocidas popularmente como las mañaneras , "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1491,
+        "end_char": 1595,
+        "text": "generaban invariablemente una inusitada expectación periodística y marcaron la agenda política del país."
+      }
+    ]
+  }
+]

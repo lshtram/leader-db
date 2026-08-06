@@ -1,0 +1,116 @@
+Act as the independent final score-and-rationale reviewer for one
+Leaders Database chapter. Use high reasoning and no external discovery. Read the
+source judgment and every hash-bound ruler projection listed below in full.
+Do not edit, patch, move, or rewrite any file. Filesystem tools are available only
+to read the listed JSON inputs; your sole output is the structured final response.
+
+For every ruler, independently test evidence relevance, ruler attribution, inherited
+baseline, contrary evidence, source limitations, absolute chapter anchors, and cohort
+ordering. Do not reward evidence volume and do not compare against client scores.
+
+You may retain the score or correct it by at most 1 point upward or downward, using
+half-point increments. Never convert a null to a number or a number to null. Make a
+change only when the original judge was materially too generous or too severe. For
+every ruler, return a self-contained revised rationale and revised lower/higher-anchor
+explanations, even when retaining the score. Cite only evidence IDs in that ruler's
+projection. The revised prose must reflect the reviewed score and explicitly resolve
+the weakness identified in `review_explanation`.
+
+Immutable review identity:
+{
+  "schema_version": "chapter_judgment_review_v1",
+  "chapter_id": "3B",
+  "source_job_key": "chapter-judge:2023-production-19-judges-sol-oversize-v1:2023:3B",
+  "source_sha256": "3595c0c6bd80da52169832a8e4df5790e66101676b3fd6da8d94ceceba82f1f3",
+  "reviewer_model": "gpt-5.6-sol",
+  "reasoning_effort": "high"
+}
+
+Source judgment:
+{
+  "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-judgment.json",
+  "sha256": "3595c0c6bd80da52169832a8e4df5790e66101676b3fd6da8d94ceceba82f1f3"
+}
+
+Ruler projections:
+[
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/BGD-17069.json",
+    "sha256": "45919140e9761578140fe973522df2123385a9bb3c401c4ec64388c7a01a3797"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/BRA-16162.json",
+    "sha256": "9d289672aae3746b9a0721dad18764c79b4ddb062d51fe45740e554d5d86eb5c"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/CHN-15833.json",
+    "sha256": "93544533c973693d4a761180272a61258a640ca3743d2b53a9b85beb82c1ef3a"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/COD-16114.json",
+    "sha256": "40f40599a37c69035da721068f2661b372a6e7ee73d530bd63c533ca0e8ac9ce"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/DEU-16985.json",
+    "sha256": "e5ad1f9d35ceae81575323ab6b7a92245b2627c6b6c0db57bb94ffe79c8b7b45"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/EGY-16233.json",
+    "sha256": "8fc199a44aa93309d5fa0fd6c43cce90cf1e7696393396465bb12de3139ae9e3"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/ETH-16783.json",
+    "sha256": "2ee8a87ea69558bf6e74d466d6cf705d93064b2bf21756c21ba480243eba32e9"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/IDN-16200.json",
+    "sha256": "4371c3b413a59f5d2a20e548696cca56ea116510d6ff898be22753d240dc2c2d"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/IND-19639.json",
+    "sha256": "a3eff07f102262af4de281b7cf4c1157b5f6c08d7fb5c6860b3ec3bbdb5f6f6f"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/IRN-19641.json",
+    "sha256": "36c1468689b569671c23356dfd0a098782321e377d2cbb2638a3ca1ed7521fd3"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/JPN-16637.json",
+    "sha256": "3e8bca32aaabf7505cfb8c4656d0f9fdd4f247735a4d2dbcdcad25440baf3391"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/MEX-15802.json",
+    "sha256": "73f84baaac2457d60a556d305f0c0605ce365563a11ff9372328c7fb8e352fd4"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/PAK-16683.json",
+    "sha256": "87b2265081d4ce1ebe5f67f01f2e105274552e9a1abc6915e9856cf1398c89f2"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/PHL-16195.json",
+    "sha256": "dea6a2643c9acc18817f5a112d30e00edc9a935c61ef0a2d5c5fed2fd675e627"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/RUS-15707.json",
+    "sha256": "fd5591080a1753be545facc521aaaa8e546629adfd440aa13f4d1e0ddbd6f6bc"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/THA-17130.json",
+    "sha256": "9df6c23cb8fc6aaed93c8ba287d9c369d697e8cd5bb48e939cfc79d79d13af26"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/TUR-15973.json",
+    "sha256": "5070bde44a801e4ea9da5e66b6f286d55150f662393b1488e7d41a0a61516a64"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/USA-15811.json",
+    "sha256": "c6a4177102ec978a5f9f161731f63c5c74492f0dd1ffb7fc93ebc814524e6e2b"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/003-45fbfa2d-799/chapter-inputs/VNM-19640.json",
+    "sha256": "c37c22311fac0874297023ad0d625734617fca903728510e1244cacb17164ed2"
+  }
+]
+
+Return only the requested JSON. Include exactly one decision for each of the
+19 source evaluations.

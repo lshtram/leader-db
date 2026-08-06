@@ -1,0 +1,966 @@
+Audit the normalized source map against the original extract. Ignore prose style and all formatting problems in the original reader output. Count only affirmative evidence claims in claim_count; do not count an explicitly labelled limitation, absence-of-evidence warning, or reopen request as an accepted claim requiring an affirmative locator. Do not count source-identity metadata such as title, catalog ID, or manifest URL; provenance metadata is verified separately against the frozen manifest. Count a locator as usable when it identifies the supporting unit, block, page, section, article, table, or record precisely enough to reopen it. Identify material omitted facts and qualifications separately. An omission makes content_usable false only when it removes or distorts evidence decisive to the chapter questions; otherwise record material_omission=true and explain it without failing usability. A formatting repair is never a content failure. Return the required JSON only.
+
+READER SUMMARY:
+## MAC-010 — Compact source map (corrected)
+
+**Document:** IMF, *Staff Report for the 2022 Article IV Consultation—Mexico*, full report; informational annex dated **October 18, 2022**. Article IV discussions occurred **September 12–23, 2022**.
+**Extract coverage:** PDF pp. 80–104; printed report pp. 76–91 and Informational Annex pp. 2–9.
+**Source role:** International-organization staff analysis. Unless attributed to Mexican authorities or another dataset, analytical conclusions and forecasts are IMF staff assertions, not adjudicated findings. No Chapter 5B score should be derived from this extract alone.
+
+### Atomic claims
+
+| ID | Claim and status | Locator | 5B |
+|---|---|---|---|
+| C1 | **Observed/analytical:** Mexico's inflation surge began in early 2021 and reached multi-decade highs. Food prices contributed **roughly half** of inflation above Banxico's target-range upper limit. Only near-term expectations had risen "so far." | p.80, Annex IX ¶1, ¶2 first bullet | 5B.9 |
+| C2 | **IMF interpretation:** Compared with some countries, the surge began with more economic slack and less 2020–21 macroeconomic stimulus; the unemployment gap was therefore less concerning, although manufacturing capacity utilization reached unprecedented levels. | p.81, Annex IX ¶2 final bullet | 5B.9 |
+| C3 | **Model-based staff estimate:** A hybrid Phillips-curve analysis attributes much of 2021–22 headline inflation through 2021Q3 to energy and food prices; residual cost-push factors added pressure, especially in 2022Q1. Robustness is described as broad, not conclusive. | p.81, Annex IX ¶3 and nn.1–2 | 5B.7, 5B.9 |
+| C4 | **Method qualification:** The equation was estimated over **2003Q1–2019Q4** (headline) and **2003Q1–2020Q4** (core), omitting the volatile pandemic period, then used for a dynamic in-sample forecast for **2021Q1–2022Q2**, assuming non-lagged explanatory variables were known at end-2020. | p.81 n.1; p.82 estimate table | 5B.7 |
+| C5 | **Observed balances:** Stabilization-fund transfers to the budget were **0.5% of GDP in 2019** and **0.9% in 2020**, leaving **0.2% of GDP**. Staff expected 2022 oil-revenue surprises to be insufficient for replenishment because of spending pressures. | p.83, Annex X ¶1 | 5B.3, 5B.9 |
+| C6 | **Institutional fact:** Under the **Federal Budget and Fiscal Responsibility Law (FBFRL)**, FMP must transfer budgeted oil revenue to the federal government, then invest up to **2.22% and 0.64% of projected oil revenues** in federal and state stabilization funds; oil revenue above **4.7% of GDP** goes to Long-Term Reserves. | p.83, Annex X ¶2, FMP bullet | 5B.3 |
+| C7 | **Expected versus prior value:** FMP federal transfers were expected at **MEX$673bn (2.3% of GDP) in 2022**, versus **MEX$364bn (1.4% of GDP) in 2021**. These are nominal pesos; the 2022 value is an expectation, not execution. | p.83, Annex X ¶2, FMP bullet | 5B.3 |
+| C8 | **Observed/expected:** FEIP held **MEX$9.5bn (0.04% of GDP)** at end-2020, versus **MEX$158bn (0.6% of GDP)** one year earlier. It received **MEX$7.5bn (0.01% of GDP)** in 2021 and was expected to receive **MEX$8bn (0.03% of GDP)** in 2022. The 2020 inflow breakdown (oil-hedge MEX$47bn/0.2%, FMP MEX$9bn/0.04%, asset returns MEX$9bn/0.04%, total transfers out MEX$157bn/0.7%) is not characterized in the draft. | pp.83–84, Annex X ¶2, FEIP bullet | 5B.3 |
+| C9 | **Authorities' estimate plus observed balance:** Authorities estimated approximately **MEX$100bn** — **0.35% of 2022 GDP / 0.33% of 2023 GDP** — as adequate 2023 contingency funding. FEIP held **MEX$25.0bn (0.09% of 2022 GDP)** at end-June 2022; staff warned the 2023 opening balance could miss the target. | p.84, Annex X ¶3 | 5B.3, 5B.9 |
+| C10 | **Proposed, not enacted in extract:** The 2023 budget package proposed amending the fiscal-responsibility framework so unused debt-issuance headroom would become an IOU deposited in FEIP and exchangeable in the following fiscal year. FEIP could hold liquid assets but not incur liabilities. The draft references an unspecified "fiscal-responsibility framework"; the source identifies the framework as the **FRBL (Federal Budget and Fiscal Responsibility Law)** reforms. | p.85, Annex X ¶5 and n.2 | 5B.3 |
+| C11 | **Conditional forecast:** Ratification before end-2022 was expected to free **MEX$20–30bn** for FEIP. Financing remained uncertain because it depended on year-end debt-ceiling headroom. The extract does not establish ratification or execution. | p.85, Annex X ¶7 | 5B.3, 5B.9 |
+| C12 | **IMF assessment/recommendation:** Proposed reforms were pragmatic for near-term risks but increased complexity, weakened transparency, were unreliable, and did not correct procyclicality from the PSBR and Balanced-Budget Rule. Staff proposed a debt anchor, clearer definitions, broader expenditure-rule coverage, and medium-term sustainability planning. | pp.86–87, Annex X ¶¶7–8 and Table 1 | 5B.3 |
+| C13 | **Reported reforms with attribution boundary:** Since 2019, tax-administration changes included limits on offsetting excess credits, digital-platform withholding, GAAR, prohibition of company mergers for tax purposes, and OECD BEPS actions 2, 4 and 12. Staff says these reforms **may** have supported revenue performance; causal isolation is difficult. | p.90, Annex XII ¶¶1–2 | 5B.3, 5B.7 |
+| C14 | **Quantified trend and authorities' analysis:** Between 2019 and expected 2022 values, income/corporate-tax and VAT revenue rose by **1.0 and 0.6 percentage points of GDP**, respectively. Authorities' VAT-gap analysis suggested approximately **MEX$170bn** less evasion during 2018–21; IMF staff does not independently establish causality. | p.90, Annex XII ¶2 | 5B.3, 5B.7 |
+| C15 | **Data-quality assessment:** IMF judged data adequate for surveillance and the 2021 ROSC called national accounts high quality, but identified cash-versus-accrual recording, public-sector reconciliation, subnational coverage, partial pension-liability reporting, face-value debt reporting, and omitted Banxico liquidity-management T-bonds. | pp.97, 100–101, Fund Relations ¶2; Statistical Issues §§National accounts–Government finance–Monetary | 5B.7 |
+| C16 | **Contrary qualification:** Financial Soundness Indicator publication was interrupted after May 2021 for IFRS9 revisions; authorities supplied old-standard updates on request. External statistics were high quality, but external-debt coverage, valuation, accrual treatment, and cross-dataset consistency remained incomplete. | p.101, §§Financial sector surveillance–ESS | 5B.7 |
+| C17 | **Program-status fact:** As of August 31, 2022, Mexico had no outstanding IMF purchases or loans. Its Nov. 19, 2021–Nov. 18, 2023 Flexible Credit Line approved **SDR 35,650.80m**, with **SDR 0 drawn**. No conditionality or reform target tied to drawings appears in this extract. | pp.97–98, Fund Relations tables | 5B.3 |
+
+### Limitations and reopen list
+
+- Extract excludes the report's main macro tables, staff appraisal, authorities' views, debt-sustainability analysis, and headline growth/fiscal/debt/reserve forecasts; reopen these before broader conclusions.
+- **Reopen Annex X against enacted 2022 legislation** to verify amendment name, final text, passage date, effective date, exceptions, and implementation.
+- Recheck chart values on pp.80–82 against original PDF graphics; OCR does not reliably preserve axes or series.
+- Reopen pension Annex XIII for distributional and fiscal effects (pp.91–92): several effects are explicitly forecasts or possibilities, not outcomes.
+- Reconcile narrative fiscal values with report tables and SHCP outturns; this extract mixes observed, expected, and authority-estimated figures.
+
+ORIGINAL EXTRACT:
+page 80
+MEXICO
+Annex IX. The Inflation Surge in Mexico in Perspective
+The current inflation surge in Mexico has important similarities and differences compared to other
+countries. Like elsewhere, inflation has consistently surprised on the upside and started around the
+same time, in early 2021. However, compared to others, the inflation surge in Mexico started from a
+position of weaker economic slack, and food prices played a more prominent role.
+1. Like elsewhere, inflation has picked up in
+Headline Inflation
+Mexico. Over the past year and a half, Mexico has (Annual change in CPI in percent)
+10
+experienced an inflation surge to multi-decade highs,
+8
+as many other countries, including its main trading
+partner, the U.S. While similar in many aspects, the 6
+surge in Mexico and its drivers have differed in other 4
+dimensions. The current surge also differs from past 2
+inflation surges in Mexico. 0
+-2 Mexico
+2. There are important similarities and
+United States
+-4
+differences between Mexico’s experience compared
+to others.
+Source: Haver Analytics.
+• On similarities, the surge started in early 2021 with Headline, Core, and Food Inflation
+(Annual change in CPI in percent)
+the rebound in global fuel prices. Subsequently, it
+14
+involved sharp increases in the prices of goods, Headline Core
+12 Food Upper limit
+broadly in line with headline inflation in Mexico’s Lower limit
+case, and in food prices. As elsewhere, inflation has 10
+also consistently surprised on the upside, with large 8
+surprises in some months, leading to increasing
+6
+concerns about a possible de-anchoring of inflation
+4
+expectations. So far, only near-term inflation
+2
+expectations have increased.
+0
+• An important difference is the greater role of food
+prices in the inflation surge in Mexico, contributing Source: Haver Analytics.
+roughly half of the increase in inflation above the
+upper limit of Banxico’s inflation target range. The large Annual CPI Inflation, Actual and In-Sample
+Forecast
+contribution is consistent with past patterns. Since the 8.0
+7.5
+adoption of an inflation targeting regime in 2001,
+7.0
+Mexico has experienced several episodes of food 6.5
+6.0
+inflation running above target for a year or more. Some
+5.5
+of these episodes also involved headline or even core 5.0
+4.5
+inflation running above target, including in 2008 and in
+4.0
+Actual
+2017–18, while in others, above-target dynamics only 3.5 Forecast
+3.0
+concerned food prices, including in 2011–13.
+2020Q4 2021Q1 2021Q2 2021Q3 2021Q4 2022Q1 2022Q2
+Source:IMF staff calculations. Based on a dynamicin-sample forecasts for
+quarterly inflation using a Phillip curve approach.
+• Another important difference with some other
+countries is that the inflation surge started from a position of relatively more economic slack and
+76 INTERNATIONAL MONETARY FUND
+
+page 81
+MEXICO
+comparatively less macroeconomic policy stimulus in 2020–21. The unemployment gap as a
+source of inflationary pressures has thus been less of a concern than elsewhere. But the
+economic recovery from the pandemic has been uneven, and some sectors, especially in
+manufacturing, have experienced increases in capacity utilization to unprecedented levels,
+consistent with some shift in household demand toward goods. Producer prices for final goods
+have indeed risen ahead of headline CPI inflation, although much of this increase reflects prices
+for processed food.
+3. Empirical analysis confirms that rising
+Contributing Factors to Changes in Headline
+energy and food prices resulted in the increase Inflation
+in headline inflation. A Philips curve approach to (Contributions in percentage points by variable)
+3 3
+analyze the inflation surge in 2021-22 suggests that
+2 2
+the factors identified above explain much of the
+surge in headline inflation through the third quarter 1 1
+of 2021, notably rising energy and then food
+0 0
+prices.1 While these factors continue to explain
+-1 -1
+much of the above-target inflation subsequently,
+residual cost push factors also contributed upward -2 -2
+2021Q1 2021Q2 2021Q3 2021Q4 2022Q1 2022Q2
+inflationary pressures, especially in the first quarter
+Inf Lag Inf Expectations REER
+of 2022. In this respect, the current episode differs Energy Slack Food
+Shock Inf (Dep Var)
+from that in 2017–18, which involved smaller Source:IMF staff calculations
+residual pressures.2
+4. The estimated Philips curve suggests that both expected and lagged inflation
+contribute to current headline inflation. The results presented in the table suggest roughly equal
+weights in the case of headline inflation (0.52 versus. 0.48).3 This result is broadly in line with the
+conventional view of a relatively greater role of past inflation in contributing to current inflation
+dynamics in Mexico and other emerging market economies compared to advanced economies. The
+impact of past price surprises on inflation, including due to food and other supply shocks, will thus
+last relatively longer and can contribute to relatively higher inflation volatility.
+5. Standard determinants seem to explain relatively less of the variation in core inflation.
+In particular, raw food prices, which correlates significantly with headline inflation, appear less
+1 A so-called hybrid Philips curve equation was estimated for the period of 2003–19, the period of inflation targeting
+by Banxico with a 3 percent inflation target, omitting the pandemic period, given exceptional volatility. Both expected
+and lagged inflation are among the explanatory variables in this kind of specification. The estimated curve also
+includes a measure of labor market slack and several relative prices (real effective exchange rate, energy, and food
+prices). The estimated equation was then used for a dynamic, in-sample forecast for 2021Q1 to 2022Q2, assuming
+that the explanatory variables other than past inflation were known to the forecaster at the end of 2020.
+2 The conclusions are broadly robust with respect to different specifications or different methodologies. For example,
+allowing for time-varying coefficients in the Philips curve estimation during the pandemic period leads to broadly
+similar contributions about the contributing factors, including residual shocks.
+3 The table presents least square estimates of a reduced-form hybrid Philips curve that accounts for relative price
+shocks:
+π =α+βπe +(1−β)π +δX +ε
+wh
+t
+ere π denote
+t,
+s
+t+
+i
+4
+nflation, and w
+t−
+h
+1
+ere
+πet
+s
+t
+tands for (survey-based) expectations of inflation at time t+4 at time t,
+t,t+4
+and the vector X includes other controls, including the unemployment gap and relative price shocks.
+INTERNATIONAL MONETARY FUND 77
+
+page 82
+MEXICO
+relevant as a determinant for core inflation. This is surprising since these items are important inputs
+for the processed foods industry, the prices of which are included in Mexico’s core inflation measure.
+Similarly, the coefficient on U.S. core inflation seems small, relative to the overall import share in the
+economy. These results highlight that core inflation has fluctuated much less than headline inflation
+before the pandemic, suggesting that relative price shocks had a small pass-through to core. This
+experience seems less relevant in the current inflation episode.
+Hybrid Philips Curve Estimates
+Dependent variable Headline inlfation (quarterly) Core inflation (quarterly)
+Sample period 2003Q1 2003Q1 2003Q1 2003Q1
+2019Q4 2020Q4 2019Q4 2020Q4
+Constant 0.18 0.04 0.35 0.09
+1
+Inflation expectations 0.52 0.52 0.58 0.53
+2
+Unemployment gap -0.06 -0.03 -0.06 -0.01
+3
+REER -0.03 -0.02
+3
+Energy prices 0.16 0.16
+3
+Raw food prices 0.20 0.20 0.02 0.02
+3
+US Core CPI 0.13 0.15
+R2
+0.75 0.77 0.34 0.33
+D.W. 2.03 2.01 1.96 1.92
+Source: IMF staff calculations.
+1
+Mean of 12-month-ahead inflation expectations (scaled to match quarterly frequency). Source: Banxico.
+2
+Quarterly change in relative price (scaled by lagged headline or core CPI).
+3
+Geometric average of un-and underemployment (ex. agriculture) rates, gap relative to sample mean.
+78 INTERNATIONAL MONETARY FUND
+
+page 83
+MEXICO
+Annex X. Reforming the Fiscal Framework in Mexico: Freeing
+Fiscal Policy to Respond to Shocks
+With fiscal contingencies all but depleted following the authorities’ response to the pandemic in 2020,
+limited space in the 2022 and 2023 budgets, and mounting downside risks for 2023, the Mexican
+authorities have proposed reforms to the fiscal framework to enable the replenishment of their buffers
+for 2023. The proposals represent a quick and efficient repurposing of resources in light of immediate
+risks but increase complexity while doing little to improve reliability and tackle the pro-cyclical bias in
+fiscal policy. Comprehensive reforms aimed at addressing issues with the current framework will
+inevitably take time but could build on staff advice.
+A. Background and Issues
+1. Mexico’s fiscal contingencies are low as downside risks to the global economy are
+rising. In responding to the COVID-19 pandemic in 2020, Mexico used its fiscal buffers as revenues
+fell short of budget projections, transferring 0.9 percent of GDP from stabilization funds to the
+budget. This transfer and the previous one of 0.5 percent of GDP in 2019 almost depleted these
+funds, leaving a remaining balance of 0.2 percent of GDP. While recourse to fiscal contingencies has
+not been necessary since, increased spending pressures relative to the budget mean that oil revenue
+surprises in 2022 are unlikely to be large enough to allow for replenishing the stabilization funds.
+With downside risks to the global and Mexican economies rising, a key issue is how Mexico can
+rebuild its capacity to respond to future shocks.
+2. Two funds form the basis of the Federal government’s fiscal contingencies in the fiscal
+framework and are a source of both general and extraordinary revenues in the budget. They
+are:
+• Fondo Mexicano de Petróleo para la Estabilización y el Desarrollo (FMP): This is Mexico’s
+sovereign wealth fund. It manages the (non-tax) oil revenues from PEMEX and private
+companies in the sector, collecting them and transferring them to the Federal government. The
+fund also executes financial transactions related to exploration and extraction contracts granted
+by the government. FMP is required to transfer a share of oil revenues to the Federal
+government for budgetary financing, with the size of the transfer equal to the amount included
+in the government’s budget. Thereafter, as stipulated in the Federal Budget and Fiscal
+Responsibility Law (FBFRL), it must invest in Federal- and state-level stabilization funds (up to
+2.22 and 0.64 percent of projected oil revenues, respectively) before it can accumulate reserves
+in a long-run savings account, the Long-Term Reserves. When oil revenues exceed 4.7 percent of
+GDP, the excess amount goes directedly to the Long-Term Reserves. Since 2018, reserves have
+been roughly equal to USD 1 billion (0.07 percent of GDP in 2022).1 FMP transfers to the Federal
+government, representing non-tax oil revenues, are expected to be MEX$673 billion (2.3 percent
+of GDP) in 2022, up from MEX$364 billion (1.4 percent of GDP) in 2021.
+• Fondo de Estabilización de los Ingresos Presupuestarios (FEIP): FEIP is a source of in-year
+financing for the budget when revenues fall short of budget projections. The primary source of
+1 https://www.fmped.org.mx/administracion-reserva.html
+INTERNATIONAL MONETARY FUND 79
+
+page 84
+MEXICO
+financing for FEIP comes from oil hedging operations, with a technical committee at Mexico’s
+Ministry of Finance (SHCP) determining the volume of oil exports to be covered and a strike
+price for put options. Strike prices are generally consistent with the assumed oil price in the
+budget and 210–215 million barrels were hedged in this way between 2010 and 2017. However,
+a secondary source of financing for FEIP comes from transfers from FMP. In 2020, the FEIP
+received MEX$47 billion (0.2 percent of GDP) from oil hedging operations, MEX$9 billion (0.04
+percent of GDP) from FMP transfers, and another MEX$9 billion (0.04 percent of GDP) from
+returns on its financial assets. Conversely, FEIP transferred a total of MEX$157 billion (0.7 percent
+of GDP) to the budget due to revenue shortfalls relative to budget projections. The balance of
+the fund marked MEX$9.5 billion (0.04 percent of GDP) by the end-2020 compared to MEX$158
+billion (0.6 percent of GDP) in the previous year. Transfers to the fund equaled MEX$7.5 billion
+(0.01 percent of GDP) in 2021 and are expected to equal MEX$8 billion (0.03 percent of GDP) in
+2022.
+3. Given prospects and recent patterns, existing financing mechanisms might not allow
+FEIP to be replenished. The windfall oil revenue gains collected by FMP are increasingly being used
+by the budget as fuel-based spending pressures have risen, leaving little or no funds to rebuild the
+FEIP balance or build up FMP reserves. Moreover, while the authorities estimate that a balance of
+around MEX$100 billion in FEIP (0.35 percent of 2022 GDP and 0.33 percent of 2023 GDP) would
+provide for an adequate fiscal contingency for 2023, the balance in the fund was MEX$25.0 billion
+(0.09 percent of 2022 GDP) as of end-June 2022 and the aforementioned expected transfers to the
+fund in 2022 will only provide an additional 0.03 percent of GDP. The starting balance of the fund in
+2023 could thus fall short of the MEX$100 billion target.
+4. A long-run consideration is whether the oil revenues and the hedging mechanism can
+provide sufficient resources for counter-cyclical policy in the future. Recent PEMEX oil
+production has provided for a smaller oil revenue base, regardless of the oil price, increasing the
+likelihood of residual funds being too small for replenishing contingencies after they have been
+used. Moreover, as the oil hedge is not directly linked to Mexico’s economic cycle, it need not
+function as an automatic fiscal stabilizer.
+Budget Support and Oil Revenues, 2018–22
+Sources: SHCP, staff calculations.
+Note: ‘Total Oil Revenues’ covers revenues accruing to the consolidated budget and so includes both Pemex
+revenues and Federal government oil revenues.
+80 INTERNATIONAL MONETARY FUND
+
+page 85
+MEXICO
+B. Reforms Proposed in the 2023 Budget Package
+5. Reforms to the fiscal framework proposed by the Mexican government seek to
+introduce new mechanisms for financing FEIP. Reforms to the FRBL proposed in the
+government’s 2023 budget package would create a new funding mechanism for FEIP based on debt
+issuance. Under the proposals, where actual debt issuance falls short of that budgeted for the year,
+the government would create an IOU equivalent to the shortfall between actual debt issuance and
+the debt ceiling in the budget and deposit this in FEIP. In the next fiscal year, FEIP could then
+dispose of, or exchange, this asset at will to increase its liquidity. Liquidity in this instance need not
+be cash and the reforms enable FEIP to hold financial assets, though it still cannot incur financial
+liabilities.2 In the first instance, assets relate to government paper. However, in principle, FEIP could
+also hold other instruments. Given that FEIP holds and contracts put options as per the oil hedging
+program, some precedent exists regarding FEIP’s ability to conduct and manage financial
+transactions.
+6. Under the reforms, the trade-off between financing FEIP and addressing immediate
+spending concerns is mitigated while diversifying the financing mechanism away from oil
+reduces vulnerability to trends in oil prices and production. Under the current framework,
+increasing financing for FEIP would likely entail greater transfers from FMP – meaning lower levels of
+financing to support the Federal government budget, state-level funds, and FMP’s reserves as well
+as alterations to the apportionment methodology – or the exercising of put options on oil.3 On the
+latter, as these put options can only be exercised when oil prices fall below that assumed in the
+government budget, this mechanism does not contribute to building contingencies prior to any
+shock as resources flowing into FEIP in this scenario are already earmarked for budget financing
+given an oil revenue shortfall. Additionally, the size of the funds available to FEIP, and therefore
+available for a counter-cyclical policy response, is limited by the amount of oil placed into the
+hedging mechanism. This places constraints on the financing base available for FEIP in the context
+of the importance of oil revenues in supporting the budget and a downward trend in production.
+Adding additional mechanisms for financing FEIP, including debt issuance, creates a broader
+financing base and one that can be tapped in advance of the realization of shocks.
+7. The reforms represent a pragmatic step forward in enabling fiscal policy to respond to
+immediate downside risks, but comprehensive reform is necessary to improve flexibility and
+reliability while ensuring transparency and fiscal responsibility. The ratification of the proposed
+reforms before the end of 2022 are expected to free up MEX$20–30 billion for FEIP. The reforms
+could therefore provide large support to the contingencies required should the downside risks
+facing the domestic and global economy in 2023 materialize. By seeking to leave many of the
+parameters of the existing fiscal framework untouched, the reforms enable quick implementation at
+2 The type of financial asset that FEIP would be allowed to hold includes government securities or other types of
+liquid asset that could be sold, securitized, or collateralized.
+3 A transfer from FMP’s reserves to FEIP is another possibility and would leave budgetary resources untouched.
+However, this requires that the Chamber of Deputies approve such a transfer. Existing legislation expedites this
+decision-making process where FMP reserves exceed 3 percent of GDP by the end of the previous year—a remote
+possibility with reserves standing at 0.07 percent of GDP in July 2022. FMP reserves can be used directly for
+budgetary needs even when they are below 3 percent of GDP but FEIP resources must be completely exhausted first
+and a two-thirds majority vote by the Chamber of Deputies is required.
+INTERNATIONAL MONETARY FUND 81
+
+page 86
+MEXICO
+a time when risks are concentrated in the near-term. But this approach also entails trade-offs, with
+complexity increasing as a result and knock-on consequences for transparency. Moreover, as the
+additional funding for FEIP is predicated on whatever headroom against the debt ceiling is left at
+year-end, the extent of financing is subject to uncertainty and therefore unreliable. Finally, the
+reforms do not address the pro-cyclical bias in the current fiscal framework resulting from both the
+PSBR and the Balanced Budget Rule (BBR) (see Annex X Table 1).
+8. Longer-run options entail more comprehensive reforms to Mexico’s fiscal framework.
+Reforms such as the establishment of a debt anchor, clarification and tightening of definitions and
+procedures, expanded expenditure rule coverage, and a focus on medium-term sustainability
+strategies would enhance the flexibility of fiscal policy while maintaining and strengthening fiscal
+responsibility. The table in this annex compares the features of the current fiscal framework with
+staff proposals along the lines discussed. As these proposals represent a notable departure from the
+existing framework, a medium-term sustainability strategy (itself a recommendation) could be used
+to anchor the transition.
+82 INTERNATIONAL MONETARY FUND
+
+page 87
+MEXICO
+Annex X. Table 1. Mexico: Fiscal Framework—Key Design Features and Reform Proposals
+Current Framework Staff Proposals
+Revenues - -
+The Structural Current Spending Rule (SCR) requires that the A reformed expenditure rule with greater coverage of public
+real growth rate of structural current spending does not exceed expenditure, including of some capital expenditures.
+potential output growth. Structural current spending is Additionally, clearer and more transparent rules on the growth
+programmable spending excluding interest payments, fuel for of structural expenditures that is linked to macroeconomic
+electricity generation, CFE and PEMEX expenditures, and Federal aggregates that are less prone to measurement volatility.
+government investment. It accounts for 36 percent of total public
+Expenditure
+expenditures. Under Article 18 of the FBFRL any proposed increase
+of expenditures in the budget beyond the permitted growth must
+be accompanied by a revenue or spending cut initiative to
+neutralize its effect.
+The Balanced-Budget Rule (BBR) requires that the budget must Removal of the Balanced-Budget Rule to reduce
+be balanced on a cash basis, excluding investments by PEMEX and procylicality of fiscal policy.
+its subsidiaries. The coverage of this rule includes the Federal
+Deficit government, PEMEX and CFE, and IMSS and ISTE, and various trust
+funds. The rule is broadly procyclical.
+The Public Sector Borrowing Requirement Rule (PSBR) requires The introduction of a debt anchor would enable the removal
+that the budget documentation sets a target for the public sector of the debt issuance requirements as there is a cap on overall
+borrowing requirement for the current year and indicative targets debt at the safe level. Debt issuance here could then be used
+are set for the medium-term, all with the aim of ensuring that for directly managing shocks, capital spending, and more
+borrowing requirements are non-increasing over time. Coverage of transformational current spending (which would have to be
+the rule includes all entities except for subnational governments balanced by revenue mobilization over medium-term as per
+Debt and the central bank. Staff's fiscal policy advice). Establishing a debt ceiling could
+also help rationalize debt-financed capital spending.
+Restrictions on debt issuance by purpose. Article 73 of the Specifying medium-/longer-term debt targets would ensure
+Constitution and the FBFRL restricts the issuance of debt to that debt isn’t permanently elevated at, or close to, the anchor
+productive investment. and this could be supported by a 4- or 5-year Sustainability
+Framework.
+Escape clauses can be enacted based on five specified triggers: Reformed escape clauses would simplify and tighten the
+(i) financial cost of debt exceeding more than 25 percent of its definitions of triggers, thereby increasing transparency. This
+level approved in the previous year due to interest increases; would be enabled by more flexibility in other framework
+(ii) natural disaster costs exceeding more than 2 percent of parameters along the lines above. The requirement to set out
+programmable expenditure in the previous year; a plan to return to the fiscal rules should also be built into the
+(iii) floating debt higher than 2 percent of programmable reformed clauses and the role of Congress in the process of
+expenditure in the previous year; activating clauses should be made more transparent.
+(iv) a greater than 2.5 percent reduction in tax revenues compared
+to the previous year;
+(v) a reduction of more than 10 percent in the oil price or shocks to
+oil production; and
+(vi) a cost higher than 2 percent of previous year programmable
+Escape
+expenditure, when it implies
+Clauses
+the implementation of legal changes or fiscal policy measures that
+will benefit public by increasing costs or reducing revenues in a
+permanent way.
+Justification must include the reasons justifying the deficit and the
+precise size of financing as well as the number of years and
+measures expected to return budget equilibrium. Escape clauses
+were used in 2010-12 and 2014-16, meaning that the framework
+was only respected in 7 out of the 13 years to 2020. The
+inflexibility of the current framework is deemed to be a key factor
+in this (IMF 2020).
+INTERNATIONAL MONETARY FUND 83
+
+page 88
+MEXICO
+Annex XI. FSAP Key Recommendations
+Key Recommendations Time1
+Cross-Cutting Themes
+Enhance the autonomy of regulatory government agencies and legal protection of
+NT
+supervisors (¶31)
+Assess and enhance the organizational structure and resource needs of individual agencies (¶32) NT
+Enhance the oversight of the Interbank Electronic Payment System (SPEI) relative to the PFMI
+NT
+and cybersecurity (¶34)
+Systemic Risk Analysis
+Monitor the dynamics of contingent credit lines and portfolio concentration closely and use
+NT
+Pillar 2 requirements to address relevant risks, as needed (¶27)
+Expand the liquidity stress test framework; incorporate in the Supervisory Review Process to
+MT
+inform Pillar 2 requirements for banks (¶27)
+Financial Sector Oversight
+Develop and publish a macroprudential policy strategy (¶35) NT
+Consider expanding the macroprudential toolkit with limits on loan-to-value and debt-
+MT
+service-to-income ratios (¶37)
+Ensure effective consolidated supervision of financial holding companies (¶40) MT
+Refine the risk-based supervisory methodology (CEFER) to effectively assess banks’
+NT
+adherence to adequate risk management practices (¶42)
+Continue developing the cybersecurity strategy for the financial system; improve
+NT
+cybersecurity regulatory and supervisory practices (¶44)
+Improve cyber response and recovery capabilities; conduct market-wide cyber crisis
+MT
+simulation exercises (¶44)
+Issue supervisory guidance on climate-related risk management, governance, and business
+NT
+strategies; introduce disclosure requirements of climate and ESG information (¶46–47)
+Financial Integrity
+Implement the remaining 2018 Mutual Evaluation Report recommendations (¶50–51) NT
+Systemic Liquidity and Crisis Management
+Review the liquidity risk mitigation framework for development banks (¶52) NT
+Explore options to enhance the ELA framework (¶55) NT
+Further strengthen mechanisms to ensure the credibility and feasibility of banks’ financial
+C
+contingency arrangements while preserving resolvability and cost-effective resolutions (¶57)
+Introduce statutory bail-in powers and eliminate barriers to the effective use of the P&A and
+MT
+bridge bank tools (¶57)
+Shorten the resolution planning cycle for D-SIBs and midsize banks, and eliminate impediments to
+C
+banks’ resolvability (¶58)
+84 INTERNATIONAL MONETARY FUND
+
+page 89
+MEXICO
+Key Recommendations Time1
+Financial Development Issues
+Broaden the scope of regulated fintech activities; finalize the implementation of open finance
+NT
+(¶61-62)
+Establish a national climate finance strategy; set ambitious climate finance targets for
+MT
+development financial institutions (¶64)
+1/ C: continuous, I: immediate (less than one year), NT: short term (1–2 years), and MT: medium term (3–5 years).
+INTERNATIONAL MONETARY FUND 85
+
+page 90
+MEXICO
+Annex XII. Recent Reforms in Tax Administration
+A focus on improving tax administration and compliance under the current government has resulted in
+a wide range of reforms have contributed to the strong revenue performance through recent shocks.
+However, further revenue gains in this area may be harder to obtain as non-compliant behaviors
+adapt, the base of erosion and evasion narrows, and remaining issues require more complex solutions.
+1. Improving tax administration has been a central pillar of the government’s fiscal
+policy agenda. Under the current administration, revenue mobilization efforts in Mexico have
+centered on improving tax compliance. Notable reforms since 2019 have included:
+• The abolition of the right to offset excess tax credits against other taxes, building on staff
+recommendations regarding tackling large-scale tax fraud;
+• The requirement that digital platforms withhold taxes due on transactions in which they acted as
+intermediary;
+• Implementation of General Anti-Abuse Rules (GAAR) and the prohibition of company mergers
+for tax purposes to tackle corporate tax planning; and
+• Enaction of actions 2, 4 and 12 in the OECD’s Base Erosion and Profit Shifting (BEPS) agenda.
+2. Administration reforms may have supported revenue performance in recent years but
+returns to efforts are expected to moderate over the medium-term. Since 2019, income and
+corporate tax and VAT revenues have grown as a share of GDP, with expected increases of 1.0
+and 0.6 percent of GDP between 2019 and 2022, respectively. This strong revenue performance
+is deemed to be at least partially due to the bedding-in of compliance policies and analysis of
+the VAT gap undertaken by the authorities suggests a reduction in VAT evasion of around
+MEX$170 billion between 2018 and 2021. However, given the successive shocks that Mexico has
+faced as well as changes to the structure of the labor market due to other reforms, isolating the
+impact of these measures is difficult, particularly given the deterrent effect that they may have
+had on taxpayer behavior. The effect of efforts in this area may run into diminishing returns due
+to adaptation of non-compliance behavior and, possibly, a smaller base of evasion and
+avoidance from which additional revenues can be obtained. The authorities’ new focus on non-
+compliance at the border may also represent a tougher challenge given the overlap with security
+issues and the need for close coordination between the tax administration and the army, which
+has taken over the physical customs inspection functions.
+86 INTERNATIONAL MONETARY FUND
+
+page 91
+MEXICO
+Annex XIII. Mexico’s Pension System
+Mexico has reformed its pension system recently, including increases in contribution rates, a reduction
+in minimum years of contributions, higher minimum pensions, and caps on fees charged. Although the
+reforms will increase pension eligibility, they might adversely affect labor market incentives and push
+more workers in the informal market.
+1. Mexico has reformed its pension system significantly in recent years. Starting in 2019,
+the means-tested social pension was replaced by a basic pension with increases in contribution rates
+and adjustments to minimum pensions and minimum contribution requirements following in 2021.
+These reforms have constituted radical changes to the pensions system envisioned in the 1997
+reform and, given the lengthy transition period included in these earlier reforms, mean that the 1997
+reform was never fully operational.
+2. The 2020 reforms to the mandatory defined contributory system are underpinned by
+changes to key parameters:
+• An increase in contribution rates from 6.5–10 percent to 15 percent by 2030. Currently,
+employees pay 1.125 percent of earnings, the government 0.225 percent (plus a social quota
+depending on earnings), and the employer 5.15 percent. This leads to a range of contribution
+rates from 6.5 percent for high earners to 10 percent for low earners. Total contributions are set
+to rise to 15 percent by increasing employer contributions to 13.875 percent for high earners,
+while lower earners will be subsidized by the government. The subsidies from the government
+will be concentrated on the low earners under the new rules. Government contributions will
+change from 2023, while contribution rates for employers will rise gradually until reaching their
+final values in 2030.
+• Lower minimum years of contributions needed to receive an earnings-related pension
+from 2021, with a steady increase thereafter. Until 2020, the minimum years of contributions
+was close to 25 years. The 2021 reforms lowered this to 15 years in 2021 but provide for yearly
+increases so that a minimum of 20 years is reached by 2031. This both holds for the regular
+pension derived from the funded system as well as the minimum pension. This change has
+especially important implications for those who are covered by the post-1997 reform system
+who are close to retirement. Under the post-1997 system around 25 years of contributions were
+required to receive either an annuity or a phased withdrawal meaning that the first pensioners
+who were expected to retire under this system would do so in 2023. However, with the reduction
+in minimum years of contributions introduced in 2021, some pensioners immediately became
+eligible to collect a funded pension (likely in combination with a minimum pension) rather than
+receiving a lump-sum as expected under the old rules.
+• Significantly higher minimum pension levels. Before 2021 there was only one minimum
+pension of almost MEX$40,000 per year, to be taken at the statutory retirement age without
+differentiation between previous earnings levels. From 2021 the minimum pension can be taken
+five years early and differs according to average career earnings (indexed to prices) and career
+length. Moreover, the lowest minimum pension increased to MEX$45,000 for someone with 20
+INTERNATIONAL MONETARY FUND 87
+
+page 92
+MEXICO
+years of contributions or more while, for an average wage earner, the minimum pension more
+than doubled to MEX$85,000 per year.
+• Caps on fees charged by AFOREs. From 2022, fees cannot exceed average fees in Chile,
+Colombia, and the U.S.
+3. Although the reforms are expected to have improved earnings-related pension
+eligibility and produce less generous benefits than under the old pay-as-you-go system over
+the medium-term, near-term pension spending will increase while labor market incentives
+may be adversely affected. Mitigating policies, such as the phased increase in the minimum
+qualifying period and the rise in contribution rates, will help to contain rising pension costs over the
+medium-term, but near-term expenditure will rise at a time when spending pressures are high
+(government spending on pensions already increased from 1.4 percent of GDP in 2000 to 4.0
+percent of GDP in 2021). Meanwhile, the adverse effects on the labor market may be long-lived. By
+enabling early retirement, the reforms could result in a tangible decline in labor force participation
+amongst older workers. Moreover, the linking of the minimum pension to earnings history may
+reduce incentives to remain in (formal) employment except for those who are close to one of the
+earnings or career length thresholds. Finally, the increase in the contribution rate for employers may
+serve to increase the labor wedge, impacting employment and pushing more workers into the
+already large informal sector despite incentives for formal participation as a result of the
+government’s efforts to subsidize pension contributions for low earners.
+88 INTERNATIONAL MONETARY FUND
+
+page 93
+MEXICO
+Annex XIV. Mexico’s Trade with Central America
+Mexico’s trade with Central America is surprisingly low despite geographical proximity. Important
+gains could be made by further trade integration through converging trade rules and regulatory
+standards, strengthening infrastructure and human capital, reducing non-tariff barriers, and
+enhancing customs cooperation.
+1. Despite geographical proximity and a regional free trade agreement, Mexico’s trade
+with Central America is very limited (Annex XIV Figure 1). Mexico’s exports to Central America
+constitute a mere 1.7 percent of its total exports in 2021, while the country’s imports from Central
+America comprise 0.6 percent of total imports. Similarly, Central America’s exposure to Mexico,
+though has increased over time, is low with around 5.8 percent of the region’s total exports going to
+Mexico in 2021 and 13.5 percent of the imports coming from Mexico. In terms of individual
+countries, Nicaragua, Guatemala and Belize have the highest exposure in the region, with more than
+8 percent of exports going to Mexico. Notably, Nicaragua’s export exposure increased substantially
+following Mexico-Central America free trade agreement (signed in 2011 and implemented in 2013).
+The import exposure of Guatemala, El Salvador and Honduras are the highest with more than 15
+percent of their imports coming from Mexico.
+Annex XIV. Figure 1. Mexico’s Trade with Central America
+Mexico Exports Mexico Imports
+100 (Percent of total exports) 0.6 100 (Percent of total imports) 1.0
+80 0.5 80 0 0 . . 8 9
+0.4 0.7
+60 60 0.6
+0.3 0.5
+40 40 0.4
+0.2
+0.3
+20 0.1 20 0.2
+0.1
+0 0.0 0 0.0
+2005 2007 2009 2011 2013 2015 2017 2019 2021 2005 2007 2009 2011 2013 2015 2017 2019 2021
+USA (LHS) Costa Rica Belize El Salvador USA (LHS) Costa Rica Belize El Salvador
+Guatemala Honduras Nicaragua Panama Guatemala Honduras Nicaragua Panama
+Central America: Exports to Mexico Central America: Imports from Mexico
+(Percent of total exports) (Percent of total imports)
+16 25
+14
+12 20
+10
+15
+8
+6 10
+4
+5
+2
+0 0
+2005 2007 2009 2011 2013 2015 2017 2019 2021 2005 2007 2009 2011 2013 2015 2017 2019 2021
+Belize Costa Rica El Salvador Guatemala Belize Costa Rica El Salvador Guatemala
+Honduras Nicaragua Panama CA Total Honduras Nicaragua Panama CA Total
+Source: United Nations Comtrade Database. Where 2021 is not available yet, 2020 data is used.
+2. Policies supportive of trade could boost growth for the region. Mexico and its Central
+American neighbors could gain substantial benefits to growth from further trade integration as
+there is potential to increase both inter- and intra-regional trade (IMF 2017). Given the close match
+between the top products exported by Mexico and those imported by Central America (e.g.,
+machinery and equipment is Mexico’s second-most exported and Central America’s second-most
+imported product), there is scope for Mexico to increase exports to this region (Annex XIV Figure 2).
+INTERNATIONAL MONETARY FUND 89
+
+page 94
+MEXICO
+Nontariff Barriers
+18
+16
+14
+12
+Fewer restrictions
+10
+8
+6
+4
+2
+0
+Mexico Costa Rica Belize El Salvador
+Guatemala Honduras Nicaragua Panama
+Source:Estefania-Flores et. al (2022): "A Measurement of Aggregate Trade Restrictions and their Economic Effects", IMF Working Paper WP/22/1.
+Note: This is a measure of how restrictive official government policy is towards the international flow of goods and services, excluding import and
+exports tariffs. The underlying data is from the IMF Annual Report on Exchange Arrangements and Exchange Restrictions.
+Lower number reflects fewer restrictions.
+3. Regional trade integration could be supported through convergence of trade rules and
+regulatory standards and trade facilitation measures. Complementary policies like strengthening
+of infrastructure and human capital would—apart from increasing broader growth—help in
+enhancing trade linkages (IMF 2017).
+4. The Mexico-Central America free trade agreement resulted in liberalization of tariff
+lines by Mexico across a range of products from the region, with commitment to further tariff
+elimination (WTO 2015). Compared to Central American countries, Mexico’s overall nontariff trade
+restrictions is around the middle range. Some Central American countries have remained flat at high
+restriction levels for many years. Reducing nontariff trade barriers from both sides would facilitate
+further integration in the region.
+Annex XIV. Figure 2. Key Products Traded by Mexico and Central America
+90 INTERNATIONAL MONETARY FUND
+
+page 95
+MEXICO
+5. Strengthened customs cooperation could go a long way in facilitating Mexico’s trade
+with this region. Mexico could replicate in the Southern border the cooperation programs and
+mechanisms in place with the U.S. following the 1994 North American Free Trade Agreement (IMF
+2022). This would help to improve coordination, infrastructure in the border areas, capacity
+development and risk management, and to reduce bottlenecks.
+INTERNATIONAL MONETARY FUND 91
+
+page 96
+MEXICO
+STAFF REPORT FOR THE 2022 ARTICLE IV CONSULTATION—
+October 18, 2022
+INFORMATIONAL ANNEX
+Prepared By The Western Hemisphere Department
+(in consultation with other departments)
+CONTENTS
+FUND RELATIONS _________________________________________________________________________ 2
+RELATIONS WITH THE WORLD BANK ____________________________________________________ 4
+STATISTICAL ISSUES _______________________________________________________________________ 5
+
+page 97
+MEXICO
+FUND RELATIONS
+(As of August 31, 2022)
+The 2022 Article IV discussions were held in Mexico City during September 12—23, 2022. The
+team comprised Thomas Helbling (head), Jean-Marc Fournier, Swarnali Ahmed Hannan and Kevin
+Wiseman (all WHD), Carolina Claver (LEG), Samir Jahan (FAD), Faezeh Raei and Misa Takebe (SPR),
+and Jeffrey Williams (MCM). Nigel Chalk and Gaston Gelos (WHD) and Vikram Haksar (FSAP Mission
+Chief, MCM) attended the concluding meetings. Alfonso Guerra (OED) also participated. The team
+met with Finance Secretary Ramírez de la O, Governor Rodríguez Ceja, Labor Secretary Alcalde,
+Economy Secretary Clouthier, other government officials, and representatives of the financial and
+private sectors. The team was supported by Boele Bonthuis (FAD), Laila Azoor, Hugo Tuesta (WHD),
+and Mengqi Wang (2021 summer intern, University of Wisconsin-Madison).
+Mexico has accepted the obligations of Article VIII, sections 2, 3, and 4. Comprehensive economic
+data are available for Mexico on a timely basis and economic data are adequate for surveillance. It
+subscribes to the SDDS.
+Membership Status: Joined December 31, 1945
+General Resources Account: SDR Million Percent of Quota
+Quota 8,912.70 100.00
+Fund holdings of currency 6,345.22 71.19
+Reserve position in Fund 2,567.51 28.81
+New Arrangement to Borrow 3 3 . 7 9
+SDR Department: SDR Million Percent of Allocation
+Net cumulative allocation 11,393.62 100.00
+Holdings 11,858.28 104.08
+Outstanding Purchases and Loans: None
+Latest Financial Arrangements:
+Type Arrangement Date Expiration Amount Approved Amount Drawn
+Date (SDR Million) (SDR Million)
+FCL Nov 19, 2021 Nov 18, 2023 35,650.80 0.00
+FCL Nov. 22, 2019 Nov. 18, 2021 44,563.50 0.00
+FCL Nov. 29, 2017 Nov. 21, 2019 53,476.201 0.00
+FCL May 27, 2016 Nov. 28, 2017 62,388.90 0.00
+FCL Nov 26, 2014 May 26, 2016 47,292.00 0.00
+FCL Nov. 30, 2012 Nov. 25, 2014 47,292.00 0.00
+FCL Jan. 10, 2011 Nov. 29, 2012 47,292.00 0.00
+FCL Mar. 25,2010 Jan. 09, 2011 31,528.00 0.00
+FCL Apr 17, 2009 Mar. 24, 2010 31,528.00 0.00
+1 Access was reduced from 62,388.90 to 53,476.20 SDR million on November 26, 2018.
+2 INTERNATIONAL MONETARY FUND
+
+page 98
+MEXICO
+Projected Payments to the Fund (SDR million):
+Forthcoming
+2022 2023 2024 2025 2026
+Principal
+Charges / Interest 0.00 0.15 0.15 0.15 0.15
+Total 0.00 0.15 0.15 0.15 0.15
+Exchange Arrangements: The currency of Mexico is the Mexican peso. Mexico’s de-jure and de-
+facto exchange rate arrangements are free-floating. Mexico has accepted the obligations under
+Article VIII, Section 2(a), 3, and 4, and maintains an exchange system that is free of multiple currency
+practices and restrictions on the making of payments and transfers for current international
+transactions.
+Article IV Consultation: The last Article IV consultation was concluded by the Executive Board on
+November 3, 2021. The staff report was published as IMF Country Report No. 20/293.
+Technical Assistance
+Year Dept. Purpose
+2021 FAD Public Assets and Liabilities Management
+2020 FAD Fiscal Framework and Council
+2018 FAD Public Investment Management Assessment
+2018 FAD Tax policy and Compliance
+2018 FAD Fiscal Transparency Evaluation
+2017 STA Government Financial Statistics
+2017 FAD Tax policy
+2017 MCM Central Securities Depositories
+2017 FAD Revenue Administration
+2016 FAD Revenue Administration
+2016 FAD Workshop on Supervision of Subnational Finances
+2015 STA Balance of Payments
+2015 FAD Supervision of Subnational Finances
+2014 FAD Tax Policy and Compliance
+2014 FAD Treasury
+2014 STA Sectoral Balance Sheets
+2014 STA National Accounts
+2014 STA Balance of Payments
+2013 MCM Post-FSAP Follow Up
+2012 FAD Pension and Health Systems
+Resident Representative: None
+INTERNATIONAL MONETARY FUND 3
+
+page 99
+MEXICO
+RELATIONS WITH THE WORLD BANK
+https://www.worldbank.org/en/country/mexico
+4 INTERNATIONAL MONETARY FUND
+
+page 100
+MEXICO
+STATISTICAL ISSUES
+I. Assessment of Data Adequacy for Surveillance
+General: Data provision is adequate for surveillance.
+National accounts: The national accounts follow the recommendations of the System of
+National Accounts, 2008 (2008 SNA). Economic activities, products, household final
+consumption expenditure, and government final consumption expenditure are classified
+according to updated international classifications. Data sources and statistical techniques are
+robust. A wide range of source data is available, including economic censuses conducted every
+five years and a vast program of monthly and annual surveys, administrative data, as well as a
+business register of economic units that is regularly updated. INEGI (the National Statistical
+Office) disseminates annual and quarterly GDP statistics, sectoral accounts, and balance sheets.
+The 2021 data ROSC update found that the national accounts are of a high quality. Since 2015,
+Mexico has made significant improvements on the methodological and dissemination aspects
+of data quality. There are still some areas for further improvements, such as implementing
+chained GDP volume indices with previous period annual weights, the treatment of goods for
+processing abroad, and the coverage of illegal activities. In addition, some government
+transactions on a quarterly basis are recorded on a cash basis rather than on an accrual basis.
+The ROSC mission identified the need for greater consistency in data recording between the
+Bank of Mexico (Banxico), and the Ministry of Finance (SHCP) and for regular reconciliation
+exercises among compilers to resolve some discrepancies involving data on the public sector.
+Three technical assistance missions took place over the past fiscal year; two on developing a
+preliminary work plan to implement the use of chain-linked volume measures in economic
+surveys and national accounts; and one with Banxico, SHCP, and INEGI on harmonization of
+national accounts and government finance statistics.
+Prices: The concepts and definitions for both the CPI and PPI meet international standards.
+The CPI reference period is the second half of July 2018, and the basket is based on
+information from the National Survey of Household Expenditure 2012 and 2013, the 2014
+Household Income and Expenditure Survey, and the 1999 COICOP classification. The PPI
+reference period is July 2019, and the basket of goods and weighting structure is based on the
+Economic Censuses and the System of National Accounts. The PPI covers agricultural,
+manufacturing, construction, and services sectors, which account for 79.2 percent of Mexican
+production. It excludes trade and some services.
+Government finance statistics: Fiscal statistics are comprehensive and timely, except for the
+subnational sector. The authorities compile fiscal statistics following national concepts,
+definitions, and classifications to support domestic policy needs. The authorities also compile
+fiscal statistics in alignment with the Government Finance Statistics Manual (GFSM2014). The
+2021 Data ROSC mission pointed out that, while source data used for the national and
+international (GFSM2014) presentations are the same, differences in the classification of
+transactions and coverage of institutional units make it difficult for users to reconcile the
+INTERNATIONAL MONETARY FUND 5
+
+page 101
+MEXICO
+different presentations. It recommended publishing a table of all institutional units in the
+public sector and its subsectors, clearly grouping them according to: 1) the coverage of units
+used in the national presentation; 2) the coverage used in the international presentation; and
+3) the subsectors of the public sector as described in the GFSM2014. A full adoption of uniform
+accounting standards at the sub-national level would help obtain an improved measure of
+public fixed investment in the national accounts.
+Pension liabilities are partially reported, while government securities are reported at face value.
+The official debt statistics do not include the stock of T-bonds issued to the Bank of Mexico
+(Banxico) for liquidity management purposes, and the accounting practices adopted by the
+federal government and Banxico differ.
+Monetary and financial statistics: The methodological foundations of monetary statistics are
+generally sound. Availability of data on other financial intermediaries such as insurance
+companies and pension funds allow for the construction of a financial corporation’s survey
+with full coverage of the Mexican financial system. Mexico reports data on some indicators of
+the Financial Access Survey (FAS), including gender disaggregated data on the use of basic
+financial services and the two indicators (commercial bank branches per 100,000 adults and
+ATMs per 100,000 adults) adopted by the UN to monitor Target 8.10 of the Sustainable
+Development Goals.
+Financial sector surveillance: Mexico regularly reports monthly Financial Soundness
+Indicators (FSIs) to the IMF for publication. Currently, Mexico reports 14 core and 9
+encouraged indicators for deposit takers, 2 additional FSI for OFCs,1 additional FSI for
+households and 1 additional FSI for real estate markets. FSIs on the non-financial corporate
+sector are not reported. Reporting has been temporarily interrupted following the publication
+of May 2021 data in order to revise historical and current data according to IFRS9 standards
+and is expected to resume by the end of the year. The authorities have periodically produced
+updated FSIs in the interim according to the old standard on request.
+External sector statistics (ESS): The 2021 data ROSC update found that ESS are of a high
+quality. In 2017, Banxico migrated the BOP and IIP statistics to the Balance of Payments and
+International Investment Position Manual (BPM6), sixth edition, with the publication of
+quarterly BPM6-based BOP data and IIP data . The External Debt Statistics, Guide for Compilers
+and Users, 2013 (EDS Guide) is yet to be fully implemented. Remaining issues relate to: (i)
+including the intercompany external debt and SDR allocations in external debt statistics
+disseminated by Banxico; (ii) extending the market valuation of liabilities to all financial
+institutions (some external debt are presented at face value); and (iii) recording the interest of
+the public sector external debt on an accrual basis.
+Consistency could be improved between the IIP and external debt. There are also differences
+between the balance of payments and national accounts, notably in the financial account
+transactions and positions. The authorities participate in the coordinated direct investment
+survey and coordinated portfolio investment survey and disseminate the data template on
+international reserves and foreign currency liquidity (reserve template) and quarterly external
+debt statistics.
+6 INTERNATIONAL MONETARY FUND
+
+page 102
+MEXICO
+II. Data Standards and Quality
+Mexico subscribed to the IMF’s Special Data An updated data module Report on the
+Dissemination Standard (SDDS) on August 13, Observance of Standards and Codes (ROSC
+1996. Mexico’s latest SDDS Annual update) for Mexico was published in
+Observance Report and metadata are December 2021.
+available on the Dissemination Standards
+Bulletin Board. Mexico uses periodicity and
+timeliness flexibility options on central
+government debt and takes a timeliness
+flexibility option on general government
+operations. Mexico exceeds SDDS periodicity
+and timeliness requirements in many other
+data categories.
+INTERNATIONAL MONETARY FUND 7
+
+page 103
+8
+INTERNATIONAL
+MONETARY
+FUND
+MEXICO
+Table 1. Mexico: Table of Common Indicators Required for Surveillance
+As of October 17, 2022
+Date of latest Date Frequency Frequency of Frequency of
+observation received of Data7 Reporting7 Publication7 Data Quality- Data Quality
+Methodological Accuracy and
+Soundness8 Reliability9
+Exchange Rates Oct. 2022 Oct. 2022 D D D
+International Reserve Assets and
+Reserve Liabilities of the Monetary Oct. 7, 2022 Oct. 2022 W W W
+Authorities1
+Reserve/Base Money Oct. 7, 2022 Oct. 2022 W W W LO, O, O, LO LO, O, O, O, O
+Broad Money Aug. 2022 Sep. 2022 M M M
+Central Bank Balance Sheet Oct. 7, 2022 Oct. 2022 W W W
+Consolidated Balance Sheet of the
+Aug. 2022 Sep. 2022 M M M
+Banking System
+Interest Rates2 Oct. 2022 Oct. 2022 D D D
+Consumer Price Index Sep. 30, 2022 Oct. 2022 O, O, LNO, O LO, LNO, O, O,
+Bi-W Bi-W Bi-W
+LNO
+Revenue, Expenditure, Balance and LO, LO, LNO, LO O, O, O, O, O
+Composition of Financing3–Gen. Aug. 2022 Sep. 2022 M M M
+Government4
+Revenue, Expenditure, Balance and
+Composition of Financing3–Central Aug. 2022 Sep. 2022 M M M
+Government
+Stocks of Central Government and
+Central Government-Guaranteed Aug. 2022 Sep. 2022 M M M
+Debt5
+
+page 104
+INTERNATIONAL
+MONETARY
+FUND
+9
+MEXICO
+Table 1. Mexico: Table of Common Indicators Required for Surveillance (concluded)
+External Current Account LO, O, LO, LO LO, O, O, O, LO
+Q2 2022 Aug. 2022 Q Q Q
+Balance
+Exports and Imports of
+Aug. 2022 Sep. 2022 M M M
+Goods and Services
+GDP/GNP O, O, O, LO O, O, LO, O, O
+Q2 2022 Aug. 2022 Q Q Q
+Gross External Debt LO, O, LO, LO LO, O, O, O, LO
+Q2 2022 Sep. 2022 Q Q Q
+International Investment LO, O, LO, LO LO, O, O, O, LO
+Q2 2022 Sep. 2022 Q Q Q
+Position6
+1 Any reserve assets that are pledged or otherwise encumbered should be specified separately. Also, data should comprise short-term liabilities linked to a foreign
+currency but settled by other means as well as the notional values of financial derivatives to pay and to receive foreign currency, including those linked to a foreign
+currency but settled by other means.
+2 Both market-based and officially determined, including discount rates, money market rates, rates on treasury bills, notes, and bonds.
+3 Foreign, domestic bank, and domestic nonbank financing.
+4 The general government consists of the central government (budgetary funds, extra budgetary funds, and social security funds) and state and local governments.
+5 Including currency and maturity composition.
+6 Includes external gross financial asset and liability positions vis-à-vis nonresidents.
+7 Daily (D); Weekly (W); Monthly (M); Quarterly (Q); Annually (A); Irregular (I); Not Available (NA).
+8 Reflects the assessment provided in the data ROSC conducted in July 2021, except for consumer prices, which is based on the ROSC conducted in 2012 and monetary
+statistics, which is based on the ROSC conducted in 2010. For the dataset corresponding to the variable in each row, the assessment indicates whether international
+standards concerning (respectively) concepts and definitions, scope, classification/sectorization, and basis for recording are fully observed (O), largely observed (LO),
+largely not observed (LNO), or not observed (NO).
+9 Same as footnote 8, except referring to international standards concerning source data, assessment and validation of source data, statistical techniques, assessment and
+validation of intermediate data and statistical outputs, and revision studies.

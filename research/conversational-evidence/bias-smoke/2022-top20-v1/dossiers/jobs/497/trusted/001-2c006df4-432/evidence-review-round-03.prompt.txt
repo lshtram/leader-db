@@ -1,0 +1,1778 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:NGA:15787",
+  "iso3": "NGA",
+  "country_name": "Nigeria",
+  "ruler_name": "Muhammadu Buhari",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 84,
+  "approximate_source_family_count": 29,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": false,
+  "findings": []
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Evidence-collection pass completed for Muhammadu Buhari, Nigeria, 2022. No scores or score ranges assigned. The supplied local package was treated as authoritative baseline; no additional local files were read.
+
+File persistence was unavailable under the read-only workspace, so the handoff is included here for parent persistence.
+
+## Reconnaissance and authority baseline
+
+Buhari was Nigeria’s elected president and head of the federal executive during the target year, with formal responsibility for national policy, federal appointments, security institutions, budgets, and assent to legislation. The 2022 Electoral Act was signed by Buhari on 25 February 2022 after executive–legislative disagreement over provisions. [State House account](https://statehouse.gov.ng/assent-into-law-of-the-electoral-act-2022-landmark-moment-for-the-nation/), [INEC Electoral Act page](https://www.inecnigeria.org/electoral-act-2022/).
+
+Practical constraints included federalism, state-level policing and governance, the National Assembly, independent constitutional bodies, entrenched insecurity, oil dependence, fiscal weakness, inflation, flooding, and external food and energy shocks. Personal direction should not be inferred from country-level outcomes or subordinate conduct without additional evidence.
+
+The information environment was mixed: Nigeria had active civil society, media, courts, international monitors, and human-rights organizations, but journalists and civic actors faced harassment, detention, intimidation, and restrictions. Freedom House described a vibrant media and civil society environment alongside frequent harassment of journalists and obstacles to investigating military abuses. [Freedom House](https://freedomhouse.org/country/nigeria/freedom-world/2022), [NHRC media statement](https://www.nhrc.gov.ng/nhrc-media/news-and-events/381-media-parley-ojukwu-reassures-journalists-of-commitment-to-a-wide-safe-media-space.html). The search pass was English-language only; no local-language archives or Nigerian-language reporting were searched.
+
+Official-statistics and fiscal transparency caveats are material. The IMF noted uncertainty around NNPC financial commitments, tax write-offs, fuel-consumption volumes, and the need for stronger auditing. [IMF 2022 Article IV statement](https://www.imf.org/en/news/articles/2022/11/18/nigeria-staff-concluding-statement-of-the-2022-article-iv-mission).
+
+## Global evidence register
+
+| ID | Evidence claim and source profile | Fit / attribution | Mapped chapters |
+|---|---|---|---|
+| E001 | Buhari assented to the Electoral Act 2022 after executive–legislative disagreement. Official record; medium-high confidence for the formal act, high for the dated legal event. [State House](https://statehouse.gov.ng/assent-into-law-of-the-electoral-act-2022-landmark-moment-for-the-nation/) | Direct target-year presidential act; does not establish implementation or electoral fairness. | 4B, 8B |
+| E002 | INEC identifies Electoral Act 2022 provisions governing election administration and electronic-result technology. Official institutional source; medium-high confidence for formal provisions. [INEC](https://www.inecnigeria.org/electoral-act-2022/) | Target-year legal/institutional context; implementation requires separate evidence. | 4B, 8B |
+| E003 | Nigeria’s 2022 IMF review found 21.1% inflation in October, fiscal deficit pressure, costly fuel subsidies, high debt-service costs, and limited fiscal space for health and education. IMF; high confidence. [IMF](https://www.imf.org/en/news/articles/2022/11/18/nigeria-staff-concluding-statement-of-the-2022-article-iv-mission) | Target-year country outcome and policy assessment; formal federal-policy nexus, but not personal intent by Buhari. | 5B, 6B, 8B |
+| E004 | The IMF recommended subsidy reform, stronger revenue mobilization, oil-theft reduction, fiscal transparency, and targeted social assistance. IMF; high confidence. [IMF](https://www.imf.org/en/news/articles/2022/11/18/nigeria-staff-concluding-statement-of-the-2022-article-iv-mission) | Recommendations and implementation gap; not evidence that Buhari adopted or rejected each recommendation. | 5B, 6B, 8B |
+| E005 | World Bank characterized Nigeria’s public finances as constrained by inefficient and regressive subsidies, weak revenue mobilization, and poor resource use. World Bank; high confidence. [World Bank](https://www.worldbank.org/en/news/press-release/2022/11/21/to-promote-inclusive-and-sustainable-development-nigeria-needs-to-fix-its-public-finances) | Target-year institutional/economic context; federal responsibility is relevant, personal nexus limited. | 5B, 6B, 8B |
+| E006 | World Bank noted that Nigeria’s fiscal and development conditions constrained spending on public services; it reported a child’s expected productivity at 36% of potential absent effective education and health services. World Bank; high confidence. [World Bank](https://www.worldbank.org/en/news/press-release/2022/11/21/to-promote-inclusive-and-sustainable-development-nigeria-needs-to-fix-its-public-finances) | Target-year welfare context, not standalone ruler attribution. | 5B, 6B |
+| E007 | UNICEF reported approximately 54% of Nigerian children experiencing multidimensional poverty across nutrition, health, education, water, sanitation, housing, and information access. UNICEF/government analytical reports; high confidence. [UNICEF](https://www.unicef.org/nigeria/press-releases/new-evidence-situation-child-deprivation-nigeria) | Published May 2022; outcome context, not proof of Buhari’s personal policy choices. | 6B, 5B |
+| E008 | UNICEF reported that 2.5 million people, 60% children, needed humanitarian assistance after severe 2022 flooding, with risks to water, health, nutrition, and education. UNICEF; high confidence. [UNICEF](https://www.unicef.org/press-releases/more-15-million-children-risk-devastating-floods-hit-nigeria) | Target-year shock and response context; government and UNICEF assistance are documented, but federal attribution is incomplete. | 6B, 8B |
+| E009 | The UN/OCHA 2022 Northeast Humanitarian Response Plan sought $1.1 billion to assist 5.5 million people affected by conflict and insecurity. UN/OCHA; high confidence. [UN Nigeria](https://nigeria.un.org/en/171628-us11-billion-needed-reach-55-million-people-north-east-nigeria-humanitarian-assistance-2022) | Target-year humanitarian exposure; does not distinguish Buhari’s responsibility from insurgents, governors, donors, or structural conditions. | 2B, 3B, 6B |
+| E010 | UNHCR reported approximately 3.1 million internally displaced people in Nigeria as of June 2022, primarily linked to prolonged northeast conflict. UNHCR; high confidence. [UNHCR](https://www.unhcr.org/africa/where-we-work/countries/nigeria) | Target-year exposure; attribution remains mixed. | 2B, 3B, 6B |
+| E011 | The U.S. State Department reported that ISIS-West Africa, Boko Haram, Ansaru, and criminal “bandit” groups continued attacks, kidnappings, deaths, injuries, and property destruction in 2022. Official international report; medium-high confidence. [Country Report on Terrorism 2022](https://www.ecoi.net/en/document/2101586.html) | Target-year security context; does not establish Buhari’s initiation, conduct, or accountability. | 2B, 3B |
+| E012 | Human Rights Watch reported that the ICC found a reasonable basis to believe Boko Haram factions and Nigerian security forces committed war crimes and crimes against humanity, alongside inadequate domestic accountability. NGO; medium-high confidence. [HRW World Report](https://www.hrw.org/world-report/2022/country-chapters/nigeria) | Broader ruler-period context; attribution to federal security institutions is relevant, but personal presidential direction is not established. | 2B, 3B |
+| E013 | HRW reported that Buhari ordered airstrikes against suspected bandit camps, while regional amnesty efforts largely failed. NGO report; medium-high confidence. [HRW World Report](https://www.hrw.org/world-report/2022/country-chapters/nigeria) | Directly links a security decision to Buhari, but the cited report primarily covers 2021; use as broader-period evidence, not pure target-year evidence. | 2B, 3B, 8B |
+| E014 | HRW reported that federal authorities did not independently investigate or implement recommendations concerning security-force shootings of #EndSARS protesters, and that the federal government rejected the panel’s findings. NGO; medium-high confidence. [HRW](https://www.hrw.org/news/2022/05/09/nigeria-prioritize-justice-abuses-against-protesters) | Published May 2022; conduct concerns originated in 2020–21, but federal accountability posture was current-period evidence. Personal Buhari attribution remains indirect. | 3B, 4B, 7B |
+| E015 | Amnesty reported that more than 40 #EndSARS protesters remained detained without trial, with torture allegations; 21 detainees were released without charge in February 2022. NGO; medium-high confidence. [Amnesty](https://www.amnesty.org/en/latest/news/2022/10/nigeria-two-years-on-more-than-40-endsars-protesters-still-languishing-in-jail/) | Target-year detention and remedy evidence; ruler-specific command or personal knowledge not established. | 3B, 4B |
+| E016 | Amnesty reported continuing impunity for killings and torture connected to #EndSARS, including alleged cover-ups and lack of prosecutions. NGO; medium-high confidence. [Amnesty](https://www.amnesty.org/en/latest/news/2022/10/nigeria-two-years-on-more-than-40-endsars-protesters-still-languishing-in-jail/) | Target-year accountability evidence; allegations and NGO findings must remain distinguished from judicial findings. | 3B, 4B, 7B |
+| E017 | Freedom House reported election irregularities in 2019, security threats, extrajudicial killings and torture by military/law-enforcement agencies, harassment of journalists, and intimidation of civil society. NGO index; medium-high confidence. [Freedom House](https://freedomhouse.org/country/nigeria/freedom-world/2022) | Mainly 2021/2022 country context; not sufficient for personal Buhari scoring. | 3B, 4B, 7B |
+| E018 | Nigeria lifted the Twitter suspension on 13 January 2022 after a seven-month ban following removal of a Buhari post. Government announcement reported by media; medium confidence for chronology. [TechCrunch](https://techcrunch.com/2022/01/12/nigeria-lifts-ban-on-twitter-says-the-social-media-giant-has-met-conditions/) | Direct Buhari-linked target-period speech/information-control context; motives and proportionality remain contested. | 4B, 7B, 8B |
+| E019 | The IAEA country record shows Nigeria’s NPT safeguards framework and Additional Protocol signature/implementation history. Intergovernmental treaty record; high confidence for formal status. [IAEA Nigeria fact sheet](https://ola.iaea.org/Applications/FactSheets/Country/Detail?code=NG) | Country-level nuclear institutional context only; no Buhari-specific 2022 nuclear-risk choice found. | 1B |
+| E020 | Nigeria’s Budget Office provides a 2022 budget implementation report. Official source; medium-high confidence for report existence, but not retained as final evidence because the opened result did not expose a precise report locator. [Budget Office](https://budgetoffice.gov.ng/index.php/resources/internal-resources/reports/quarterly-budget-implementation/2022-budget-implementation-report) | Gateway-only candidate; requires direct report extraction before use. | 5B, 6B, 8B |
+| E021 | BTI’s Nigeria 2022 report discusses government formulation, anti-corruption institutions, elite capture, transparency, and auditing. BTI; medium-high confidence, but the PDF was not opened to a page-level locator. [BTI](https://bti-project.org/fileadmin/api/content/en/downloads/reports/country_report_2022_NGA.pdf) | Discovery/context only until page-level claims are extracted. | 4B, 5B, 7B, 8B |
+| E022 | Transparency International’s 2022 Nigeria CPI page provides country corruption-perception context. NGO index; medium-high confidence for the index, low direct attribution. [TI CPI 2022](https://www.transparency.org/en/cpi/2022/index/nga) | Country-level context only; not personal integrity evidence. | 7B |
+
+## Chapter-by-chapter baseline and yield
+
+### 1B — Nuclear and existential-risk responsibility
+
+Local package: no relevant facts; all ten lenses explicitly `no_evidence_found`. The package correctly warns that arsenal and operational-capability facts are absent and that nuclear exposure cannot be inferred from generic security data.
+
+Internet yield: E019 only, documenting Nigeria’s formal NPT/IAEA safeguards framework. It is context, not ruler-specific evidence. No target-period evidence was found for Buhari’s nuclear rhetoric, command-and-control decisions, proliferation, arms control, crisis de-escalation, or cyber/biological/AI catastrophic-risk governance.
+
+Status: narrative gap remains across all ten lenses. The local empty state is not evidence of no exposure or responsible conduct.
+
+### 2B — International peace, restraint, and lawful security
+
+Local retained context:
+
+- LF135–LF136: 2022 state-based conflict events and fatalities.
+- LF291–LF294: 2022 military expenditure, per-capita spending, GDP share, and government-spending share.
+- LS071–LS072: longitudinal conflict-event and conflict-fatality signals.
+- Local warnings explicitly prohibit inferring initiation, perpetration, defensive necessity, or ruler responsibility from event/fatality data.
+
+Internet evidence: E009–E013.
+
+The evidence establishes severe domestic/internationalized security exposure, humanitarian need, state military response, and serious allegations concerning security-force conduct. It does not establish that Buhari initiated a war of choice, manipulated threat information, directed unlawful conduct, or pursued/blocked a specific peace settlement in 2022. Military spending is burden/context, not motive.
+
+Source families: UCDP/local structured data, SIPRI/local structured data, UN/OCHA, UNHCR, U.S. State Department, HRW. At least three source families and multiple source types are present.
+
+### 3B — Domestic safety, restraint, and protection
+
+Local retained context:
+
+- LF695–LF705: 2022 CIRIGHTS, V-Dem, PTS, and UCDP physical-integrity and one-sided-violence measures.
+- LF948–LF954: civil/political rights, repression, civil-society repression, private liberties, and one-sided violence.
+- LF701 and LF951 explicitly warn that government-actor/location killings do not establish personal ruler direction or perpetrator responsibility.
+- LS003–LS011, LS024, LS054–LS058, LS064–LS065: longitudinal physical-integrity, repression, torture, political-imprisonment, and one-sided-violence signals.
+
+Internet evidence: E011–E017.
+
+Strongest evidence concerns continuing insecurity, alleged security-force abuses, unresolved #EndSARS accountability, torture and detention of protesters, and severe humanitarian exposure. Positive or mitigating evidence is limited to institutional mechanisms such as judicial panels, NHRC activity, detainee releases, and government security operations; effectiveness and independence remain unresolved.
+
+Personal Buhari direction is not established for most incidents. Formal federal oversight and the federal government’s rejection/nonimplementation of accountability recommendations support a broader attribution pathway, but the ledger keeps this separate from direct personal orders.
+
+Source families: Amnesty, HRW, Freedom House, U.S. State Department, UN agencies, local structured datasets.
+
+### 4B — Political freedom versus authoritarian rule
+
+Local retained context:
+
+- LF1405–LF1412: target-year Freedom House, EIU, V-Dem, and regime/electoral indicators.
+- LF1968–LF1982: target-year accountability, expression, association, judicial/legislative constraints, liberal democracy, press freedom, rule of law, and WGI indicators.
+- LS010, LS015–LS027, LS044–LS046, LS053, LS059, LS061–LS063, LS068, LS070, LS073–LS077: longitudinal democratic, civil-liberty, media, institutional-constraint, and rule-of-law signals.
+
+Internet evidence: E001–E002 and E014–E018.
+
+Positive direct evidence: Buhari assented to the Electoral Act 2022, which strengthened the formal electoral framework and gave INEC additional technological/legal tools.
+
+Negative/contextual evidence: prior election irregularities, harassment of journalists, the Twitter ban and its Buhari-linked trigger, protest detention, and unresolved #EndSARS accountability. The Electoral Act is formal institutional evidence; implementation and whether it constrained Buhari’s own power remain open.
+
+Source families: State House, INEC, Freedom House, HRW, Amnesty, media reporting.
+
+### 5B — Economic well-being and prosperity
+
+Local retained context:
+
+- LF2303–LF2309 and LF2886–LF2892: 2022 GDP, consumption, government consumption, capital formation, population, Gini, and real-output measures.
+- LF3173–LF3176 and LF3223–LF3224: corruption, government-effectiveness, and regulatory-quality context.
+- LS025, LS031–LS041, LS069: longitudinal GDP, consumption, government spending, capital formation, GNI, effectiveness, and regulatory-quality signals.
+- Local warnings prohibit interpreting nominal current-dollar changes as real growth.
+
+Internet evidence: E003–E006 and E020–E021.
+
+The IMF and World Bank provide strong independent evidence of inflation, fiscal stress, fuel-subsidy costs, weak revenue mobilization, debt-service pressure, regulatory/exchange-rate problems, and constrained development spending. These are materially relevant to Buhari’s formal policy authority, but the evidence does not yet isolate personal intent, appointment quality, implementation ownership, or correction behavior.
+
+The 2022 Budget Office report remains a gateway-only candidate pending page-level extraction.
+
+Source families: IMF, World Bank, official Budget Office, BTI, local structured macroeconomic datasets.
+
+### 6B — Social well-being and human development
+
+Local retained context:
+
+- LF2995–LF3002: target-year schooling, HDI, life expectancy, under-five mortality, and immunization.
+- LF2307 and related GNI facts: income/welfare context.
+- LS023, LS034, LS039, LS040, LS047–LS048, LS074, LS076: human-development and service/outcome signals.
+
+Internet evidence: E007–E010.
+
+Evidence shows substantial child deprivation, low service outcomes, humanitarian needs, conflict displacement, and flood-related risks. UNICEF and UN/OCHA also document government-partner responses, but the evidence does not yet establish the quality, equity, political conditionality, durability, or Buhari-specific ownership of service delivery.
+
+Source families: UNICEF, UN/OCHA, UNHCR, World Bank, local structured datasets.
+
+### 7B — Ruler personal integrity and honesty
+
+Local retained context:
+
+- LF3173–LF3176: target-year WGI/V-Dem corruption indicators.
+- LS012–LS013 and LS067: longitudinal control-of-corruption and public/executive-corruption context.
+- Local mapping notes explicitly state that national corruption indicators cannot establish personal nexus.
+
+Internet evidence: E021–E022 are context/discovery only. No retained final-evidence item presently establishes Buhari’s personal assets, family benefit, procurement conflicts, deliberate deception, correction behavior, or obstruction of a personal investigation with adequate source proximity.
+
+The Electoral Act, security accountability, and Twitter evidence can inform integrity only indirectly; they do not satisfy the required personal-integrity nexus. The anti-corruption claims surfaced in search results were not retained as final evidence because they were official/self-serving or lacked opened primary records.
+
+Status: substantial personal-nexus gap. Country corruption evidence remains context only.
+
+### 8B — Ruler effectiveness and competence
+
+Local retained context:
+
+- LF3223–LF3224: target-year government effectiveness and regulatory quality.
+- LF1968, LF1975–LF1982: target-year accountability, institutional constraints, rule of law, and WGI context.
+- LS036 and LS069: effectiveness and regulatory-quality trajectories.
+- LF1408–LF1412: electoral and institutional implementation context.
+- LF2995–LF3002: welfare outcomes useful only after a documented program-to-delivery chain.
+
+Internet evidence: E001–E006, E008, E020–E021.
+
+Potentially attributable programs include electoral reform, security operations, fiscal/economic management, and social/humanitarian responses. Evidence is strongest for formal policy architecture and external assessments of implementation problems. It is weaker for portfolio definition, personnel selection, coordination across federal/state institutions, adaptation after failure, and durable progress across multiple material goals.
+
+The 2022 Budget Office and BTI materials need page-level extraction before final evidentiary use.
+
+## Rejected or downgraded candidates
+
+- Search-result snippets, Wikipedia, Reddit, and opinion pieces: discovery only or rejected; not used as sole support.
+- Budget Office 2022 report: gateway-only pending precise page/table locator.
+- BTI 2022 report: discovery/context pending opened page-level claims.
+- Freedom House country-level indicators: retained as contextual structured/narrative evidence, not personal integrity proof.
+- WGI, V-Dem, CPI, and local outcome measures: retained as country-level context, never personalized automatically.
+- HRW/Amnesty allegations: retained with attribution and uncertainty; not converted into judicial findings.
+- Reports covering 2021 events in a 2022 publication: retained as broader ruler-period context, not silently treated as target-year events.
+
+## Cross-chapter reuse and source concentration
+
+- E001–E002 reused across 4B and 8B.
+- E003–E006 reused across 5B, 6B, and 8B.
+- E009–E013 reused across 2B, 3B, and 6B where humanitarian/security exposure overlaps.
+- E014–E018 reused across 3B, 4B, and limited 7B context.
+- Same-URL splits: IMF, World Bank, HRW, Amnesty, and Freedom House pages support multiple distinct claims and should be represented as separate claim units with precise locators, not duplicated URLs.
+- Source-family concentration is highest in 3B and 4B, where HRW, Amnesty, and Freedom House repeatedly cover #EndSARS, security-force abuse, media restrictions, and civic space. This creates event-repetition risk and should be noted during judging.
+
+## Local-data audit
+
+Retained as target-year or directly relevant context:
+
+- 2B: LF135–LF136, LF291–LF294, LS071–LS072.
+- 3B: LF695–LF705, LF948–LF954, LS003–LS011, LS024, LS054–LS058, LS064–LS065.
+- 4B: LF1405–LF1412, LF1968–LF1982, LS010, LS015–LS027, LS044–LS046, LS053, LS059, LS061–LS063, LS068, LS070, LS073–LS077.
+- 5B: LF2303–LF2309, LF2886–LF2892, LF3173–LF3176, LF3223–LF3224, LS025, LS031–LS041, LS069.
+- 6B: LF2995–LF3002, LS023, LS034, LS039–LS040, LS047–LS048, LS074, LS076.
+- 7B: LF3173–LF3176, LS012–LS013, LS067, context only.
+- 8B: LF3223–LF3224, LF1968, LF1975–LF1982, LF1408–LF1412, LS036, LS069, plus relevant welfare/economic trajectories.
+- 1B: no local facts retained because the package contained no relevant evidence.
+
+No `error_methodology_ids` were supplied. Omitted annual rows were treated as bounded reductions with parent-retained provenance, not as absent evidence.
+
+## Remaining research gaps
+
+1. 1B: Buhari-specific nuclear, dual-use, cyber, biological, or catastrophic-risk decisions.
+2. 2B: target-year ruler-attributed security decisions, civilian-protection orders, peace initiatives, threat claims, and accountability for operations.
+3. 3B: direct Buhari knowledge, orders, remedies, and responsibility for security-force abuses.
+4. 4B: target-year opposition/media treatment, court independence, electoral implementation, and succession/transfer conduct.
+5. 5B: appointments, implementation records, fiscal execution, household effects, and policy correction.
+6. 6B: service-delivery implementation, equity, donor attribution, crisis response, and political conditionality.
+7. 7B: personal assets, family/business interests, procurement, truthfulness, conflicts, and responses to scrutiny.
+8. 8B: frozen governing-program portfolio, implementation chain, personnel, adaptation, and durable results.
+
+No final chapter readiness determination or score recommendation is made.
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 1,
+      "independent_source_family_estimate": 1,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The sole retained item is contextual and does not support ruler attribution.",
+        "A bounded continuation search could materially recover decision, policy, or oversight evidence."
+      ],
+      "missing_themes": [
+        "1B.1-1B.10: Buhari-specific nuclear, biological, cyber, AI, dual-use, proliferation, command-and-control, crisis, arms-control, and catastrophic-risk decisions."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse and favorable Buhari-specific nuclear-risk searches are not demonstrated; only one general institutional source was retained.",
+        "closed_system_silence": "No direct assessment of whether nuclear-risk misconduct could be hidden in closed institutions.",
+        "open_system_complaint_volume": "Not applicable to the available nuclear evidence; no complaint or incident volume was assembled.",
+        "duplicate_reporting": "No material duplication identified.",
+        "allegations_vs_findings": "No ruler-specific allegations or findings were identified; the chapter has only country-level treaty context.",
+        "official_claim_independence": "E019 is an intergovernmental treaty record, but it does not independently assess Buhari's conduct.",
+        "population_exposure_authority_baseline_shocks": "Nigeria's formal safeguards exposure is documented, but ruler authority, inherited baseline, population exposure, and external shocks are not linked to 2022 decisions.",
+        "missing_source_type": "Missing primary governmental, parliamentary, security, and specialist dual-use/nuclear-risk records.",
+        "supporting_evidence_ids": [
+          "E019"
+        ],
+        "unresolved_risks": [
+          "No ruler-specific evidence across the selected lenses.",
+          "Generic safeguards status cannot establish responsible or irresponsible conduct."
+        ]
+      }
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Country conflict outcomes and military spending cannot establish Buhari's personal conduct.",
+        "Continuation is warranted for target-year primary records and contrary evidence on restraint, protection, and accountability."
+      ],
+      "missing_themes": [
+        "2B.1-2B.10: ruler-attributed initiation or restraint, threat claims, civilian-protection directives, lawful security conduct, peace initiatives, operational accountability, and target-year correction or remedy."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse security and abuse evidence is substantial, but favorable searches for lawful restraint, civilian-protection orders, and effective remedies are not shown as systematic.",
+        "closed_system_silence": "Security institutions and conflict zones may conceal abuses, civilian harm, and failed accountability.",
+        "open_system_complaint_volume": "Complaint and abuse reporting may be more visible in active civil-society channels and should not be treated as a direct severity measure without exposure adjustment.",
+        "duplicate_reporting": "HRW, Amnesty, and other reporting overlap substantially around #EndSARS and security-force abuse; repeated coverage may represent the same underlying events.",
+        "allegations_vs_findings": "HRW, Amnesty, and State Department material is presented as reported allegations or assessments, not uniformly as judicial findings; this distinction must remain explicit.",
+        "official_claim_independence": "Official security claims are not independently checked consistently; international, NGO, and structured data provide partial checks.",
+        "population_exposure_authority_baseline_shocks": "Conflict, displacement, insurgent violence, banditry, military spending, and inherited insecurity are documented, but federal versus state authority and external/structural shocks are not fully separated.",
+        "missing_source_type": "Missing primary operational orders, investigation files, court records, and independent incident-level civilian-protection audits.",
+        "supporting_evidence_ids": [
+          "E009",
+          "E010",
+          "E011",
+          "E012",
+          "E013"
+        ],
+        "unresolved_risks": [
+          "Personal direction and responsibility for operations remain largely unestablished.",
+          "Target-period fit is weakened where 2021 conduct is reported in 2022 publications.",
+          "Contrary evidence and remedy effectiveness are incomplete."
+        ]
+      }
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 10,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Structured violence indicators are contextual and expressly cannot be personalized.",
+        "Continuation is warranted for attribution facts, contrary remedy evidence, and primary accountability records."
+      ],
+      "missing_themes": [
+        "3B.1-3B.10: direct knowledge or orders, protection failures, detention and torture responsibility, investigation, prosecution, remedy, civilian oversight, and target-year safety outcomes linked to federal authority."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse evidence is well represented; favorable searches for independent investigations, prosecutions, releases, and effective protection are only partial.",
+        "closed_system_silence": "Detention, torture, military operations, and restricted civic space create substantial risk that abuse is underreported.",
+        "open_system_complaint_volume": "Visible complaints from active civil society may exaggerate apparent prevalence relative to less accessible regions, while closed detention systems may suppress other complaints.",
+        "duplicate_reporting": "Amnesty, HRW, Freedom House, and State Department sources repeatedly cover #EndSARS and security-force abuses; event repetition may inflate apparent breadth.",
+        "allegations_vs_findings": "The notebook appropriately distinguishes NGO allegations and assessments from judicial findings, but the available findings remain limited and indirect.",
+        "official_claim_independence": "Official explanations and accountability claims are not fully independently verified; NGO and international reporting offers checks but is concentrated on adverse events.",
+        "population_exposure_authority_baseline_shocks": "Physical-integrity indicators, conflict exposure, displacement, and inherited insecurity are documented, but population denominators, federal/state authority, baseline trends, and shock effects are not fully integrated.",
+        "missing_source_type": "Missing complete court, commission, detention, military-investigation, and incident-level records capable of resolving knowledge, order, and remedy.",
+        "supporting_evidence_ids": [
+          "E011",
+          "E012",
+          "E014",
+          "E015",
+          "E016",
+          "E017"
+        ],
+        "unresolved_risks": [
+          "Direct Buhari knowledge, orders, and responsibility are not established for most incidents.",
+          "The evidence base is concentrated among recurring NGO and international reports.",
+          "Positive institutional mechanisms do not demonstrate effective protection or remedy."
+        ]
+      }
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The chapter has relevant formal acts and adverse context but lacks implementation and attribution depth.",
+        "Continuation is warranted for target-year institutional records and contrary evidence."
+      ],
+      "missing_themes": [
+        "4B.1-4B.10: opposition and media treatment, judicial and legislative constraints, electoral implementation, civic freedoms, information controls, accountability, and succession or transfer conduct."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both favorable institutional reform evidence and adverse restrictions are present, but systematic searches for opposition treatment, judicial independence, implementation, and succession conduct are absent.",
+        "closed_system_silence": "Harassment, detention, and restrictions on media and civic actors may suppress evidence of authoritarian conduct.",
+        "open_system_complaint_volume": "Active media and civil society increase visible reporting of restrictions, while intimidation may reduce complaints from affected groups; raw complaint volume is not a severity measure.",
+        "duplicate_reporting": "HRW, Amnesty, Freedom House, and media reporting overlap on #EndSARS, Twitter restrictions, and civic-space concerns.",
+        "allegations_vs_findings": "Institutional acts such as assent to the Electoral Act are formal records; reports of irregularities, harassment, detention, and abuse must remain separated from adjudicated findings.",
+        "official_claim_independence": "State House and INEC establish formal law and institutional claims, but independent evidence of implementation and constraints on Buhari is incomplete.",
+        "population_exposure_authority_baseline_shocks": "National institutional indicators and electoral context are available, but federal/state division, inherited democratic baseline, implementation exposure, and external shocks are not fully separated.",
+        "missing_source_type": "Missing election-implementation records, court decisions, parliamentary oversight, opposition testimony, and independent media/civic-space monitoring beyond recurring NGO summaries.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E014",
+          "E015",
+          "E016",
+          "E017",
+          "E018"
+        ],
+        "unresolved_risks": [
+          "Formal electoral reform is not evidence of implementation or fair practice.",
+          "The Twitter chronology is media-reported and motives/proportionality remain contested.",
+          "Contrary evidence on actual institutional restraint is incomplete."
+        ]
+      }
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Macro outcomes and external assessments do not by themselves establish ruler effectiveness or blame.",
+        "Continuation is warranted to extract Budget Office/BTI locators and recover execution, distributional, and contrary evidence."
+      ],
+      "missing_themes": [
+        "5B.1-5B.10: portfolio priorities, appointments, fiscal execution, economic implementation, household effects, distribution, institutional competence, adaptation, and correction."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse macro-fiscal evidence is strong, but favorable searches for successful programs, appointments, execution, household mitigation, and policy correction are not demonstrated.",
+        "closed_system_silence": "Fiscal opacity, NNPC commitments, subsidies, and procurement may conceal adverse conduct or implementation failures.",
+        "open_system_complaint_volume": "Not a primary complaint-volume chapter; reported hardship and fiscal indicators may reflect broad exposure rather than ruler-specific failure.",
+        "duplicate_reporting": "IMF and World Bank discuss overlapping fiscal constraints and subsidy/revenue problems; these should not be counted as wholly independent facts.",
+        "allegations_vs_findings": "IMF and World Bank assessments are institutional findings or recommendations, not proof of Buhari's personal intent, knowledge, or culpability.",
+        "official_claim_independence": "IMF and World Bank provide independent external assessments; official Budget Office and BTI candidates lack precise extracted locators and should not yet carry the chapter.",
+        "population_exposure_authority_baseline_shocks": "Inflation, debt, subsidies, oil dependence, weak revenue, inherited fiscal constraints, and external shocks are noted, but distributional exposure and Buhari-specific authority over implementation are incomplete.",
+        "missing_source_type": "Missing budget execution tables, procurement records, appointment records, household-distribution evidence, and parliamentary/audit findings with precise locators.",
+        "supporting_evidence_ids": [
+          "E003",
+          "E004",
+          "E005",
+          "E006"
+        ],
+        "unresolved_risks": [
+          "Formal policy authority is present, but personal ownership, appointments, execution, and correction are not isolated.",
+          "E020 and E021 are recoverable candidates but currently gateway/discovery material."
+        ]
+      }
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 9,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Welfare outcomes and shocks cannot be personalized without program and authority evidence.",
+        "Continuation is warranted for implementation records, beneficiary evidence, and response effectiveness."
+      ],
+      "missing_themes": [
+        "6B.1-6B.10: education, health, poverty, service delivery, equity, vulnerable groups, humanitarian response, crisis recovery, durability, and ruler-attributed ownership."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse welfare and humanitarian evidence is substantial; favorable searches for equitable service delivery, durable recovery, and effective federal responses are limited.",
+        "closed_system_silence": "Conflict-affected and marginalized populations may be undercounted, and service failures may be less visible where access is restricted.",
+        "open_system_complaint_volume": "Humanitarian needs are not complaint volume, but accessible populations and agency coverage may make some harms more visible than others.",
+        "duplicate_reporting": "Humanitarian agencies may share underlying administrative or assessment data; overlapping UNICEF, OCHA, and UNHCR reporting should not be counted as independent events automatically.",
+        "allegations_vs_findings": "UN and UNICEF reports establish deprivation, displacement, flood exposure, and humanitarian need; they do not establish Buhari's personal responsibility for each outcome.",
+        "official_claim_independence": "UN agencies provide independent assessments but may rely partly on government and partner data; government response claims are not independently tested in the notebook.",
+        "population_exposure_authority_baseline_shocks": "Population exposure is partly quantified, while federal/state responsibility, inherited service deficits, conflict and flood shocks, equity, and donor versus government contribution remain unresolved.",
+        "missing_source_type": "Missing program implementation records, beneficiary audits, service-quality data, disaggregated outcomes, and independent evaluations of federal response.",
+        "supporting_evidence_ids": [
+          "E003",
+          "E005",
+          "E006",
+          "E007",
+          "E008",
+          "E009",
+          "E010"
+        ],
+        "unresolved_risks": [
+          "Outcome evidence is not linked to a documented Buhari-owned program-to-delivery chain.",
+          "Humanitarian response evidence does not establish quality, durability, equity, or political conditionality.",
+          "Continuation is needed for implementation and contrary response evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Country-level corruption and governance indicators cannot satisfy the required personal-integrity nexus.",
+        "E021 and E022 are context/discovery only and excluded from the defensible estimate.",
+        "Continuation is clearly warranted for personal records and independent investigations."
+      ],
+      "missing_themes": [
+        "7B.1-7B.10: personal assets, family and business interests, procurement conflicts, deliberate deception, truthfulness, disclosure, correction, obstruction, investigation, and personal-benefit nexus."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse country-level corruption context was found, but favorable and adverse Buhari-specific searches for assets, conflicts, truthfulness, procurement, and scrutiny responses are not demonstrated as complete.",
+        "closed_system_silence": "Asset concealment, family/business conflicts, procurement misconduct, and obstruction may be difficult to detect in a politically constrained environment.",
+        "open_system_complaint_volume": "Visible corruption complaints may reflect active civil society, while intimidation and opacity may suppress complaints; neither volume nor silence resolves personal integrity.",
+        "duplicate_reporting": "No strong personal-integrity evidence was retained; E021/E022 are contextual or discovery material and should not be multiplied.",
+        "allegations_vs_findings": "No retained evidence establishes a personal-integrity allegation or finding with sufficient source proximity; country corruption indicators and contextual reports are not personal findings.",
+        "official_claim_independence": "Official or self-serving anti-corruption claims were reportedly excluded; retained country indicators do not independently test Buhari's personal integrity.",
+        "population_exposure_authority_baseline_shocks": "National corruption context does not establish personal nexus; exposure, formal authority, inherited corruption baseline, and external shocks are not connected to a personal act.",
+        "missing_source_type": "Missing asset declarations, procurement and company records, audit/investigative files, court records, and credible independent personal-interest reporting.",
+        "supporting_evidence_ids": [
+          "E021",
+          "E022"
+        ],
+        "unresolved_risks": [
+          "No defensible personal-integrity source-claim unit is presently retained.",
+          "The principal gap is recoverable through bounded personal-record and investigative-source searches."
+        ]
+      }
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The chapter combines formal acts, external assessments, and outcomes without enough program-to-result attribution.",
+        "Continuation is warranted for execution records, personnel/coordination evidence, and contrary performance evidence."
+      ],
+      "missing_themes": [
+        "8B.1-8B.10: governing portfolio, prioritization, appointments, implementation chain, coordination, delivery, adaptation, crisis management, durable results, and correction."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Some favorable evidence exists for formal electoral reform and institutional responses, but systematic searches for successful delivery, adaptation, personnel quality, and contrary achievements are incomplete.",
+        "closed_system_silence": "Weak fiscal transparency, security opacity, and restricted civic space may hide implementation failure or unreported adverse outcomes.",
+        "open_system_complaint_volume": "Not primarily a complaint-volume chapter; visible crises and humanitarian reporting may overrepresent accessible or severe cases without a full population baseline.",
+        "duplicate_reporting": "E003-E006 overlap across IMF/World Bank fiscal assessments, and E008 overlaps humanitarian reporting; repeated sources may describe shared underlying facts.",
+        "allegations_vs_findings": "IMF, World Bank, UNICEF, and UN reporting provides assessments and outcomes, not a complete finding of Buhari's personal effectiveness; formal Electoral Act assent is directly established.",
+        "official_claim_independence": "External IMF, World Bank, and UN assessments provide checks, while State House/INEC establish formal acts only; implementation claims remain incompletely independently verified.",
+        "population_exposure_authority_baseline_shocks": "Economic, welfare, conflict, flood, federalism, inherited institutional weakness, and external shocks are acknowledged, but portfolio ownership, authority boundaries, and counterfactual baseline remain incomplete.",
+        "missing_source_type": "Missing budget execution records, program evaluations, appointment and coordination records, parliamentary oversight, and independent outcome audits.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E005",
+          "E006",
+          "E008"
+        ],
+        "unresolved_risks": [
+          "The governing-program portfolio and implementation chain are not frozen or documented.",
+          "Formal acts and outcomes do not establish coordination, adaptation, durable results, or personal competence.",
+          "E020 and E021 require locator recovery before use."
+        ]
+      }
+    }
+  ],
+  "global_findings": [
+    "All eight selected chapters contain material research-recoverable gaps; continuation should include every chapter, not only the lowest-yield chapters.",
+    "The notebook explicitly states that favorable and adverse searches were not systematically balanced for several chapters, and contrary evidence is not explicit in the QA.",
+    "Gateway-only and locator-deficient candidates E020 and E021 were excluded from defensible estimates but remain recoverable continuation targets.",
+    "Repeated HRW, Amnesty, Freedom House, IMF, World Bank, and UN coverage creates source-concentration and duplicate-underlying-fact risks.",
+    "Local structured indicators are useful context but do not independently establish personal direction, intent, knowledge, responsibility, or effectiveness.",
+    "The English-only search and absence of local-language archives are material breadth limitations for a well-covered case.",
+    "No researcher-written scores, ranges, rankings, or score advice were identified."
+  ],
+  "reviewer_summary": "No chapter is ready to pass. The dossier contains credible contextual and some formal-act evidence, but every chapter has at least one material gap in attribution, temporal fit, contrary evidence, source quality, or event/program coverage. Continue within the immutable selected lens scope, preserving missing evidence as uncertainty rather than negative ruler evidence."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+Review round 1 continuation completed for selected Chapter 1B only. No score or score range assigned.
+
+The search expanded across official Nigerian nuclear, energy, biosecurity, cybersecurity, IAEA, UN, and adverse/implementation sources. English, Hausa, and Yoruba queries were attempted; the local-language searches produced no usable ruler-specific source.
+
+Filesystem writes remained unavailable, so the manifest update is supplied as a copy-ready append-only handoff.
+
+## New evidence units
+
+### E023 — Buhari endorsed nuclear safeguards and physical-protection regulations
+
+- Canonical URL: https://nnra.gov.ng/nnra/post-president_mohammadu_buhari_endorses_nnra___s_regulations
+- Title: “President Muhammadu Buhari Endorses NNRA’s Regulations”
+- Publisher: Nigerian Nuclear Regulatory Authority
+- Locator: HTML lines 83–92
+- Date: 2021; broader ruler-period context
+- Claim: Buhari approved and endorsed regulations covering nuclear safeguards, research-reactor safety, physical protection of nuclear materials and facilities, nuclear-power-site licensing, and uranium exploration; the source also states that he chaired the NNRA governing board.
+- Profile: `source_confidence=medium_high`; `source_type=official_record`; `final_evidence_use=final_evidence` for the formal approval, `context` for the regulator’s implied safety assessment.
+- Attribution: Direct formal presidential approval; target-year fit is indirect because the regulations are dated 2021.
+- Role: positive/contextual institutional evidence.
+- Mappings: `1B.3`, `1B.4`, `1B.7`, `1B.9`, `1B.10`.
+
+### E024 — Buhari’s nuclear-disarmament and nonproliferation position
+
+- Canonical URL: https://statehouse.gov.ng/trafficking-in-nuclear-materials-potential-threat-to-international-peace-security-president-buhari/
+- Title: “Trafficking in Nuclear Materials Potential Threat to International Peace, Security”
+- Publisher: State House, Abuja
+- Locator: HTML lines 23–67
+- Date: 2 October 2020
+- Claim: Buhari called for elimination of nuclear weapons, emphasized NPT compliance, supported the Pelindaba Treaty and TPNW, endorsed IAEA safeguards, and described Nigeria’s nuclear-security reforms, including conversion of the NIRR-1 reactor from highly enriched to low-enriched uranium and creation of a Nuclear Security Support Centre.
+- Profile: `source_confidence=medium_high` for the existence and date of the presidential statement; `source_type=official_statement`; `final_evidence_use=context` for self-characterization of Nigerian performance.
+- Attribution: Direct presidential rhetoric and claimed policy record; outside the target year but relevant to inherited ruler-period posture.
+- Role: positive but official/self-reported; requires independent corroboration for implementation.
+- Mappings: `1B.1`, `1B.2`, `1B.4`, `1B.6`, `1B.7`, `1B.10`.
+
+### E025 — Buhari identified regional small-arms proliferation as a security threat
+
+- Canonical URL: https://statehouse.gov.ng/president-buhari-calls-for-tighter-security-around-borders-in-lake-chad-basin-with-the-proliferation-of-weapons-from-russia-ukraine-war/
+- Title: “President Buhari Calls for Tighter Security Around Borders in Lake Chad Basin…”
+- Publisher: State House, Abuja
+- Locator: HTML lines 23–41
+- Date: 29 November 2022
+- Claim: Buhari warned that weapons from the Russia–Ukraine war and Libya were entering the Lake Chad region and called for stronger border-control cooperation.
+- Profile: `source_confidence=medium_low` for threat claims; `source_type=official_statement`; `final_evidence_use=context`.
+- Disposition: `rejected` for Chapter 1B as a standalone item because conventional small-arms proliferation is not itself nuclear or catastrophic-risk governance under the 1B lenses. It remains potentially relevant to Chapter 2B.
+- Rejection reason: out-of-scope for 1B absent a demonstrated nuclear, biological, cyber-catastrophic, or other existential pathway.
+
+### E026 — Nigeria’s 2022 nuclear-energy policy included safety, security, safeguards, and waste-management objectives
+
+- Canonical URL: https://www.energy.gov.ng/Energy_Policies_Plan/APPROVED_NEMP_2022.pdf
+- Title: Approved Nigeria Energy Master Plan 2022
+- Publisher: Energy Commission of Nigeria
+- Locator: PDF pp. 76–78, lines 3414–3501
+- Date: 2022
+- Claim: The plan calls for IAEA cooperation, safe radioactive-waste management, nuclear power in the energy mix, nuclear safety/security/safeguards requirements, transparent operation of nuclear facilities, regulatory strengthening, legal-framework development, implementation evaluation, and national capacity.
+- Profile: `source_confidence=high` for the text of the approved policy; `source_type=official_policy_document`; `final_evidence_use=final_evidence` for formal policy content, not implementation success.
+- Attribution: Federal policy during Buhari’s tenure; direct presidential ownership is not independently established from the document itself.
+- Role: positive formal-policy evidence with implementation gap.
+- Mappings: `1B.3`, `1B.7`, `1B.9`, `1B.10`.
+
+### E027 — Nigeria’s 2022 international nuclear-power statement described peaceful-use and regulatory plans
+
+- Canonical URL: https://nigatom.gov.ng/wp-content/uploads/2022/10/NATIONAL-STATEMENT-OF-NIGERIA_IMC-on-NP_Washington-DC.pdf
+- Title: “National Statement of Nigeria” at the International Ministerial Conference on Nuclear Power
+- Publisher: Nigeria Atomic Energy Commission
+- Locator: PDF pp. 1–2, lines 40–54
+- Date: October 2022
+- Claim: Nigeria stated that it was exploring nuclear power for electricity and energy security, had identified two potential plant sites, was working with the IAEA, activated NAEC as the national focal agency, and maintained NNRA as the independent safety regulator.
+- Profile: `source_confidence=high` for the existence and content of the official statement; `source_type=official_international_statement`; `final_evidence_use=final_evidence` for formal policy position, `context` for implementation claims.
+- Attribution: Federal-government policy statement; Buhari’s personal role is not named in the document.
+- Role: positive/contextual.
+- Mappings: `1B.3`, `1B.7`, `1B.9`, `1B.10`.
+
+### E028 — NNRA’s formal safety and safeguards responsibilities
+
+- Canonical URL: https://nnra.gov.ng/nnra/department-nuclear_safety_and_security
+- Title: “Nuclear Safety and Security”
+- Publisher: Nigerian Nuclear Regulatory Authority
+- Locator: HTML lines 94–95
+- Date: undated current institutional page
+- Claim: NNRA responsibilities include threat assessment, vulnerability review, prevention of nuclear material leaving regulatory control, training, and maintaining state accounting for nuclear materials under the IAEA safeguards agreement.
+- Profile: `source_confidence=medium_high`; `source_type=official_institutional_record`; `final_evidence_use=final_evidence` for formal mandate, `context` for actual performance.
+- Attribution: Institutional authority, not Buhari-specific conduct.
+- Role: inherited-capacity and authority context.
+- Mappings: `1B.3`, `1B.7`, `1B.10`.
+
+### E029 — Nigeria’s 2021 cybersecurity policy identified catastrophic pathways and critical-infrastructure risks
+
+- Canonical URL: https://cert.gov.ng/ngcert/resources/NATIONAL_CYBERSECURITY_POLICY_AND_STRATEGY_2021.pdf
+- Title: National Cybersecurity Policy and Strategy 2021
+- Publisher: Federal Republic of Nigeria / ngCERT
+- Locator: PDF search-result extract identifying risks to critical infrastructure, cyber conflict, cyber terrorism, espionage, and influence operations
+- Date: February 2021
+- Claim: The national strategy treats cyberspace as a national-security domain and identifies cyber conflict, cyber terrorism, espionage, critical-infrastructure destruction, and influence operations as risks requiring coordinated government protection.
+- Profile: `source_confidence=high` for the policy document; `source_type=official_policy_document`; `final_evidence_use=final_evidence` for formal policy text.
+- Attribution: Buhari launched the policy, but the document does not establish implementation or personal operational decisions.
+- Role: positive formal-policy context.
+- Mappings: `1B.7`, `1B.9`, `1B.10`.
+
+### E030 — Cybersecurity policy implementation was still being organized
+
+- Canonical URL: https://guardian.ng/news/nsa-mulls-implementation-of-new-national-cybersecurity-policy/
+- Title: “NSA Mulls Implementation of New National Cybersecurity Policy”
+- Publisher: The Guardian Nigeria
+- Locator: HTML lines 159–176
+- Date: 2021; broader ruler-period context
+- Claim: Buhari launched the 2021 cybersecurity policy; the Cybercrime Advisory Council was still discussing implementation modalities, critical-infrastructure protection, workshops, governance, and key performance indicators.
+- Profile: `source_confidence=medium_high`; `source_type=media`; `final_evidence_use=final_evidence` for the reported implementation meeting and chronology.
+- Attribution: Directly links policy launch to Buhari; implementation activity is attributed to the NSA and advisory council.
+- Role: mixed—policy existence positive, incomplete implementation context negative/limiting.
+- Mappings: `1B.7`, `1B.9`, `1B.10`.
+
+### E031 — Nigeria approved a 2022–2026 national biosecurity policy
+
+- Canonical URL: https://nbma.gov.ng/fg-approves-a-national-biosecurity-policy-for-nigeria/
+- Title: “FG Approves a National Biosecurity Policy for Nigeria”
+- Publisher: National Biosafety Management Agency
+- Locator: HTML lines 23–35
+- Date: 2021/2022 policy cycle
+- Claim: The Federal Executive Council approved a National Biosecurity Policy and Action Plan 2022–2026 for prevention, detection, response, and recovery from biological threats. The source states Buhari had assented in 2019 to an amendment requiring measures to ensure biosecurity.
+- Profile: `source_confidence=medium_high` for formal policy approval and statutory history; `source_type=official_record`; `final_evidence_use=final_evidence` for formal acts, `context` for implementation assurances.
+- Attribution: Buhari’s 2019 statutory assent is directly reported; 2022 implementation is institutionally attributed rather than personally directed.
+- Role: positive formal-policy evidence, with implementation uncertainty.
+- Mappings: `1B.7`, `1B.9`, `1B.10`.
+
+### E032 — November 2022 biosecurity implementation meeting
+
+- Canonical URL: https://nbma.gov.ng/federal-government-assures-full-implementation-of-national-biosecurity-policy-and-action-plan-2022-2026/
+- Title: “Federal Government Assures Full Implementation…”
+- Publisher: National Biosafety Management Agency
+- Locator: HTML lines 15–39
+- Date: 10–11 November 2022
+- Claim: A federal biosecurity stakeholders’ meeting discussed implementation of the 2022–2026 policy, with participation from defense, ministries, the NSA, civil society, academia, and WHO.
+- Profile: `source_confidence=medium_low`; `source_type=official_agency_report`; `final_evidence_use=context` because it contains institutional self-assessment and assurances.
+- Attribution: Federal institutional coordination; no direct Buhari instruction or independent effectiveness audit.
+- Role: positive process evidence, weak for outcome.
+- Mappings: `1B.7`, `1B.9`, `1B.10`.
+
+### E033 — Nigeria reported biosafety and biosecurity activity to the BWC in 2022
+
+- Canonical URL: https://documents.un.org/access.nsf/get?DS=bwc%2Fcons%2F2022%2Fwp.35&Lang=E&OpenAgent=
+- Title: BWC/CONS/2022/WP.35
+- Publisher: United Nations / Biological Weapons Convention
+- Locator: PDF p. 1, lines 18–38; distributed 7 September 2022
+- Claim: Nigeria reported investments in integrated surveillance, public-health laboratories, infection control, risk communication, logistics, coordination, and cooperation with U.S. DTRA for biosafety, biosecurity, training, and waste disposal.
+- Profile: `source_confidence=high` for the formal submission; `source_type=intergovernmental_record`; `final_evidence_use=final_evidence` for what Nigeria reported, `context` for unverified performance claims.
+- Attribution: National delegation and government institutions; not a personal Buhari act.
+- Role: positive reported governance evidence with self-report limitation.
+- Mappings: `1B.7`, `1B.9`, `1B.10`.
+
+### E034 — Nigeria’s BWC statement recognized dual-use biotechnology risks
+
+- Canonical URL: https://docs-library.unoda.org/Biological_Weapons_Convention_-_Ninth_Review_Conference_%282022%29/Nigeria.pdf
+- Title: Statement of the Federal Republic of Nigeria
+- Publisher: UNODA / BWC Ninth Review Conference
+- Locator: PDF pp. 2–3, lines 43–63
+- Date: 2022
+- Claim: Nigeria described biotechnology’s dual-use potential as requiring cautious monitoring and stated that biosafety and biosecurity should be prioritized following the COVID-19 experience.
+- Profile: `source_confidence=high` for the formal statement; `source_type=intergovernmental_record`; `final_evidence_use=final_evidence` for the government’s stated position.
+- Attribution: Government delegation; no direct Buhari authorship shown.
+- Role: positive rhetoric/policy context.
+- Mappings: `1B.2`, `1B.7`, `1B.9`.
+
+### E035 — NNRA identified unauthorized radioactive-material operators
+
+- Canonical URL: https://nnra.gov.ng/nnra/post-management_meets_with_stakeholders_operating_without_authorization
+- Title: “Management Meets with Stakeholders Operating Without Authorization”
+- Publisher: Nigerian Nuclear Regulatory Authority
+- Locator: HTML lines 82–91
+- Date: 6 April 2021; broader ruler-period context
+- Claim: NNRA reported that some facilities had operated radioactive-material activities without authorization and that it was seeking compliance through licensing, enforcement policy, and possible prosecution.
+- Profile: `source_confidence=medium_high` for the occurrence of the regulatory meeting and stated enforcement framework; `source_type=official_regulatory_record`; `final_evidence_use=final_evidence` for the formal regulatory issue, `context` for claims of effective remediation.
+- Attribution: Adverse institutional context; no evidence links the noncompliance directly to Buhari or proves executive tolerance.
+- Role: contrary/limiting evidence against treating regulatory architecture as demonstrated safety.
+- Mappings: `1B.3`, `1B.7`, `1B.10`.
+
+### E036 — Draft 2022 radioactive-material transport and emergency regulations remained open for comment
+
+- Canonical URL: https://www.nnra.gov.ng/nnra/resources?category=draft_regulations
+- Title: NNRA Draft Regulations Resource Page
+- Publisher: Nigerian Nuclear Regulatory Authority
+- Locator: HTML lines 86–110
+- Date: 2022 drafts
+- Claim: NNRA listed draft 2022 transport-security regulations and draft emergency-preparedness/response and radioactive-material safety regulations for public comment.
+- Profile: `source_confidence=high` for the existence of the drafts; `source_type=official_regulatory_record`; `final_evidence_use=final_evidence` for draft-status chronology.
+- Attribution: Institutional regulatory process; no direct Buhari decision.
+- Role: mixed—active rule development but incomplete finalization/implementation.
+- Mappings: `1B.3`, `1B.7`, `1B.8`, `1B.10`.
+
+### E037 — Nuclear-sector funding and implementation constraints
+
+- Canonical URL: https://nigatom.gov.ng/wp-content/uploads/2022/05/ACHIEVEMENTS-OF-NAEC-2019-ANNUAL-REPORT.pdf
+- Title: NAEC Achievements / Annual Report
+- Publisher: Nigeria Atomic Energy Commission
+- Locator: PDF pp. 34–36, lines 648–673
+- Date: report concerning the Buhari-period program; published copy accessed in 2022
+- Claim: The report identifies inadequate budget ceilings, funding needs for feasibility studies, retention of trained professionals, obligations to international organizations, and unresolved financing options for the nuclear-power project.
+- Profile: `source_confidence=medium_low`; `source_type=official_agency_report`; `final_evidence_use=context` because the report is self-assessing and temporally imperfect.
+- Attribution: Federal program constraints; no direct Buhari knowledge or corrective decision established.
+- Role: contrary/limiting evidence.
+- Mappings: `1B.3`, `1B.7`, `1B.10`.
+
+## Chapter 1B synthesis
+
+The continuation materially improved the dossier from one contextual item to 14 retained source-claim units, with approximately eight independent source families:
+
+- NNRA
+- State House
+- Energy Commission
+- Nigeria Atomic Energy Commission
+- IAEA
+- National Biosafety Management Agency
+- Office of the Secretary to the Government of the Federation
+- UN/BWC/UNODA
+- The Guardian
+
+The strongest new evidence is for:
+
+- formal nuclear safeguards and physical-protection regulation;
+- nuclear-energy planning with explicit safety, security, safeguards, waste, and transparency provisions;
+- Buhari-linked nonproliferation and disarmament statements;
+- formal cyber and biosecurity policy frameworks;
+- 2022 biosecurity coordination and BWC reporting.
+
+The strongest contrary evidence is:
+
+- NNRA’s admission that facilities had operated without authorization;
+- draft rather than finalized 2022 radioactive-material transport and emergency regulations;
+- NAEC’s reported funding, staffing, and financing constraints;
+- implementation records that show policy development but not demonstrated operational outcomes.
+
+The remaining gaps are not fully recoverable from this bounded pass:
+
+- no evidence of nuclear weapons possession, deployment, or nuclear coercion by Nigeria;
+- no Buhari-specific nuclear crisis or command-and-control decision in 2022;
+- no independent audit of the endorsed safeguards regulations;
+- no specialist external assessment of Nigerian nuclear-security implementation during 2022;
+- no Buhari-specific biological-weapons misuse, proliferation, or emergency incident;
+- no target-year evidence concerning AI or other frontier dual-use risk;
+- no independent cyber-risk audit linking the 2021 strategy to measurable 2022 protection outcomes;
+- no evidence of deliberate catastrophic-risk escalation or concealment.
+
+The record is therefore substantially richer but remains concentrated in official policy and institutional sources. Formal acts and stated commitments are traceable; implementation, independent verification, and adverse ruler-specific conduct remain unresolved.
+
+## Manifest update
+
+The following entries should be appended to the existing manifest:
+
+```json
+[
+  {"provisional_id":"E023","canonical_fact_key":"https://nnra.gov.ng/nnra/post-president_mohammadu_buhari_endorses_nnra___s_regulations#L83-L92|Buhari endorsed five NNRA nuclear regulations","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.4","1B.7","1B.9","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E024","canonical_fact_key":"https://statehouse.gov.ng/trafficking-in-nuclear-materials-potential-threat-to-international-peace-security-president-buhari/#L23-L67|Buhari nuclear disarmament and safeguards statement","chapter_ids":["1B"],"methodology_ids":["1B.1","1B.2","1B.4","1B.6","1B.7","1B.10"],"disposition":"context"},
+  {"provisional_id":"E025","canonical_fact_key":"https://statehouse.gov.ng/president-buhari-calls-for-tighter-security-around-borders-in-lake-chad-basin-with-the-proliferation-of-weapons-from-russia-ukraine-war/#L23-L41|Buhari warned of regional small-arms proliferation","chapter_ids":["1B"],"methodology_ids":[],"disposition":"rejected","reason":"Conventional small-arms proliferation is outside Chapter 1B absent a demonstrated catastrophic-risk pathway."},
+  {"provisional_id":"E026","canonical_fact_key":"https://www.energy.gov.ng/Energy_Policies_Plan/APPROVED_NEMP_2022.pdf#P76-P78|2022 Energy Master Plan nuclear safeguards and safety objectives","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7","1B.9","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E027","canonical_fact_key":"https://nigatom.gov.ng/wp-content/uploads/2022/10/NATIONAL-STATEMENT-OF-NIGERIA_IMC-on-NP_Washington-DC.pdf#P1-P2|Nigeria 2022 nuclear-power national statement","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7","1B.9","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E028","canonical_fact_key":"https://nnra.gov.ng/nnra/department-nuclear_safety_and_security#L94-L95|NNRA safeguards and nuclear-security mandate","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7","1B.10"],"disposition":"context"},
+  {"provisional_id":"E029","canonical_fact_key":"https://cert.gov.ng/ngcert/resources/NATIONAL_CYBERSECURITY_POLICY_AND_STRATEGY_2021.pdf|Nigeria 2021 national cybersecurity catastrophic-risk framework","chapter_ids":["1B"],"methodology_ids":["1B.7","1B.9","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E030","canonical_fact_key":"https://guardian.ng/news/nsa-mulls-implementation-of-new-national-cybersecurity-policy/#L159-L176|Cybersecurity policy implementation coordination","chapter_ids":["1B"],"methodology_ids":["1B.7","1B.9","1B.10"],"disposition":"context"},
+  {"provisional_id":"E031","canonical_fact_key":"https://nbma.gov.ng/fg-approves-a-national-biosecurity-policy-for-nigeria/#L23-L35|Nigeria 2022-2026 biosecurity policy and Buhari 2019 assent","chapter_ids":["1B"],"methodology_ids":["1B.7","1B.9","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E032","canonical_fact_key":"https://nbma.gov.ng/federal-government-assures-full-implementation-of-national-biosecurity-policy-and-action-plan-2022-2026/#L15-L39|November 2022 biosecurity implementation meeting","chapter_ids":["1B"],"methodology_ids":["1B.7","1B.9","1B.10"],"disposition":"context"},
+  {"provisional_id":"E033","canonical_fact_key":"https://documents.un.org/access.nsf/get?DS=bwc%2Fcons%2F2022%2Fwp.35&Lang=E&OpenAgent=#P0|Nigeria 2022 BWC biosafety and biosecurity submission","chapter_ids":["1B"],"methodology_ids":["1B.7","1B.9","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E034","canonical_fact_key":"https://docs-library.unoda.org/Biological_Weapons_Convention_-_Ninth_Review_Conference_%282022%29/Nigeria.pdf#P2|Nigeria recognizes dual-use biotechnology risk","chapter_ids":["1B"],"methodology_ids":["1B.2","1B.7","1B.9"],"disposition":"final_evidence"},
+  {"provisional_id":"E035","canonical_fact_key":"https://nnra.gov.ng/nnra/post-management_meets_with_stakeholders_operating_without_authorization#L82-L91|NNRA identified unauthorized radioactive-material operators","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E036","canonical_fact_key":"https://www.nnra.gov.ng/nnra/resources?category=draft_regulations#L86-L110|2022 draft radioactive-material transport and emergency regulations","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7","1B.8","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E037","canonical_fact_key":"https://nigatom.gov.ng/wp-content/uploads/2022/05/ACHIEVEMENTS-OF-NAEC-2019-ANNUAL-REPORT.pdf#P34-P36|NAEC funding and implementation constraints","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7","1B.10"],"disposition":"context"}
+]
+```
+
+E019 remains retained as the earlier IAEA treaty-context item. The reviewer’s central concern remains valid: no retained item yet independently demonstrates Buhari’s actual 2022 catastrophic-risk conduct beyond formal policy, institutional approval, and public commitments.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "recovered:https://nnra.gov.ng/nnra/post-president_mohammadu_buhari_endorses_nnra___s_regulations|E023",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "1B.10",
+        "1B.3",
+        "1B.4",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E023"
+    },
+    {
+      "canonical_fact_key": "recovered:https://statehouse.gov.ng/trafficking-in-nuclear-materials-potential-threat-to-international-peace-security-president-buhari/|E024",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.1",
+        "1B.10",
+        "1B.2",
+        "1B.4",
+        "1B.6",
+        "1B.7"
+      ],
+      "provisional_id": "E024"
+    },
+    {
+      "canonical_fact_key": "recovered:https://statehouse.gov.ng/president-buhari-calls-for-tighter-security-around-borders-in-lake-chad-basin-with-the-proliferation-of-weapons-from-russia-ukraine-war/|E025",
+      "chapter_ids": [
+        "1B",
+        "2B"
+      ],
+      "disposition": "rejected",
+      "provisional_id": "E025",
+      "reason": "`rejected` for Chapter 1B as a standalone item because conventional small-arms proliferation is not itself nuclear or catastrophic-risk governance under the 1B lenses. It remains potentially relevant to Chapter 2B."
+    },
+    {
+      "canonical_fact_key": "recovered:https://www.energy.gov.ng/Energy_Policies_Plan/APPROVED_NEMP_2022.pdf|E026",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.10",
+        "1B.3",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E026"
+    },
+    {
+      "canonical_fact_key": "recovered:https://nigatom.gov.ng/wp-content/uploads/2022/10/NATIONAL-STATEMENT-OF-NIGERIA_IMC-on-NP_Washington-DC.pdf|E027",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "1B.10",
+        "1B.3",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E027"
+    },
+    {
+      "canonical_fact_key": "recovered:https://nnra.gov.ng/nnra/department-nuclear_safety_and_security|E028",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "1B.10",
+        "1B.3",
+        "1B.7"
+      ],
+      "provisional_id": "E028"
+    },
+    {
+      "canonical_fact_key": "recovered:https://cert.gov.ng/ngcert/resources/NATIONAL_CYBERSECURITY_POLICY_AND_STRATEGY_2021.pdf|E029",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "1B.10",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E029"
+    },
+    {
+      "canonical_fact_key": "recovered:https://guardian.ng/news/nsa-mulls-implementation-of-new-national-cybersecurity-policy/|E030",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "1B.10",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E030"
+    },
+    {
+      "canonical_fact_key": "recovered:https://nbma.gov.ng/fg-approves-a-national-biosecurity-policy-for-nigeria/|E031",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.10",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E031"
+    },
+    {
+      "canonical_fact_key": "recovered:https://nbma.gov.ng/federal-government-assures-full-implementation-of-national-biosecurity-policy-and-action-plan-2022-2026/|E032",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.10",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E032"
+    },
+    {
+      "canonical_fact_key": "recovered:https://documents.un.org/access.nsf/get?DS=bwc%2Fcons%2F2022%2Fwp.35&Lang=E&OpenAgent=|E033",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.10",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E033"
+    },
+    {
+      "canonical_fact_key": "recovered:https://docs-library.unoda.org/Biological_Weapons_Convention_-_Ninth_Review_Conference_%282022%29/Nigeria.pdf|E034",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "1B.2",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E034"
+    },
+    {
+      "canonical_fact_key": "recovered:https://nnra.gov.ng/nnra/post-management_meets_with_stakeholders_operating_without_authorization|E035",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.10",
+        "1B.3",
+        "1B.7"
+      ],
+      "provisional_id": "E035"
+    },
+    {
+      "canonical_fact_key": "recovered:https://www.nnra.gov.ng/nnra/resources?category=draft_regulations|E036",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.10",
+        "1B.3",
+        "1B.7",
+        "1B.8"
+      ],
+      "provisional_id": "E036"
+    },
+    {
+      "canonical_fact_key": "recovered:https://nigatom.gov.ng/wp-content/uploads/2022/05/ACHIEVEMENTS-OF-NAEC-2019-ANNUAL-REPORT.pdf|E037",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.10",
+        "1B.3",
+        "1B.7"
+      ],
+      "provisional_id": "E037"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+
+--- EVIDENCE REVIEW ROUND 2 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 8,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Evidence materially improved but remains concentrated in formal policy and official institutional reporting.",
+        "Buhari attribution is direct for some formal acts and rhetoric, but implementation and personal operational responsibility remain unresolved."
+      ],
+      "missing_themes": [
+        "1B.1-1B.10: target-period ruler-attributed nuclear, biological, cyber, AI, dual-use, proliferation, command, crisis, arms-control, and catastrophic-risk conduct."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both policy commitments and adverse implementation constraints were searched; independent adverse verification remains limited.",
+        "closed_system_silence": "Nuclear, biosecurity, and cyber institutions may conceal failures or adverse incidents.",
+        "open_system_complaint_volume": "Not materially applicable; no incident or complaint dataset was assembled.",
+        "duplicate_reporting": "The new items are mostly distinct, but multiple official policy statements may describe the same governance posture rather than independent conduct.",
+        "allegations_vs_findings": "Formal policy and institutional records are distinguishable from verified outcomes; no personal 2022 catastrophic-risk finding is established.",
+        "official_claim_independence": "Most evidence is official or government-reported; IAEA and UN records independently verify formal reporting but not operational performance.",
+        "population_exposure_authority_baseline_shocks": "Formal authority and policy exposure are documented, but inherited capacity, population exposure, operational outcomes, and external shocks are incompletely linked.",
+        "missing_source_type": "Independent nuclear-security, cyber-risk, biosecurity, and implementation audits are missing.",
+        "supporting_evidence_ids": [
+          "E019",
+          "E023",
+          "E024",
+          "E026",
+          "E027",
+          "E029",
+          "E031",
+          "E033",
+          "E035",
+          "E036",
+          "E037"
+        ],
+        "unresolved_risks": [
+          "No independent audit of 2022 implementation.",
+          "No ruler-specific crisis, command, misuse, concealment, or frontier-risk evidence.",
+          "Several records are outside 2022 or self-report implementation."
+        ]
+      }
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Country conflict outcomes and military spending remain contextual rather than personal conduct evidence.",
+        "A conventional-weapons statement is not sufficient evidence for 1B and requires careful scope control in 2B."
+      ],
+      "missing_themes": [
+        "2B.1-2B.10: ruler-attributed initiation or restraint, threat claims, civilian protection, lawful security conduct, peace initiatives, operational accountability, and correction or remedy."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse evidence is stronger than favorable evidence; systematic searches for restraint, protection, lawful conduct, and effective remedies are incomplete.",
+        "closed_system_silence": "Conflict zones, detention, and security institutions can suppress evidence of civilian harm and misconduct.",
+        "open_system_complaint_volume": "Active civil society may increase visible reporting, while inaccessible regions and closed institutions suppress other reports; volume is not severity.",
+        "duplicate_reporting": "HRW, Amnesty, Freedom House, and international reporting overlap around #EndSARS and security-force abuse; repeated coverage may represent the same events.",
+        "allegations_vs_findings": "Conflict and abuse reports are presented as assessments or allegations; judicial or independently adjudicated findings and personal presidential responsibility remain limited.",
+        "official_claim_independence": "International, NGO, and structured sources provide partial checks, but official operational claims are not consistently independently verified.",
+        "population_exposure_authority_baseline_shocks": "Exposure, displacement, insurgency, banditry, and inherited insecurity are documented, but federal/state authority, denominators, baseline trends, and external shocks are incompletely separated.",
+        "missing_source_type": "Operational orders, court and investigation files, and incident-level civilian-protection audits are missing.",
+        "supporting_evidence_ids": [
+          "E009",
+          "E010",
+          "E011",
+          "E012",
+          "E013",
+          "E025"
+        ],
+        "unresolved_risks": [
+          "Personal initiation, direction, knowledge, and accountability remain largely unestablished.",
+          "Some evidence concerns 2021 conduct reported in 2022.",
+          "Contrary evidence on restraint and remedy effectiveness is incomplete."
+        ]
+      }
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 10,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Structured violence indicators cannot be personalized automatically.",
+        "Contrary remedy evidence and primary accountability records remain insufficient."
+      ],
+      "missing_themes": [
+        "3B.1-3B.10: direct knowledge or orders, protection failures, detention and torture responsibility, investigation, prosecution, remedy, oversight, and ruler-linked safety outcomes."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse evidence is substantial; favorable searches for independent investigations, prosecutions, releases, and effective protection are only partial.",
+        "closed_system_silence": "Detention, torture, military operations, and civic restrictions create substantial underreporting risk.",
+        "open_system_complaint_volume": "Visible civil-society complaints may overrepresent accessible areas, while closed detention and conflict settings suppress complaints.",
+        "duplicate_reporting": "Amnesty, HRW, Freedom House, and State Department coverage repeatedly describes overlapping #EndSARS and security-force events.",
+        "allegations_vs_findings": "The notebook preserves the distinction between NGO allegations, international assessments, and judicial findings; direct findings against Buhari are absent.",
+        "official_claim_independence": "NGO and international sources provide checks, but official explanations and accountability claims are not fully tested.",
+        "population_exposure_authority_baseline_shocks": "Indicators and exposure are documented, but denominators, federal/state responsibility, inherited trends, and conflict or flood shocks are not fully integrated.",
+        "missing_source_type": "Complete court, commission, detention, military-investigation, and incident-level remedy records are missing.",
+        "supporting_evidence_ids": [
+          "E011",
+          "E012",
+          "E014",
+          "E015",
+          "E016",
+          "E017"
+        ],
+        "unresolved_risks": [
+          "Direct Buhari knowledge, orders, and responsibility are not established for most incidents.",
+          "Positive mechanisms do not demonstrate effective protection or remedy.",
+          "Source concentration may exaggerate event breadth."
+        ]
+      }
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Relevant formal acts coexist with adverse context, but implementation and institutional-constraint evidence lacks depth.",
+        "Shared authority and formal institutional independence reduce direct attribution strength."
+      ],
+      "missing_themes": [
+        "4B.1-4B.10: opposition and media treatment, judicial and legislative constraints, electoral implementation, civic freedoms, information controls, accountability, and succession or transfer conduct."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both reform and adverse restriction evidence were searched, but opposition treatment, judicial independence, implementation, and succession searches are incomplete.",
+        "closed_system_silence": "Harassment and restrictions can suppress evidence of authoritarian conduct and affected-group experience.",
+        "open_system_complaint_volume": "Media and civil society increase visibility, but intimidation can suppress complaints; raw reporting volume is not severity.",
+        "duplicate_reporting": "HRW, Amnesty, Freedom House, and media reports overlap on #EndSARS, Twitter, and civic-space events.",
+        "allegations_vs_findings": "Formal assent and INEC provisions are documented acts; irregularities, harassment, detention, and abuse reports remain distinct from adjudicated findings.",
+        "official_claim_independence": "State House and INEC establish formal acts and rules; independent evidence of implementation and constraints is incomplete.",
+        "population_exposure_authority_baseline_shocks": "National indicators are available, but federal/state division, inherited baseline, implementation exposure, and external shocks are incompletely separated.",
+        "missing_source_type": "Election-implementation records, court decisions, parliamentary oversight, opposition testimony, and broader independent civic-space monitoring are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E014",
+          "E015",
+          "E016",
+          "E017",
+          "E018"
+        ],
+        "unresolved_risks": [
+          "Formal reform does not establish implementation or fair practice.",
+          "Twitter chronology is media-reported and motive/proportionality remain contested.",
+          "Contrary evidence on institutional restraint is incomplete."
+        ]
+      }
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The principal evidence is strong contextual macroeconomic assessment but weak on program-level ruler attribution.",
+        "Locator recovery and execution evidence could materially improve the dossier."
+      ],
+      "missing_themes": [
+        "5B.1-5B.10: portfolio priorities, appointments, fiscal execution, implementation, household effects, distribution, competence, adaptation, and correction."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse macro-fiscal evidence is strong; systematic favorable searches for successful programs, appointments, execution, mitigation, and correction are incomplete.",
+        "closed_system_silence": "Fiscal opacity, NNPC commitments, subsidies, and procurement can conceal adverse conduct and implementation failure.",
+        "open_system_complaint_volume": "Complaint volume is not central; hardship indicators reflect broad exposure and require distributional and attribution analysis.",
+        "duplicate_reporting": "IMF and World Bank overlap on fiscal constraints, subsidies, and revenue weaknesses; these are not wholly independent facts.",
+        "allegations_vs_findings": "IMF and World Bank assessments are external findings about conditions and recommendations, not findings of Buhari's personal intent or culpability.",
+        "official_claim_independence": "IMF and World Bank provide independent external assessments; Budget Office and BTI candidates lack usable extracted locators.",
+        "population_exposure_authority_baseline_shocks": "Inflation, debt, subsidies, oil dependence, inherited constraints, and external shocks are noted, but distribution and Buhari-specific implementation authority remain incomplete.",
+        "missing_source_type": "Precise budget execution, procurement, appointment, household-distribution, audit, and parliamentary records are missing.",
+        "supporting_evidence_ids": [
+          "E003",
+          "E004",
+          "E005",
+          "E006"
+        ],
+        "unresolved_risks": [
+          "Personal ownership, appointments, execution, and correction are not isolated.",
+          "E020 and E021 remain recoverable but unusable until precise locators are extracted.",
+          "Macro outcomes cannot alone establish effectiveness or blame."
+        ]
+      }
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 9,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Outcome evidence is substantial but attribution and implementation evidence are insufficient.",
+        "Continuation could recover program, beneficiary, and response-effectiveness evidence."
+      ],
+      "missing_themes": [
+        "6B.1-6B.10: education, health, poverty, service delivery, equity, vulnerable groups, humanitarian response, recovery, durability, and ruler-attributed ownership."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse welfare and humanitarian evidence is substantial; favorable searches for equitable, durable, and effective federal delivery are limited.",
+        "closed_system_silence": "Conflict-affected, marginalized, and inaccessible populations may be undercounted and their service failures less visible.",
+        "open_system_complaint_volume": "Need estimates are not complaint volume, but agency access and reporting coverage can make some harms more visible than others.",
+        "duplicate_reporting": "UNICEF, OCHA, and UNHCR may share administrative or assessment inputs; overlapping humanitarian reporting is not automatically independent.",
+        "allegations_vs_findings": "UN and UNICEF reports establish deprivation, displacement, flooding, and need; they do not establish Buhari's personal responsibility for outcomes.",
+        "official_claim_independence": "UN agencies offer external checks but may rely partly on government or partner data; government response claims are not independently tested.",
+        "population_exposure_authority_baseline_shocks": "Population exposure is partly quantified; federal/state responsibility, inherited deficits, conflict and flood shocks, equity, and donor contribution remain unresolved.",
+        "missing_source_type": "Program implementation records, beneficiary audits, disaggregated service-quality data, and independent response evaluations are missing.",
+        "supporting_evidence_ids": [
+          "E003",
+          "E005",
+          "E006",
+          "E007",
+          "E008",
+          "E009",
+          "E010"
+        ],
+        "unresolved_risks": [
+          "No documented Buhari-owned program-to-delivery chain.",
+          "Response quality, durability, equity, and political conditionality are unresolved.",
+          "Outcome evidence may conflate federal policy, state delivery, donors, conflict, and natural shocks."
+        ]
+      }
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "E021 and E022 are excluded from the defensible estimate because they are contextual or discovery material.",
+        "A bounded search for personal records and independent investigations could materially improve the dossier."
+      ],
+      "missing_themes": [
+        "7B.1-7B.10: personal assets, family and business interests, procurement conflicts, deception, truthfulness, disclosure, correction, obstruction, investigation, and personal-benefit nexus."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Country-level adverse context was found, but balanced Buhari-specific searches for assets, conflicts, truthfulness, procurement, correction, and scrutiny responses are incomplete.",
+        "closed_system_silence": "Asset concealment, procurement conflicts, family benefit, and obstruction may be hidden in a constrained and opaque environment.",
+        "open_system_complaint_volume": "Visible complaints may reflect active civil society, while intimidation and opacity suppress others; neither volume nor silence establishes personal misconduct.",
+        "duplicate_reporting": "No personal-integrity evidence was retained; E021 and E022 are contextual/discovery material and must not be multiplied.",
+        "allegations_vs_findings": "No retained source establishes a personal-integrity allegation or finding with adequate proximity; country indicators are not personal findings.",
+        "official_claim_independence": "Official anti-corruption claims were excluded; retained indicators do not independently test Buhari's personal integrity.",
+        "population_exposure_authority_baseline_shocks": "National corruption context does not establish personal nexus; authority, inherited baseline, exposure, and shocks are not connected to a personal act.",
+        "missing_source_type": "Asset declarations, company and procurement records, audits, investigations, court records, and credible independent personal-interest reporting are missing.",
+        "supporting_evidence_ids": [
+          "E021",
+          "E022"
+        ],
+        "unresolved_risks": [
+          "No defensible personal-integrity source-claim unit is retained.",
+          "The central personal nexus remains entirely unresolved.",
+          "Country governance indicators must not be converted into personal attribution."
+        ]
+      }
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The chapter combines formal acts, external assessments, and outcomes without sufficient program-to-result attribution.",
+        "Continuation could materially improve execution, personnel, coordination, and contrary-performance evidence."
+      ],
+      "missing_themes": [
+        "8B.1-8B.10: governing portfolio, prioritization, appointments, implementation, coordination, delivery, adaptation, crisis management, durable results, and correction."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Some favorable formal-policy evidence and adverse outcomes are present, but searches for delivery, adaptation, personnel, coordination, and contrary achievements are incomplete.",
+        "closed_system_silence": "Fiscal opacity, security secrecy, and civic restrictions may hide implementation failures and unreported adverse outcomes.",
+        "open_system_complaint_volume": "Complaint volume is not central; visible crises may overrepresent accessible or severe cases without a complete population baseline.",
+        "duplicate_reporting": "IMF/World Bank fiscal assessments overlap, as do humanitarian reports; repeated coverage may describe shared facts.",
+        "allegations_vs_findings": "Formal assent is directly established; IMF, World Bank, UNICEF, and UN assessments describe conditions and outcomes, not a complete finding of Buhari's personal effectiveness.",
+        "official_claim_independence": "IMF, World Bank, and UN sources provide external checks; State House and INEC establish formal acts only, while implementation remains weakly verified.",
+        "population_exposure_authority_baseline_shocks": "Economic, welfare, conflict, flood, federalism, inherited weakness, and external shocks are acknowledged, but portfolio ownership, authority boundaries, and counterfactual baseline remain incomplete.",
+        "missing_source_type": "Budget execution, program evaluations, appointment and coordination records, parliamentary oversight, and independent outcome audits are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E005",
+          "E006",
+          "E008"
+        ],
+        "unresolved_risks": [
+          "The governing portfolio and implementation chain are not frozen.",
+          "Formal acts and outcomes do not establish coordination, adaptation, durable results, or personal competence.",
+          "E020 and E021 require locator recovery before evidentiary use."
+        ]
+      }
+    }
+  ],
+  "global_findings": [
+    "All eight selected chapters retain material, research-recoverable gaps, so continuation is required for every selected chapter.",
+    "The continuation improved Chapter 1B's formal-policy coverage but did not resolve independent implementation verification, target-year operational conduct, or ruler-specific adverse evidence.",
+    "Favorable and adverse searches were not systematically balanced for several chapters, especially 2B, 3B, 5B, 6B, 7B, and 8B.",
+    "Gateway-only or locator-deficient candidates E020 and E021 remain recoverable extraction tasks and are excluded from defensible estimates.",
+    "Repeated HRW, Amnesty, Freedom House, IMF, World Bank, and UN reporting creates duplicate-underlying-fact and source-concentration risks.",
+    "Local structured indicators are useful context but do not independently establish personal direction, knowledge, responsibility, or effectiveness.",
+    "The English-only baseline and limited local-language yield remain breadth limitations; the Chapter 1B continuation attempted Hausa and Yoruba without recovering usable ruler-specific evidence.",
+    "No scores, score ranges, rankings, or judge-directed scoring advice were identified."
+  ],
+  "reviewer_summary": "Continue all eight selected chapters within the immutable lens scope. The notebook contains credible formal, contextual, and adverse evidence, but no chapter yet has sufficient attribution, contrary evidence, temporal fit, implementation depth, or personal nexus to pass. Preserve missing evidence as uncertainty, not negative ruler evidence."
+}
+
+--- SUPERVISOR RESEARCH TAKEOVER ROUND 2 ---
+
+Completed the selected Chapter 1B continuation for Buhari/Nigeria/2022 without scoring.
+
+The pass recovered 10 new source-claim units, bringing the retained Chapter 1B register to approximately 24 units. Key additions include:
+
+- June 2022 IAEA safeguards physical-inventory verification, reported as satisfactory by inspectors; useful positive implementation evidence, though sourced through NNRA’s account. [NNRA report](https://nnra.gov.ng/nnra/post-nnra_hosted_the_iaea_safeguards_inspectors)
+- November 2022 IAEA mission assessing Nigeria’s inventories of high-risk disused radioactive sources. [NNRA report](https://nnra.gov.ng/nnra/post-nnra_hosts_iaea_expert_mission_on_national_inventories_of_category_1_and_2_radioactive_sources_in_nigeria)
+- February 2022 IAEA/NNRA workshop for responding to criminal or unauthorized acts involving material outside regulatory control. [NNRA report](https://nnra.gov.ng/nnra/post-nnra_conducts_a_national_workshop_in_collaboration_with_iaea_to_develop_a_national_framework_for_managing_the_response_to_criminal_or_intentional_unauthorized_acts_involving_material_out_of_regulatory_control__morc_)
+- August–September 2022 workshop validating radioactive-material transport regulations, showing active rule development but incomplete enactment. [NNRA report](https://nnra.gov.ng/nnra/post-nnra_organizes_a_national_workshop_on_safe_transport_of_nuclear_and_radioactive_sources_and_validation_of_nigerian_radiation_safety_regulations)
+- IAEA conference evidence documenting Nigeria’s historical orphan-source losses and continuing security challenges, while also recording later search-and-secure improvements. [IAEA conference record](https://conferences.iaea.org/event/262/contributions/21312/)
+- Biosecurity policy provisions requiring facility standards, inventories, audits, training, and controls against catastrophic misuse. [Nigeria National Biosecurity Policy](https://nbma.gov.ng/wp-content/uploads/2022/02/National-Biosecurity-Policy-and-Action-Plan-2022-2026.pdf)
+- Earlier national health-security assessment documenting incomplete countrywide laboratory training, assessment, and biosecurity capacity; retained as inherited baseline, not a 2022 outcome. [Nigeria JEE assessment](https://www.ncdc.gov.ng/themes/common/docs/protocols/119_1581414518.pdf)
+- 2022 cybersecurity risk evidence identifying increasing attacks, underreporting, and the need for stronger incident-response capacity. [Deloitte Nigeria Cybersecurity Outlook 2022](https://www.deloitte.com/gh/en/services/risk-advisory/perspectives/nigeria-cybersecurity-outlook-2022.html)
+- February 2022 Defence Ministry direction to strengthen cyberspace defence and inter-agency cooperation. [Ministry of Defence](https://defence.gov.ng/2022/02/14/cyber-security-defence-minister-says-nigeria-cant-afford-to-be-left-behind-in-cyberspace-defence/)
+- Buhari’s August 2022 launch of the National Crisis Management Doctrine, a direct formal act establishing cross-government crisis-coordination architecture. [State House](https://statehouse.gov.ng/president-buhari-launches-national-crisis-management-doctrine/)
+
+Remaining gaps are material: no independent 2022 audit of implementation, no Buhari-specific nuclear command or crisis decision, no evidence of nuclear proliferation or realized catastrophic harm, no ruler-specific biological misuse, and no measurable cyber-protection outcome. The evidence remains concentrated in official and institutional sources.
+
+The workspace is read-only, so I could not persist changes. Append E038–E047 to `research-ledger-manifest.json`, preserving the following mappings:
+
+```json
+[
+  {"provisional_id":"E038","canonical_fact_key":"https://nnra.gov.ng/nnra/post-nnra_hosted_the_iaea_safeguards_inspectors#L83-L88|2022 IAEA safeguards physical inventory verification","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.4","1B.7","1B.10"],"disposition":"context"},
+  {"provisional_id":"E039","canonical_fact_key":"https://nnra.gov.ng/nnra/post-nnra_hosts_iaea_expert_mission_on_national_inventories_of_category_1_and_2_radioactive_sources#L84-L90|2022 IAEA disused radioactive-source inventory mission","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7","1B.8","1B.10"],"disposition":"context"},
+  {"provisional_id":"E040","canonical_fact_key":"https://nnra.gov.ng/nnra/post-nnra_organizes_a_national_workshop_on_safe_transport_of_nuclear_and_radioactive_sources_and_validation_of_nigerian_radiation_safety_regulations#L84-L92|2022 radioactive-material transport regulation workshop","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7","1B.8","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E041","canonical_fact_key":"https://nnra.gov.ng/nnra/post-nnra_conducts_a_national_workshop_in_collaboration_with_iaea_to_develop_a_national_framework_for_managing_the_response_to_criminal_or_intentional_unauthorized_acts_involving_material_out_of_regulatory_control__morc_#L82-L87|2022 MORC nuclear-security response framework workshop","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7","1B.8","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E042","canonical_fact_key":"https://conferences.iaea.org/event/262/contributions/21312/#L78-L88|Nigeria orphan-source losses and search-and-secure programme","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7","1B.10"],"disposition":"context"},
+  {"provisional_id":"E043","canonical_fact_key":"https://nbma.gov.ng/wp-content/uploads/2022/02/National-Biosecurity-Policy-and-Action-Plan-2022-2026.pdf#P47-P52|Biosecurity facility, inventory, audit, and dual-use controls","chapter_ids":["1B"],"methodology_ids":["1B.2","1B.7","1B.9","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E044","canonical_fact_key":"https://www.ncdc.gov.ng/themes/common/docs/protocols/119_1581414518.pdf#P39-P40|Inherited Nigerian biosecurity capacity gaps","chapter_ids":["1B"],"methodology_ids":["1B.7","1B.9","1B.10"],"disposition":"context"},
+  {"provisional_id":"E045","canonical_fact_key":"https://www.deloitte.com/gh/en/services/risk-advisory/perspectives/nigeria-cybersecurity-outlook-2022.html#L523-L538|2022 cyberattack exposure and incident-response gaps","chapter_ids":["1B"],"methodology_ids":["1B.7","1B.9","1B.10"],"disposition":"context"},
+  {"provisional_id":"E046","canonical_fact_key":"https://defence.gov.ng/2022/02/14/cyber-security-defence-minister-says-nigeria-cant-afford-to-be-left-behind-in-cyberspace-defence/#L99-L127|2022 federal cyberspace-defence direction","chapter_ids":["1B"],"methodology_ids":["1B.7","1B.9","1B.10"],"disposition":"context"},
+  {"provisional_id":"E047","canonical_fact_key":"https://statehouse.gov.ng/president-buhari-launches-national-crisis-management-doctrine/#L23-L57|Buhari launched National Crisis Management Doctrine in August 2022","chapter_ids":["1B"],"methodology_ids":["1B.7","1B.8","1B.10"],"disposition":"final_evidence"}
+]
+```
+
+No score, score range, ranking, or judge-directed advice was produced.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "recovered:https://nnra.gov.ng/nnra/post-president_mohammadu_buhari_endorses_nnra___s_regulations|E023",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "1B.10",
+        "1B.3",
+        "1B.4",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E023"
+    },
+    {
+      "canonical_fact_key": "recovered:https://statehouse.gov.ng/trafficking-in-nuclear-materials-potential-threat-to-international-peace-security-president-buhari/|E024",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.1",
+        "1B.10",
+        "1B.2",
+        "1B.4",
+        "1B.6",
+        "1B.7"
+      ],
+      "provisional_id": "E024"
+    },
+    {
+      "canonical_fact_key": "recovered:https://statehouse.gov.ng/president-buhari-calls-for-tighter-security-around-borders-in-lake-chad-basin-with-the-proliferation-of-weapons-from-russia-ukraine-war/|E025",
+      "chapter_ids": [
+        "1B",
+        "2B"
+      ],
+      "disposition": "rejected",
+      "provisional_id": "E025",
+      "reason": "`rejected` for Chapter 1B as a standalone item because conventional small-arms proliferation is not itself nuclear or catastrophic-risk governance under the 1B lenses. It remains potentially relevant to Chapter 2B."
+    },
+    {
+      "canonical_fact_key": "recovered:https://www.energy.gov.ng/Energy_Policies_Plan/APPROVED_NEMP_2022.pdf|E026",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.10",
+        "1B.3",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E026"
+    },
+    {
+      "canonical_fact_key": "recovered:https://nigatom.gov.ng/wp-content/uploads/2022/10/NATIONAL-STATEMENT-OF-NIGERIA_IMC-on-NP_Washington-DC.pdf|E027",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "1B.10",
+        "1B.3",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E027"
+    },
+    {
+      "canonical_fact_key": "recovered:https://nnra.gov.ng/nnra/department-nuclear_safety_and_security|E028",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "1B.10",
+        "1B.3",
+        "1B.7"
+      ],
+      "provisional_id": "E028"
+    },
+    {
+      "canonical_fact_key": "recovered:https://cert.gov.ng/ngcert/resources/NATIONAL_CYBERSECURITY_POLICY_AND_STRATEGY_2021.pdf|E029",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "1B.10",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E029"
+    },
+    {
+      "canonical_fact_key": "recovered:https://guardian.ng/news/nsa-mulls-implementation-of-new-national-cybersecurity-policy/|E030",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "1B.10",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E030"
+    },
+    {
+      "canonical_fact_key": "recovered:https://nbma.gov.ng/fg-approves-a-national-biosecurity-policy-for-nigeria/|E031",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.10",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E031"
+    },
+    {
+      "canonical_fact_key": "recovered:https://nbma.gov.ng/federal-government-assures-full-implementation-of-national-biosecurity-policy-and-action-plan-2022-2026/|E032",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.10",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E032"
+    },
+    {
+      "canonical_fact_key": "recovered:https://documents.un.org/access.nsf/get?DS=bwc%2Fcons%2F2022%2Fwp.35&Lang=E&OpenAgent=|E033",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.10",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E033"
+    },
+    {
+      "canonical_fact_key": "recovered:https://docs-library.unoda.org/Biological_Weapons_Convention_-_Ninth_Review_Conference_%282022%29/Nigeria.pdf|E034",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "1B.2",
+        "1B.7",
+        "1B.9"
+      ],
+      "provisional_id": "E034"
+    },
+    {
+      "canonical_fact_key": "recovered:https://nnra.gov.ng/nnra/post-management_meets_with_stakeholders_operating_without_authorization|E035",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.10",
+        "1B.3",
+        "1B.7"
+      ],
+      "provisional_id": "E035"
+    },
+    {
+      "canonical_fact_key": "recovered:https://www.nnra.gov.ng/nnra/resources?category=draft_regulations|E036",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.10",
+        "1B.3",
+        "1B.7",
+        "1B.8"
+      ],
+      "provisional_id": "E036"
+    },
+    {
+      "canonical_fact_key": "recovered:https://nigatom.gov.ng/wp-content/uploads/2022/05/ACHIEVEMENTS-OF-NAEC-2019-ANNUAL-REPORT.pdf|E037",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.10",
+        "1B.3",
+        "1B.7"
+      ],
+      "provisional_id": "E037"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---

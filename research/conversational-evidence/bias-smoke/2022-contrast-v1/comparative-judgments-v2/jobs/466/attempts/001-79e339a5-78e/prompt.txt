@@ -1,0 +1,2285 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Treat projection coverage statuses and evidence-to-lens mappings as advisory
+bookkeeping, not binding admissibility decisions. Apply every cited chapter evidence
+item to the ten lenses yourself. A projection mapping does not make an item relevant:
+the active guide's scope, non-goals, exclusions, and attribution limits are mandatory.
+Identify and give zero scoring weight to mapped evidence that fails those gates; do not
+use it as a positive, negative, contrary, or anchor reason. In particular,
+`research_blocked` means that the
+formatter did not record a complete lens disposition; it does not erase relevant
+chapter evidence or require a null score.
+Use half-point score increments. A numeric score must rest on a concrete record of
+relevant governing conduct, not merely country indicators or evidence volume. For
+Chapters 1B-6B and 8B, documented formal responsibility for national policy, programs,
+appointments, command, implementation, tolerance, or remedy can satisfy attribution
+without proof of a personal order. Chapter 7B requires a personal-integrity nexus.
+Shared authority affects weight and confidence rather than automatically erasing the
+evidence. Inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If the record remains insufficient, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Before scoring each ruler: (1) establish the information environment and evidence
+opportunity; (2) identify the inherited baseline and external shocks; (3) establish
+formal and practical ruler authority; (4) collapse repeated coverage into independent
+underlying facts; (5) compare absolute conditions with change from baseline; and
+(6) compare the ruler with adjacent cases. Then make the holistic judgment. Preserve
+inherited conditions, ruler authority, contrary evidence, source bias, and adjacent-case
+comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Every evaluation must include a substantive `bias_assessment`. Cite the dossier E-IDs
+that support each material bias finding, state its likely direction and how it changed
+interpretation, and explain the effect on confidence and plausible range. Confirm that
+complaint/report volume was not treated as severity and that no blanket democracy or
+autocracy score correction was applied. Closed-system silence is not favorable evidence;
+open-system disclosure and remedy are not additional misconduct.
+
+Write `chapter_rationale` as a self-contained reader-facing abstract, not as terse
+notes between specialists. Assume the reader knows the ruler's name but does not
+know the events, institutions, controversies, programs, or acronyms in the dossier.
+Keep it concise: normally 120-220 words and never more than 300 words. Keep every
+other prose field to one or two sentences. Spend output tokens on completing and
+validating all evaluations, not on repeating dossier evidence.
+Use this order: (1) state the overall chapter appraisal and score in plain language;
+(2) explain the main favorable and unfavorable findings, identifying what each
+specific case was and why it matters; (3) distinguish proven facts from allegations,
+institutional context, and uncertain ruler attribution; and (4) conclude why the
+evidence supports this score rather than a materially higher or lower one. Define
+unfamiliar cases on first mention. Do not open with an unexplained case name, event,
+acronym, or compressed phrase such as "the X scrutiny." The abstract must answer the
+chapter question for a reader who has not read the dossier.
+
+Retry context: There is no prior candidate for this attempt.
+
+Run-scoped audit corrections (mandatory; they may exclude evidence but may not
+prescribe a score):
+None.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2022-bias-contrast-judge-v2:2022:1B",
+  "run_key": "2022-bias-contrast-judge-v2",
+  "chapter_id": "1B",
+  "target_year": 2022,
+  "calibration_batch_id": "chapter-judge:2022-bias-contrast-judge-v2:2022:1B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2022-bias-contrast-v1:2022:USA:15810",
+    "iso3": "USA",
+    "ruler_id": "2782",
+    "ruler_year_id": 15810,
+    "ruler_name": "Joe Biden",
+    "period_start_year": 2022,
+    "period_end_year": 2022
+  },
+  {
+    "dossier_job_key": "dossier:2022-bias-contrast-v1:2022:COD:16113",
+    "iso3": "COD",
+    "ruler_id": "2830",
+    "ruler_year_id": 16113,
+    "ruler_name": "F\u00e9lix Tshisekedi",
+    "period_start_year": 2022,
+    "period_end_year": 2022
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "1B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "United States",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E016",
+          "E017",
+          "E018",
+          "E025",
+          "E026",
+          "E027",
+          "E040",
+          "E041"
+        ],
+        "methodology_id": "1B.1",
+        "reason": "Evidence found, with inherited nuclear inventory context and ruler-period policy evidence; operational attribution remains limited.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E016",
+          "E017",
+          "E018",
+          "E025",
+          "E040"
+        ],
+        "methodology_id": "1B.2",
+        "reason": "Evidence found on declaratory policy and restraint, with contrary evidence on retained first-use options.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E016",
+          "E018",
+          "E025",
+          "E026",
+          "E040"
+        ],
+        "methodology_id": "1B.3",
+        "reason": "Evidence found on NC3, cybersecurity, and implementation risks; actual operational performance remains unknown.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E016",
+          "E018",
+          "E025",
+          "E040"
+        ],
+        "methodology_id": "1B.4",
+        "reason": "Evidence found on safeguards and implementation risk, but no public operational safety finding.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E016",
+          "E017",
+          "E018",
+          "E041"
+        ],
+        "methodology_id": "1B.5",
+        "reason": "Evidence found on arms control and crisis-risk diplomacy; measured risk reduction is unavailable.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E016",
+          "E017",
+          "E018",
+          "E026",
+          "E040"
+        ],
+        "methodology_id": "1B.6",
+        "reason": "Evidence found on posture and risk governance; cyber, biological, and AI catastrophic-risk coverage remains incomplete.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E016",
+          "E017",
+          "E018",
+          "E025",
+          "E026",
+          "E027",
+          "E040"
+        ],
+        "methodology_id": "1B.7",
+        "reason": "Evidence found on cyber, AI, NC3, and implementation risks.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E016",
+          "E017",
+          "E018",
+          "E025",
+          "E026",
+          "E027",
+          "E040"
+        ],
+        "methodology_id": "1B.8",
+        "reason": "Evidence found on nuclear posture and risk management, with classified operational gaps.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.9",
+        "reason": "The researcher explicitly recorded no usable evidence for this ruler-specific lens; remaining gaps concern crisis behavior, operational safety, and measurable risk reduction.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E016",
+          "E017",
+          "E018",
+          "E025",
+          "E026",
+          "E027",
+          "E040",
+          "E041"
+        ],
+        "methodology_id": "1B.10",
+        "reason": "Evidence found, including nuclear posture, modernization, risk-reduction policy, and institutional cybersecurity limitations.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 13940,
+    "evidence": [
+      {
+        "canonical_fact_key": "local-prior:1B.1|inherited nuclear inventory context",
+        "claim": "Supplied local facts report a U.S. nuclear stockpile of 4,765 warheads, total inventory of 7,315, including 1,920 operational strategic, 184 operational nonstrategic, and 2,661 reserve/nondeployed warheads.",
+        "contrary_evidence": [],
+        "evidence_id": "E001",
+        "excerpt": "Local inherited nuclear inventory facts are context only and do not establish Biden's 2022 conduct.",
+        "final_evidence_use": "context",
+        "period_fit": "Pre-accession baseline; 2014 observations for a 2022 period.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Federation of American Scientists local-prior observations",
+        "ruler_attribution": "None; inherited country context.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Supplied structured local-prior artifact with source observation IDs.",
+        "source_locator": "local-prior:1B.1",
+        "source_type": "structured_local_prior",
+        "title": "Supplied local nuclear inventory prior",
+        "url": "local-prior:1B.1"
+      },
+      {
+        "canonical_fact_key": "https://www.defense.gov/News/Releases/Release/Article/3201683/department-of-defense-releases-its-2022-strategic-reviews-national-defense-stra/|lines 208-219|2022 strategic reviews and nuclear-risk policy",
+        "claim": "The administration released integrated 2022 NDS, NPR, and MDR documents; the NPR retained nuclear deterrence as the fundamental role, limited contemplated use to extreme circumstances, and stated commitments to reducing nuclear risks while maintaining a safe and effective deterrent.",
+        "contrary_evidence": [
+          "E017",
+          "E018"
+        ],
+        "evidence_id": "E002",
+        "excerpt": "The Department of Defense released its 2022 strategic reviews, including the Nuclear Posture Review.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, October 2022.",
+        "publication_date": "2022-10-27",
+        "publisher": "U.S. Department of Defense",
+        "ruler_attribution": "Administration-level policy under presidential authority; not proof of operational outcomes.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official contemporaneous policy record with precise lines.",
+        "source_locator": "HTML lines 208-219; 2022 strategic-review release.",
+        "source_type": "official_policy_record",
+        "title": "Department of Defense Releases Its 2022 Strategic Reviews",
+        "url": "https://www.defense.gov/News/Releases/Release/Article/3201683/department-of-defense-releases-its-2022-strategic-reviews-national-defense-stra/"
+      },
+      {
+        "canonical_fact_key": "https://media.defense.gov/2022/Oct/27/2003103845/-1/-1/1/2022-NUCLEAR-POSTURE-REVIEW.PDF|pp. 4-5|NPR strategic posture and risk policy",
+        "claim": "The 2022 NPR linked deterrence resources, NATO cooperation, Russia's invasion of Ukraine, China as the pacing challenge, and continued nuclear-risk reduction policy.",
+        "contrary_evidence": [
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "evidence_id": "E003",
+        "excerpt": "The NPR connects deterrence, modernization, strategic competition, and stated risk-reduction commitments.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, October 2022.",
+        "publication_date": "2022-10-27",
+        "publisher": "U.S. Department of Defense",
+        "ruler_attribution": "Administration policy record; stated policy is not proof of outcomes.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary official strategy document with page locator.",
+        "source_locator": "PDF pp. 4-5.",
+        "source_type": "official_strategy_document",
+        "title": "2022 Nuclear Posture Review",
+        "url": "https://media.defense.gov/2022/Oct/27/2003103845/-1/-1/1/2022-NUCLEAR-POSTURE-REVIEW.PDF"
+      },
+      {
+        "canonical_fact_key": "https://www.fas.org/publication/2022-nuclear-posture-review/|Nuclear Declaratory Policy/Nuclear Force Structure/Arms Control and Non-Proliferation|FAS assessment of 2022 NPR",
+        "claim": "FAS assessed that the NPR rejected campaign commitments to no-first-use and sole-purpose policy, retained nuclear and NC3 modernization, cancelled SLCM-N and B83-1, and renewed arms-control and risk-reduction commitments while weakening the arms-control component amid strategic rivalry.",
+        "contrary_evidence": [
+          "E002",
+          "E003",
+          "E018"
+        ],
+        "evidence_id": "E016",
+        "excerpt": "Independent expert assessment of mixed nuclear-policy choices.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, October 2022.",
+        "publication_date": "2022-10-27",
+        "publisher": "Federation of American Scientists",
+        "ruler_attribution": "Assessment of administration policy, not outcome evidence.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Independent expert analysis with named sections; shares source family with E019.",
+        "source_locator": "Sections \u201cNuclear Declaratory Policy,\u201d \u201cNuclear Force Structure,\u201d and \u201cArms Control and Non-Proliferation.\u201d",
+        "source_type": "independent_expert_analysis",
+        "title": "The 2022 Nuclear Posture Review: Arms Control Subdued By Military Rivalry",
+        "url": "https://www.fas.org/publication/2022-nuclear-posture-review/"
+      },
+      {
+        "canonical_fact_key": "https://www.armscontrol.org/act/2022-04/news/biden-policy-allows-first-use-nuclear-weapons|paras 73-95|Biden NPR first-use and modernization assessment",
+        "claim": "The Arms Control Association reported that Biden approved a policy retaining possible nuclear use against a narrow range of non-nuclear threats in extreme circumstances, despite a prior sole-purpose position, while retaining major modernization programs and cancelling SLCM-N.",
+        "contrary_evidence": [
+          "E002",
+          "E003",
+          "E017"
+        ],
+        "evidence_id": "E017",
+        "excerpt": "Independent adverse assessment of declaratory policy and campaign-commitment implementation.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, April 2022.",
+        "publication_date": "2022-04",
+        "publisher": "Arms Control Association",
+        "ruler_attribution": "Administration policy attribution; not a formal finding of unsafe conduct.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Independent specialist source, partly relying on official statements and press reporting.",
+        "source_locator": "Paragraphs describing the NPR and declaratory policy, paras. 73-95.",
+        "source_type": "independent_specialist_analysis",
+        "title": "Biden Policy Allows First Use of Nuclear Weapons",
+        "url": "https://www.armscontrol.org/act/2022-04/news/biden-policy-allows-first-use-nuclear-weapons"
+      },
+      {
+        "canonical_fact_key": "https://www.fas.org/publication/2022-nuclear-posture-review/|Nuclear Force Structure/Nuclear-Conventional Integration/Looking Ahead|NC3 and implementation risks",
+        "claim": "FAS stated that the NPR reaffirmed NC3 modernization but that a detailed implementation plan and updated employment guidance remained to be produced; it warned that deeper nuclear-conventional integration could blur boundaries and increase signaling risks.",
+        "contrary_evidence": [],
+        "evidence_id": "E018",
+        "excerpt": "Independent implementation-risk assessment, not an observed safety failure.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period policy assessment.",
+        "publication_date": "2022-10-27",
+        "publisher": "Federation of American Scientists",
+        "ruler_attribution": "Institutional policy-risk attribution; no personal operational-failure finding.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Independent analysis sharing the FAS source family with E017.",
+        "source_locator": "Sections \u201cNuclear Force Structure,\u201d \u201cNuclear-Conventional Integration,\u201d and \u201cLooking Ahead.\u201d",
+        "source_type": "independent_expert_analysis",
+        "title": "FAS Review of 2022 Nuclear Posture Review Implementation Risks",
+        "url": "https://www.fas.org/publication/2022-nuclear-posture-review/"
+      },
+      {
+        "canonical_fact_key": "https://www.gao.gov/products/gao-22-104195|lines 309-315|nuclear weapons cybersecurity risk-management gaps",
+        "claim": "GAO found that NNSA lacked a nuclear-weapons-specific cyber-risk strategy, contractor oversight was inconsistent, and three of seven contractors did not view subcontractor oversight as their responsibility.",
+        "contrary_evidence": [],
+        "evidence_id": "E025",
+        "excerpt": "Direct target-period institutional cybersecurity risk evidence, not a Biden-directed failure finding.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, September 2022 review.",
+        "publication_date": "2022-09",
+        "publisher": "U.S. Government Accountability Office",
+        "ruler_attribution": "Institutional risk evidence; no personal Biden finding.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent statutory oversight report with precise lines.",
+        "source_locator": "HTML lines 309-315.",
+        "source_type": "government_audit",
+        "title": "Nuclear Weapons Cybersecurity",
+        "url": "https://www.gao.gov/products/gao-22-104195"
+      },
+      {
+        "canonical_fact_key": "https://www.gao.gov/products/gao-22-105834|March 30 2022|DoD AI strategy and role-definition gaps",
+        "claim": "GAO reported that DoD AI strategies lacked complete resource descriptions and that component roles and responsibilities were insufficiently defined.",
+        "contrary_evidence": [],
+        "evidence_id": "E026",
+        "excerpt": "Institutional AI-governance risk evidence, not a nuclear incident or realized harm.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, March 2022.",
+        "publication_date": "2022-03-30",
+        "publisher": "U.S. Government Accountability Office",
+        "ruler_attribution": "Institutional governance risk; no personal Biden finding.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent GAO oversight report.",
+        "source_locator": "GAO report, March 30 2022.",
+        "source_type": "government_audit",
+        "title": "Artificial Intelligence: DoD Strategy and Role-Definition Gaps",
+        "url": "https://www.gao.gov/products/gao-22-105834"
+      },
+      {
+        "canonical_fact_key": "https://www.congress.gov/crs-product/IF12357|Triad Modernization/NC3 Systems/Program Cancellations|2022 NPR programmatic assessment",
+        "claim": "CRS analysis records continued triad and NC3 modernization, cancellation of SLCM-N and B83-1, and claims that many systems were beyond original design life, producing a mixed record of risk-reduction cancellations, modernization, and aging-system pressures.",
+        "contrary_evidence": [
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "evidence_id": "E027",
+        "excerpt": "Later CRS programmatic assessment of the 2022 NPR record.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Assessment of 2022 policy record.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Congressional Research Service",
+        "ruler_attribution": "Programmatic policy context; no operational safety finding.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent CRS analysis with precise section locator.",
+        "source_locator": "Sections \u201cTriad Modernization,\u201d \u201cNC3 Systems,\u201d and \u201cProgram Cancellations.\u201d",
+        "source_type": "independent_congressional_analysis",
+        "title": "2022 Nuclear Posture Review Programmatic Assessment",
+        "url": "https://www.congress.gov/crs-product/IF12357"
+      },
+      {
+        "canonical_fact_key": "https://www.nist.gov/news-events/news/2022/09/biden-administration-releases-implementation-strategy-50-billion-chips|lines 149-154|administrative conversion of CHIPS law into program",
+        "claim": "CHIPS implementation strategy evidence shows rapid conversion of enacted legislation into an administrative program with stated goals and guardrails, without establishing durable economic performance during 2022.",
+        "contrary_evidence": [],
+        "evidence_id": "E038",
+        "excerpt": "Cross-domain implementation context derived from the NIST strategy.",
+        "final_evidence_use": "context",
+        "period_fit": "Target period, September 2022.",
+        "publication_date": "2022-09",
+        "publisher": "National Institute of Standards and Technology",
+        "ruler_attribution": "Administrative conversion; no durable outcome finding.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Same NIST source as E034 but distinct cross-domain implementation claim.",
+        "source_locator": "HTML lines 149-154.",
+        "source_type": "official_implementation_record",
+        "title": "Administrative Conversion of CHIPS Law into Program",
+        "url": "https://www.nist.gov/news-events/news/2022/09/biden-administration-releases-implementation-strategy-50-billion-chips"
+      },
+      {
+        "canonical_fact_key": "https://www.gao.gov/products/gao-22-105259|May 19 2022|DoD CUI cybersecurity compliance gaps",
+        "claim": "GAO found that no reviewed DoD component fully complied with selected cybersecurity requirements for controlled-unclassified-information systems; implementation exceeded 70% but remained below the 100% requirement.",
+        "contrary_evidence": [],
+        "evidence_id": "E040",
+        "excerpt": "Target-period cyber-governance risk evidence, not a nuclear incident or personal Biden finding.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, May 2022.",
+        "publication_date": "2022-05-19",
+        "publisher": "U.S. Government Accountability Office",
+        "ruler_attribution": "Institutional cybersecurity risk; no personal attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent GAO oversight report.",
+        "source_locator": "GAO report, May 19 2022.",
+        "source_type": "government_audit",
+        "title": "DoD Controlled Unclassified Information Cybersecurity Compliance Gaps",
+        "url": "https://www.gao.gov/products/gao-22-105259"
+      },
+      {
+        "canonical_fact_key": "https://2021-2025.state.gov/remarks-at-the-high-level-briefing-on-u-s-nuclear-policy-at-the-tenth-review-conference-on-the-treaty-on-the-non-proliferation-of-nuclear-weapons/|August 2022|New START and crisis-risk diplomacy",
+        "claim": "State Department officials stated that the administration sought to reduce strategic risks through crisis communication, information sharing, arms-control engagement, and continuation of New START.",
+        "contrary_evidence": [
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "evidence_id": "E041",
+        "excerpt": "Declared risk-reduction diplomacy, not measured risk reduction.",
+        "final_evidence_use": "context",
+        "period_fit": "Target period, August 2022.",
+        "publication_date": "2022-08",
+        "publisher": "U.S. Department of State",
+        "ruler_attribution": "Administration diplomatic position; no outcome measurement.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official contemporaneous remarks with specific policy themes.",
+        "source_locator": "High-level briefing remarks, August 2022.",
+        "source_type": "official_diplomatic_remarks",
+        "title": "Remarks on U.S. Nuclear Policy at the NPT Review Conference",
+        "url": "https://2021-2025.state.gov/remarks-at-the-high-level-briefing-on-u-s-nuclear-policy-at-the-tenth-review-conference-on-the-treaty-on-the-non-proliferation-of-nuclear-weapons/"
+      }
+    ],
+    "evidence_environment": {
+      "censorship_and_self_censorship": "The notebook cites surveillance safeguards and disinformation-policy controversy (E023, E032), while noting that classified nuclear, intelligence, cyber, and internal deliberation records may conceal failures. No cited evidence establishes comprehensive censorship or intimidation.",
+      "chapter_specific_biases": [
+        "1B: official policy records and expert assessments outweigh observable operational nuclear-safety evidence; inherited arsenal facts are not ruler evidence.",
+        "2B: Ukraine coverage is high-volume and allegation-rich; assistance, civilian exposure, partner agency, and U.S. responsibility must remain distinct.",
+        "3B: federal policing records do not establish state/local outcomes; advocacy criticism is not a neutral outcome evaluation.",
+        "4B: inherited January 6 events must not be attributed to Biden; surveillance and disinformation accounts have differing independence.",
+        "5B: projections, nominal macroeconomic outcomes, inflation, pandemic fiscal policy, and executive decisions have shared causation.",
+        "6B: veteran-service evidence cannot be generalized to the population; activity and claims volume are not health outcomes.",
+        "7B: disclosure and transparency records cannot substitute for personal-integrity findings; political-family allegations require independent personal nexus.",
+        "8B: formal actions and implementation architecture are more observable than durable cross-domain outcomes."
+      ],
+      "complaint_volume_interpretation": "Complaint and allegation volume is not a severity denominator. The notebook specifically notes high visibility for Ukraine, policing, media, and political-family allegations, while classified nuclear conduct and personal integrity may be underreported.",
+      "criticism_possible": "Criticism was possible through congressional analysis, CRS, CBO, GAO, inspectors general, courts and legal records, national media, CPJ, ACLU, Freedom House, FAS, ACA, and investigative reporting. The notebook records that criticism was uneven and incomplete by chapter.",
+      "duplicate_event_risk": "Moderate to high. E002-E003 overlap on DoD strategic reviews; E017-E019 share FAS; E026-E027 and E041 share GAO source families; E020/E029 share State OIG; E033/E038 share CBO; E034/E039 share NIST; E035/E040 share GAO; E014/E025 concern the same PACT implementation domain. These are retained as distinct claims only where materially distinct and must not be counted as independent source families.",
+      "inherited_conditions_shocks_and_authority": "Local structured priors are inherited country context only. The notebook identifies the January 6 baseline, pandemic fiscal conditions, Russia's invasion of Ukraine, congressional and state/local constraints, allied and Ukrainian agency, inherited agency capacity, and presidential authority over federal execution, appointments, diplomacy, executive orders, and armed forces.",
+      "languages_and_archives_searched": [
+        "English-language official federal records and legal materials",
+        "Congressional Research Service and Congressional Budget Office records",
+        "GAO and inspector-general reports",
+        "White House, DoD, State, DOJ, Commerce/NIST, VA, FBI, OGE, and EAC records",
+        "Civil-society and investigative sources including FAS, ACA, ACLU, Freedom House, CPJ, ProPublica, and Washington Post"
+      ],
+      "official_statistics_reliability": "Structured indicators are retained as country-year context with source-specific confidence and warnings. They do not establish ruler attribution. CBO, GAO, CRS, OIG, EAC, and agency records are treated according to their distinct roles; projections, administrative activity, and self-reports are not treated as realized outcomes.",
+      "relevant_denominators": "Where available, the notebook preserves denominators such as 455 VHA facilities, 79% meeting both requirements, 4,790 NLEAD records, 63% sustained/disciplinary records, approximately 200,000 U.S.-person queries, 93% decline, 82%-to-96% compliance, 213,000 PACT-related claims, 1.7 million VA claims processed, 102 protest-response recommendations, and 7 nuclear contractors reviewed. National and subgroup denominators remain incomplete for civilian harm, policing, mental-health access, political equality, and personal integrity.",
+      "safe_reporting_channels": "Cited records show access to CRS/CBO, GAO and inspector-general oversight, courts and legal processes, congressional testimony, federal administrative data, national media, and civil-society reporting. The notebook also notes that classified nuclear and intelligence systems limit visibility.",
+      "source_concentration": "Moderate. Official executive, congressional, CRS/CBO, GAO/OIG, and civil-society sources are represented. Policy and implementation claims remain concentrated in official records; independent outcome evidence is thinner, particularly for 1B, 3B, 6B, and 7B.",
+      "supporting_evidence_ids": [
+        "E002",
+        "E004",
+        "E007",
+        "E008",
+        "E010",
+        "E015",
+        "E016",
+        "E017",
+        "E019",
+        "E020",
+        "E022",
+        "E023",
+        "E025",
+        "E026",
+        "E028",
+        "E031",
+        "E032",
+        "E034",
+        "E036",
+        "E043",
+        "E045",
+        "E048",
+        "E049"
+      ]
+    },
+    "iso3": "USA",
+    "job_key": "dossier:2022-bias-contrast-v1:2022:USA:15810",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "1B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "1B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "1B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=Operational/deployed capability provides command-and-crisis exposure; it does not establish safeguards, expertise, discipline, or de-escalation.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "1B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "1B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "1B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "1B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=Operational/deployed capability provides command-and-crisis exposure; it does not establish safeguards, expertise, discipline, or de-escalation.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "1B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=Operational/deployed capability provides command-and-crisis exposure; it does not establish safeguards, expertise, discipline, or de-escalation.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "1B.9",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Nuclear inventory facts do not answer cyber, biological, AI, or other non-nuclear catastrophic-risk governance.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "1B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=5; mapping_note=The full arsenal series supports inherited-versus-left posture context; safer or more dangerous conduct still requires ruler attribution.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the exact local-prior lens locator."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E038",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Formatter omitted exact lens routing; retained at the chapter boundary for judge-side relevance review."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E041",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E041",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E041",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "1B.1",
+      "1B.2",
+      "1B.3",
+      "1B.4",
+      "1B.5",
+      "1B.6",
+      "1B.7",
+      "1B.8",
+      "1B.9",
+      "1B.10"
+    ],
+    "period_end_year": 2022,
+    "period_start_year": 2022,
+    "ruler_id": "2782",
+    "ruler_name": "Joe Biden",
+    "ruler_year_id": 15810,
+    "run_key": "2022-bias-contrast-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "provider_profile": "openai-luna-candidate",
+      "research_notebook_sha256": "e6ec23e2d2e6266a5e705632638d888b4c362c27c60fc7a351f8c38b52f36e17",
+      "source_mix_note": "Evidence includes official executive, legislative, diplomatic, fiscal, audit, inspector-general, statistical, expert, civil-society, and investigative sources. Official records dominate formal policy and implementation claims; independent outcome and personal-attribution evidence remains thinner. Shared source families and retrospective context are explicitly caveated.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "2f0630f2aec997ca0e1f562f8dda2940abfd815017dcfacc86b37a6276a1172b",
+    "unresolved_gaps": [
+      "Classified nuclear command-and-control performance, crisis decisions, operational safety, and independently measured nuclear-risk reduction.",
+      "Direct civilian-harm, proportionality, partner-control, and downstream accountability attribution for U.S. Ukraine decisions.",
+      "Nationwide and state/local policing outcomes, protest treatment, vulnerable-group protection, and remedy findings.",
+      "Biden-specific surveillance, appointments, media pressure, retaliation, and practical political-equality evidence.",
+      "Causal attribution of inflation, fiscal outcomes, employment, productivity, distribution, and policy correction.",
+      "General-population service quality, affordability, regional equity, and durable health and welfare outcomes.",
+      "Personal-integrity nexus evidence concerning enrichment, deception, obstruction, nepotism, retaliation, and independently adjudicated findings.",
+      "Durable cross-domain effectiveness, adaptation after failure, and long-term program outcomes."
+    ]
+  },
+  {
+    "chapter_id": "1B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Congo, The Democratic Republic of the",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E024",
+          "E027",
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E049"
+        ],
+        "methodology_id": "1B.1",
+        "reason": "No ruler-specific catastrophic-risk command evidence; related governance context retained.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E023",
+          "E024"
+        ],
+        "methodology_id": "1B.2",
+        "reason": "Legal and safeguards context only; no ruler-specific nuclear posture found.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E024"
+        ],
+        "methodology_id": "1B.3",
+        "reason": "TPNW ratification documented; no nuclear capability or coercion evidence.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E023",
+          "E024",
+          "E025",
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "1B.4",
+        "reason": "Safeguards and treaty evidence documented; personal conduct unresolved.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E025",
+          "E026",
+          "E027",
+          "E028",
+          "E032",
+          "E049"
+        ],
+        "methodology_id": "1B.5",
+        "reason": "Chemical and CBRN governance documented; biological-weapons gap remains.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E025",
+          "E026",
+          "E027",
+          "E028",
+          "E032",
+          "E049"
+        ],
+        "methodology_id": "1B.6",
+        "reason": "Chemical-weapons legal and institutional context documented.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E024"
+        ],
+        "methodology_id": "1B.7",
+        "reason": "Treaty restraint action documented; broader catastrophic-risk restraint unresolved.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E022",
+          "E029",
+          "E030",
+          "E031"
+        ],
+        "methodology_id": "1B.8",
+        "reason": "Cybercrime, strategy, digital-code, and oversight evidence documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E027",
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E049"
+        ],
+        "methodology_id": "1B.9",
+        "reason": "Governance evidence exists, with biological and classified-system gaps.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E022",
+          "E029",
+          "E030",
+          "E031"
+        ],
+        "methodology_id": "1B.10",
+        "reason": "Cyber-governance actions and supervision gaps documented; classified systems unresolved.",
+        "status": "partially_covered"
+      }
+    ],
+    "estimated_input_tokens": 11800,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.presidence.cd/president/le-president|office-and-tenure|Tshisekedi president from 24 January 2019",
+        "claim": "The Presidency biography identifies F\u00e9lix Tshisekedi as president from 24 January 2019.",
+        "contrary_evidence": [],
+        "evidence_id": "E001",
+        "excerpt": "Tshisekedi president from 24 Jan 2019; political background and peaceful transfer context.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Office and tenure fit 2022.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Presidency of the Democratic Republic of the Congo",
+        "ruler_attribution": "Direct office and tenure evidence.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official primary biography.",
+        "source_locator": "Office and tenure section",
+        "source_type": "official biography",
+        "title": "Le Pr\u00e9sident",
+        "url": "https://www.presidence.cd/president/le-president"
+      },
+      {
+        "canonical_fact_key": "https://www.presidence.cd/uploads/files/Constitution%20de%20la%20RDC%202011.pdf|presidential-powers|formal authority",
+        "claim": "The Constitution assigns the president head-of-state, Council of Ministers, and senior appointment responsibilities.",
+        "contrary_evidence": [],
+        "evidence_id": "E002",
+        "excerpt": "Presidential role as head of state, Council of Ministers, and senior military/state appointments.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Applicable constitutional baseline.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Presidency of the Democratic Republic of the Congo",
+        "ruler_attribution": "Formal authority baseline.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary constitutional text.",
+        "source_locator": "Presidential powers provisions",
+        "source_type": "constitution",
+        "title": "Constitution de la RDC",
+        "url": "https://www.presidence.cd/uploads/files/Constitution%20de%20la%20RDC%202011.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.presidence.cd/actualite-detail/actualite/la_strategie_nationale_de_cybersecurite|paras72-84|strategy adoption",
+        "claim": "The 2022\u201325 National Cybersecurity Strategy was developed under the presidential cabinet, validated by Tshisekedi, and presented to cabinet in October 2022.",
+        "contrary_evidence": [
+          "Adoption does not establish implementation or effectiveness."
+        ],
+        "evidence_id": "E022",
+        "excerpt": "National cybersecurity strategy validated by Tshisekedi and presented to cabinet in October 2022.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "October 2022.",
+        "publication_date": "2022-10",
+        "publisher": "Presidency of the Democratic Republic of the Congo",
+        "ruler_attribution": "Direct validation/action attribution.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Official action record.",
+        "source_locator": "Paragraphs 72\u201384",
+        "source_type": "official report",
+        "title": "La strat\u00e9gie nationale de cybers\u00e9curit\u00e9",
+        "url": "https://www.presidence.cd/actualite-detail/actualite/la_strategie_nationale_de_cybersecurite"
+      },
+      {
+        "canonical_fact_key": "https://ola.iaea.org/Applications/FactSheets/Country/Detail?code=CD|safeguards fields|DRC NPT safeguards",
+        "claim": "The IAEA factsheet records NPT safeguards in force and an Additional Protocol signed in 2003.",
+        "contrary_evidence": [
+          "Legal status does not establish ruler conduct."
+        ],
+        "evidence_id": "E023",
+        "excerpt": "NPT safeguards in force; Additional Protocol signed in 2003.",
+        "final_evidence_use": "context",
+        "period_fit": "Inherited legal baseline.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "International Atomic Energy Agency",
+        "ruler_attribution": "Country legal context.",
+        "source_confidence": "high",
+        "source_confidence_reason": "IAEA factsheet.",
+        "source_locator": "Safeguards and Additional Protocol fields",
+        "source_type": "IAEA factsheet",
+        "title": "IAEA Country Fact Sheet: DRC",
+        "url": "https://ola.iaea.org/Applications/FactSheets/Country/Detail?code=CD"
+      },
+      {
+        "canonical_fact_key": "https://www.unoda.org/en/spotlights/congo-ratifies-treaty-prohibition-nuclear-weapons-tpnw|2022-05-19|TPNW ratification",
+        "claim": "DRC ratified the Treaty on the Prohibition of Nuclear Weapons on 19 May 2022.",
+        "contrary_evidence": [
+          "Ratification does not establish personal nuclear command behavior."
+        ],
+        "evidence_id": "E024",
+        "excerpt": "DRC ratified TPNW on 19 May 2022.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Exact target-period action.",
+        "publication_date": "2022-05-19",
+        "publisher": "United Nations Office for Disarmament Affairs",
+        "ruler_attribution": "State treaty action.",
+        "source_confidence": "high",
+        "source_confidence_reason": "UNODA record.",
+        "source_locator": "Spotlight dated 19 May 2022",
+        "source_type": "UNODA record",
+        "title": "Congo ratifies TPNW",
+        "url": "https://www.unoda.org/en/spotlights/congo-ratifies-treaty-prohibition-nuclear-weapons-tpnw"
+      },
+      {
+        "canonical_fact_key": "https://treaties.un.org/Pages/showActionDetails.aspx?objid=08000002800277d1|lines10-22|CWC status",
+        "claim": "DRC ratified the Chemical Weapons Convention in 2005 and it entered into force in 2005.",
+        "contrary_evidence": [
+          "Inherited treaty context only."
+        ],
+        "evidence_id": "E025",
+        "excerpt": "CWC ratification and entry into force occurred in 2005.",
+        "final_evidence_use": "context",
+        "period_fit": "Inherited baseline.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "United Nations Treaty Collection",
+        "ruler_attribution": "Country treaty status.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official treaty register.",
+        "source_locator": "Registration 33757, lines 10\u201322",
+        "source_type": "treaty register",
+        "title": "Chemical Weapons Convention",
+        "url": "https://treaties.un.org/Pages/showActionDetails.aspx?objid=08000002800277d1"
+      },
+      {
+        "canonical_fact_key": "https://www.opcw.org/sites/default/files/documents/2023/11/Report%20of%20the%20OPCW%20on%20the%20Implementation%20of%20the%20Convention%20on%20the%20Prohibition%20of%20the%20Development%2C%20Production%2C%20Stockpiling%20and%20Use%20of%20Chemical%20Weapons%20and%20on%20their%20Destruction%20in%202022.pdf|p47|CWC State Party",
+        "claim": "The OPCW 2022 implementation report lists DRC as a CWC State Party.",
+        "contrary_evidence": [],
+        "evidence_id": "E026",
+        "excerpt": "DRC listed as a CWC State Party with 1993/2005/2005 signature, deposit, and entry dates.",
+        "final_evidence_use": "context",
+        "period_fit": "2022 report of treaty status.",
+        "publication_date": "2023-11",
+        "publisher": "OPCW",
+        "ruler_attribution": "Country treaty context.",
+        "source_confidence": "high",
+        "source_confidence_reason": "OPCW report.",
+        "source_locator": "Annex 1, p. 47",
+        "source_type": "OPCW report",
+        "title": "OPCW Report on Implementation in 2022",
+        "url": "https://www.opcw.org/sites/default/files/documents/2023/11/Report%20of%20the%20OPCW%20on%20the%20Implementation%20of%20the%20Convention%20on%20the%20Prohibition%20of%20Chemical%20Weapons%20and%20on%20their%20Destruction%20in%202022.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.opcw.org/sites/default/files/documents/2022/09/ec101dg13%20c27dg09%2B%20%281%29.pdf|ArticleVII tables|national implementation",
+        "claim": "OPCW Article VII material reports DRC national-implementation information with only partial initial legislative measures summarized.",
+        "contrary_evidence": [
+          "Personal presidential direction is not shown."
+        ],
+        "evidence_id": "E027",
+        "excerpt": "DRC submitted national-implementation information; summary describes partial initial legislative measures.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 implementation context.",
+        "publication_date": "2022-09",
+        "publisher": "OPCW",
+        "ruler_attribution": "Institutional implementation.",
+        "source_confidence": "high",
+        "source_confidence_reason": "OPCW implementation tables.",
+        "source_locator": "EC-101/DG.13, Article VII tables, DRC entry",
+        "source_type": "OPCW report",
+        "title": "Article VII implementation information",
+        "url": "https://www.opcw.org/sites/default/files/documents/2022/09/ec101dg13%20c27dg09%2B%20%281%29.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.iaea.org/sites/default/files/23/06/20230612_sir_2022_part_ab.pdf|2022 safeguards statement|broader conclusion",
+        "claim": "The IAEA 2022 safeguards statement includes DRC among states covered by the broader-conclusion reporting category.",
+        "contrary_evidence": [
+          "Does not establish personal conduct."
+        ],
+        "evidence_id": "E028",
+        "excerpt": "DRC included in the broader-conclusion country list.",
+        "final_evidence_use": "context",
+        "period_fit": "2022 safeguards reporting.",
+        "publication_date": "2023-06",
+        "publisher": "IAEA",
+        "ruler_attribution": "Country safeguards context.",
+        "source_confidence": "high",
+        "source_confidence_reason": "IAEA safeguards statement.",
+        "source_locator": "2022 Safeguards Statement, Part A/B, country list",
+        "source_type": "IAEA report",
+        "title": "IAEA Safeguards Statement for 2022",
+        "url": "https://www.iaea.org/sites/default/files/23/06/20230612_sir_2022_part_ab.pdf"
+      },
+      {
+        "canonical_fact_key": "https://actualite.cd/index.php/2022/02/20/rdc-au-regard-des-derapages-constates-sur-les-reseaux-sociaux-felix-tshisekedi-demande|paras105-110|cybercrime request",
+        "claim": "Tshisekedi requested completion of a cybercrime code in February 2022, citing harassment, identity theft, tribalist content, and legal gaps.",
+        "contrary_evidence": [
+          "Action does not establish implementation."
+        ],
+        "evidence_id": "E029",
+        "excerpt": "Tshisekedi requested completion of a cybercrime code.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "20 February 2022.",
+        "publication_date": "2022-02-20",
+        "publisher": "Actualit\u00e9.cd",
+        "ruler_attribution": "Direct presidential request.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Local report of official account.",
+        "source_locator": "Paragraphs 105\u2013110",
+        "source_type": "local news report",
+        "title": "RDC: cybercrime code request",
+        "url": "https://actualite.cd/index.php/2022/02/20/rdc-au-regard-des-derapages-constates-sur-les-reseaux-sociaux-felix-tshisekedi-demande"
+      },
+      {
+        "canonical_fact_key": "https://actualite.cd/2022/12/07/assemblee-nationale-le-projet-de-loi-portant-code-du-numerique-en-rdc-declare-recevable|paras83-98|Digital Code",
+        "claim": "The National Assembly declared the Digital Code admissible in December 2022, including data protection, regulatory, and cybersecurity-agency provisions.",
+        "contrary_evidence": [
+          "Admissibility does not establish operational effectiveness."
+        ],
+        "evidence_id": "E030",
+        "excerpt": "Digital Code declared admissible; proposed data-protection and cybersecurity architecture.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "7 December 2022.",
+        "publication_date": "2022-12-07",
+        "publisher": "Actualit\u00e9.cd",
+        "ruler_attribution": "Legislative action.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Local report of parliamentary milestone.",
+        "source_locator": "Paragraphs 83\u201398",
+        "source_type": "local news report",
+        "title": "Projet de loi portant Code du num\u00e9rique",
+        "url": "https://actualite.cd/2022/12/07/assemblee-nationale-le-projet-de-loi-portant-code-du-numerique-en-rdc-declare-recevable"
+      },
+      {
+        "canonical_fact_key": "https://www.imf.org/-/media/files/publications/cr/2022/french/1codfa2022004.pdf|pp36-39|cyber supervision gaps",
+        "claim": "An IMF technical review found insufficient monitoring of banks' operational and IT risks and recommended stronger cybersecurity supervision.",
+        "contrary_evidence": [
+          "Financial-sector oversight does not establish catastrophic cyber governance."
+        ],
+        "evidence_id": "E031",
+        "excerpt": "Insufficient monitoring of operational and IT risks; stronger cyber standards and procedures recommended.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 technical review.",
+        "publication_date": "2022",
+        "publisher": "IMF",
+        "ruler_attribution": "Institutional oversight gap.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Technical IMF assessment.",
+        "source_locator": "Report 22/285, pp. 36\u201339, lines 1541\u20131587",
+        "source_type": "IMF technical report",
+        "title": "Technical review",
+        "url": "https://www.imf.org/-/media/files/publications/cr/2022/french/1codfa2022004.pdf"
+      },
+      {
+        "canonical_fact_key": "https://actualite.cd/index.php/2022/09/03/reunion-des-membres-du-centre-dexcellence-chimique-biologique-radiologique-et-nucleaire|2022-08-31|CBRN workshop",
+        "claim": "A DRC CBRN workshop identified chemical-storage, biomedical-waste, nuclear-regulation, and training priorities and called for updating the 2018 action plan.",
+        "contrary_evidence": [
+          "No weapons possession or personal presidential direction shown."
+        ],
+        "evidence_id": "E032",
+        "excerpt": "CBRN workshop identified risk-governance priorities and action-plan update.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "31 August 2022.",
+        "publication_date": "2022-08-31",
+        "publisher": "Actualit\u00e9.cd",
+        "ruler_attribution": "Institutional program evidence.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Local target-period report.",
+        "source_locator": "Workshop priorities and action-plan section",
+        "source_type": "local news report",
+        "title": "CBRN workshop",
+        "url": "https://actualite.cd/index.php/2022/09/03/reunion-des-membres-du-centre-dexcellence-chimique-biologique-radiologique-et-nucleaire"
+      },
+      {
+        "canonical_fact_key": "https://actualite.cd/2022/08/30/la-rdc-continue-se-preparer-pour-lutter-contre-les-risques-chimiques-biologiques|paras109-116|CBRN capacity building",
+        "claim": "The CBRN program described capacity-building for chemical, biological, radiological, and nuclear risks, action-plan updating, and expert training.",
+        "contrary_evidence": [
+          "EU/UNICRI support and inherited program context limit personal attribution."
+        ],
+        "evidence_id": "E049",
+        "excerpt": "CBRN capacity-building covered chemical, biological, radiological, and nuclear risks.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "30 August 2022.",
+        "publication_date": "2022-08-30",
+        "publisher": "Actualit\u00e9.cd",
+        "ruler_attribution": "Institutional program evidence.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Local report with precise locator.",
+        "source_locator": "Paragraphs 109\u2013116",
+        "source_type": "local news report",
+        "title": "La RDC continue se pr\u00e9parer",
+        "url": "https://actualite.cd/2022/08/30/la-rdc-continue-se-preparer-pour-lutter-contre-les-risques-chimiques-biologiques"
+      }
+    ],
+    "evidence_environment": {
+      "censorship_and_self_censorship": "State-of-siege enforcement, arbitrary detention, intimidation, restrictive laws, military courts, conflict-zone access limits, elite opacity, and classified records create underreporting risks. Supporting evidence: E003, E006, E007, E019, E032, E041.",
+      "chapter_specific_biases": [
+        "1B: treaty status may be mistaken for ruler conduct; classified and biological-weapons evidence is difficult to observe.",
+        "2B: conflict access and official attribution claims create visibility and attribution risk.",
+        "3B: repression may suppress complaints while monitors concentrate on accessible severe incidents.",
+        "4B: electoral observation is uneven and inherited CENI concerns may be overextended into 2022.",
+        "5B: mining, procurement, beneficial ownership, and budget execution are opaque.",
+        "6B: donor and crisis reporting may overrepresent visible programs or severe need; denominators differ.",
+        "7B: elite-opacity and adviser evidence do not establish a personal nexus.",
+        "8B: donor activity, country outcomes, inherited weaknesses, and shocks risk over-attribution."
+      ],
+      "complaint_volume_interpretation": "Complaint volume is not a national denominator. E050 records 1,200 first-week Allo Ecole complaints; repression, conflict, and opacity may suppress reporting, while crisis monitoring may overrepresent visible cases.",
+      "criticism_possible": "Journalists, civil society, church observers, opposition actors, international monitors, local media, grievance mechanisms, and courts provided criticism or scrutiny channels, though access was uneven. Supporting evidence: E006, E044, E050, E056, E057.",
+      "duplicate_event_risk": "High for eastern-security events across E004\u2013E005 and E010\u2013E013/E038\u2013E043; rights reporting across E003/E006/E007/E041/E055; IMF themes E014\u2013E015; education E016/E017/E048/E049/E059; adviser coverage E020/E051\u2013E053.",
+      "inherited_conditions_shocks_and_authority": "E001 and E002 establish tenure and formal authority. E009 and E018 record inherited institutional, coalition, administrative, and donor constraints. Conflict, displacement, insecurity, inflation, volcanic eruptions, and regional dynamics are documented shocks. Supporting evidence: E001, E002, E009, E018, E038, E043, E047, E059.",
+      "languages_and_archives_searched": [
+        "English institutional and specialist sources: UN, MONUSCO, AU, EAC, IMF, UNICEF, World Bank, IAEA, OPCW, EITI, Freedom House, BTI, OCCRP, Reuters.",
+        "French and local reporting: Actualit\u00e9.cd, Radio Okapi, 7sur7, CENCO/ECC coverage, and French-language IMF material.",
+        "Official archives: Presidency, Constitution, UNODA, IAEA, OPCW, MONUSCO, EITI, electoral, legal, and donor records."
+      ],
+      "official_statistics_reliability": "UN, UNICEF, World Bank, IMF, EITI, and rights figures are source-bounded and subject to denominator, timing, access, and attribution limits. Supporting evidence: E016, E017, E043, E047, E048, E049, E055, E059, E060.",
+      "relevant_denominators": "The notebook records 5.7 million internally displaced people, 1.5 million displaced during 2022, 280,000 newly displaced in Rutshuru, approximately 7 million and 3.2 million out-of-school children under differing denominators, over 800,000 displaced children, over 2,000 closed schools, 1,233 violations with armed groups responsible for 57%, 15 assembly abuses, 1,200 grievance complaints, 600 observers, and 36,000 teachers added to payroll. These figures are not interchangeable. Supporting evidence: E006, E007, E016, E017, E043, E049, E050, E055, E057, E059.",
+      "safe_reporting_channels": "UN and international monitoring, church observers, local media, parliamentary and electoral reporting, donor grievance mechanisms, and judicial processes existed, but safety and reach were uneven. Supporting evidence: E041, E044, E050, E051, E057.",
+      "source_concentration": "Source families span official, UN, regional, donor, financial, human-rights, comparative, investigative, treaty, safeguards, legal, and local sources. Concentration remains material within single-report and same-event clusters, and official sources dominate action claims.",
+      "supporting_evidence_ids": [
+        "E001",
+        "E002",
+        "E003",
+        "E005",
+        "E006",
+        "E010",
+        "E014",
+        "E016",
+        "E019",
+        "E022",
+        "E024",
+        "E031",
+        "E033",
+        "E036",
+        "E038",
+        "E042",
+        "E045",
+        "E050",
+        "E054",
+        "E055"
+      ]
+    },
+    "iso3": "COD",
+    "job_key": "dossier:2022-bias-contrast-v1:2022:COD:16113",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "1B.1",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "1B.2",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "1B.3",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Operational/deployed capability provides command-and-crisis exposure; it does not establish safeguards, expertise, discipline, or de-escalation.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "1B.4",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "1B.5",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "1B.6",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "1B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Operational/deployed capability provides command-and-crisis exposure; it does not establish safeguards, expertise, discipline, or de-escalation.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "1B.8",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Operational/deployed capability provides command-and-crisis exposure; it does not establish safeguards, expertise, discipline, or de-escalation.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "1B.9",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Nuclear inventory facts do not answer cyber, biological, AI, or other non-nuclear catastrophic-risk governance.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "1B.10",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=The full arsenal series supports inherited-versus-left posture context; safer or more dangerous conduct still requires ruler attribution.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Formatter omitted exact lens routing; retained at the chapter boundary for judge-side relevance review."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Formatter omitted exact lens routing; retained at the chapter boundary for judge-side relevance review."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "1B.3",
+        "relation": "supports",
+        "relevance": "TPNW ratification."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "1B.4",
+        "relation": "supports",
+        "relevance": "Legal restraint."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "1B.5",
+        "relation": "supports",
+        "relevance": "Implementation status."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "1B.5",
+        "relation": "supports",
+        "relevance": "CBRN priorities."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "1B.5",
+        "relation": "supports",
+        "relevance": "CBRN capacity."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "1B.6",
+        "relation": "supports",
+        "relevance": "Chemical governance."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "1B.6",
+        "relation": "supports",
+        "relevance": "Risk governance."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "1B.6",
+        "relation": "supports",
+        "relevance": "Risk governance."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "1B.7",
+        "relation": "supports",
+        "relevance": "Nonproliferation action."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "1B.8",
+        "relation": "supports",
+        "relevance": "Cybercrime action."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "1B.8",
+        "relation": "supports",
+        "relevance": "Digital Code."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "1B.8",
+        "relation": "contradicts",
+        "relevance": "Cyber supervision gap."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "1B.9",
+        "relation": "supports",
+        "relevance": "Implementation gap."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "1B.9",
+        "relation": "supports",
+        "relevance": "Cyber governance."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "1B.9",
+        "relation": "supports",
+        "relevance": "Regulatory architecture."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "1B.9",
+        "relation": "contradicts",
+        "relevance": "Implementation weakness."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "1B.9",
+        "relation": "supports",
+        "relevance": "Action-plan update."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "1B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "1B.10",
+        "relation": "supports",
+        "relevance": "Digital-risk governance."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "1B.10",
+        "relation": "supports",
+        "relevance": "Cyber agency proposal."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "1B.10",
+        "relation": "contradicts",
+        "relevance": "IT-risk oversight gap."
+      }
+    ],
+    "methodology_ids": [
+      "1B.1",
+      "1B.2",
+      "1B.3",
+      "1B.4",
+      "1B.5",
+      "1B.6",
+      "1B.7",
+      "1B.8",
+      "1B.9",
+      "1B.10"
+    ],
+    "period_end_year": 2022,
+    "period_start_year": 2022,
+    "ruler_id": "2830",
+    "ruler_name": "F\u00e9lix Tshisekedi",
+    "ruler_year_id": 16113,
+    "run_key": "2022-bias-contrast-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "provider_profile": "openai-luna-candidate",
+      "research_notebook_sha256": "f8f472b2e799768917fa9cd68f076894c5c0b32a62bbca4b362fbd3aae892265",
+      "source_mix_note": "Source families include official, UN, regional, donor, financial, human-rights, comparative, investigative, treaty, safeguards, legal, and local-language sources. Limits include official-source dependence, same-event reuse, donor visibility, inherited baselines, and incomplete primary records.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "583afb239d505a464397c0c64c67a39cfe18642a15c419e1b6910fb7c912e789",
+    "unresolved_gaps": [
+      "No DRC-specific 2022 biological-weapons implementation, inspection, confidence-building, or adverse governance record was located.",
+      "Classified or offensive cyber governance remains unresolved.",
+      "FARDC command responsibility, M23/Rwanda attribution, durable ceasefire compliance, and comparative civilian-protection outcomes remain unresolved.",
+      "Primary detention, court, military, domestic, local-language, geographic, and denominator records remain incomplete.",
+      "CENI independence, opposition treatment, electoral remedies, judicial independence, media enforcement, and correction behavior remain incomplete.",
+      "Budget execution, procurement, household distribution, mining-contract and revenue tracing, and enforcement after governance problems remain incomplete.",
+      "Education attendance, learning quality, teacher payment reliability, provincial execution, national budget execution, and sustainability remain unresolved.",
+      "No direct evidence establishes Tshisekedi's personal enrichment, knowledge, tolerance, obstruction, correction, or benefit in the adviser or G\u00e9camines matters.",
+      "Dated administrative outcomes remain insufficient to separate presidential responsibility from donors, shared authority, inherited weakness, and shocks."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# Chapter 1B — Nuclear And Existential-Risk Responsibility
+
+Status: **draft; revised after the 2024 absolute-scale audit; requires v4 rejudgment**
+
+## Chapter Identity
+
+- Chapter: `1B`
+- Rating: nuclear and global existential-risk responsibility
+- Evidence strategy: local-first structured evidence plus cited manual research
+- Rubric version: `chapter_1b_v4`
+- Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
+
+## Purpose And Non-Goals
+
+This chapter asks whether the ruler used the risk-bearing powers actually available
+to them responsibly, reduced catastrophic danger, and left a safer posture. A high
+score means prudent restraint, credible safeguards, good-faith risk reduction, and
+responsible crisis behavior. A low score means reckless escalation, proliferation,
+unsafe control, coercive nuclear shielding, or knowingly increased catastrophic risk.
+
+It does not rank rulers by arsenal size alone, reward non-nuclear rulers automatically,
+or penalize a ruler merely because they inherited a dangerous posture. Conventional
+military strength, generic environmental policy, prestige, and peaceful rhetoric are
+not substitutes for demonstrated existential-risk choices. Non-nuclear cyber,
+biological, or AI policy belongs here only where a credible catastrophic pathway and
+ruler-level choice are shown. The client matrix is never evidence.
+
+## Ten Evidence Lenses
+
+These are complementary prompts for evidence collection, not ten independent scores:
+
+1. **1B.1:** Did the ruler seek to reduce nuclear or other existential risk, rather than increase prestige, leverage, or personal power through escalation?
+2. **1B.2:** Did the ruler use nuclear rhetoric responsibly, avoiding reckless threats, brinkmanship, apocalyptic language, or normalization of nuclear use?
+3. **1B.3:** Did the ruler strengthen command-and-control discipline, custody, safety, and accident-prevention safeguards?
+4. **1B.4:** Did the ruler support arms-control, inspection, nonproliferation, disarmament, or de-escalation agreements in good faith?
+5. **1B.5:** Did the ruler avoid using nuclear capability to shield conventional aggression, territorial coercion, or domestic repression?
+6. **1B.6:** Did the ruler resist proliferation by allies, proxies, clients, or domestic factions when proliferation served short-term political interests?
+7. **1B.7:** Did the ruler invest in risk-reducing expertise and institutions rather than surrounding nuclear/security decisions with loyalists or ideologues?
+8. **1B.8:** In crisis moments, did the ruler de-escalate, communicate clearly, and preserve channels that reduce accidental war?
+9. **1B.9:** Did the ruler handle dual-use technology, cyber, biological, AI, or other catastrophic-risk domains with precaution and transparency?
+10. **1B.10:** Did the ruler leave the country's existential-risk posture safer or more dangerous than they inherited it?
+
+Lens labels and coverage wording are advisory LLM-to-LLM aids. Missing lenses lower
+confidence; they do not invalidate the dossier, mechanically produce zero, or require
+exact status vocabulary.
+
+## Researcher Guidance
+
+Follow the local-first researcher guide. Start with the resolved ruler-period and local
+D17/FAS facts, then check SIPRI and FAS narrative material. Search by themes rather
+than issuing ten repetitive searches: inherited capability and authority; arsenal and
+doctrine change; safeguards/command systems; treaties and inspections; threats and
+crises; proliferation relationships; expert appointments; catastrophic dual-use policy;
+and end-of-period posture.
+
+Prefer IAEA, UNODA/UN treaty records, CTBTO, treaty inspection bodies, declassified or
+contemporaneous official records, SIPRI/FAS technical assessments, legislative or
+inquiry records, serious scholarship, and reputable reporting. Official claims about
+restraint or safety need independent corroboration; official texts remain strong for
+formal doctrine, appointments, treaty acts, and dated statements. Preserve contrary
+evidence and uncertainty. Do not infer responsible rhetoric from silence or safety from
+the absence of reported accidents.
+
+Record reusable evidence once and point it to every materially relevant lens. Separate
+target-year evidence, broader ruler-period evidence, inherited baseline, and later
+retrospective evidence. The researcher describes evidence and attribution but does not
+assign the final chapter score.
+
+## Sparse, Historical, And Closed-Regime Evidence
+
+For non-nuclear rulers with no plausible authority or exposure, document that limited
+exposure; do not manufacture activity or award an automatic `10`. For older cases use
+archives, treaty records, memoirs cautiously, cabinet/command histories, and later
+scholarship, marking retrospective and contested claims. In closed regimes, missing
+reporting is weak evidence: triangulate external monitoring, satellite/technical
+assessments, defectors only with corroboration, and adversarial-source caveats. A thin
+record may still support a cautious chapter score when the known exposure and choices
+are clear; otherwise widen the confidence interval or flag review.
+
+Classify exposure before scoring as `material_exposure`,
+`limited_exposure_with_choices`, `no_discriminating_opportunity`, or
+`unknown_due_to_evidence_gap`. The last category normally produces a null and a
+targeted research continuation. `No_discriminating_opportunity` also produces a null:
+it documents why the ruler cannot be discriminatingly scored and must not be ranked
+against materially exposed rulers. Generic multilateralism,
+civil nuclear phase-out, or the absence of nuclear rhetoric is contextual unless tied
+to a ruler-attributed catastrophic-risk choice.
+
+## Attribution And Inherited Baseline
+
+Establish what authority the ruler personally held over doctrine, forces, diplomacy,
+appointments, and crisis decisions. Quarantine acts of predecessors, military bodies,
+coalition partners, or dominant patrons unless adoption, direction, knowing tolerance,
+or failure to use available corrective authority is evidenced. Judge change from the
+inherited posture alongside absolute risk: inheriting a huge arsenal is not itself
+culpability, while expanding or recklessly using it is; prudent reduction deserves
+credit even when the remaining stockpile is large.
+
+## Chapter-Level 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | The ruler authorized or caused an actual nuclear detonation against people or a military target, or deliberately caused an equivalent realized nuclear catastrophe. Actual use establishes eligibility for the floor; context, target, scale, alternatives, and restraint still determine whether 1 is warranted. |
+| 2 | The ruler moved credibly toward nuclear use or created an acute near-use danger through operational preparation, direct brinkmanship, extremely unsafe command, or sustained nuclear coercion during war, without a realized nuclear detonation. |
+| 3 | Severe nuclear risk increase through doctrine expansion, deployment, proliferation, repeated threats, safeguard abandonment, or destabilizing exercises, but without demonstrated near-use. |
+| 4–5 | Mixed or weak responsibility: meaningful restraint in some areas but consequential escalation, obstruction, unsafe governance, or deterioration in others. |
+| 6–7 | Generally responsible risk management and some tangible risk reduction, with notable omissions, ambiguity, inherited constraints, or inconsistent conduct. |
+| 8–9 | Strong, sustained, and consequential restraint, safeguards, diplomacy, expert governance, and crisis prudence that materially improved the posture. |
+| 10 | Exceptional, durable, and well-evidenced leadership that substantially reduced catastrophic risk across the ruler's actual sphere of authority while resisting powerful contrary incentives. |
+
+The lenses are qualitatively and non-equally weighted. Crisis escalation, actual
+weapon use, proliferation, and command safety can dominate several weaker signals.
+No arithmetic average, equal ten-percent weighting, or minimum lens count is required.
+Exposure matters: the judge evaluates available choices, consequences, and authority.
+Scoring is opportunity-adjusted. Limited exposure or authority is not automatically a
+high or low score. A ruler may earn a high score when meaningful risk-bearing choices
+arose and the ruler consistently exercised responsible restraint within their actual
+authority. When no discriminating opportunity exists, return null with an explicit
+exposure assessment; do not manufacture excellence, blame, or a midpoint from mere
+non-exposure.
+
+Scores of 6 or above require a direct ruler-attributed risk-bearing choice. Scores of
+8 or above additionally require consequential improvement or restraint supported by
+multiple independent source types. Country posture or silence alone cannot support a
+score.
+
+### Absolute-scale guardrails
+
+The annual cohort does not define the endpoints. The worst ruler in a current batch
+must not receive 1 unless the realized-use floor is met. Nuclear threats, coercive
+shielding of conventional war, doctrine hardening, exercises, deployments, or arsenal
+growth can be profoundly irresponsible while remaining in bands 2 or 3. Classify each
+record before scoring as `realized_use_or_catastrophe`,
+`credible_near_use_or_operational_preparation`,
+`severe_escalation_without_near_use`, `mixed_risk_management`,
+`generally_responsible_management`, `strong_consequential_risk_reduction`, or
+`exceptional_durable_risk_reduction`.
+
+A rationale may not describe threats, exercises, deployments, or doctrine change as
+"maximally dangerous" merely because no worse case appears in the annual cohort. Since
+no nuclear weapon has been detonated in war after 1945, a modern annual batch can
+properly contain no score of 1.
+
+The general historical-extreme analogy (including references to Nazi-regime-level
+conduct) does not replace this chapter-specific test. Regime cruelty, repression, or
+aggression alone cannot establish the 1B floor: the ruler must meet the realized nuclear
+use or equivalent realized-catastrophe condition above.
+
+## Judge Workflow Across Rulers
+
+### V4 direct-evidence and absolute-floor gate
+
+A numeric score requires a target-period choice, action, restraint, remedy, or
+outcome within the ruler's actual nuclear or existential-risk authority. Generic
+nuclear posture, inherited arsenals, speeches, and pre- or post-period treaties are
+context only. If no such target-period fact exists, return null; do not manufacture
+a neutral or favorable score from low exposure.
+
+One Chapter 1B judge applies this rubric across all eligible rulers in the comparison
+batch. The judge first inventories exposure and inherited posture, reads every dossier,
+identifies common anchors and edge cases, provisionally orders rulers, then assigns one
+chapter score and confidence to each. It must explain the decisive evidence, meaningful
+counterevidence, attribution, change from baseline, and why adjacent higher/lower bands
+were rejected. Revisit the full ordering after scoring; use overlapping anchor cases if
+context limits require shards. Preserve citations and flag research gaps without
+turning formatting differences into substantive failures.
+
+## Minimum Evidence And Graceful Degradation
+
+A score needs at least one traceable, relevant source and a stated structured prior or
+`not_available`, plus an explicit exposure/authority and temporal-fit assessment.
+High-confidence extreme scores normally require multiple independent source types and
+evidence of consequential conduct. Sparse lenses, unknown appointments, or unavailable
+internal control details lower confidence rather than mechanically lower the score.
+If identity, core attribution, or citation authenticity is unresolved, withhold the
+score for review; ordinary incomplete coverage is not a publication blocker.
+
+## Common Evidence-Item Semantics
+
+Each material evidence item should carry a stable evidence ID; a concise factual claim;
+source URL, title, publisher, and publication/access date where available; source type
+and confidence with a short reason; a quotation or precise locator when available;
+target-year/ruler-period fit; ruler attribution and inherited-baseline relevance; its
+positive, negative, mixed, contextual, or contrary role; and the supported lens IDs.
+Fields may be normalized later and natural-language equivalents are acceptable. The
+substantive minimum is a traceable source, intelligible claim, temporal fit, attribution,
+and evidence role. One item may support multiple lenses without duplication.
+
+## Common Chapter-Judgment Output Envelope
+
+The judge returns one object per ruler with:
+
+- `chapter_id`
+- `rubric_version`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence`
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`
+- `lower_anchor_rejected` and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Exact field serialization can be repaired cheaply after judgment; missing harmless
+formatting must not erase a substantively usable assessment.
+
+## Bias And Comparability Checks
+
+Check visibility and secrecy, nuclear/non-nuclear exposure, great-power attention,
+survivorship and hindsight, adversarial intelligence claims, rhetoric-versus-capability,
+population/state-size irrelevance, inherited arsenals, crisis opportunity, source type,
+recency, and consistent cross-ruler calibration. Do not equate report volume with risk,
+treat a treaty signature as implementation, or reward a ruler for lacking capacity they
+never sought or controlled.
+
+## Chapter-Specific Calibration Fields
+
+Alongside common calibration metadata, record:
+
+- `chapter_rubric_version`: `chapter_1b_v4`
+- `calibration_batch_id` and `calibrated_against`
+- `exposure_profile`: nuclear authority, latent/dual-use exposure, crisis exposure
+- `inherited_risk_posture` and `end_posture`
+- `ruler_authority_and_attribution`
+- `decisive_risk_increasing_evidence`
+- `decisive_risk_reducing_evidence`
+- `crisis_and_command_safety_assessment`
+- `source_mix`, `information_environment`, and `period_fit`
+- `lens_strengths`, `lens_gaps`, and `contrary_evidence`
+- `score_rationale`, `lower_anchor_rejected`, `higher_anchor_rejected`
+- `confidence_score` (`0`–`100`) and `confidence_rationale`
+
+The generic abuse-oriented calibration enums may be `not_applicable` with explanation;
+chapter-specific fields carry the substantive calibration.
+
+## Smoke-Test Ruler Set
+
+| Ruler | Country | Year / period | Calibration role |
+|---|---|---:|---|
+| Mikhail Gorbachev | Soviet Union | 1985–1991 | major inherited arsenal; arms-control improvement |
+| John F. Kennedy | United States | 1962 | severe crisis and de-escalation evidence |
+| Nikita Khrushchev | Soviet Union | 1962 | severe crisis, mixed escalation/de-escalation |
+| Ronald Reagan | United States | 1981–1989 | rhetoric-to-arms-control mixed trajectory |
+| Vladimir Putin | Russia | 2022 | nuclear shielding and threat rhetoric low anchor |
+| Kim Jong Un | North Korea | 2012–2023 | proliferation, testing, closed information environment |
+| F. W. de Klerk | South Africa | 1989–1994 | voluntary disarmament edge/high case |
+| Indira Gandhi | India | 1974 | nuclear-test decision and historical attribution case |
+| Jacinda Ardern | New Zealand | 2017–2023 | non-nuclear/limited-exposure edge case |
+| Boris Yeltsin | Russia | 1991–1999 | inherited-control and institutional-capacity edge |
+
+## Draft Acceptance Checklist
+
+- Exact texts for all ten registry lenses are present.
+- Research uses local priors and cited underlying sources.
+- Evidence is reusable across lenses and contrary evidence is preserved.
+- One judge calibrates one chapter score across a varied ruler batch.
+- Missing lenses affect confidence, not validity or a mechanical score.
+- Attribution, inherited posture, secrecy, and exposure are explicit.
+- Adjacent-anchor explanations are substantive.
+- Smoke testing and independent review occur before activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.
+Before returning, verify that every numeric evaluation cites at least one valid
+same-dossier E-ID in its decisive positive or negative evidence arrays and that
+every confidence score is on the required 0-100 scale.

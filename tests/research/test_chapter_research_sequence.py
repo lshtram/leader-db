@@ -9,9 +9,13 @@ from leaders_db.conversational_evidence.data import load, questions
 from leaders_db.research._codex_worker_setup import WorkerAttempt
 from leaders_db.research.chapter_research_sequence import (
     ChapterResearchPromptConfig,
+    _chapter_resource_index,
     _compact_chapter_guide,
-    _existing_chapter_turn,
     build_chapter_research_prompt,
+)
+from leaders_db.research.chapter_source_discovery import (
+    _build_discovery_prompt,
+    _build_overview_discovery_prompt,
 )
 from leaders_db.research.codex_worker import (
     _checkpoint_covers_chapters,
@@ -91,6 +95,50 @@ def test_chapter_prompt_contains_selected_inputs_and_machine_contract() -> None:
     assert "Known lead" in prompt
     assert "https://example.test/source" in prompt
     assert f"WEB-{chapter_id}-" in prompt
+    assert "separate discovery stage has already built" in prompt
+    assert "not the primary broad-discovery pass" in prompt
+    assert "at least 12" in prompt
+    assert "SOURCE_CANDIDATE_JSON" in prompt
+
+
+def test_discovery_prompt_produces_candidates_without_evidence_extraction() -> None:
+    first, second, other = _selected_test_lenses()
+    chapter_id = first.split(".", maxsplit=1)[0]
+
+    prompt = _build_discovery_prompt(
+        job={
+            "ruler_name": "Test Ruler",
+            "country_name": "Test Country",
+            "period_start_year": 2023,
+            "period_end_year": 2023,
+            "input": {"question_ids": [first, second, other]},
+        },
+        chapter_id=chapter_id,
+        guide="Guide text",
+        workflow=_workflow(),
+    )
+
+    assert "source discovery only" in prompt
+    assert "at least 30 distinct documents" in prompt
+    assert "SOURCE_CANDIDATE_JSON:" in prompt
+    assert "Do not extract evidence claims" in prompt
+
+
+def test_overview_discovery_explicitly_searches_books_and_syntheses() -> None:
+    prompt = _build_overview_discovery_prompt(
+        job={
+            "ruler_name": "Test Ruler",
+            "country_name": "Test Country",
+            "period_start_year": 2023,
+            "period_end_year": 2023,
+        },
+        workflow=_workflow(),
+    )
+
+    assert "at least 50 distinct" in prompt
+    assert "biographies" in prompt
+    assert "scholarly monographs" in prompt
+    assert "dissertations and theses" in prompt
 
 
 def test_chapter_prompt_config_rejects_a_missing_runtime_field() -> None:
@@ -238,86 +286,45 @@ def test_d_style_machine_record_survives_parent_ledger_merge(
     assert record["methodology_ids"] == manifest["entries"][0]["methodology_ids"]
 
 
-def test_chapter_recovery_requires_same_session_mode(tmp_path: Path) -> None:
-    job_dir = tmp_path / "job"
-    current_attempt = job_dir / "attempts" / "002-current"
-    current_trusted = job_dir / "trusted" / "002-current"
-    prior_attempt = job_dir / "attempts" / "001-prior"
-    prior_trusted = job_dir / "trusted" / "001-prior"
-    for path in (current_attempt, current_trusted, prior_attempt, prior_trusted):
-        path.mkdir(parents=True)
+def test_candidate_resources_do_not_require_an_evidence_manifest(tmp_path: Path) -> None:
+    attempt_dir = tmp_path / "job" / "attempts" / "001-current"
+    trusted_dir = tmp_path / "job" / "trusted" / "001-current"
+    attempt_dir.mkdir(parents=True)
+    trusted_dir.mkdir(parents=True)
     attempt = WorkerAttempt(
-        attempt_dir=current_attempt,
-        trusted_dir=current_trusted,
-        result_path=current_attempt / "dossier.json",
-        schema_path=current_trusted / "schema.json",
-        prompt_path=current_attempt / "prompt.txt",
-        pending_path=current_attempt / "pending.json",
-        events_path=current_trusted / "events.jsonl",
+        attempt_dir=attempt_dir,
+        trusted_dir=trusted_dir,
+        result_path=attempt_dir / "dossier.json",
+        schema_path=trusted_dir / "schema.json",
+        prompt_path=attempt_dir / "prompt.txt",
+        pending_path=attempt_dir / "pending.json",
+        events_path=trusted_dir / "events.jsonl",
         existing_candidate=None,
         local_priors=(),
         local_prior_provenance=(),
     )
-    events = prior_trusted / "research-chapter-1B.events.jsonl"
-    events.write_text(
-        '{"type":"thread.started","thread_id":"wrong-thread"}\n{"type":"turn.completed"}\n',
-        encoding="utf-8",
-    )
-    (prior_trusted / "research-chapter-1B.starting.json").write_text(
+    (attempt_dir / "source-candidate-catalog.json").write_text(
         json.dumps(
             {
-                "chapter_id": "1B",
-                "job_id": 7,
-                "chapter_session_mode": "legacy_persistent",
-                "prompt_sha256": "prompt-hash",
-                "provider_profile": "profile",
+                "schema_version": "ruler_source_candidate_catalog_v1",
+                "candidates": [
+                    {
+                        "url": "https://example.test/book",
+                        "title": "A book",
+                        "publisher": "University Press",
+                        "document_type": "book",
+                        "access_status": "unopened",
+                        "chapter_ids": ["5B"],
+                    }
+                ],
             }
         ),
         encoding="utf-8",
     )
-    output = prior_attempt / "research-chapter-1B.md"
-    output.write_text("completed", encoding="utf-8")
 
-    assert (
-        _existing_chapter_turn(
-            attempt,
-            "1B",
-            job_id=7,
-            chapter_session_mode="fresh_compact_context",
-            prompt_hash="prompt-hash",
-            provider_profile="profile",
-        )
-        is None
-    )
+    resources = _chapter_resource_index(attempt, "5B")
 
-    (prior_trusted / "research-chapter-1B.starting.json").write_text(
-        json.dumps(
-            {
-                "chapter_id": "1B",
-                "job_id": 7,
-                "chapter_session_mode": "fresh_compact_context",
-                "prompt_sha256": "prompt-hash",
-                "provider_profile": "profile",
-            }
-        ),
-        encoding="utf-8",
-    )
-    (prior_trusted / "research-ledger-before-1B.json").write_text(
-        '{"schema_version":"ruler_research_ledger_manifest_v1","entries":[]}',
-        encoding="utf-8",
-    )
-    assert _existing_chapter_turn(
-        attempt,
-        "1B",
-        job_id=7,
-        chapter_session_mode="fresh_compact_context",
-        prompt_hash="prompt-hash",
-        provider_profile="profile",
-    ) == (
-        events,
-        output,
-        prior_trusted / "research-ledger-before-1B.json",
-    )
+    assert resources[0]["title"] == "A book"
 
 
 def test_completed_chapter_checkpoint_prevents_research_replay(tmp_path: Path) -> None:

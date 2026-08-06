@@ -11,9 +11,11 @@ from sqlalchemy import create_engine, text
 
 from leaders_db.db.engine import init_database
 from leaders_db.research.chapter_judge_models import RulerChapterJudgment
+from leaders_db.research.chapter_judge_prompt import build_chapter_judge_prompt
 from leaders_db.research.chapter_judge_worker import (
     _ensure_bias_assessment,
     _find_previous_chapter_candidate,
+    _normalize_calibration_references,
     _normalize_confidence_scale,
     _normalize_evidence_reference_lists,
     _normalize_judgment_envelope,
@@ -32,6 +34,44 @@ from leaders_db.research.job_ledger import (
     complete_job,
     create_jobs,
 )
+
+
+def test_file_backed_prompt_rejects_outside_path_before_hashing(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    projection = SimpleNamespace(
+        job_key="dossier:test:2023:AAA:1",
+        iso3="AAA",
+        ruler_id="1",
+        ruler_year_id=1,
+        ruler_name="Ruler",
+        period_start_year=2023,
+        period_end_year=2023,
+    )
+    hashed = False
+
+    def forbidden_hash(path: Path) -> str:
+        nonlocal hashed
+        hashed = True
+        return "0" * 64
+
+    monkeypatch.setattr(
+        "leaders_db.research.chapter_judge_prompt._file_sha256", forbidden_hash
+    )
+    with pytest.raises(ValueError, match="chapter-inputs"):
+        build_chapter_judge_prompt(
+            {
+                "job_key": "chapter-judge:test:2023:1B",
+                "run_key": "test",
+                "target_year": 2023,
+                "input": {"chapter_id": "1B", "unavailable_dossiers": []},
+            },
+            project_root=tmp_path / "project",
+            guide_text="guide",
+            projections=((tmp_path / "outside.json", projection),),
+            embed_projections=False,
+        )
+    assert not hashed
 
 
 def test_normalize_lens_lists_preserves_supported_weak_overlap_as_note() -> None:
@@ -57,6 +97,23 @@ def test_normalize_lens_lists_preserves_supported_weak_overlap_as_note() -> None
     ]
     assert evaluation["manual_review_reason"].count("4B.2") == 1
     assert "weak source diversity" in evaluation["manual_review_reason"]
+
+
+def test_null_judgment_is_normalized_to_release_blocking_review() -> None:
+    evaluation = {
+        "score_1_to_10": None,
+        "insufficient_evidence_reason": "Attribution remains insufficient.",
+        "manual_review_required": False,
+        "manual_review_reason_type": None,
+        "manual_review_reason": None,
+    }
+
+    _normalize_judgment_envelope(evaluation)
+
+    assert evaluation["manual_review_required"] is True
+    assert evaluation["manual_review_reason_type"] == "recoverable_null"
+    assert "Release is blocked" in evaluation["manual_review_reason"]
+    assert evaluation["plausible_score_range"] == {"lower": 1, "upper": 10}
 
 
 def test_normalize_lens_lists_recovers_descriptive_lens_prefixes() -> None:
@@ -319,6 +376,31 @@ def test_normalize_confidence_scale_repairs_only_unambiguous_fraction_batch() ->
     assert all_zero_candidate == {}
 
 
+def test_normalize_calibration_references_repairs_only_unique_ruler_year_suffix() -> None:
+    available = {
+        "dossier:first:2023:USA:15811",
+        "dossier:second:2023:MEX:15802",
+    }
+    evaluation = {
+        "calibrated_against": [
+            "dossier:stale:2023:USA:15811",
+            "dossier:second:2023:MEX:15802",
+            "dossier:unknown:2023:XXX:99999",
+        ]
+    }
+
+    _normalize_calibration_references(
+        evaluation,
+        available_dossier_keys=available,
+    )
+
+    assert evaluation["calibrated_against"] == [
+        "dossier:first:2023:USA:15811",
+        "dossier:second:2023:MEX:15802",
+        "dossier:unknown:2023:XXX:99999",
+    ]
+
+
 def test_chapter_judge_executes_two_dossiers_and_persists_scores_atomically(  # noqa: PLR0915
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -385,14 +467,15 @@ profiles:
     parent_ids: list[int] = []
     dossier_job_keys: list[str] = []
     for index, iso3 in enumerate(("AAA", "AAA"), start=1):
-        key = f"dossier:batch:2020:{iso3}:{index}"
+        parent_run_key = f"batch-{index}"
+        key = f"dossier:{parent_run_key}:2020:{iso3}:{index}"
         dossier_job_keys.append(key)
         create_jobs(
             engine,
             (
                 ResearchJobSpec(
                     job_key=key,
-                    run_key="batch",
+                    run_key=parent_run_key,
                     job_type="dossier_researcher",
                     target_year=2020,
                     period_start_year=2020,
@@ -417,7 +500,7 @@ profiles:
             worker_id=f"researcher-{index}",
             lease_seconds=900,
             job_type="dossier_researcher",
-            run_key="batch",
+            run_key=parent_run_key,
         )
         assert parent is not None
         dossier_path = project / f"dossier-{iso3}-{index}.json"
@@ -453,6 +536,8 @@ profiles:
                     "rubric_version": "chapter_4b_v1",
                     "methodology_ids": list(methodology_ids),
                     "dossier_job_keys": dossier_job_keys,
+                    "dossier_run_key": None,
+                    "dossier_run_keys": ["batch-1", "batch-2"],
                     "unavailable_dossiers": [],
                     "output_root": str(output_root),
                 },
@@ -468,25 +553,33 @@ profiles:
         run_key="batch",
     )
     assert judge is not None
+    monkeypatch.setattr(
+        "leaders_db.research.chapter_judge_worker.FILE_BACKED_PROMPT_THRESHOLD_BYTES",
+        0,
+    )
 
     def fake_run_codex(*args, **kwargs) -> None:
         prompt = kwargs["prompt"]
-        assert "Embedded chapter projections (authoritative judge inputs)" in prompt
-        assert "A cited political-freedom fact." in prompt
-        assert "LF001" in prompt
-        assert "0.62" in prompt
-        assert "Do not invoke shell commands" in prompt
+        assert "Chapter projections (authoritative judge inputs)" in prompt
+        assert "A cited political-freedom fact." not in prompt
+        assert '"sha256"' in prompt
+        assert "Read every listed file in full" in prompt
         assert all(
             text in prompt
             for text in (
                 "formal responsibility for national policy",
                 "Chapter 7B requires a personal-integrity nexus",
-                '"local_evidence"',
                 "structured local facts and signals use LF/LS IDs",
                 "rewrite a local fact as a web citation",
             )
         )
         command = kwargs["command"]
+        command_root = Path(command[command.index("--cd") + 1])
+        assert command_root.name.startswith("001-")
+        input_paths = tuple(command_root.glob("chapter-inputs/*.json"))
+        assert len(input_paths) == 2
+        assert all(str(path.resolve()) in prompt for path in input_paths)
+        assert all("LF001" in path.read_text(encoding="utf-8") for path in input_paths)
         result_path = Path(command[command.index("--output-last-message") + 1])
         candidate = _judge_candidate(
             dossier_job_keys=dossier_job_keys,

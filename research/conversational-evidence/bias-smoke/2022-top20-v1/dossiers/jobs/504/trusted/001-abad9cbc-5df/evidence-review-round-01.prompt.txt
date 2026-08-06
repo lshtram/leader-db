@@ -1,0 +1,302 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:VNM:19647",
+  "iso3": "VNM",
+  "country_name": "Vietnam",
+  "ruler_name": "Nguy\u1ec5n Ph\u00fa Tr\u1ecdng",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 4,
+  "approximate_source_family_count": 4,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 4 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 4 approximate source families were observed; the soft review threshold is 24."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed. Files could not be written because the workspace is read-only; the complete handoff is below for parent persistence.
+
+### Reconnaissance
+
+- Nguyễn Phú Trọng held the dominant party position in 2022; Freedom House records his exceptional third-term reelection and CPV control over executive selection and elections. [Freedom House](https://freedomhouse.org/country/vietnam/freedom-world/2022)
+- The information environment was closed: censorship, activist persecution, controlled elections, and limited independent scrutiny were documented by Freedom House, HRW, Amnesty, and the US State Department. [HRW](https://www.hrw.org/news/2022/02/17/vietnam-activists-movements-blocked), [US State Department report](https://www.ecoi.net/en/document/2089144.html)
+- Authority was formal and practical through the CPV, Politburo, Central Committee, and anti-corruption steering apparatus. In November 2022, Trọng chaired the central anti-corruption body and reviewed hundreds of cases and senior disciplinary actions. [Vietnam Government Portal](https://xaydungchinhsach.chinhphu.vn/toan-van-ket-luan-cua-tong-bi-thu-nguyen-phu-trong-tai-cuoc-hop-phong-chong-tham-nhung-tieu-cuc-119221118204327577.htm)
+
+### Provisional evidence register
+
+- E001 — third-term party authority and institutional control; Freedom House.
+- E002 — 2022 human-rights conditions; US State Department.
+- E003 — CPV-controlled elections and no realistic opposition transfer; Freedom House.
+- E004 — censorship, activist persecution, and information suppression; Freedom House.
+- E005 — more than 170 activists and family members subjected to travel bans, house arrest, or detention; HRW.
+- E006 — alleged beating, solitary confinement, and shackling of Trịnh Bá Tư in September 2022; Amnesty.
+- E007 — Trọng’s November 2022 anti-corruption meeting, directives, investigations, and disciplinary actions; Vietnamese Government Portal.
+- E008 — AP retrospective identifying anti-corruption as Trọng’s hallmark and the general secretary as Vietnam’s most powerful office; AP.
+- E009 — World Bank assessment of Vietnam’s explicit high-income strategy and uneven policy implementation; World Bank.
+- E010 — 2022 economic recovery, growth, inflation, and social-safety-net requirements; World Bank.
+- E011 — IMF description of the 2022–23 recovery package, including health, infrastructure, green investment, and social protection; IMF.
+- E012 — poverty reduction with continuing inequality, informality, and regional vulnerability; World Bank.
+- E013 — UNICEF 2022 results: high COVID vaccination, declining routine immunization, rural/ethnic disparities, child-protection gaps, and increased violence risks; UNICEF.
+- E014 — 2022 child health and education indicators; UNICEF Data.
+- E015 — Vietnam’s NPT safeguards and Additional Protocol status; IAEA.
+- E016 — Vietnam’s declaration that it does not possess or host nuclear weapons; ICAN treaty summary, context only.
+- E017 — June 2022 protest against China’s Paracel military drill and invocation of UNCLOS, DOC, and peaceful settlement; Vietnamese Government Portal.
+- E018 — World Bank poverty/equity assessment and social-protection gaps.
+- E019 — Cambridge academic discussion of political protection in Vietnam’s anti-corruption campaign; context/contrary hypothesis requiring deeper source review.
+
+### Chapter yield
+
+| Chapter | Local baseline and web yield | Main gaps |
+|---|---|---|
+| 1B | No nuclear arsenal facts locally. IAEA safeguards and Vietnam’s non-nuclear declaration establish limited exposure only. | No target-period ruler-specific nuclear, cyber, biological, AI, command-safety, or existential-risk choice. |
+| 2B | Local SIPRI 2022 spending: $7.31bn, 1.72% GDP, 9.43% of government spending. E017 documents diplomatic handling of a South China Sea incident. | No attributable war initiation, civilian-harm, proxy, arms-recipient, Ukraine-diplomacy, or accountability evidence. |
+| 3B | Local 2022 CIRIGHTS/V-Dem/PTS facts show repression and physical-integrity concerns. E002, E005, E006 add detention, movement restrictions, and alleged prison abuse; E013 supplies mitigating child-protection activity and contrary welfare evidence. | Direct orders, incitement, minority violence, independent remedies, security-force oversight, and crisis-response attribution. |
+| 4B | Extensive local evidence: one-party rule, zero multiparty institutions, low electoral-democracy/liberal-democracy values, poor press-freedom position, and low voice/accountability. E001–E004 corroborate institutional and censorship mechanisms. | Specific 2022 decisions involving courts, media, surveillance, appointments, succession, and minority political equality. |
+| 5B | Local 2022 GDP, PPP income, Gini, consumption, and investment facts; E009–E012/E018 document recovery, poverty reduction, institutional weaknesses, inequality, and implementation gaps. | Trọng-specific economic appointments, market rules, corruption/capture nexus, correction of mistakes, inflation response, and household-level attribution. |
+| 6B | Local HDI, life expectancy, schooling, mortality, vaccination, literacy, and enrollment facts. E013–E014 show strong vaccination and education/health outcomes alongside routine-immunization decline, disparities, and protection gaps. | Direct ruler-attributed service decisions, affordability/quality, regional distribution, political conditionality, and durability beyond party institutions. |
+| 7B | Local corruption indicators are country context only. E007 is direct evidence of Trọng’s anti-corruption leadership; E008 supports campaign reach; E019 provides a possible political-protection counterinterpretation. | Personal assets, family/business benefit, truthful statements, corrections, appointments, retaliation, independent scrutiny, and personal enrichment. |
+| 8B | Local governance and outcome trends plus E007 and E009–E014 show explicit development/anti-corruption programs, recovery measures, mobilization, and mixed implementation. | Trọng-specific personnel choices, coordination, adaptation, implementation milestones, portfolio breadth, and durable causal attribution. |
+
+### Local-data audit
+
+Retained as context:
+
+- 2B: LF077–LF080 and related SIPRI boundary signals.
+- 3B: LF277–LF286, LF370–LF373 and related longitudinal signals.
+- 4B: LF570–LF585, LF871–LF885 and related political-freedom signals.
+- 5B: LF1027–LF1033, LF1255–LF1261 and related economic signals.
+- 6B: LF1346–LF1355 and related welfare signals.
+- 7B: LF1439–LF1442.
+- 8B: LF1483–LF1484 plus relevant outcome indicators.
+
+Other supplied rows were unused because they were redundant boundary observations, non-target context, or lacked a direct connection to the researched theme. No client-matrix material was used.
+
+No scores, score ranges, ranking recommendations, or null recommendations were assigned.
+---

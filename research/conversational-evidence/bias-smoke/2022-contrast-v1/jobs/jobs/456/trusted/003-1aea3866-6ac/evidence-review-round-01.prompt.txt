@@ -1,0 +1,325 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-contrast-v1:2022:USA:15810",
+  "iso3": "USA",
+  "country_name": "United States",
+  "ruler_name": "Joe Biden",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 17,
+  "approximate_source_family_count": 11,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 17 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 11 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed for Joe Biden, United States, 2022. No score, score range, ranking, or anchor recommendation was assigned.
+
+Writes were unavailable because the workspace is read-only, so the ledger and manifest are included below for parent persistence.
+
+## Reconnaissance and authority baseline
+
+The President held formal responsibility for federal-law execution, Cabinet and agency appointments, diplomacy, executive orders, and command of the armed forces. The White House describes the President as head of government and Commander-in-Chief, with authority to appoint Cabinet and agency heads and issue executive orders.[White House Executive Branch](https://www.whitehouse.gov/government/executive-branch/)
+
+Practical constraints were substantial: Congress controlled appropriations and legislation; state and local governments controlled much policing and election administration; Senate confirmation affected appointments; courts and independent agencies constrained implementation. The 2022 record is highly visible and English-dominant, with strong access to official documents, congressional analysis, courts, national media, civil-society organizations, and advocacy groups. This creates open-reporting visibility bias: documented criticism is abundant, while absence of reporting cannot establish integrity or safety.
+
+Source concentration is moderate. Official executive-branch and congressional sources dominate policy and implementation claims; CRS/CBO provide independent institutional analysis; ACLU and Freedom House provide civil-society assessments. Ukraine and policing receive substantially more coverage than personal-integrity evidence. Local and state-level events must not be attributed to Biden without a federal policy, funding, appointment, tolerance, or remedy nexus.
+
+## Global evidence ledger
+
+| ID | Canonical source / locator | Claim | Role and mappings |
+|---|---|---|---|
+| E001 | `local-prior:1B.1`–`1B.10`; FAS observations, 2014 | Supplied local facts report a U.S. nuclear military stockpile of 4,765 warheads, total inventory of 7,315, including 1,920 operational strategic and 184 operational nonstrategic warheads. | Context only; inherited posture. 1B.1–1B.10. Does not establish Biden’s 2022 conduct. |
+| E002 | [DoD 2022 Strategic Reviews](https://www.defense.gov/News/Releases/Release/Article/3201683/department-of-defense-releases-its-2022-strategic-reviews-national-defense-stra/) lines 208–219, October 27, 2022 | The administration released integrated NDS, NPR, and MDR documents. The NPR retained nuclear deterrence as the fundamental role, limited contemplated use to extreme circumstances, and stated a commitment to reducing nuclear risks while maintaining a safe and effective deterrent. | Final evidence for 1B.1, 1B.2, 1B.3, 1B.4, 1B.5, 1B.7, 1B.8, 1B.10; also 2B.3, 2B.8, 8B.1–8B.6. Official policy record; implementation and internal deliberation remain partly opaque. |
+| E003 | [2022 Nuclear Posture Review/NDS PDF](https://media.defense.gov/2022/Oct/27/2003103845/-1/-1/1/2022-NUCLEAR-POSTURE-REVIEW.PDF), pp. 4–5 | The strategy linked resources, deterrence, NATO cooperation, Russia’s invasion of Ukraine, and China as the pacing challenge. | Final evidence for 1B.1–1B.10, 2B.1–2B.3, 2B.8, 8B.1–8B.6. Official strategic document; stated policy is not proof of operational outcomes. |
+| E004 | [CRS, U.S. Security Assistance to Ukraine](https://www.congress.gov/crs_external_products/IF/PDF/IF12040/IF12040.16.pdf), pp. 1–2, October 21, 2022 | By October 14, 2022, the Biden Administration had committed about $17.6 billion in security assistance since Russia’s expanded invasion; 23 presidential drawdowns since August 2021 totaled $10.635 billion. HIMARS were supplied without the longest-range rockets, with reported Ukrainian assurances against attacks on Russian territory. | Final evidence for 2B.1, 2B.2, 2B.3, 2B.5, 2B.7, 2B.8, 2B.9, 2B.10; 8B.2–8B.9. CRS synthesis based on official records; attribution is institutional/administrative rather than proof of Biden’s personal order for each transfer. |
+| E005 | [CRS, Elections and Voting](https://www.congress.gov/crs-product/IF12291), lines 530–536, December 2022 | The Electoral Count Act amendments were enacted through the FY2023 Consolidated Appropriations Act; the law clarified the Vice President’s ministerial role, raised objection thresholds, and included election-administration funding. Other voting-rights proposals failed in the Senate. | Final evidence for 4B.1, 4B.2, 4B.4, 4B.8, 4B.10; 8B.2, 8B.6, 8B.9. Legislative outcome with presidential signature required; Biden’s role is executive support/signature, while Congress shaped the final text. |
+| E006 | [CRS, S.4573](https://www.congress.gov/bill/117th-congress/senate-bill/4573), 2022 | The proposed Electoral Count Reform Act specified state elector procedures, a ministerial Vice President role, and a higher congressional objection threshold. | Context and precursor to E005; 4B.1, 4B.2, 4B.4, 4B.8. Reused only as legislative-history context, not double-counted as enacted law. |
+| E007 | [Executive Order 14074](https://public-inspection.federalregister.gov/2022-11810.pdf), pp. 1–5, May 25, 2022 | Biden ordered federal policing reforms involving accountability, misconduct data, independent investigations of in-custody deaths, profiling safeguards, use-of-force standards, and public reporting. The order acknowledged that comprehensive system-wide reform required Congress. | Final evidence for 3B.1–3B.5, 3B.8–3B.10; 4B.4, 4B.7, 4B.9; 6B.1–6B.6; 8B.2–8B.6. Strong ruler-attributed federal action; limited reach over state/local police and uncertain target-period outcomes. |
+| E008 | [ACLU/CAP/Vera assessment of EO 14074](https://www.aclu.org/news/criminal-law-reform/the-biden-administrations-executive-order-on-policing-is-a-foundation-to-build-upon), June 1, 2022 | Civil-society organizations described the order as the most substantial federal policing action since George Floyd’s murder but criticized it as insufficient and dependent on sustained implementation across government levels. | Contrary evidence for 3B.4, 3B.5, 3B.8, 3B.9, 3B.10 and 8B.6–8B.8. Advocacy source; useful for implementation limits and adverse interpretation, not a neutral outcome measure. |
+| E009 | [Bipartisan Safer Communities Act administration policy](https://www.whitehouse.gov/wp-content/uploads/2022/06/Bipartisan-Safer-Communities-Act-SAP-1.pdf), June 23, 2022 | The administration supported federal gun-safety legislation addressing background checks, firearms trafficking, school safety, and behavioral-health programs. | Final evidence for 3B.1, 3B.6, 3B.7, 3B.9, 6B.1–6B.6, 8B.1–8B.6. Official position and legislative implementation; direct public-safety effect in 2022 remains unresolved. |
+| E010 | [Freedom House, United States 2022](https://freedomhouse.org/country/united-states/freedom-world/2022), lines 109–112, 203–227, 231–235 | Freedom House recorded strong press and civil-society conditions and strong anti-corruption safeguards, while noting that the Biden administration did not repeat the prior administration’s interference with public-health expertise; it also documented the inherited January 6 and election-overturning crisis. | Context and contrary baseline for 4B.1–4B.10 and 7B.1–7B.10. It is a country/regime assessment, not direct proof of Biden’s personal conduct; the January 6 conduct described belongs primarily to the predecessor period. |
+| E011 | [CBO, IRA estimate](https://www.cbo.gov/publication/58366), August 3, 2022 | CBO estimated that the enacted legislation would reduce the federal deficit by approximately $90 billion over 2022–2031, while noting revisions to the estimate. | Final evidence for 5B.3, 5B.6, 5B.7, 5B.9, 5B.10; 8B.2, 8B.6, 8B.7. Independent fiscal analysis; projected rather than realized 2022 outcome. |
+| E012 | [CRS, IRA climate provisions](https://www.congress.gov/crs-product/R47262), sections 60109 and 60115 | CRS catalogued IRA appropriations and implementation mechanisms, including EPA implementation funding, clean-energy demonstrations, grants, and state/local emissions-reduction planning. | Final evidence for 5B.1, 5B.3, 5B.4, 5B.6, 5B.7; 6B.1, 6B.2, 6B.5; 8B.2–8B.7. CRS statutory analysis; long-term implementation was not yet observable in 2022. |
+| E013 | [Commerce Department CHIPS signing record](https://www.commerce.gov/media/7371), August 9, 2022 | Biden signed the CHIPS and Science Act; Commerce subsequently launched CHIPS.gov for program implementation on August 25, 2022. | Final evidence for 5B.1, 5B.3, 5B.4, 5B.6, 5B.7, 5B.10; 8B.1–8B.7. Official implementation record; economic outcomes and private investment attribution require later evidence. |
+| E014 | [CRS, Honoring Our PACT Act](https://www.congress.gov/crs-product/R47542) | Biden signed the PACT Act on August 10, 2022. The law expanded VA eligibility for toxic-exposure-related care; enrollment expansion began October 1, 2022, and VA began toxic-exposure screening in November 2022. | Final evidence for 6B.1–6B.6, 6B.8–6B.10; 5B.6; 8B.2, 8B.6, 8B.7. CRS statutory and implementation account; coverage is a specific veteran population, not general population welfare. |
+| E015 | [2022 financial disclosure release](https://www.presidency.ucsb.edu/documents/white-house-press-release-the-president-and-vice-president-release-their-financial-0), May 13, 2022 | Biden and Harris released annual public financial disclosures, reviewed and certified by OGE. The White House release stated that neither had conflicts of interest. | Final evidence for 7B.3, 7B.4, 7B.6; limited positive evidence for 7B.1, 7B.10. The conflict-free characterization is an administration statement; OGE certification supports the filing fact, not every substantive integrity claim. |
+| E016 | [ACLU 2022 civil-rights assessment](https://www.aclu.org/news/capital-punishment/one-year-later-how-the-biden-administration-is-doing-on-civil-rights-and-civil-liberties), January 24, 2022 | ACLU identified broad civil-rights and civil-liberties priorities while assessing the administration’s first year. | Discovery/context for 3B, 4B, and 7B; not retained as decisive because it is a broad agenda assessment and predates most of the target year. |
+
+## Chapter baseline and yield
+
+- **1B:** Local LF001–LF005 are FAS 2014 inventory facts: 4,765-stockpile, 7,315-total, 184 operational nonstrategic, 1,920 operational strategic, and 2,661 reserve/nondeployed warheads. These are inherited exposure/context only. E002–E003 provide the principal 2022 ruler-attributed policy evidence. Missing or weak areas include crisis behavior, command-safety implementation, cyber/biological/AI risk, and independent assessment of actual risk reduction.
+
+- **2B:** Local LF050–LF053 report zero UCDP state-based/internationalized events and fatalities for 2022; this is a country-year extraction fact and does not establish peaceful conduct or absence of foreign operations. LF098–LF101 report 2022 SIPRI military expenditure of approximately $922.6 billion, $2,527 per capita, 3.30% of GDP, and 8.98% of government spending. These are context only. E004 provides the strongest target-period evidence for Ukraine policy, escalation management, defensive framing, arms-transfer controls, and diplomatic/security choices. Civilian-harm, proxy-control, public-truthfulness, and accountability evidence remains incomplete.
+
+- **3B:** Local LF102–LF253 provide structured CIRIGHTS, V-Dem, PTS, and related national physical-integrity and safety measures, with 8 evidence-found and 2 no-evidence-found mappings. They are country-level context and cannot establish Biden’s personal direction of state or local abuses. E007–E009 provide direct federal policy/action evidence; E008 is the principal contrary implementation assessment. State/local policing, protest-treatment outcomes, and vulnerable-group protection remain attribution gaps.
+
+- **4B:** Local LF254–LF505 provide election, civil-liberties, media, voice, accountability, and rule-of-law context, all marked evidence-found. E005–E006 document the 2022 Electoral Count Act reform and the failure of broader voting-rights legislation. E010 provides external context on inherited democratic stress, press freedom, civil society, and safeguards. Missing or weak areas include Biden-specific treatment of dissent, surveillance, media pressure, appointments, and practical effects on political equality.
+
+- **5B:** Local LF506–LF719 provide national economic, productivity, employment, inequality, income, and human-capital context, with 8 evidence-found and 2 no-evidence-found mappings. E011–E013 establish 2022 policy choices, implementation architecture, and independent fiscal projections. Immediate inflation, household distribution, implementation quality, and correction of policy mistakes require additional evidence; local outcomes cannot establish ruler competence by themselves.
+
+- **6B:** Local LF720–LF771 provide national health, education, service-access, distribution, and welfare context, with 9 evidence-found and 1 no-evidence-found mapping. E007, E009, and E014 provide ruler-attributed federal actions involving policing/public safety, behavioral health, and veterans’ healthcare. General population service quality, regional equity, affordability, and durability remain incompletely evidenced.
+
+- **7B:** Local LF354 and LF772–LF819 are mostly country-level governance/corruption context; only 3 evidence-found and 7 no-evidence-found mappings were supplied. E015 is the clearest direct personal-nexus item, but it primarily establishes disclosure and OGE review rather than proving broad integrity. E010 provides contextual institutional safeguards but is not personal evidence. No strong, independently corroborated 2022 evidence was found in this pass for personal enrichment, deliberate deception, obstruction of scrutiny, nepotism, or retaliation. This chapter has the largest personal-attribution gap.
+
+- **8B:** Local LF354, LF820–LF843 and related capacity facts provide inherited administrative/governance context, with 8 evidence-found and 2 no-evidence-found mappings. E002–E005 and E007–E014 provide direct 2022 programs, laws, executive actions, resource allocation, and implementation structures. Observable long-term outcomes, adaptation after failure, and durability were not yet fully measurable within the one-year window.
+
+## Search and candidate outcomes
+
+Promising candidates retained included DoD strategic reviews, CRS Ukraine assistance, CRS election-law analysis, Federal Register EO 14074, CBO/CRS IRA materials, Commerce CHIPS records, CRS PACT analysis, OGE/financial-disclosure material, Freedom House, and ACLU assessments.
+
+Rejected or downgraded candidates:
+
+- Search-result snippets and organization homepages: discovery-only, no precise locator.
+- White House self-descriptions of success: retained only for formal action or stated intent, not outcome claims.
+- Local structured datasets already supplied: not re-fetched.
+- Freedom House country scores and local governance indicators: context, not personal attribution.
+- Post-2022 retrospective reporting: excluded unless directly establishing a 2022 act.
+- General claims about Hunter Biden or associates: not retained without a direct, documented ruler nexus and independent finding.
+- General national crime, inflation, or foreign-war outcomes: excluded as decisive evidence without a Biden-attributed policy or causal link.
+
+## Source diversity and reuse
+
+The ledger contains:
+
+- Government primary records: White House, Federal Register, DoD, Commerce, VA/CRS statutory records.
+- Independent institutional analysis: CRS and CBO.
+- Civil-society assessments: ACLU and Freedom House.
+- Source types include executive orders, strategic reviews, congressional legislation, fiscal estimates, statutory analysis, financial disclosures, and advocacy reports.
+
+Same-source reuse is intentional. The DoD strategic review supports 1B, 2B, and 8B; EO 14074 supports 3B, 4B, 6B, and 8B; IRA/CHIPS evidence supports 5B, 6B, and 8B; PACT supports 6B and 8B; election-law evidence supports 4B and 8B. These are single global evidence items with multiple mappings, not duplicated claims.
+
+No local `error_methodology_ids` were supplied. Local `no_evidence_found` statuses remain explicit gaps and were not treated as real-world zeros or as repaired by web research.
+---

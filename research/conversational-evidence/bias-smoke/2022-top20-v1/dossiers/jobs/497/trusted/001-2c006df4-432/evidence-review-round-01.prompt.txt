@@ -1,0 +1,454 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:NGA:15787",
+  "iso3": "NGA",
+  "country_name": "Nigeria",
+  "ruler_name": "Muhammadu Buhari",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 19,
+  "approximate_source_family_count": 17,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 19 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 17 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_contrary_audit",
+      "message": "Contrary evidence is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Evidence-collection pass completed for Muhammadu Buhari, Nigeria, 2022. No scores or score ranges assigned. The supplied local package was treated as authoritative baseline; no additional local files were read.
+
+File persistence was unavailable under the read-only workspace, so the handoff is included here for parent persistence.
+
+## Reconnaissance and authority baseline
+
+Buhari was Nigeria’s elected president and head of the federal executive during the target year, with formal responsibility for national policy, federal appointments, security institutions, budgets, and assent to legislation. The 2022 Electoral Act was signed by Buhari on 25 February 2022 after executive–legislative disagreement over provisions. [State House account](https://statehouse.gov.ng/assent-into-law-of-the-electoral-act-2022-landmark-moment-for-the-nation/), [INEC Electoral Act page](https://www.inecnigeria.org/electoral-act-2022/).
+
+Practical constraints included federalism, state-level policing and governance, the National Assembly, independent constitutional bodies, entrenched insecurity, oil dependence, fiscal weakness, inflation, flooding, and external food and energy shocks. Personal direction should not be inferred from country-level outcomes or subordinate conduct without additional evidence.
+
+The information environment was mixed: Nigeria had active civil society, media, courts, international monitors, and human-rights organizations, but journalists and civic actors faced harassment, detention, intimidation, and restrictions. Freedom House described a vibrant media and civil society environment alongside frequent harassment of journalists and obstacles to investigating military abuses. [Freedom House](https://freedomhouse.org/country/nigeria/freedom-world/2022), [NHRC media statement](https://www.nhrc.gov.ng/nhrc-media/news-and-events/381-media-parley-ojukwu-reassures-journalists-of-commitment-to-a-wide-safe-media-space.html). The search pass was English-language only; no local-language archives or Nigerian-language reporting were searched.
+
+Official-statistics and fiscal transparency caveats are material. The IMF noted uncertainty around NNPC financial commitments, tax write-offs, fuel-consumption volumes, and the need for stronger auditing. [IMF 2022 Article IV statement](https://www.imf.org/en/news/articles/2022/11/18/nigeria-staff-concluding-statement-of-the-2022-article-iv-mission).
+
+## Global evidence register
+
+| ID | Evidence claim and source profile | Fit / attribution | Mapped chapters |
+|---|---|---|---|
+| E001 | Buhari assented to the Electoral Act 2022 after executive–legislative disagreement. Official record; medium-high confidence for the formal act, high for the dated legal event. [State House](https://statehouse.gov.ng/assent-into-law-of-the-electoral-act-2022-landmark-moment-for-the-nation/) | Direct target-year presidential act; does not establish implementation or electoral fairness. | 4B, 8B |
+| E002 | INEC identifies Electoral Act 2022 provisions governing election administration and electronic-result technology. Official institutional source; medium-high confidence for formal provisions. [INEC](https://www.inecnigeria.org/electoral-act-2022/) | Target-year legal/institutional context; implementation requires separate evidence. | 4B, 8B |
+| E003 | Nigeria’s 2022 IMF review found 21.1% inflation in October, fiscal deficit pressure, costly fuel subsidies, high debt-service costs, and limited fiscal space for health and education. IMF; high confidence. [IMF](https://www.imf.org/en/news/articles/2022/11/18/nigeria-staff-concluding-statement-of-the-2022-article-iv-mission) | Target-year country outcome and policy assessment; formal federal-policy nexus, but not personal intent by Buhari. | 5B, 6B, 8B |
+| E004 | The IMF recommended subsidy reform, stronger revenue mobilization, oil-theft reduction, fiscal transparency, and targeted social assistance. IMF; high confidence. [IMF](https://www.imf.org/en/news/articles/2022/11/18/nigeria-staff-concluding-statement-of-the-2022-article-iv-mission) | Recommendations and implementation gap; not evidence that Buhari adopted or rejected each recommendation. | 5B, 6B, 8B |
+| E005 | World Bank characterized Nigeria’s public finances as constrained by inefficient and regressive subsidies, weak revenue mobilization, and poor resource use. World Bank; high confidence. [World Bank](https://www.worldbank.org/en/news/press-release/2022/11/21/to-promote-inclusive-and-sustainable-development-nigeria-needs-to-fix-its-public-finances) | Target-year institutional/economic context; federal responsibility is relevant, personal nexus limited. | 5B, 6B, 8B |
+| E006 | World Bank noted that Nigeria’s fiscal and development conditions constrained spending on public services; it reported a child’s expected productivity at 36% of potential absent effective education and health services. World Bank; high confidence. [World Bank](https://www.worldbank.org/en/news/press-release/2022/11/21/to-promote-inclusive-and-sustainable-development-nigeria-needs-to-fix-its-public-finances) | Target-year welfare context, not standalone ruler attribution. | 5B, 6B |
+| E007 | UNICEF reported approximately 54% of Nigerian children experiencing multidimensional poverty across nutrition, health, education, water, sanitation, housing, and information access. UNICEF/government analytical reports; high confidence. [UNICEF](https://www.unicef.org/nigeria/press-releases/new-evidence-situation-child-deprivation-nigeria) | Published May 2022; outcome context, not proof of Buhari’s personal policy choices. | 6B, 5B |
+| E008 | UNICEF reported that 2.5 million people, 60% children, needed humanitarian assistance after severe 2022 flooding, with risks to water, health, nutrition, and education. UNICEF; high confidence. [UNICEF](https://www.unicef.org/press-releases/more-15-million-children-risk-devastating-floods-hit-nigeria) | Target-year shock and response context; government and UNICEF assistance are documented, but federal attribution is incomplete. | 6B, 8B |
+| E009 | The UN/OCHA 2022 Northeast Humanitarian Response Plan sought $1.1 billion to assist 5.5 million people affected by conflict and insecurity. UN/OCHA; high confidence. [UN Nigeria](https://nigeria.un.org/en/171628-us11-billion-needed-reach-55-million-people-north-east-nigeria-humanitarian-assistance-2022) | Target-year humanitarian exposure; does not distinguish Buhari’s responsibility from insurgents, governors, donors, or structural conditions. | 2B, 3B, 6B |
+| E010 | UNHCR reported approximately 3.1 million internally displaced people in Nigeria as of June 2022, primarily linked to prolonged northeast conflict. UNHCR; high confidence. [UNHCR](https://www.unhcr.org/africa/where-we-work/countries/nigeria) | Target-year exposure; attribution remains mixed. | 2B, 3B, 6B |
+| E011 | The U.S. State Department reported that ISIS-West Africa, Boko Haram, Ansaru, and criminal “bandit” groups continued attacks, kidnappings, deaths, injuries, and property destruction in 2022. Official international report; medium-high confidence. [Country Report on Terrorism 2022](https://www.ecoi.net/en/document/2101586.html) | Target-year security context; does not establish Buhari’s initiation, conduct, or accountability. | 2B, 3B |
+| E012 | Human Rights Watch reported that the ICC found a reasonable basis to believe Boko Haram factions and Nigerian security forces committed war crimes and crimes against humanity, alongside inadequate domestic accountability. NGO; medium-high confidence. [HRW World Report](https://www.hrw.org/world-report/2022/country-chapters/nigeria) | Broader ruler-period context; attribution to federal security institutions is relevant, but personal presidential direction is not established. | 2B, 3B |
+| E013 | HRW reported that Buhari ordered airstrikes against suspected bandit camps, while regional amnesty efforts largely failed. NGO report; medium-high confidence. [HRW World Report](https://www.hrw.org/world-report/2022/country-chapters/nigeria) | Directly links a security decision to Buhari, but the cited report primarily covers 2021; use as broader-period evidence, not pure target-year evidence. | 2B, 3B, 8B |
+| E014 | HRW reported that federal authorities did not independently investigate or implement recommendations concerning security-force shootings of #EndSARS protesters, and that the federal government rejected the panel’s findings. NGO; medium-high confidence. [HRW](https://www.hrw.org/news/2022/05/09/nigeria-prioritize-justice-abuses-against-protesters) | Published May 2022; conduct concerns originated in 2020–21, but federal accountability posture was current-period evidence. Personal Buhari attribution remains indirect. | 3B, 4B, 7B |
+| E015 | Amnesty reported that more than 40 #EndSARS protesters remained detained without trial, with torture allegations; 21 detainees were released without charge in February 2022. NGO; medium-high confidence. [Amnesty](https://www.amnesty.org/en/latest/news/2022/10/nigeria-two-years-on-more-than-40-endsars-protesters-still-languishing-in-jail/) | Target-year detention and remedy evidence; ruler-specific command or personal knowledge not established. | 3B, 4B |
+| E016 | Amnesty reported continuing impunity for killings and torture connected to #EndSARS, including alleged cover-ups and lack of prosecutions. NGO; medium-high confidence. [Amnesty](https://www.amnesty.org/en/latest/news/2022/10/nigeria-two-years-on-more-than-40-endsars-protesters-still-languishing-in-jail/) | Target-year accountability evidence; allegations and NGO findings must remain distinguished from judicial findings. | 3B, 4B, 7B |
+| E017 | Freedom House reported election irregularities in 2019, security threats, extrajudicial killings and torture by military/law-enforcement agencies, harassment of journalists, and intimidation of civil society. NGO index; medium-high confidence. [Freedom House](https://freedomhouse.org/country/nigeria/freedom-world/2022) | Mainly 2021/2022 country context; not sufficient for personal Buhari scoring. | 3B, 4B, 7B |
+| E018 | Nigeria lifted the Twitter suspension on 13 January 2022 after a seven-month ban following removal of a Buhari post. Government announcement reported by media; medium confidence for chronology. [TechCrunch](https://techcrunch.com/2022/01/12/nigeria-lifts-ban-on-twitter-says-the-social-media-giant-has-met-conditions/) | Direct Buhari-linked target-period speech/information-control context; motives and proportionality remain contested. | 4B, 7B, 8B |
+| E019 | The IAEA country record shows Nigeria’s NPT safeguards framework and Additional Protocol signature/implementation history. Intergovernmental treaty record; high confidence for formal status. [IAEA Nigeria fact sheet](https://ola.iaea.org/Applications/FactSheets/Country/Detail?code=NG) | Country-level nuclear institutional context only; no Buhari-specific 2022 nuclear-risk choice found. | 1B |
+| E020 | Nigeria’s Budget Office provides a 2022 budget implementation report. Official source; medium-high confidence for report existence, but not retained as final evidence because the opened result did not expose a precise report locator. [Budget Office](https://budgetoffice.gov.ng/index.php/resources/internal-resources/reports/quarterly-budget-implementation/2022-budget-implementation-report) | Gateway-only candidate; requires direct report extraction before use. | 5B, 6B, 8B |
+| E021 | BTI’s Nigeria 2022 report discusses government formulation, anti-corruption institutions, elite capture, transparency, and auditing. BTI; medium-high confidence, but the PDF was not opened to a page-level locator. [BTI](https://bti-project.org/fileadmin/api/content/en/downloads/reports/country_report_2022_NGA.pdf) | Discovery/context only until page-level claims are extracted. | 4B, 5B, 7B, 8B |
+| E022 | Transparency International’s 2022 Nigeria CPI page provides country corruption-perception context. NGO index; medium-high confidence for the index, low direct attribution. [TI CPI 2022](https://www.transparency.org/en/cpi/2022/index/nga) | Country-level context only; not personal integrity evidence. | 7B |
+
+## Chapter-by-chapter baseline and yield
+
+### 1B — Nuclear and existential-risk responsibility
+
+Local package: no relevant facts; all ten lenses explicitly `no_evidence_found`. The package correctly warns that arsenal and operational-capability facts are absent and that nuclear exposure cannot be inferred from generic security data.
+
+Internet yield: E019 only, documenting Nigeria’s formal NPT/IAEA safeguards framework. It is context, not ruler-specific evidence. No target-period evidence was found for Buhari’s nuclear rhetoric, command-and-control decisions, proliferation, arms control, crisis de-escalation, or cyber/biological/AI catastrophic-risk governance.
+
+Status: narrative gap remains across all ten lenses. The local empty state is not evidence of no exposure or responsible conduct.
+
+### 2B — International peace, restraint, and lawful security
+
+Local retained context:
+
+- LF135–LF136: 2022 state-based conflict events and fatalities.
+- LF291–LF294: 2022 military expenditure, per-capita spending, GDP share, and government-spending share.
+- LS071–LS072: longitudinal conflict-event and conflict-fatality signals.
+- Local warnings explicitly prohibit inferring initiation, perpetration, defensive necessity, or ruler responsibility from event/fatality data.
+
+Internet evidence: E009–E013.
+
+The evidence establishes severe domestic/internationalized security exposure, humanitarian need, state military response, and serious allegations concerning security-force conduct. It does not establish that Buhari initiated a war of choice, manipulated threat information, directed unlawful conduct, or pursued/blocked a specific peace settlement in 2022. Military spending is burden/context, not motive.
+
+Source families: UCDP/local structured data, SIPRI/local structured data, UN/OCHA, UNHCR, U.S. State Department, HRW. At least three source families and multiple source types are present.
+
+### 3B — Domestic safety, restraint, and protection
+
+Local retained context:
+
+- LF695–LF705: 2022 CIRIGHTS, V-Dem, PTS, and UCDP physical-integrity and one-sided-violence measures.
+- LF948–LF954: civil/political rights, repression, civil-society repression, private liberties, and one-sided violence.
+- LF701 and LF951 explicitly warn that government-actor/location killings do not establish personal ruler direction or perpetrator responsibility.
+- LS003–LS011, LS024, LS054–LS058, LS064–LS065: longitudinal physical-integrity, repression, torture, political-imprisonment, and one-sided-violence signals.
+
+Internet evidence: E011–E017.
+
+Strongest evidence concerns continuing insecurity, alleged security-force abuses, unresolved #EndSARS accountability, torture and detention of protesters, and severe humanitarian exposure. Positive or mitigating evidence is limited to institutional mechanisms such as judicial panels, NHRC activity, detainee releases, and government security operations; effectiveness and independence remain unresolved.
+
+Personal Buhari direction is not established for most incidents. Formal federal oversight and the federal government’s rejection/nonimplementation of accountability recommendations support a broader attribution pathway, but the ledger keeps this separate from direct personal orders.
+
+Source families: Amnesty, HRW, Freedom House, U.S. State Department, UN agencies, local structured datasets.
+
+### 4B — Political freedom versus authoritarian rule
+
+Local retained context:
+
+- LF1405–LF1412: target-year Freedom House, EIU, V-Dem, and regime/electoral indicators.
+- LF1968–LF1982: target-year accountability, expression, association, judicial/legislative constraints, liberal democracy, press freedom, rule of law, and WGI indicators.
+- LS010, LS015–LS027, LS044–LS046, LS053, LS059, LS061–LS063, LS068, LS070, LS073–LS077: longitudinal democratic, civil-liberty, media, institutional-constraint, and rule-of-law signals.
+
+Internet evidence: E001–E002 and E014–E018.
+
+Positive direct evidence: Buhari assented to the Electoral Act 2022, which strengthened the formal electoral framework and gave INEC additional technological/legal tools.
+
+Negative/contextual evidence: prior election irregularities, harassment of journalists, the Twitter ban and its Buhari-linked trigger, protest detention, and unresolved #EndSARS accountability. The Electoral Act is formal institutional evidence; implementation and whether it constrained Buhari’s own power remain open.
+
+Source families: State House, INEC, Freedom House, HRW, Amnesty, media reporting.
+
+### 5B — Economic well-being and prosperity
+
+Local retained context:
+
+- LF2303–LF2309 and LF2886–LF2892: 2022 GDP, consumption, government consumption, capital formation, population, Gini, and real-output measures.
+- LF3173–LF3176 and LF3223–LF3224: corruption, government-effectiveness, and regulatory-quality context.
+- LS025, LS031–LS041, LS069: longitudinal GDP, consumption, government spending, capital formation, GNI, effectiveness, and regulatory-quality signals.
+- Local warnings prohibit interpreting nominal current-dollar changes as real growth.
+
+Internet evidence: E003–E006 and E020–E021.
+
+The IMF and World Bank provide strong independent evidence of inflation, fiscal stress, fuel-subsidy costs, weak revenue mobilization, debt-service pressure, regulatory/exchange-rate problems, and constrained development spending. These are materially relevant to Buhari’s formal policy authority, but the evidence does not yet isolate personal intent, appointment quality, implementation ownership, or correction behavior.
+
+The 2022 Budget Office report remains a gateway-only candidate pending page-level extraction.
+
+Source families: IMF, World Bank, official Budget Office, BTI, local structured macroeconomic datasets.
+
+### 6B — Social well-being and human development
+
+Local retained context:
+
+- LF2995–LF3002: target-year schooling, HDI, life expectancy, under-five mortality, and immunization.
+- LF2307 and related GNI facts: income/welfare context.
+- LS023, LS034, LS039, LS040, LS047–LS048, LS074, LS076: human-development and service/outcome signals.
+
+Internet evidence: E007–E010.
+
+Evidence shows substantial child deprivation, low service outcomes, humanitarian needs, conflict displacement, and flood-related risks. UNICEF and UN/OCHA also document government-partner responses, but the evidence does not yet establish the quality, equity, political conditionality, durability, or Buhari-specific ownership of service delivery.
+
+Source families: UNICEF, UN/OCHA, UNHCR, World Bank, local structured datasets.
+
+### 7B — Ruler personal integrity and honesty
+
+Local retained context:
+
+- LF3173–LF3176: target-year WGI/V-Dem corruption indicators.
+- LS012–LS013 and LS067: longitudinal control-of-corruption and public/executive-corruption context.
+- Local mapping notes explicitly state that national corruption indicators cannot establish personal nexus.
+
+Internet evidence: E021–E022 are context/discovery only. No retained final-evidence item presently establishes Buhari’s personal assets, family benefit, procurement conflicts, deliberate deception, correction behavior, or obstruction of a personal investigation with adequate source proximity.
+
+The Electoral Act, security accountability, and Twitter evidence can inform integrity only indirectly; they do not satisfy the required personal-integrity nexus. The anti-corruption claims surfaced in search results were not retained as final evidence because they were official/self-serving or lacked opened primary records.
+
+Status: substantial personal-nexus gap. Country corruption evidence remains context only.
+
+### 8B — Ruler effectiveness and competence
+
+Local retained context:
+
+- LF3223–LF3224: target-year government effectiveness and regulatory quality.
+- LF1968, LF1975–LF1982: target-year accountability, institutional constraints, rule of law, and WGI context.
+- LS036 and LS069: effectiveness and regulatory-quality trajectories.
+- LF1408–LF1412: electoral and institutional implementation context.
+- LF2995–LF3002: welfare outcomes useful only after a documented program-to-delivery chain.
+
+Internet evidence: E001–E006, E008, E020–E021.
+
+Potentially attributable programs include electoral reform, security operations, fiscal/economic management, and social/humanitarian responses. Evidence is strongest for formal policy architecture and external assessments of implementation problems. It is weaker for portfolio definition, personnel selection, coordination across federal/state institutions, adaptation after failure, and durable progress across multiple material goals.
+
+The 2022 Budget Office and BTI materials need page-level extraction before final evidentiary use.
+
+## Rejected or downgraded candidates
+
+- Search-result snippets, Wikipedia, Reddit, and opinion pieces: discovery only or rejected; not used as sole support.
+- Budget Office 2022 report: gateway-only pending precise page/table locator.
+- BTI 2022 report: discovery/context pending opened page-level claims.
+- Freedom House country-level indicators: retained as contextual structured/narrative evidence, not personal integrity proof.
+- WGI, V-Dem, CPI, and local outcome measures: retained as country-level context, never personalized automatically.
+- HRW/Amnesty allegations: retained with attribution and uncertainty; not converted into judicial findings.
+- Reports covering 2021 events in a 2022 publication: retained as broader ruler-period context, not silently treated as target-year events.
+
+## Cross-chapter reuse and source concentration
+
+- E001–E002 reused across 4B and 8B.
+- E003–E006 reused across 5B, 6B, and 8B.
+- E009–E013 reused across 2B, 3B, and 6B where humanitarian/security exposure overlaps.
+- E014–E018 reused across 3B, 4B, and limited 7B context.
+- Same-URL splits: IMF, World Bank, HRW, Amnesty, and Freedom House pages support multiple distinct claims and should be represented as separate claim units with precise locators, not duplicated URLs.
+- Source-family concentration is highest in 3B and 4B, where HRW, Amnesty, and Freedom House repeatedly cover #EndSARS, security-force abuse, media restrictions, and civic space. This creates event-repetition risk and should be noted during judging.
+
+## Local-data audit
+
+Retained as target-year or directly relevant context:
+
+- 2B: LF135–LF136, LF291–LF294, LS071–LS072.
+- 3B: LF695–LF705, LF948–LF954, LS003–LS011, LS024, LS054–LS058, LS064–LS065.
+- 4B: LF1405–LF1412, LF1968–LF1982, LS010, LS015–LS027, LS044–LS046, LS053, LS059, LS061–LS063, LS068, LS070, LS073–LS077.
+- 5B: LF2303–LF2309, LF2886–LF2892, LF3173–LF3176, LF3223–LF3224, LS025, LS031–LS041, LS069.
+- 6B: LF2995–LF3002, LS023, LS034, LS039–LS040, LS047–LS048, LS074, LS076.
+- 7B: LF3173–LF3176, LS012–LS013, LS067, context only.
+- 8B: LF3223–LF3224, LF1968, LF1975–LF1982, LF1408–LF1412, LS036, LS069, plus relevant welfare/economic trajectories.
+- 1B: no local facts retained because the package contained no relevant evidence.
+
+No `error_methodology_ids` were supplied. Omitted annual rows were treated as bounded reductions with parent-retained provenance, not as absent evidence.
+
+## Remaining research gaps
+
+1. 1B: Buhari-specific nuclear, dual-use, cyber, biological, or catastrophic-risk decisions.
+2. 2B: target-year ruler-attributed security decisions, civilian-protection orders, peace initiatives, threat claims, and accountability for operations.
+3. 3B: direct Buhari knowledge, orders, remedies, and responsibility for security-force abuses.
+4. 4B: target-year opposition/media treatment, court independence, electoral implementation, and succession/transfer conduct.
+5. 5B: appointments, implementation records, fiscal execution, household effects, and policy correction.
+6. 6B: service-delivery implementation, equity, donor attribution, crisis response, and political conditionality.
+7. 7B: personal assets, family/business interests, procurement, truthfulness, conflicts, and responses to scrutiny.
+8. 8B: frozen governing-program portfolio, implementation chain, personnel, adaptation, and durable results.
+
+No final chapter readiness determination or score recommendation is made.
+---

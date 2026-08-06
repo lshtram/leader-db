@@ -1,0 +1,1131 @@
+You are the evidence-intent extractor in a non-scoring calibration.
+Extract atomic factual intents from the routed passage. Preserve actor, action, mechanism, outcome, dates, quantities, attribution, period fit, limitations, polarity, and every applicable methodology ID. Do not reproduce or author quotation text. Select the frozen source hash, exact locator, and inclusive start/end segment IDs supplied by the citation index. Use separate intents when support is non-contiguous. Do not score.
+Draft IDs must be sequential D0001, D0002, ... within this response. Each locator disposition must name an inspected locator exactly once. The code will copy every quote from the inclusive segment range. Select the narrowest contiguous range that fully supports the claim. Do not put quotation text in any semantic field.
+
+QUESTIONS
+{
+  "schema_version": "ruler-quality-questions-v1",
+  "chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "lens_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "chapters": [
+    {
+      "id": "1B",
+      "questions": [
+        {
+          "id": "1B.1",
+          "text": "Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation?"
+        },
+        {
+          "id": "1B.2",
+          "text": "Did the ruler avoid reckless threats, brinkmanship, apocalyptic language, and normalization of nuclear use, and did formal doctrine, orders, and operational posture corroborate rather than contradict responsible rhetoric?"
+        },
+        {
+          "id": "1B.3",
+          "text": "Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures?"
+        },
+        {
+          "id": "1B.4",
+          "text": "Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them?"
+        },
+        {
+          "id": "1B.5",
+          "text": "Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression?"
+        },
+        {
+          "id": "1B.6",
+          "text": "Did the ruler establish and enforce proliferation controls against allies, proxies, clients, firms, and domestic factions, and respond when monitoring exposed evasion or assistance?"
+        },
+        {
+          "id": "1B.7",
+          "text": "Did the ruler appoint qualified, independent experts, protect their access and dissent, and resource risk-reducing institutions rather than replace expertise with loyalty or ideology?"
+        },
+        {
+          "id": "1B.8",
+          "text": "In crises, did the ruler issue and implement de-escalatory decisions, preserve communication and decision safeguards, and correct procedures exposed as dangerous?"
+        },
+        {
+          "id": "1B.9",
+          "text": "Did the ruler establish, fund, enforce, and transparently review precautionary legal and institutional safeguards for AI, cyber, biological, and other catastrophic dual-use risks?"
+        },
+        {
+          "id": "1B.10",
+          "text": "Did the ruler leave a demonstrably safer and more durable existential-risk posture than inherited, accounting for authority, implementation, external shocks, and unresolved exposure?"
+        }
+      ],
+      "registry": {
+        "category": "nuclear_risk",
+        "question_code_prefix": "nuclear_global_risk",
+        "question_key_prefix": "nuclear_global_risk",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "2B",
+      "questions": [
+        {
+          "id": "2B.1",
+          "text": "When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force?"
+        },
+        {
+          "id": "2B.2",
+          "text": "Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity?"
+        },
+        {
+          "id": "2B.3",
+          "text": "Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats or exploit prestige, revenge, nationalism, historical grievance, diversionary politics, or regime-survival claims?"
+        },
+        {
+          "id": "2B.4",
+          "text": "Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy?"
+        },
+        {
+          "id": "2B.5",
+          "text": "Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged?"
+        },
+        {
+          "id": "2B.6",
+          "text": "Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts?"
+        },
+        {
+          "id": "2B.7",
+          "text": "Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable?"
+        },
+        {
+          "id": "2B.8",
+          "text": "Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors?"
+        },
+        {
+          "id": "2B.9",
+          "text": "Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept responsibility; correct unlawful policy; discipline responsible actors; and provide meaningful remedy?"
+        },
+        {
+          "id": "2B.10",
+          "text": "Did the ruler leave relations more peaceful, stable, and lawful through durable institutions and settlements, accounting for inherited conflicts, actual authority, and external constraints?"
+        }
+      ],
+      "registry": {
+        "category": "international_peace",
+        "question_code_prefix": "peace_aggression",
+        "question_key_prefix": "peace_aggression",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "3B",
+      "questions": [
+        {
+          "id": "3B.1",
+          "text": "Did the ruler establish and enforce laws, orders, and detention practices that protected residents from torture, disappearance, political imprisonment, extrajudicial killing, and arbitrary punishment, and remedy verified abuse?"
+        },
+        {
+          "id": "3B.2",
+          "text": "Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it?"
+        },
+        {
+          "id": "3B.3",
+          "text": "Did the ruler avoid personally or officially inciting hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or other groups, and act when supporters or officials translated such messages into harm?"
+        },
+        {
+          "id": "3B.4",
+          "text": "Did the ruler create, fund, and respect independent courts, complaint systems, civilian oversight, and investigations, comply with findings, and provide victim remedy?"
+        },
+        {
+          "id": "3B.5",
+          "text": "Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, anti-terror, and security powers narrowly and lawfully rather than use them for intimidation, collective punishment, or control?"
+        },
+        {
+          "id": "3B.6",
+          "text": "Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence through lawful, proportionate policy without replacing it with state terror or a broader fear climate?"
+        },
+        {
+          "id": "3B.7",
+          "text": "Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups against targeted and intergroup violence, displacement, and systematic neglect, with equitable access across regions and populations?"
+        },
+        {
+          "id": "3B.8",
+          "text": "Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, and organization, with accountability and remedy for retaliation or excessive force?"
+        },
+        {
+          "id": "3B.9",
+          "text": "During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures rather than use incitement, collective punishment, censorship, or militarized spectacle?"
+        },
+        {
+          "id": "3B.10",
+          "text": "Did the ruler leave people durably safer from state and non-state violence than inherited, accounting for reporting freedom, population exposure, authority, and external shocks?"
+        }
+      ],
+      "registry": {
+        "category": "domestic_safety",
+        "question_code_prefix": "domestic_safety",
+        "question_key_prefix": "domestic_safety",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "4B",
+      "questions": [
+        {
+          "id": "4B.1",
+          "text": "Did the ruler support and implement electoral and constitutional laws, funding, and administration that made power genuinely contestable, and accept verified opposition victories?"
+        },
+        {
+          "id": "4B.2",
+          "text": "Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws, courts, election administration, security forces, media, or public resources to entrench personal or party power?"
+        },
+        {
+          "id": "4B.3",
+          "text": "Did the ruler protect in law and practice opposition, criticism, satire, investigative journalism, protest, association, and civil-society monitoring, and remedy violations?"
+        },
+        {
+          "id": "4B.4",
+          "text": "Did the ruler protect the jurisdiction, appointment independence, tenure, funding, and decisions of courts, legislatures, election bodies, auditors, and local governments even when they constrained the ruler?"
+        },
+        {
+          "id": "4B.5",
+          "text": "Did appointments, dismissals, civil-service rules, and administrative practice preserve politically neutral institutions rather than impose loyalty tests, party capture, intimidation, or a personality cult?"
+        },
+        {
+          "id": "4B.6",
+          "text": "Did the ruler support and enforce media, information-access, ownership, and licensing rules that enabled independent information rather than censorship, propaganda, disinformation, or pressure?"
+        },
+        {
+          "id": "4B.7",
+          "text": "Did the ruler enact and enforce equal political rights and access for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?"
+        },
+        {
+          "id": "4B.8",
+          "text": "Did the ruler preserve and comply with term limits, succession rules, coalition commitments, and constitutional transfer rather than amend, evade, or obstruct them for continued power?"
+        },
+        {
+          "id": "4B.9",
+          "text": "Did the ruler narrowly authorize, transparently procure, and lawfully oversee surveillance and digital controls, or use law, shutdowns, and administrative harassment to suppress political freedom?"
+        },
+        {
+          "id": "4B.10",
+          "text": "Did the ruler leave political freedom and democratic resilience durably stronger than inherited through enacted, implemented, and independently reviewable institutions, accounting for correction and constraints?"
+        }
+      ],
+      "registry": {
+        "category": "political_freedom",
+        "question_code_prefix": "political_freedom",
+        "question_key_prefix": "political_freedom",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "5B",
+      "questions": [
+        {
+          "id": "5B.1",
+          "text": "Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity?"
+        },
+        {
+          "id": "5B.2",
+          "text": "Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty?"
+        },
+        {
+          "id": "5B.3",
+          "text": "Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment?"
+        },
+        {
+          "id": "5B.4",
+          "text": "Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation?"
+        },
+        {
+          "id": "5B.5",
+          "text": "Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture?"
+        },
+        {
+          "id": "5B.6",
+          "text": "Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects?"
+        },
+        {
+          "id": "5B.7",
+          "text": "Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating?"
+        },
+        {
+          "id": "5B.8",
+          "text": "Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups?"
+        },
+        {
+          "id": "5B.9",
+          "text": "During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes?"
+        },
+        {
+          "id": "5B.10",
+          "text": "Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone?"
+        }
+      ],
+      "registry": {
+        "category": "economic_wellbeing",
+        "question_code_prefix": "economic_wellbeing",
+        "question_key_prefix": "economic_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "6B",
+      "questions": [
+        {
+          "id": "6B.1",
+          "text": "Did the ruler enact and fund enforceable social commitments that made human welfare a core purpose of government rather than propaganda, patronage, or a secondary concern?"
+        },
+        {
+          "id": "6B.2",
+          "text": "Did laws, eligibility rules, executed budgets, and service administration improve affordable, effective access and uptake across health, education, water, sanitation, housing, food security, and social protection?"
+        },
+        {
+          "id": "6B.3",
+          "text": "Did the ruler enact, target, fund, and enforce protection for poor regions, children, older people, women, minorities, disabled people, and marginalized groups, with evidence of actual incidence and exclusion?"
+        },
+        {
+          "id": "6B.4",
+          "text": "Did the ruler appoint and retain qualified administrators, provide adequate staffing and resources, and use transparent procurement to deliver social services rather than patronage?"
+        },
+        {
+          "id": "6B.5",
+          "text": "Did the ruler publish credible welfare and service data, permit audit and independent evaluation, and correct program design, implementation, or personnel when evidence showed failure?"
+        },
+        {
+          "id": "6B.6",
+          "text": "Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable and unequally distributed suffering during pandemics, disasters, displacement, famine, or economic shocks?"
+        },
+        {
+          "id": "6B.7",
+          "text": "Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment?"
+        },
+        {
+          "id": "6B.8",
+          "text": "Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone?"
+        },
+        {
+          "id": "6B.9",
+          "text": "Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule?"
+        },
+        {
+          "id": "6B.10",
+          "text": "Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks?"
+        }
+      ],
+      "registry": {
+        "category": "social_wellbeing",
+        "question_code_prefix": "social_wellbeing",
+        "question_key_prefix": "social_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "7B",
+      "questions": [
+        {
+          "id": "7B.1",
+          "text": "Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation?"
+        },
+        {
+          "id": "7B.2",
+          "text": "When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim?"
+        },
+        {
+          "id": "7B.3",
+          "text": "Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions?"
+        },
+        {
+          "id": "7B.4",
+          "text": "Do asset, tax, gift, ownership, contract, foundation, emolument, bribe, insider-access, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability?"
+        },
+        {
+          "id": "7B.5",
+          "text": "Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing?"
+        },
+        {
+          "id": "7B.6",
+          "text": "Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions?"
+        },
+        {
+          "id": "7B.7",
+          "text": "Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability?"
+        },
+        {
+          "id": "7B.8",
+          "text": "Do the ruler's documented legislative positions, formal commitments, and implemented decisions show consistent good-faith promises, or opportunistic reversal and concealed tradeoffs for personal advantage?"
+        },
+        {
+          "id": "7B.9",
+          "text": "Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in procurement, licensing, pardons, enforcement, and privileged access?"
+        },
+        {
+          "id": "7B.10",
+          "text": "Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and cynicism?"
+        }
+      ],
+      "registry": {
+        "category": "integrity",
+        "question_code_prefix": "integrity",
+        "question_key_prefix": "integrity",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "8B",
+      "questions": [
+        {
+          "id": "8B.1",
+          "text": "Did the ruler state or reliably reveal a sufficiently clear program in dated speeches, manifestos, strategies, directives, or formal acts to freeze and test its policy, ideological, power, and international goals?",
+          "registry_key": "ruler_effectiveness_program"
+        },
+        {
+          "id": "8B.2",
+          "text": "Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority?",
+          "registry_key": "ruler_effectiveness_priorities"
+        },
+        {
+          "id": "8B.3",
+          "text": "Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program?",
+          "registry_key": "ruler_effectiveness_mobilization"
+        },
+        {
+          "id": "8B.4",
+          "text": "Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators?",
+          "registry_key": "ruler_effectiveness_appointments"
+        },
+        {
+          "id": "8B.5",
+          "text": "Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies?",
+          "registry_key": "ruler_effectiveness_coordination"
+        },
+        {
+          "id": "8B.6",
+          "text": "Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts?",
+          "registry_key": "ruler_effectiveness_implementation"
+        },
+        {
+          "id": "8B.7",
+          "text": "Did outcome and distribution indicators move toward the ruler's frozen goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives?",
+          "registry_key": "ruler_effectiveness_outcomes"
+        },
+        {
+          "id": "8B.8",
+          "text": "Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course?",
+          "registry_key": "ruler_effectiveness_adaptation"
+        },
+        {
+          "id": "8B.9",
+          "text": "Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the ruler's chosen objectives and durable control?",
+          "registry_key": "ruler_effectiveness_crisis_management"
+        },
+        {
+          "id": "8B.10",
+          "text": "By the end of the period, had the ruler converted more of the frozen program into durable law, institutions, capacity, state practice, and achieved outcomes than at the start, accounting for failures and long-term fragility?",
+          "registry_key": "ruler_effectiveness_period_end"
+        }
+      ],
+      "registry": {
+        "category": "effectiveness",
+        "question_code_prefix": "effectiveness",
+        "question_key_prefix": "effectiveness",
+        "concept_key": "ruler_effectiveness_qualitative_evidence"
+      }
+    }
+  ]
+}
+
+SOURCE
+{
+  "source_id": "BOOK-013",
+  "title": "CIDOB political biography",
+  "url": "https://www.cidob.org/lider-politico/andres-manuel-lopez-obrador",
+  "publisher": "www.cidob.org",
+  "publication_date": "unknown_not_recorded",
+  "document_type": "biography",
+  "source_role": "independent_reference",
+  "source_family": "www.cidob.org",
+  "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+  "access_state": "open_machine_readable",
+  "dependencies": []
+}
+
+LOCATOR INDEXES
+[
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 14",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 153,
+        "text": "2. Presidente del partido y despegue electoral\nEl segundo intento de López Obrador por conquistar la Gubernatura de Tabasco también resultó infructuoso. "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 153,
+        "end_char": 275,
+        "text": "Fue en las elecciones estatales del 20 de noviembre de 1994, en un momento particularmente tenso de la política mexicana, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 275,
+        "end_char": 478,
+        "text": "a rebufo del alzamiento armado del Ejército Zapatista de Liberación Nacional (EZLN) en Chiapas y de los asesinatos de los dirigentes priístas Luis Donaldo Colosio Murrieta y José Francisco Ruiz Massieu, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 478,
+        "end_char": 666,
+        "text": "y cuando ya asomaban los nubarrones de una tormenta financiera que iba a descargar un mes más tarde sobre el Gobierno del por el momento presidente electo, Ernesto Zedillo Ponce de León .\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 666,
+        "end_char": 852,
+        "text": "Candidato destapado por Salinas, Zedillo se había impuesto con comodidad en la cita electoral de agosto a Cárdenas (quien el año anterior se había desprendido de la presidencia del PRD, "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 852,
+        "end_char": 1083,
+        "text": "la cual ostentaba ahora Muñoz Ledo) y al panista Diego Fernández de Cevallos. Tres meses después, en Villahermosa, el jefe del perredismo tabasqueño perdió con el 38,7% de los votos su pulso particular con Roberto Madrazo Pintado, "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1083,
+        "end_char": 1322,
+        "text": "antiguo diputado federal y senador del PRI, receptor del 57,5% de los sufragios.\nReeditando su actitud de un sexenio atrás y anticipando el que iba a ser su proceder contestatario tras las elecciones presidenciales de doce años más tarde, "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1322,
+        "end_char": 1555,
+        "text": "López Obrador impugnó los comicios como fraudulentos, presentó a la Procuraduría General de la República (PGR) un prolijo informe en el que documentaba la violación por la candidatura priísta del tope legal de los gastos de campaña, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1555,
+        "end_char": 1772,
+        "text": "y lanzó una campaña de movilizaciones y de resistencia civil que incluyó, en abril y mayo de 1995, una segunda marcha al DF, la caravana por la democracia , seguida de la creación de una Alianza Nacional Democrática. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1772,
+        "end_char": 1923,
+        "text": "Dicha Alianza elevó la bandera del rechazo a la segmentación de Pemex iniciada con Salinas, la cual parecía preludiar la privatización de la compañía. "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1923,
+        "end_char": 2155,
+        "text": "La preservación del monopolio estatal de los hidrocarburos era también uno de los puntos clave de la Proclama Nacional, manifiesto donde el perredista hacía una ardiente defensa de la soberanía de la nación y el pueblo en todos los "
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2155,
+        "end_char": 2239,
+        "text": "ámbitos, el energético, el económico, el financiero y, por supuesto, el democrático."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 15",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 169,
+        "text": "Esta vez, sin embargo, López Obrador no arrancó la menor concesión a las autoridades federales. El balance de este combate desigual quedó consignado en su cuarto libro, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 169,
+        "end_char": 310,
+        "text": "Entre la historia y la esperanza: corrupción y lucha democrática en Tabasco , aparecido en 1996. Allí, el opositor arremetía contra Madrazo, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 310,
+        "end_char": 501,
+        "text": "en lo sucesivo acerbo antagonista y el primero de una lista de enemigos personales a la que también se incorporó el ex presidente Salinas, referido habitualmente por él como El Innombrable .\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 501,
+        "end_char": 740,
+        "text": "La gran popularidad adquirida entre las bases perredistas por López Obrador, erigido en paladín de pobres y excluidos, le catapultó a la presidencia del Comité Ejecutivo Nacional (CEN) del partido en la elección interna celebrada en julio "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 740,
+        "end_char": 965,
+        "text": "de 1996, después de acaudillar a los indígenas de La Chontalpa en una protesta contra la gestión de Pemex en Tabasco, y en un contexto de profundo descontento por el balance de resultados del presidente saliente, Muñoz Ledo, "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 965,
+        "end_char": 1201,
+        "text": "que en términos electorales podía calificarse de desastroso: el partido había sido derrotado por el PRI en todos los comicios estatales y seguía sin contar con un solo gobernador (mientras que la principal fuerza de la derecha, el PAN, "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1201,
+        "end_char": 1418,
+        "text": "ya gobernaba en cuatro estados).\nLópez Obrador se distinguió como el más izquierdista, a la luz de su praxis radical, de entre una terna de aspirantes que completaban el senador veracruzano Heberto Castillo Martínez, "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1418,
+        "end_char": 1580,
+        "text": "antiguo dirigente del PMS —y quien iba a fallecer meses después—, y la zacatecana Amalia García Medina, con una trayectoria también socialista y antes comunista. "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1580,
+        "end_char": 1730,
+        "text": "El 19 de julio, sin sorpresas, el tabasqueño fue proclamado presidente del partido con el 73,9% de los votos, 264.565 papeletas en términos absolutos."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 17",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 164,
+        "text": "La renuncia por Cárdenas el 29 de septiembre de 1999 a la jefatura del Gobierno del DF con el objeto de preparar su candidatura presidencial situó a López Obrador, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 164,
+        "end_char": 348,
+        "text": "no obstante detectarse ya indicios de unas frías relaciones personales entre los dos dirigentes, como el único jefe perredista capaz de mantener el tirón electoral del líder fundador, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 348,
+        "end_char": 473,
+        "text": "aunque antes tendría que vencer el escepticismo de muchos cuadros locales del partido a los que extrañaba que el tabasqueño, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 473,
+        "end_char": 657,
+        "text": "que a fin de cuentas todavía no se había estrenado en la política representativa con apoyo en un mandato electoral, pretendiera gobernar una urbe con la que no tenía especiales lazos. "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 657,
+        "end_char": 889,
+        "text": "Además, la ley establecía un mínimo de cinco años de residencia para los candidatos a jefe de Gobierno.\nPor de pronto, López Obrador publicó las conclusiones de su investigación al Fondo Bancario de Protección al Ahorro (FOBAPROA), "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 889,
+        "end_char": 1128,
+        "text": "instrumento del Estado creado por la Administración Salinas con el fin de ayudar a los ahorradores afectados por situaciones de insolvencia bancaria pero que tras la debacle financiera de diciembre de 1994 se había concentrado en rescatar "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1128,
+        "end_char": 1261,
+        "text": "las pérdidas sufridas por conocidos banqueros y empresarios, inclusive mediante la conversión en deuda pública de su colosal pasivo. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1261,
+        "end_char": 1496,
+        "text": "Para López Obrador, y así lo expuso en su nuevo libro-denuncia, Fobaproa, expediente abierto: reseña y archivo , la actuación del fondo era abiertamente inconstitucional y el \"fraude más grande de la historia después de La Conquista\".\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1496,
+        "end_char": 1546,
+        "text": "3. Salto a la jefatura del Gobierno del DF en 2000"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 19",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 173,
+        "text": "El 5 de diciembre de 2000 López Obrador recibió de su correligionaria Rosario Robles Berlanga el despacho de gobernante defeño e inauguró su mandato electoral de seis años, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 173,
+        "end_char": 393,
+        "text": "asumiendo jurisdicción sobre una población de ocho millones de personas, más que muchos países del mundo. Dos días después fallecía su padre, don Andrés López Ramón, a causa de una dolencia renal, a los 87 años de edad. "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 393,
+        "end_char": 631,
+        "text": "Este fue el segundo de los tres decesos consecutivos de seres queridos que desolaron a López Obrador justo cuando su carrera política ascendía con brío: el 6 de mayo del presente año había perecido su también anciana madre, doña Manuela, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 631,
+        "end_char": 851,
+        "text": "y el 13 de enero de 2003 la muerte iba a llevarse, a los 46 años, a su esposa Rocío, que llevaba años enferma de lupus.\nEl lustro comprendido entre 2000 y 2005 fue un período decisivo en la trayectoria de López Obrador, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 851,
+        "end_char": 1053,
+        "text": "pues fue entonces cuando cimentó las bases populares de un poder y una influencia a nivel nacional que iban a convertirle en uno de los políticos más insignes y controvertidos del México contemporáneo. "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1053,
+        "end_char": 1278,
+        "text": "Para sus cada vez más numerosos simpatizantes y partidarios, López Obrador era un regidor voluntarioso y esforzado, casi hiperactivo, sinceramente entregado a las causas sociales y a la mejora del bienestar de la ciudadanía, "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1278,
+        "end_char": 1414,
+        "text": "a la vez que austero, como atestiguaban su sencillo apartamento de clase media y el coche utilitario que le llevaba de casa al trabajo. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1414,
+        "end_char": 1539,
+        "text": "Otro punto a su favor era su compromiso con la rendición regular de cuentas, la transparencia y la democracia participativa. "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1539,
+        "end_char": 1708,
+        "text": "Los posibles déficits en su preparación profesional los suplía con creces con una innata capacidad para diagnosticar certeramente los problemas y conectar con la gente. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1708,
+        "end_char": 1829,
+        "text": "Por otro lado, sus ensayos sobre historia y actualidad política reflejaban aptitudes para la investigación y el análisis."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 20",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 140,
+        "text": "El dirigente perredista exudaba asimismo pugnacidad, tenacidad y astucia, unos atributos que el imaginario popular asociaba al pejelagarto, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 140,
+        "end_char": 338,
+        "text": "pez depredador de agua dulce de aspecto reptiliano muy común en el sudeste mexicano y particularmente en Tabasco, así que al gobernante se le quedó el mote, aplicado en sentido positivo, del Peje . "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 338,
+        "end_char": 469,
+        "text": "Tampoco tardaría en generalizarse el apelativo de AMLO , acrónimo formado con su nombre y apellidos, hasta alcanzar uso universal. "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 469,
+        "end_char": 706,
+        "text": "Por el contrario, para sus adversarios y detractores, en número creciente también, López Obrador era un extremista y un populista sin la cualificación necesaria para gobernar una megalópolis como el DF y que no dudaba en blandir los más "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 706,
+        "end_char": 902,
+        "text": "censurables instrumentos de agitación y demagogia con tal de aferrarse al poder y realizar sus ambiciones, que parecían no detenerse en el Antiguo Palacio del Ayuntamiento de la Ciudad de México.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 902,
+        "end_char": 1106,
+        "text": "Orador deficiente, carente de la soltura retórica de adversarios con un currículum universitario y profesional más vistoso —y, por este motivo, constante objeto de burla desde las filas del PAN y el PRI, "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1106,
+        "end_char": 1333,
+        "text": "decididamente proclives a formar una pinza contra quien en el fondo temían—, López Obrador acertó sin embargo a modular su discurso al lenguaje que entendían las clases populares y además hizo un uso intensivo de los medios de "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1333,
+        "end_char": 1491,
+        "text": "comunicación. Sus conferencias de prensa a la temprana, por no decir intempestiva, hora de las seis de la mañana, conocidas popularmente como las mañaneras , "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1491,
+        "end_char": 1595,
+        "text": "generaban invariablemente una inusitada expectación periodística y marcaron la agenda política del país."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 21",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 135,
+        "text": "Los resultados de la gestión municipal del dirigente fueron el reflejo de esta valoración tan profundamente ambivalente de su persona. "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 135,
+        "end_char": 271,
+        "text": "Por un lado, el DF conoció una vigorosa campaña de obras públicas para la mejora y ampliación de una serie de infraestructuras urbanas. "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 271,
+        "end_char": 449,
+        "text": "Por otro lado, los mexiqueños se beneficiaron de varios programas de protección social, el más destacado de los cuales fue la Pensión Universal Alimenticia para Adultos Mayores. "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 449,
+        "end_char": 635,
+        "text": "El Gobierno municipal se resistió a implementar el Seguro Popular, aprobado por el Instituto Mexicano del Seguro Social (IMSS) y basado en la aportación de cuotas por los beneficiarios, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 635,
+        "end_char": 813,
+        "text": "aduciendo que los defeños ya recibían de sus instituciones municipales la necesaria cobertura social y además gratuita.\nSegún la oposición, ejercida fundamentalmente por el PAN, "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 813,
+        "end_char": 1046,
+        "text": "el Ejecutivo encabezado de López Obrador se dedicaba a derrochar el presupuesto del DF con mano populista sin preocuparse de las deudas, que ciertamente crecieron, aunque a un ritmo sensiblemente menor que bajo anteriores gobiernos. "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1046,
+        "end_char": 1181,
+        "text": "Los efectos de la lucha contra la criminalidad, uno de los más graves problemas de la urbe, merecieron asimismo valoraciones dispares.\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1181,
+        "end_char": 1407,
+        "text": "4. La carrera de obstáculos de las presidenciales de 2006: el videoescándalo y el desafuero en la Ciudad de México A principios de 2004 López Obrador mantenía, a la luz de las encuestas efectuadas entre los residentes del DF, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1407,
+        "end_char": 1583,
+        "text": "un índice de popularidad muy elevado. La gran mayoría de los mexiqueños le tenía por un regidor competente y trabajador, y aceptaba su reputación de abanderado de la decencia. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1583,
+        "end_char": 1815,
+        "text": "La opinión pública daba por hecho que el alcalde acariciaba la candidatura perredista para las elecciones presidenciales de 2006, pero él se limitaba a repetir que su único interés residía en el buen gobierno de la Ciudad de México."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 22",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 234,
+        "text": "En marzo de 2004, en un momento que a muchos no les pareció casual, estalló el llamado videoescándalo , la emisión por la cadena Televisa de unas grabaciones de vídeo clandestinas que mostraban a prominentes políticos y funcionarios, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 234,
+        "end_char": 473,
+        "text": "la mayoría miembros del PRD y colaboradores estrechos de López Obrador, en situaciones altamente comprometedoras. La serie de filmaciones comenzó como una filtración hecha a los medios por el diputado federal panista Federico Döring Casar "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 473,
+        "end_char": 618,
+        "text": "y tenía como principal protagonista al empresario argentino-mexicano Carlos Ahumada Kurtz, en cuyas oficinas sucedían casi todas de las escenas. "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 618,
+        "end_char": 748,
+        "text": "Ahumada se apresuró a presentar contra los implicados una denuncia por extorsión antes de darse él mismo a la fuga; poco después, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 748,
+        "end_char": 907,
+        "text": "el empresario sería capturado en Cuba y deportado en respuesta a un pedido de extradición de las autoridades mexicanas.\nEl videoescándalo convulsionó al país. "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 907,
+        "end_char": 1136,
+        "text": "Ante las cámaras desfilaban el secretario de Finanzas del Gobierno del DF, Gustavo Ponce Meléndez, René Bejarano Martínez, hasta 2002 secretario particular de López Obrador y luego coordinador del PRD en la Asamblea Legislativa, "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1136,
+        "end_char": 1373,
+        "text": "y Carlos Ímaz Gispert, jefe de la delegación capitalina de Tlalpan. Los tres habían sido grabados mientras se dedicaban a actividades lúdicas como jugarse a la ruleta miles de dólares en un lujoso casino de Las Vegas y a otras mucho más "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1373,
+        "end_char": 1584,
+        "text": "alarmantes, como negociar con Ahumada la compra de favores políticos o recoger de sus manos ingentes sumas de dinero, efectuando un pasmoso trasiego de fajos de billetes que terminaban en el tradicional maletín."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 23",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 207,
+        "text": "La divulgación mediática en formato sensacionalista de estos presuntos actos de corrupción que incluían detalles del más puro estilo mafioso golpeó con la fuerza de un terremoto al Gobierno del DF y al PRD, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 207,
+        "end_char": 415,
+        "text": "que tuvo que romper amarras con los involucrados, contra los que la justicia no tardó en abrir cargos por fraude y lavado de dinero, y en cursar las correspondientes órdenes de arresto y prisión provisional. "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 415,
+        "end_char": 644,
+        "text": "Rosario Robles, presidenta del CEN entre 2002 y 2003, salió muy malparada tras escucharse el reguero de conversaciones y testimonios que la situaban como uno de los cerebros de la trama, viéndose obligada a abandonar el partido. "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 644,
+        "end_char": 773,
+        "text": "El actual presidente, Leonel Godoy Rangel, tuvo que salir a pedir públicas disculpas a la estupefacta ciudadanía. Objetivamente, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 773,
+        "end_char": 935,
+        "text": "costaba imaginar que López Obrador no estuviera al corriente de los chanchullos de una persona tan allegada a él como Bejarano, quien había sido su mano derecha.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 935,
+        "end_char": 1068,
+        "text": "Pese a la fea turbiedad de los hechos y a la identidad de los implicados, que eran algunos de sus lugartenientes de mayor confianza, "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1068,
+        "end_char": 1288,
+        "text": "López Obrador no fue salpicado por este escándalo hasta el punto de ver peligrar su posición institucional. El regidor defeño manifestó su rechazo a las corruptelas sacadas a la luz, pero su reacción fue tardía y tibia. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1288,
+        "end_char": 1426,
+        "text": "El énfasis lo reservó para un contraataque de tipo político, ya que puramente políticas le parecían las motivaciones del videoescándalo . "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1426,
+        "end_char": 1641,
+        "text": "En su opinión, lo que allí había era una \"conspiración\" para minar la popularidad de su partido y su gobierno del DF, y como supuestos conjurados señaló al ex presidente Salinas (al que calificó de \"jefe de jefes\", "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1641,
+        "end_char": 1878,
+        "text": "con mando tanto en el PRI como en el PAN), al ex candidato presidencial del PAN Fernández de Cevallos (el altivo Jefe Diego , con el que venía sosteniendo un tenso pique personal condenado a endurecerse) y al entorno del presidente Fox. "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1878,
+        "end_char": 2023,
+        "text": "Hasta el Gobierno de Estados Unidos, a través del Departamento del Tesoro y la Agencia Antidrogas, la DEA, estaba confabulado contra él, aseguró."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 24",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 197,
+        "text": "La razón, el victimismo o la manía persecutoria, que todo ello le era adjudicado, de López Obrador se cargaron de fuerza a partir del 18 de mayo de 2004, en plena polvareda por el videoescándalo , "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 197,
+        "end_char": 431,
+        "text": "cuando la PGR dio el paso de solicitar a la Cámara de Diputados el desafuero del gobernante por presuntos abuso de autoridad y desacato judicial en relación con un hecho de trascendencia menor y que venía coleteando desde hacía años, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 431,
+        "end_char": 644,
+        "text": "un pleito sobre la expropiación de un terreno en el DF, concretamente en la delegación de Cuajimalpa. El asunto se remontaba a noviembre de 2000, cuando el Gobierno defeño, entonces encabezado por Rosario Robles, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 644,
+        "end_char": 854,
+        "text": "expropió la parcela para construir en parte de ella una vía de acceso a un hospital privado.\nQuienes aseguraban ser los dueños del terreno en cuestión, la empresa inmobiliaria Promotora Internacional Santa Fe, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 854,
+        "end_char": 1092,
+        "text": "habían demandado al Gobierno ante los tribunales, iniciándose un litigio por desamparo que en marzo de 2001 había dado lugar a la orden de la suspensión definitiva de las obras por el Juzgado Noveno de Distrito en Materia Administrativa. "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1092,
+        "end_char": 1302,
+        "text": "Luego, la empresa propietaria había vuelto a denunciar al Gobierno del DF por continuar adelante con las obras, logrando de los tribunales un rosario de autos favorables y finalmente la intervención de la PGR.\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1302,
+        "end_char": 1479,
+        "text": "La reactivación de este caso, precisamente ahora, cuando no parecía que los coletazos del videoescándalo fueran a dañar seriamente a López Obrador, llenó de indignación al PRD. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1479,
+        "end_char": 1649,
+        "text": "Su presidente, Leonel Godoy, acusó a la PGR de \"poner en riesgo la transición democrática y la estabilidad de México\", y denunció una \"embestida\" que buscaba \"desaforar, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1649,
+        "end_char": 1831,
+        "text": "destituir y meter en la cárcel\" al Peje con el único fin de \"inhabilitarlo como eventual candidato presidencial en las elecciones de 2006 e impedir que la izquierda llegue al poder\"."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 25",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 211,
+        "text": "En agosto, 200.000 perredistas se manifestaron en el Zócalo de la capital federal en apoyo de López Obrador. Si con la iniciativa de desafuero del Ministerio Público Federal el oficialismo pretendía, en verdad, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 211,
+        "end_char": 450,
+        "text": "torpedear la posible aspiración presidencial de López Obrador (la ley establecía que una persona con causas judiciales abiertas no podía registrar su candidatura a la jefatura del Estado), tal artimaña podía tornarse un peligroso bumerán, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 450,
+        "end_char": 677,
+        "text": "ya que los sondeos de opinión perfilaron al imputado como el presidenciable con más posibilidades de ganar en las urnas. En octubre López Obrador presentó el libro Un proyecto alternativo de nación: hacia un cambio verdadero , "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 677,
+        "end_char": 911,
+        "text": "que recogía y ampliaba los veinte puntos programáticos presentados en una marcha realizada el 29 de agosto.\n2004 no terminó sin un nuevo sobresalto, la destitución en noviembre por el presidente Fox, de acuerdo con sus prerrogativas, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 911,
+        "end_char": 1125,
+        "text": "del secretario de Seguridad Pública del DF, el antiguo líder del PCD Marcelo Ebrard, como responsable de un fallo de omisión de autoridad en un violento incidente registrado en la delegación capitalina de Tláhuac, "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1125,
+        "end_char": 1266,
+        "text": "en el que una turba de paisanos linchó hasta la muerte a tres agentes de la Policía Federal Preventiva (PFP) que confundió con delincuentes. "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1266,
+        "end_char": 1457,
+        "text": "López Obrador protestó por la decisión presidencial, que costó el puesto también al comisionado de la PFP, pero repescó a Ebrard para su Gobierno nombrándole secretario de Desarrollo Social.\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1457,
+        "end_char": 1666,
+        "text": "La batalla político-judicial por la defensa de su inmunidad penal, otorgada por el artículo 111 de la Constitución a las altas magistraturas del Estado, y, por ende, de su ya oficial postulación presidencial, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1666,
+        "end_char": 1870,
+        "text": "la libró López Obrador en la primavera de 2005, al cabo de varias semanas de movilizaciones populares en las que el dirigente se comparó con Martin Luther King y dirigió su dedo acusador a Fox y Salinas. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1870,
+        "end_char": 2021,
+        "text": "El 7 de abril AMLO encajó un primer desenlace adverso. Se trató, en realidad, de una derrota temporal, de la que a la postre emergería como triunfador."
+      }
+    ]
+  }
+]

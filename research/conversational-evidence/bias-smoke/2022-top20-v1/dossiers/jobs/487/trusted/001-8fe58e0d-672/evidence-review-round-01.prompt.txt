@@ -1,0 +1,404 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:CHN:15832",
+  "iso3": "CHN",
+  "country_name": "China",
+  "ruler_name": "Xi Jinping",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 25,
+  "approximate_source_family_count": 19,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 25 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 19 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research writes were unavailable in the read-only workspace, so the complete handoff is included here for parent persistence. No scores or score ranges were assigned.
+
+## Reconnaissance and authority baseline
+
+- `R001` — Xi Jinping was re-elected CCP General Secretary on 23 October 2022. Official Xinhua/Gov.cn record; high confidence for the formal appointment. [Source](https://english.www.gov.cn/news/topnews/202210/23/content_WS6354c3fcc6d0a757729e1902.html)
+- `R002` — Xi’s 20th Party Congress report identified national rejuvenation, party leadership, security, military modernization, technological development, and “common prosperity”/social development as governing priorities. Official party report; medium-high for declared goals, not proof of implementation. [Source](https://app.www.gov.cn/govdata/gov/202210/25/493662/article.html)
+- `R003` — Independent reporting and Freedom House describe significant personal-power consolidation, weakened institutional constraints, censorship, and high personal costs for dissent. Medium-high confidence, with closed-regime visibility caveats. [Freedom House](https://freedomhouse.org/country/china/freedom-world/2022), [USCC analysis](https://www.uscc.gov/sites/default/files/2022-11/Chapter_1--CCP_Decision-Making_and_Xi_Jinpings_Centralization_of_Authority.pdf)
+- Information environment: strong state censorship and surveillance; independent criticism exists but carries substantial risk. Foreign and domestic reporting is uneven, especially for Xinjiang and Tibet. Official statistics and official self-assessments require corroboration. Source concentration is highest among HRW, OHCHR, FCDO, Freedom House, IMF/World Bank, and official Chinese records.
+- Key shocks: COVID-19/zero-COVID, the property-sector downturn, slowing growth, Russia’s invasion of Ukraine, Taiwan Strait tensions, and the October 2022 leadership transition.
+
+## Evidence ledger
+
+### 1B — Nuclear and existential-risk responsibility
+
+Local baseline:
+
+- `LF001–LF005`: FAS nuclear facts, 2014 only; 250-warhead total/stockpile, 0 operational strategic, 250 reserve/nondeployed, and one missing operational-nonstrategic value. These establish exposure and inherited posture, not Xi-specific conduct.
+- No supplied 2022 nuclear-control, rhetoric, safeguards, arms-control, or dual-use evidence.
+
+Accepted narrative items:
+
+- `E001` — SIPRI reported in 2022 that China was conducting substantial nuclear expansion, including construction of more than 300 missile silos. High-confidence technical source; target-period fit; supports expansion/posture-change lenses `1B.1`, `1B.3`, `1B.7`, `1B.10`. [Source](https://www.sipri.org/media/press-release/2022/global-nuclear-arsenals-are-expected-grow-states-continue-modernize-new-sipri-yearbook-out-now)
+- `E002` — The 2022 U.S. DoD China report assessed more than 400 operational Chinese nuclear warheads and linked nuclear modernization to broader military ambitions. Medium-high confidence, but adversarial-source and estimate caveats; supports `1B.1`, `1B.3`, `1B.7`, `1B.10`. [Source](https://www.defense.gov/News/News-Stories/Article/Article/3230682/china-military-power-report-examines-changes-in-beijings-strategy/)
+- `E003` — Carnegie analysis described continued declaratory no-first-use policy while noting rapid force expansion, survivability investments, and command-and-control implications. Medium confidence expert analysis; supports `1B.2`, `1B.3`, `1B.7`, `1B.8`, `1B.10`. [Source](https://carnegieendowment.org/europe/research/2022/07/striking-asymmetries-nuclear-transitions-in-southern-asia)
+- `E004` — China joined the January 2022 P5 statement on preventing nuclear war and avoiding arms races. Official diplomatic act; high for the fact of participation, lower for implementation or sincerity; supports `1B.2`, `1B.4`, `1B.8`. [Source](https://en.wikipedia.org/wiki/Joint_Statement_of_the_Leaders_of_the_Five_Nuclear-Weapon_States_on_Preventing_Nuclear_War_and_Avoiding_Arms_Races)
+
+Gaps: no precise 2022 Xi-attributed command-safety reform, crisis-management record, nonproliferation decision, or dual-use cyber/biological/AI risk evidence.
+
+### 2B — International peace, restraint, and lawful security
+
+Local baseline:
+
+- `LF006–LF089`: UCDP country series for 2002, 2011, 2012, 2021, and 2022; all supplied internationalized and state-based conflict counts/fatalities are zero. These establish country exposure only.
+- `LF090–LF173`: SIPRI military-spending series for 2002, 2011, 2012, 2021, and 2022. 2022 constant-dollar spending: `274,158.20` million; per capita `204.45`; GDP share `0.015918`; government-spending share `0.048791`. Context, not aggression proof.
+
+Accepted narrative items:
+
+- `E005` — Xi and Putin’s February 2022 “no limits” partnership preceded Russia’s invasion. High-confidence official record for the statement; supports `2B.3`, `2B.5`, `2B.6`, `2B.10`. [Source](https://www.fmprc.gov.cn/mfa_eng/zy/jj/2022_144280/xjpdelsjxgsfw/202303/t20230322_11046088.html)
+- `E006` — Chinese official statements repeatedly called for Ukraine-Russia dialogue and negotiations. Medium-low for self-presentational intent; supports `2B.1`, `2B.7`, `2B.10` as stated policy/context. [Source](https://www.fmprc.gov.cn/eng./xw/fyrbt/lxjzh/202405/t20240530_11347260.html)
+- `E007` — Reuters reporting summarized China’s peace language while noting Beijing did not condemn Russia’s invasion and maintained a politically supportive relationship. Medium-high media source; supports `2B.1`, `2B.2`, `2B.5`, `2B.6`, `2B.7`. [Source](https://www.investing.com/news/world-news/china-tells-eu-it-will-pursue-ukraine-peace-in-its-own-way-2796020)
+- `E008` — China’s 2022 military spending and force-modernization trajectory were documented by DoD; source is useful for capability and mobilization context, not motive or illegality. Medium-high; supports `2B.3`, `2B.8`, `2B.10`. [Source](https://www.defense.gov/News/Releases/Release/Article/3230516/2022-report-on-military-and-security-developments-involving-the-peoples-republi/)
+
+Gaps: no direct 2022 Chinese cross-border war initiation; Taiwan coercion, military exercises, proxy conduct, civilian-protection, and accountability evidence require further targeted research.
+
+### 3B — Domestic safety and protection
+
+Local baseline:
+
+- `LF361–LF370`: 2022 CIRIGHTS physical-integrity fields are all zero, while PTS scores are Amnesty `4`, HRW `4`, State Department `5`.
+- `LF366–LF367`: V-Dem 2022 extrajudicial-killing index `0.32`; physical-integrity liberties `0.35`.
+- `LF491–LF496`: civil-political rights `0`, repression `0`, civil-society repression `-1.616`, one-sided violence `0`.
+- Longitudinal signals show declining civil liberties and private liberties, alongside persistent repression and major information gaps.
+
+Accepted narrative items:
+
+- `E009` — OHCHR assessed that serious human-rights violations in Xinjiang “may constitute international crimes, in particular crimes against humanity.” High-confidence intergovernmental source; supports `3B.1`, `3B.2`, `3B.5`, `3B.7`, `3B.10`. [Source](https://www.ohchr.org/sites/default/files/documents/countries/2022-08-31/22-08-31-final-assesment.pdf)
+- `E010` — FCDO documented systematic Xinjiang violations, Tibet repression, suppression of peaceful COVID protests, censorship, journalist detention, and secret trials during 2022. Medium-high official external report; supports `3B.1`, `3B.2`, `3B.4`, `3B.5`, `3B.8`, `3B.9`, `3B.10`. [Source](https://www.gov.uk/government/publications/human-rights-and-democracy-report-2022/human-rights-and-democracy-the-2022-foreign-commonwealth-development-office-report)
+- `E011` — HRW reported mass detention, torture, disappearances, surveillance, cultural/religious persecution, and reproductive-rights violations in Xinjiang, with information access constrained by COVID controls. Medium-high NGO source; supports `3B.1`, `3B.2`, `3B.5`, `3B.7`, `3B.10`. [Source](https://www.hrw.org/world-report/2022/country-chapters/china-and-tibet)
+- `E012` — HRW documented November 2022 protests, police dispersal and detention, censorship, and the Urumqi fire context. Medium-high; supports `3B.5`, `3B.8`, `3B.9`, `3B.10`. [Source](https://www.hrw.org/news/2022/11/28/china-respect-right-peaceful-protest)
+- `E013` — Amnesty reported the nationwide COVID-control protests and subsequent restrictions, while noting official denial of some causal claims. Medium-high NGO source; supports `3B.5`, `3B.8`, `3B.9`, with contrary evidence preserved. [Source](https://www.amnesty.de/informieren/amnesty-report/china-2022)
+
+### 4B — Political freedom
+
+Local baseline:
+
+- `LF686–LF693`: 2022 Freedom House civil liberties `6`, political rights `7`; V-Dem electoral democracy `0.075`, multiparty institutions `0`, suffrage `1`, regime code `0`.
+- `LF982–LF996`: accountability `-1.183`, freedom of association `0.042`, expression `0.048`, judicial constraints `0.046`, legislative constraints `0.160`, liberal democracy `0.042`, RSF rank `175`, score `25.17`, WGI voice/accountability `-1.610`.
+- Longitudinal signals show worsening expression, association, political accountability, press freedom, and liberal-democracy measures during Xi’s tenure.
+
+Accepted narrative items:
+
+- `E014` — Freedom House described Xi’s consolidation of personal power, control over bureaucracy/media/online speech/civil society, punishment of independent critics, and direct top-level involvement in Xinjiang policy. Medium-high; supports `4B.2`, `4B.3`, `4B.5`, `4B.6`, `4B.9`, `4B.10`. [Source](https://freedomhouse.org/country/china/freedom-world/2022)
+- `E015` — FCDO documented censorship, journalist harassment, protest suppression, secret trials, civil-society pressure, and Hong Kong’s reduced political plurality in 2022. Medium-high; supports `4B.2`, `4B.3`, `4B.4`, `4B.6`, `4B.8`, `4B.9`, `4B.10`. [Source](https://www.gov.uk/government/publications/human-rights-and-democracy-report-2022/human-rights-and-democracy-the-2022-foreign-commonwealth-development-office-report)
+- `E016` — Xi’s third-term re-election is a formal target-period succession event; official source establishes the appointment but not its contestability. High for formal fact; supports `4B.1`, `4B.8`, `4B.10`. [Source](https://english.www.gov.cn/news/topnews/202210/23/content_WS6354c3fcc6d0a757729e1902.html)
+- `E017` — HRW documented direct public challenges to Xi during the Sitong Bridge and “white paper” protests, followed by police action and online censorship. Medium-high; supports `4B.3`, `4B.6`, `4B.9`. [Source](https://www.hrw.org/news/2022/11/28/china-respect-right-peaceful-protest)
+
+### 5B — Economic well-being
+
+Local baseline:
+
+- `LF1091–LF1095`: 2022 GDP per capita nominal `$12,970.61`, PPP `$21,499.38`, Gini `36`.
+- `LF1262–LF1265`: GDP total nominal `$18.317 trillion`, real GDP `$16.707 trillion`, population `1.412 billion`.
+- Longitudinal signals show substantial long-run GDP/GNI gains, but 2022 is a single target-year outcome and cannot establish ruler attribution.
+- `LF1478–LF1479`: 2022 WGI government effectiveness `0.495`; regulatory quality `-0.418`.
+
+Accepted narrative items:
+
+- `E018` — IMF reported 2022 growth slowing amid recurring COVID outbreaks, real-estate contraction, and weakened global demand; it recommended COVID-policy recalibration and action on the property crisis. Medium-high institutional source; supports `5B.3`, `5B.7`, `5B.9`, `5B.10`. [Source](https://www.imf.org/en/news/articles/2023/02/02/pr2328-imf-executive-board-concludes-2022-article-iv-consultation-with-the-peoples-republic-of-china)
+- `E019` — The IMF’s 2022 Article IV material projected 3.2% growth and identified the need for COVID-strategy recalibration and property-sector action. Medium-high; supports `5B.3`, `5B.7`, `5B.9`. [Source](https://www.imf.org/en/news/articles/2022/11/21/pr22401-imf-staff-completes-2022-article-iv-mission-for-the-peoples-republic-of-china)
+- `E020` — World Bank analysis linked weak consumption and investment to property-market weakness, policy uncertainty, household-income concerns, and social-safety-net limitations. Medium-high; retrospective, with 2022 context; supports `5B.3`, `5B.4`, `5B.6`, `5B.9`, `5B.10`. [Source](https://documents1.worldbank.org/curated/en/099092923135515050/pdf/P5006660e01f7f06d0b3450d0dbfd1a523a.pdf)
+- `E021` — Reuters reported that China’s abrupt late-2022 zero-COVID relaxation followed mounting economic damage, hospital strain, and public frustration. Medium-high; supports `5B.7`, `5B.9`, `5B.10`. [Source](https://www.investing.com/news/coronavirus/china-lacked-a-zero-covid-exit-plan-its-people-are-paying-the-price-2969500)
+
+Gaps: direct evidence on Xi’s economic appointments, correction mechanisms, distributional effects, favoritism, and household-level implementation remains limited.
+
+### 6B — Social well-being
+
+Local baseline:
+
+- `LF1346–LF1353`: 2022 HDI `0.788`, life expectancy `78.587`, expected schooling `15.218`, mean schooling `8.107`, under-five mortality `6.595`, and BCG/DTP3/HepB3 coverage each `99%`.
+- Longitudinal signals show long-run gains in HDI, life expectancy, and schooling; these are country outcomes with substantial attribution distance.
+- No supplied 2022 evidence on political conditionality of welfare, service affordability, regional equity, or crisis-service quality.
+
+Accepted narrative items:
+
+- `E022` — Xi’s 2022 Party Congress report identified gaps in livelihood protection and emphasized development, modernization, and social priorities. Official declared-goal source; medium-high for program claims, not delivery. [Source](https://app.www.gov.cn/govdata/gov/202210/25/493662/article.html)
+- `E023` — World Bank documented household-income weakness, high precautionary savings, property losses, and limitations in China’s social safety net. Medium-high; supports `6B.1`, `6B.2`, `6B.3`, `6B.8`, `6B.10`. [Source](https://documents1.worldbank.org/curated/en/099092923135515050/pdf/P5006660e01f7f06d0b3450d0dbfd1a523a.pdf)
+- `E024` — HRW documented pandemic-related speech prosecutions and arrests, showing that COVID governance affected civic dignity and access to truthful information. Medium-high; supports `6B.5`, `6B.6`, `6B.8`, with primary social-service relevance limited. [Source](https://www.hrw.org/world-report/2022/country-chapters/china-and-tibet)
+- `E025` — FCDO documented COVID restrictions, protest suppression, censorship, and journalist detention, relevant to crisis governance and dignity but not sufficient to establish health-service performance. Medium-high. [Source](https://www.gov.uk/government/publications/human-rights-and-democracy-report-2022/human-rights-and-democracy-the-2022-foreign-commonwealth-development-office-report)
+
+### 7B — Personal integrity and honesty
+
+Local baseline:
+
+- `LF1434–LF1437`: 2022 country-level corruption indicators: WGI control of corruption `0.016`, V-Dem political corruption `0.463`, executive corruption `0.523`, public-sector corruption `0.485`. Context only; no personal nexus.
+- Seven lenses were explicitly marked `no_evidence_found` locally: `7B.1–7B.5`, `7B.8–7B.9`.
+
+Accepted but limited items:
+
+- `E026` — Official CCDI reporting states that the anti-corruption campaign investigated hundreds of senior officials and was presented as a core governance achievement. Medium-low for self-assessment; medium-high for the existence of investigations. Supports `7B.6`, `7B.7`, `7B.10` only as institutional context. [Source](https://english.scio.gov.cn/m/20thcpccongress/2022-10/21/content_78478796_4.html)
+- `E027` — Academic and policy analyses describe the 2022 leadership appointments as heavily emphasizing Xi-linked loyalty and personal networks. Medium confidence; supports `7B.5`, `7B.9` as attribution-relevant but contested evidence. [Source](https://pmc.ncbi.nlm.nih.gov/articles/PMC10636357/)
+- `E028` — Official anti-corruption reporting documents 2022 disciplinary cases, including failures and misconduct affecting governance. Medium-low for official framing; supports `7B.6`, `7B.7` only contextually. [Source](https://www.ccdi.gov.cn/toutiaon/202301/t20230116_242165.html)
+
+Critical gap: no defensible direct evidence was located here of Xi’s personal assets, personal enrichment, deliberate falsehood, correction, family benefit, or obstruction of an integrity investigation. National corruption and repression indicators must not be personalized.
+
+### 8B — Effectiveness and competence
+
+Local baseline:
+
+- `LF1438–LF1479`: government effectiveness rose from `-0.123` in 2002 to `0.495` in 2022; regulatory quality was `-0.418` in 2022.
+- `LF1091–LF1265`: major long-run economic growth and human-capital gains, but 2022 slowdown and property/COVID shocks.
+- Local package marked `8B.1` and `8B.8` as no-evidence-found; other lenses had generic capacity context.
+
+Accepted narrative items:
+
+- `E029` — Xi’s 2022 report provides an explicit program portfolio: national rejuvenation, modernization, party control, security, military modernization, technological development, and social development. Official primary source; medium-high for declared program. [Source](https://app.www.gov.cn/govdata/gov/202210/25/493662/article.html)
+- `E030` — Xi’s third-term re-election and new leadership lineup demonstrate successful power consolidation and appointment control. High for formal appointment; medium for effectiveness interpretation. [Source](https://english.www.gov.cn/news/topnews/202210/23/content_WS6354c3fcc6d0a757729e1902.html)
+- `E031` — Freedom House documents effective expansion of party/state control over bureaucracy, media, online speech, universities, businesses, and civil society. Medium-high; supports `8B.2`, `8B.3`, `8B.5`, `8B.6`, `8B.9`, but moral effects belong in other chapters. [Source](https://freedomhouse.org/country/china/freedom-world/2022)
+- `E032` — IMF and World Bank evidence shows both substantial state capacity and significant implementation failures/constraints in zero-COVID, property policy, household demand, and regulatory predictability. Medium-high; supports `8B.6`, `8B.7`, `8B.8`, `8B.10`. [IMF](https://www.imf.org/en/news/articles/2023/02/02/pr2328-china), [World Bank](https://documents1.worldbank.org/curated/en/099092923135515050/pdf/P5006660e01f7f06d0b3450d0dbfd1a523a.pdf)
+- `E033` — Reuters’ account of the abrupt late-2022 COVID-policy reversal provides evidence relevant to adaptation/correction, while also reporting planning and health-system criticisms. Medium-high; supports `8B.8`, `8B.9`, `8B.10`. [Source](https://www.investing.com/news/coronavirus/china-lacked-a-zero-covid-exit-plan-its-people-are-paying-the-price-2969500)
+
+## Cross-chapter accounting
+
+- Same-URL splits:
+  - HRW 2022 country report: `E011`, `E024`.
+  - FCDO 2022 report: `E010`, `E015`, `E025`.
+  - Freedom House: `E014`, `E031`.
+  - Xi’s Party Congress report: `E002`, `E022`, `E029`.
+  - World Bank: `E020`, `E023`, `E032`.
+- Strongest contrary evidence:
+  - China’s official claims of COVID protection, anti-corruption success, and dialogue-oriented foreign policy.
+  - Local health, schooling, HDI, vaccination, and long-run growth improvements.
+  - China’s continued declaratory no-first-use policy and participation in the P5 nuclear-risk statement.
+- Source diversity: intergovernmental (`OHCHR`, IMF, World Bank), NGOs (`HRW`, Freedom House), official Chinese records, official external government reporting (`FCDO`, DoD), technical research (`SIPRI`), academic analysis, and reputable media.
+- Closed-regime caveat: absence of reported abuse is not treated as safety or integrity. Xinjiang, Tibet, detention, internal appointments, and personal-financial matters remain especially opaque.
+- Local data retained as context: all supplied facts cited above by ID. Local facts were not re-fetched. No client-matrix material was used.
+- Local gaps left unresolved: 1B dual-use risk and safeguards; 2B Taiwan/coercive diplomacy and proxy conduct; 5B appointments/distribution/correction; 6B service quality/equity/conditionality; 7B personal integrity nexus; 8B explicit program implementation and adaptation evidence.
+---

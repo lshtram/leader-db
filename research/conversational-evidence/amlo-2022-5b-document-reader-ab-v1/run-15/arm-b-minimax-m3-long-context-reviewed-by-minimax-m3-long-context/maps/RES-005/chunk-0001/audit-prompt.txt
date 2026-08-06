@@ -1,0 +1,271 @@
+Audit the normalized source map against the original extract. Ignore prose style and all formatting problems in the original reader output. Count only affirmative evidence claims in claim_count; do not count an explicitly labelled limitation, absence-of-evidence warning, or reopen request as an accepted claim requiring an affirmative locator. Do not count source-identity metadata such as title, catalog ID, or manifest URL; provenance metadata is verified separately against the frozen manifest. Count a locator as usable when it identifies the supporting unit, block, page, section, article, table, or record precisely enough to reopen it. Identify material omitted facts and qualifications separately. An omission makes content_usable false only when it removes or distorts evidence decisive to the chapter questions; otherwise record material_omission=true and explain it without failing usability. A formatting repair is never a content failure. Return the required JSON only.
+
+READER SUMMARY:
+# Corrected source map
+
+## Source metadata
+
+- **Source ID:** RES-005
+- **Title:** *México Evalúa identifica una tendencia al autoritarismo presupuestal*  
+  **Locator:** Block 1.
+- **URL:** https://mexicoevalua.org/mexico-evalua-identifica-una-tendencia-al-autoritarismo-presupuestal/
+- **Publisher role:** Independent, nonpartisan think tank, according to the publisher’s self-description.  
+  **Locator:** Block 6.
+- **Publisher self-description:** México Evalúa describes itself as a “centro de pensamiento y análisis que se enfoca en la evaluación y el monitoreo de la operación gubernamental” and says it supports improvements to federal, state, and local public policy through the generation or review of evidence and recommendations. It also describes itself as “apartidista e independiente” and says it does not support or oppose political candidates or parties or seek commitments to specific legislation or public-resource allocations.  
+  **Locator:** Block 6.
+- **Publication date text:** “México Evalúa / 26 de mayo de 2022”; the release is dated “Ciudad de México, a 25 de mayo de 2022.”  
+  **Locators:** Blocks 1–2.
+- **Platform:** “Números de Erario,” described as México Evalúa’s public-finance analysis platform with a citizen-oriented approach. The release links separately to the complete findings and to the indicators supporting its analysis.  
+  **Locators:** Blocks 2 and 5.
+- **Coverage window:** The analysis concerns principal public-finance indicators for the first quarter of 2022. It compares total public-sector income with 2019, total public spending with the previous year, and the economy with its pre-pandemic level. It also refers to the budget approved by Congress “en septiembre del año pasado” in Block 1 and “a fines del año pasado” in Block 3.  
+  **Locators:** Blocks 1 and 3–4.
+- **Funding disclosure in extract:** The navigation contains a “Nuestros donantes” menu item, but the supplied extract includes no donor list, funding amounts, or information about government funding.  
+  **Locators:** Blocks 1 and 6.
+- **Independence caveat:** Independence is self-declared; the supplied extract does not independently verify the publisher’s funding or institutional independence.  
+  **Locator:** Block 6.
+- **Scope of analysis:** Income and expenditure of the federal public sector and the federal budget. The supplied analysis does not address state or municipal budget execution.  
+  **Locators:** Blocks 2–4.
+
+## Verified claims
+
+### RES-005-C1
+
+The exercised budget differed from the budget approved by Congress, and México Evalúa states that the reasons or advantages of the change had not been explained. It reports substantive cuts affecting 40% of budget programs with an approved budget.
+
+- **Kind:** Author assertion with quantifier.
+- **Qualifications:** The extract gives the share as “40% de los programas presupuestarios con presupuesto aprobado.” It does not enumerate those programs or state the size of each cut.
+- **Locators:** Blocks 2–3.
+
+### RES-005-C2
+
+México Evalúa says the first-quarter indicators suggest “un uso político-electoral del erario” and attributes the divergence between the exercised and approved budgets to discretionary decisions by “un Ejecutivo sin contrapesos reales.”
+
+- **Kind:** Interpretation.
+- **Locators:** Blocks 1–2.
+
+### RES-005-C3
+
+México Evalúa describes “Pensiones de Adultos Mayores” as the transfer program with the largest budget and characterizes it as regressive because it “beneficia más a quienes más tienen.”
+
+- **Kind:** Author assertion with normative label.
+- **Qualifications:** The supplied extract does not provide incidence data supporting the distributional assertion; “regresivo” is México Evalúa’s characterization.
+- **Locator:** Block 2.
+
+### RES-005-C4
+
+México Evalúa reports that total public-sector income was at better levels than in 2019 even though the Mexican economy had not recovered its pre-pandemic level. It attributes the recovery in oil income to higher crude-oil prices and says the federal government’s decision not to collect the fuel IEPS, whose stated objective was to prevent consumer prices from surging, limited that gain.
+
+- **Kind:** Reported finding plus interpretation.
+- **Qualifications:** The economic recovery statement is asserted but not quantified in the supplied extract.
+- **Locator:** Block 3.
+
+### RES-005-C5
+
+México Evalúa says the largest impetus to income came from growth in ISR collection, principally through increased enforcement of large taxpayers rather than greater economic dynamism.
+
+- **Kind:** Author assertion.
+- **Locator:** Block 3.
+
+### RES-005-C6
+
+According to México Evalúa, the first-quarter calendar called for collecting 350 billion pesos from oil income and the fuel IEPS together. It reports a delay or loss of 40 billion pesos relative to that calendar and attributes it to the fuel-subsidy policy.
+
+- **Kind:** Reported finding with figures.
+- **Qualifications:** The extract uses “retraso o una pérdida,” not solely “shortfall” or “loss.” It does not specify whether the figures are nominal or real.
+- **Locator:** Block 3.
+
+### RES-005-C7
+
+México Evalúa reports that IVA revenue fell by 9.3%, or 29.9 billion pesos, and describes this as weakened primary collection driven by the economy.
+
+- **Kind:** Reported finding with figure.
+- **Qualifications:** The extract does not identify the comparison period or specify whether the amount is nominal or real.
+- **Locator:** Block 4.
+
+### RES-005-C8
+
+México Evalúa characterizes total public spending as stagnant. It says spending increased by less than 1% relative to the previous year but did not meet the approved first-quarter spending target, producing aggregate under-execution.
+
+- **Kind:** Reported finding with figure.
+- **Locator:** Block 4.
+
+### RES-005-C9
+
+México Evalúa reports that spending increases were concentrated in a small number of budget programs directly associated with the Executive’s agenda: transfers to Pemex, Pensión para Adultos Mayores, Becas para el Bienestar, Tren Maya, and, to a lesser extent, Corredor Interoceánico.
+
+- **Kind:** Author assertion with list.
+- **Qualifications:** The supplied extract gives no program-level amounts or execution shares.
+- **Locator:** Block 4.
+
+### RES-005-C10
+
+México Evalúa says aggregate budget financing for health-care subsidies for people without social security, through either Insabi or IMSS-Bienestar, had fallen. It states that the transition from Insabi to IMSS-Bienestar lacked the financing needed to become “una realidad tangible” and predicts “un nuevo fracaso.”
+
+- **Kind:** Author assertion with prediction.
+- **Qualifications:** The extract gives no magnitude or breakdown between Insabi and IMSS-Bienestar. The prediction is México Evalúa’s.
+- **Locator:** Block 4.
+
+### RES-005-C11
+
+México Evalúa recommends:
+
+1. diversifying revenue so that growth does not depend on enforcement of large taxpayers;
+2. continuing to collect the IEPS and using its proceeds to finance food-price subsidies, and possibly subsidies for other goods, for economically vulnerable households;
+3. improving the targeting and progressivity of social programs;
+4. having civil society and the opposition promote checks and accountability mechanisms for in-year budget adjustments, without compromising financing for programs and projects that guarantee rights; and
+5. depoliticizing the public-investment agenda, developing infrastructure for economic development and public services, and updating and maintaining existing infrastructure.
+
+- **Kind:** Policy recommendations, not findings.
+- **Locator:** Block 5.
+
+### RES-005-C12
+
+The release provides separate links to the complete “Números de Erario” findings and to the indicators supporting the analysis. The underlying tables and methodology are not reproduced in the supplied extract.
+
+- **Kind:** Data-source pointer.
+- **Locator:** Block 5.
+
+## Contrary or official material in the extract
+
+None. The supplied extract contains no SHCP, ASF, congressional, or presidential response. The only institutional-independence information is México Evalúa’s own description.
+
+**Locator:** Block 6.
+
+## Limitations
+
+- The findings concern the first quarter rather than the full 2022 fiscal year.  
+  **Locators:** Blocks 1–4.
+- The analysis addresses federal public finances; the supplied extract does not address state or municipal execution.  
+  **Locators:** Blocks 2–4.
+- The extract does not identify nominal or real terms for the 350-billion-peso and 40-billion-peso figures, the 9.3% IVA decline, or spending growth of less than 1%.  
+  **Locators:** Blocks 3–4.
+- The extract does not state the comparator for the 9.3% IVA decline.  
+  **Locator:** Block 4.
+- No program-level amounts are supplied for the listed programs receiving concentrated spending increases or for programs subject to cuts.  
+  **Locators:** Blocks 2 and 4.
+- Labels such as “regresivo,” “autoritarismo presupuestal,” “populismo fiscal,” and “fracaso” are México Evalúa’s framing.  
+  **Locators:** Blocks 1–4.
+- The extract contains no donor list or funding details; independence is self-declared.  
+  **Locators:** Blocks 1 and 6.
+- The complete findings and supporting indicators are linked, but their tables and methodology are not reproduced in the supplied extract.  
+  **Locator:** Block 5.
+
+## Reopen requests
+
+- Verify the reported 40% share of approved budget programs subject to substantive cuts against the linked indicators and relevant official budget-execution materials.
+- Obtain program-level amounts for transfers to Pemex, Pensión para Adultos Mayores, Becas para el Bienestar, Tren Maya, and Corredor Interoceánico.
+- Disaggregate the reported financing change between Insabi and IMSS-Bienestar and verify the transition timeline.
+- Establish whether the spending-growth, IVA, oil-income, and IEPS figures are nominal or real and confirm their precise comparison periods from the linked indicators or official data.
+- Check the distributional characterization of Pensión para Adultos Mayores against incidence evidence.
+- Verify the underlying comparison periods and any applicable revisions.
+
+## Chapter-question mapping supplied in the draft
+
+- **Primary 5B questions:** 5B.3, 5B.5, 5B.6, 5B.8, 5B.9.
+- **Secondary 5B question:** 5B.7, in relation to publication of an independent evaluation.
+
+ORIGINAL EXTRACT:
+extracted HTML block 1
+México Evalúa identifica una tendencia al autoritarismo presupuestal - México Evalúa
+Programas
+Justicia
+Seguridad
+Anticorrupción
+Gasto público
+Transparencia en la justicia
+Regulación y Competencia Económica
+Educación
+Nosotros
+¿Qué hacemos?
+Nuestros donantes
+Informes anuales
+Equipo
+Vacantes
+Investigaciones con impacto social
+Sala de Prensa
+Newsletter
+Nuestras Ideas | 2026
+Incidir hoy: políticas públicas en acción
+Erario al momento
+De la Violencia a la Pacificación
+La voz de tu dinero
+El Sextante
+Nuestras Ideas ediciones pasadas
+Programas
+Justicia
+Seguridad
+Anticorrupción
+Gasto público
+Transparencia en la justicia
+Regulación y Competencia Económica
+Educación
+Nosotros
+¿Qué hacemos?
+Nuestros donantes
+Informes anuales
+Equipo
+Vacantes
+Investigaciones con impacto social
+Sala de Prensa
+Newsletter
+Nuestras Ideas | 2026
+Incidir hoy: políticas públicas en acción
+Erario al momento
+De la Violencia a la Pacificación
+La voz de tu dinero
+El Sextante
+Nuestras Ideas ediciones pasadas
+Tu apoyo permite que juntos elevemos la calidad de las políticas públicas Donar Home / Comunicado de Prensa / México Evalúa identifica una tendencia al autoritarismo presupuestal
+México Evalúa / 26 de mayo de 2022
+México Evalúa identifica una tendencia al autoritarismo presupuestal
+En su análisis de los principales indicadores de finanzas públicas al primer trimestre del año, México Evalúa observa que el presupuesto ejercido es muy diferente al aprobado por el Congreso en septiembre del año pasado, producto de las decisiones discrecionales de un Ejecutivo sin contrapesos reales.
+
+extracted HTML block 2
+Para mantener los balances presupuestales y al mismo tiempo liberar recursos para un gasto que cumple con los intereses políticos del Gobierno, se han cortado importantes programas sociales y de obra pública.
+Al tiempo que demuestra que el gasto público no es el que necesita el país, México Evalúa reafirma su llamado a lograr una mejor gobernanza del erario, mediante mecanismos institucionales de contrapeso y rendición de cuentas.
+Ciudad de México, a 25 de mayo de 2022
+A través de los Números de Erario , su plataforma de análisis de finanzas públicas con un enfoque ciudadano, México Evalúa ha identificado que el erario garantiza cada vez menos financiamiento a los programas y servicios públicos de primera necesidad –como el de la salud para personas sin seguridad social–, y cada vez más al servicio del grupo en el poder.
+Como resultado de un crecimiento insuficiente de los ingresos públicos y una toma de decisión discrecional por parte del Gobierno federal (sin rendición de cuentas ni mecanismos de vigilancia), se han ejecutado recortes sustantivos en diversas áreas del erario: 40% de los programas presupuestarios con presupuesto aprobado . Al parecer se hizo con el fin de adelantar el gasto de los programas de transferencias directas ‘consentidos’ del Ejecutivo, como las Pensiones de Adultos Mayores, el programa de transferencias con el mayor presupuesto (el cual, cabe señalar, es regresivo, porque beneficia más a quienes más tienen).
+En efecto, los indicadores de finanzas públicas al primer trimestre del año sugieren un uso político-electoral del erario , muy alejado de los estándares del sistema democrático y, en última instancia, de las más apremiantes necesidades de la sociedad mexicana, México Evalúa observa.
+
+extracted HTML block 3
+Más allá de que el presupuesto ejercido sea distinto al aprobado por el Congreso a fines del año pasado, sin que se hayan explicado las conveniencias de esto, y de la evidente falla de gobernanza que esto implica, los Números de Erario encontraron indicios preocupantes tanto en el renglón de ingreso como en el de gasto del Sector Público .
+Impulso insuficiente de los ingresos, que enciende focos rojos
+El análisis muestra que los ingresos totales del Sector Público se han colocado en mejores niveles que en 2019, a pesar de que la economía mexicana no ha recuperado su nivel prepandemia. Los ingresos petroleros han revivido a causa del aumento de precios del crudo; no obstante, la renuncia del Gobierno a cobrar el IEPS de combustibles (que tienen el objetivo de evitar que los precios al consumidor se disparen) han limitado esta ganancia. El mayor impulso a los ingresos proviene de un crecimiento en la recaudación vía Impuesto Sobre la Renta, y esto se ha dado principalmente por una mayor fiscalización de los grandes contribuyentes, no por mayor dinamismo en la economía.
+Además, no se verificó la hipótesis de que los ingresos petroleros con sus excedentes iban a alcanzar para cubrir la renuncia del Gobierno federal de cobrar el IEPS . Frente al calendario se debían recaudar 350 mil millones de pesos (mmdp) en el primer trimestre por estos dos conceptos; no obstante, se lleva un retraso o una pérdida de 40 mmdp por la política de subsidios a los combustibles que directamente beneficia más a quienes más tiene.
+
+extracted HTML block 4
+Conclusión: hay un claro riesgo en el financiamiento público por populismo fiscal , pues el Gobierno mantiene importantes renuncias a cobrar impuestos, la tributación pende de un hilo (de la recaudación secundaria: fiscalización de asalariados y grandes contribuyentes), mientras que la recaudación primaria, la cual es impulsada por la economía, se encuentra debilitada: el IVA muestra una caída de 9.3% (29.9 mmdp).
+Gasto público excedido en los rubros con agenda política y abandono de la salud e inversión
+El gasto público total está estancado como consecuencia del bajo crecimiento de los ingresos. Aumentó un poco en relación con el año pasado, menos de 1%, pero a diferencia del ingreso, no cumplió con la meta de gasto aprobada para el primer trimestre. Esto significa que en el agregado se observó un subejercicio. Pero al desagregar el gasto México Evalúa identificó aumentos que se concentraron en pocos programas presupuestarios , directamente relacionados con la agenda del Ejecutivo: transferencias a Pemex, algunos programas sociales (Pensión para adultos mayores y Becas para el Bienestar), el Tren Maya y en menor medida el Corredor Interoceánico.
+Paralelamente, se confirmó que la salud no es prioridad en el presupuesto. En el agregado ha caído el presupuesto para financiar los subsidios a la atención de la salud para las personas sin seguridad social, ya sea por el Insabi o IMSS-Bienestar. La transición del Insabi al IMSS-Bienestar no tiene el financiamiento necesario como para convertirse en una realidad tangible, lo que anuncia un nuevo fracaso y, por ende, un impacto en el bolsillo de los mexicanos que utilizaban estos servicios, y en el posible deterioro de su salud de quienes no puedan cubrirlos con esquemas alternos.
+
+extracted HTML block 5
+Ante este panorama, México Evalúa recomienda:
+El Gobierno debe diversificar su recaudación para que su crecimiento no dependa de una sola apuesta, que es la fiscalización de los grandes contribuyentes. Esto requiere, entre otros factores, dejar de impulsar una agenda política sin sentido económico o en contra de la inversión privada y, por el contrario, dar certidumbre jurídica y operar políticas públicas a favor del crecimiento económico.
+No renunciar a cobrar el IEPS . Es recomendable financiar, con los recursos de su cobro, un programa de subsidios a los precios de los alimentos y posiblemente de otros bienes para los hogares económicamente más vulnerables.
+Focalizar adecuadamente los programas sociales , que además deben mejorar su progresividad (que resulten más beneficiados los que menos tienen).
+Impulsar desde la sociedad civil y la oposición mecanismos de contrapeso y rendición de cuentas para que las autoridades puedan hacer adecuaciones al presupuesto durante su ejercicio (ya sea para cambiar su financiamiento o para cambiar las asignaciones presupuestarias, sobre todo entre instituciones), pero sin comprometer el financiamiento a los programas y proyectos que garantizan derechos.
+Despolitizar la agenda de inversión pública : es imperante desarrollar proyectos de infraestructura para el desarrollo económico y la provisión de servicios públicos, así como actualizar y dar mantenimiento a los existentes.
+PUEDEN CONOCER LOS HALLAZGOS COMPLETOS DE LOS NÚMEROS DE ERARIO, AQUÍ
+PUEDEN ACCEDER A LOS INDICADORES QUE SOSTIENEN EL ANÁLISIS DE LOS NÚMEROS DE ERARIO, AQUÍ
+
+extracted HTML block 6
+Contacto de prensa
+Cynthia Castañeda
+55 2302 9582
+[email protected]
+Contenido relacionado
+Gastos catastróficos en salud se disparan 64.5% en 2024 frente a 2018: México Evalúa
+julio 31, 2025
+Cumbre de Latinoamérica y el Caribe: es tan importante elevar la tributación como lograr un gasto público progresivo
+julio 28, 2023
+Posibilidades para una reforma al impuesto sobre la renta de las personas
+septiembre 9, 2021
+México Evalúa es un centro de pensamiento y análisis que se enfoca en la evaluación y el monitoreo de la operación gubernamental para elevar la calidad de los resultados. Apoyamos los procesos de mejora de las políticas públicas a nivel federal, estatal y local mediante la generación y/o revisión de evidencia y la formulación de recomendaciones.
+CONTACTO
+Jaime Balmes No.11. Edificio D, 2o Piso. Despacho 202 Col. Los Morales Polanco. Deleg. Miguel Hidalgo C.P. 11510, CDMX
+Teléfono: (55) 5985 0252
+Correo electrónico: [email protected]
+© Copyright 2015 México Evalúa AVISO DE PRIVACIDAD
+México Evalúa es un centro de pensamiento apartidista e independiente. La organización participa en colectivos de la sociedad civil que promueven diversas causas, pero no es parte de ningún tipo de actividad que implique apoyo u oposición a candidatos a puestos de elección popular o a partidos políticos, o que busque su compromiso con legislación específica o con asignación de recursos públicos.

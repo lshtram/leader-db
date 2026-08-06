@@ -404,7 +404,9 @@ def normalize_dossier_candidate(
         normalized.get("coverage"), methodology_ids, id_map, mappings, warnings
     )
     _retain_unmapped_evidence_as_chapter_context(evidence, mappings, selected, warnings)
-    _normalize_environment_references(normalized.get("evidence_environment"), id_map)
+    _normalize_environment_support(
+        normalized.get("evidence_environment"), id_map, evidence, warnings
+    )
     normalized.update(
         mappings=mappings,
         coverage=coverage,
@@ -518,6 +520,44 @@ def _normalize_environment_references(
             for value in (str(item) for item in raw_support)
             for normalized_id in id_map.get(value, ())
         )
+    )
+
+
+def _normalize_environment_support(
+    environment: object,
+    id_map: dict[str, list[str]],
+    evidence: list[object],
+    warnings: list[str],
+) -> None:
+    """Normalize environment joins and restore a missing retained-evidence link."""
+
+    _normalize_environment_references(environment, id_map)
+    _ensure_environment_support(environment, evidence, warnings)
+
+
+def _ensure_environment_support(
+    environment: object, evidence: list[object], warnings: list[str]
+) -> None:
+    """Keep a substantive environment assessment joined to retained evidence."""
+
+    if not isinstance(environment, dict):
+        return
+    support = environment.get("supporting_evidence_ids")
+    if isinstance(support, list) and support:
+        return
+    first = next(
+        (
+            str(item["evidence_id"])
+            for item in evidence
+            if isinstance(item, dict) and item.get("evidence_id")
+        ),
+        None,
+    )
+    if first is None:
+        return
+    environment["supporting_evidence_ids"] = [first]
+    warnings.append(
+        "empty evidence-environment support repaired from retained cited evidence"
     )
 
 

@@ -1,0 +1,306 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:RUS:15706",
+  "iso3": "RUS",
+  "country_name": "Russian Federation",
+  "ruler_name": "Vladimir Putin",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 19,
+  "approximate_source_family_count": 15,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 19 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 15 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_contrary_audit",
+      "message": "Contrary evidence is not explicit."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed for Vladimir Putin, Russia, 2022. File writes were blocked by the read-only workspace, so the complete handoff is below for parent persistence.
+
+Local-first baseline used:
+
+- `1B`: LF001–LF005; nuclear stockpile/exposure only.
+- `2B`: LF126–LF129, LF243–LF246; conflict exposure and military burden, not initiation or responsibility.
+- `3B`: LF526–LF536, LF715–LF720; physical-integrity, repression, civil-liberties and government-actor violence context.
+- `4B`: LF1006–LF1013, LF1405–LF1419; political-freedom, accountability, media and rule-of-law context.
+- `5B`: LF1631–LF1637, LF2022; economic outcomes and inequality.
+- `6B`: LF2151–LF2159; HDI, life expectancy, schooling, mortality and immunization.
+- `7B`: LF2276–LF2279; country corruption indicators only; no personal nexus.
+- `8B`: LF2280–LF2327; government effectiveness and regulatory-quality context.
+
+Longitudinal signals were used as contextual priors only. Local warnings were preserved: UCDP government-actor killings do not establish Putin’s personal direction; nominal USD is not real growth; country indicators do not establish ruler conduct.
+
+Evidence register:
+
+- `E001` — Kremlin presidential authority: head of state, domestic-policy authority and Supreme Commander-in-Chief. [Kremlin](https://en.kremlin.ru/structure/president)
+- `E002` — HRW: March 4 laws criminalized independent war reporting, protest and “false information,” with penalties up to 15 years. [HRW](https://www.hrw.org/news/2022/03/07/russia-criminalizes-independent-war-reporting-anti-war-protests)
+- `E003` — HRW annual 2022 record: over 15,000 protest arrests in the first month, thousands of cases, media closures, surveillance and persistent ill-treatment. [HRW World Report](https://www.hrw.org/world-report/2023/country-chapters/russian-federation)
+- `E004` — Amnesty: arbitrary arrests, force, detention and fines against journalists, monitors and anti-war protesters. [Amnesty](https://www.amnesty.org/en/latest/news/2022/11/russia-journalists-and-independent-monitors-being-silenced-to-stifle-reporting-of-protests-new-report/)
+- `E005` — ICJ ordered Russia to suspend military operations begun February 24 and prevent directed/supported forces from continuing them. [ICJ](https://www.icj-cij.org/node/106135)
+- `E006` — UN Secretary-General recorded Russia’s February nuclear alert and warned that nuclear use was inconceivable. [UN](https://www.un.org/sg/en/content/secretary-general/remarks-to-the-general-assembly-emergency-special-session-on-ukraine-as-delivered)
+- `E007` — Arms Control Association documented Putin’s alert order, implied threats and nuclear coercive-shielding concerns, while noting the alert did not necessarily mean first-strike preparation. [ACA](https://www.armscontrol.org/issue-briefs/2022-02/FAQ-russia-ukraine)
+- `E008` — UN Security Council coverage documented fighting around Zaporizhzhia and nuclear-safety risks. [UN Security Council](https://press.un.org/en/2022/sc14819.doc.htm)
+- `E009` — SIPRI reported continued New START implementation but Russia’s refusal to resume on-site inspections and suspension of strategic-stability dialogue. [SIPRI](https://www.sipri.org/yearbook/2023/08)
+- `E010` — UN NPT-review coverage recorded concerns that Putin’s threats undermined nonproliferation and disarmament architecture. [UN](https://press.un.org/en/2022/dc3845.doc.htm)
+- `E011` — OHCHR Commission found Russian forces/authorities responsible for documented killings, attacks on civilians, unlawful confinement, torture, sexual violence and child transfers; some patterns were widespread/systematic. [OHCHR Commission](https://www.ohchr.org/sites/default/files/documents/hrbodies/hrcouncil/coiukraine/coI-ukraine-graphic_report-en.pdf)
+- `E012` — ICC investigation opened March 2022; later warrant found reasonable grounds concerning Putin’s responsibility for unlawful child deportation/transfer. [ICC](https://www.icc-cpi.int/situations/ukraine)
+- `E013` — Putin’s April 2022 instructions ordered socioeconomic support for unemployed families, children, pensions, benefits, medicines, infrastructure and poverty reduction. [Kremlin](https://en.kremlin.ru/acts/assignments/orders/copy/68175)
+- `E014` — IMF documented sanctions, reserve/financial disruption, inflation and severe external-policy tradeoffs following the war. [IMF](https://www.imf.org/en/news/articles/2022/03/05/pr2261-imf-staff-statement-on-the-economic-impact-of-war-in-ukraine)
+- `E015` — World Bank reported Russia’s 2.1% economic contraction in 2022 despite severe sanctions. [World Bank](https://documents.worldbank.org/en/publication/documents-reports/documentdetail/099725104112326740)
+- `E016` — CSIS analyzed Putin’s September partial mobilization as both a military and political-strategic decision, with state media framing the war defensively. [CSIS](https://www.csis.org/analysis/what-does-russias-partial-mobilization-mean)
+- `E017` — Same Kremlin instruction record, separately mapped for formal deadlines, responsible bodies, funding and monitoring architecture.
+- `E018` — FBK history page documenting anti-corruption investigations and allegations involving Putin-linked networks; retained as context/research lead, not sole final evidence. [FBK](https://fbk.info/en/history)
+- `E019` — OSCE/ODIHR 2018 inherited baseline: restrictions on freedoms, uneven media field, candidate exclusions and self-censorship, alongside technically competent administration. [OSCE/ODIHR](https://odihr.osce.org/odihr/elections/375661)
+- `E020` — Putin’s October 2022 amendment specifying student and postgraduate deferments under mobilization. [Kremlin](https://www.en.kremlin.ru/catalog/keywords/72/events/copy/69524)
+
+Chapter yield:
+
+- `1B`: 5 defensible units, 3 source families. Strong coverage of alerting, nuclear rhetoric, facility exposure and arms-control deterioration. Gaps: internal safeguards, expert governance and dual-use risk.
+- `2B`: 6 units, 5 source families. Strong coverage of initiation, legal order, civilian harm, mobilization and accountability. Gaps: internal deliberations, peace alternatives, proxy control and remedy.
+- `3B`: 5 direct units, 4 source families. Strong coverage of censorship, detention, protest repression and surveillance. Gaps: incitement, vulnerable groups, prison remedies and national prevalence.
+- `4B`: 6 units, 4 source families. Strong coverage of media closure, protest criminalization, surveillance and inherited electoral constraints. Gaps: 2022 contestability, appointments and succession.
+- `5B`: 5 units, 3 source families. Policy instructions and economic shock/outcome evidence. Gaps: implementation, appointments, capture, household distribution and correction.
+- `6B`: 4 units, 3 source families. Social-support instructions plus outcome/shock context. Gaps: delivery quality, equity, affordability, politicization and durability.
+- `7B`: 0 defensible personal-nexus units. Country corruption context exists, but no independently corroborated 2022 personal statement, asset finding, appointment nexus or adjudicated enrichment evidence was located.
+- `8B`: 8 units, 6 source families. Clear programs and operationalization around war, mobilization and socioeconomic support. Gaps: independent implementation audits, personnel competence, adaptation and durable goal progress.
+
+Same-URL splits: `E013/E017` are distinct claims from the same Kremlin instruction page; they count as separate claim units but one source family. `E002/E003` are distinct HRW publications/locators but not independent organizations.
+
+Rejected or context-only candidates: Wikipedia orientation pages, search-result pages, undated organization summaries, post-period news not directly establishing a 2022 fact, uncorroborated FBK allegations, and official claims of fairness/restraint without independent corroboration.
+
+Primary evidence-environment finding: reporting freedom sharply contracted after the invasion, with independent media/NGO exit, criminalized dissent, surveillance and self-censorship. This creates substantial silence-under-repression and source-concentration bias; absence of domestic reporting cannot be interpreted as absence of abuse or opposition.
+---

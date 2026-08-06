@@ -1,0 +1,1371 @@
+You are the evidence-intent extractor in a non-scoring calibration.
+Extract atomic factual intents from the routed passage. Preserve actor, action, mechanism, outcome, dates, quantities, attribution, period fit, limitations, polarity, and every applicable methodology ID. Do not reproduce or author quotation text. Select the frozen source hash, exact locator, and inclusive start/end segment IDs supplied by the citation index. Use separate intents when support is non-contiguous. Do not score.
+Draft IDs must be sequential D0001, D0002, ... within this response. Each locator disposition must name an inspected locator exactly once. The code will copy every quote from the inclusive segment range. Select the narrowest contiguous range that fully supports the claim. Do not put quotation text in any semantic field.
+
+QUESTIONS
+{
+  "schema_version": "ruler-quality-questions-v1",
+  "chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "lens_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "chapters": [
+    {
+      "id": "1B",
+      "questions": [
+        {
+          "id": "1B.1",
+          "text": "Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation?"
+        },
+        {
+          "id": "1B.2",
+          "text": "Did the ruler avoid reckless threats, brinkmanship, apocalyptic language, and normalization of nuclear use, and did formal doctrine, orders, and operational posture corroborate rather than contradict responsible rhetoric?"
+        },
+        {
+          "id": "1B.3",
+          "text": "Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures?"
+        },
+        {
+          "id": "1B.4",
+          "text": "Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them?"
+        },
+        {
+          "id": "1B.5",
+          "text": "Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression?"
+        },
+        {
+          "id": "1B.6",
+          "text": "Did the ruler establish and enforce proliferation controls against allies, proxies, clients, firms, and domestic factions, and respond when monitoring exposed evasion or assistance?"
+        },
+        {
+          "id": "1B.7",
+          "text": "Did the ruler appoint qualified, independent experts, protect their access and dissent, and resource risk-reducing institutions rather than replace expertise with loyalty or ideology?"
+        },
+        {
+          "id": "1B.8",
+          "text": "In crises, did the ruler issue and implement de-escalatory decisions, preserve communication and decision safeguards, and correct procedures exposed as dangerous?"
+        },
+        {
+          "id": "1B.9",
+          "text": "Did the ruler establish, fund, enforce, and transparently review precautionary legal and institutional safeguards for AI, cyber, biological, and other catastrophic dual-use risks?"
+        },
+        {
+          "id": "1B.10",
+          "text": "Did the ruler leave a demonstrably safer and more durable existential-risk posture than inherited, accounting for authority, implementation, external shocks, and unresolved exposure?"
+        }
+      ],
+      "registry": {
+        "category": "nuclear_risk",
+        "question_code_prefix": "nuclear_global_risk",
+        "question_key_prefix": "nuclear_global_risk",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "2B",
+      "questions": [
+        {
+          "id": "2B.1",
+          "text": "When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force?"
+        },
+        {
+          "id": "2B.2",
+          "text": "Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity?"
+        },
+        {
+          "id": "2B.3",
+          "text": "Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats or exploit prestige, revenge, nationalism, historical grievance, diversionary politics, or regime-survival claims?"
+        },
+        {
+          "id": "2B.4",
+          "text": "Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy?"
+        },
+        {
+          "id": "2B.5",
+          "text": "Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged?"
+        },
+        {
+          "id": "2B.6",
+          "text": "Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts?"
+        },
+        {
+          "id": "2B.7",
+          "text": "Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable?"
+        },
+        {
+          "id": "2B.8",
+          "text": "Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors?"
+        },
+        {
+          "id": "2B.9",
+          "text": "Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept responsibility; correct unlawful policy; discipline responsible actors; and provide meaningful remedy?"
+        },
+        {
+          "id": "2B.10",
+          "text": "Did the ruler leave relations more peaceful, stable, and lawful through durable institutions and settlements, accounting for inherited conflicts, actual authority, and external constraints?"
+        }
+      ],
+      "registry": {
+        "category": "international_peace",
+        "question_code_prefix": "peace_aggression",
+        "question_key_prefix": "peace_aggression",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "3B",
+      "questions": [
+        {
+          "id": "3B.1",
+          "text": "Did the ruler establish and enforce laws, orders, and detention practices that protected residents from torture, disappearance, political imprisonment, extrajudicial killing, and arbitrary punishment, and remedy verified abuse?"
+        },
+        {
+          "id": "3B.2",
+          "text": "Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it?"
+        },
+        {
+          "id": "3B.3",
+          "text": "Did the ruler avoid personally or officially inciting hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or other groups, and act when supporters or officials translated such messages into harm?"
+        },
+        {
+          "id": "3B.4",
+          "text": "Did the ruler create, fund, and respect independent courts, complaint systems, civilian oversight, and investigations, comply with findings, and provide victim remedy?"
+        },
+        {
+          "id": "3B.5",
+          "text": "Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, anti-terror, and security powers narrowly and lawfully rather than use them for intimidation, collective punishment, or control?"
+        },
+        {
+          "id": "3B.6",
+          "text": "Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence through lawful, proportionate policy without replacing it with state terror or a broader fear climate?"
+        },
+        {
+          "id": "3B.7",
+          "text": "Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups against targeted and intergroup violence, displacement, and systematic neglect, with equitable access across regions and populations?"
+        },
+        {
+          "id": "3B.8",
+          "text": "Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, and organization, with accountability and remedy for retaliation or excessive force?"
+        },
+        {
+          "id": "3B.9",
+          "text": "During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures rather than use incitement, collective punishment, censorship, or militarized spectacle?"
+        },
+        {
+          "id": "3B.10",
+          "text": "Did the ruler leave people durably safer from state and non-state violence than inherited, accounting for reporting freedom, population exposure, authority, and external shocks?"
+        }
+      ],
+      "registry": {
+        "category": "domestic_safety",
+        "question_code_prefix": "domestic_safety",
+        "question_key_prefix": "domestic_safety",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "4B",
+      "questions": [
+        {
+          "id": "4B.1",
+          "text": "Did the ruler support and implement electoral and constitutional laws, funding, and administration that made power genuinely contestable, and accept verified opposition victories?"
+        },
+        {
+          "id": "4B.2",
+          "text": "Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws, courts, election administration, security forces, media, or public resources to entrench personal or party power?"
+        },
+        {
+          "id": "4B.3",
+          "text": "Did the ruler protect in law and practice opposition, criticism, satire, investigative journalism, protest, association, and civil-society monitoring, and remedy violations?"
+        },
+        {
+          "id": "4B.4",
+          "text": "Did the ruler protect the jurisdiction, appointment independence, tenure, funding, and decisions of courts, legislatures, election bodies, auditors, and local governments even when they constrained the ruler?"
+        },
+        {
+          "id": "4B.5",
+          "text": "Did appointments, dismissals, civil-service rules, and administrative practice preserve politically neutral institutions rather than impose loyalty tests, party capture, intimidation, or a personality cult?"
+        },
+        {
+          "id": "4B.6",
+          "text": "Did the ruler support and enforce media, information-access, ownership, and licensing rules that enabled independent information rather than censorship, propaganda, disinformation, or pressure?"
+        },
+        {
+          "id": "4B.7",
+          "text": "Did the ruler enact and enforce equal political rights and access for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?"
+        },
+        {
+          "id": "4B.8",
+          "text": "Did the ruler preserve and comply with term limits, succession rules, coalition commitments, and constitutional transfer rather than amend, evade, or obstruct them for continued power?"
+        },
+        {
+          "id": "4B.9",
+          "text": "Did the ruler narrowly authorize, transparently procure, and lawfully oversee surveillance and digital controls, or use law, shutdowns, and administrative harassment to suppress political freedom?"
+        },
+        {
+          "id": "4B.10",
+          "text": "Did the ruler leave political freedom and democratic resilience durably stronger than inherited through enacted, implemented, and independently reviewable institutions, accounting for correction and constraints?"
+        }
+      ],
+      "registry": {
+        "category": "political_freedom",
+        "question_code_prefix": "political_freedom",
+        "question_key_prefix": "political_freedom",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "5B",
+      "questions": [
+        {
+          "id": "5B.1",
+          "text": "Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity?"
+        },
+        {
+          "id": "5B.2",
+          "text": "Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty?"
+        },
+        {
+          "id": "5B.3",
+          "text": "Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment?"
+        },
+        {
+          "id": "5B.4",
+          "text": "Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation?"
+        },
+        {
+          "id": "5B.5",
+          "text": "Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture?"
+        },
+        {
+          "id": "5B.6",
+          "text": "Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects?"
+        },
+        {
+          "id": "5B.7",
+          "text": "Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating?"
+        },
+        {
+          "id": "5B.8",
+          "text": "Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups?"
+        },
+        {
+          "id": "5B.9",
+          "text": "During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes?"
+        },
+        {
+          "id": "5B.10",
+          "text": "Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone?"
+        }
+      ],
+      "registry": {
+        "category": "economic_wellbeing",
+        "question_code_prefix": "economic_wellbeing",
+        "question_key_prefix": "economic_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "6B",
+      "questions": [
+        {
+          "id": "6B.1",
+          "text": "Did the ruler enact and fund enforceable social commitments that made human welfare a core purpose of government rather than propaganda, patronage, or a secondary concern?"
+        },
+        {
+          "id": "6B.2",
+          "text": "Did laws, eligibility rules, executed budgets, and service administration improve affordable, effective access and uptake across health, education, water, sanitation, housing, food security, and social protection?"
+        },
+        {
+          "id": "6B.3",
+          "text": "Did the ruler enact, target, fund, and enforce protection for poor regions, children, older people, women, minorities, disabled people, and marginalized groups, with evidence of actual incidence and exclusion?"
+        },
+        {
+          "id": "6B.4",
+          "text": "Did the ruler appoint and retain qualified administrators, provide adequate staffing and resources, and use transparent procurement to deliver social services rather than patronage?"
+        },
+        {
+          "id": "6B.5",
+          "text": "Did the ruler publish credible welfare and service data, permit audit and independent evaluation, and correct program design, implementation, or personnel when evidence showed failure?"
+        },
+        {
+          "id": "6B.6",
+          "text": "Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable and unequally distributed suffering during pandemics, disasters, displacement, famine, or economic shocks?"
+        },
+        {
+          "id": "6B.7",
+          "text": "Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment?"
+        },
+        {
+          "id": "6B.8",
+          "text": "Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone?"
+        },
+        {
+          "id": "6B.9",
+          "text": "Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule?"
+        },
+        {
+          "id": "6B.10",
+          "text": "Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks?"
+        }
+      ],
+      "registry": {
+        "category": "social_wellbeing",
+        "question_code_prefix": "social_wellbeing",
+        "question_key_prefix": "social_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "7B",
+      "questions": [
+        {
+          "id": "7B.1",
+          "text": "Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation?"
+        },
+        {
+          "id": "7B.2",
+          "text": "When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim?"
+        },
+        {
+          "id": "7B.3",
+          "text": "Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions?"
+        },
+        {
+          "id": "7B.4",
+          "text": "Do asset, tax, gift, ownership, contract, foundation, emolument, bribe, insider-access, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability?"
+        },
+        {
+          "id": "7B.5",
+          "text": "Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing?"
+        },
+        {
+          "id": "7B.6",
+          "text": "Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions?"
+        },
+        {
+          "id": "7B.7",
+          "text": "Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability?"
+        },
+        {
+          "id": "7B.8",
+          "text": "Do the ruler's documented legislative positions, formal commitments, and implemented decisions show consistent good-faith promises, or opportunistic reversal and concealed tradeoffs for personal advantage?"
+        },
+        {
+          "id": "7B.9",
+          "text": "Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in procurement, licensing, pardons, enforcement, and privileged access?"
+        },
+        {
+          "id": "7B.10",
+          "text": "Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and cynicism?"
+        }
+      ],
+      "registry": {
+        "category": "integrity",
+        "question_code_prefix": "integrity",
+        "question_key_prefix": "integrity",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "8B",
+      "questions": [
+        {
+          "id": "8B.1",
+          "text": "Did the ruler state or reliably reveal a sufficiently clear program in dated speeches, manifestos, strategies, directives, or formal acts to freeze and test its policy, ideological, power, and international goals?",
+          "registry_key": "ruler_effectiveness_program"
+        },
+        {
+          "id": "8B.2",
+          "text": "Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority?",
+          "registry_key": "ruler_effectiveness_priorities"
+        },
+        {
+          "id": "8B.3",
+          "text": "Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program?",
+          "registry_key": "ruler_effectiveness_mobilization"
+        },
+        {
+          "id": "8B.4",
+          "text": "Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators?",
+          "registry_key": "ruler_effectiveness_appointments"
+        },
+        {
+          "id": "8B.5",
+          "text": "Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies?",
+          "registry_key": "ruler_effectiveness_coordination"
+        },
+        {
+          "id": "8B.6",
+          "text": "Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts?",
+          "registry_key": "ruler_effectiveness_implementation"
+        },
+        {
+          "id": "8B.7",
+          "text": "Did outcome and distribution indicators move toward the ruler's frozen goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives?",
+          "registry_key": "ruler_effectiveness_outcomes"
+        },
+        {
+          "id": "8B.8",
+          "text": "Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course?",
+          "registry_key": "ruler_effectiveness_adaptation"
+        },
+        {
+          "id": "8B.9",
+          "text": "Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the ruler's chosen objectives and durable control?",
+          "registry_key": "ruler_effectiveness_crisis_management"
+        },
+        {
+          "id": "8B.10",
+          "text": "By the end of the period, had the ruler converted more of the frozen program into durable law, institutions, capacity, state practice, and achieved outcomes than at the start, accounting for failures and long-term fragility?",
+          "registry_key": "ruler_effectiveness_period_end"
+        }
+      ],
+      "registry": {
+        "category": "effectiveness",
+        "question_code_prefix": "effectiveness",
+        "question_key_prefix": "effectiveness",
+        "concept_key": "ruler_effectiveness_qualitative_evidence"
+      }
+    }
+  ]
+}
+
+SOURCE
+{
+  "source_id": "MAC-010",
+  "title": "IMF 2022 Article IV full report",
+  "url": "https://www.imf.org/-/media/files/publications/cr/2022/english/1mexea2022001.pdf",
+  "publisher": "www.imf.org",
+  "publication_date": "unknown_not_recorded",
+  "document_type": "financial_report",
+  "source_role": "international_organization",
+  "source_family": "www.imf.org",
+  "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+  "access_state": "open_machine_readable",
+  "dependencies": []
+}
+
+LOCATOR INDEXES
+[
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 72",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 206,
+        "text": "MEXICO\nsecurities and became the biggest holders in mid-2020. The holdings of other institutional investors\nhave also increased. The rapid growth of pension funds’ investment is expected to continue in the\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 206,
+        "end_char": 396,
+        "text": "coming years, partly supported by the gradual increase in contributions required by the recently\nimplemented pension reforms (see Annex XIII).1 A large portion of the new money into pension\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 396,
+        "end_char": 589,
+        "text": "funds is expected to be invested in domestic government securities, given their investment\nstrategies.2\n4. In this context, if the risks discussed in\nHoldings of Domestic Government Securities\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 589,
+        "end_char": 817,
+        "text": "the main text materialized, pension funds (In percent of total outstanding)\n40\ncould play an important role in stabilizing the\n35\ndomestic government securities markets. For\n30\nexample, with an unchanged investment strategy, 25\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 817,
+        "end_char": 1017,
+        "text": "their annual purchases of additional domestic 20\ngovernment securities could amount to roughly 15\nUSD 7–10 billion even if their assets remained at 10\n20 percent of GDP. Purchases of such amounts 5\n0\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1017,
+        "end_char": 1222,
+        "text": "would match the highest value of annual sales of\ndomestic government securities by foreigners\nrecorded in the last ten years. However, tenors Banks Pensions Mutual Funds\nInsurance Foregners Other domestic\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1222,
+        "end_char": 1359,
+        "text": "mostly held by foreigners could still face selling Source: Haver Analytics.\npressure, notably the very long-term government securities.3\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1359,
+        "end_char": 1581,
+        "text": "1 Banxico estimated that pension funds could grow from 20 percent of GDP in 2020 to 35-56 percent of GDP by\n2040. See La Reforma del Sistema de Pensiones de México: Posibles Efectos sobre las Jubilaciones, la Dinámica del\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1581,
+        "end_char": 1753,
+        "text": "Ahorro Obligatorio y las Finanzas Públicas for more details.\n2 The share of government securities in pension funds declined from nearly 100 percent in 1999 to around 50–60\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1753,
+        "end_char": 1984,
+        "text": "percent in 2010 in response to the government’s liberalization of pension funds asset allocation restrictions but the\nshare stayed around the same since then.\n3 See El Mercado De Valores Gubernamentales en México for more details.\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1984,
+        "end_char": 2014,
+        "text": "68 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 73",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 174,
+        "text": "MEXICO\nAnnex VI. Fiscal Policies to Tackle the Effects of Inflation in\nMexico\nThis annex considers the effects of rising fuel and food on households in Mexico and government\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 174,
+        "end_char": 371,
+        "text": "policies to cushion their impact. Poverty – officially measured using the cost of a basic basket of\nnecessities as a poverty line – has showed modest improvements since its peak in 2020 but rising\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 371,
+        "end_char": 568,
+        "text": "prices are exerting pressure on the poor. The government’s fuel pricing mechanism has helped to\nrestrain the effect of fuel price volatility on headline inflation in 2022 but only by subsuming the\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 568,
+        "end_char": 771,
+        "text": "sizable oil revenue gains that Mexico has accrued as an oil exporter. Measures to tackle rising food\nprices have leveraged and scaled up, albeit to a limited extent, pre-existing social and agricultural\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 771,
+        "end_char": 939,
+        "text": "support programs. In addition, both public and private sectors have taken steps to limit the pass-\nthrough of high prices to consumers, though the impact is not clear.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 939,
+        "end_char": 1123,
+        "text": "1. Rising prices and other essential items have put further strains on the poor on the\nheels of an increase in poverty since the pandemic. By the end of 2020, rural poverty had posted\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1123,
+        "end_char": 1311,
+        "text": "a modest improvement, with around 56.8 percent of the rural population in poverty or extreme\npoverty compared to 57.7 percent in 2018. However, the same period also saw a deterioration of\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1311,
+        "end_char": 1507,
+        "text": "conditions in urban areas, with around 40.1 percent of urban households estimated to be in some\nform of poverty—up from 36.8 percent in 2018—as illness and public health restrictions affected the\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1507,
+        "end_char": 1690,
+        "text": "economy (CONEVAL, 2022). Despite signs of a modest recovery, rising inflation strained real\nincomes in 2021, with price pressures from processed foods, including imported ones, a key\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1690,
+        "end_char": 1885,
+        "text": "contributor (IMF, 2021). Since then, rising food price inflation has continued to exert pressure on the\npoor, with the price of the minimum food consumption basket—the minimum food basket that a\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1885,
+        "end_char": 2120,
+        "text": "household should be able to consume to ensure adequate nutrition and the extreme poverty line\nused in Mexico—rising by close to 2 percent for both rural and urban households between March\nand June of this year.\n125\n120\n115\n110\n105\n100\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2120,
+        "end_char": 2340,
+        "text": "Dec-19 Apr-20 Aug-20 Dec-20 Apr-21 Aug-21 Dec-21 Apr-22\nSources: U.S. Department of Energy, PEMEX, CONEVAL; IMF staff calculations\n1/ The U.S. Gulf Coast price for conventional gasoline is an international market price.\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2340,
+        "end_char": 2502,
+        "text": "2/ The basic food basket, Canasta Alimentaria, is a basket of foodstuffs that are judged to provide minimum sufficient nutrition. The cost of this basket is used\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2502,
+        "end_char": 2651,
+        "text": "to determine the extreme poverty lines in Mexico, with households whose income is insufficient to afford the basket judged to be in extreme poverty.\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2651,
+        "end_char": 2868,
+        "text": "3/ Per Capita Labor Income is defined as income from work, including both formal and informal work.\n4/ Data on per capita labor income is missing for 2020Q2 due the impact of the COVID-19 pandemic on data collection.\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2868,
+        "end_char": 3045,
+        "text": "2. The authorities have launched a wide-ranging package of measures to tackle the\nimpact of rising inflation on households in 2022, with fuel subsidies front-and-center. As the\n"
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 3045,
+        "end_char": 3283,
+        "text": "effects of rising inflation began to hit households in early 2022, the Mexican government launched a\npackage of measures to mitigate the impact under the name Paquete Contra La Inflación y La\nINTERNATIONAL MONETARY FUND 69\n001\n= 9102\nceD\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 3283,
+        "end_char": 3460,
+        "text": ",xednI\nEvolution of Basic Food Basket Costs 2/\n100\n90\n80\n70\n60\n50\n40\nUrban 30\nRural\n20\natipaC\nreP emocnI\nfo tnecreP\nGasoline Prices 1/ Cost of Basic Food Basket as Share of Per\n"
+      },
+      {
+        "segment_id": "S00019",
+        "start_char": 3460,
+        "end_char": 3639,
+        "text": "(Pesos per liter, monthly average) Capita Labor Income 3/ 4/ 30\nU.S. Gulf coast\n25 Mexico retail price (incl. VAT)\n20\n15\n10\nUrban\nRural 5\n0\n2001 2004 2007 2010 2013 2016 2019 2022"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 74",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 237,
+        "text": "MEXICO\nCarestía (PACIC) in May. Fuel Authorities' Estimates of Anti-Inflationary Measures in 2022\nsubsidies lie at the heart of PACIC Lastest Budgetary Cost, Percent of\nand are expected to cost the MEX$ mns GDP\nFederal government around\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 237,
+        "end_char": 463,
+        "text": "Policies Addressing Food Price Inflation 72,823 0.25\nMEX$395.4 billion (1.4 percent of\nGDP) by the end the year. Sowing life ('Sembrando Vida') 29,904 0.10\nMeanwhile, efforts to contain rising Production for Well-being\n14,007\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 463,
+        "end_char": 646,
+        "text": "('Producción para el Bienestar') 0.05\nfood costs have largely sought to\nGuarantee Prices for Basic Food Products 11,373 0.04\nleverage pre-existing agricultural Fertilizers 5,200 0.02\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 646,
+        "end_char": 885,
+        "text": "support programs but also include Supply and Acquisition of Milk 4,556 0.02\nan agreement with major retailers to Rural Supply Program by Diconsa 2,228 0.01\nProgram for the Promotion of Agriculture,\nlimit prices increases for 24 core 1,606\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 885,
+        "end_char": 1106,
+        "text": "Livestock, Fisheries, and Aquaculture 0.01\nfood items at no cost to the Federal Other Food Price Stabilization 1/ 3,950 0.01\ngovernment.\nDomestic & agriculture electricity subsidy 73,000\n0.25\n3. The affordability of fuel\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1106,
+        "end_char": 1231,
+        "text": "Gasoline subsidy 395,400 1.36\nsubsidies in 2022 ultimately\nTotal 541,223 1.86\nhinges on the relative prices of Source: SHCP.\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1231,
+        "end_char": 1453,
+        "text": "the unrefined oil that Mexico 1/ Includes freezing of toll rates and the reduction in import tariffs on basic foodstuffs.\nexports and the refined oil that it imports. As an exporter of unrefined oil, Mexico has benefitted\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1453,
+        "end_char": 1654,
+        "text": "from an increase in oil revenues due to rising oil prices at the same time that it has subsidized the\nhigher cost of fuel for domestic consumers, who largely consume refined oil product imports. While\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1654,
+        "end_char": 1852,
+        "text": "domestic fuel subsidies are expected to cost MEX$395.4 billion, the windfall gain in oil revenues\nrelative to the 2022 budget approved in 2021 is estimated at MEX$397.8 billion, suggesting that oil\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1852,
+        "end_char": 2051,
+        "text": "exports can cover the costs of the subsidy scheme. However, if there were another global fuel price\nspike with sharply higher refining margins (“crack spread”), the cost of the fuel subsidy could be\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2051,
+        "end_char": 2284,
+        "text": "larger than the increase in oil revenue. Maintaining a small net impact would then require some\nsubstantial expenditure adjustment in other areas.\n4. Despite large costs in 2022, the fuel pricing mechanism will ensure that subsidies\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2284,
+        "end_char": 2472,
+        "text": "decline with market prices and subsidies are expected to be substantially smaller in 2023.\nSubsidies themselves are enshrined in the law by Presidential decree and their size is currently\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2472,
+        "end_char": 2660,
+        "text": "determined by a methodology outlined in 2019.1 Under this methodology, shadow prices for\ndifferent fuels are constructed. Where the actual fuel price exceeds that of the shadow price, the\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2660,
+        "end_char": 2850,
+        "text": "relevant excise rate is adjusted downwards to close the gap. Shadow prices are constructed using\nfour components. First, a base price component is set at the fuel price as of November 2018,\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2850,
+        "end_char": 3034,
+        "text": "uprated with inflation every 15 days. A second component is a reference price that tracks\ncontemporaneous trends in commodity markets - this is based on the U.S. Gulf Coast waterborne\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 3034,
+        "end_char": 3237,
+        "text": "ticker. Finally, a transport cost component tracks trends in the cost of transporting fuel and a tax\ncomponent is added to control for taxation. All-in-all, the formula aims to ensure that shadow prices\n"
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 3237,
+        "end_char": 3428,
+        "text": "track relevant trends in the cost of fuel while also attempting to smooth excess upward cost\npressures. Given projected declines in global oil prices and inflation in 2023, shadow prices and\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 3428,
+        "end_char": 3648,
+        "text": "1 See https://www.dof.gob.mx/nota_detalle.php?codigo=5583176&fecha=31/12/2019#gsc.tab=0 for the fuel pricing\nformula. The Presidential decree establishes that the statutory excise rate be suspended and fuel subsidies be\n"
+      },
+      {
+        "segment_id": "S00019",
+        "start_char": 3648,
+        "end_char": 3740,
+        "text": "implemented where actual fuel prices exceed the shadow price.\n70 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 75",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 201,
+        "text": "MEXICO\nactual prices are expected to broadly converge, drastically reducing subsidies next year. Moreover,\npast experience evidences the authorities’ willingness to remove subsidies in this situation.\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 201,
+        "end_char": 395,
+        "text": "5. Fuel subsidies have helped to contain inflation in 2022. As global fuel prices rose after\nRussia’s invasion of Ukraine, subsidies substantially contained retail fuel prices. Peaking in June,\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 395,
+        "end_char": 592,
+        "text": "subsidies reduced prices by as much as 30 percent. With fuel at about 6 percent of the consumption\nbasket, the direct effects of the fuel subsidy reduced headline inflation by about two percentage\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 592,
+        "end_char": 793,
+        "text": "points, when it would have peaked at nearly 10 percent. This estimate of the impact of subsidies on\ninflation may also be a lower bound given second round effects, for example the effect of lower fuel\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 793,
+        "end_char": 1004,
+        "text": "prices on retail goods for which distribution is a significant production cost, or public transport costs\nwhere many cities have flexible pricing that responds to fuel prices. However, falling fuel prices since\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1004,
+        "end_char": 1176,
+        "text": "the early summer have reduced the effect of subsidies on inflation, with their effect now estimated\nat a modest 0.2 percent in direct contribution to containing inflation.\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1176,
+        "end_char": 1357,
+        "text": "6. Meanwhile, the Mexican government has sought to leverage pre-existing supply-side\npolicies funded by small budget reallocations to tackle food price inflation. Launched in 2019,\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1357,
+        "end_char": 1545,
+        "text": "the Sembrando Vida policy is aimed at addressing rural poverty, tackling environmental degradation,\nand reducing Mexico’s dependence on imported foods by providing financial incentives to\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1545,
+        "end_char": 1733,
+        "text": "introduce more sustainable and higher-yielding farming techniques. Producción para el Bienestar\nfollows a similar model but for small and medium grain producers while price guarantees for\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1733,
+        "end_char": 1925,
+        "text": "producers of some products and delivery of fertilizer to small-scale farmers in specific states have\naimed at providing direct support to the agriculture sector. As the impact of shortages in\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1925,
+        "end_char": 2125,
+        "text": "agricultural inputs have continued to mount, the government has scaled up some of these schemes,\nextending the fertilizer program to nine states from five and also introducing an emergency fertilizer\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2125,
+        "end_char": 2326,
+        "text": "production program. Pre-existing policies aimed at households have also received greater attention\nduring this period of rising food prices, including the Liconsa milk subsidy for households below the\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2326,
+        "end_char": 2507,
+        "text": "extreme poverty line and the provision of subsidized food at Diconsa stores, a network of\ncommunity-owned stores supported by the government. The focus on pre-existing policies has\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2507,
+        "end_char": 2703,
+        "text": "provided the government with instruments to react relatively quickly to price pressures; however,\nthe scale of these policies is somewhat limited at around 0.3 percent of GDP. Moreover, a lack of\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2703,
+        "end_char": 2898,
+        "text": "clarity on policy objectives may serve to hinder efficacy. For example, the objective of Sembrando\nVida appears to be to both reduce rural poverty and reduce inflation by boosting food supplies.\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2898,
+        "end_char": 3086,
+        "text": "However, the requirement that recipients demonstrate land ownership likely excludes the poorest\nwhile focusing on smaller farmers may not represent the best way of increasing food supply.\n"
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 3086,
+        "end_char": 3258,
+        "text": "7. Newer policies have attempted to limit the pass-through of higher prices to\nconsumers directly but with unclear impact. In May, the President announced that a number of\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 3258,
+        "end_char": 3459,
+        "text": "major retailers in Mexico had agreed to restrain price increases for 24 staple goods initially for six\nmonths with no fiscal or regulatory implications for the government. Additionally, the government\n"
+      },
+      {
+        "segment_id": "S00019",
+        "start_char": 3459,
+        "end_char": 3648,
+        "text": "also announced a reduction in tariffs for imports of 21 basic goods and five inputs for food\nproduction. Given domestic production of a number of these goods and the exemption from tariffs\n"
+      },
+      {
+        "segment_id": "S00020",
+        "start_char": 3648,
+        "end_char": 3828,
+        "text": "of imports under free trade agreements, the cost of this policy in terms of revenues foregone is\nexpected to be small—around MEX$1.2 billion in 2022.\nINTERNATIONAL MONETARY FUND 71"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 76",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 170,
+        "text": "MEXICO\nAnnex VII. When the U.S. Sneezes, Does Mexico Catch a Cold?\nThis annex presents estimates of the effect of economic fluctuations in the U.S. on Mexico. As exports\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 170,
+        "end_char": 364,
+        "text": "from Mexico to the U.S. rose threefold as a share of GDP since the start of the North America Free\nTrade Agreement (NAFTA), economic growth in Mexico is increasingly sensitive to business cycle\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 364,
+        "end_char": 578,
+        "text": "fluctuations in the U.S. At the same time, remittances and capital flows increased as well, but there is\nno correlation between portfolio flows and business fluctuation and remittances rather seem\ncountercyclical.\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 578,
+        "end_char": 807,
+        "text": "1. Since the start of the Increasing Association between United States and Mexico Growth\nTime-varying effect of unit change in U.S. growth on Mexico in percentage points\nNAFTA in the mid-90s, the\n3\nMexican economy has become 2.5\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 807,
+        "end_char": 1017,
+        "text": "increasingly integrated with the 2\n1.5\nU.S. economy. In the\n1\nmanufacturing sector, about half of 0.5\ndomestic value added is now 0\n-0.5\ndriven by foreign demand. In the\n-1\nautomotive industry, the share is 80\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1017,
+        "end_char": 1139,
+        "text": "percent. Most exports are sent to\nSources: U.S. Bureau of Economic Analysis, INEGI; and Fund Staff calculations.\nthe U.S. "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1139,
+        "end_char": 1291,
+        "text": "At the same time, reported Note: 12-year Rolling window regressionsof Mexico quarterly real GDP growth on United States contemporaneous and lagged real\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1291,
+        "end_char": 1418,
+        "text": "GDP growth. The solid line is the sum of contemporaneous and lagged coefficients and the dashed line the 90 percent confidence\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1418,
+        "end_char": 1658,
+        "text": "interval (Newey-West estimator to allow serial correlation). For instance, 2008-2019 estimates indicate that a 1 percent lower growth\nremittances sent by Mexican\nin the United States is associated with a 1.5 percent lower growth in Mexico.\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1658,
+        "end_char": 1890,
+        "text": "workers located in the U.S. have\nincreased steadily from slightly less than 1 percent of GDP in 2000 to almost 4 percent of GDP in\n2021. The Mexican economy has also attracted foreign investors, with gross international liabilities\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1890,
+        "end_char": 2067,
+        "text": "increasing from about 50 percent of GDP in 2001 to about 100 percent of GDP in 2021.\n2. As a result of this rising integration, the Mexican business cycle has increasingly been\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2067,
+        "end_char": 2263,
+        "text": "associated with that of the U.S. A regression analysis with a rolling time window illustrates this\npattern. A one-percent change in U.S. GDP was associated with a 1.5 percent change in Mexico GDP\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2263,
+        "end_char": 2453,
+        "text": "in the 2010s, compared to about 0.2 percent in the 1980s (Figure above). Much of the increase\nseems to reflect the trade channel. Even though the manufacturing sector accounts for only one-\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2453,
+        "end_char": 2648,
+        "text": "fifth of GDP, it explains about three-fourths of Mexico’s short-term GDP fluctuations. Production in\nthis sector is much more reactive to short-term developments than production elsewhere in the\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2648,
+        "end_char": 2840,
+        "text": "economy. In fact, there is a one-to-one short-term association between Mexico’s manufacturing\nexports and production in the U.S. The relative greater importance of the manufacturing sector in\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2840,
+        "end_char": 3035,
+        "text": "Mexico compared to the U.S. (almost one-fifth of GDP versus about one-tenth in the U.S.) could\nexplain why U.S. growth fluctuations could lead to relatively larger growth fluctuations in Mexico.\n"
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 3035,
+        "end_char": 3268,
+        "text": "Furthermore, during the post-pandemic recovery, Mexico benefited from a shift in U.S. consumption\nfrom services to goods, but this may be an additional headwind in the coming year, as the demand\ncomposition is expected to normalize.\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 3268,
+        "end_char": 3447,
+        "text": "3. By contrast, remittances seem to be countercyclical; they were increasing in both the\nGFC and the COVID-19 pandemic.1 During the GFC, the increase partly reflected U.S. dollar\n"
+      },
+      {
+        "segment_id": "S00019",
+        "start_char": 3447,
+        "end_char": 3666,
+        "text": "1 For the latter crisis with exceptional travel restrictions, the reported boom may to some extent reflect the\nreplacement of cash transfers by wire transfers which can be better observed.\n72 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 77",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 239,
+        "text": "MEXICO\nappreciation, which boosted\nReal Growth in Mexico and External Developments\nthe value of the transfers in (Y/Y change in percent) 1/\n20 40\npesos. In the COVID-19\n15 30\npandemic, the increase may\n10 20\nalso have reflected efforts to\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 239,
+        "end_char": 462,
+        "text": "5 10\nsupport relatives in times of\n0 0\nneed. At the same time,\n-5 -10\nportfolio flows in Mexico are\n-10 -20\nnearly uncorrelated with short\n-15 -30\nterm business fluctuations, Global financial crisis Covid-19 crisis\n-20 -40\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 462,
+        "end_char": 691,
+        "text": "likely reflecting offsetting\nforces. On the one hand, risk-\nMexico real GDP US real GDP Remittances Portfolio flows\noff modes in U.S. recessions\nSources: U.S. Bureau of Economic Analysis, INEGI, Banxico; and Fund staffestimates.\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 691,
+        "end_char": 889,
+        "text": "can lead to capital outflows in 1/ year-on-year percent change in quaterly realGDP and remittances and year-on-year change in portfolio\nflows scaled with lagged nominal GDP.\nemerging markets, while\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 889,
+        "end_char": 1084,
+        "text": "monetary policy easing in the U.S. can encourage “search for yield” strategies. Furthermore, foreign\ndirect investments, where longer-term considerations dominate, tend to be more resilient. The\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1084,
+        "end_char": 1232,
+        "text": "resilience of overall capital inflows during U.S. downturns also reflects Mexico’s strong\nmacroeconomic fundamentals.\nINTERNATIONAL MONETARY FUND 73"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 78",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 192,
+        "text": "MEXICO\nAnnex VIII. The Impact on Mexico’s Exports to U.S. from 2014\nU.S. Sanctions on Russia\nThis annex presents an event study of how economic sanctions imposed by the U.S. on Russia in 2014\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 192,
+        "end_char": 390,
+        "text": "affected Mexico’s exports to the U.S. While there are many differences between this event and the\ncurrent episode, not least in global developments and the scale of the sanctions, this exercise can\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 390,
+        "end_char": 599,
+        "text": "nevertheless offer clues on the possible impact on Mexico’s exports from the current U.S. sanctions on\nRussia. Mexico’s exports to the U.S. is found to get a boost following the 2014 U.S. sanctions on Russia,\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 599,
+        "end_char": 839,
+        "text": "hinting towards positive trade diversion effects.\n1. The actual data suggest that Pre-sanction US Post-sanction US Change in US\nimports (billion $, imports (billion $, imports (billion $,\nMexico’s exports to the U.S. have increased Country\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 839,
+        "end_char": 1045,
+        "text": "percent of 2012 percentage points percentage points\nafter sanctions by about USD 0.85 billion or\nGDP) of 2012 GDP) of 2012 GDP)\n0.07 percentage points of 2012 GDP, Mexico 23.89 24.74 0.85\n1.99% 2.06% 0.07%\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1045,
+        "end_char": 1280,
+        "text": "comparing imports of 2015–16 to 2012–14\nRussian\n(table). Many factors may be at play behind the 2.29 1.36 -0.93\nFederation\nevolution of actual data. To gauge the impact 0.10% 0.06% 0.04%\nassociated with sanctions, we use two empirical\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1280,
+        "end_char": 1485,
+        "text": "U.S. Imports from Mexico using Dynamic Regressions\napproaches.1\n(Percent)\n35 March December\n30 2014 2014\n2. Dynamic regressions. For each month in 25\n20\n2012–16, the log of nominal U.S. imports from 15\n10\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1485,
+        "end_char": 1716,
+        "text": "Mexico, using granular HS 6-digit level, are\n5\nregressed on: (i) time dummy representing the 0\n-5\ncorresponding month; (ii) U.S. tariffs to Mexico at -10\n2012 2013 2014 2015 2016\nproduct level; and (iii) product fixed effects. The\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1716,
+        "end_char": 1925,
+        "text": "Sources: UN Comtradeand USITC. Note:Regression result of monthly nominal U.S\ncoefficient of the time dummy increases in the import growth from Mexico, compared to January 2012.The coefficients on the month of\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1925,
+        "end_char": 2137,
+        "text": "the dummy variables are plotted. The dotted lines show 95 percent confidence bands.\nmonths following the U.S. sanctions in March and See text for regression details.\nDecember 2014, suggesting positive effects on\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2137,
+        "end_char": 2343,
+        "text": "Mexico’s exports after the sanctions.2 U.S. Imports from Mexico using Local Projections\n(Percent)\n14\n3. Local projections. The accumulated change 12\n10\nin the log of U.S. imports from Mexico is regressed\n8\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2343,
+        "end_char": 2583,
+        "text": "on: (i) three lags of the dependent variable; (ii) current 6\n4\nand three lags of shocks, with March and December\n2\n2014 as 1 and other months as 0; (iii) current and 0\nthree lags of Mexican GDP; (iv) current and three lags -2\n0 1 2 3 4 5 6\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2583,
+        "end_char": 2822,
+        "text": "of U.S. tariffs as above; and (v) product fixed effects. Months after shock\nSources: UN Comtradeand USITC.\nThe impulse responses suggest a positive statistically Note:Local projection regression result of growth in U.S.nominalimports from\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2822,
+        "end_char": 3055,
+        "text": "Mexico, compared to the month of the shock. The dotted lines show 95 percent\nsignificant effect with nominal exports from Mexico confidence bands. See text for regression details.\nincreasing by about 10 percent four months after the\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 3055,
+        "end_char": 3231,
+        "text": "1 Monthly U.S. import value data at HS 6-digit level is from UN Comtrade and DataWeb, USITC from 2012/01 to\n2016/12. U.S. tariffs on Mexico are calculated from DataWeb, USITC.\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 3231,
+        "end_char": 3414,
+        "text": "2 In 2014, following Russia’s invasion of Crimea, the U.S. issued four executive orders. The first three were in March\nand the last one was in December.\n74 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 79",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 208,
+        "text": "MEXICO\nsanction. An important caveat to the two approaches is that it could capture other time-varying\neffects other than sanctions. As such, the analysis does not attribute causality. In addition, the local\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 208,
+        "end_char": 337,
+        "text": "projections using shocks for the months of executive orders should somewhat mitigate this concern.\nINTERNATIONAL MONETARY FUND 75"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 8",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 223,
+        "text": "MEXICO\nCONTEXT\n1. While still rebounding from Manufacturing Exports\nthe pandemic, Mexico is facing a (In percent of GDP)\n50\nchallenging new environment as Manufacturing exports\n40 Manufacturing exports to the United States\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 223,
+        "end_char": 447,
+        "text": "global inflation has surged. The\neconomy has rebounded more gradually 30\nthan in many peers, but even so, 20\ninflation has accelerated, in line with\n10\nglobal developments. Financial\n0\nconditions tightened in the past year,\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 447,
+        "end_char": 634,
+        "text": "while growth prospects for the U.S.,\nSource: Banxico.\nMexico’s main trading partner, have\nweakened. Risks of capital flow reversals in emerging market economies have increased. Mexico is\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 634,
+        "end_char": 858,
+        "text": "well placed to navigate the challenges and risks, given prudent macroeconomic policy conduct,\nstrong monetary and fiscal frameworks, and no major macroeconomic imbalances. Nonetheless,\ndifficult policy trade-offs lie ahead.\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 858,
+        "end_char": 1064,
+        "text": "2. These challenges, alongside Real GDP\nscarring from the pandemic, (Index, 2019 = 100)\n120\ncompound Mexico’s long-standing\nActual and expected real GDP\n110\nproblems of low growth, weak 1999-2019 trend\n100\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1064,
+        "end_char": 1291,
+        "text": "productivity, and high inequality.\nInvestment weakened in the pandemic 90\ndownturn, reinforcing the impact of 80\nincreased policy uncertainty in some\n70\nsectors in recent years. Important\n60\nobstacles to higher, more inclusive\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1291,
+        "end_char": 1512,
+        "text": "growth remain pertinent in several\nSources: INEGI and IMF staff calculations.\nareas, such as rule of law, corruption,\nand crime issues; regional disparities; and weak outcomes in education and health.\nRECENT DEVELOPMENTS\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1512,
+        "end_char": 1699,
+        "text": "3. The economic recovery picked up pace in the first half of 2022. Real GDP expanded at\nan above-trend rate of 1.8 percent, reversing an unexpected stagnation in the second half of 2021.\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1699,
+        "end_char": 1884,
+        "text": "The latter reflected temporary factors, notably the impact of the new subcontracting law on\nproduction (Annex IV) and the impact of the spread of COVID-19 in the summer. The subsequent\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1884,
+        "end_char": 2076,
+        "text": "pickup largely reflects continued catch-up momentum, but also improving wages and fiscal policy\nsupport. Growth of domestic demand was more resilient than that of output in the past year, and\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2076,
+        "end_char": 2200,
+        "text": "the external current account recorded a small deficit of 0.4 percent of GDP in the period. The\n4 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 80",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 161,
+        "text": "MEXICO\nAnnex IX. The Inflation Surge in Mexico in Perspective\nThe current inflation surge in Mexico has important similarities and differences compared to other\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 161,
+        "end_char": 362,
+        "text": "countries. Like elsewhere, inflation has consistently surprised on the upside and started around the\nsame time, in early 2021. However, compared to others, the inflation surge in Mexico started from a\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 362,
+        "end_char": 595,
+        "text": "position of weaker economic slack, and food prices played a more prominent role.\n1. Like elsewhere, inflation has picked up in\nHeadline Inflation\nMexico. Over the past year and a half, Mexico has (Annual change in CPI in percent)\n10\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 595,
+        "end_char": 815,
+        "text": "experienced an inflation surge to multi-decade highs,\n8\nas many other countries, including its main trading\npartner, the U.S. While similar in many aspects, the 6\nsurge in Mexico and its drivers have differed in other 4\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 815,
+        "end_char": 1052,
+        "text": "dimensions. The current surge also differs from past 2\ninflation surges in Mexico. 0\n-2 Mexico\n2. There are important similarities and\nUnited States\n-4\ndifferences between Mexico’s experience compared\nto others.\nSource: Haver Analytics.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1052,
+        "end_char": 1232,
+        "text": "• On similarities, the surge started in early 2021 with Headline, Core, and Food Inflation\n(Annual change in CPI in percent)\nthe rebound in global fuel prices. Subsequently, it\n14\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1232,
+        "end_char": 1436,
+        "text": "involved sharp increases in the prices of goods, Headline Core\n12 Food Upper limit\nbroadly in line with headline inflation in Mexico’s Lower limit\ncase, and in food prices. As elsewhere, inflation has 10\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1436,
+        "end_char": 1676,
+        "text": "also consistently surprised on the upside, with large 8\nsurprises in some months, leading to increasing\n6\nconcerns about a possible de-anchoring of inflation\n4\nexpectations. So far, only near-term inflation\n2\nexpectations have increased.\n0\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1676,
+        "end_char": 1861,
+        "text": "• An important difference is the greater role of food\nprices in the inflation surge in Mexico, contributing Source: Haver Analytics.\nroughly half of the increase in inflation above the\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1861,
+        "end_char": 2092,
+        "text": "upper limit of Banxico’s inflation target range. The large Annual CPI Inflation, Actual and In-Sample\nForecast\ncontribution is consistent with past patterns. Since the 8.0\n7.5\nadoption of an inflation targeting regime in 2001,\n7.0\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2092,
+        "end_char": 2331,
+        "text": "Mexico has experienced several episodes of food 6.5\n6.0\ninflation running above target for a year or more. Some\n5.5\nof these episodes also involved headline or even core 5.0\n4.5\ninflation running above target, including in 2008 and in\n4.0\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2331,
+        "end_char": 2502,
+        "text": "Actual\n2017–18, while in others, above-target dynamics only 3.5 Forecast\n3.0\nconcerned food prices, including in 2011–13.\n2020Q4 2021Q1 2021Q2 2021Q3 2021Q4 2022Q1 2022Q2\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2502,
+        "end_char": 2674,
+        "text": "Source:IMF staff calculations. Based on a dynamicin-sample forecasts for\nquarterly inflation using a Phillip curve approach.\n• Another important difference with some other\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2674,
+        "end_char": 2804,
+        "text": "countries is that the inflation surge started from a position of relatively more economic slack and\n76 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  }
+]

@@ -10,6 +10,7 @@ from typing import Any
 
 from pydantic import ValidationError
 
+from .codex_worker_command import read_codex_thread_id
 from .costing import load_research_pricing, price_usage
 from .dossier_models import (
     DossierEvidence,
@@ -54,6 +55,37 @@ def read_codex_usage(events_path: Path) -> DossierUsage | None:
         total_tokens=input_tokens + output_tokens,
         estimated_cost_usd="unknown_not_exposed_by_tool",
     )
+
+
+def read_distinct_codex_usage(
+    event_paths: tuple[Path, ...],
+) -> tuple[DossierUsage, ...]:
+    """Count cumulative Codex counters once per execution thread.
+
+    Resumed calls emit cumulative snapshots for their shared thread. The largest
+    snapshot represents that thread; adding all snapshots repeats earlier turns.
+    A historical log without one valid thread identifier remains independent.
+    """
+
+    by_thread: dict[str, DossierUsage] = {}
+    independent: list[DossierUsage] = []
+    for events_path in event_paths:
+        usage = read_codex_usage(events_path)
+        if usage is None:
+            continue
+        try:
+            thread_key = read_codex_thread_id(events_path)
+        except (OSError, UnicodeError, ValueError):
+            independent.append(usage)
+            continue
+        current = by_thread.get(thread_key)
+        if current is None or _known_total(usage) > _known_total(current):
+            by_thread[thread_key] = usage
+    return (*by_thread.values(), *independent)
+
+
+def _known_total(usage: DossierUsage) -> int:
+    return int(usage.total_tokens) if isinstance(usage.total_tokens, int) else -1
 
 
 def price_codex_usage(
@@ -268,5 +300,6 @@ __all__ = [
     "find_previous_candidate",
     "price_codex_usage",
     "read_codex_usage",
+    "read_distinct_codex_usage",
     "write_local_priors",
 ]

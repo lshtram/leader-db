@@ -1,0 +1,51 @@
+{
+  "schema_version": "evidence_funnel_config_v2",
+  "chapter_id": "5B",
+  "methodology_ids": ["5B.1", "5B.2", "5B.3", "5B.4", "5B.5", "5B.6", "5B.7", "5B.8", "5B.9", "5B.10"],
+  "calibration_document_ids": ["BOOK-013", "MAC-010", "LAW-005"],
+  "frozen_document_ids": ["GOV-003", "GOV-017", "MAC-010", "MAC-015", "LAW-005", "LAW-017", "LAW-019", "IMP-005", "RES-001", "IMP-001", "RES-006", "RES-005", "RES-019", "BOOK-013", "PREZ-005", "NEWS-010"],
+  "expanded_catalogue_gate_enabled": false,
+  "maximum_gap_rounds": 3,
+  "diagnostic_score_tolerance": 1.0,
+  "stages": {
+    "mapping": {"role": "low_cost_long_context_mapper", "model": "minimax-m3-long-context", "fallbacks": ["minimax-m2.7-researcher"], "max_attempts": 2, "attempt_timeout_seconds": 600},
+    "routing": {"role": "high_recall_question_router", "model": "minimax-m3-long-context", "fallbacks": ["minimax-m2.7-researcher", "minimax-m3-long-context", "minimax-m2.7-researcher"], "max_attempts": 4, "attempt_timeout_seconds": 600},
+    "extraction": {"role": "atomic_evidence_extractor", "model": "minimax-m3-long-context", "fallbacks": ["minimax-m2.7-researcher"], "max_attempts": 2, "attempt_timeout_seconds": 600},
+    "verification": {"role": "fresh_pass_factual_reviewer", "model": "minimax-m3-long-context", "fallbacks": ["minimax-m2.7-researcher"], "max_attempts": 2, "attempt_timeout_seconds": 600},
+    "cluster_adjudication": {"role": "ambiguous_cluster_adjudicator", "model": "minimax-m3-long-context", "fallbacks": [], "max_attempts": 2, "attempt_timeout_seconds": 600},
+    "gap_management": {"role": "gap_directed_research_manager", "model": "openai-gpt54-mini-researcher", "fallbacks": [], "max_attempts": 3, "attempt_timeout_seconds": 600},
+    "diagnostic_judge": {"role": "matched_premium_chapter_judge", "model": "openai-sol-supervisor", "fallbacks": [], "max_attempts": 2, "attempt_timeout_seconds": 600},
+    "score_audit": {"role": "independent_score_rationale_auditor", "model": "openai-sol-supervisor", "fallbacks": [], "max_attempts": 2, "attempt_timeout_seconds": 600}
+  },
+  "routing": {
+    "short_record_max_tokens": 1800,
+    "minimum_relevance": "weak",
+    "adjacent_context_chunks": 1,
+    "routing_batch_max_units": 10,
+    "extraction_batch_max_units": 4,
+    "extraction_validation_retries": 1
+  },
+  "verification": {
+    "random_premium_sample_rate": 0.1,
+    "escalate_pivotal": false,
+    "escalate_legal_or_technical": true,
+    "escalate_reviewer_disagreement": true,
+    "batch_max_candidates": 20,
+    "validation_retries": 1,
+    "maximum_locator_audit_rejection_rate": 0.1,
+    "maximum_invalid_extractor_locator_rate": 0.05,
+    "maximum_semantic_rejection_rate": 0.1
+  },
+  "citations": {
+    "segment_characters": 240,
+    "maximum_binding_attempts": 3
+  },
+  "prompts": {
+    "mapping": "Map natural sections, locators, topics, actors, periods, tables, likely methodology IDs, and reading priority. This map is navigation only and must not be treated as evidence.",
+    "routing": "Route for high recall using every supplied Chapter 5B question and research specification. Include a chunk only when it contains at least one concrete named policy action, measured outcome, cost, distributional result, implementation finding, method or qualification, attribution fact, or contrary finding that could merit a distinct evidence record. Topic overlap, generic background, definitions, tables of contents, references, and adjacent context alone are not material evidence and must be excluded. Identify necessary adjacent context in the decision but do not include that chunk unless it independently meets the evidence test. Return question IDs, relevance, adjacent context, and an exclusion reason. Do not summarize or repeat question wording.",
+    "extraction": "Work in two phases. First call inspect exactly once for every assigned locator, without recording any claim. Only after every inspection succeeds, extract atomic factual intents from the inspected passages. Preserve actor, action, mechanism, outcome, dates, quantities, attribution, period fit, limitations, polarity, and every applicable methodology ID. Do not reproduce or author quotation text. Select the frozen source hash, exact locator, and inclusive start/end segment IDs supplied by the citation index. The selected range must contain the complete supporting sentence plus any nearby sentence needed to identify its actor, subject, comparison, causal qualification, or uncertainty. Never begin or end a citation mid-sentence when an adjacent segment contains the missing boundary. After record returns the stored excerpt, expand the range with revise if either boundary is truncated or any named actor, action, date, quantity, attribution, comparison, qualifier, cause, or outcome is not explicit inside that returned excerpt. Do not resolve a pronoun, unnamed subject, section heading, or nearby statement from memory. Use a generic actor and narrower claim when the stored excerpt does not name the actor. Remove any detail supported only by adjacent or remembered text. Never combine non-contiguous support, and split compound facts into narrower intents. Prefer a short fully supported intent over a richer partly supported one. Record only materially distinct facts; do not exhaustively restate a passage. Use separate intents when support is non-contiguous. Do not score.",
+    "verification": "Review the claim against the exact code-bound source excerpt and locator returned by the citation ledger. Reject or escalate unsupported wording, attribution, dates, quantities, legal status, or causation. Do not rewrite the quotation or move its locator. Formatting defects are handled separately from semantic quality.",
+    "gap_management": "Identify only material gaps in implementation, costs, incidence, attribution, contrary evidence, adjudication, or independent corroboration. Stop on documented saturation or access blockers."
+  },
+  "phase_order": ["catalogue", "mapping", "routing", "intent_extraction", "citation_binding", "citation_confirmation", "semantic_verification", "clustering", "gap_research", "briefing", "dossier", "diagnostic_judgment", "score_audit"]
+}

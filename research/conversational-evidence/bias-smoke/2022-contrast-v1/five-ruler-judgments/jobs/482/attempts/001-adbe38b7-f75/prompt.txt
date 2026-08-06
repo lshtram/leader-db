@@ -1,0 +1,3515 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Treat projection coverage statuses and evidence-to-lens mappings as advisory
+bookkeeping, not binding admissibility decisions. Apply every cited chapter evidence
+item to the ten lenses yourself. A projection mapping does not make an item relevant:
+the active guide's scope, non-goals, exclusions, and attribution limits are mandatory.
+Identify and give zero scoring weight to mapped evidence that fails those gates; do not
+use it as a positive, negative, contrary, or anchor reason. In particular,
+`research_blocked` means that the
+formatter did not record a complete lens disposition; it does not erase relevant
+chapter evidence or require a null score.
+Use half-point score increments. A numeric score must rest on a concrete record of
+relevant governing conduct, not merely country indicators or evidence volume. For
+Chapters 1B-6B and 8B, documented formal responsibility for national policy, programs,
+appointments, command, implementation, tolerance, or remedy can satisfy attribution
+without proof of a personal order. Chapter 7B requires a personal-integrity nexus.
+Shared authority affects weight and confidence rather than automatically erasing the
+evidence. Inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If the record remains insufficient, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Before scoring each ruler: (1) establish the information environment and evidence
+opportunity; (2) identify the inherited baseline and external shocks; (3) establish
+formal and practical ruler authority; (4) collapse repeated coverage into independent
+underlying facts; (5) compare absolute conditions with change from baseline; and
+(6) compare the ruler with adjacent cases. Then make the holistic judgment. Preserve
+inherited conditions, ruler authority, contrary evidence, source bias, and adjacent-case
+comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Every evaluation must include a substantive `bias_assessment`. Cite the dossier E-IDs
+that support each material bias finding, state its likely direction and how it changed
+interpretation, and explain the effect on confidence and plausible range. Confirm that
+complaint/report volume was not treated as severity and that no blanket democracy or
+autocracy score correction was applied. Closed-system silence is not favorable evidence;
+open-system disclosure and remedy are not additional misconduct.
+
+Write `chapter_rationale` as a self-contained reader-facing abstract, not as terse
+notes between specialists. Assume the reader knows the ruler's name but does not
+know the events, institutions, controversies, programs, or acronyms in the dossier.
+Keep it concise: normally 120-220 words and never more than 300 words. Keep every
+other prose field to one or two sentences. Spend output tokens on completing and
+validating all evaluations, not on repeating dossier evidence.
+Use this order: (1) state the overall chapter appraisal and score in plain language;
+(2) explain the main favorable and unfavorable findings, identifying what each
+specific case was and why it matters; (3) distinguish proven facts from allegations,
+institutional context, and uncertain ruler attribution; and (4) conclude why the
+evidence supports this score rather than a materially higher or lower one. Define
+unfamiliar cases on first mention. Do not open with an unexplained case name, event,
+acronym, or compressed phrase such as "the X scrutiny." The abstract must answer the
+chapter question for a reader who has not read the dossier.
+
+Retry context: There is no prior candidate for this attempt.
+
+Run-scoped audit corrections (mandatory; they may exclude evidence but may not
+prescribe a score):
+None.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2022-bias-five-judge-v1:2022:6B",
+  "run_key": "2022-bias-five-judge-v1",
+  "chapter_id": "6B",
+  "target_year": 2022,
+  "calibration_batch_id": "chapter-judge:2022-bias-five-judge-v1:2022:6B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2022-bias-contrast-v1:2022:USA:15810",
+    "iso3": "USA",
+    "ruler_id": "2782",
+    "ruler_year_id": 15810,
+    "ruler_name": "Joe Biden",
+    "period_start_year": 2022,
+    "period_end_year": 2022
+  },
+  {
+    "dossier_job_key": "dossier:2022-bias-contrast-v1:2022:COD:16113",
+    "iso3": "COD",
+    "ruler_id": "2830",
+    "ruler_year_id": 16113,
+    "ruler_name": "F\u00e9lix Tshisekedi",
+    "period_start_year": 2022,
+    "period_end_year": 2022
+  },
+  {
+    "dossier_job_key": "dossier:2022-bias-contrast-v1:2022:RUS:15706",
+    "iso3": "RUS",
+    "ruler_id": "2759",
+    "ruler_year_id": 15706,
+    "ruler_name": "Vladimir Putin",
+    "period_start_year": 2022,
+    "period_end_year": 2022
+  },
+  {
+    "dossier_job_key": "dossier:2022-bias-contrast-v1:2022:DEU:16984",
+    "iso3": "DEU",
+    "ruler_id": "2975",
+    "ruler_year_id": 16984,
+    "ruler_name": "Olaf Scholz",
+    "period_start_year": 2022,
+    "period_end_year": 2022
+  },
+  {
+    "dossier_job_key": "dossier:2022-bias-contrast-v1:2022:NOR:16795",
+    "iso3": "NOR",
+    "ruler_id": "2933",
+    "ruler_year_id": 16795,
+    "ruler_name": "Jonas Gahr St\u00f8re",
+    "period_start_year": 2022,
+    "period_end_year": 2022
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "6B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "United States",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E007",
+          "E009",
+          "E014",
+          "E020",
+          "E023",
+          "E024",
+          "E034",
+          "E035",
+          "E048",
+          "E049"
+        ],
+        "methodology_id": "6B.1",
+        "reason": "Evidence found on public safety, health programs, inflation burden, and service implementation; attribution is limited.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E007",
+          "E009",
+          "E014",
+          "E024",
+          "E034",
+          "E035",
+          "E049"
+        ],
+        "methodology_id": "6B.2",
+        "reason": "Evidence found on veteran and public-service implementation.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E023",
+          "E048"
+        ],
+        "methodology_id": "6B.3",
+        "reason": "Evidence found on inflation burden and mental-health access barriers.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E007",
+          "E009",
+          "E014",
+          "E023",
+          "E024",
+          "E034",
+          "E035",
+          "E048",
+          "E049"
+        ],
+        "methodology_id": "6B.4",
+        "reason": "Evidence found on access and implementation, with equity gaps.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E007",
+          "E009",
+          "E014",
+          "E020",
+          "E024",
+          "E034",
+          "E035",
+          "E049"
+        ],
+        "methodology_id": "6B.5",
+        "reason": "Evidence found on implementation and oversight limitations.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E014",
+          "E020",
+          "E023",
+          "E024",
+          "E034",
+          "E035",
+          "E048",
+          "E049"
+        ],
+        "methodology_id": "6B.6",
+        "reason": "Evidence found on service access and household burden; national outcomes remain incomplete.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "6B.7",
+        "reason": "The researcher explicitly recorded no usable evidence for this lens.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [
+          "E007",
+          "E009",
+          "E014",
+          "E023",
+          "E024",
+          "E034",
+          "E035",
+          "E048",
+          "E049"
+        ],
+        "methodology_id": "6B.8",
+        "reason": "Evidence found on welfare, health access, and implementation weaknesses.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E014",
+          "E024",
+          "E034",
+          "E035",
+          "E049"
+        ],
+        "methodology_id": "6B.9",
+        "reason": "Evidence found on veteran-service mechanisms and oversight.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E007",
+          "E009",
+          "E014",
+          "E020",
+          "E023",
+          "E024",
+          "E034",
+          "E035",
+          "E048",
+          "E049"
+        ],
+        "methodology_id": "6B.10",
+        "reason": "Evidence found on service implementation and access, with durability gaps.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 12375,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://public-inspection.federalregister.gov/2022-11810.pdf|pp. 1-5|EO 14074 federal policing reforms",
+        "claim": "Executive Order 14074 ordered federal policing reforms involving accountability, misconduct data, independent investigations of in-custody deaths, profiling safeguards, use-of-force standards, and public reporting, while acknowledging that comprehensive system-wide reform required Congress.",
+        "contrary_evidence": [
+          "E008",
+          "E022",
+          "E031",
+          "E045"
+        ],
+        "evidence_id": "E007",
+        "excerpt": "The order establishes federal accountability, data, investigation, and policing-reform measures.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, May 2022.",
+        "publication_date": "2022-05-25",
+        "publisher": "Executive Office of the President; Federal Register",
+        "ruler_attribution": "Strong ruler-attributed federal action; limited reach over state and local police.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary legal instrument with page locator.",
+        "source_locator": "PDF pp. 1-5.",
+        "source_type": "executive_order",
+        "title": "Executive Order 14074",
+        "url": "https://public-inspection.federalregister.gov/2022-11810.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.whitehouse.gov/wp-content/uploads/2022/06/Bipartisan-Safer-Communities-Act-SAP-1.pdf|June 23 2022|gun-safety legislative policy",
+        "claim": "The administration supported federal gun-safety legislation addressing background checks, firearms trafficking, school safety, and behavioral-health programs.",
+        "contrary_evidence": [],
+        "evidence_id": "E009",
+        "excerpt": "The administration's policy record supported the Bipartisan Safer Communities Act.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, June 2022.",
+        "publication_date": "2022-06-23",
+        "publisher": "Executive Office of the President",
+        "ruler_attribution": "Administration policy and legislative support; public-safety effects unresolved.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official contemporaneous policy document.",
+        "source_locator": "PDF, June 23 2022 policy record.",
+        "source_type": "official_policy_record",
+        "title": "Bipartisan Safer Communities Act Administration Policy",
+        "url": "https://www.whitehouse.gov/wp-content/uploads/2022/06/Bipartisan-Safer-Communities-Act-SAP-1.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.congress.gov/crs-product/R47542|2022 PACT Act implementation|veterans' healthcare expansion",
+        "claim": "Biden signed the PACT Act on August 10, 2022; the law expanded VA eligibility for toxic-exposure-related care, with enrollment expansion beginning October 1 and toxic-exposure screening beginning in November 2022.",
+        "contrary_evidence": [
+          "E021",
+          "E025",
+          "E035"
+        ],
+        "evidence_id": "E014",
+        "excerpt": "CRS documents the law and initial implementation timeline.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, August-November 2022.",
+        "publication_date": "2022",
+        "publisher": "Congressional Research Service",
+        "ruler_attribution": "Direct signature and federal program action; limited to veteran population.",
+        "source_confidence": "high",
+        "source_confidence_reason": "CRS statutory and implementation analysis.",
+        "source_locator": "CRS product R47542.",
+        "source_type": "independent_congressional_analysis",
+        "title": "Honoring Our PACT Act",
+        "url": "https://www.congress.gov/crs-product/R47542"
+      },
+      {
+        "canonical_fact_key": "https://oig.usaid.gov/node/8069|lines 65-75|direct budget support oversight limitations",
+        "claim": "USAID OIG found that late or missing contractor deliverables weakened assurance over direct budget support and identified duplicate payments and payments to internally displaced persons living abroad, while noting strengthened verification processes.",
+        "contrary_evidence": [],
+        "evidence_id": "E020",
+        "excerpt": "Independent adverse oversight findings concerning control and verification.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 Ukraine-response oversight context.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "USAID Office of Inspector General",
+        "ruler_attribution": "Program oversight and Ukrainian administration; no personal Biden misconduct finding.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Audit/inspector-general findings with precise lines.",
+        "source_locator": "HTML lines 65-75; recommendations lines 76-114.",
+        "source_type": "inspector_general_audit",
+        "title": "Direct Budget Support: Oversight Mechanisms Provided Limited Assurance",
+        "url": "https://oig.usaid.gov/node/8069"
+      },
+      {
+        "canonical_fact_key": "https://www.cbo.gov/publication/58426|lines 42-53|2022 inflation household distribution",
+        "claim": "CBO found that inflation affected households differently by income and consumption basket; lower-income households experienced larger cumulative price increases in their consumption bundle, while several middle-income groups needed a larger share of income to purchase the 2019 bundle in 2022.",
+        "contrary_evidence": [],
+        "evidence_id": "E023",
+        "excerpt": "Independent contemporaneous distributional evidence, with macroeconomic and pandemic-policy attribution limits.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, September 2022.",
+        "publication_date": "2022-09-22",
+        "publisher": "Congressional Budget Office",
+        "ruler_attribution": "Household outcome context; does not establish Biden-specific inflation causation.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent CBO analysis with precise lines.",
+        "source_locator": "HTML lines 42-53.",
+        "source_type": "independent_economic_analysis",
+        "title": "How Inflation Has Affected Households at Different Income Levels Since 2019",
+        "url": "https://www.cbo.gov/publication/58426"
+      },
+      {
+        "canonical_fact_key": "https://news.va.gov/press-room/va-will-begin-processing-pact-act-benefits-claims-for-all-veterans-and-survivors-on-jan-1/|PACT claims and 2022 VA processing|PACT implementation activity",
+        "claim": "VA reported that more than 213,000 PACT-related claims had been submitted after signing and that VA completed more than 1.7 million disability and pension claims in 2022.",
+        "contrary_evidence": [
+          "E035",
+          "E050"
+        ],
+        "evidence_id": "E024",
+        "excerpt": "Official workload and claims-volume evidence, not benefit approval, health improvement, or equity evidence.",
+        "final_evidence_use": "context",
+        "period_fit": "Target-period implementation activity.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "U.S. Department of Veterans Affairs",
+        "ruler_attribution": "Program implementation activity; no quality or outcome finding.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Official activity report with clear caveat that workload is not outcome quality.",
+        "source_locator": "PACT claims-processing update.",
+        "source_type": "official_implementation_activity",
+        "title": "VA PACT Act Claims-Processing Update",
+        "url": "https://news.va.gov/press-room/va-will-begin-processing-pact-act-benefits-claims-for-all-veterans-and-survivors-on-jan-1/"
+      },
+      {
+        "canonical_fact_key": "https://www.gao.gov/products/gao-23-105372|lines 275-284|VHA mental-health integration and staffing gaps",
+        "claim": "GAO reported that only 79% of 455 VHA facilities reported meeting both mental-health integration requirements as of February 2022; VHA did not monitor corrective-action plans and staffing problems impaired implementation.",
+        "contrary_evidence": [
+          "E014",
+          "E025",
+          "E036"
+        ],
+        "evidence_id": "E034",
+        "excerpt": "Adverse target-period implementation evidence concerning an inherited agency system.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, with February 2022 observations and December 2022 report.",
+        "publication_date": "2022-12",
+        "publisher": "U.S. Government Accountability Office",
+        "ruler_attribution": "Agency implementation weakness; no personal Biden finding.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent GAO oversight report with precise lines.",
+        "source_locator": "HTML lines 275-284.",
+        "source_type": "government_audit",
+        "title": "VHA Mental-Health Integration and Staffing Gaps",
+        "url": "https://www.gao.gov/products/gao-23-105372"
+      },
+      {
+        "canonical_fact_key": "https://www.gao.gov/products/gao-22-105165|lines 278-288|REACH VET identification and pending evaluation",
+        "claim": "GAO found that REACH VET identified at-risk veterans not captured by other screening programs and was associated with increased outpatient appointment completion, while further impact studies were still needed.",
+        "contrary_evidence": [
+          "E035",
+          "E050"
+        ],
+        "evidence_id": "E035",
+        "excerpt": "Bounded positive implementation evidence, not proof of reduced suicide mortality.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target-period program evidence.",
+        "publication_date": "2022",
+        "publisher": "U.S. Government Accountability Office",
+        "ruler_attribution": "Program implementation evidence; no personal Biden outcome finding.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent GAO review with precise lines and stated uncertainty.",
+        "source_locator": "HTML lines 278-288.",
+        "source_type": "government_audit",
+        "title": "REACH VET Identification and Evaluation",
+        "url": "https://www.gao.gov/products/gao-22-105165"
+      },
+      {
+        "canonical_fact_key": "https://www.nist.gov/news-events/news/2022/09/biden-administration-releases-implementation-strategy-50-billion-chips|lines 149-154|administrative conversion of CHIPS law into program",
+        "claim": "CHIPS implementation strategy evidence shows rapid conversion of enacted legislation into an administrative program with stated goals and guardrails, without establishing durable economic performance during 2022.",
+        "contrary_evidence": [],
+        "evidence_id": "E038",
+        "excerpt": "Cross-domain implementation context derived from the NIST strategy.",
+        "final_evidence_use": "context",
+        "period_fit": "Target period, September 2022.",
+        "publication_date": "2022-09",
+        "publisher": "National Institute of Standards and Technology",
+        "ruler_attribution": "Administrative conversion; no durable outcome finding.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Same NIST source as E034 but distinct cross-domain implementation claim.",
+        "source_locator": "HTML lines 149-154.",
+        "source_type": "official_implementation_record",
+        "title": "Administrative Conversion of CHIPS Law into Program",
+        "url": "https://www.nist.gov/news-events/news/2022/09/biden-administration-releases-implementation-strategy-50-billion-chips"
+      },
+      {
+        "canonical_fact_key": "https://www.gao.gov/products/gao-22-105912|March 30 2022|general-population mental-health access barriers",
+        "claim": "GAO reported that insured consumers faced difficulty finding in-network mental-health providers, with reimbursement and network-adequacy problems identified by stakeholders.",
+        "contrary_evidence": [
+          "E007",
+          "E009",
+          "E049"
+        ],
+        "evidence_id": "E048",
+        "excerpt": "Contemporaneous general-population access context, not a Biden-specific outcome finding.",
+        "final_evidence_use": "context",
+        "period_fit": "Target period, March 2022.",
+        "publication_date": "2022-03-30",
+        "publisher": "U.S. Government Accountability Office",
+        "ruler_attribution": "General service-access context; no personal Biden attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent GAO testimony/report with precise date.",
+        "source_locator": "GAO report, March 30 2022.",
+        "source_type": "government_audit",
+        "title": "Mental-Health Provider Network Access Barriers",
+        "url": "https://www.gao.gov/products/gao-22-105912"
+      },
+      {
+        "canonical_fact_key": "https://www.gao.gov/products/gao-22-104674|January 13 2022|VA partnership tracking and oversight gaps",
+        "claim": "GAO found that VA did not centrally track or adequately oversee nongovernmental mental-health and suicide-prevention partnerships intended to expand veteran access.",
+        "contrary_evidence": [
+          "E025",
+          "E035",
+          "E036"
+        ],
+        "evidence_id": "E049",
+        "excerpt": "Adverse implementation evidence within the period, not a personal Biden finding.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, January 2022.",
+        "publication_date": "2022-01-13",
+        "publisher": "U.S. Government Accountability Office",
+        "ruler_attribution": "Agency oversight weakness; no personal attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent GAO oversight report.",
+        "source_locator": "GAO report, January 13 2022.",
+        "source_type": "government_audit",
+        "title": "VA Partnership Tracking and Oversight Gaps",
+        "url": "https://www.gao.gov/products/gao-22-104674"
+      }
+    ],
+    "evidence_environment": {
+      "censorship_and_self_censorship": "The notebook cites surveillance safeguards and disinformation-policy controversy (E023, E032), while noting that classified nuclear, intelligence, cyber, and internal deliberation records may conceal failures. No cited evidence establishes comprehensive censorship or intimidation.",
+      "chapter_specific_biases": [
+        "1B: official policy records and expert assessments outweigh observable operational nuclear-safety evidence; inherited arsenal facts are not ruler evidence.",
+        "2B: Ukraine coverage is high-volume and allegation-rich; assistance, civilian exposure, partner agency, and U.S. responsibility must remain distinct.",
+        "3B: federal policing records do not establish state/local outcomes; advocacy criticism is not a neutral outcome evaluation.",
+        "4B: inherited January 6 events must not be attributed to Biden; surveillance and disinformation accounts have differing independence.",
+        "5B: projections, nominal macroeconomic outcomes, inflation, pandemic fiscal policy, and executive decisions have shared causation.",
+        "6B: veteran-service evidence cannot be generalized to the population; activity and claims volume are not health outcomes.",
+        "7B: disclosure and transparency records cannot substitute for personal-integrity findings; political-family allegations require independent personal nexus.",
+        "8B: formal actions and implementation architecture are more observable than durable cross-domain outcomes."
+      ],
+      "complaint_volume_interpretation": "Complaint and allegation volume is not a severity denominator. The notebook specifically notes high visibility for Ukraine, policing, media, and political-family allegations, while classified nuclear conduct and personal integrity may be underreported.",
+      "criticism_possible": "Criticism was possible through congressional analysis, CRS, CBO, GAO, inspectors general, courts and legal records, national media, CPJ, ACLU, Freedom House, FAS, ACA, and investigative reporting. The notebook records that criticism was uneven and incomplete by chapter.",
+      "duplicate_event_risk": "Moderate to high. E002-E003 overlap on DoD strategic reviews; E017-E019 share FAS; E026-E027 and E041 share GAO source families; E020/E029 share State OIG; E033/E038 share CBO; E034/E039 share NIST; E035/E040 share GAO; E014/E025 concern the same PACT implementation domain. These are retained as distinct claims only where materially distinct and must not be counted as independent source families.",
+      "inherited_conditions_shocks_and_authority": "Local structured priors are inherited country context only. The notebook identifies the January 6 baseline, pandemic fiscal conditions, Russia's invasion of Ukraine, congressional and state/local constraints, allied and Ukrainian agency, inherited agency capacity, and presidential authority over federal execution, appointments, diplomacy, executive orders, and armed forces.",
+      "languages_and_archives_searched": [
+        "English-language official federal records and legal materials",
+        "Congressional Research Service and Congressional Budget Office records",
+        "GAO and inspector-general reports",
+        "White House, DoD, State, DOJ, Commerce/NIST, VA, FBI, OGE, and EAC records",
+        "Civil-society and investigative sources including FAS, ACA, ACLU, Freedom House, CPJ, ProPublica, and Washington Post"
+      ],
+      "official_statistics_reliability": "Structured indicators are retained as country-year context with source-specific confidence and warnings. They do not establish ruler attribution. CBO, GAO, CRS, OIG, EAC, and agency records are treated according to their distinct roles; projections, administrative activity, and self-reports are not treated as realized outcomes.",
+      "relevant_denominators": "Where available, the notebook preserves denominators such as 455 VHA facilities, 79% meeting both requirements, 4,790 NLEAD records, 63% sustained/disciplinary records, approximately 200,000 U.S.-person queries, 93% decline, 82%-to-96% compliance, 213,000 PACT-related claims, 1.7 million VA claims processed, 102 protest-response recommendations, and 7 nuclear contractors reviewed. National and subgroup denominators remain incomplete for civilian harm, policing, mental-health access, political equality, and personal integrity.",
+      "safe_reporting_channels": "Cited records show access to CRS/CBO, GAO and inspector-general oversight, courts and legal processes, congressional testimony, federal administrative data, national media, and civil-society reporting. The notebook also notes that classified nuclear and intelligence systems limit visibility.",
+      "source_concentration": "Moderate. Official executive, congressional, CRS/CBO, GAO/OIG, and civil-society sources are represented. Policy and implementation claims remain concentrated in official records; independent outcome evidence is thinner, particularly for 1B, 3B, 6B, and 7B.",
+      "supporting_evidence_ids": [
+        "E002",
+        "E004",
+        "E007",
+        "E008",
+        "E010",
+        "E015",
+        "E016",
+        "E017",
+        "E019",
+        "E020",
+        "E022",
+        "E023",
+        "E025",
+        "E026",
+        "E028",
+        "E031",
+        "E032",
+        "E034",
+        "E036",
+        "E043",
+        "E045",
+        "E048",
+        "E049"
+      ]
+    },
+    "iso3": "USA",
+    "job_key": "dossier:2022-bias-contrast-v1:2022:USA:15810",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "6B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=61; mapping_note=Aggregate welfare outcomes contextualize priority but cannot establish purpose or propaganda intent.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "6B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=40; mapping_note=Health and education coverage/outcomes inform access; they do not alone establish affordability or quality.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "6B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=14; mapping_note=National distribution and participation measures require group and regional evidence for equity claims.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "6B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=40; mapping_note=Service outcomes are implementation context; professional management and correction require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "6B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=40; mapping_note=Service outcomes are implementation context; professional management and correction require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "6B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=25; mapping_note=Outcome changes contextualize crises but require shock-specific timing and ruler-attributed response evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "6B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Aggregate service data cannot establish political conditionality, loyalty rewards, or punishment.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "6B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=14; mapping_note=National distribution and participation measures require group and regional evidence for equity claims.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "6B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=40; mapping_note=Sustained service series contextualize durability but do not establish institutional survival beyond the ruler.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "6B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=65; mapping_note=Full longitudinal welfare context supports inherited-versus-left life-chance analysis without automatic attribution.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E007",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E038",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Formatter omitted exact lens routing; retained at the chapter boundary for judge-side relevance review."
+      },
+      {
+        "evidence_id": "E048",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E048",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E048",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E048",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E048",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E048",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "6B.1",
+      "6B.2",
+      "6B.3",
+      "6B.4",
+      "6B.5",
+      "6B.6",
+      "6B.7",
+      "6B.8",
+      "6B.9",
+      "6B.10"
+    ],
+    "period_end_year": 2022,
+    "period_start_year": 2022,
+    "ruler_id": "2782",
+    "ruler_name": "Joe Biden",
+    "ruler_year_id": 15810,
+    "run_key": "2022-bias-contrast-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "provider_profile": "openai-luna-candidate",
+      "research_notebook_sha256": "e6ec23e2d2e6266a5e705632638d888b4c362c27c60fc7a351f8c38b52f36e17",
+      "source_mix_note": "Evidence includes official executive, legislative, diplomatic, fiscal, audit, inspector-general, statistical, expert, civil-society, and investigative sources. Official records dominate formal policy and implementation claims; independent outcome and personal-attribution evidence remains thinner. Shared source families and retrospective context are explicitly caveated.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "2f0630f2aec997ca0e1f562f8dda2940abfd815017dcfacc86b37a6276a1172b",
+    "unresolved_gaps": [
+      "Classified nuclear command-and-control performance, crisis decisions, operational safety, and independently measured nuclear-risk reduction.",
+      "Direct civilian-harm, proportionality, partner-control, and downstream accountability attribution for U.S. Ukraine decisions.",
+      "Nationwide and state/local policing outcomes, protest treatment, vulnerable-group protection, and remedy findings.",
+      "Biden-specific surveillance, appointments, media pressure, retaliation, and practical political-equality evidence.",
+      "Causal attribution of inflation, fiscal outcomes, employment, productivity, distribution, and policy correction.",
+      "General-population service quality, affordability, regional equity, and durable health and welfare outcomes.",
+      "Personal-integrity nexus evidence concerning enrichment, deception, obstruction, nepotism, retaliation, and independently adjudicated findings.",
+      "Durable cross-domain effectiveness, adaptation after failure, and long-term program outcomes."
+    ]
+  },
+  {
+    "chapter_id": "6B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Congo, The Democratic Republic of the",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E016",
+          "E018",
+          "E043",
+          "E054"
+        ],
+        "methodology_id": "6B.1",
+        "reason": "Education priorities and implementation documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E038",
+          "E044"
+        ],
+        "methodology_id": "6B.2",
+        "reason": "Out-of-school, displacement, and school-closure evidence documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E043",
+          "E054"
+        ],
+        "methodology_id": "6B.3",
+        "reason": "Enrollment, payroll, and access evidence documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E043",
+          "E045",
+          "E054"
+        ],
+        "methodology_id": "6B.4",
+        "reason": "Coverage and grievance-channel evidence documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E038",
+          "E044",
+          "E054"
+        ],
+        "methodology_id": "6B.5",
+        "reason": "Conflict and implementation constraints documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E043",
+          "E045",
+          "E054"
+        ],
+        "methodology_id": "6B.6",
+        "reason": "Service delivery and accountability evidence documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E038",
+          "E044",
+          "E054"
+        ],
+        "methodology_id": "6B.7",
+        "reason": "Conflict disruption and unfinished reform documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E045"
+        ],
+        "methodology_id": "6B.8",
+        "reason": "Grievance and correction channel documented.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E043",
+          "E054"
+        ],
+        "methodology_id": "6B.9",
+        "reason": "Quality and outcome evidence remains limited.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E038",
+          "E044"
+        ],
+        "methodology_id": "6B.10",
+        "reason": "Sustainability and durability constraints documented.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 10169,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.presidence.cd/president/le-president|office-and-tenure|Tshisekedi president from 24 January 2019",
+        "claim": "The Presidency biography identifies F\u00e9lix Tshisekedi as president from 24 January 2019.",
+        "contrary_evidence": [],
+        "evidence_id": "E001",
+        "excerpt": "Tshisekedi president from 24 Jan 2019; political background and peaceful transfer context.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Office and tenure fit 2022.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Presidency of the Democratic Republic of the Congo",
+        "ruler_attribution": "Direct office and tenure evidence.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official primary biography.",
+        "source_locator": "Office and tenure section",
+        "source_type": "official biography",
+        "title": "Le Pr\u00e9sident",
+        "url": "https://www.presidence.cd/president/le-president"
+      },
+      {
+        "canonical_fact_key": "https://www.presidence.cd/uploads/files/Constitution%20de%20la%20RDC%202011.pdf|presidential-powers|formal authority",
+        "claim": "The Constitution assigns the president head-of-state, Council of Ministers, and senior appointment responsibilities.",
+        "contrary_evidence": [],
+        "evidence_id": "E002",
+        "excerpt": "Presidential role as head of state, Council of Ministers, and senior military/state appointments.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Applicable constitutional baseline.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Presidency of the Democratic Republic of the Congo",
+        "ruler_attribution": "Formal authority baseline.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary constitutional text.",
+        "source_locator": "Presidential powers provisions",
+        "source_type": "constitution",
+        "title": "Constitution de la RDC",
+        "url": "https://www.presidence.cd/uploads/files/Constitution%20de%20la%20RDC%202011.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.unicef.org/drcongo/communiques-presse/rentree-scolaire-2022-2023|school-year|education access",
+        "claim": "UNICEF reported government and partner work on the 2022\u201323 school year while approximately 7 million children aged 5\u201317 remained out of school and free-education sustainability was debated.",
+        "contrary_evidence": [
+          "Partner, donor, conflict, and provincial effects are not isolated."
+        ],
+        "evidence_id": "E016",
+        "excerpt": "Government and partners worked on the school year; about 7 million children remained out of school.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022\u201323 school year.",
+        "publication_date": "2022",
+        "publisher": "UNICEF",
+        "ruler_attribution": "Shared implementation.",
+        "source_confidence": "high",
+        "source_confidence_reason": "UNICEF country reporting.",
+        "source_locator": "2022\u20132023 school-year communiqu\u00e9, implementation section",
+        "source_type": "UNICEF report",
+        "title": "Rentr\u00e9e scolaire 2022-2023",
+        "url": "https://www.unicef.org/drcongo/communiques-presse/rentree-scolaire-2022-2023"
+      },
+      {
+        "canonical_fact_key": "https://www.unicef.org/drcongo/en/press-releases/call-substantial-increase-funding-crisis-affected-children|schooling crisis|3.2 million out of school",
+        "claim": "UNICEF/ECW reported conflict and displacement constraints, donor-supported programming, and approximately 3.2 million primary-age children out of school.",
+        "contrary_evidence": [
+          "Donor and conflict effects cannot be assigned solely to the president."
+        ],
+        "evidence_id": "E017",
+        "excerpt": "Conflict and displacement constrained schooling; 3.2 million primary-age children were out of school.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 crisis context.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "UNICEF and Education Cannot Wait",
+        "ruler_attribution": "Shared government, provincial, and donor context.",
+        "source_confidence": "high",
+        "source_confidence_reason": "UNICEF/ECW reporting.",
+        "source_locator": "Crisis-affected children and schooling section",
+        "source_type": "UNICEF/ECW report",
+        "title": "Call for substantial increase in funding",
+        "url": "https://www.unicef.org/drcongo/en/press-releases/call-substantial-increase-funding-crisis-affected-children"
+      },
+      {
+        "canonical_fact_key": "https://bti-project.org/fileadmin/api/content/en/downloads/reports/country_report_2022_COD.pdf|pp2-3,27-28|program implementation",
+        "claim": "BTI described priorities in infrastructure, health, education, governance, peace, and growth, but weak implementation constrained by personnel, budgets, coalition politics, and donor dependence.",
+        "contrary_evidence": [
+          "Partly retrospective and broader than 2022."
+        ],
+        "evidence_id": "E018",
+        "excerpt": "Development priorities were broad; implementation was weak and constrained by personnel, budgets, coalition politics, and donor dependence.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Partly retrospective 2022 report.",
+        "publication_date": "2022",
+        "publisher": "Bertelsmann Stiftung",
+        "ruler_attribution": "Program and government context.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Comparative report with temporal caveat.",
+        "source_locator": "Country report 2022, pp. 2\u20133 and 27\u201328",
+        "source_type": "comparative country report",
+        "title": "BTI 2022 Country Report \u2014 DRC",
+        "url": "https://bti-project.org/fileadmin/api/content/en/downloads/reports/country_report_2022_COD.pdf"
+      },
+      {
+        "canonical_fact_key": "https://monusco.unmissions.org/sites/default/files/sg_report_-_english_s-2022-892.pdf|paras32-33|displacement",
+        "claim": "By November 2022 DRC had approximately 5.7 million internally displaced people, including 1.5 million displaced during 2022 and roughly 280,000 newly displaced in Rutshuru.",
+        "contrary_evidence": [
+          "Exposure does not establish single-ruler attribution."
+        ],
+        "evidence_id": "E038",
+        "excerpt": "5.7 million internally displaced; 1.5 million displaced during 2022; 280,000 newly displaced in Rutshuru.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "By November 2022.",
+        "publication_date": "2022",
+        "publisher": "United Nations / MONUSCO",
+        "ruler_attribution": "Population exposure and conflict outcome.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary UN report with denominators.",
+        "source_locator": "S/2022/892, paragraphs 32\u201333, pp. 6\u20137",
+        "source_type": "UN report",
+        "title": "Report of the Secretary-General on MONUSCO",
+        "url": "https://monusco.unmissions.org/sites/default/files/sg_report_-_english_s-2022-892.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.worldbank.org/en/news/opinion/2022/06/08/strengthening-the-social-contract-working-towards-safer-and-more-inclusive-schooling-in-democratic-republic-of-the-congo|2022 enrollment and payroll|education outputs",
+        "claim": "A World Bank-supported program was associated with approximately three million additional enrolled children and roughly 60,000 teachers added to payroll.",
+        "contrary_evidence": [
+          "Donor-supported outputs do not establish sole presidential responsibility."
+        ],
+        "evidence_id": "E043",
+        "excerpt": "Approximately three million additional enrolled children and 60,000 teachers on payroll.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "8 June 2022.",
+        "publication_date": "2022-06-08",
+        "publisher": "World Bank",
+        "ruler_attribution": "Shared government and donor implementation.",
+        "source_confidence": "high",
+        "source_confidence_reason": "World Bank program reporting.",
+        "source_locator": "Enrollment and payroll paragraphs",
+        "source_type": "World Bank report",
+        "title": "Strengthening the social contract",
+        "url": "https://www.worldbank.org/en/news/opinion/2022/06/08/strengthening-the-social-contract-working-towards-safer-and-more-inclusive-schooling-in-democratic-republic-of-the-congo"
+      },
+      {
+        "canonical_fact_key": "https://www.unicef.org/drcongo/en/stories/dilemma-schools-shelter-drcs-displaced-families|2022 school closures|education disruption",
+        "claim": "UNICEF reported over 2,000 schools closed since January 2022 and over 800,000 children displaced.",
+        "contrary_evidence": [
+          "Primarily conflict and displacement exposure."
+        ],
+        "evidence_id": "E044",
+        "excerpt": "More than 2,000 schools closed; more than 800,000 children displaced.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 facts reported later.",
+        "publication_date": "2023-09",
+        "publisher": "UNICEF",
+        "ruler_attribution": "Conflict and displacement context.",
+        "source_confidence": "high",
+        "source_confidence_reason": "UNICEF field report.",
+        "source_locator": "2022 school-closure and displacement section",
+        "source_type": "UNICEF field report",
+        "title": "The dilemma of schools as shelter",
+        "url": "https://www.unicef.org/drcongo/en/stories/dilemma-schools-shelter-drcs-displaced-families"
+      },
+      {
+        "canonical_fact_key": "https://www.worldbank.org/en/news/opinion/2022/06/08/strengthening-the-social-contract-working-towards-safer-and-more-inclusive-schooling-in-democratic-republic-of-the-congo|paras59-64|Allo Ecole complaints",
+        "claim": "Allo Ecole received 1,200 complaints and queries in its first week and covered teacher non-payment and abuse complaints with investigation and confidentiality procedures.",
+        "contrary_evidence": [
+          "Complaint volume is not a national denominator."
+        ],
+        "evidence_id": "E045",
+        "excerpt": "Allo Ecole received 1,200 first-week complaints and queries.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "8 June 2022.",
+        "publication_date": "2022-06-08",
+        "publisher": "World Bank",
+        "ruler_attribution": "Program accountability evidence.",
+        "source_confidence": "high",
+        "source_confidence_reason": "World Bank description of named mechanism.",
+        "source_locator": "Paragraphs 59\u201364",
+        "source_type": "World Bank report",
+        "title": "Strengthening the social contract",
+        "url": "https://www.worldbank.org/en/news/opinion/2022/06/08/strengthening-the-social-contract-working-towards-safer-and-more-inclusive-schooling-in-democratic-republic-of-the-congo"
+      },
+      {
+        "canonical_fact_key": "https://blogs.worldbank.org/en/nasikiliza/free-primary-schooling-drc-progress-despite-perils|paras46-54|unfinished reform and payroll",
+        "claim": "Free-primary-schooling reforms remained unfinished because of insecurity, eruptions, administrative complexity, and limited assistance; monitoring verified 36,000 teachers added to payroll in ten provinces.",
+        "contrary_evidence": [
+          "Nationwide quality, attendance, sustainability, and sole presidential responsibility remain unresolved."
+        ],
+        "evidence_id": "E054",
+        "excerpt": "Reforms remained unfinished; audits verified progress including 36,000 teachers added in ten provinces.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 implementation report.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "World Bank",
+        "ruler_attribution": "Mixed donor-supported implementation.",
+        "source_confidence": "high",
+        "source_confidence_reason": "World Bank report with audit details.",
+        "source_locator": "Paragraphs 46\u201354",
+        "source_type": "World Bank report",
+        "title": "Free primary schooling in DRC",
+        "url": "https://blogs.worldbank.org/en/nasikiliza/free-primary-schooling-drc-progress-despite-perils"
+      }
+    ],
+    "evidence_environment": {
+      "censorship_and_self_censorship": "State-of-siege enforcement, arbitrary detention, intimidation, restrictive laws, military courts, conflict-zone access limits, elite opacity, and classified records create underreporting risks. Supporting evidence: E003, E006, E007, E019, E032, E041.",
+      "chapter_specific_biases": [
+        "1B: treaty status may be mistaken for ruler conduct; classified and biological-weapons evidence is difficult to observe.",
+        "2B: conflict access and official attribution claims create visibility and attribution risk.",
+        "3B: repression may suppress complaints while monitors concentrate on accessible severe incidents.",
+        "4B: electoral observation is uneven and inherited CENI concerns may be overextended into 2022.",
+        "5B: mining, procurement, beneficial ownership, and budget execution are opaque.",
+        "6B: donor and crisis reporting may overrepresent visible programs or severe need; denominators differ.",
+        "7B: elite-opacity and adviser evidence do not establish a personal nexus.",
+        "8B: donor activity, country outcomes, inherited weaknesses, and shocks risk over-attribution."
+      ],
+      "complaint_volume_interpretation": "Complaint volume is not a national denominator. E050 records 1,200 first-week Allo Ecole complaints; repression, conflict, and opacity may suppress reporting, while crisis monitoring may overrepresent visible cases.",
+      "criticism_possible": "Journalists, civil society, church observers, opposition actors, international monitors, local media, grievance mechanisms, and courts provided criticism or scrutiny channels, though access was uneven. Supporting evidence: E006, E044, E050, E056, E057.",
+      "duplicate_event_risk": "High for eastern-security events across E004\u2013E005 and E010\u2013E013/E038\u2013E043; rights reporting across E003/E006/E007/E041/E055; IMF themes E014\u2013E015; education E016/E017/E048/E049/E059; adviser coverage E020/E051\u2013E053.",
+      "inherited_conditions_shocks_and_authority": "E001 and E002 establish tenure and formal authority. E009 and E018 record inherited institutional, coalition, administrative, and donor constraints. Conflict, displacement, insecurity, inflation, volcanic eruptions, and regional dynamics are documented shocks. Supporting evidence: E001, E002, E009, E018, E038, E043, E047, E059.",
+      "languages_and_archives_searched": [
+        "English institutional and specialist sources: UN, MONUSCO, AU, EAC, IMF, UNICEF, World Bank, IAEA, OPCW, EITI, Freedom House, BTI, OCCRP, Reuters.",
+        "French and local reporting: Actualit\u00e9.cd, Radio Okapi, 7sur7, CENCO/ECC coverage, and French-language IMF material.",
+        "Official archives: Presidency, Constitution, UNODA, IAEA, OPCW, MONUSCO, EITI, electoral, legal, and donor records."
+      ],
+      "official_statistics_reliability": "UN, UNICEF, World Bank, IMF, EITI, and rights figures are source-bounded and subject to denominator, timing, access, and attribution limits. Supporting evidence: E016, E017, E043, E047, E048, E049, E055, E059, E060.",
+      "relevant_denominators": "The notebook records 5.7 million internally displaced people, 1.5 million displaced during 2022, 280,000 newly displaced in Rutshuru, approximately 7 million and 3.2 million out-of-school children under differing denominators, over 800,000 displaced children, over 2,000 closed schools, 1,233 violations with armed groups responsible for 57%, 15 assembly abuses, 1,200 grievance complaints, 600 observers, and 36,000 teachers added to payroll. These figures are not interchangeable. Supporting evidence: E006, E007, E016, E017, E043, E049, E050, E055, E057, E059.",
+      "safe_reporting_channels": "UN and international monitoring, church observers, local media, parliamentary and electoral reporting, donor grievance mechanisms, and judicial processes existed, but safety and reach were uneven. Supporting evidence: E041, E044, E050, E051, E057.",
+      "source_concentration": "Source families span official, UN, regional, donor, financial, human-rights, comparative, investigative, treaty, safeguards, legal, and local sources. Concentration remains material within single-report and same-event clusters, and official sources dominate action claims.",
+      "supporting_evidence_ids": [
+        "E001",
+        "E002",
+        "E003",
+        "E005",
+        "E006",
+        "E010",
+        "E014",
+        "E016",
+        "E019",
+        "E022",
+        "E024",
+        "E031",
+        "E033",
+        "E036",
+        "E038",
+        "E042",
+        "E045",
+        "E050",
+        "E054",
+        "E055"
+      ]
+    },
+    "iso3": "COD",
+    "job_key": "dossier:2022-bias-contrast-v1:2022:COD:16113",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "6B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=71; mapping_note=Aggregate welfare outcomes contextualize priority but cannot establish purpose or propaganda intent.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "6B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=46; mapping_note=Health and education coverage/outcomes inform access; they do not alone establish affordability or quality.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "6B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=14; mapping_note=National distribution and participation measures require group and regional evidence for equity claims.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "6B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=46; mapping_note=Service outcomes are implementation context; professional management and correction require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "6B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=46; mapping_note=Service outcomes are implementation context; professional management and correction require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "6B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=29; mapping_note=Outcome changes contextualize crises but require shock-specific timing and ruler-attributed response evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "6B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Aggregate service data cannot establish political conditionality, loyalty rewards, or punishment.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "6B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=14; mapping_note=National distribution and participation measures require group and regional evidence for equity claims.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "6B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=46; mapping_note=Sustained service series contextualize durability but do not establish institutional survival beyond the ruler.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "6B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=74; mapping_note=Full longitudinal welfare context supports inherited-versus-left life-chance analysis without automatic attribution.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E001",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Formatter omitted exact lens routing; retained at the chapter boundary for judge-side relevance review."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Formatter omitted exact lens routing; retained at the chapter boundary for judge-side relevance review."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "6B.1",
+        "relation": "supports",
+        "relevance": "Education delivery."
+      },
+      {
+        "evidence_id": "E054",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E038",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "6B.2",
+        "relation": "supports",
+        "relevance": "School disruption."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "6B.3",
+        "relation": "supports",
+        "relevance": "Enrollment and payroll."
+      },
+      {
+        "evidence_id": "E054",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E054",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E038",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E054",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E054",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E038",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E054",
+        "methodology_id": "6B.7",
+        "relation": "contradicts",
+        "relevance": "Unfinished reform."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "6B.8",
+        "relation": "supports",
+        "relevance": "Grievance mechanism."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E054",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E038",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "6B.1",
+      "6B.2",
+      "6B.3",
+      "6B.4",
+      "6B.5",
+      "6B.6",
+      "6B.7",
+      "6B.8",
+      "6B.9",
+      "6B.10"
+    ],
+    "period_end_year": 2022,
+    "period_start_year": 2022,
+    "ruler_id": "2830",
+    "ruler_name": "F\u00e9lix Tshisekedi",
+    "ruler_year_id": 16113,
+    "run_key": "2022-bias-contrast-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "provider_profile": "openai-luna-candidate",
+      "research_notebook_sha256": "f8f472b2e799768917fa9cd68f076894c5c0b32a62bbca4b362fbd3aae892265",
+      "source_mix_note": "Source families include official, UN, regional, donor, financial, human-rights, comparative, investigative, treaty, safeguards, legal, and local-language sources. Limits include official-source dependence, same-event reuse, donor visibility, inherited baselines, and incomplete primary records.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "583afb239d505a464397c0c64c67a39cfe18642a15c419e1b6910fb7c912e789",
+    "unresolved_gaps": [
+      "No DRC-specific 2022 biological-weapons implementation, inspection, confidence-building, or adverse governance record was located.",
+      "Classified or offensive cyber governance remains unresolved.",
+      "FARDC command responsibility, M23/Rwanda attribution, durable ceasefire compliance, and comparative civilian-protection outcomes remain unresolved.",
+      "Primary detention, court, military, domestic, local-language, geographic, and denominator records remain incomplete.",
+      "CENI independence, opposition treatment, electoral remedies, judicial independence, media enforcement, and correction behavior remain incomplete.",
+      "Budget execution, procurement, household distribution, mining-contract and revenue tracing, and enforcement after governance problems remain incomplete.",
+      "Education attendance, learning quality, teacher payment reliability, provincial execution, national budget execution, and sustainability remain unresolved.",
+      "No direct evidence establishes Tshisekedi's personal enrichment, knowledge, tolerance, obstruction, correction, or benefit in the adviser or G\u00e9camines matters.",
+      "Dated administrative outcomes remain insufficient to separate presidential responsibility from donors, shared authority, inherited weakness, and shocks."
+    ]
+  },
+  {
+    "chapter_id": "6B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Russian Federation",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E033",
+          "E034",
+          "E043"
+        ],
+        "methodology_id": "6B.1",
+        "reason": "Welfare policy and service-context evidence supplied.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E033"
+        ],
+        "methodology_id": "6B.2",
+        "reason": "Coverage inferred from retained evidence mappings.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E043"
+        ],
+        "methodology_id": "6B.3",
+        "reason": "Coverage inferred from retained evidence mappings.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E034"
+        ],
+        "methodology_id": "6B.4",
+        "reason": "Coverage inferred from retained evidence mappings.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "6B.5",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "6B.6",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "6B.7",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "6B.8",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "6B.9",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "6B.10",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      }
+    ],
+    "estimated_input_tokens": 5234,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://government.ru/en/news/44452/|2022|social-program-agenda",
+        "claim": "A Russian government report describes 2022 health, education, social-assistance, infection-control, and Social Treasury initiatives intended to support families, disabled people, and older people.",
+        "contrary_evidence": [
+          "The source is official and aspirational; independent implementation and outcome verification is absent."
+        ],
+        "evidence_id": "E033",
+        "excerpt": "Federal delivery architecture and intended coverage.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022",
+        "publication_date": "2022",
+        "publisher": "Government of Russia",
+        "ruler_attribution": "Federal executive policy; regional implementation remains relevant.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Official policy report without independent outcome audit.",
+        "source_locator": "HTML 2022 agenda report",
+        "source_type": "official government report",
+        "title": "2022 government agenda",
+        "url": "https://government.ru/en/news/44452/"
+      },
+      {
+        "canonical_fact_key": "https://www.rosstat.gov.ru/folder/210/document/13218|2022|health-measurement-system",
+        "claim": "Rosstat describes health information collected from agencies, households, and federal surveys with regional data supplied separately; the accessible record does not establish 2022 service quality or equity.",
+        "contrary_evidence": [
+          "Regional disaggregation and data collection provide a potential corrective mechanism."
+        ],
+        "evidence_id": "E034",
+        "excerpt": "Regional and distributional measurement limitation.",
+        "final_evidence_use": "context",
+        "period_fit": "Target-period statistical system; substantive data year requires verification",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Rosstat",
+        "ruler_attribution": "No direct ruler attribution.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Publication landing page without retrievable target-year tables.",
+        "source_locator": "unknown_not_recorded",
+        "source_type": "official statistics publication page",
+        "title": "Rosstat health statistics",
+        "url": "https://www.rosstat.gov.ru/folder/210/document/13218"
+      },
+      {
+        "canonical_fact_key": "https://eurohealthobservatory.who.int/countries/russian-federation|2022|regional-health-variation",
+        "claim": "WHO country information states that regional authorities provide most medical services and that quality and availability vary widely by region.",
+        "contrary_evidence": [
+          "The source is not a 2022 outcome audit."
+        ],
+        "evidence_id": "E043",
+        "excerpt": "Regional health-service variation.",
+        "final_evidence_use": "context",
+        "period_fit": "Persistent context relevant to 2022",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "WHO European Observatory",
+        "ruler_attribution": "Regional service responsibility; no direct Putin performance finding.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Country-system context without target-year audit.",
+        "source_locator": "Country-system HTML page; exact section not recorded",
+        "source_type": "health-system assessment",
+        "title": "Russian Federation health system",
+        "url": "https://eurohealthobservatory.who.int/countries/russian-federation"
+      }
+    ],
+    "evidence_environment": {
+      "censorship_and_self_censorship": "Putin-signed censorship laws, protest prosecutions, journalist flight, surveillance, and constrained domestic reporting are documented by E008, E010, and E039.",
+      "chapter_specific_biases": [
+        "International/adverse reporting dominates conflict, rights, and nuclear-risk material.",
+        "Aggregate and official evidence is insufficient for ruler attribution in economics, welfare, and effectiveness.",
+        "Network and sanctions evidence in 7B remains short of an adjudicated personal-integrity finding."
+      ],
+      "complaint_volume_interpretation": "International wartime attention increases visibility of adverse claims, while domestic censorship suppresses comparable complaints; volumes are not comparable.",
+      "criticism_possible": "Independent international organizations, NGOs, technical bodies, monitoring groups, foreign media, and institutional reports provided criticism channels, but domestic criticism was constrained.",
+      "duplicate_event_risk": "The notebook explicitly flags overlapping claim families: E002-E004, E008-E010, E020-E022, E023-E025, E026-E029, E035-E037, E011-E012, E015-E016/E044, and E017-E019.",
+      "inherited_conditions_shocks_and_authority": "The notebook separates inherited arsenal, political, economic, welfare, and governance conditions from war, sanctions, and mobilization shocks. Presidential authority is not treated as proof of every delegated or subordinate act.",
+      "languages_and_archives_searched": [
+        "English-language UN, IAEA, SIPRI, arms-control, NGO, OSCE, OSW, IMF, World Bank, WHO, Freedom House, Treasury, UK, OCCRP, Axios, EUAA, Guardian, and Chatham House sources.",
+        "Russian-language IAEA and Russian institutional records were included."
+      ],
+      "official_statistics_reliability": "Local structured indicators are contextual priors rather than automatic ruler evidence. E043 is measurement architecture, not performance evidence; official policy claims are not independent outcome checks.",
+      "relevant_denominators": "Population denominator supplied: 144236933. Most case reports lack population-wide denominators; country-year indicators have aggregate denominators but limited attribution.",
+      "safe_reporting_channels": "International organizations, technical agencies, treaty monitors, NGOs, foreign media, and institutional reports supplied visible criticism channels; domestic reporting faced censorship and intimidation.",
+      "source_concentration": "The pool is international and adverse-heavy, supplemented by technical, institutional, Russian-language, official, and local-prior context; favorable, domestic, corrective, and exculpatory evidence remains thinner.",
+      "supporting_evidence_ids": [
+        "E002",
+        "E005",
+        "E006",
+        "E011",
+        "E019",
+        "E026",
+        "E029",
+        "E030",
+        "E038",
+        "E041",
+        "E042",
+        "E044",
+        "E045",
+        "E046"
+      ]
+    },
+    "iso3": "RUS",
+    "job_key": "dossier:2022-bias-contrast-v1:2022:RUS:15706",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "6B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=161; mapping_note=Aggregate welfare outcomes contextualize priority but cannot establish purpose or propaganda intent.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "6B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=101; mapping_note=Health and education coverage/outcomes inform access; they do not alone establish affordability or quality.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "6B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=34; mapping_note=National distribution and participation measures require group and regional evidence for equity claims.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "6B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=101; mapping_note=Service outcomes are implementation context; professional management and correction require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "6B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=101; mapping_note=Service outcomes are implementation context; professional management and correction require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "6B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=65; mapping_note=Outcome changes contextualize crises but require shock-specific timing and ruler-attributed response evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "6B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Aggregate service data cannot establish political conditionality, loyalty rewards, or punishment.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "6B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=34; mapping_note=National distribution and participation measures require group and regional evidence for equity claims.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "6B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=101; mapping_note=Sustained service series contextualize durability but do not establish institutional survival beyond the ruler.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "6B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=166; mapping_note=Full longitudinal welfare context supports inherited-versus-left life-chance analysis without automatic attribution.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E033",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Policy scope."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Regional service variation."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Measurement infrastructure."
+      }
+    ],
+    "methodology_ids": [
+      "6B.1",
+      "6B.2",
+      "6B.3",
+      "6B.4",
+      "6B.5",
+      "6B.6",
+      "6B.7",
+      "6B.8",
+      "6B.9",
+      "6B.10"
+    ],
+    "period_end_year": 2022,
+    "period_start_year": 2022,
+    "ruler_id": "2759",
+    "ruler_name": "Vladimir Putin",
+    "ruler_year_id": 15706,
+    "run_key": "2022-bias-contrast-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "provider_profile": "openai-luna-candidate",
+      "research_notebook_sha256": "6878515c549d7c61356ea6d54a845e1fda8ceb5da54a397739bbc970e7c1bac5",
+      "source_mix_note": "Evidence mixes international organizations, technical agencies, arms-control specialists, NGOs, monitoring bodies, foreign media, official Russian institutions, and local structured priors. International and adverse reporting remains overrepresented.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "afdaf00cf99d50e12a7198bae64076dc3f5c2d485fbdc306a29cfc906048abac",
+    "unresolved_gaps": [
+      "Internal nuclear deliberation, launch authorization, independent command verification, and completed proliferation remain unresolved.",
+      "Biological, cyber, and AI dual-use governance is incomplete.",
+      "Proxy command, subordinate initiative, and battlefield accountability remain unresolved.",
+      "Domestic-language corroboration, prevalence, remedy, and corrective action evidence remain weak.",
+      "Courts, local autonomy, minority rights, institutional checks, and local-prior dispositions remain incomplete.",
+      "Appointments, procurement capture, market rules, distribution, implementation audits, and correction outcomes remain missing.",
+      "Independent 2022 health and education effectiveness audits, regional outcomes, equity, vulnerable-population, and durability evidence remain missing.",
+      "Verified personal-integrity nexus, adjudicated findings, and exculpatory records remain incomplete.",
+      "Portfolio breadth, personnel quality, independent outcomes, durable correction, and institutional durability remain undercovered."
+    ]
+  },
+  {
+    "chapter_id": "6B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Germany",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E023"
+        ],
+        "methodology_id": "6B.1",
+        "reason": "Social-support and macro-relief evidence was retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E025"
+        ],
+        "methodology_id": "6B.2",
+        "reason": "Humanitarian admission evidence was retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E025"
+        ],
+        "methodology_id": "6B.3",
+        "reason": "Refugee employment, housing, and support-needs evidence was retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E026"
+        ],
+        "methodology_id": "6B.4",
+        "reason": "Refugee well-being distribution evidence was retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E026"
+        ],
+        "methodology_id": "6B.5",
+        "reason": "Observed social outcomes were retained with implementation caveats.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E026"
+        ],
+        "methodology_id": "6B.6",
+        "reason": "Well-being and crisis effects were retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "6B.7",
+        "reason": "Research recorded no usable evidence for this specific lens.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "6B.8",
+        "reason": "Healthcare, integration, and housing-support arrangements were retained.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [
+          "E025"
+        ],
+        "methodology_id": "6B.9",
+        "reason": "Employment and service-access evidence was retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "6B.10",
+        "reason": "Refugee-support institutional evidence was retained.",
+        "status": "research_blocked"
+      }
+    ],
+    "estimated_input_tokens": 6174,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.bundesfinanzministerium.de/Monatsberichte/2022/09/Inhalte/Kapitel-2b-Schlaglicht/2b-drittes-entlastungspaket.html|sections Schnelle Hilfen and Energie|\u20ac65bn relief package",
+        "claim": "The September 2022 relief package totaled \u20ac65 billion and targeted pensioners, students, housing-benefit recipients, and energy-intensive firms.",
+        "contrary_evidence": [
+          "Targeting and adoption do not establish equitable delivery or effectiveness."
+        ],
+        "evidence_id": "E023",
+        "excerpt": "BMF describes the \u20ac65 billion package and targeted groups.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target-period.",
+        "publication_date": "2022-09",
+        "publisher": "Federal Ministry of Finance",
+        "ruler_attribution": "Federal government policy record; shared coalition authority.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official primary policy record.",
+        "source_locator": "HTML sections \u201cSchnelle Hilfen\u201d and \u201cEnergie\u201d.",
+        "source_type": "official policy announcement",
+        "title": "Third relief package",
+        "url": "https://www.bundesfinanzministerium.de/Monatsberichte/2022/09/Inhalte/Kapitel-2b-Schlaglicht/2b-drittes-entlastungspaket.html"
+      },
+      {
+        "canonical_fact_key": "https://www.bamf.de/SharedDocs/Anlagen/DE/Forschung/Forschungsberichte/fb41-ukr-gefluechtete.html?nn=1557708|lines 54\u201373|Ukrainian refugee employment and support needs",
+        "claim": "A representative 2022 survey of approximately 11,700 Ukrainians found that only 17% of working-age respondents were employed and identified major needs in language, employment, health care, and housing.",
+        "contrary_evidence": [
+          "The survey describes outcomes and needs, not federal delivery quality or personal Scholz responsibility."
+        ],
+        "evidence_id": "E025",
+        "excerpt": "The survey covered arrivals from February\u2013June 2022 and reported employment and support needs.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Survey conducted August\u2013October 2022.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "BAMF/IAB/BiB/SOEP",
+        "ruler_attribution": "Population outcome evidence; no personal attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Large representative multi-institution survey.",
+        "source_locator": "Lines 54\u201373.",
+        "source_type": "official and academic survey",
+        "title": "Ukrainian refugees in Germany",
+        "url": "https://www.bamf.de/SharedDocs/Anlagen/DE/Forschung/Forschungsberichte/fb41-ukr-gefluechtete.html?nn=1557708"
+      },
+      {
+        "canonical_fact_key": "https://www.bamf.de/SharedDocs/Anlagen/DE/Forschung/Forschungsberichte/fb41-ukr-gefluechtete.html?nn=1557708|lines 65\u201373|Ukrainian refugee housing and well-being",
+        "claim": "The survey found 74% housed privately and 9% in collective accommodation; refugee life satisfaction was below the general population\u2019s and children\u2019s psychological well-being was comparatively low.",
+        "contrary_evidence": [
+          "The survey does not isolate policy causation or durable institutional effects."
+        ],
+        "evidence_id": "E026",
+        "excerpt": "Survey results describe housing arrangements and lower reported well-being.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Survey conducted in 2022.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "BAMF/IAB/BiB/SOEP",
+        "ruler_attribution": "Population outcome evidence; no personal attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Large representative multi-institution survey.",
+        "source_locator": "Lines 65\u201373.",
+        "source_type": "official and academic survey",
+        "title": "Ukrainian refugees in Germany",
+        "url": "https://www.bamf.de/SharedDocs/Anlagen/DE/Forschung/Forschungsberichte/fb41-ukr-gefluechtete.html?nn=1557708"
+      }
+    ],
+    "evidence_environment": {
+      "censorship_and_self_censorship": "Germany had independent media, functioning courts, parliamentary opposition, active NGOs, and constitutional protections. No systematic censorship, nationwide intimidation, or closed-regime information suppression was found. Nuclear-sharing, intelligence, surveillance, and security matters remain institutionally opaque.",
+      "chapter_specific_biases": [
+        "Country-level indicators cannot establish Scholz-specific conduct.",
+        "Federal, L\u00e4nder, municipal, coalition, NATO, and EU actions cannot automatically be attributed to Scholz.",
+        "Official policy records are strong for commitments but weak for independent effectiveness, restraint, fairness, and personal integrity.",
+        "The Cum-Ex material is post-period and allegation-based, not a misconduct finding.",
+        "2022 outcomes are confounded by Russia\u2019s invasion, energy and inflation shocks, COVID recovery, coalition bargaining, and federalism."
+      ],
+      "complaint_volume_interpretation": "Open media, opposition, NGOs, and parliamentary scrutiny increase visible complaints and criticism; complaint volume is not normalized by exposure, affected population, reporting access, or disposition. Closed or classified domains may instead underreport complaints.",
+      "criticism_possible": "Criticism was possible through independent media, parliamentary opposition, courts, NGOs, democracy monitors, and investigative or oversight channels. The notebook included adverse reporting on weapons delays, protest restrictions, police investigations, prison care, inflation, implementation weaknesses, and Cum-Ex allegations.",
+      "duplicate_event_risk": "Repeated Ukraine-policy, relief-package, IMF, refugee-support, institutional-baseline, and Cum-Ex references were deduplicated by source-claim unit. Same-source entries remain separate only where claims, findings, outcomes, or locators are materially distinct.",
+      "inherited_conditions_shocks_and_authority": "Scholz inherited Germany\u2019s strong democratic institutions, NATO nuclear-sharing arrangements, energy dependence, federal and coalition constraints, and existing cyber policy. The 2022 Russia\u2013Ukraine war, energy shock, inflation, refugee arrivals, and COVID recovery materially affected observed outcomes. The chancellor operated under Bundestag approval, coalition bargaining, federalism, NATO/EU commitments, and judicial review.",
+      "languages_and_archives_searched": [
+        "English-language official German government, Bundestag, Federal Foreign Office, Federal Chancellor, Federal Constitutional Court, and Federal Audit Office records.",
+        "English-language NATO and United Nations technical documents.",
+        "English-language IMF, Freedom House, Amnesty, USDOS, BAMF/IAB/BiB/SOEP, specialist media, academic analysis, and policy-institute material.",
+        "German-language source pages were used where supplied by the researcher; no additional search was performed during formatting."
+      ],
+      "official_statistics_reliability": "Destatis, IMF, BAMF/IAB/BiB/SOEP, UCDP, SIPRI, WGI, V-Dem, CIRIGHTS, HDI, and Freedom House material were retained as measured country or population context. Official statistics are strong for recorded quantities and survey estimates but do not establish causal attribution, policy effectiveness, or ruler responsibility.",
+      "relevant_denominators": "Relevant denominators include Germany\u2019s national population and country-year outcomes; affected Ukrainian refugee arrivals and working-age respondents; German 2022 arms-export license totals; L\u00e4nder and municipal populations for subnational rights and service evidence; and NATO/alliance exposure for nuclear and security evidence. Many denominators needed for distributional, complaint, civilian-harm, and implementation claims were unavailable.",
+      "safe_reporting_channels": "Bundestag debates and votes, Federal Constitutional Court judgments, Federal Audit Office reports, official statistics, independent media, NGOs, international organizations, and academic or policy analysis provided reporting and scrutiny channels. Classified nuclear, intelligence, custody, and operational-safety matters remain less observable.",
+      "source_concentration": "The dossier uses approximately 50 retained source-claim units across official German government and parliamentary records, NATO, UN, IMF, courts, audit bodies, NGOs, democracy monitors, government human-rights reporting, survey institutions, academic analysis, specialist defense media, and reputable general media. Official and repeated source families remain concentrated for formal policy and implementation claims.",
+      "supporting_evidence_ids": [
+        "E001",
+        "E003",
+        "E004",
+        "E012",
+        "E017",
+        "E019",
+        "E021",
+        "E025",
+        "E027",
+        "E028",
+        "E030"
+      ]
+    },
+    "iso3": "DEU",
+    "job_key": "dossier:2022-bias-contrast-v1:2022:DEU:16984",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "6B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=61; mapping_note=Aggregate welfare outcomes contextualize priority but cannot establish purpose or propaganda intent.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "6B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=40; mapping_note=Health and education coverage/outcomes inform access; they do not alone establish affordability or quality.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "6B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=14; mapping_note=National distribution and participation measures require group and regional evidence for equity claims.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "6B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=40; mapping_note=Service outcomes are implementation context; professional management and correction require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "6B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=40; mapping_note=Service outcomes are implementation context; professional management and correction require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "6B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=25; mapping_note=Outcome changes contextualize crises but require shock-specific timing and ruler-attributed response evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "6B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Aggregate service data cannot establish political conditionality, loyalty rewards, or punishment.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "6B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=14; mapping_note=National distribution and participation measures require group and regional evidence for equity claims.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "6B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=40; mapping_note=Sustained service series contextualize durability but do not establish institutional survival beyond the ruler.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "6B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=65; mapping_note=Full longitudinal welfare context supports inherited-versus-left life-chance analysis without automatic attribution.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E023",
+        "methodology_id": "6B.1",
+        "relation": "supports",
+        "relevance": "Targeted relief."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Refugee outcomes."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "6B.6",
+        "relation": "contradicts",
+        "relevance": "Lower refugee well-being."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "6B.1",
+      "6B.2",
+      "6B.3",
+      "6B.4",
+      "6B.5",
+      "6B.6",
+      "6B.7",
+      "6B.8",
+      "6B.9",
+      "6B.10"
+    ],
+    "period_end_year": 2022,
+    "period_start_year": 2022,
+    "ruler_id": "2975",
+    "ruler_name": "Olaf Scholz",
+    "ruler_year_id": 16984,
+    "run_key": "2022-bias-contrast-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "provider_profile": "openai-luna-candidate",
+      "research_notebook_sha256": "0ed536d123ac8cdd30f70ea28b89fc65b73d5cc622876b489bb7ad9151277b6f",
+      "source_mix_note": "Retained official German and parliamentary records, courts, audit bodies, NATO, UN, IMF, NGOs, democracy monitors, human-rights reporting, survey institutions, academic analysis, specialist defense media, and reputable general media. Formal policy sources predominate for decisions; independent outcome and personal-attribution evidence remain limited.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "11bead24ecad741900700ed44addff7f88361f5d03a44803e5bd367a09254018",
+    "unresolved_gaps": [
+      "Practical nuclear command-and-control, custody, classified safeguards, exercise safety, AI catastrophic-risk policy, and independent end-period risk change remain unresolved.",
+      "Civilian-harm safeguards, recipient end-use monitoring, formal military accountability, and peacebuilding outcomes remain unresolved.",
+      "Federal police, detention, surveillance, minority-protection, and independent complaint-remedy evidence remains incomplete.",
+      "Direct executive conduct toward media, appointments, surveillance, coalition institutions, and electoral entrenchment remains underdocumented.",
+      "Distributional, regional, labor-market, implementation-audit, capture/lobbying, and policy-correction evidence remains incomplete.",
+      "Social-service quality, affordability, regional and group distribution, municipal delivery, and durability beyond the crisis year remain unresolved.",
+      "No independent finding establishes personal misconduct, self-dealing, deception, obstruction, personal benefit, or conflicts concerning Cum-Ex; testimony and scrutiny response are documented but unresolved.",
+      "Personnel quality, coordination, procurement, implementation bottlenecks, adaptation, durable outcomes, and comparative effectiveness remain underdocumented."
+    ]
+  },
+  {
+    "chapter_id": "6B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Norway",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E039",
+          "E040",
+          "E041",
+          "E042",
+          "E043",
+          "E044",
+          "E045"
+        ],
+        "methodology_id": "6B.1",
+        "reason": "Welfare policy, service access, and subgroup outcomes are documented.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E039",
+          "E040",
+          "E041",
+          "E042",
+          "E044",
+          "E045"
+        ],
+        "methodology_id": "6B.2",
+        "reason": "Health, welfare, and access outcomes are documented.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E039",
+          "E040",
+          "E041",
+          "E042",
+          "E044",
+          "E045"
+        ],
+        "methodology_id": "6B.3",
+        "reason": "Service-access and vulnerable-group evidence is documented.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E039",
+          "E043",
+          "E044",
+          "E045"
+        ],
+        "methodology_id": "6B.4",
+        "reason": "Distributional and group-specific service evidence is documented.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E040",
+          "E041",
+          "E042",
+          "E043",
+          "E044",
+          "E045",
+          "E058"
+        ],
+        "methodology_id": "6B.5",
+        "reason": "Service implementation findings and institutional responses are documented.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E039",
+          "E040",
+          "E041",
+          "E042",
+          "E043",
+          "E044",
+          "E045",
+          "E058"
+        ],
+        "methodology_id": "6B.6",
+        "reason": "Crisis, service, and rights-response evidence is documented.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E039",
+          "E040",
+          "E041",
+          "E042",
+          "E043",
+          "E044",
+          "E045"
+        ],
+        "methodology_id": "6B.7",
+        "reason": "Group and service effects are documented, without political-conditionality evidence.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E043",
+          "E044",
+          "E045"
+        ],
+        "methodology_id": "6B.8",
+        "reason": "Sustained welfare context and institutional response are documented.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E039",
+          "E040",
+          "E041",
+          "E042",
+          "E044",
+          "E045",
+          "E058"
+        ],
+        "methodology_id": "6B.9",
+        "reason": "Welfare and service outcomes are documented with subgroup limitations.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E039",
+          "E040",
+          "E041",
+          "E042",
+          "E043",
+          "E044",
+          "E045",
+          "E058"
+        ],
+        "methodology_id": "6B.10",
+        "reason": "Welfare evidence is substantial but durability and personal attribution remain unresolved.",
+        "status": "partially_covered"
+      }
+    ],
+    "estimated_input_tokens": 11150,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.ssb.no/en/inntekt-og-forbruk/inntekt-og-formue/artikler/the-economic-welfare-of-low-income-households-2022#lines-75-92#Low-income and material-deprivation burdens",
+        "claim": "SSB reported persistent low-income and material-deprivation burdens among single parents, disability-benefit recipients, immigrants, and low-income families with children.",
+        "contrary_evidence": [],
+        "evidence_id": "E039",
+        "excerpt": "The analysis identifies persistent burdens among named vulnerable groups.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 welfare outcomes.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Statistics Norway",
+        "ruler_attribution": "Population outcome; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official statistics analysis with precise locator.",
+        "source_locator": "HTML lines 75-92",
+        "source_type": "official statistical analysis",
+        "title": "The economic welfare of low-income households 2022",
+        "url": "https://www.ssb.no/en/inntekt-og-forbruk/inntekt-og-formue/artikler/the-economic-welfare-of-low-income-households-2022"
+      },
+      {
+        "canonical_fact_key": "https://www.helsetilsynet.no/publikasjoner/arsrapporter/arsrapport-helsetilsynet-2022/3.-arets-aktiviteter-og-resultater?b=toc_749319#lines-169-182#NAV office access limitations",
+        "claim": "Helsetilsynet found that 49 of 70 NAV offices were open six hours or less per week, with delays particularly affecting users unable to use digital channels.",
+        "contrary_evidence": [
+          "E079 records subsequent improvement work, but not complete resolution."
+        ],
+        "evidence_id": "E040",
+        "excerpt": "The annual report gives the NAV-office denominator and identifies digitally excluded users as especially affected.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 service-access finding.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Norwegian Board of Health Supervision",
+        "ruler_attribution": "Institutional service finding; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent supervisory report with precise locator and denominator.",
+        "source_locator": "HTML lines 169-182",
+        "source_type": "independent supervisory report",
+        "title": "Helsetilsynet annual report 2022",
+        "url": "https://www.helsetilsynet.no/publikasjoner/arsrapporter/arsrapport-helsetilsynet-2022/3.-arets-aktiviteter-og-resultater?b=toc_749319"
+      },
+      {
+        "canonical_fact_key": "https://www.helsetilsynet.no/publikasjoner/arsrapporter/arsrapport-helsetilsynet-2022/3.-arets-aktiviteter-og-resultater?b=toc_749319#lines-183-189#People without regular GP in Q1 2022",
+        "claim": "Helsetilsynet reported that 153,000 people lacked a regular general practitioner in Q1 2022, with risks concentrated among older and medically complex patients.",
+        "contrary_evidence": [],
+        "evidence_id": "E041",
+        "excerpt": "The report gives the affected population and identifies higher-risk groups.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Q1 2022 service outcome.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Norwegian Board of Health Supervision",
+        "ruler_attribution": "Institutional health-service outcome; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent supervisory report with precise locator and denominator.",
+        "source_locator": "HTML lines 183-189",
+        "source_type": "independent supervisory report",
+        "title": "Helsetilsynet annual report 2022",
+        "url": "https://www.helsetilsynet.no/publikasjoner/arsrapporter/arsrapport-helsetilsynet-2022/3.-arets-aktiviteter-og-resultater?b=toc_749319"
+      },
+      {
+        "canonical_fact_key": "https://www.regjeringen.no/no/aktuelt/okte-ventetider-i-spesialisthelsetjenesten-i-2022/id2966979/#lines-178-193#Specialist-healthcare waiting-time increase",
+        "claim": "Specialist-healthcare waiting time rose to 66 days in 2022, five days above 2021, with particular concern around mental-health services.",
+        "contrary_evidence": [],
+        "evidence_id": "E042",
+        "excerpt": "The government report gives the waiting-time increase and service concern.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 service outcome.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Government of Norway",
+        "ruler_attribution": "Institutional service outcome; no personal St\u00f8re attribution.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official report with precise quantitative locator.",
+        "source_locator": "HTML lines 178-193",
+        "source_type": "official government report",
+        "title": "Increased waiting times in specialist healthcare in 2022",
+        "url": "https://www.regjeringen.no/no/aktuelt/okte-ventetider-i-spesialisthelsetjenesten-i-2022/id2966979/"
+      },
+      {
+        "canonical_fact_key": "https://www.regjeringen.no/no/aktuelt/l/id2966316/#lines-205-225#Fosen continuing consultations and unresolved implementation",
+        "claim": "Government follow-up documented continuing consultations, updated investigations, and unresolved S\u00e1mi-rights implementation concerning Fosen during the target period.",
+        "contrary_evidence": [],
+        "evidence_id": "E043",
+        "excerpt": "The follow-up records continuing process and unresolved implementation.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target-period remedy process.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Government of Norway",
+        "ruler_attribution": "Executive and institutional follow-up; shared and partly inherited responsibility.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official follow-up record with precise locator.",
+        "source_locator": "HTML lines 205-225",
+        "source_type": "official government follow-up",
+        "title": "Fosen follow-up statement",
+        "url": "https://www.regjeringen.no/no/aktuelt/l/id2966316/"
+      },
+      {
+        "canonical_fact_key": "https://arkiv.imdi.no/arkiv/arkiverte-publikasjoner/rapport-om-ukrainske-flyktningers-mote-med-norge/#lines-36-54#Positive but uneven Ukrainian refugee service reception",
+        "claim": "Independent refugee interviews found generally positive reception by police, NAV, UDI, and municipalities, but uneven access to medicines and other services.",
+        "contrary_evidence": [
+          "E066 records recommendations for more equal and coordinated services."
+        ],
+        "evidence_id": "E044",
+        "excerpt": "Interviews report positive reception alongside uneven access.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Evidence concerning refugees arriving during 2022.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "IMDi/NIBR",
+        "ruler_attribution": "Service-system outcome; no personal St\u00f8re attribution.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Independent/semi-independent interview research with precise locator.",
+        "source_locator": "HTML lines 36-54",
+        "source_type": "independent refugee-service research",
+        "title": "Report on Ukrainian refugees\u2019 encounter with Norway",
+        "url": "https://arkiv.imdi.no/arkiv/arkiverte-publikasjoner/rapport-om-ukrainske-flyktningers-mote-med-norge/"
+      },
+      {
+        "canonical_fact_key": "https://arkiv.imdi.no/arkiv/arkiverte-publikasjoner/rapport-om-ukrainske-flyktningers-mote-med-norge/#lines-83-85#Refugee-service coordination recommendations",
+        "claim": "Refugee interviews recommended better information-sharing, more equal services across municipalities, and improved information flow.",
+        "contrary_evidence": [],
+        "evidence_id": "E045",
+        "excerpt": "The report lists coordination and equal-service recommendations.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Evidence concerning 2022 refugee reception.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "IMDi/NIBR",
+        "ruler_attribution": "Service-system recommendation; no personal St\u00f8re attribution.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Research report with precise locator.",
+        "source_locator": "HTML lines 83-85",
+        "source_type": "independent refugee-service research",
+        "title": "Report on Ukrainian refugees\u2019 encounter with Norway",
+        "url": "https://arkiv.imdi.no/arkiv/arkiverte-publikasjoner/rapport-om-ukrainske-flyktningers-mote-med-norge/"
+      },
+      {
+        "canonical_fact_key": "https://www.helsetilsynet.no/publikasjoner/arsrapporter/arsrapport-helsetilsynet-2022/3.-arets-aktiviteter-og-resultater?b=toc_749319#lines-174-182#NAV service-access failures and improvement work",
+        "claim": "Helsetilsynet documented service-access failures at NAV and subsequent institutional improvement work.",
+        "contrary_evidence": [],
+        "evidence_id": "E058",
+        "excerpt": "The report records access problems and follow-up improvement work.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 service and response evidence.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Norwegian Board of Health Supervision",
+        "ruler_attribution": "Institutional implementation finding; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent supervisory report with precise locator.",
+        "source_locator": "HTML lines 174-182",
+        "source_type": "independent supervisory report",
+        "title": "Helsetilsynet annual report 2022",
+        "url": "https://www.helsetilsynet.no/publikasjoner/arsrapporter/arsrapport-helsetilsynet-2022/3.-arets-aktiviteter-og-resultater?b=toc_749319"
+      }
+    ],
+    "evidence_environment": {
+      "censorship_and_self_censorship": "The notebook cites independent media, civil society, courts, regulators, parliamentary oversight, EOS, the Data Protection Authority, the Auditor General, GREVIO, and GRECO. It also records that classified intelligence, defence, cyber, procurement, and administrative systems may conceal failures or disagreement. No evidence of St\u00f8re-directed censorship, retaliation, or unlawful surveillance was found.",
+      "chapter_specific_biases": [
+        "1B: nuclear evidence may over-attribute cabinet or institutional conduct to St\u00f8re; alliance and classified systems constrain visibility.",
+        "2B: official Norwegian Ukraine-policy sources dominate; recipient-side civilian harm, end-use, intelligence correction, and peace alternatives remain gaps.",
+        "3B: open reporting may increase visible complaints; Fosen, violence, custody, and vulnerability findings are not personal evidence.",
+        "4B: country-level institutional protections and oversight do not establish executive self-binding; coalition authority is shared.",
+        "5B: macro, energy, and distributional outcomes are shock-sensitive and only partly attributable to a short-tenure prime minister.",
+        "6B: high inherited welfare baselines, municipal authority, and service-provider responsibility limit ruler credit.",
+        "7B: national integrity indicators and institutional controls cannot substitute for a personal benefit, direction, protection, or obstruction nexus.",
+        "8B: implementation breadth is high, but durable outcomes, recipient-side checks, and personal causal attribution remain incomplete."
+      ],
+      "complaint_volume_interpretation": "The notebook repeatedly notes that Norway\u2019s open environment may increase visible complaints, protests, scandals, and rights disputes, but supplies no complaint-volume denominator or cross-system normalization. Complaint volume is largely not applicable to the nuclear lenses.",
+      "criticism_possible": "Criticism was possible through parliamentary questions and debates, independent media and civil society, courts, the Parliamentary Ombud, EOS, Datatilsynet, the Auditor General, GREVIO, GRECO, SSB, OECD, and independent research. The notebook nevertheless records incomplete systematic adverse searches and classified-system limits.",
+      "duplicate_event_risk": "Material duplicate-event risk exists for Ukraine/export-policy materials, Fosen chronology, NAV findings, refugee-reception reports, electricity-support measures, audit and scandal reporting, and nuclear-policy statements. Related reports must remain separate only where the underlying source-claim unit differs.",
+      "inherited_conditions_shocks_and_authority": "St\u00f8re became prime minister on 14 October 2021 in a Labour\u2013Centre coalition. NATO and nuclear postures, safeguards institutions, welfare outcomes, and governance systems largely predated him. Coalition, municipal, agency, and alliance authority are shared. Omicron, Russia\u2019s invasion of Ukraine, energy prices, inflation, and cyber threats constrained 2022 outcomes.",
+      "languages_and_archives_searched": [
+        "Norwegian and English Government.no, Storting, DSA, Sivilombudet, Datatilsynet, Riksrevisjonen, Helsetilsynet, NSM, EOS, SSB, IMDi/NIBR, NIPH, GRECO-linked materials, Freedom House, USDOS/ECoi, OECD, Cambridge, AP, IAEA, NATO, NUPI, PRIO, GREVIO, Eurofound, and civil-society materials.",
+        "The notebook does not claim exhaustive archival, classified, or whistleblower-record access."
+      ],
+      "official_statistics_reliability": "The notebook treats SSB, OECD, Auditor General, Helsetilsynet, Datatilsynet, EOS, GREVIO, and related institutional data as useful but bounded. It notes missing denominators, non-representative detection data, incomplete subgroup outcomes, and administrative-system blind spots.",
+      "relevant_denominators": "Recorded denominators include 70 NAV offices, 49 open six hours or less, 153,000 people without a regular GP in Q1 2022, 66-day specialist-care waiting time, 3,519 Datatilsynet cases, 121 financial-irregularity cases with 44 requiring response and four corruption cases, and household distribution measures. Complaint, civilian-harm, affected-population, and many subgroup denominators remain missing.",
+      "safe_reporting_channels": "The notebook cites parliamentary scrutiny, courts, independent media and civil society, the Parliamentary Ombud, EOS, Datatilsynet, the Auditor General, GREVIO, GRECO, and anonymous or open Foreign Service irregularity reporting with external-audit and police-referral mechanisms. Classification limits public visibility in some security domains.",
+      "source_concentration": "The source mix includes government and parliamentary records, regulators, oversight bodies, courts, national statistics, international organizations, independent research, independent media, civil society, and advocacy. Target-period policy and implementation claims remain disproportionately official. E068-E070 derive from one source family.",
+      "supporting_evidence_ids": [
+        "E001",
+        "E002",
+        "E003",
+        "E004",
+        "E007",
+        "E008",
+        "E009",
+        "E010",
+        "E011",
+        "E012",
+        "E014",
+        "E017",
+        "E018",
+        "E019",
+        "E020",
+        "E021",
+        "E022",
+        "E024",
+        "E026",
+        "E027",
+        "E028",
+        "E029",
+        "E030",
+        "E031",
+        "E032",
+        "E033",
+        "E034",
+        "E035",
+        "E036",
+        "E037",
+        "E038",
+        "E039",
+        "E040",
+        "E041",
+        "E042",
+        "E044",
+        "E046",
+        "E047",
+        "E048",
+        "E049",
+        "E050",
+        "E051",
+        "E052",
+        "E053",
+        "E054",
+        "E055",
+        "E056",
+        "E057",
+        "E058",
+        "E059",
+        "E060",
+        "E061",
+        "E062",
+        "E063",
+        "E064"
+      ]
+    },
+    "iso3": "NOR",
+    "job_key": "dossier:2022-bias-contrast-v1:2022:NOR:16795",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "6B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=61; mapping_note=Aggregate welfare outcomes contextualize priority but cannot establish purpose or propaganda intent.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "6B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=40; mapping_note=Health and education coverage/outcomes inform access; they do not alone establish affordability or quality.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "6B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=14; mapping_note=National distribution and participation measures require group and regional evidence for equity claims.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "6B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=40; mapping_note=Service outcomes are implementation context; professional management and correction require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "6B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=40; mapping_note=Service outcomes are implementation context; professional management and correction require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "6B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=25; mapping_note=Outcome changes contextualize crises but require shock-specific timing and ruler-attributed response evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "6B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=Aggregate service data cannot establish political conditionality, loyalty rewards, or punishment.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "6B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=14; mapping_note=National distribution and participation measures require group and regional evidence for equity claims.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "6B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=40; mapping_note=Sustained service series contextualize durability but do not establish institutional survival beyond the ruler.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "6B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=65; mapping_note=Full longitudinal welfare context supports inherited-versus-left life-chance analysis without automatic attribution.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E039",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E041",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E042",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E039",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E041",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E042",
+        "methodology_id": "6B.2",
+        "relation": "contradicts",
+        "relevance": "Specialist-care waiting-time increase."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E039",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E041",
+        "methodology_id": "6B.3",
+        "relation": "contradicts",
+        "relevance": "GP access gap."
+      },
+      {
+        "evidence_id": "E042",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E039",
+        "methodology_id": "6B.4",
+        "relation": "contradicts",
+        "relevance": "Vulnerable-group welfare burdens."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "6B.4",
+        "relation": "contradicts",
+        "relevance": "Refugee service-equality recommendations."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "6B.5",
+        "relation": "contradicts",
+        "relevance": "NAV service-access failure."
+      },
+      {
+        "evidence_id": "E041",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E042",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E058",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E039",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E041",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E042",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "6B.6",
+        "relation": "supports",
+        "relevance": "Positive but uneven refugee services."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E058",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E039",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E041",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E042",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "6B.8",
+        "relation": "contradicts",
+        "relevance": "Unresolved Fosen implementation."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E039",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E041",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E042",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E058",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E039",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E040",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E041",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E042",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E058",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "6B.1",
+      "6B.2",
+      "6B.3",
+      "6B.4",
+      "6B.5",
+      "6B.6",
+      "6B.7",
+      "6B.8",
+      "6B.9",
+      "6B.10"
+    ],
+    "period_end_year": 2022,
+    "period_start_year": 2022,
+    "ruler_id": "2933",
+    "ruler_name": "Jonas Gahr St\u00f8re",
+    "ruler_year_id": 16795,
+    "run_key": "2022-bias-contrast-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "provider_profile": "openai-luna-candidate",
+      "research_notebook_sha256": "fefc413b0c2e1980ce5aadc6ab658552d9c5886f42118beae9a8e0a26171053b",
+      "source_mix_note": "Evidence spans Norwegian government and parliamentary records, regulators and oversight bodies, courts, SSB, international organizations, independent research, independent media, civil society, and advocacy. Official target-period policy and implementation evidence remains concentrated in several chapters. E068-E070 are one source family; repeated claims require claim-level deduplication.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "b6e137f0611940c9b239214bbf9661699dc13776dba206b5d0c0eac7191510dc",
+    "unresolved_gaps": [
+      "1B: personal St\u00f8re attribution for safeguards, arms-control, disarmament, and independent oversight.",
+      "2B: recipient-side civilian harm, weapon end-use, intelligence correction, peace alternatives, and accountability.",
+      "3B: independent Fosen remedy outcomes, broader police and custodial oversight, and population-specific exposure.",
+      "4B: direct executive self-binding, censorship, opposition retaliation, and coalition-versus-prime-minister attribution.",
+      "5B: productivity, competition, procurement and appointments, durable growth, and independent electricity-support evaluation.",
+      "6B: regional and beneficiary outcomes, child poverty, vulnerable-group causal evidence, and institutional durability.",
+      "7B: personal benefit, direction, protection, obstruction, lobbying, procurement, appointments, and whistleblower or judicial evidence tied to St\u00f8re.",
+      "8B: independent durable outcomes, recipient-side Ukraine checks, external cyber-impact assessment, subgroup effects, and sharper inherited, coalition, institutional, and personal attribution.",
+      "No error_methodology_ids were supplied; no blocking local-input failure was recorded."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# 6B Social Well-Being and Human Development
+
+Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+
+## Chapter Identity
+
+- `chapter_id`: `6B`
+- Category: ruler intention and action for social well-being and human development
+- Evidence unit: one ruler and target year or defined ruler-period
+- Final output: one chapter score, not ten question scores
+- Rubric version: `chapter_6b_v3`
+- Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
+
+The questions are ten mutually reinforcing lenses on whether the ruler used feasible authority to improve people's capabilities, security and dignity. They are not ten separately scored requirements.
+
+## Ten Evidence Lenses
+
+1. **6B.1** — Did the ruler treat human welfare as a core purpose of rule rather than as propaganda, patronage, or secondary concern?
+2. **6B.2** — Did the ruler improve access to basic health, education, water, sanitation, housing, food security, and social protection?
+3. **6B.3** — Did the ruler prioritize vulnerable groups, poor regions, children, elderly people, women, minorities, disabled people, and marginalized communities?
+4. **6B.4** — Did the ruler fund and manage social services with competent professionals rather than patronage networks?
+5. **6B.5** — Did the ruler use evidence, measurement, and transparent correction to improve service delivery?
+6. **6B.6** — Did the ruler reduce avoidable suffering during crises such as pandemics, disasters, conflict displacement, famine, or economic shocks?
+7. **6B.7** — Did the ruler avoid using welfare, permits, jobs, food, housing, or benefits as tools of political loyalty and punishment?
+8. **6B.8** — Did the ruler protect dignity and equal opportunity, not only aggregate welfare numbers?
+9. **6B.9** — Did the ruler build durable social institutions that would survive beyond their personal rule?
+10. **6B.10** — Did the ruler leave ordinary people with better life chances than they inherited, accounting for baseline and constraints?
+
+## Researcher Evidence Plan
+
+Build a reusable cited dossier; do not assign the chapter score. Follow the local-first researcher guide and source-confidence registry. Start with local UNDP, WHO/WDI, education, poverty/inequality and V-Dem equality priors. Add national statistics and household surveys; WHO, UNICEF/JMP, UNESCO, ILO, FAO/WFP, UN-Habitat, UNHCR, World Bank and regional banks; audits and program evaluations; peer-reviewed histories; and credible civil-society/local reporting. Document definitions and time-series breaks.
+
+Collect evidence on revealed welfare priority; effective access, affordability, quality and uptake across health, education, water, sanitation, housing, food and protection; distribution to vulnerable groups; professional administration; measurement and correction; crisis preparation/response; political conditionality or punishment; dignity and opportunity; institutional durability; and inherited-to-left life chances. Separate promises, budgets, delivery and outcomes. Preserve contrary evidence, subnational variation, donor roles and shocks. Evidence may inform several lenses; no formal label vocabulary or complete mapping table is required.
+
+Each evidence item must preserve, in fields or clearly recoverable prose: the factual claim; citation or URL plus source title, publisher and publication date when available; target-year/ruler-period fit; source-confidence assessment and source role; the basis and strength of attribution to the ruler; and material uncertainty or disagreement. Missing bibliographic details may be marked unknown rather than invented. Formatting deviations are normalization work, not grounds to discard otherwise usable evidence.
+
+## Baseline, Attribution, and Sparse Evidence
+
+Assess improvement and avoidable harm from the inherited health, education, income, infrastructure, demographic, geographic, conflict and state-capacity baseline. Separate ruler decisions from demographic trends, predecessor pipelines, donors, local governments, war, disaster and disease novelty. Credit preparation, allocation, implementation and correction proportionately to authority. High absolute welfare inherited by a ruler is not automatically high ruler performance; low absolute levels do not automatically imply failure.
+
+Historical cases may lack comparable surveys or complete domain coverage. Use mortality, schooling, nutrition, budgets, institutional histories and credible contemporary accounts without pretending modern precision. Explicitly mark missing or contested domains. Missing lenses lower confidence only; they never invalidate the dossier, prohibit a chapter score or count as deterioration. Closed-system silence requires caution.
+
+Missing domains do not mechanically invalidate a dossier, but the absence of any
+ruler-attributed discriminating welfare action, implementation, remedy, or outcome
+does prohibit a score. Country baselines and generic priors cannot set the score's
+direction. Scores of 6 or above require independently supported baseline-adjusted
+gains attributable in meaningful part to the ruler; scores of 2–3 require severe,
+avoidable ruler-linked deprivation, exclusion, or destructive mismanagement. A high
+inherited welfare level plus adequate crisis administration may support a moderate
+positive score, but not an 8–9 without broad contribution or consequential protection.
+
+## Chapter Judge and Lens Weighting
+
+One judge applies one meter across all rulers. Weight lenses qualitatively by severity and breadth of suffering or improvement, ruler responsibility, baseline-adjusted magnitude, equity, durability, source strength and period fit. Avoidable famine, mass denial or transformative universal provision can dominate narrower programs. A flagship service cannot stand for the portfolio, but complete evidence across seven services is not required. Professional appointments and measurement matter insofar as they support delivery. `6B.10` synthesizes rather than double-counts.
+
+Question redundancy is a feature: several lenses may corroborate the same welfare orientation and institutional mechanism. State which lenses and service domains are well evidenced, uncertain or unavailable. Judge overall life chances and ruler contribution; do not average lens scores.
+
+## One-Chapter 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | Ruler action or knowing, feasible neglect causes catastrophic widespread suffering, systematic exclusion or destruction of basic human-development capacity. |
+| 2–3 | Severe avoidable deprivation, discriminatory denial, politicized provision or repeated destructive mismanagement dominates several important welfare areas. |
+| 4–5 | Some genuine improvement coexists with major gaps, exclusion, patronage, poor quality, crisis failure or weak durability; overall contribution is mixed. |
+| 6–7 | Clear baseline-adjusted gains in ordinary people's welfare and access, with meaningful remaining inequality, quality, coverage or institutional weaknesses. |
+| 8–9 | Large, broad, equitable and durable human-development gains are independently supported, including credible protection of vulnerable groups and crisis resilience. |
+| 10 | Exceptional feasible transformation of life chances and dignity through near-universal effective provision and durable, inclusive institutions beyond personal rule. |
+
+## Common Chapter-Judge Output Envelope
+
+The result should use the shared semantic envelope. Exact field spelling may be normalized after handoff.
+
+- `chapter_id`: `6B`
+- `rubric_version`: `chapter_6b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`, referencing evidence items
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence` and unresolved disagreements
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`, `lower_anchor_rejected`, and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Chapter-specific extras: `evidenced_service_domains`, `distribution_and_dignity`,
+`crisis_context`, `institutional_durability`, and `trajectory`.
+
+`Insufficient_evidence` is a permitted judgment for an exceptionally thin case, not an automatic consequence of missing lenses. Natural-language descriptions are preferred to false enum precision.
+
+## Calibration, Confidence, and Bias Checks
+
+Check national-average versus group/region bias, income and baseline comparability, demographic lag, donor/subnational attribution, conflict/disaster/pandemic context, open-versus-closed data quality, official-statistics manipulation, survivorship, measurement breaks, population scale, present-day-standard/hindsight bias and visibility bias. Compare feasible improvement as well as absolute levels; do not excuse deliberate exclusion because a country is poor.
+
+## Smoke-Test Cases
+
+| Ruler | Country | Period | Calibration purpose |
+|---|---|---:|---|
+| Park Chung-hee | South Korea | 1961–1979 | rapid gains, low baseline and authoritarian distribution caveats |
+| Lee Kuan Yew | Singapore | 1965–1990 | housing/health/education and durable-state high comparison |
+| Lula da Silva | Brazil | 2003–2010 | social protection, food security and inequality |
+| Ellen Johnson Sirleaf | Liberia | 2006–2018 | post-conflict rebuilding, donor role and Ebola shock |
+| Paul Kagame | Rwanda | 2000–2023 | health gains with data openness and rights/distribution checks |
+| Narendra Modi | India | 2014–2023 | sanitation/protection scale versus quality and uneven access |
+| Hugo Chávez | Venezuela | 1999–2013 | early access gains versus politicization and durability |
+| Nicolae Ceaușescu | Romania | 1981–1989 | austerity-driven deprivation low anchor |
+| Kim Jong Il | North Korea | 1994–2011 | famine, state responsibility and closed-information uncertainty |
+| Jacinda Ardern | New Zealand | 2020–2022 | high baseline, pandemic response and inequality test |
+| Sirimavo Bandaranaike | Sri Lanka | 1960–1965 | less-visible historical, food/education policy and gender comparison |
+
+## Acceptance Checklist
+
+- A numeric score requires a ruler-attributed social-welfare action and some evidence
+  of delivery, implementation, remedy, or attributable outcome. A budget announcement
+  or inherited human-development level alone is insufficient.
+
+- The exact ten lenses remain visible and produce one chapter score only.
+- Evidence is local-first, cited, source-profiled and reusable across real lens relationships.
+- Baseline, shocks, ruler authority, implementation and outcomes are separated.
+- Access, quality, affordability, distribution, dignity and durability are considered without rigid domain gates.
+- Missing lenses/domains reduce confidence and never invalidate or count as failure.
+- One judge calibrates all rulers with the same chapter rubric.
+- Flexible LLM wording and incomplete mappings remain acceptable.
+- Bias checks and adjacent-anchor rejections are case-specific.
+- Smoke cases are judged together before activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.
+Before returning, verify that every numeric evaluation cites at least one valid
+same-dossier E-ID in its decisive positive or negative evidence arrays and that
+every confidence score is on the required 0-100 scale.

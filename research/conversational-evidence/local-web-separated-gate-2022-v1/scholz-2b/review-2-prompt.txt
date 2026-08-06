@@ -1,0 +1,2181 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "2B.1",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "2B.10"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:separated-gate-2022-v1:2022:DEU:16984:2B",
+  "iso3": "DEU",
+  "country_name": "Germany",
+  "ruler_name": "Olaf Scholz",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "2B"
+  ],
+  "observed_chapter_ids": [
+    "2B"
+  ],
+  "approximate_locator_count": 59,
+  "approximate_source_family_count": 16,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": false,
+  "findings": []
+}
+
+Configured research workflow:
+not supplied
+
+Research notebook:
+---
+## Scope and orientation
+
+Period assessed: Olaf Scholz, Germany, 1 January–31 December 2022. No score is assigned.
+
+### Authority
+
+Scholz had substantial but not unitary security authority. Under Basic Law article 65, the chancellor sets the government’s general policy guidelines and is responsible for them; ministers independently administer their portfolios. In peacetime, command over the Bundeswehr belonged to the defence minister, not Scholz. Bundestag authorization was required for armed deployments abroad. Arms-export decisions were institutionally shared among ministries and, for sensitive cases, the Federal Security Council, which Scholz chaired. [Basic Law, arts. 65, 65a and 87a](https://www.bundestag.de/parlament/aufgaben/rechtsgrundlagen/grundgesetz/?id=5591).
+
+Accordingly:
+
+- Scholz is directly attributable for his public threat characterization, the *Zeitenwende* policy line, diplomacy with Putin, and advocacy of the €100 billion fund.
+- Ukraine arms support, sanctions and export licensing carry shared executive, coalition, EU/NATO or parliamentary attribution.
+- Individual Ukrainian or Malian operations cannot be attributed to Scholz without evidence of German operational control, direction or knowing toleration.
+
+### Baseline, exposure and shocks
+
+Germany entered 2022 outside any UCDP state-based armed conflict as a belligerent, but with inherited overseas deployments, principally UN stabilization in Mali and NATO reassurance missions. The UCDP 23.1 dataset is the contemporaneous release covering conflicts through 2022; the public API queries intended to verify a Germany-specific zero returned access errors, so the D13 country extraction remains a technical gap rather than an asserted numerical finding. [UCDP replication archive](https://ucdp.uu.se/downloads/replication_data.html).
+
+The central shock was Russia’s 24 February full-scale invasion of Ukraine, expanding the conflict begun in 2014. Germany became a major supplier and sanctioning state but did not send combat forces into Ukraine. Other constraints included coalition government, Bundestag control of deployments and budgets, NATO coordination, depleted Bundeswehr stocks, longstanding Russian-energy dependence, escalation fears, Mali’s military government and Wagner partnership, and secrecy around weapons deliveries.
+
+The SIPRI D14 baseline was German military spending of $56.0 billion in 2021, 1.3% of GDP. In 2022 it was $55.8 billion, 1.4% of GDP and 2.3% higher in real terms. Thus the announced €100 billion fund represented a major future commitment, but not an equivalent cash-spending jump during 2022. [SIPRI 2021 fact sheet](https://www.sipri.org/sites/default/files/2022-04/fs_2204_milex_2021.pdf), [SIPRI 2022 fact sheet](https://www.sipri.org/sites/default/files/2023-04/2304_fs_milex_2022.pdf).
+
+### Information environment
+
+Germany’s open parliament, opposition, media and courts produced unusually visible criticism, including allegations that Scholz overstated or obscured weapons-delivery progress. Delivery secrecy had a credible operational-security rationale, but it also prevented complete contemporaneous verification. Government speeches reliably establish what Scholz declared, not whether every threat inference or implementation claim was correct.
+
+## Compact evidence index
+
+| ID | Fact | Why it matters |
+|---|---|---|
+| WEB-2B-001 | Constitutional division of security authority | Limits personal attribution to Scholz |
+| WEB-2B-002 | SIPRI 2021 expenditure baseline | Establishes inherited military burden |
+| WEB-2B-003 | SIPRI 2022 expenditure and change | Tests whether the rearmament announcement immediately transformed spending |
+| WEB-2B-004 | January NATO–Russia diplomatic track | Shows peaceful alternatives were actively pursued before invasion |
+| WEB-2B-005 | Scholz’s pre-invasion Kremlin warning | Direct evidence of diplomacy before force |
+| WEB-2B-006 | Scholz’s invasion explanation | Tests public truthfulness and defensive/prestige distinction |
+| WEB-2B-007 | Sanctions, Nord Stream 2 suspension and Ukrainian self-defence | Establishes coercive but non-belligerent response |
+| WEB-2B-008 | Continued Russian communication channels | Evidence of post-invasion diplomatic restraint |
+| WEB-2B-009 | €100 billion fund and stated defensive rationale | Central mobilization and spending decision |
+| WEB-2B-010 | NATO territorial-reassurance deployments | Shows military expansion was alliance-territory focused |
+| WEB-2B-011 | Ukraine arms approvals and categories | Quantifies the proxy/recipient exposure |
+| WEB-2B-012 | Export end-use and human-rights safeguards | Evidence of formal recipient-control mechanisms |
+| WEB-2B-013 | Saudi arms approvals | Important adverse evidence concerning a conflict-linked recipient |
+| WEB-2B-014 | Weapons-delivery delay and transparency dispute | Credible challenge to government implementation claims |
+| WEB-2B-015 | Humanitarian and medical assistance | Relevant to civilian protection |
+| WEB-2B-016 | German investigation of Ukraine international crimes | Evidence of legal accountability efforts |
+| WEB-2B-017 | MINUSMA extension and force-cap increase | Inherited cross-border deployment continued and temporarily expanded |
+| WEB-2B-018 | Mali abuses and reduction of EU training | Recipient/proxy-risk evidence and a partial remedial response |
+| WEB-2B-019 | December Putin contact and withdrawal demand | Shows continued communication without accepting capitulation |
+| WEB-2B-020 | No negotiated settlement or peaceful end state in 2022 | Limits any favorable end-state conclusion |
+
+## Ten-lens disposition
+
+### 2B.1 — Diplomacy versus force
+
+Predominantly favorable, with important limits. Before the invasion, Scholz participated in NATO–Russia diplomacy, warned Putin personally in Moscow and initially maintained Germany’s restrictive arms policy. After invasion, he used sanctions and arms support without deploying German combat forces to Ukraine and kept direct channels open (WEB-2B-004–008, WEB-2B-019).
+
+The contrary case is that prewar German policy may have underestimated Russian coercion, while post-invasion delays in supplying defensive weapons may have reduced Ukraine’s ability to resist rather than serving productive de-escalation (WEB-2B-014). Evidence does not establish that Scholz rejected a credible peace agreement in favor of war.
+
+### 2B.2 — Wars of choice, coercion or proxy conflict
+
+No evidence that Scholz initiated a war of choice, annexation, covert destabilization or cross-border combat operation in 2022. Germany’s support followed Russia’s invasion and was publicly framed around Ukraine’s UN Charter self-defence. Germany nevertheless became a substantial arms supplier, creating indirect conflict exposure (WEB-2B-007, WEB-2B-011).
+
+The inherited Mali deployment was renewed and its troop ceiling increased, but it remained Bundestag-approved participation in a UN mission, not a German war of conquest (WEB-2B-017).
+
+### 2B.3 — Defensive need versus prestige or manufactured threat
+
+The defensive rationale had strong independent grounding: the Russian troop buildup was observable before 24 February, and Russia then invaded and attempted territorial seizure. NATO reassurance deployments remained on allied territory. SIPRI also found that European spending increases were widely driven by the invasion (WEB-2B-004, WEB-2B-006, WEB-2B-009–010).
+
+Scholz’s assertion that Putin sought to reconstruct an empire was an interpretive judgment rather than a judicial fact. The spending package may also have reflected inherited procurement failures and alliance burden-sharing. No evidence located ties it to personal prestige, regime survival or manufactured intelligence.
+
+### 2B.4 — Civilian protection and humanitarian law
+
+Germany did not conduct combat operations in Ukraine, so there is no German target-selection or prisoner-treatment record to assess there. It supplied air defence, vehicles, artillery and other weapons while also funding humanitarian and medical relief and pursuing accountability for international crimes (WEB-2B-011, WEB-2B-015–016).
+
+In Mali, German forces served within MINUSMA while Malian and Wagner forces committed extensive abuses. The available evidence does not connect German troops to those atrocities, but it makes recipient-force diligence an important concern (WEB-2B-017–018). Silence about German civilian harm is meaningful only for the limited operational roles documented, not proof that every deployment was harm-free.
+
+### 2B.5 — Restraint of allies, proxies and arms recipients
+
+Mixed. Germany had formal licensing, re-export, human-rights review and post-shipment-control mechanisms (WEB-2B-012). It reduced EUTM Mali activity as abuses and Wagner cooperation escalated, while retaining MINUSMA peacekeeping (WEB-2B-018).
+
+However, the 2022 export report disclosed approvals to Saudi Arabia, including fire-control equipment and cannon and aircraft-related components, notwithstanding the kingdom’s recent Yemen-war role (WEB-2B-013). No source inspected demonstrated Ukraine-specific on-site post-shipment inspections in 2022, or a Scholz-directed system to investigate every allegation involving German-supplied weapons. Recipient-control effectiveness therefore remains only partly established.
+
+### 2B.6 — Truthful public explanation
+
+Scholz accurately identified Russia as the invader, Ukraine as the state defending its territory, and the attack as a breach of sovereignty and the UN order; the invasion itself independently corroborates the central claims (WEB-2B-006). He did not manufacture an attack on Germany or claim German combat was necessary.
+
+His public communications about the pace and scope of weapons assistance were credibly contested. Reporting alleged that the Chancellery removed systems from a Ukrainian request list and that official descriptions created a more expansive impression than implementation supported (WEB-2B-014). That establishes a transparency and possible spin concern, not a proven intelligence fabrication comparable to a manufactured casus belli.
+
+### 2B.7 — Ceasefires, talks and lawful settlements
+
+Scholz met Putin before the invasion, kept communication channels open afterward, and continued to call for Russian withdrawal and a settlement preserving Ukrainian sovereignty (WEB-2B-005, WEB-2B-008, WEB-2B-019). His refusal to treat Ukrainian capitulation as viable is consistent with a lawful-settlement position.
+
+No German-brokered ceasefire or settlement resulted in 2022. The evidence does not show that Scholz controlled the Russia–Ukraine negotiations or that a specific mutually acceptable agreement was available and rejected by him (WEB-2B-020).
+
+### 2B.8 — Spending, mobilization and patronage
+
+The €100 billion special fund and planned spending above 2% were linked publicly to Russia’s invasion, Bundeswehr readiness failures and NATO territorial defence. Actual SIPRI spending rose only 2.3% in real terms in 2022, undermining any claim that the entire announced fund was immediately spent (WEB-2B-002–003, WEB-2B-009).
+
+No evidence located shows the fund was designed to enrich Scholz associates, reward a personal security elite or intimidate neighboring states. Procurement efficiency and industrial benefits deserve separate auditing, but they are not evidence of personal patronage by themselves.
+
+### 2B.9 — Accountability
+
+Germany referred the Ukraine situation to the ICC, and the Federal Public Prosecutor opened a structural investigation into war crimes and later crimes against humanity. These were institutional rather than solely Scholz-personal actions, but they occurred under his government (WEB-2B-016).
+
+There was no comparable adjudicated German operational failure in Ukraine for Scholz to acknowledge. His government did face criticism over delivery delays and inherited Bundeswehr deficiencies, but the 2022 record contains little evidence of a formal Scholz apology, independent inquiry or remedy focused on those communication failures. Accountability evidence is therefore favorable on international crimes but incomplete on his own implementation record.
+
+### 2B.10 — End-state peace, stability and legality
+
+The end state was materially less peaceful than the inherited January 2022 baseline: war continued, deaths and displacement increased, Russia–Germany relations collapsed and European militarization accelerated. Those developments were driven principally by Russia’s invasion, not initiated by Scholz. Germany helped sustain Ukraine’s survival, NATO cohesion, humanitarian relief and international-criminal accountability, but did not achieve a ceasefire or settlement (WEB-2B-006–011, WEB-2B-015–016, WEB-2B-020).
+
+The appropriate conclusion is therefore constrained and non-causal: Scholz’s policies largely defended the existing territorial and legal order, but the regional system he left at year-end was objectively more violent, militarized and unstable.
+
+## Source-state accounting
+
+### Opened corroboration
+
+- NATO transcript corroborating an active January diplomatic track and the visible Russian buildup.
+- SIPRI 2021 and 2022 expenditure fact sheets.
+- Bundestag Basic Law and Mali mandate records.
+- 2022 German Arms Export Report.
+- HRW’s 2022 Mali findings.
+- Bundestag and Foreign Office records concerning German war-crimes investigations.
+- Guardian, AP/Reuters-derived reporting, OSW and Carnegie analyses on weapons delays and strategic caution.
+- UCDP replication archive establishing the relevant dataset version and temporal coverage.
+
+### Reused supplied sources
+
+Opened and reused: E001, E002, E003, E004, E006, E029, E031, E032, E035, E036 and E037. E007 repeats E004’s aid and sanctions chronology and was retained as corroboration rather than a new underlying fact. E008 lacked a sufficiently precise locator and was not used as a separate record. E030 and E056 were substantively corroborated by the export report and official delivery records.
+
+### Uninspected or partly inspected leads
+
+- Raw UCDP 23.1 CSV/API country extraction for a formal Germany-specific D13 zero.
+- Bundestag Drucksache 20/1761 annexes concerning detailed MINUSMA rules and force protection.
+- Classified Ukraine delivery and end-use records.
+- Federal Security Council minutes for individual Saudi approvals.
+- Recipient-level evidence linking particular German-trained Malian units to particular abuses.
+- Procurement-contract audits for the Bundeswehr special fund.
+- Full PA-X search for agreements in which Germany had a 2022 mediation role; no prominent Germany-brokered Ukraine agreement surfaced.
+
+### Rejected
+
+- Wikipedia pages: useful for leads but unnecessary where primary or independent sources were available.
+- Reddit timelines alleging “lies”: advocacy compilations dependent on press stories and often conflating delay with falsification.
+- Post-2022 Leopard and Taurus decisions: outside the target period.
+- Later Saudi missile approvals from 2023–24: outside the period.
+- Generic reports of Ukrainian or Russian violations without a connection to German policy or supplied systems.
+- Country-wide German human-rights indicators unrelated to international peace and security.
+
+### Access-blocked
+
+- UCDP API Germany event and battle-death queries: server/internal errors.
+- SIPRI PDF opening occasionally returned an internal error; indexed PDF text and the publication landing page remained available.
+- OSW article opening returned a cache miss; search extraction was retained only as corroboration.
+- BMWK press-release opening failed; the underlying Bundestag export-report PDF opened successfully.
+- ICC situation page opening failed in one attempt; indexed ICC material and German official records corroborated the referral.
+
+### Counts
+
+Counting unique underlying URLs encountered rather than search-result duplicates:
+
+- Discovered: 54
+- Opened or text-extracted: 29
+- Accepted as fully developed evidence: 20
+- Reused from the supplied list: 11 of the 20 accepted records
+- Rejected: 6
+- Access-blocked or materially incomplete: 5
+- Remaining uninspected leads: 6
+
+“Reused” is a subset of accepted, not an additional source total.
+
+## Remaining questions and saturation
+
+Further open-source work is most likely to add material information in four narrow areas:
+
+- the formal Germany-specific UCDP country extraction;
+- Ukraine-specific end-use monitoring and responses to recipient misconduct;
+- Federal Security Council reasoning for Saudi approvals;
+- procurement integrity and delivery performance under the special fund.
+
+More general searching is unlikely to change the central account: extensive pre-invasion diplomacy; a defensive, alliance-coordinated response after an externally initiated invasion; substantial but sometimes delayed and opaquely communicated arms support; formal recipient-control and accountability systems with important gaps; inherited UN operations in Mali amid recipient-force atrocities; and no peaceful end state by December 2022.
+
+## Machine records
+
+SOURCE_CLAIM_JSON:{"title":"Grundgesetz für die Bundesrepublik Deutschland","publisher":"Deutscher Bundestag","publication_date":"2022-06-28","url":"https://www.bundestag.de/parlament/aufgaben/rechtsgrundlagen/grundgesetz/?id=5591","claim":"Under articles 65 and 65a, the chancellor determined general policy guidelines while ministers independently administered their portfolios and the defence minister held peacetime command over the armed forces; article 87a limited armed-force use to defence or other constitutionally authorized cases.","locator":"Articles 65, 65a and 87a; web lines 1220-1226 and 1461-1466.","provisional_id":"WEB-2B-001","canonical_fact_key":"germany_2022_chancellor_security_authority_division","disposition":"fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["authority_attribution","primary_legal_record"],"source_type":"constitutional_text","source_confidence":"high","source_confidence_reason":"Authoritative constitutional text published by the Bundestag.","final_evidence_use":true,"period_fit":"target-period legal framework","ruler_attribution":"authority-based and limited; Scholz set policy direction but did not personally hold peacetime operational command","contrary_evidence":"Scholz possessed substantial practical agenda-setting and appointment power; formal ministerial independence does not eliminate political influence.","lenses":["2B.1","2B.2","2B.4","2B.5","2B.8","2B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Trends in World Military Expenditure, 2021","publisher":"Stockholm International Peace Research Institute","publication_date":"2022-04","url":"https://www.sipri.org/sites/default/files/2022-04/fs_2204_milex_2021.pdf","claim":"SIPRI estimated German military expenditure in 2021 at $56.0 billion, down 1.4% in real terms from 2020 and equal to 1.3% of GDP.","locator":"Table 1, Germany row, p. 2.","provisional_id":"WEB-2B-002","canonical_fact_key":"germany_2021_sipri_military_expenditure_baseline","disposition":"fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["D14_SIPRI","inherited_baseline"],"source_type":"independent_statistical_dataset","source_confidence":"high","source_confidence_reason":"SIPRI’s established cross-national military-expenditure methodology using official budget inputs.","final_evidence_use":true,"period_fit":"inherited baseline","ruler_attribution":"limited; primarily inherited from the Merkel government and budget process","contrary_evidence":"SIPRI figures are estimates and differ from NATO definitions of defence expenditure.","lenses":["2B.8","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Trends in World Military Expenditure, 2022","publisher":"Stockholm International Peace Research Institute","publication_date":"2023-04","url":"https://www.sipri.org/sites/default/files/2023-04/2304_fs_milex_2022.pdf","claim":"SIPRI estimated German military expenditure in 2022 at $55.8 billion, a 2.3% real increase from 2021 and 1.4% of GDP, making Germany the seventh-largest spender globally.","locator":"Table 1, Germany row, p. 2; regional discussion pp. 7-8.","provisional_id":"WEB-2B-003","canonical_fact_key":"germany_2022_sipri_military_expenditure","disposition":"fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["D14_SIPRI","outcome_measure"],"source_type":"independent_statistical_dataset","source_confidence":"high","source_confidence_reason":"SIPRI estimate with transparent comparative methodology.","final_evidence_use":true,"period_fit":"target period","ruler_attribution":"shared institutional and parliamentary; the 2022 budget and aid response were not Scholz’s unilateral spending","contrary_evidence":"The figure does not capture the full future value of the €100 billion special fund and is sensitive to exchange rates and definitional differences.","lenses":["2B.8","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Press conference by NATO Secretary General Jens Stoltenberg and Chancellor Olaf Scholz","publisher":"North Atlantic Treaty Organization","publication_date":"2022-01-18","url":"https://www.nato.int/en/news-and-events/events/transcripts/2022/01/18/press-conference","claim":"Before the full-scale invasion, NATO invited Russia to further council meetings and Scholz publicly emphasized preventing military aggression, consultation and political-economic consequences rather than initiating force.","locator":"Transcript lines 879-886.","provisional_id":"WEB-2B-004","canonical_fact_key":"scholz_january_2022_nato_russia_diplomatic_track","disposition":"fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["direct_statement","prewar_alternatives"],"source_type":"official_transcript","source_confidence":"high","source_confidence_reason":"Contemporaneous verbatim institutional transcript.","final_evidence_use":true,"period_fit":"target period, pre-invasion","ruler_attribution":"direct for Scholz’s statements; shared NATO attribution for the diplomatic offer","contrary_evidence":"The transcript establishes an offered diplomatic process, not that the offer could have satisfied both sides or prevented invasion.","lenses":["2B.1","2B.3","2B.6","2B.7"]}
+
+SOURCE_CLAIM_JSON:{"title":"Televised address by Federal Chancellor Olaf Scholz on the Russian attack against Ukraine","publisher":"Federal Government of Germany","publication_date":"2022-02-24","url":"https://www.bundesregierung.de/breg-en/service/archive/televised-address-by-federal-chancellor-olaf-scholz-on-the-russian-attack-against-ukraine-2007846","claim":"Scholz said he had spent hours warning Putin in the Kremlin the previous week against war and pursuing a diplomatic solution before Russia invaded.","locator":"Lines 180-185.","provisional_id":"E001","canonical_fact_key":"scholz_february_2022_kremlin_warning_diplomacy","disposition":"reused_fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["direct_ruler_statement","prewar_alternatives"],"source_type":"official_ruler_address","source_confidence":"medium-high","source_confidence_reason":"Direct contemporaneous statement establishing Scholz’s account; the meeting itself is independently documented, though private content is not fully observable.","final_evidence_use":true,"period_fit":"target period","ruler_attribution":"direct","contrary_evidence":"The source is Scholz’s own retrospective description of a private meeting and does not prove that German diplomacy offered a viable compromise.","lenses":["2B.1","2B.6","2B.7"]}
+
+SOURCE_CLAIM_JSON:{"title":"Televised address by Federal Chancellor Olaf Scholz on the Russian attack against Ukraine","publisher":"Federal Government of Germany","publication_date":"2022-02-24","url":"https://www.bundesregierung.de/breg-en/service/archive/televised-address-by-federal-chancellor-olaf-scholz-on-the-russian-attack-against-ukraine-2007846","claim":"Scholz identified Russia as attacking a sovereign state, described forced border change as unjustifiable and attributed the decision to launch the invasion to Putin.","locator":"Lines 148-185.","provisional_id":"E001","canonical_fact_key":"scholz_public_justification_russia_invasion_defensive_response","disposition":"reused_fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["direct_ruler_statement","public_threat_claim"],"source_type":"official_ruler_address","source_confidence":"high","source_confidence_reason":"The central factual claim—Russian invasion of Ukraine—is independently observable and was affirmed by UN institutions.","final_evidence_use":true,"period_fit":"target period","ruler_attribution":"direct for public explanation","contrary_evidence":"The broader characterization of Putin’s sole personal responsibility compresses institutional Russian decision-making, while Scholz’s imperial-motive inference is interpretive.","lenses":["2B.2","2B.3","2B.6","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Policy statement by Olaf Scholz, 27 February 2022","publisher":"Federal Government of Germany","publication_date":"2022-02-27","url":"https://www.bundesregierung.de/breg-en/service/archive/policy-statement-by-olaf-scholz-chancellor-of-the-federal-republic-of-germany-and-member-of-the-german-bundestag-27-february-2022-in-berlin-2008378","claim":"After Russia invaded, the government suspended Nord Stream 2 certification, supported sanctions and reversed its restriction on supplying weapons to conflict zones so Ukraine could defend itself.","locator":"Policy-statement sections on sanctions and Ukraine assistance, approximately lines 190-279.","provisional_id":"E003","canonical_fact_key":"germany_2022_sanctions_nord_stream_and_ukraine_self_defence_support","disposition":"reused_fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["direct_policy_announcement","conflict_initiation_response"],"source_type":"official_policy_statement","source_confidence":"high","source_confidence_reason":"Primary announcement corroborated by subsequent sanctions and export records.","final_evidence_use":true,"period_fit":"target period","ruler_attribution":"direct policy advocacy by Scholz; implementation shared with cabinet, EU, ministries and parliament","contrary_evidence":"Germany initially withheld weapons before invasion and later faced criticism for delivery delays; sanctions are coercive and can carry civilian economic costs.","lenses":["2B.1","2B.2","2B.3","2B.5","2B.7","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Policy statement by Olaf Scholz, 27 February 2022","publisher":"Federal Government of Germany","publication_date":"2022-02-27","url":"https://www.bundesregierung.de/breg-en/service/archive/policy-statement-by-olaf-scholz-chancellor-of-the-federal-republic-of-germany-and-member-of-the-german-bundestag-27-february-2022-in-berlin-2008378","claim":"Scholz stated that Germany would pursue as much diplomacy as possible, would not talk merely for appearance’s sake, and would not refuse talks with Russia even after invasion.","locator":"Lines 414-427.","provisional_id":"E006","canonical_fact_key":"scholz_post_invasion_keep_russia_channels_open","disposition":"reused_fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["direct_ruler_statement","negotiation_policy"],"source_type":"official_policy_statement","source_confidence":"high","source_confidence_reason":"Clear direct statement later corroborated by repeated Scholz–Putin calls.","final_evidence_use":true,"period_fit":"target period","ruler_attribution":"direct","contrary_evidence":"Keeping channels open did not produce a ceasefire, and Scholz conditioned useful talks on Russian willingness to engage.","lenses":["2B.1","2B.7"]}
+
+SOURCE_CLAIM_JSON:{"title":"Policy statement by Olaf Scholz, 27 February 2022","publisher":"Federal Government of Germany","publication_date":"2022-02-27","url":"https://www.bundesregierung.de/breg-en/service/archive/policy-statement-by-olaf-scholz-chancellor-of-the-federal-republic-of-germany-and-member-of-the-german-bundestag-27-february-2022-in-berlin-2008378","claim":"Scholz proposed a €100 billion Bundeswehr special fund and annual defence expenditure above 2% of GDP, expressly linking both to Russia’s aggression, German security and longstanding capability deficiencies.","locator":"Lines 306-343.","provisional_id":"E002","canonical_fact_key":"scholz_2022_bundeswehr_special_fund_defensive_rationale","disposition":"reused_fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["direct_policy_announcement","military_spending_rationale"],"source_type":"official_policy_statement","source_confidence":"high","source_confidence_reason":"Primary proposal subsequently enacted through parliamentary and constitutional processes.","final_evidence_use":true,"period_fit":"target period","ruler_attribution":"direct advocacy; enactment and procurement shared with Bundestag, cabinet and defence ministry","contrary_evidence":"An announced fund is not the same as 2022 expenditure or procurement success; alliance burden-sharing and industrial-policy interests also influenced the decision.","lenses":["2B.3","2B.8","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Policy statement by Olaf Scholz, 27 February 2022","publisher":"Federal Government of Germany","publication_date":"2022-02-27","url":"https://www.bundesregierung.de/breg-en/service/archive/policy-statement-by-olaf-scholz-chancellor-of-the-federal-republic-of-germany-and-member-of-the-german-bundestag-27-february-2022-in-berlin-2008378","claim":"Germany reinforced NATO forces in Lithuania, Romania and Slovakia and maritime and air-defence activity on allied territory, rather than announcing German combat deployment into Ukraine.","locator":"Lines 285-301.","provisional_id":"E002","canonical_fact_key":"germany_2022_nato_territorial_reassurance_deployments","disposition":"reused_fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["official_operational_record","defensive_scope"],"source_type":"official_policy_statement","source_confidence":"high","source_confidence_reason":"Specific deployment descriptions subject to NATO and parliamentary visibility.","final_evidence_use":true,"period_fit":"target period","ruler_attribution":"shared executive, defence-ministry, NATO and parliamentary","contrary_evidence":"The deployments increased military pressure near Russia and contributed to regional militarization even though they remained on allied territory.","lenses":["2B.2","2B.3","2B.8","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Bericht der Bundesregierung über ihre Exportpolitik für konventionelle Rüstungsgüter im Jahre 2022","publisher":"German Federal Government / Deutscher Bundestag","publication_date":"2023-12-20","url":"https://dserver.bundestag.de/btd/20/100/2010010.pdf","claim":"Germany approved €2.245 billion in individual arms-export licences for Ukraine during 2022, covering missiles and air-defence systems, armoured vehicles and howitzers, fire-control equipment, mortars and anti-tank weapons.","locator":"Annex 7, pp. 101-102, lines 5551-5561.","provisional_id":"E037","canonical_fact_key":"germany_2022_ukraine_export_approvals_value_categories","disposition":"reused_fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["official_export_statistics","recipient_exposure"],"source_type":"official_statistical_report","source_confidence":"high","source_confidence_reason":"Detailed statutory government report distinguishing approvals and actual exports.","final_evidence_use":true,"period_fit":"target-period decisions, later published","ruler_attribution":"shared institutional; sensitive cases involved the government and potentially the Scholz-chaired Federal Security Council","contrary_evidence":"Licence value is not equivalent to delivery, use or battlefield effect; some deliveries were delayed and recipient conduct was not controlled operationally by Germany.","lenses":["2B.2","2B.4","2B.5","2B.8","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Bericht der Bundesregierung über ihre Exportpolitik für konventionelle Rüstungsgüter im Jahre 2022","publisher":"German Federal Government / Deutscher Bundestag","publication_date":"2023-12-20","url":"https://dserver.bundestag.de/btd/20/100/2010010.pdf","claim":"German policy required ex-ante end-use review, recipient re-export assurances and possible post-shipment inspections for specified small and light weapons; violations or refusal of inspection could lead to exclusion from further supply.","locator":"Report pp. 14-15 and 39-44; lines 607-667, 2029-2051 and 2219-2225.","provisional_id":"WEB-2B-012","canonical_fact_key":"germany_2022_arms_export_end_use_human_rights_controls","disposition":"fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["institutional_safeguard","recipient_control"],"source_type":"official_legal_policy_report","source_confidence":"high","source_confidence_reason":"Detailed official description of binding licensing and control policy.","final_evidence_use":true,"period_fit":"target-period institutional framework","ruler_attribution":"institutional and shared, not personally operated by Scholz","contrary_evidence":"The report lists only ten post-shipment inspections since 2017 and does not document a Ukraine-specific on-site inspection in 2022; formal controls do not establish effective prevention of misuse.","lenses":["2B.4","2B.5","2B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Bericht der Bundesregierung über ihre Exportpolitik für konventionelle Rüstungsgüter im Jahre 2022","publisher":"German Federal Government / Deutscher Bundestag","publication_date":"2023-12-20","url":"https://dserver.bundestag.de/btd/20/100/2010010.pdf","claim":"In 2022 Germany approved 48 licences worth €44.23 million for military goods to Saudi Arabia, principally fire-control equipment, cannon parts and combat-aircraft or refuelling ground equipment; separate war-weapons approvals were €7.1 million.","locator":"Annex 8, p. 124, lines 6253-6259; war-weapons table p. 31, lines 1552-1565.","provisional_id":"WEB-2B-013","canonical_fact_key":"germany_2022_saudi_arms_export_approvals","disposition":"fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["adverse_recipient_evidence","official_export_statistics"],"source_type":"official_statistical_report","source_confidence":"high","source_confidence_reason":"Recipient- and category-specific government reporting.","final_evidence_use":true,"period_fit":"target-period decisions, later published","ruler_attribution":"shared government and export-control authority; sensitive approvals may involve the Scholz-chaired Federal Security Council","contrary_evidence":"Approval does not prove delivery or use in Yemen; some components were associated with multinational programs, and the 2022 Yemen truce reduced hostilities.","lenses":["2B.4","2B.5","2B.8","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"German report casts doubt on scale of its weapons support for Ukraine","publisher":"The Guardian","publication_date":"2022-04-21","url":"https://www.theguardian.com/world/2022/apr/21/german-report-casts-doubt-on-scale-of-its-weapons-support-for-ukraine","claim":"Contemporaneous reporting, based on Bild’s investigation and documents, alleged that the Chancellery removed heavy systems from an industry list for Ukraine and cast doubt on Scholz’s claim that the procurement process had been agreed with Kyiv.","locator":"Article paragraphs corresponding to web extraction lines 157-169; opening section describing removed Boxer, PzH 2000 and Leopard 2 systems.","provisional_id":"E031","canonical_fact_key":"scholz_chancellery_ukraine_heavy_weapons_list_dispute_april_2022","disposition":"reused_fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["independent_reporting","contrary_evidence","public_claim_check"],"source_type":"reputable_press_secondary","source_confidence":"medium","source_confidence_reason":"Contemporaneous report with specific documentary allegations, but dependent on Bild’s underlying investigation and without full publication of internal files.","final_evidence_use":true,"period_fit":"target period","ruler_attribution":"direct Chancellery allegation but decision chain not completely public","contrary_evidence":"Germany later delivered multiple heavy systems; stock, training, ammunition, NATO coordination and operational secrecy were genuine constraints.","lenses":["2B.1","2B.5","2B.6","2B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Speech by Chancellor Olaf Scholz at the Ukraine Donors Conference","publisher":"Federal Government of Germany","publication_date":"2022-05-05","url":"https://www.bundesregierung.de/breg-en/service/archive/speech-by-chancellor-olaf-scholz-at-the-ukraine-donors-conference-2037298","claim":"Scholz announced €425 million in humanitarian and development assistance and €70 million in medical supplies for Ukraine.","locator":"Donors-conference speech, assistance commitments section.","provisional_id":"E004","canonical_fact_key":"germany_2022_ukraine_humanitarian_medical_assistance_commitment","disposition":"reused_fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["direct_policy_announcement","civilian_protection"],"source_type":"official_ruler_speech","source_confidence":"medium-high","source_confidence_reason":"Primary commitment announcement; this source alone does not establish complete disbursement or impact.","final_evidence_use":true,"period_fit":"target period","ruler_attribution":"direct announcement, shared institutional implementation","contrary_evidence":"Committed funds are not the same as delivered relief or demonstrated civilian outcomes.","lenses":["2B.4","2B.7","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Statement of Germany in the UNGA Sixth Committee: The scope and application of universal jurisdiction","publisher":"Federal Foreign Office, Permanent Mission of Germany to the United Nations","publication_date":"2022-10-12","url":"https://new-york-un.diplo.de/un-en/2558190-2558190","claim":"Germany reported that its Federal Public Prosecutor had opened a structural investigation in March 2022 into war crimes in Ukraine, later extended to crimes against humanity, and was collecting evidence including refugee testimony through a specialized unit.","locator":"Lines 69-85, especially 72-75.","provisional_id":"WEB-2B-016","canonical_fact_key":"germany_2022_structural_investigation_ukraine_international_crimes","disposition":"fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["accountability_mechanism","official_legal_record"],"source_type":"official_legal_statement","source_confidence":"high","source_confidence_reason":"Specific institutional action independently corroborated by Bundestag reporting.","final_evidence_use":true,"period_fit":"target period","ruler_attribution":"institutional and legally independent; attributable to the state under Scholz but not personally directed by him","contrary_evidence":"As of July 2022 no person-specific proceeding had begun, and the investigation did not itself establish guilt or remedy harm.","lenses":["2B.4","2B.9","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Bundeswehr bleibt ein weiteres Jahr in Mali","publisher":"Deutscher Bundestag","publication_date":"2022-05-20","url":"https://www.bundestag.de/dokumente/textarchiv/2022/kw19-de-bundeswehr-minusma-891866","claim":"On the government’s request, the Bundestag extended Germany’s participation in MINUSMA for another year by 541 votes to 103 and raised the authorized ceiling from 1,100 to 1,400 personnel to replace capabilities affected by the French withdrawal.","locator":"Lines 789-798.","provisional_id":"WEB-2B-017","canonical_fact_key":"germany_2022_minusma_extension_force_ceiling_increase","disposition":"fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["overseas_deployment","parliamentary_authorization","inherited_conflict"],"source_type":"official_parliamentary_record","source_confidence":"high","source_confidence_reason":"Formal vote and government mandate summary.","final_evidence_use":true,"period_fit":"target period and inherited mission","ruler_attribution":"shared government proposal and Bundestag authorization; operational command lay outside Scholz personally","contrary_evidence":"The mission was UN-authorized stabilization rather than a German war of choice, and the increase partly substituted support functions previously supplied by France.","lenses":["2B.1","2B.2","2B.4","2B.5","2B.7","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"World Report 2023: Mali","publisher":"Human Rights Watch","publication_date":"2023-01-12","url":"https://www.hrw.org/world-report/2023/country-chapters/mali","claim":"HRW documented sharply worsening civilian abuse in Mali during 2022, including hundreds of unlawful killings attributed to Malian and allied foreign forces, while reporting that rights abuses and Wagner cooperation led to a significant reduction in the EU Training Mission.","locator":"Lines 62-66, 87-110.","provisional_id":"WEB-2B-018","canonical_fact_key":"mali_2022_security_force_abuses_and_eutm_reduction","disposition":"fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["independent_human_rights_monitoring","recipient_control","remedial_action"],"source_type":"credible_ngо_report","source_confidence":"high","source_confidence_reason":"Detailed independent reporting drawing on incident investigations and corroborated by UN and other monitoring.","final_evidence_use":true,"period_fit":"target-period conduct, later retrospective publication","ruler_attribution":"limited and indirect; German personnel were part of EU/UN missions but the documented perpetrators were Malian and Wagner-linked forces","contrary_evidence":"The source does not identify the abusive personnel as German-trained, show German operational control or attribute the abuses to Scholz; Germany also condemned Wagner and reduced training exposure.","lenses":["2B.4","2B.5","2B.7","2B.9","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Kanzler telefoniert mit Putin: Scholz fordert Abzug russischer Truppen","publisher":"Tagesschau / ARD","publication_date":"2022-12-02","url":"https://www.tagesschau.de/inland/scholz-putin-telefonat-103.html","claim":"In December 2022 Scholz again spoke with Putin, demanded withdrawal of Russian troops and urged a diplomatic solution, while Putin demanded that Germany reconsider its support for Ukraine.","locator":"Article opening and call summary, dated 2 December 2022.","provisional_id":"WEB-2B-019","canonical_fact_key":"scholz_putin_call_withdrawal_diplomatic_solution_december_2022","disposition":"fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["negotiation_contact","independent_reporting"],"source_type":"public_broadcaster_reporting","source_confidence":"high","source_confidence_reason":"Contemporaneous reputable reporting based on both governments’ disclosed accounts.","final_evidence_use":true,"period_fit":"target period","ruler_attribution":"direct","contrary_evidence":"The call produced no ceasefire or documented negotiating breakthrough; disclosed summaries may omit private content.","lenses":["2B.1","2B.7","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Scholz says Putin bent on conquest, but important to keep contact open","publisher":"Reuters","publication_date":"2022-12-10","url":"https://uk.investing.com/news/world-news/scholz-says-putin-bent-on-conquest-but-important-to-keep-contact-open-2853958","claim":"At year-end Scholz said Putin remained intent on conquering Ukrainian territory but that contact should remain open for a future opportunity to end the war, confirming that no such settlement had been reached in 2022.","locator":"Opening paragraphs, Potsdam remarks of 10 December 2022.","provisional_id":"WEB-2B-020","canonical_fact_key":"ukraine_war_no_settlement_scholz_year_end_2022","disposition":"fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["end_state_assessment","direct_statement","wire_report"],"source_type":"reputable_wire_reporting","source_confidence":"high","source_confidence_reason":"Reuters contemporaneous reporting of public remarks; continuing war independently observable.","final_evidence_use":true,"period_fit":"target-period end state","ruler_attribution":"direct for Scholz’s assessment; limited for the war’s continuation, which depended primarily on the belligerents","contrary_evidence":"Maintaining contact is process evidence, not evidence of an effective peace initiative, and Scholz did not control Russian or Ukrainian negotiating positions.","lenses":["2B.1","2B.7","2B.10"]}
+
+--- LOCAL-DATA AUDIT: PARENT DISPOSITION SUMMARY ---
+
+{
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "mapping_notes": [
+        "Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.",
+        "The full arsenal series supports inherited-versus-left posture context; safer or more dangerous conduct still requires ruler attribution.",
+        "Operational/deployed capability provides command-and-crisis exposure; it does not establish safeguards, expertise, discipline, or de-escalation.",
+        "Nuclear inventory facts do not answer cyber, biological, AI, or other non-nuclear catastrophic-risk governance."
+      ],
+      "methodology_ids": [
+        "1B.1",
+        "1B.10",
+        "1B.2",
+        "1B.3",
+        "1B.4",
+        "1B.5",
+        "1B.6",
+        "1B.7",
+        "1B.8",
+        "1B.9"
+      ],
+      "status_counts": {
+        "no_evidence_found": 10
+      },
+      "unique_fact_count": 0
+    },
+    {
+      "chapter_id": "2B",
+      "mapping_notes": [
+        "Conflict events and fatalities establish country exposure/location, not initiation, perpetration, proxy support, truthfulness, or peace effort.",
+        "Full conflict and military-burden series supports inherited-versus-left trajectory context without assigning ruler responsibility.",
+        "Conflict exposure and military burden contextualize claimed security needs; they cannot distinguish defense from prestige or manufactured threats.",
+        "Fatalities establish harm/exposure only; civilian protection, legality, proportionality, responsibility, and accountability require actor evidence.",
+        "Military expenditure establishes level and burden, not aggression, defensive necessity, enrichment, intimidation, or ruler motive."
+      ],
+      "methodology_ids": [
+        "2B.1",
+        "2B.10",
+        "2B.2",
+        "2B.3",
+        "2B.4",
+        "2B.5",
+        "2B.6",
+        "2B.7",
+        "2B.8",
+        "2B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 10
+      },
+      "unique_fact_count": 96
+    },
+    {
+      "chapter_id": "3B",
+      "mapping_notes": [
+        "Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.",
+        "Full domestic-safety series supports inherited-versus-left trajectory context; attribution and non-state/public-safety gaps remain explicit.",
+        "National repression aggregates cannot establish ruler incitement or violence against a specific vulnerable group.",
+        "Rights and civil-society measures contextualize oversight/protest conditions; specific complaint, investigation, surveillance, or retaliation needs evidence.",
+        "Terror, one-sided violence, liberty, and repression trends contextualize fear or crises without proving ruler protection, restraint, or incitement."
+      ],
+      "methodology_ids": [
+        "3B.1",
+        "3B.10",
+        "3B.2",
+        "3B.3",
+        "3B.4",
+        "3B.5",
+        "3B.6",
+        "3B.7",
+        "3B.8",
+        "3B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 8,
+        "no_evidence_found": 2
+      },
+      "unique_fact_count": 182
+    },
+    {
+      "chapter_id": "4B",
+      "mapping_notes": [
+        "Election and regime measures contextualize contestability; they do not establish ruler intent or a specific manipulation.",
+        "The full longitudinal political-freedom bundle supports inherited-versus-left trajectory analysis without automatic ruler attribution.",
+        "D11 civil-liberties, expression, association, press/media, voice, accountability, and rule-of-law facts usable as structured priors for opposition/media/protest/civil-society tolerance.",
+        "Constraint and rule-of-law measures contextualize institutional independence; ruler-specific strengthening or interference still needs narrative evidence.",
+        "Regime and party-system measures are context, not direct proof of personality cult, loyalty tests, intimidation, or state politicization.",
+        "Media, expression, and voice measures contextualize information controls; specific censorship, propaganda, surveillance, or harassment needs evidence.",
+        "National participation and liberty averages require group-specific evidence before supporting political-equality claims.",
+        "Regime trajectory contextualizes succession but cannot establish compliance with term limits, coalition promises, or constitutional transfer."
+      ],
+      "methodology_ids": [
+        "4B.1",
+        "4B.10",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 10
+      },
+      "unique_fact_count": 272
+    },
+    {
+      "chapter_id": "5B",
+      "mapping_notes": [
+        "Broad prosperity outcomes are context; intent and ruler action need narrative evidence.",
+        "Full longitudinal context supports inherited-versus-left trajectory analysis without automatic ruler credit.",
+        "No structured country outcome establishes the competence or independence of appointees.",
+        "Real-output and productivity trajectories contextualize stability or shocks but do not prove policy competence.",
+        "Employment count and absorption are outcome context, not direct evidence of fair market rules.",
+        "National inequality is context only and cannot establish corruption, capture, or personal nexus.",
+        "Human-capital, capital-stock, hours, and TFP trends contextualize productivity foundations.",
+        "Country outcomes cannot establish evidence-based decision-making or correction of mistakes.",
+        "Average income and Gini provide distribution context but do not identify favored groups or ruler intent."
+      ],
+      "methodology_ids": [
+        "5B.1",
+        "5B.10",
+        "5B.2",
+        "5B.3",
+        "5B.4",
+        "5B.5",
+        "5B.6",
+        "5B.7",
+        "5B.8",
+        "5B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 8,
+        "no_evidence_found": 2
+      },
+      "unique_fact_count": 214
+    },
+    {
+      "chapter_id": "6B",
+      "mapping_notes": [
+        "Aggregate welfare outcomes contextualize priority but cannot establish purpose or propaganda intent.",
+        "Full longitudinal welfare context supports inherited-versus-left life-chance analysis without automatic attribution.",
+        "Health and education coverage/outcomes inform access; they do not alone establish affordability or quality.",
+        "National distribution and participation measures require group and regional evidence for equity claims.",
+        "Service outcomes are implementation context; professional management and correction require narrative evidence.",
+        "Outcome changes contextualize crises but require shock-specific timing and ruler-attributed response evidence.",
+        "Aggregate service data cannot establish political conditionality, loyalty rewards, or punishment.",
+        "Sustained service series contextualize durability but do not establish institutional survival beyond the ruler."
+      ],
+      "methodology_ids": [
+        "6B.1",
+        "6B.10",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.6",
+        "6B.7",
+        "6B.8",
+        "6B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 9,
+        "no_evidence_found": 1
+      },
+      "unique_fact_count": 65
+    },
+    {
+      "chapter_id": "7B",
+      "mapping_notes": [
+        "National corruption or governance indicators cannot establish ruler-specific truthfulness, interests, benefit, appointments, promises, or favoritism.",
+        "Institutional corruption, accountability, and rule-of-law facts are context for scrutiny or concealment only; scoring requires a direct personal nexus."
+      ],
+      "methodology_ids": [
+        "7B.1",
+        "7B.10",
+        "7B.2",
+        "7B.3",
+        "7B.4",
+        "7B.5",
+        "7B.6",
+        "7B.7",
+        "7B.8",
+        "7B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 3,
+        "no_evidence_found": 7
+      },
+      "unique_fact_count": 84
+    },
+    {
+      "chapter_id": "8B",
+      "mapping_notes": [
+        "Generic capacity indicators cannot identify the ruler's program or establish adaptation and correction.",
+        "Governance-capacity facts provide inherited implementation context only; program ownership, action, goal fit, and ruler attribution remain required."
+      ],
+      "methodology_ids": [
+        "8B.1",
+        "8B.10",
+        "8B.2",
+        "8B.3",
+        "8B.4",
+        "8B.5",
+        "8B.6",
+        "8B.7",
+        "8B.8",
+        "8B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 8,
+        "no_evidence_found": 2
+      },
+      "unique_fact_count": 60
+    }
+  ],
+  "disposition_instruction_sets": {
+    "I001": [
+      "Use this local structured prior before starting internet/manual research.",
+      "Do not re-fetch local structured datasets (including Freedom House, V-Dem, WGI, BTI, RSF, or Polity) when this artifact contains relevant non-contradictory facts.",
+      "Fetch web/narrative sources only when the local prior is absent, contradictory, needs ruler-specific attribution, or needs narrative detail beyond structured country-year facts.",
+      "Never use the client matrix as evidence; it is excluded from this artifact and from research citations.",
+      "The empty state is explicit; if narrative research proceeds, explain that no local structured prior was available for this scope."
+    ],
+    "I002": [
+      "Use this local structured prior before starting internet/manual research.",
+      "Do not re-fetch local structured datasets (including Freedom House, V-Dem, WGI, BTI, RSF, or Polity) when this artifact contains relevant non-contradictory facts.",
+      "Fetch web/narrative sources only when the local prior is absent, contradictory, needs ruler-specific attribution, or needs narrative detail beyond structured country-year facts.",
+      "Never use the client matrix as evidence; it is excluded from this artifact and from research citations."
+    ]
+  },
+  "disposition_reasons": {
+    "R001": "No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period.",
+    "R002": "No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+  },
+  "error_methodology_ids": [],
+  "fact_payload": "omitted_after_research_use_parent_restores_hashed_provenance",
+  "methodology_dispositions": {
+    "1B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.10": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.6": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.9": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "2B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "3B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "3B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "5B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "5B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "6B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.9": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "8B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "8B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "8B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    }
+  },
+  "methodology_statuses": {
+    "1B.1": "no_evidence_found",
+    "1B.10": "no_evidence_found",
+    "1B.2": "no_evidence_found",
+    "1B.3": "no_evidence_found",
+    "1B.4": "no_evidence_found",
+    "1B.5": "no_evidence_found",
+    "1B.6": "no_evidence_found",
+    "1B.7": "no_evidence_found",
+    "1B.8": "no_evidence_found",
+    "1B.9": "no_evidence_found",
+    "2B.1": "evidence_found",
+    "2B.10": "evidence_found",
+    "2B.2": "evidence_found",
+    "2B.3": "evidence_found",
+    "2B.4": "evidence_found",
+    "2B.5": "evidence_found",
+    "2B.6": "evidence_found",
+    "2B.7": "evidence_found",
+    "2B.8": "evidence_found",
+    "2B.9": "evidence_found",
+    "3B.1": "evidence_found",
+    "3B.10": "evidence_found",
+    "3B.2": "evidence_found",
+    "3B.3": "no_evidence_found",
+    "3B.4": "evidence_found",
+    "3B.5": "evidence_found",
+    "3B.6": "evidence_found",
+    "3B.7": "no_evidence_found",
+    "3B.8": "evidence_found",
+    "3B.9": "evidence_found",
+    "4B.1": "evidence_found",
+    "4B.10": "evidence_found",
+    "4B.2": "evidence_found",
+    "4B.3": "evidence_found",
+    "4B.4": "evidence_found",
+    "4B.5": "evidence_found",
+    "4B.6": "evidence_found",
+    "4B.7": "evidence_found",
+    "4B.8": "evidence_found",
+    "4B.9": "evidence_found",
+    "5B.1": "evidence_found",
+    "5B.10": "evidence_found",
+    "5B.2": "no_evidence_found",
+    "5B.3": "evidence_found",
+    "5B.4": "evidence_found",
+    "5B.5": "evidence_found",
+    "5B.6": "evidence_found",
+    "5B.7": "no_evidence_found",
+    "5B.8": "evidence_found",
+    "5B.9": "evidence_found",
+    "6B.1": "evidence_found",
+    "6B.10": "evidence_found",
+    "6B.2": "evidence_found",
+    "6B.3": "evidence_found",
+    "6B.4": "evidence_found",
+    "6B.5": "evidence_found",
+    "6B.6": "evidence_found",
+    "6B.7": "no_evidence_found",
+    "6B.8": "evidence_found",
+    "6B.9": "evidence_found",
+    "7B.1": "no_evidence_found",
+    "7B.10": "evidence_found",
+    "7B.2": "no_evidence_found",
+    "7B.3": "no_evidence_found",
+    "7B.4": "no_evidence_found",
+    "7B.5": "no_evidence_found",
+    "7B.6": "evidence_found",
+    "7B.7": "evidence_found",
+    "7B.8": "no_evidence_found",
+    "7B.9": "no_evidence_found",
+    "8B.1": "no_evidence_found",
+    "8B.10": "evidence_found",
+    "8B.2": "evidence_found",
+    "8B.3": "evidence_found",
+    "8B.4": "evidence_found",
+    "8B.5": "evidence_found",
+    "8B.6": "evidence_found",
+    "8B.7": "evidence_found",
+    "8B.8": "no_evidence_found",
+    "8B.9": "evidence_found"
+  },
+  "no_evidence_methodology_ids": [
+    "1B.1",
+    "1B.10",
+    "1B.2",
+    "1B.3",
+    "1B.4",
+    "1B.5",
+    "1B.6",
+    "1B.7",
+    "1B.8",
+    "1B.9",
+    "3B.3",
+    "3B.7",
+    "5B.2",
+    "5B.7",
+    "6B.7",
+    "7B.1",
+    "7B.2",
+    "7B.3",
+    "7B.4",
+    "7B.5",
+    "7B.8",
+    "7B.9",
+    "8B.1",
+    "8B.8"
+  ],
+  "not_applicable_methodology_ids": [],
+  "schema_version": "ruler_local_evidence_package_v3",
+  "source_prior_count": 80,
+  "status_counts": {
+    "evidence_found": 56,
+    "no_evidence_found": 24
+  },
+  "unique_fact_count": 888
+}
+
+--- REVIEWER-DIRECTED WEB CONTINUATION 1 ---
+
+I searched German parliamentary records, federal audit material, Ukraine-recipient records, independent delivery datasets/reporting, Mali mission records, and Saudi-export reporting. The strongest recoveries are: documented early delivery shortfalls followed by verified heavy-weapons delivery; Ukraine end-use assurances and recipient tracking, but no demonstrated German on-site post-shipment inspection or misconduct remedy; suspension of German/EU training benefiting formed Malian units; significant special-fund planning defects, partial correction, and zero 2022 disbursement; and evidence that Scholz personally approved Saudi joint-program licences despite recipient-risk concerns.
+
+Unresolved: I found no reliable weapon-specific finding that German-supplied arms caused civilian harm in 2022, no substantiated Ukrainian recipient-misconduct case involving German materiel, no German remedial action responding to such misconduct, and no public German tracing of EUTM trainees to the documented Malian abuses. The April industry-list dispute remains allegation-level, although independent delivery data resolves the broader performance question: Germany initially had a substantial commitment-delivery gap, then delivered its first heavy weapons in June. Treat WD001–WD020—not reused E001/E002—as the authoritative prior IDs.
+
+SOURCE_CLAIM_JSON:{"title":"The Ukraine Support Tracker: Which countries help Ukraine and how?","publisher":"Kiel Institute for the World Economy","publication_date":"2022-08-01","url":"https://epicenter.bg/upfiles/KWP_2218.pdf","claim":"Independent commitment-versus-delivery tracking found that, through 7 June 2022, Germany had delivered listed light weapons and armoured vehicles but had not yet delivered its pledged Gepard systems, IRIS-T system, or MARS II launchers; the researchers identified Germany as one of the donors with a considerable gap between committed and delivered in-kind military aid.","locator":"Table 5, pp. 27-28; section 7, pp. 31-32, especially PDF lines 1027-1040 and 1141-1154.","provisional_id":"WEB-2B-C1-001","canonical_fact_key":"germany_ukraine_early_2022_commitment_delivery_gap","disposition":"final_evidence","chapter_ids":["2B"],"methodology_ids":["2B.4","2B.6","2B.9"],"source_type":"independent_research_dataset","source_confidence":"high","source_confidence_reason":"An independent research institute systematically distinguished commitments from deliveries and supplied dated, weapon-level tables and methodological sourcing.","final_evidence_use":"final_evidence","period_fit":"Direct measurement through 7 June 2022.","ruler_attribution":"Government-level delivery performance under Scholz; operational responsibility was shared with the defence and economic ministries, and the source does not attribute each delay personally to Scholz.","contrary_evidence":"Later 2022 evidence shows that several heavy systems were subsequently delivered, so this establishes an early shortfall rather than a year-long failure.","underlying_fact_key":"germany_ukraine_early_2022_commitment_delivery_gap","lenses":["2B.4","2B.6","2B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Heavy weapons from Germany arrive in Ukraine","publisher":"Deutsche Welle","publication_date":"2022-06-21","url":"https://amp.dw.com/en/first-heavy-weapons-from-germany-arrive-in-ukraine/a-62211051","claim":"Ukraine's defence minister confirmed receipt of the first German heavy weapons, seven Panzerhaubitze 2000 howitzers, on 21 June; Germany simultaneously published a list separating delivered items from outstanding pledges, including 30 Gepards and three MARS II launchers still awaiting delivery.","locator":"Paragraphs under “Panzerhaubitze 2000 'finally' part of Ukrainian arsenal” and “What else has Germany sent?”, web lines 96-121.","provisional_id":"WEB-2B-C1-002","canonical_fact_key":"germany_ukraine_pzh2000_delivery_june_2022","disposition":"final_evidence","chapter_ids":["2B"],"methodology_ids":["2B.4","2B.6","2B.9"],"source_type":"independent_news_with_recipient_confirmation","source_confidence":"high","source_confidence_reason":"Contemporaneous independent reporting identifies the recipient official, delivery date, quantity, and the government's newly published delivered-versus-promised list.","final_evidence_use":"final_evidence","period_fit":"Directly concerns delivery on 21 June 2022.","ruler_attribution":"Delivery was an action of the Scholz government, but procurement, transport, and training implementation belonged primarily to responsible ministries and partner governments.","contrary_evidence":"This corrects any inference from the early-June delivery gap that Germany never delivered heavy weapons, while confirming that notable pledges remained outstanding on 21 June.","underlying_fact_key":"germany_ukraine_pzh2000_delivery_june_2022","lenses":["2B.4","2B.6","2B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Opening statement during questions to the Federal Government about arms shipments to Ukraine","publisher":"Federal Foreign Office of Germany","publication_date":"2022-04-27","url":"https://www.auswaertiges-amt.de/en/newsroom/news/2524258-2524258","claim":"Foreign Minister Baerbock publicly described specific weapons only after stating that they had been safely delivered, and said the government had created an industry procurement list after exhausting readily available federal stocks; this documents the government's security-based disclosure practice and the responsible minister's account, but does not independently resolve which systems were removed from earlier lists.","locator":"Opening statement, paragraphs beginning “For that reason, now that the weapons have been safely delivered” and “In addition, when we had no more stocks of our own”.","provisional_id":"WEB-2B-C1-003","canonical_fact_key":"germany_ukraine_delivery_disclosure_april_2022","disposition":"context","chapter_ids":["2B"],"methodology_ids":["2B.6","2B.9"],"source_type":"official_parliamentary_statement","source_confidence":"medium","source_confidence_reason":"Primary evidence of the government's disclosure policy and public representation, but not independent verification of the disputed industry-list editing.","final_evidence_use":"context","period_fit":"Statement delivered on 27 April 2022.","ruler_attribution":"A cabinet minister spoke for the Scholz government; the statement does not establish Scholz's personal handling of individual list entries.","contrary_evidence":"TIME and the Guardian reported that the Chancellery had offered inconsistent explanations and that an earlier industry list was reduced; this official statement cannot itself disprove those reports.","underlying_fact_key":"germany_ukraine_delivery_communication_2022","lenses":["2B.6","2B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Weiterverbreitung von Waffen im Kontext des Ukraine-Kriegs","publisher":"Deutscher Bundestag","publication_date":"2022-08-04","url":"https://www.bundestag.de/presse/hib/kurzmeldungen-905466","claim":"The government said it could not assess the probability of uncontrolled weapons proliferation, relied on Ukrainian end-use assurances prohibiting re-export or transfer, documented each delivery through the defence and economic ministries, and supported creation of a Ukrainian firearms-registration database.","locator":"Bundestag parliamentary-news summary, web lines 733-740.","provisional_id":"WEB-2B-C1-004","canonical_fact_key":"germany_ukraine_end_use_controls_august_2022","disposition":"final_evidence","chapter_ids":["2B"],"methodology_ids":["2B.4","2B.5","2B.9"],"source_type":"official_parliamentary_answer","source_confidence":"high","source_confidence_reason":"Primary legislative record precisely states both the controls used and the government's admitted inability to quantify diversion risk.","final_evidence_use":"final_evidence","period_fit":"Contemporaneous August 2022 answer about wartime deliveries.","ruler_attribution":"Controls and documentation were implemented by ministries within the Scholz government; no personal Scholz intervention or inspection is established.","contrary_evidence":"The record demonstrates paperwork and planned recipient-side tracing, not German physical post-shipment inspection, verified end use, or a response to proven misconduct.","underlying_fact_key":"germany_ukraine_end_use_controls_2022","lenses":["2B.4","2B.5","2B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Schriftliche Fragen mit den in der Woche vom 6. Juni 2022 eingegangenen Antworten der Bundesregierung","publisher":"Deutscher Bundestag","publication_date":"2022-06-10","url":"https://dserver.bundestag.de/btd/20/021/2002170.pdf","claim":"The government said Ukrainian end-use assurances were obtained before export or, in wartime emergencies, accepted afterward; after checking sources available to it, it had no information that German-delivered weapons or ammunition had reached criminal, terrorist, or violent extremist groups.","locator":"Question 36 and answer, pp. 31-32, PDF lines 1438-1463.","provisional_id":"WEB-2B-C1-005","canonical_fact_key":"germany_ukraine_no_known_diversion_june_2022","disposition":"final_evidence","chapter_ids":["2B"],"methodology_ids":["2B.4","2B.5"],"source_type":"official_parliamentary_answer","source_confidence":"high","source_confidence_reason":"Primary, dated parliamentary response clearly separates the assurances collected from the narrower negative finding based on sources available to government.","final_evidence_use":"final_evidence","period_fit":"Direct assessment as of 8 June 2022.","ruler_attribution":"Finding and controls belonged to the Scholz government collectively, particularly the economic and defence portfolios; it is not evidence of Scholz personally conducting monitoring.","contrary_evidence":"Absence of information is not proof of verified end use; some assurances were accepted only after shipment, and the answer reports no on-site German inspection.","underlying_fact_key":"germany_ukraine_end_use_controls_2022","lenses":["2B.4","2B.5"]}
+
+SOURCE_CLAIM_JSON:{"title":"O. Danilov: Each unit of weapons provided to Ukraine by partners is under close control","publisher":"National Security and Defense Council of Ukraine","publication_date":"2022-07-21","url":"https://www.rnbo.gov.ua/en/Diialnist/5608.html","claim":"Ukraine's National Security and Defense Council presented a SOTA-system module, operational from 24 February 2022, that tracked partner weapons by donor and shipment status—including ready for shipment, in transit, and received—and said Ukrainian military institutions were being trained to use it.","locator":"Opening paragraphs and description of the SOTA weapons-supply monitoring module dated 21 July 2022.","provisional_id":"WEB-2B-C1-006","canonical_fact_key":"ukraine_recipient_weapons_tracking_sota_2022","disposition":"context","chapter_ids":["2B"],"methodology_ids":["2B.4","2B.5"],"source_type":"recipient_government_record","source_confidence":"medium","source_confidence_reason":"Primary evidence that the recipient created and used a tracking mechanism, but its performance and completeness were not independently audited here.","final_evidence_use":"context","period_fit":"The system was reported operational during 2022 and specifically dated to the invasion period.","ruler_attribution":"Recipient-side implementation; it cannot be attributed to Scholz except as context for risks surrounding his government's transfers.","contrary_evidence":"This does not establish German access to the system, German post-shipment inspection, battlefield end use, or the absence of diversion.","underlying_fact_key":"ukraine_recipient_weapons_tracking_sota_2022","lenses":["2B.4","2B.5"]}
+
+SOURCE_CLAIM_JSON:{"title":"Anpassung bei EUTM Mali nach Militärputsch 2020","publisher":"Deutscher Bundestag","publication_date":"2022-05-19","url":"https://www.bundestag.de/presse/hib/kurzmeldungen-895744","claim":"Following the EU decision of 5 April 2022, Germany reduced its EUTM Mali contingent to a minimal presence and suspended training and tactical advice benefiting formed Malian armed-forces and National Guard units; only military-policy-level guidance and exchange continued.","locator":"Bundestag summary of government answer 20/1798, web lines 735-739.","provisional_id":"WEB-2B-C1-007","canonical_fact_key":"germany_eutm_mali_training_suspension_2022","disposition":"final_evidence","chapter_ids":["2B"],"methodology_ids":["2B.4","2B.5","2B.9"],"source_type":"official_parliamentary_answer","source_confidence":"high","source_confidence_reason":"Primary parliamentary record specifies the date, affected beneficiaries, operational change, and residual activity.","final_evidence_use":"final_evidence","period_fit":"Direct April-May 2022 policy and implementation evidence.","ruler_attribution":"Implemented by the German contingent and responsible ministry under the Scholz cabinet pursuant to an EU decision; it was not a unilateral Scholz action.","contrary_evidence":"The source does not identify which of roughly 16,000 historical trainees committed abuses, nor establish a German investigation, victim remedy, or weapons-control response.","underlying_fact_key":"germany_eutm_mali_training_suspension_2022","lenses":["2B.4","2B.5","2B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Sondervermögen Bundeswehr: Besser, aber weiterhin mit Risiken","publisher":"Bundesrechnungshof","publication_date":"2022-11-11","url":"https://www.bundesrechnungshof.de/SharedDocs/Kurzmeldungen/DE/-2022-Kurzmeldungen/-11-2022-sondervermoegen-bundeswehr/11-2022-sondervermoegen-bundeswehr.html","claim":"Germany's supreme audit institution found major defects in the special fund's draft economic plan: planned project spending exceeded the €100 billion ceiling, debt-service and inflation or interest buffers were omitted, and project expenditures were placed in non-binding, opaque collective titles rather than transparently assigned.","locator":"Section “Entwurf des Wirtschaftsplans mit erheblichen Mängeln”, three bullet points; report summary dated 11 November 2022.","provisional_id":"WEB-2B-C1-008","canonical_fact_key":"bundeswehr_special_fund_audit_defects_2022","disposition":"final_evidence","chapter_ids":["2B"],"methodology_ids":["2B.8","2B.9"],"source_type":"supreme_audit_institution_finding","source_confidence":"high","source_confidence_reason":"Authoritative independent public audit findings with specific financial-control defects and a stable section locator.","final_evidence_use":"final_evidence","period_fit":"Audit reports issued on 7 October and summarized on 11 November 2022.","ruler_attribution":"The defective plan was prepared by Scholz's Defence Ministry and submitted within his government's signature initiative; operational drafting responsibility was ministerial, not shown as Scholz's personal work.","contrary_evidence":"The ministry subsequently revised the plan and adopted some recommendations, so the initial defects were not wholly left unaddressed.","underlying_fact_key":"bundeswehr_special_fund_audit_defects_2022","lenses":["2B.8","2B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Sondervermögen Bundeswehr: Besser, aber weiterhin mit Risiken","publisher":"Bundesrechnungshof","publication_date":"2022-11-11","url":"https://www.bundesrechnungshof.de/SharedDocs/Kurzmeldungen/DE/-2022-Kurzmeldungen/-11-2022-sondervermoegen-bundeswehr/11-2022-sondervermoegen-bundeswehr.html","claim":"After the October audit, the Defence Ministry revised the special-fund plan, reduced the projects financed through it, and sought to remain within the statutory ceiling; nevertheless, the auditor found continuing overplanning risks from procurement-cost inflation, development costs, and interest rates and recommended mandatory reporting to the Budget Committee.","locator":"Section “Risiken auch im überarbeiteten Entwurf” and concluding recommendation for a BMVg reporting duty.","provisional_id":"WEB-2B-C1-009","canonical_fact_key":"bundeswehr_special_fund_partial_correction_2022","disposition":"final_evidence","chapter_ids":["2B"],"methodology_ids":["2B.8","2B.9"],"source_type":"supreme_audit_institution_finding","source_confidence":"high","source_confidence_reason":"The independent auditor records both the ministry's concrete correction and the residual control risks, avoiding an announcement-only inference.","final_evidence_use":"final_evidence","period_fit":"Correction and follow-up finding occurred in October-November 2022.","ruler_attribution":"A corrective response by the Defence Ministry within the Scholz government; no source establishes that Scholz personally ordered it.","contrary_evidence":"The revision was a meaningful response, but it did not eliminate the auditor's concerns and provides no evidence of equipment delivery to troops in 2022.","underlying_fact_key":"bundeswehr_special_fund_partial_correction_2022","lenses":["2B.8","2B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Högl: Noch kein Cent des Sondervermögens bei der Truppe angekommen","publisher":"Deutscher Bundestag / Parliamentary Commissioner for the Armed Forces","publication_date":"2023-03-14","url":"https://www.bundestag.de/dokumente/textarchiv/2023/kw11-interview-wehrbeauftragte-937590","claim":"The Parliamentary Commissioner for the Armed Forces reported that none of the €100 billion special fund had reached the armed forces during 2022 and characterized procurement as excessively slow, while calling for accelerated procurement reform.","locator":"Interview accompanying Annual Report 2022, web lines 735-740.","provisional_id":"WEB-2B-C1-010","canonical_fact_key":"bundeswehr_special_fund_zero_2022_disbursement","disposition":"final_evidence","chapter_ids":["2B"],"methodology_ids":["2B.8","2B.9"],"source_type":"independent_parliamentary_oversight","source_confidence":"high","source_confidence_reason":"The constitutionally independent parliamentary commissioner made a precise retrospective finding tied to her 2022 annual report.","final_evidence_use":"final_evidence","period_fit":"Published in 2023 but explicitly establishes the absence of special-fund disbursement during calendar year 2022.","ruler_attribution":"Outcome of the Scholz government's signature defence-fund implementation, with procurement responsibility distributed across the Defence Ministry, procurement administration, cabinet, and legislature.","contrary_evidence":"Some major orders were initiated in 2022 and planning was revised, but neither fact constitutes money or equipment reaching troops that year.","underlying_fact_key":"bundeswehr_special_fund_zero_2022_disbursement","lenses":["2B.8","2B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Report: Germany OKs arms sales to Saudi Arabia","publisher":"Deutsche Welle","publication_date":"2022-09-29","url":"https://amp.dw.com/en/german-government-approves-arms-exports-to-saudi-arabia-reports/a-63288334","claim":"Based on Economy Minister Habeck's letter to the Bundestag, independent reporting said Scholz approved Saudi export licences before his Gulf trip, including approximately €36 million in Eurofighter and Tornado equipment and ammunition and €2.8 million in A330 MRTT spare parts, all connected to multinational programmes.","locator":"Sections “New export licenses” and “Banned in 2018”, web lines 96-116.","provisional_id":"WEB-2B-C1-011","canonical_fact_key":"scholz_saudi_joint_program_export_approvals_2022","disposition":"final_evidence","chapter_ids":["2B"],"methodology_ids":["2B.5","2B.9"],"source_type":"independent_news_based_on_ministerial_letter","source_confidence":"high","source_confidence_reason":"Contemporaneous reporting identifies the decision-maker, timing, equipment classes, values, and underlying parliamentary communication, although the letter itself was not recovered in an accessible stable copy.","final_evidence_use":"final_evidence","period_fit":"Approvals and reporting occurred in September 2022.","ruler_attribution":"Direct: the ministerial letter reportedly stated that Scholz approved the licences before his trip; implementation remained shared with the export-control authorities and cabinet ministries.","contrary_evidence":"The approvals were exceptions tied to inherited multinational programmes, not proof that Germany abandoned every Saudi restriction; recipient end use and subsequent delivery are not established here.","underlying_fact_key":"scholz_saudi_joint_program_export_approvals_2022","lenses":["2B.5","2B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Our arms deliveries are protecting human lives","publisher":"Federal Foreign Office of Germany","publication_date":"2022-10-16","url":"https://www.auswaertiges-amt.de/en/newsroom/news/interview-baerbock-sz-2558140","claim":"Baerbock acknowledged that the government chose not to block German components for inherited European joint programmes reaching Saudi Arabia, citing reliability toward British and Spanish partners; she said the government intended future common criteria and exit clauses where human-rights standards were not met.","locator":"Interview question and answer on Saudi Arabia, web lines 141-145.","provisional_id":"WEB-2B-C1-012","canonical_fact_key":"scholz_government_saudi_export_rationale_2022","disposition":"final_evidence","chapter_ids":["2B"],"methodology_ids":["2B.5","2B.9"],"source_type":"official_ministerial_interview","source_confidence":"high","source_confidence_reason":"Primary explanation by the responsible foreign minister explicitly identifies the cabinet's decision, its multinational constraint, and proposed safeguard response.","final_evidence_use":"final_evidence","period_fit":"Contemporaneous October 2022 explanation of the 2022 decision.","ruler_attribution":"Cabinet-level rationale under Scholz; it corroborates shared governmental ownership but does not replace the separate evidence that Scholz approved specific licences.","contrary_evidence":"The promised future criteria and exit clauses were prospective and do not establish recipient-risk review, post-shipment monitoring, or an enforceable remedy for the 2022 approvals.","underlying_fact_key":"scholz_saudi_joint_program_export_approvals_2022","lenses":["2B.5","2B.9"]}
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "germany_2022_chancellor_security_authority_division",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Under articles 65 and 65a, the chancellor determined general policy guidelines while ministers independently administered their portfolios and the defence minister held peacetime command over the armed forces; article 87a limited armed-force use to defence or other constitutionally authorized cases.",
+      "contrary_evidence": "Scholz possessed substantial practical agenda-setting and appointment power; formal ministerial independence does not eliminate political influence.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.2",
+        "2B.4",
+        "2B.5",
+        "2B.8",
+        "2B.9"
+      ],
+      "locator": "Articles 65, 65a and 87a; web lines 1220-1226 and 1461-1466.",
+      "methodology_ids": [
+        "2B.1",
+        "2B.2",
+        "2B.4",
+        "2B.5",
+        "2B.8",
+        "2B.9"
+      ],
+      "period_fit": "target-period legal framework",
+      "provisional_id": "WD001",
+      "publication_date": "2022-06-28",
+      "publisher": "Deutscher Bundestag",
+      "ruler_attribution": "authority-based and limited; Scholz set policy direction but did not personally hold peacetime operational command",
+      "source_confidence": "high",
+      "source_confidence_reason": "Authoritative constitutional text published by the Bundestag.",
+      "source_type": "constitutional_text",
+      "title": "Grundgesetz f\u00fcr die Bundesrepublik Deutschland",
+      "underlying_fact_key": "germany_2022_chancellor_security_authority_division",
+      "url": "https://www.bundestag.de/parlament/aufgaben/rechtsgrundlagen/grundgesetz/?id=5591"
+    },
+    {
+      "canonical_fact_key": "germany_2021_sipri_military_expenditure_baseline",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "SIPRI estimated German military expenditure in 2021 at $56.0 billion, down 1.4% in real terms from 2020 and equal to 1.3% of GDP.",
+      "contrary_evidence": "SIPRI figures are estimates and differ from NATO definitions of defence expenditure.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.8",
+        "2B.10"
+      ],
+      "locator": "Table 1, Germany row, p. 2.",
+      "methodology_ids": [
+        "2B.8",
+        "2B.10"
+      ],
+      "period_fit": "inherited baseline",
+      "provisional_id": "WD002",
+      "publication_date": "2022-04",
+      "publisher": "Stockholm International Peace Research Institute",
+      "ruler_attribution": "limited; primarily inherited from the Merkel government and budget process",
+      "source_confidence": "high",
+      "source_confidence_reason": "SIPRI\u2019s established cross-national military-expenditure methodology using official budget inputs.",
+      "source_type": "independent_statistical_dataset",
+      "title": "Trends in World Military Expenditure, 2021",
+      "underlying_fact_key": "germany_2021_sipri_military_expenditure_baseline",
+      "url": "https://www.sipri.org/sites/default/files/2022-04/fs_2204_milex_2021.pdf"
+    },
+    {
+      "canonical_fact_key": "germany_2022_sipri_military_expenditure",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "SIPRI estimated German military expenditure in 2022 at $55.8 billion, a 2.3% real increase from 2021 and 1.4% of GDP, making Germany the seventh-largest spender globally.",
+      "contrary_evidence": "The figure does not capture the full future value of the \u20ac100 billion special fund and is sensitive to exchange rates and definitional differences.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.8",
+        "2B.10"
+      ],
+      "locator": "Table 1, Germany row, p. 2; regional discussion pp. 7-8.",
+      "methodology_ids": [
+        "2B.8",
+        "2B.10"
+      ],
+      "period_fit": "target period",
+      "provisional_id": "WD003",
+      "publication_date": "2023-04",
+      "publisher": "Stockholm International Peace Research Institute",
+      "ruler_attribution": "shared institutional and parliamentary; the 2022 budget and aid response were not Scholz\u2019s unilateral spending",
+      "source_confidence": "high",
+      "source_confidence_reason": "SIPRI estimate with transparent comparative methodology.",
+      "source_type": "independent_statistical_dataset",
+      "title": "Trends in World Military Expenditure, 2022",
+      "underlying_fact_key": "germany_2022_sipri_military_expenditure",
+      "url": "https://www.sipri.org/sites/default/files/2023-04/2304_fs_milex_2022.pdf"
+    },
+    {
+      "canonical_fact_key": "scholz_january_2022_nato_russia_diplomatic_track",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Before the full-scale invasion, NATO invited Russia to further council meetings and Scholz publicly emphasized preventing military aggression, consultation and political-economic consequences rather than initiating force.",
+      "contrary_evidence": "The transcript establishes an offered diplomatic process, not that the offer could have satisfied both sides or prevented invasion.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.3",
+        "2B.6",
+        "2B.7"
+      ],
+      "locator": "Transcript lines 879-886.",
+      "methodology_ids": [
+        "2B.1",
+        "2B.3",
+        "2B.6",
+        "2B.7"
+      ],
+      "period_fit": "target period, pre-invasion",
+      "provisional_id": "WD004",
+      "publication_date": "2022-01-18",
+      "publisher": "North Atlantic Treaty Organization",
+      "ruler_attribution": "direct for Scholz\u2019s statements; shared NATO attribution for the diplomatic offer",
+      "source_confidence": "high",
+      "source_confidence_reason": "Contemporaneous verbatim institutional transcript.",
+      "source_type": "official_transcript",
+      "title": "Press conference by NATO Secretary General Jens Stoltenberg and Chancellor Olaf Scholz",
+      "underlying_fact_key": "scholz_january_2022_nato_russia_diplomatic_track",
+      "url": "https://www.nato.int/en/news-and-events/events/transcripts/2022/01/18/press-conference"
+    },
+    {
+      "canonical_fact_key": "scholz_february_2022_kremlin_warning_diplomacy",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Scholz said he had spent hours warning Putin in the Kremlin the previous week against war and pursuing a diplomatic solution before Russia invaded.",
+      "contrary_evidence": "The source is Scholz\u2019s own retrospective description of a private meeting and does not prove that German diplomacy offered a viable compromise.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.6",
+        "2B.7"
+      ],
+      "locator": "Lines 180-185.",
+      "methodology_ids": [
+        "2B.1",
+        "2B.6",
+        "2B.7"
+      ],
+      "period_fit": "target period",
+      "provisional_id": "WD005",
+      "publication_date": "2022-02-24",
+      "publisher": "Federal Government of Germany",
+      "ruler_attribution": "direct",
+      "source_confidence": "medium-high",
+      "source_confidence_reason": "Direct contemporaneous statement establishing Scholz\u2019s account; the meeting itself is independently documented, though private content is not fully observable.",
+      "source_type": "official_ruler_address",
+      "title": "Televised address by Federal Chancellor Olaf Scholz on the Russian attack against Ukraine",
+      "underlying_fact_key": "scholz_february_2022_kremlin_warning_diplomacy",
+      "url": "https://www.bundesregierung.de/breg-en/service/archive/televised-address-by-federal-chancellor-olaf-scholz-on-the-russian-attack-against-ukraine-2007846"
+    },
+    {
+      "canonical_fact_key": "scholz_public_justification_russia_invasion_defensive_response",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Scholz identified Russia as attacking a sovereign state, described forced border change as unjustifiable and attributed the decision to launch the invasion to Putin.",
+      "contrary_evidence": "The broader characterization of Putin\u2019s sole personal responsibility compresses institutional Russian decision-making, while Scholz\u2019s imperial-motive inference is interpretive.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.2",
+        "2B.3",
+        "2B.6",
+        "2B.10"
+      ],
+      "locator": "Lines 148-185.",
+      "methodology_ids": [
+        "2B.2",
+        "2B.3",
+        "2B.6",
+        "2B.10"
+      ],
+      "period_fit": "target period",
+      "provisional_id": "WD006",
+      "publication_date": "2022-02-24",
+      "publisher": "Federal Government of Germany",
+      "ruler_attribution": "direct for public explanation",
+      "source_confidence": "high",
+      "source_confidence_reason": "The central factual claim\u2014Russian invasion of Ukraine\u2014is independently observable and was affirmed by UN institutions.",
+      "source_type": "official_ruler_address",
+      "title": "Televised address by Federal Chancellor Olaf Scholz on the Russian attack against Ukraine",
+      "underlying_fact_key": "scholz_public_justification_russia_invasion_defensive_response",
+      "url": "https://www.bundesregierung.de/breg-en/service/archive/televised-address-by-federal-chancellor-olaf-scholz-on-the-russian-attack-against-ukraine-2007846"
+    },
+    {
+      "canonical_fact_key": "germany_2022_sanctions_nord_stream_and_ukraine_self_defence_support",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "After Russia invaded, the government suspended Nord Stream 2 certification, supported sanctions and reversed its restriction on supplying weapons to conflict zones so Ukraine could defend itself.",
+      "contrary_evidence": "Germany initially withheld weapons before invasion and later faced criticism for delivery delays; sanctions are coercive and can carry civilian economic costs.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.2",
+        "2B.3",
+        "2B.5",
+        "2B.7",
+        "2B.10"
+      ],
+      "locator": "Policy-statement sections on sanctions and Ukraine assistance, approximately lines 190-279.",
+      "methodology_ids": [
+        "2B.1",
+        "2B.2",
+        "2B.3",
+        "2B.5",
+        "2B.7",
+        "2B.10"
+      ],
+      "period_fit": "target period",
+      "provisional_id": "WD007",
+      "publication_date": "2022-02-27",
+      "publisher": "Federal Government of Germany",
+      "ruler_attribution": "direct policy advocacy by Scholz; implementation shared with cabinet, EU, ministries and parliament",
+      "source_confidence": "high",
+      "source_confidence_reason": "Primary announcement corroborated by subsequent sanctions and export records.",
+      "source_type": "official_policy_statement",
+      "title": "Policy statement by Olaf Scholz, 27 February 2022",
+      "underlying_fact_key": "germany_2022_sanctions_nord_stream_and_ukraine_self_defence_support",
+      "url": "https://www.bundesregierung.de/breg-en/service/archive/policy-statement-by-olaf-scholz-chancellor-of-the-federal-republic-of-germany-and-member-of-the-german-bundestag-27-february-2022-in-berlin-2008378"
+    },
+    {
+      "canonical_fact_key": "scholz_post_invasion_keep_russia_channels_open",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Scholz stated that Germany would pursue as much diplomacy as possible, would not talk merely for appearance\u2019s sake, and would not refuse talks with Russia even after invasion.",
+      "contrary_evidence": "Keeping channels open did not produce a ceasefire, and Scholz conditioned useful talks on Russian willingness to engage.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.7"
+      ],
+      "locator": "Lines 414-427.",
+      "methodology_ids": [
+        "2B.1",
+        "2B.7"
+      ],
+      "period_fit": "target period",
+      "provisional_id": "WD008",
+      "publication_date": "2022-02-27",
+      "publisher": "Federal Government of Germany",
+      "ruler_attribution": "direct",
+      "source_confidence": "high",
+      "source_confidence_reason": "Clear direct statement later corroborated by repeated Scholz\u2013Putin calls.",
+      "source_type": "official_policy_statement",
+      "title": "Policy statement by Olaf Scholz, 27 February 2022",
+      "underlying_fact_key": "scholz_post_invasion_keep_russia_channels_open",
+      "url": "https://www.bundesregierung.de/breg-en/service/archive/policy-statement-by-olaf-scholz-chancellor-of-the-federal-republic-of-germany-and-member-of-the-german-bundestag-27-february-2022-in-berlin-2008378"
+    },
+    {
+      "canonical_fact_key": "scholz_2022_bundeswehr_special_fund_defensive_rationale",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Scholz proposed a \u20ac100 billion Bundeswehr special fund and annual defence expenditure above 2% of GDP, expressly linking both to Russia\u2019s aggression, German security and longstanding capability deficiencies.",
+      "contrary_evidence": "An announced fund is not the same as 2022 expenditure or procurement success; alliance burden-sharing and industrial-policy interests also influenced the decision.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.3",
+        "2B.8",
+        "2B.10"
+      ],
+      "locator": "Lines 306-343.",
+      "methodology_ids": [
+        "2B.3",
+        "2B.8",
+        "2B.10"
+      ],
+      "period_fit": "target period",
+      "provisional_id": "WD009",
+      "publication_date": "2022-02-27",
+      "publisher": "Federal Government of Germany",
+      "ruler_attribution": "direct advocacy; enactment and procurement shared with Bundestag, cabinet and defence ministry",
+      "source_confidence": "high",
+      "source_confidence_reason": "Primary proposal subsequently enacted through parliamentary and constitutional processes.",
+      "source_type": "official_policy_statement",
+      "title": "Policy statement by Olaf Scholz, 27 February 2022",
+      "underlying_fact_key": "scholz_2022_bundeswehr_special_fund_defensive_rationale",
+      "url": "https://www.bundesregierung.de/breg-en/service/archive/policy-statement-by-olaf-scholz-chancellor-of-the-federal-republic-of-germany-and-member-of-the-german-bundestag-27-february-2022-in-berlin-2008378"
+    },
+    {
+      "canonical_fact_key": "germany_2022_nato_territorial_reassurance_deployments",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Germany reinforced NATO forces in Lithuania, Romania and Slovakia and maritime and air-defence activity on allied territory, rather than announcing German combat deployment into Ukraine.",
+      "contrary_evidence": "The deployments increased military pressure near Russia and contributed to regional militarization even though they remained on allied territory.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.2",
+        "2B.3",
+        "2B.8",
+        "2B.10"
+      ],
+      "locator": "Lines 285-301.",
+      "methodology_ids": [
+        "2B.2",
+        "2B.3",
+        "2B.8",
+        "2B.10"
+      ],
+      "period_fit": "target period",
+      "provisional_id": "WD010",
+      "publication_date": "2022-02-27",
+      "publisher": "Federal Government of Germany",
+      "ruler_attribution": "shared executive, defence-ministry, NATO and parliamentary",
+      "source_confidence": "high",
+      "source_confidence_reason": "Specific deployment descriptions subject to NATO and parliamentary visibility.",
+      "source_type": "official_policy_statement",
+      "title": "Policy statement by Olaf Scholz, 27 February 2022",
+      "underlying_fact_key": "germany_2022_nato_territorial_reassurance_deployments",
+      "url": "https://www.bundesregierung.de/breg-en/service/archive/policy-statement-by-olaf-scholz-chancellor-of-the-federal-republic-of-germany-and-member-of-the-german-bundestag-27-february-2022-in-berlin-2008378"
+    },
+    {
+      "canonical_fact_key": "germany_2022_ukraine_export_approvals_value_categories",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Germany approved \u20ac2.245 billion in individual arms-export licences for Ukraine during 2022, covering missiles and air-defence systems, armoured vehicles and howitzers, fire-control equipment, mortars and anti-tank weapons.",
+      "contrary_evidence": "Licence value is not equivalent to delivery, use or battlefield effect; some deliveries were delayed and recipient conduct was not controlled operationally by Germany.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.2",
+        "2B.4",
+        "2B.5",
+        "2B.8",
+        "2B.10"
+      ],
+      "locator": "Annex 7, pp. 101-102, lines 5551-5561.",
+      "methodology_ids": [
+        "2B.2",
+        "2B.4",
+        "2B.5",
+        "2B.8",
+        "2B.10"
+      ],
+      "period_fit": "target-period decisions, later published",
+      "provisional_id": "WD011",
+      "publication_date": "2023-12-20",
+      "publisher": "German Federal Government / Deutscher Bundestag",
+      "ruler_attribution": "shared institutional; sensitive cases involved the government and potentially the Scholz-chaired Federal Security Council",
+      "source_confidence": "high",
+      "source_confidence_reason": "Detailed statutory government report distinguishing approvals and actual exports.",
+      "source_type": "official_statistical_report",
+      "title": "Bericht der Bundesregierung \u00fcber ihre Exportpolitik f\u00fcr konventionelle R\u00fcstungsg\u00fcter im Jahre 2022",
+      "underlying_fact_key": "germany_2022_ukraine_export_approvals_value_categories",
+      "url": "https://dserver.bundestag.de/btd/20/100/2010010.pdf"
+    },
+    {
+      "canonical_fact_key": "germany_2022_arms_export_end_use_human_rights_controls",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "German policy required ex-ante end-use review, recipient re-export assurances and possible post-shipment inspections for specified small and light weapons; violations or refusal of inspection could lead to exclusion from further supply.",
+      "contrary_evidence": "The report lists only ten post-shipment inspections since 2017 and does not document a Ukraine-specific on-site inspection in 2022; formal controls do not establish effective prevention of misuse.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.4",
+        "2B.5",
+        "2B.9"
+      ],
+      "locator": "Report pp. 14-15 and 39-44; lines 607-667, 2029-2051 and 2219-2225.",
+      "methodology_ids": [
+        "2B.4",
+        "2B.5",
+        "2B.9"
+      ],
+      "period_fit": "target-period institutional framework",
+      "provisional_id": "WD012",
+      "publication_date": "2023-12-20",
+      "publisher": "German Federal Government / Deutscher Bundestag",
+      "ruler_attribution": "institutional and shared, not personally operated by Scholz",
+      "source_confidence": "high",
+      "source_confidence_reason": "Detailed official description of binding licensing and control policy.",
+      "source_type": "official_legal_policy_report",
+      "title": "Bericht der Bundesregierung \u00fcber ihre Exportpolitik f\u00fcr konventionelle R\u00fcstungsg\u00fcter im Jahre 2022",
+      "underlying_fact_key": "germany_2022_arms_export_end_use_human_rights_controls",
+      "url": "https://dserver.bundestag.de/btd/20/100/2010010.pdf"
+    },
+    {
+      "canonical_fact_key": "germany_2022_saudi_arms_export_approvals",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "In 2022 Germany approved 48 licences worth \u20ac44.23 million for military goods to Saudi Arabia, principally fire-control equipment, cannon parts and combat-aircraft or refuelling ground equipment; separate war-weapons approvals were \u20ac7.1 million.",
+      "contrary_evidence": "Approval does not prove delivery or use in Yemen; some components were associated with multinational programs, and the 2022 Yemen truce reduced hostilities.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.4",
+        "2B.5",
+        "2B.8",
+        "2B.10"
+      ],
+      "locator": "Annex 8, p. 124, lines 6253-6259; war-weapons table p. 31, lines 1552-1565.",
+      "methodology_ids": [
+        "2B.4",
+        "2B.5",
+        "2B.8",
+        "2B.10"
+      ],
+      "period_fit": "target-period decisions, later published",
+      "provisional_id": "WD013",
+      "publication_date": "2023-12-20",
+      "publisher": "German Federal Government / Deutscher Bundestag",
+      "ruler_attribution": "shared government and export-control authority; sensitive approvals may involve the Scholz-chaired Federal Security Council",
+      "source_confidence": "high",
+      "source_confidence_reason": "Recipient- and category-specific government reporting.",
+      "source_type": "official_statistical_report",
+      "title": "Bericht der Bundesregierung \u00fcber ihre Exportpolitik f\u00fcr konventionelle R\u00fcstungsg\u00fcter im Jahre 2022",
+      "underlying_fact_key": "germany_2022_saudi_arms_export_approvals",
+      "url": "https://dserver.bundestag.de/btd/20/100/2010010.pdf"
+    },
+    {
+      "canonical_fact_key": "scholz_chancellery_ukraine_heavy_weapons_list_dispute_april_2022",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Contemporaneous reporting, based on Bild\u2019s investigation and documents, alleged that the Chancellery removed heavy systems from an industry list for Ukraine and cast doubt on Scholz\u2019s claim that the procurement process had been agreed with Kyiv.",
+      "contrary_evidence": "Germany later delivered multiple heavy systems; stock, training, ammunition, NATO coordination and operational secrecy were genuine constraints.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.5",
+        "2B.6",
+        "2B.9"
+      ],
+      "locator": "Article paragraphs corresponding to web extraction lines 157-169; opening section describing removed Boxer, PzH 2000 and Leopard 2 systems.",
+      "methodology_ids": [
+        "2B.1",
+        "2B.5",
+        "2B.6",
+        "2B.9"
+      ],
+      "period_fit": "target period",
+      "provisional_id": "WD014",
+      "publication_date": "2022-04-21",
+      "publisher": "The Guardian",
+      "ruler_attribution": "direct Chancellery allegation but decision chain not completely public",
+      "source_confidence": "medium",
+      "source_confidence_reason": "Contemporaneous report with specific documentary allegations, but dependent on Bild\u2019s underlying investigation and without full publication of internal files.",
+      "source_type": "reputable_press_secondary",
+      "title": "German report casts doubt on scale of its weapons support for Ukraine",
+      "underlying_fact_key": "scholz_chancellery_ukraine_heavy_weapons_list_dispute_april_2022",
+      "url": "https://www.theguardian.com/world/2022/apr/21/german-report-casts-doubt-on-scale-of-its-weapons-support-for-ukraine"
+    },
+    {
+      "canonical_fact_key": "germany_2022_ukraine_humanitarian_medical_assistance_commitment",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Scholz announced \u20ac425 million in humanitarian and development assistance and \u20ac70 million in medical supplies for Ukraine.",
+      "contrary_evidence": "Committed funds are not the same as delivered relief or demonstrated civilian outcomes.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.4",
+        "2B.7",
+        "2B.10"
+      ],
+      "locator": "Donors-conference speech, assistance commitments section.",
+      "methodology_ids": [
+        "2B.4",
+        "2B.7",
+        "2B.10"
+      ],
+      "period_fit": "target period",
+      "provisional_id": "WD015",
+      "publication_date": "2022-05-05",
+      "publisher": "Federal Government of Germany",
+      "ruler_attribution": "direct announcement, shared institutional implementation",
+      "source_confidence": "medium-high",
+      "source_confidence_reason": "Primary commitment announcement; this source alone does not establish complete disbursement or impact.",
+      "source_type": "official_ruler_speech",
+      "title": "Speech by Chancellor Olaf Scholz at the Ukraine Donors Conference",
+      "underlying_fact_key": "germany_2022_ukraine_humanitarian_medical_assistance_commitment",
+      "url": "https://www.bundesregierung.de/breg-en/service/archive/speech-by-chancellor-olaf-scholz-at-the-ukraine-donors-conference-2037298"
+    },
+    {
+      "canonical_fact_key": "germany_2022_structural_investigation_ukraine_international_crimes",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Germany reported that its Federal Public Prosecutor had opened a structural investigation in March 2022 into war crimes in Ukraine, later extended to crimes against humanity, and was collecting evidence including refugee testimony through a specialized unit.",
+      "contrary_evidence": "As of July 2022 no person-specific proceeding had begun, and the investigation did not itself establish guilt or remedy harm.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.4",
+        "2B.9",
+        "2B.10"
+      ],
+      "locator": "Lines 69-85, especially 72-75.",
+      "methodology_ids": [
+        "2B.4",
+        "2B.9",
+        "2B.10"
+      ],
+      "period_fit": "target period",
+      "provisional_id": "WD016",
+      "publication_date": "2022-10-12",
+      "publisher": "Federal Foreign Office, Permanent Mission of Germany to the United Nations",
+      "ruler_attribution": "institutional and legally independent; attributable to the state under Scholz but not personally directed by him",
+      "source_confidence": "high",
+      "source_confidence_reason": "Specific institutional action independently corroborated by Bundestag reporting.",
+      "source_type": "official_legal_statement",
+      "title": "Statement of Germany in the UNGA Sixth Committee: The scope and application of universal jurisdiction",
+      "underlying_fact_key": "germany_2022_structural_investigation_ukraine_international_crimes",
+      "url": "https://new-york-un.diplo.de/un-en/2558190-2558190"
+    },
+    {
+      "canonical_fact_key": "germany_2022_minusma_extension_force_ceiling_increase",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "On the government\u2019s request, the Bundestag extended Germany\u2019s participation in MINUSMA for another year by 541 votes to 103 and raised the authorized ceiling from 1,100 to 1,400 personnel to replace capabilities affected by the French withdrawal.",
+      "contrary_evidence": "The mission was UN-authorized stabilization rather than a German war of choice, and the increase partly substituted support functions previously supplied by France.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.2",
+        "2B.4",
+        "2B.5",
+        "2B.7",
+        "2B.10"
+      ],
+      "locator": "Lines 789-798.",
+      "methodology_ids": [
+        "2B.1",
+        "2B.2",
+        "2B.4",
+        "2B.5",
+        "2B.7",
+        "2B.10"
+      ],
+      "period_fit": "target period and inherited mission",
+      "provisional_id": "WD017",
+      "publication_date": "2022-05-20",
+      "publisher": "Deutscher Bundestag",
+      "ruler_attribution": "shared government proposal and Bundestag authorization; operational command lay outside Scholz personally",
+      "source_confidence": "high",
+      "source_confidence_reason": "Formal vote and government mandate summary.",
+      "source_type": "official_parliamentary_record",
+      "title": "Bundeswehr bleibt ein weiteres Jahr in Mali",
+      "underlying_fact_key": "germany_2022_minusma_extension_force_ceiling_increase",
+      "url": "https://www.bundestag.de/dokumente/textarchiv/2022/kw19-de-bundeswehr-minusma-891866"
+    },
+    {
+      "canonical_fact_key": "mali_2022_security_force_abuses_and_eutm_reduction",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "HRW documented sharply worsening civilian abuse in Mali during 2022, including hundreds of unlawful killings attributed to Malian and allied foreign forces, while reporting that rights abuses and Wagner cooperation led to a significant reduction in the EU Training Mission.",
+      "contrary_evidence": "The source does not identify the abusive personnel as German-trained, show German operational control or attribute the abuses to Scholz; Germany also condemned Wagner and reduced training exposure.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.4",
+        "2B.5",
+        "2B.7",
+        "2B.9",
+        "2B.10"
+      ],
+      "locator": "Lines 62-66, 87-110.",
+      "methodology_ids": [
+        "2B.4",
+        "2B.5",
+        "2B.7",
+        "2B.9",
+        "2B.10"
+      ],
+      "period_fit": "target-period conduct, later retrospective publication",
+      "provisional_id": "WD018",
+      "publication_date": "2023-01-12",
+      "publisher": "Human Rights Watch",
+      "ruler_attribution": "limited and indirect; German personnel were part of EU/UN missions but the documented perpetrators were Malian and Wagner-linked forces",
+      "source_confidence": "high",
+      "source_confidence_reason": "Detailed independent reporting drawing on incident investigations and corroborated by UN and other monitoring.",
+      "source_type": "credible_ng\u043e_report",
+      "title": "World Report 2023: Mali",
+      "underlying_fact_key": "mali_2022_security_force_abuses_and_eutm_reduction",
+      "url": "https://www.hrw.org/world-report/2023/country-chapters/mali"
+    },
+    {
+      "canonical_fact_key": "scholz_putin_call_withdrawal_diplomatic_solution_december_2022",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "In December 2022 Scholz again spoke with Putin, demanded withdrawal of Russian troops and urged a diplomatic solution, while Putin demanded that Germany reconsider its support for Ukraine.",
+      "contrary_evidence": "The call produced no ceasefire or documented negotiating breakthrough; disclosed summaries may omit private content.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.7",
+        "2B.10"
+      ],
+      "locator": "Article opening and call summary, dated 2 December 2022.",
+      "methodology_ids": [
+        "2B.1",
+        "2B.7",
+        "2B.10"
+      ],
+      "period_fit": "target period",
+      "provisional_id": "WD019",
+      "publication_date": "2022-12-02",
+      "publisher": "Tagesschau / ARD",
+      "ruler_attribution": "direct",
+      "source_confidence": "high",
+      "source_confidence_reason": "Contemporaneous reputable reporting based on both governments\u2019 disclosed accounts.",
+      "source_type": "public_broadcaster_reporting",
+      "title": "Kanzler telefoniert mit Putin: Scholz fordert Abzug russischer Truppen",
+      "underlying_fact_key": "scholz_putin_call_withdrawal_diplomatic_solution_december_2022",
+      "url": "https://www.tagesschau.de/inland/scholz-putin-telefonat-103.html"
+    },
+    {
+      "canonical_fact_key": "ukraine_war_no_settlement_scholz_year_end_2022",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "At year-end Scholz said Putin remained intent on conquering Ukrainian territory but that contact should remain open for a future opportunity to end the war, confirming that no such settlement had been reached in 2022.",
+      "contrary_evidence": "Maintaining contact is process evidence, not evidence of an effective peace initiative, and Scholz did not control Russian or Ukrainian negotiating positions.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.7",
+        "2B.10"
+      ],
+      "locator": "Opening paragraphs, Potsdam remarks of 10 December 2022.",
+      "methodology_ids": [
+        "2B.1",
+        "2B.7",
+        "2B.10"
+      ],
+      "period_fit": "target-period end state",
+      "provisional_id": "WD020",
+      "publication_date": "2022-12-10",
+      "publisher": "Reuters",
+      "ruler_attribution": "direct for Scholz\u2019s assessment; limited for the war\u2019s continuation, which depended primarily on the belligerents",
+      "source_confidence": "high",
+      "source_confidence_reason": "Reuters contemporaneous reporting of public remarks; continuing war independently observable.",
+      "source_type": "reputable_wire_reporting",
+      "title": "Scholz says Putin bent on conquest, but important to keep contact open",
+      "underlying_fact_key": "ukraine_war_no_settlement_scholz_year_end_2022",
+      "url": "https://uk.investing.com/news/world-news/scholz-says-putin-bent-on-conquest-but-important-to-keep-contact-open-2853958"
+    },
+    {
+      "canonical_fact_key": "germany_ukraine_early_2022_commitment_delivery_gap",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Independent commitment-versus-delivery tracking found that, through 7 June 2022, Germany had delivered listed light weapons and armoured vehicles but had not yet delivered its pledged Gepard systems, IRIS-T system, or MARS II launchers; the researchers identified Germany as one of the donors with a considerable gap between committed and delivered in-kind military aid.",
+      "contrary_evidence": "Later 2022 evidence shows that several heavy systems were subsequently delivered, so this establishes an early shortfall rather than a year-long failure.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.4",
+        "2B.6",
+        "2B.9"
+      ],
+      "locator": "Table 5, pp. 27-28; section 7, pp. 31-32, especially PDF lines 1027-1040 and 1141-1154.",
+      "methodology_ids": [
+        "2B.4",
+        "2B.6",
+        "2B.9"
+      ],
+      "period_fit": "Direct measurement through 7 June 2022.",
+      "provisional_id": "WEB-2B-C1-001",
+      "publication_date": "2022-08-01",
+      "publisher": "Kiel Institute for the World Economy",
+      "ruler_attribution": "Government-level delivery performance under Scholz; operational responsibility was shared with the defence and economic ministries, and the source does not attribute each delay personally to Scholz.",
+      "source_confidence": "high",
+      "source_confidence_reason": "An independent research institute systematically distinguished commitments from deliveries and supplied dated, weapon-level tables and methodological sourcing.",
+      "source_type": "independent_research_dataset",
+      "title": "The Ukraine Support Tracker: Which countries help Ukraine and how?",
+      "underlying_fact_key": "germany_ukraine_early_2022_commitment_delivery_gap",
+      "url": "https://epicenter.bg/upfiles/KWP_2218.pdf"
+    },
+    {
+      "canonical_fact_key": "germany_ukraine_pzh2000_delivery_june_2022",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Ukraine's defence minister confirmed receipt of the first German heavy weapons, seven Panzerhaubitze 2000 howitzers, on 21 June; Germany simultaneously published a list separating delivered items from outstanding pledges, including 30 Gepards and three MARS II launchers still awaiting delivery.",
+      "contrary_evidence": "This corrects any inference from the early-June delivery gap that Germany never delivered heavy weapons, while confirming that notable pledges remained outstanding on 21 June.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.4",
+        "2B.6",
+        "2B.9"
+      ],
+      "locator": "Paragraphs under \u201cPanzerhaubitze 2000 'finally' part of Ukrainian arsenal\u201d and \u201cWhat else has Germany sent?\u201d, web lines 96-121.",
+      "methodology_ids": [
+        "2B.4",
+        "2B.6",
+        "2B.9"
+      ],
+      "period_fit": "Directly concerns delivery on 21 June 2022.",
+      "provisional_id": "WEB-2B-C1-002",
+      "publication_date": "2022-06-21",
+      "publisher": "Deutsche Welle",
+      "ruler_attribution": "Delivery was an action of the Scholz government, but procurement, transport, and training implementation belonged primarily to responsible ministries and partner governments.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Contemporaneous independent reporting identifies the recipient official, delivery date, quantity, and the government's newly published delivered-versus-promised list.",
+      "source_type": "independent_news_with_recipient_confirmation",
+      "title": "Heavy weapons from Germany arrive in Ukraine",
+      "underlying_fact_key": "germany_ukraine_pzh2000_delivery_june_2022",
+      "url": "https://amp.dw.com/en/first-heavy-weapons-from-germany-arrive-in-ukraine/a-62211051"
+    },
+    {
+      "canonical_fact_key": "germany_ukraine_delivery_disclosure_april_2022",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Foreign Minister Baerbock publicly described specific weapons only after stating that they had been safely delivered, and said the government had created an industry procurement list after exhausting readily available federal stocks; this documents the government's security-based disclosure practice and the responsible minister's account, but does not independently resolve which systems were removed from earlier lists.",
+      "contrary_evidence": "TIME and the Guardian reported that the Chancellery had offered inconsistent explanations and that an earlier industry list was reduced; this official statement cannot itself disprove those reports.",
+      "disposition": "context",
+      "final_evidence_use": "context",
+      "lenses": [
+        "2B.6",
+        "2B.9"
+      ],
+      "locator": "Opening statement, paragraphs beginning \u201cFor that reason, now that the weapons have been safely delivered\u201d and \u201cIn addition, when we had no more stocks of our own\u201d.",
+      "methodology_ids": [
+        "2B.6",
+        "2B.9"
+      ],
+      "period_fit": "Statement delivered on 27 April 2022.",
+      "provisional_id": "WEB-2B-C1-003",
+      "publication_date": "2022-04-27",
+      "publisher": "Federal Foreign Office of Germany",
+      "ruler_attribution": "A cabinet minister spoke for the Scholz government; the statement does not establish Scholz's personal handling of individual list entries.",
+      "source_confidence": "medium",
+      "source_confidence_reason": "Primary evidence of the government's disclosure policy and public representation, but not independent verification of the disputed industry-list editing.",
+      "source_type": "official_parliamentary_statement",
+      "title": "Opening statement during questions to the Federal Government about arms shipments to Ukraine",
+      "underlying_fact_key": "germany_ukraine_delivery_communication_2022",
+      "url": "https://www.auswaertiges-amt.de/en/newsroom/news/2524258-2524258"
+    },
+    {
+      "canonical_fact_key": "germany_ukraine_end_use_controls_august_2022",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "The government said it could not assess the probability of uncontrolled weapons proliferation, relied on Ukrainian end-use assurances prohibiting re-export or transfer, documented each delivery through the defence and economic ministries, and supported creation of a Ukrainian firearms-registration database.",
+      "contrary_evidence": "The record demonstrates paperwork and planned recipient-side tracing, not German physical post-shipment inspection, verified end use, or a response to proven misconduct.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.4",
+        "2B.5",
+        "2B.9"
+      ],
+      "locator": "Bundestag parliamentary-news summary, web lines 733-740.",
+      "methodology_ids": [
+        "2B.4",
+        "2B.5",
+        "2B.9"
+      ],
+      "period_fit": "Contemporaneous August 2022 answer about wartime deliveries.",
+      "provisional_id": "WEB-2B-C1-004",
+      "publication_date": "2022-08-04",
+      "publisher": "Deutscher Bundestag",
+      "ruler_attribution": "Controls and documentation were implemented by ministries within the Scholz government; no personal Scholz intervention or inspection is established.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Primary legislative record precisely states both the controls used and the government's admitted inability to quantify diversion risk.",
+      "source_type": "official_parliamentary_answer",
+      "title": "Weiterverbreitung von Waffen im Kontext des Ukraine-Kriegs",
+      "underlying_fact_key": "germany_ukraine_end_use_controls_2022",
+      "url": "https://www.bundestag.de/presse/hib/kurzmeldungen-905466"
+    },
+    {
+      "canonical_fact_key": "germany_ukraine_no_known_diversion_june_2022",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "The government said Ukrainian end-use assurances were obtained before export or, in wartime emergencies, accepted afterward; after checking sources available to it, it had no information that German-delivered weapons or ammunition had reached criminal, terrorist, or violent extremist groups.",
+      "contrary_evidence": "Absence of information is not proof of verified end use; some assurances were accepted only after shipment, and the answer reports no on-site German inspection.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.4",
+        "2B.5"
+      ],
+      "locator": "Question 36 and answer, pp. 31-32, PDF lines 1438-1463.",
+      "methodology_ids": [
+        "2B.4",
+        "2B.5"
+      ],
+      "period_fit": "Direct assessment as of 8 June 2022.",
+      "provisional_id": "WEB-2B-C1-005",
+      "publication_date": "2022-06-10",
+      "publisher": "Deutscher Bundestag",
+      "ruler_attribution": "Finding and controls belonged to the Scholz government collectively, particularly the economic and defence portfolios; it is not evidence of Scholz personally conducting monitoring.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Primary, dated parliamentary response clearly separates the assurances collected from the narrower negative finding based on sources available to government.",
+      "source_type": "official_parliamentary_answer",
+      "title": "Schriftliche Fragen mit den in der Woche vom 6. Juni 2022 eingegangenen Antworten der Bundesregierung",
+      "underlying_fact_key": "germany_ukraine_end_use_controls_2022",
+      "url": "https://dserver.bundestag.de/btd/20/021/2002170.pdf"
+    },
+    {
+      "canonical_fact_key": "ukraine_recipient_weapons_tracking_sota_2022",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Ukraine's National Security and Defense Council presented a SOTA-system module, operational from 24 February 2022, that tracked partner weapons by donor and shipment status\u2014including ready for shipment, in transit, and received\u2014and said Ukrainian military institutions were being trained to use it.",
+      "contrary_evidence": "This does not establish German access to the system, German post-shipment inspection, battlefield end use, or the absence of diversion.",
+      "disposition": "context",
+      "final_evidence_use": "context",
+      "lenses": [
+        "2B.4",
+        "2B.5"
+      ],
+      "locator": "Opening paragraphs and description of the SOTA weapons-supply monitoring module dated 21 July 2022.",
+      "methodology_ids": [
+        "2B.4",
+        "2B.5"
+      ],
+      "period_fit": "The system was reported operational during 2022 and specifically dated to the invasion period.",
+      "provisional_id": "WEB-2B-C1-006",
+      "publication_date": "2022-07-21",
+      "publisher": "National Security and Defense Council of Ukraine",
+      "ruler_attribution": "Recipient-side implementation; it cannot be attributed to Scholz except as context for risks surrounding his government's transfers.",
+      "source_confidence": "medium",
+      "source_confidence_reason": "Primary evidence that the recipient created and used a tracking mechanism, but its performance and completeness were not independently audited here.",
+      "source_type": "recipient_government_record",
+      "title": "O. Danilov: Each unit of weapons provided to Ukraine by partners is under close control",
+      "underlying_fact_key": "ukraine_recipient_weapons_tracking_sota_2022",
+      "url": "https://www.rnbo.gov.ua/en/Diialnist/5608.html"
+    },
+    {
+      "canonical_fact_key": "germany_eutm_mali_training_suspension_2022",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Following the EU decision of 5 April 2022, Germany reduced its EUTM Mali contingent to a minimal presence and suspended training and tactical advice benefiting formed Malian armed-forces and National Guard units; only military-policy-level guidance and exchange continued.",
+      "contrary_evidence": "The source does not identify which of roughly 16,000 historical trainees committed abuses, nor establish a German investigation, victim remedy, or weapons-control response.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.4",
+        "2B.5",
+        "2B.9"
+      ],
+      "locator": "Bundestag summary of government answer 20/1798, web lines 735-739.",
+      "methodology_ids": [
+        "2B.4",
+        "2B.5",
+        "2B.9"
+      ],
+      "period_fit": "Direct April-May 2022 policy and implementation evidence.",
+      "provisional_id": "WEB-2B-C1-007",
+      "publication_date": "2022-05-19",
+      "publisher": "Deutscher Bundestag",
+      "ruler_attribution": "Implemented by the German contingent and responsible ministry under the Scholz cabinet pursuant to an EU decision; it was not a unilateral Scholz action.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Primary parliamentary record specifies the date, affected beneficiaries, operational change, and residual activity.",
+      "source_type": "official_parliamentary_answer",
+      "title": "Anpassung bei EUTM Mali nach Milit\u00e4rputsch 2020",
+      "underlying_fact_key": "germany_eutm_mali_training_suspension_2022",
+      "url": "https://www.bundestag.de/presse/hib/kurzmeldungen-895744"
+    },
+    {
+      "canonical_fact_key": "bundeswehr_special_fund_audit_defects_2022",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Germany's supreme audit institution found major defects in the special fund's draft economic plan: planned project spending exceeded the \u20ac100 billion ceiling, debt-service and inflation or interest buffers were omitted, and project expenditures were placed in non-binding, opaque collective titles rather than transparently assigned.",
+      "contrary_evidence": "The ministry subsequently revised the plan and adopted some recommendations, so the initial defects were not wholly left unaddressed.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.8",
+        "2B.9"
+      ],
+      "locator": "Section \u201cEntwurf des Wirtschaftsplans mit erheblichen M\u00e4ngeln\u201d, three bullet points; report summary dated 11 November 2022.",
+      "methodology_ids": [
+        "2B.8",
+        "2B.9"
+      ],
+      "period_fit": "Audit reports issued on 7 October and summarized on 11 November 2022.",
+      "provisional_id": "WEB-2B-C1-008",
+      "publication_date": "2022-11-11",
+      "publisher": "Bundesrechnungshof",
+      "ruler_attribution": "The defective plan was prepared by Scholz's Defence Ministry and submitted within his government's signature initiative; operational drafting responsibility was ministerial, not shown as Scholz's personal work.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Authoritative independent public audit findings with specific financial-control defects and a stable section locator.",
+      "source_type": "supreme_audit_institution_finding",
+      "title": "Sonderverm\u00f6gen Bundeswehr: Besser, aber weiterhin mit Risiken",
+      "underlying_fact_key": "bundeswehr_special_fund_audit_defects_2022",
+      "url": "https://www.bundesrechnungshof.de/SharedDocs/Kurzmeldungen/DE/-2022-Kurzmeldungen/-11-2022-sondervermoegen-bundeswehr/11-2022-sondervermoegen-bundeswehr.html"
+    },
+    {
+      "canonical_fact_key": "bundeswehr_special_fund_partial_correction_2022",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "After the October audit, the Defence Ministry revised the special-fund plan, reduced the projects financed through it, and sought to remain within the statutory ceiling; nevertheless, the auditor found continuing overplanning risks from procurement-cost inflation, development costs, and interest rates and recommended mandatory reporting to the Budget Committee.",
+      "contrary_evidence": "The revision was a meaningful response, but it did not eliminate the auditor's concerns and provides no evidence of equipment delivery to troops in 2022.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.8",
+        "2B.9"
+      ],
+      "locator": "Section \u201cRisiken auch im \u00fcberarbeiteten Entwurf\u201d and concluding recommendation for a BMVg reporting duty.",
+      "methodology_ids": [
+        "2B.8",
+        "2B.9"
+      ],
+      "period_fit": "Correction and follow-up finding occurred in October-November 2022.",
+      "provisional_id": "WEB-2B-C1-009",
+      "publication_date": "2022-11-11",
+      "publisher": "Bundesrechnungshof",
+      "ruler_attribution": "A corrective response by the Defence Ministry within the Scholz government; no source establishes that Scholz personally ordered it.",
+      "source_confidence": "high",
+      "source_confidence_reason": "The independent auditor records both the ministry's concrete correction and the residual control risks, avoiding an announcement-only inference.",
+      "source_type": "supreme_audit_institution_finding",
+      "title": "Sonderverm\u00f6gen Bundeswehr: Besser, aber weiterhin mit Risiken",
+      "underlying_fact_key": "bundeswehr_special_fund_partial_correction_2022",
+      "url": "https://www.bundesrechnungshof.de/SharedDocs/Kurzmeldungen/DE/-2022-Kurzmeldungen/-11-2022-sondervermoegen-bundeswehr/11-2022-sondervermoegen-bundeswehr.html"
+    },
+    {
+      "canonical_fact_key": "bundeswehr_special_fund_zero_2022_disbursement",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "The Parliamentary Commissioner for the Armed Forces reported that none of the \u20ac100 billion special fund had reached the armed forces during 2022 and characterized procurement as excessively slow, while calling for accelerated procurement reform.",
+      "contrary_evidence": "Some major orders were initiated in 2022 and planning was revised, but neither fact constitutes money or equipment reaching troops that year.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.8",
+        "2B.9"
+      ],
+      "locator": "Interview accompanying Annual Report 2022, web lines 735-740.",
+      "methodology_ids": [
+        "2B.8",
+        "2B.9"
+      ],
+      "period_fit": "Published in 2023 but explicitly establishes the absence of special-fund disbursement during calendar year 2022.",
+      "provisional_id": "WEB-2B-C1-010",
+      "publication_date": "2023-03-14",
+      "publisher": "Deutscher Bundestag / Parliamentary Commissioner for the Armed Forces",
+      "ruler_attribution": "Outcome of the Scholz government's signature defence-fund implementation, with procurement responsibility distributed across the Defence Ministry, procurement administration, cabinet, and legislature.",
+      "source_confidence": "high",
+      "source_confidence_reason": "The constitutionally independent parliamentary commissioner made a precise retrospective finding tied to her 2022 annual report.",
+      "source_type": "independent_parliamentary_oversight",
+      "title": "H\u00f6gl: Noch kein Cent des Sonderverm\u00f6gens bei der Truppe angekommen",
+      "underlying_fact_key": "bundeswehr_special_fund_zero_2022_disbursement",
+      "url": "https://www.bundestag.de/dokumente/textarchiv/2023/kw11-interview-wehrbeauftragte-937590"
+    },
+    {
+      "canonical_fact_key": "scholz_saudi_joint_program_export_approvals_2022",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Based on Economy Minister Habeck's letter to the Bundestag, independent reporting said Scholz approved Saudi export licences before his Gulf trip, including approximately \u20ac36 million in Eurofighter and Tornado equipment and ammunition and \u20ac2.8 million in A330 MRTT spare parts, all connected to multinational programmes.",
+      "contrary_evidence": "The approvals were exceptions tied to inherited multinational programmes, not proof that Germany abandoned every Saudi restriction; recipient end use and subsequent delivery are not established here.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.5",
+        "2B.9"
+      ],
+      "locator": "Sections \u201cNew export licenses\u201d and \u201cBanned in 2018\u201d, web lines 96-116.",
+      "methodology_ids": [
+        "2B.5",
+        "2B.9"
+      ],
+      "period_fit": "Approvals and reporting occurred in September 2022.",
+      "provisional_id": "WEB-2B-C1-011",
+      "publication_date": "2022-09-29",
+      "publisher": "Deutsche Welle",
+      "ruler_attribution": "Direct: the ministerial letter reportedly stated that Scholz approved the licences before his trip; implementation remained shared with the export-control authorities and cabinet ministries.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Contemporaneous reporting identifies the decision-maker, timing, equipment classes, values, and underlying parliamentary communication, although the letter itself was not recovered in an accessible stable copy.",
+      "source_type": "independent_news_based_on_ministerial_letter",
+      "title": "Report: Germany OKs arms sales to Saudi Arabia",
+      "underlying_fact_key": "scholz_saudi_joint_program_export_approvals_2022",
+      "url": "https://amp.dw.com/en/german-government-approves-arms-exports-to-saudi-arabia-reports/a-63288334"
+    },
+    {
+      "canonical_fact_key": "scholz_government_saudi_export_rationale_2022",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Baerbock acknowledged that the government chose not to block German components for inherited European joint programmes reaching Saudi Arabia, citing reliability toward British and Spanish partners; she said the government intended future common criteria and exit clauses where human-rights standards were not met.",
+      "contrary_evidence": "The promised future criteria and exit clauses were prospective and do not establish recipient-risk review, post-shipment monitoring, or an enforceable remedy for the 2022 approvals.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.5",
+        "2B.9"
+      ],
+      "locator": "Interview question and answer on Saudi Arabia, web lines 141-145.",
+      "methodology_ids": [
+        "2B.5",
+        "2B.9"
+      ],
+      "period_fit": "Contemporaneous October 2022 explanation of the 2022 decision.",
+      "provisional_id": "WEB-2B-C1-012",
+      "publication_date": "2022-10-16",
+      "publisher": "Federal Foreign Office of Germany",
+      "ruler_attribution": "Cabinet-level rationale under Scholz; it corroborates shared governmental ownership but does not replace the separate evidence that Scholz approved specific licences.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Primary explanation by the responsible foreign minister explicitly identifies the cabinet's decision, its multinational constraint, and proposed safeguard response.",
+      "source_type": "official_ministerial_interview",
+      "title": "Our arms deliveries are protecting human lives",
+      "underlying_fact_key": "scholz_saudi_joint_program_export_approvals_2022",
+      "url": "https://www.auswaertiges-amt.de/en/newsroom/news/interview-baerbock-sz-2558140"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---

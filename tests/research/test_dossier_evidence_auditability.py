@@ -419,6 +419,23 @@ def test_current_dossier_rejects_environment_without_cited_support() -> None:
         RulerEvidenceDossier.model_validate(payload)
 
 
+def test_normalizer_repairs_empty_environment_support_from_retained_evidence() -> None:
+    evidence = _evidence() | {
+        "source_locator": "PDF p. 4",
+        "canonical_fact_key": "source|p4|claim",
+    }
+    payload = _dossier((evidence,))
+    payload["evidence_environment"]["supporting_evidence_ids"] = []
+
+    normalized = normalize_dossier_candidate(payload, methodology_ids=("1B.1",))
+    dossier = RulerEvidenceDossier.model_validate(normalized)
+
+    assert dossier.evidence_environment.supporting_evidence_ids == ("E001",)
+    assert any(
+        "support repaired" in warning for warning in dossier.normalization_warnings
+    )
+
+
 def test_shared_environment_type_can_represent_unassessed_legacy_projection() -> None:
     environment = EvidenceEnvironmentAssessment.model_validate(
         {

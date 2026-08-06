@@ -894,6 +894,31 @@ def test_formatter_restores_complete_evidence_directly_from_manifest() -> None:
     assert restored["mappings"][0]["methodology_id"] == "1B.2"
 
 
+def test_formatter_restores_manifest_fact_with_hostname_as_publisher() -> None:
+    candidate = {
+        "evidence": [],
+        "mappings": [],
+        "coverage": [],
+        "methodology_ids": ["1B.2"],
+        "normalization_warnings": [],
+    }
+    notebook = """--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[{
+  "provisional_id":"WEB-1B-001","canonical_fact_key":"reviewed-fact",
+  "chapter_ids":["1B"],"methodology_ids":["1B.2"],
+  "disposition":"final_evidence","claim":"A retained claim.",
+  "url":"https://example.test/report","locator":"page 4"}]}
+"""
+
+    restored = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate=None,
+        notebook=notebook,
+    )
+
+    assert restored["evidence"][0]["publisher"] == "example.test"
+
+
 def test_formatter_does_not_invent_exact_routes_from_chapter_hints() -> None:
     candidate = {
         "evidence": [],
@@ -1845,6 +1870,71 @@ def test_initial_claim_lines_normalize_disposition_and_routing(
             "locator": "lines 1-2",
         }
     ]
+
+
+def test_initial_claim_lines_accept_researcher_lenses_alias(
+    tmp_path: Path,
+) -> None:
+    handoff = tmp_path / "handoff.md"
+    manifest = tmp_path / "manifest.json"
+    handoff.write_text(
+        'SOURCE_CLAIM_JSON: {"provisional_id":"R01","canonical_fact_key":"fact",'
+        '"disposition":"final_evidence","chapter_ids":["4B"],'
+        '"lenses":["4B.2","4B.6"],"url":"https://example.test",'
+        '"claim":"Claim","locator":"lines 1-2"}\n',
+        encoding="utf-8",
+    )
+
+    recovered = _load_or_recover_research_ledger_manifest(
+        manifest, handoff_path=handoff
+    )
+
+    assert recovered is not None
+    assert recovered["entries"][0]["methodology_ids"] == ["4B.2", "4B.6"]
+
+
+def test_embedded_manifest_recovers_lenses_from_claim_line() -> None:
+    notebook = (
+        'SOURCE_CLAIM_JSON: {"provisional_id":"R01",'
+        '"canonical_fact_key":"fact","disposition":"final_evidence",'
+        '"chapter_ids":["4B"],"lenses":["4B.2","4B.6"]}\n'
+        "--- RESEARCH LEDGER MANIFEST ---\n"
+        '{"schema_version":"ruler_research_ledger_manifest_v1","entries":['
+        '{"provisional_id":"R01","canonical_fact_key":"fact",'
+        '"disposition":"final_evidence","chapter_ids":["4B"],'
+        '"methodology_ids":[]}]}\n'
+    )
+
+    manifest = _embedded_ledger_manifest(notebook)
+
+    assert manifest is not None
+    assert manifest["entries"][0]["methodology_ids"] == ["4B.2", "4B.6"]
+
+
+def test_numbered_reconnaissance_record_is_recovered_without_invented_claim() -> None:
+    notebook = """### Record 1 — Military expansion
+
+- **Fact:** Mexico expanded the military role in civilian administration.
+- **Strongest source:** *Annual Report 2023*, IACHR, 2024. [Direct source](https://example.test/report.pdf)
+- **Locator:** PDF pp. 3–5.
+- **Period:** 2023.
+- **Ruler connection:** Strong for the federal policy.
+- **Complicating evidence:** The government reported improved coverage.
+- **Cautions:** The report does not measure every outcome.
+"""
+
+    evidence = _recover_explicit_markdown_evidence(
+        notebook,
+        "military-expansion",
+        provisional_id="AMLO23-001",
+    )
+
+    assert evidence is not None
+    assert evidence["claim"] == (
+        "Mexico expanded the military role in civilian administration."
+    )
+    assert evidence["publisher"] == "IACHR"
+    assert evidence["source_locator"] == "PDF pp. 3–5."
 
 
 def test_continuation_manifest_renames_conflicting_id_reuse(tmp_path: Path) -> None:

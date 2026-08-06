@@ -1,0 +1,638 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:PAK:16682",
+  "iso3": "PAK",
+  "country_name": "Pakistan",
+  "ruler_name": "Shehbaz Sharif",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 23,
+  "approximate_source_family_count": 10,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 23 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 10 approximate source families were observed; the soft review threshold is 24."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed for Shehbaz Sharif, Pakistan, 2022. No chapter scores, score ranges, ranking recommendations, or final judgments were assigned.
+
+The supplied output paths were not writable in this worker environment, so the complete ledger handoff is included below for parent persistence.
+
+## Reconnaissance and authority baseline
+
+Shehbaz Sharif became prime minister on 11 April 2022 after a parliamentary no-confidence vote removed Imran Khan. The coalition government had a slim majority and consisted of traditionally competing parties; the IMF described the governing environment as politically fragile and protest-prone. [IMF country report](https://www.imf.org/-/media/Files/Publications/CR/2022/English/1PAKEA2022002.ashx#page=7), [Guardian chronology](https://www.theguardian.com/world/2022/apr/11/pakistan-assembly-elects-shehbaz-sharif)
+
+The prime minister had formal responsibility for national policy, cabinet coordination, federal appointments, economic decisions, flood relief, and the civilian government’s external positions. Practical authority was constrained by the coalition’s slim majority and the military’s substantial influence over security and other policy areas. [Freedom House](https://freedomhouse.org/country/pakistan/freedom-net/2022)
+
+The information environment was constrained but not closed: independent media and civil society remained active, while authorities used sedition, cybercrime, blasphemy, internet restrictions, and arrests against critics. Human Rights Watch reported intensified pressure on media, civil society, and opposition activists in 2022. [Human Rights Watch](https://www.hrw.org/news/2023/01/12/pakistan-rights-besieged-amid-political-turmoil), [Freedom House](https://freedomhouse.org/country/pakistan/freedom-net/2022)
+
+The pass searched English-language international, intergovernmental, NGO, official, and local-media sources. No local-language archive search was completed. Source concentration is highest around the April constitutional transition, the floods, economic stabilization, media restrictions, and opposition conflict. These topics should not be treated as representative of all governance activity.
+
+## Evidence ledger
+
+All items are provisional, reusable, and score-free.
+
+| ID | Source and precise locator | Claim and relevance | Profile / fit | Mapped chapters and lenses |
+|---|---|---|---|---|
+| E001 | Local prior `local-prior:4B.1`; LF1303, LF1308, LF1306–LF1310; 2022; Freedom House, V-Dem, EIU | Pakistan retained multiparty elections and suffrage, but 2022 country indicators show weak electoral-democracy, multiparty, civil-liberties, and political-liberties conditions. These are country context, not personal proof. | Local structured prior; high for measured fields; target-year fit; attribution limited. | 4B: 4B.1, 4B.2, 4B.3, 4B.7, 4B.8, 4B.10 |
+| E002 | IMF report, PDF p.7, ¶1–3 | Sharif took office in a coalition after a no-confidence vote; coalition had a slim majority and faced large protests; government initially unwound untargeted subsidies and adopted a fiscal-adjustment budget. | IMF/intergovernmental; high; target-year; strong formal-policy and chronology evidence, but attribution is coalition-level. | 4B: 4B.1, 4B.8, 4B.10; 5B: 5B.3, 5B.9, 5B.10; 8B: 8B.1–8B.7, 8B.9–8B.10 |
+| E003 | Guardian, lines 154–171 | Sharif led the opposition alliance, was elected with 174 votes, and entered office after the Supreme Court required the no-confidence vote to proceed. | Reputable media; medium_high; target-year; useful chronology and attributed political action. | 4B: 4B.1, 4B.8, 4B.10; 8B: 8B.1, 8B.2, 8B.9 |
+| E004 | Local priors LF1803, LF1809–LF1817; 2022; V-Dem, EIU, RSF, WGI | 2022 structured context: accountability 0.415, expression 0.535, association 0.683, judicial constraints 0.659, legislative constraints 0.525, liberal democracy 0.227, RSF score 37.99/rank 157, rule of law 0.219, voice/accountability −0.862, WGI rule of law −0.672. | Local structured prior; high for measured fields; country-level and non-attributive. | 4B, 7B, 8B as contextual priors |
+| E005 | Freedom House, lines 85, 170–173 | Pakistan had a peaceful parliamentary transfer in April 2022, but the military retained enormous influence; reports described throttling during PTI protests and continuing shutdowns in Balochistan and former FATA. | Unlisted monitor; medium_low under supplied registry default; context/final corroboration only, not sole support. | 3B: 3B.5, 3B.8, 3B.9; 4B: 4B.3, 4B.6, 4B.9, 4B.10 |
+| E006 | Freedom House, lines 426–432 | The February 2022 PECA amendment expanded criminal-defamation coverage and penalties; rights groups criticized it; the Islamabad High Court struck the ordinance down in April 2022, while another court upheld the relevant provision. | Unlisted monitor; medium_low/context; formal court outcome is stronger than the advocacy characterization. | 4B: 4B.4, 4B.6, 4B.9; 3B: 3B.5, 3B.8 |
+| E007 | Human Rights Watch, lines 608–618 | HRW reported intensified clampdowns on media, civil society, and opposition activists; arrests under sedition and incitement laws; failures concerning minorities; and inadequate preparation for flood vulnerabilities. | HRW; medium_high; target-year; NGO evidence requiring attribution care. | 3B: 3B.1, 3B.2, 3B.4, 3B.5, 3B.8, 3B.9; 4B: 4B.3, 4B.6, 4B.9; 6B: 6B.3, 6B.6 |
+| E008 | HRW World Report 2022, lines 93–101 | Security forces were reported responsible for detention without charge and extrajudicial killings; torture legislation remained incomplete; militant violence caused civilian deaths; accountability was weak. Most cited examples predate Sharif’s tenure and are inherited context. | HRW; medium_high; largely pre-accession or broader national baseline; attribution to Sharif not established. | 3B: 3B.1, 3B.2, 3B.4, 3B.5, 3B.6, 3B.10; 2B: 2B.4, 2B.5, 2B.9 |
+| E009 | U.S. State Department terrorism report, lines 43–48 | In 2022 BLA and TTP attacks killed civilians/security personnel; Pakistani military, paramilitary, and civilian forces conducted counterterrorism operations; preventive detention and terrorism courts remained available. | Official report; medium_low for evaluative claims, stronger for reported events and formal law; target-year. | 2B: 2B.1, 2B.4, 2B.5, 2B.9, 2B.10; 3B: 3B.1, 3B.6, 3B.9, 3B.10 |
+| E010 | Reuters/Euronews, 19 May 2022 | Afghan Taliban mediation produced a temporary Pakistan–TTP ceasefire; Pakistan had conducted operations against TTP, but attacks were rising again. | Reuters-republished media; medium_high; target-year; attribution to Sharif’s civilian government is partial because security policy was institutionally shared. | 2B: 2B.1, 2B.5, 2B.7, 2B.10; 3B: 3B.6, 3B.9, 3B.10 |
+| E011 | Local prior LF138–LF141 and LS042–LS043; UCDP, 2022 | Pakistan had 266 state-based conflict events and 631 state-based fatalities in 2022, with zero internationalized conflict events/fatalities in the supplied record. These establish exposure, not initiation or ruler responsibility. | Local structured prior; high for event counts; attribution absent. | 2B: 2B.1–2B.10; 3B: 3B.6, 3B.9, 3B.10 |
+| E012 | Local prior LF289–LF292 and LS049–LS052; SIPRI, 2022 | Military spending was approximately $11.20bn constant 2024 dollars, 3.18% of GDP, and 15.92% of government spending; recent per-capita and GDP-share measures declined. These are burden/context measures, not evidence of motive or aggression. | Local structured prior; high for expenditure fields; no ruler attribution. | 1B: 1B.5, 1B.10; 2B: 2B.3, 2B.8, 2B.10 |
+| E013 | Arms Control Association, lines 89–97, 129–130 | Pakistan’s long-standing nuclear posture retained a first-use option, emphasized deterrence and centralized command, maintained a unilateral testing moratorium, and faced concerns over tactical nuclear command-and-control risks. This is broader posture context, not a Sharif-specific decision. | Unlisted specialist NGO/think tank; medium_low/context; retrospective 2023 analysis. | 1B: 1B.1–1B.10, especially 1B.2, 1B.3, 1B.4, 1B.7, 1B.10 |
+| E014 | Dawn, lines 43–59 | In October 2022 Sharif publicly described Pakistan as a responsible nuclear state with “sound” command and control and IAEA-aligned safeguards while responding to Biden’s remarks. This is a ruler-attributed statement, but self-serving and not independent proof of safeguards. | Local media reporting official PMO statement; medium_low/context; target-year. | 1B: 1B.2, 1B.3, 1B.7, 1B.8; 7B: 7B.1, 7B.10 only as a statement requiring corroboration |
+| E015 | IMF report, PDF p.7–8, ¶2–5 | The inherited February relief package widened the FY22 deficit; Sharif’s government began removing untargeted fuel/power subsidies in late May, restoring the petroleum levy, adopting a tighter FY23 budget, and supporting monetary tightening. Inflation reached 21.3% in June and external pressures intensified. | IMF; high; target-year; strong policy/implementation evidence, with substantial inherited and external constraints. | 5B: 5B.1, 5B.3, 5B.4, 5B.7, 5B.9, 5B.10; 8B: 8B.2, 8B.5, 8B.6, 8B.8, 8B.10 |
+| E016 | World Bank, lines 135–142 | Floods, tight monetary policy, inflation, external shocks, and high debt reduced growth prospects; poverty could rise by 2.5–4 percentage points; the Bank urged targeted relief, fiscal discipline, exchange-rate flexibility, and structural reforms. | World Bank; high; target-year; independent macro and distribution analysis. | 5B: 5B.3, 5B.7, 5B.8, 5B.9, 5B.10; 6B: 6B.2, 6B.3, 6B.6, 6B.10; 8B: 8B.7–8B.10 |
+| E017 | World Bank PDNA release, lines 140–146 | The floods caused over $14.9bn in damage, $15.2bn in losses, and at least $16.3bn in reconstruction needs; 33m people were affected, over 1,730 died, and more than 8m were displaced. Poor and vulnerable districts, women’s livelihoods, health, food prices, and disease exposure were disproportionately affected. | World Bank/ADB/EU/UNDP joint assessment; high; target-year; outcome/context, not automatic ruler blame. | 5B: 5B.8–5B.10; 6B: 6B.2, 6B.3, 6B.6, 6B.8, 6B.10; 8B: 8B.7, 8B.9, 8B.10 |
+| E018 | UNDP/UN FRP, lines 35–48 | The government and UN launched a coordinated flood-response plan covering food, agriculture, shelter, nutrition, health, protection, water, sanitation, women’s health, education, and displaced people; the UN secretary-general characterized the government response as swift but emphasized that needs were far beyond available capacity. | UN/intergovernmental; high; target-year; direct government-program evidence with external qualification. | 5B: 5B.1, 5B.6, 5B.8, 5B.9; 6B: 6B.1–6B.6, 6B.8–6B.10; 8B: 8B.2, 8B.3, 8B.6, 8B.9 |
+| E019 | UNDP Flood Recovery Programme, lines 38–48 | In December 2022 UNDP, working with Pakistan’s Economic Affairs Division, began recovery programming for housing, infrastructure, livelihoods, government services, and resilience, including cash grants for vulnerable women-headed households and cash-for-work. | UNDP; high; target-year; implementation evidence, but donor/UN attribution is substantial. | 5B: 5B.4, 5B.6, 5B.8, 5B.10; 6B: 6B.2, 6B.3, 6B.6, 6B.8, 6B.9; 8B: 8B.2, 8B.3, 8B.6, 8B.10 |
+| E020 | BISP/official government record, search result and linked 2022 releases | Flood-relief cash transfers were distributed through BISP, with official releases reporting expanding allocations and payments to affected families. This supports a government relief action, but official coverage and delivery claims require independent audit evidence. | Official government; medium_low except for formal program announcements; context unless corroborated. | 6B: 6B.2, 6B.3, 6B.6, 6B.8; 8B: 8B.2, 8B.6, 8B.9 |
+| E021 | Local prior LF2690–LF2697 and LS039, LS047–LS048, LS074; UNDP/WHO/WDI | 2022 HDI was 0.540, life expectancy 66.431 years, mean schooling 4.422 years, expected schooling 7.895 years, under-five mortality 50.52/1,000, BCG 95%, DTP3/HepB3 85%, and secondary enrollment 40.42%. These are outcomes and baseline context; no direct Sharif attribution. | Local structured prior; high for measured fields; attribution limited. | 6B: 6B.1–6B.10; 5B: 5B.6, 5B.8, 5B.10 |
+| E022 | Local prior LF1800–LF1802, LF2847–LF2850, LF2897–LF2898; V-Dem/WGI, 2021–2022 | Rule of law, accountability, corruption, government effectiveness, and regulatory quality remained weak in 2022; these are country-level priors and cannot establish Sharif’s personal integrity or competence. | Local structured prior; high for measured fields; explicitly non-personal. | 7B: 7B.6, 7B.7, 7B.10; 8B: 8B.2–8B.10 |
+| E023 | Search candidate: Shehbaz Sharif corruption/money-laundering proceedings | Search results indicated that Sharif and his son were acquitted in October 2022, following earlier allegations and proceedings. The accessible candidate was not opened to a primary judgment in this pass; it remains discovery-only and must not be used as final evidence. | Discovery-only; underlying court record not retrieved. | 7B: 7B.3, 7B.4, 7B.6, 7B.7 |
+| E024 | Search candidate: 2022 protests and flood-relief criticism | Search results indicated reports of protests and arrests connected to alleged inadequate flood relief, but the underlying source was not opened and ruler attribution was unclear. Discovery-only. | Discovery-only; insufficient locator and attribution. | 3B: 3B.8, 3B.9; 6B: 6B.6; 8B: 8B.9 |
+
+## Chapter-by-chapter baseline and yield
+
+### 1B — Nuclear and existential risk
+
+Local baseline: FAS facts LF001–LF005 establish a large inherited nuclear stockpile and nondeployed inventory, with 2014 observations; the package explicitly warns that these do not establish Sharif’s conduct. SIPRI military-spending facts LF289–LF292 provide burden context.
+
+Narrative yield: E013 and E014 provide broader doctrine and one target-year Sharif statement. No usable target-year evidence was found for Sharif personally changing nuclear doctrine, command arrangements, safeguards, proliferation policy, arms control, or crisis posture. Dual-use cyber/biological/AI evidence was not found.
+
+Main gaps: ruler-specific authority over the National Command Authority; appointments and expert governance; target-year crisis decisions; implementation of safeguards; nuclear diplomacy beyond official rhetoric.
+
+### 2B — International peace and lawful security
+
+Local baseline: UCDP facts LF138–LF141 record 266 state-based conflict events and 631 fatalities in 2022, with zero internationalized conflict events/fatalities. SIPRI facts provide military burden. These do not establish initiation, proportionality, proxy responsibility, or personal command.
+
+Narrative yield: E009 documents the security environment and counterterrorism powers; E010 documents a temporary TTP ceasefire and failed/limited peace trajectory. The evidence supports exposure and some diplomacy/security action but leaves command attribution, civilian protection, public justification, proxy responsibility, and accountability unresolved.
+
+### 3B — Domestic safety
+
+Local baseline: LF673–LF682 show 2022 CIRIGHTS values of zero for recorded disappearances, killings, physical-integrity violations, political imprisonment, and torture, but the package warns these are aggregate country indicators and not proof of safety. V-Dem and UCDP facts show weak/declining physical-integrity and civil-liberties context plus 12 one-sided violence events and 69 fatalities.
+
+Narrative yield: E007 and E008 document repression, detention, minority vulnerability, security-force abuse, and weak remedies. E005–E006 add internet restrictions and PECA enforcement. These are materially relevant but attribution to Sharif’s short tenure is mixed; much evidence concerns inherited institutions, military influence, or actions by subordinate agencies.
+
+### 4B — Political freedom
+
+Local baseline: LF1303–LF1310 and LF1803–LF1817 provide target-year Freedom House, V-Dem, EIU, RSF, and WGI context. The trajectory shows weak political freedom and media conditions, but also a peaceful parliamentary transfer.
+
+Narrative yield: E002–E006 establish the constitutional transfer, coalition constraints, protest environment, military influence, media restrictions, PECA conflict, and court resistance. This is the strongest chapter-level narrative coverage. The principal unresolved issue is whether Sharif personally directed, tolerated, or attempted to remedy the documented restrictions.
+
+### 5B — Economic well-being
+
+Local baseline: LF2096–LF2101 and LF2554–LF2559 provide 2022 nominal GDP, real GDP, GDP per capita, consumption, government consumption, and capital formation; LS029, LS031, LS035, LS037–LS038, and LS041 show long-run gains but substantial 2022 shock effects. These are outcomes/context, not personal credit.
+
+Narrative yield: E015–E019 establish inherited fiscal slippage, subsidy removal, IMF stabilization, inflation, flood damage, targeted-relief requirements, and recovery planning. The record is mixed and strongly constrained by inherited policy, global energy prices, coalition politics, and floods. Evidence for appointments, fair competition, corruption/capture, regional distribution, and correction of mistakes is thin.
+
+### 6B — Social well-being
+
+Local baseline: LF2689–LF2697 and LS023, LS039, LS047–LS048, LS072, LS074 provide target-year HDI, life expectancy, schooling, under-five mortality, immunization, and secondary enrollment. These establish outcome conditions only.
+
+Narrative yield: E017–E020 document flood-related human suffering and government/UN relief, cash assistance, health, sanitation, shelter, education, women’s health, and recovery programs. Attribution is shared among the federal government, NDMA, BISP, UN agencies, donors, and provincial authorities. Evidence for ordinary non-flood social policy, service quality, political conditionality, and durability is missing.
+
+### 7B — Personal integrity
+
+Local baseline: LF2847–LF2850 and related WGI/V-Dem corruption fields are explicitly country-level and cannot establish Sharif’s personal conduct. The supplied package marks seven 7B lenses as lacking ruler-specific evidence.
+
+Narrative yield: no final-evidence personal-integrity item was established. E023 remains discovery-only because the underlying court judgment was not retrieved. Official claims about nuclear responsibility in E014 are not integrity evidence.
+
+Main gaps: personal assets and beneficial interests, family/business nexus, appointments, procurement, promises and corrections, response to scrutiny, obstruction or acceptance of independent investigations, and reliable adverse/mitigating evidence.
+
+### 8B — Effectiveness and competence
+
+Local baseline: LF2897–LF2898 provide weak government-effectiveness and regulatory-quality context; LF1803 and LF1815 provide accountability/rule-of-law context. These are inherited-capacity priors, not effectiveness evidence.
+
+Narrative yield: E002 and E015 show coalition formation, fiscal stabilization measures, subsidy reversal, and budget implementation. E018–E020 show flood-response planning and cash/recovery implementation. The principal gap is a clearly frozen portfolio of Sharif’s own programs and independent evidence of outcomes, adaptation, personnel quality, coordination, and durability across more than one material program.
+
+## Source diversity and reuse
+
+- Independent source families retained: IMF, World Bank, UNDP/UN, Human Rights Watch, Freedom House, U.S. State Department, Reuters-republished reporting, Guardian, Arms Control Association, Dawn, and local structured datasets.
+- Independent source types: intergovernmental, NGO/monitor, official record, reputable media, specialist think tank, and structured datasets.
+- Same-URL cross-chapter reuse is intentional:
+  - IMF report: 4B, 5B, 8B.
+  - HRW 2023: 3B, 4B, 6B.
+  - Freedom House: 3B, 4B.
+  - World Bank flood/economic material: 5B, 6B, 8B.
+  - UNDP flood-response material: 5B, 6B, 8B.
+  - U.S. terrorism report: 2B, 3B.
+- The strongest contrary evidence is the combination of:
+  - peaceful constitutional transfer and court resistance to PECA;
+  - government/UN descriptions of a swift, coordinated flood response;
+  - IMF evidence of corrective fiscal action;
+  - HRW evidence of intensified repression and inadequate protection;
+  - weak country-level rule-of-law, accountability, corruption, media, and effectiveness indicators.
+- No source was treated as repairing the local extraction gaps or as proving ruler-level attribution where only country-level data existed.
+
+## Local-data audit
+
+Retained and used as context:
+
+- 1B: LF001–LF005; LF289–LF292; LS049–LS052.
+- 2B: LF138–LF141; LF289–LF292; LS042–LS043; LS069–LS070.
+- 3B: LF673–LF682; LF683–LF685; LF904–LF915; LS004–LS011; LS024; LS054–LS056; LS061–LS064.
+- 4B: LF1303–LF1310; LF1803–LF1817; LS010, LS016–LS021, LS026–LS027, LS044–LS046, LS053, LS057, LS059–LS060, LS066, LS068, LS071, LS073.
+- 5B: LF2096–LF2101; LF2554–LF2560; LS029, LS031–LS041.
+- 6B: LF2689–LF2697; LS023, LS039–LS040, LS047–LS048, LS072, LS074.
+- 7B: LF2847–LF2850 and related institutional priors, used only as country context.
+- 8B: LF2897–LF2898; LF1803, LF1815, LF1787–LF1788, used only as inherited-capacity context.
+
+Left unused or not directly relied upon:
+
+- 2014 nuclear inventory facts beyond exposure/context.
+- Long historical series where they did not bear directly on the 2022 ruler-period.
+- Current-price GDP and consumption trends as causal evidence; the package warns they combine inflation and exchange-rate effects.
+- Country-level corruption, governance, and effectiveness facts as personal integrity or ruler-credit evidence.
+- Empty/no-evidence methodology statuses, which were retained as explicit gaps rather than converted into negative findings.
+
+## Manifest accounting
+
+A writable `research-ledger-manifest.json` could not be created. The equivalent entries are:
+
+```json
+{
+  "schema_version": "ruler_research_ledger_manifest_v1",
+  "entries": [
+    {"provisional_id":"E001","canonical_fact_key":"local-prior:4B.1:2022:political-freedom-bundle","chapter_ids":["4B"],"methodology_ids":["4B.1","4B.2","4B.3","4B.7","4B.8","4B.10"],"disposition":"context"},
+    {"provisional_id":"E002","canonical_fact_key":"https://www.imf.org/-/media/Files/Publications/CR/2022/English/1PAKEA2022002.ashx#page=7:paragraphs-1-3","chapter_ids":["4B","5B","8B"],"methodology_ids":["4B.1","4B.8","4B.10","5B.3","5B.9","5B.10","8B.1","8B.2","8B.5","8B.6","8B.9","8B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"E005","canonical_fact_key":"https://freedomhouse.org/country/pakistan/freedom-net/2022:lines-85-173","chapter_ids":["3B","4B"],"methodology_ids":["3B.5","3B.8","3B.9","4B.3","4B.6","4B.9","4B.10"],"disposition":"context"},
+    {"provisional_id":"E007","canonical_fact_key":"https://www.hrw.org/news/2023/01/12/pakistan-rights-besieged-amid-political-turmoil:lines-608-618","chapter_ids":["3B","4B","6B"],"methodology_ids":["3B.1","3B.2","3B.4","3B.5","3B.8","3B.9","4B.3","4B.6","4B.9","6B.3","6B.6"],"disposition":"final_evidence"},
+    {"provisional_id":"E009","canonical_fact_key":"https://www.ecoi.net/en/document/2101590.html:lines-43-48","chapter_ids":["2B","3B"],"methodology_ids":["2B.1","2B.4","2B.5","2B.9","2B.10","3B.1","3B.6","3B.9","3B.10"],"disposition":"context"},
+    {"provisional_id":"E010","canonical_fact_key":"https://www.euronews.com/2022/05/19/us-pakistan-afghanistan-ceasefire:article","chapter_ids":["2B","3B"],"methodology_ids":["2B.1","2B.5","2B.7","2B.10","3B.6","3B.9","3B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"E013","canonical_fact_key":"https://www.armscontrol.org/act/2023-10/features/pakistans-evolving-nuclear-doctrine:lines-89-97-and-129-130","chapter_ids":["1B"],"methodology_ids":["1B.1","1B.2","1B.3","1B.4","1B.7","1B.10"],"disposition":"context"},
+    {"provisional_id":"E015","canonical_fact_key":"https://www.imf.org/-/media/Files/Publications/CR/2022/English/1PAKEA2022002.ashx#page=7:paragraphs-2-5","chapter_ids":["5B","8B"],"methodology_ids":["5B.1","5B.3","5B.7","5B.9","5B.10","8B.2","8B.5","8B.6","8B.8","8B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"E017","canonical_fact_key":"https://www.worldbank.org/en/news/press-release/2022/10/28/pakistan-flood-damages-and-economic-losses-over-usd-30-billion-and-reconstruction-needs-over-usd-16-billion-new-assessme:lines-140-146","chapter_ids":["5B","6B","8B"],"methodology_ids":["5B.8","5B.9","5B.10","6B.2","6B.3","6B.6","6B.8","6B.10","8B.7","8B.9","8B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"E018","canonical_fact_key":"https://www.undp.org/pakistan/press-releases/joint-launch-2022-pakistan-floods-response-plan-government-pakistan-and-united-nations:lines-35-48","chapter_ids":["5B","6B","8B"],"methodology_ids":["5B.1","5B.6","5B.8","5B.9","6B.1","6B.2","6B.3","6B.5","6B.6","6B.8","6B.9","6B.10","8B.2","8B.3","8B.6","8B.9"],"disposition":"final_evidence"},
+    {"provisional_id":"E023","canonical_fact_key":"search-candidate:shehbaz-sharif-2022-corruption-acquittal","chapter_ids":["7B"],"methodology_ids":["7B.3","7B.4","7B.6","7B.7"],"disposition":"discovery_only"}
+  ]
+}
+```
+
+Remaining ledger items E003, E004, E006, E008, E011, E012, E014, E016, E019, E020, E021, E022, and E024 should be persisted using the same fields and dispositions described above.
+
+--- RESEARCH HANDOFF ---
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "local-prior:4B.1:2022:political-freedom-bundle",
+      "chapter_ids": [
+        "4B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.7",
+        "4B.8",
+        "4B.10"
+      ],
+      "provisional_id": "E001"
+    },
+    {
+      "canonical_fact_key": "https://www.imf.org/-/media/Files/Publications/CR/2022/English/1PAKEA2022002.ashx#page=7:paragraphs-1-3",
+      "chapter_ids": [
+        "4B",
+        "5B",
+        "8B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "4B.1",
+        "4B.8",
+        "4B.10",
+        "5B.3",
+        "5B.9",
+        "5B.10",
+        "8B.1",
+        "8B.2",
+        "8B.5",
+        "8B.6",
+        "8B.9",
+        "8B.10"
+      ],
+      "provisional_id": "E002"
+    },
+    {
+      "canonical_fact_key": "https://freedomhouse.org/country/pakistan/freedom-net/2022:lines-85-173",
+      "chapter_ids": [
+        "3B",
+        "4B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "3B.5",
+        "3B.8",
+        "3B.9",
+        "4B.3",
+        "4B.6",
+        "4B.9",
+        "4B.10"
+      ],
+      "provisional_id": "E005"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/news/2023/01/12/pakistan-rights-besieged-amid-political-turmoil:lines-608-618",
+      "chapter_ids": [
+        "3B",
+        "4B",
+        "6B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "3B.1",
+        "3B.2",
+        "3B.4",
+        "3B.5",
+        "3B.8",
+        "3B.9",
+        "4B.3",
+        "4B.6",
+        "4B.9",
+        "6B.3",
+        "6B.6"
+      ],
+      "provisional_id": "E007"
+    },
+    {
+      "canonical_fact_key": "https://www.ecoi.net/en/document/2101590.html:lines-43-48",
+      "chapter_ids": [
+        "2B",
+        "3B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "2B.1",
+        "2B.4",
+        "2B.5",
+        "2B.9",
+        "2B.10",
+        "3B.1",
+        "3B.6",
+        "3B.9",
+        "3B.10"
+      ],
+      "provisional_id": "E009"
+    },
+    {
+      "canonical_fact_key": "https://www.euronews.com/2022/05/19/us-pakistan-afghanistan-ceasefire:article",
+      "chapter_ids": [
+        "2B",
+        "3B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "2B.1",
+        "2B.5",
+        "2B.7",
+        "2B.10",
+        "3B.6",
+        "3B.9",
+        "3B.10"
+      ],
+      "provisional_id": "E010"
+    },
+    {
+      "canonical_fact_key": "https://www.armscontrol.org/act/2023-10/features/pakistans-evolving-nuclear-doctrine:lines-89-97-and-129-130",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "1B.1",
+        "1B.2",
+        "1B.3",
+        "1B.4",
+        "1B.7",
+        "1B.10"
+      ],
+      "provisional_id": "E013"
+    },
+    {
+      "canonical_fact_key": "https://www.imf.org/-/media/Files/Publications/CR/2022/English/1PAKEA2022002.ashx#page=7:paragraphs-2-5",
+      "chapter_ids": [
+        "5B",
+        "8B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "5B.1",
+        "5B.3",
+        "5B.7",
+        "5B.9",
+        "5B.10",
+        "8B.2",
+        "8B.5",
+        "8B.6",
+        "8B.8",
+        "8B.10"
+      ],
+      "provisional_id": "E015"
+    },
+    {
+      "canonical_fact_key": "https://www.worldbank.org/en/news/press-release/2022/10/28/pakistan-flood-damages-and-economic-losses-over-usd-30-billion-and-reconstruction-needs-over-usd-16-billion-new-assessme:lines-140-146",
+      "chapter_ids": [
+        "5B",
+        "6B",
+        "8B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "5B.8",
+        "5B.9",
+        "5B.10",
+        "6B.2",
+        "6B.3",
+        "6B.6",
+        "6B.8",
+        "6B.10",
+        "8B.7",
+        "8B.9",
+        "8B.10"
+      ],
+      "provisional_id": "E017"
+    },
+    {
+      "canonical_fact_key": "https://www.undp.org/pakistan/press-releases/joint-launch-2022-pakistan-floods-response-plan-government-pakistan-and-united-nations:lines-35-48",
+      "chapter_ids": [
+        "5B",
+        "6B",
+        "8B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "5B.1",
+        "5B.6",
+        "5B.8",
+        "5B.9",
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.5",
+        "6B.6",
+        "6B.8",
+        "6B.9",
+        "6B.10",
+        "8B.2",
+        "8B.3",
+        "8B.6",
+        "8B.9"
+      ],
+      "provisional_id": "E018"
+    },
+    {
+      "canonical_fact_key": "search-candidate:shehbaz-sharif-2022-corruption-acquittal",
+      "chapter_ids": [
+        "7B"
+      ],
+      "disposition": "discovery_only",
+      "methodology_ids": [
+        "7B.3",
+        "7B.4",
+        "7B.6",
+        "7B.7"
+      ],
+      "provisional_id": "E023"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---

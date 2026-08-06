@@ -1,0 +1,662 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited web evidence and
+its separately embedded `local_evidence` package. The parent has hash-bound each
+projection to its complete source dossier and local-evidence artifact. Web evidence
+uses E-IDs; structured local facts and signals use LF/LS IDs. Keep those provenance
+families separate. Do not browse, search the web, use the client matrix, add facts from
+memory, or rewrite a local fact as a web citation. Evidence IDs are local to each
+dossier.
+
+The complete scoring inputs are the hash-bound local JSON files listed below. Read every listed file in full using local filesystem tools. Do not browse, search the web, read any unlisted research file, or modify an input. A local-tool failure is not a reason to return null scores; retry
+the local read before producing the complete batch.
+An `available` local package is authoritative structured context. An `unavailable` or
+`invalid` local package lowers confidence when material but does not erase usable web
+evidence or automatically force a null.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Treat projection coverage statuses and evidence-to-lens mappings as advisory
+bookkeeping, not binding admissibility decisions. Apply every cited chapter evidence
+item to the ten lenses yourself. A projection mapping does not make an item relevant:
+the active guide's scope, non-goals, exclusions, and attribution limits are mandatory.
+Identify and give zero scoring weight to mapped evidence that fails those gates; do not
+use it as a positive, negative, contrary, or anchor reason. In particular,
+`research_blocked` means that the
+formatter did not record a complete lens disposition; it does not erase relevant
+chapter evidence or require a null score.
+Use half-point score increments. A numeric score must rest on a concrete record of
+relevant governing conduct, not merely country indicators or evidence volume. For
+Chapters 1B-6B and 8B, documented formal responsibility for national policy, programs,
+appointments, command, implementation, tolerance, or remedy can satisfy attribution
+without proof of a personal order. Chapter 7B requires a personal-integrity nexus.
+Shared authority affects weight and confidence rather than automatically erasing the
+evidence. Inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If the record remains insufficient, return null with
+the full 1-10 range. Cite the qualifying ruler-attribution evidence by stable E-ID in
+a decisive web-evidence array. Local structured evidence is country-level context and
+cannot support a numeric ruler score by itself. Use `decisive_local_evidence` only
+alongside a decisive E-ID that establishes the ruler's relevant authority or nexus;
+use `contextual_local_evidence` for baselines or signals that frame interpretation
+without independently determining direction. Never
+attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Before scoring each ruler: (1) establish the information environment and evidence
+opportunity; (2) identify the inherited baseline and external shocks; (3) establish
+formal and practical ruler authority; (4) collapse repeated coverage into independent
+underlying facts; (5) compare absolute conditions with change from baseline; and
+(6) compare the ruler with adjacent cases. Then make the holistic judgment. Preserve
+inherited conditions, ruler authority, contrary evidence, source bias, and adjacent-case
+comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Every evaluation must include a substantive `bias_assessment`. Cite the dossier E-IDs
+that support each material bias finding, state its likely direction and how it changed
+interpretation, and explain the effect on confidence and plausible range. Confirm that
+complaint/report volume was not treated as severity and that no blanket democracy or
+autocracy score correction was applied. Closed-system silence is not favorable evidence;
+open-system disclosure and remedy are not additional misconduct.
+
+Write `chapter_rationale` as a self-contained reader-facing abstract, not as terse
+notes between specialists. Assume the reader knows the ruler's name but does not
+know the events, institutions, controversies, programs, or acronyms in the dossier.
+Keep it concise: normally 120-220 words and never more than 300 words. Keep every
+other prose field to one or two sentences. Spend output tokens on completing and
+validating all evaluations, not on repeating dossier evidence.
+Use this order: (1) state the overall chapter appraisal and score in plain language;
+(2) explain the main favorable and unfavorable findings, identifying what each
+specific case was and why it matters; (3) distinguish proven facts from allegations,
+institutional context, and uncertain ruler attribution; and (4) conclude why the
+evidence supports this score rather than a materially higher or lower one. Define
+unfamiliar cases on first mention. Do not open with an unexplained case name, event,
+acronym, or compressed phrase such as "the X scrutiny." The abstract must answer the
+chapter question for a reader who has not read the dossier.
+
+Retry context: A prior candidate was semantically rejected. Produce a fresh complete batch from the listed projections and correct the earlier defects; do not read the prior candidate from the filesystem.
+
+Run-scoped audit corrections (mandatory; they may exclude evidence but may not
+prescribe a score):
+None.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-production-19-judges-sol-oversize-v1:2023:3B",
+  "run_key": "2023-production-19-judges-sol-oversize-v1",
+  "chapter_id": "3B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-production-19-judges-sol-oversize-v1:2023:3B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:BGD:17069",
+    "iso3": "BGD",
+    "ruler_id": "2992",
+    "ruler_year_id": 17069,
+    "ruler_name": "Sheikh Hasina",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:BRA:16162",
+    "iso3": "BRA",
+    "ruler_id": "2841",
+    "ruler_year_id": 16162,
+    "ruler_name": "Luiz In\u00e1cio Lula da Silva",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:CHN:15833",
+    "iso3": "CHN",
+    "ruler_id": "1432",
+    "ruler_year_id": 15833,
+    "ruler_name": "Xi Jinping",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:COD:16114",
+    "iso3": "COD",
+    "ruler_id": "2830",
+    "ruler_year_id": 16114,
+    "ruler_name": "F\u00e9lix Tshisekedi",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:DEU:16985",
+    "iso3": "DEU",
+    "ruler_id": "2975",
+    "ruler_year_id": 16985,
+    "ruler_name": "Olaf Scholz",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:EGY:16233",
+    "iso3": "EGY",
+    "ruler_id": "2851",
+    "ruler_year_id": 16233,
+    "ruler_name": "Abdel Fattah el-Sisi",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:ETH:16783",
+    "iso3": "ETH",
+    "ruler_id": "2310",
+    "ruler_year_id": 16783,
+    "ruler_name": "Abiy Ahmed",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:IDN:16200",
+    "iso3": "IDN",
+    "ruler_id": "2636",
+    "ruler_year_id": 16200,
+    "ruler_name": "Joko Widodo",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:IND:19639",
+    "iso3": "IND",
+    "ruler_id": "1517",
+    "ruler_year_id": 19639,
+    "ruler_name": "Narendra Modi",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:IRN:19641",
+    "iso3": "IRN",
+    "ruler_id": "3412",
+    "ruler_year_id": 19641,
+    "ruler_name": "Ali Khamenei",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:JPN:16637",
+    "iso3": "JPN",
+    "ruler_id": "2895",
+    "ruler_year_id": 16637,
+    "ruler_name": "Fumio Kishida",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:PAK:16683",
+    "iso3": "PAK",
+    "ruler_id": "2911",
+    "ruler_year_id": 16683,
+    "ruler_name": "Shehbaz Sharif",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:PHL:16195",
+    "iso3": "PHL",
+    "ruler_id": "2844",
+    "ruler_year_id": 16195,
+    "ruler_name": "Bongbong Marcos",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:RUS:15707",
+    "iso3": "RUS",
+    "ruler_id": "2759",
+    "ruler_year_id": 15707,
+    "ruler_name": "Vladimir Putin",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:THA:17130",
+    "iso3": "THA",
+    "ruler_id": "3006",
+    "ruler_year_id": 17130,
+    "ruler_name": "Prayut Chanocha",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:MEX:15802",
+    "iso3": "MEX",
+    "ruler_id": "2779",
+    "ruler_year_id": 15802,
+    "ruler_name": "Andr\u00e9s Manuel L\u00f3pez Obrador",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:TUR:15973",
+    "iso3": "TUR",
+    "ruler_id": "2813",
+    "ruler_year_id": 15973,
+    "ruler_name": "Recep Tayyip Erdo\u011fan",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:USA:15811",
+    "iso3": "USA",
+    "ruler_id": "2782",
+    "ruler_year_id": 15811,
+    "ruler_name": "Joe Biden",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:VNM:19640",
+    "iso3": "VNM",
+    "ruler_id": "3411",
+    "ruler_year_id": 19640,
+    "ruler_name": "Nguy\u1ec5n Ph\u00fa Tr\u1ecdng",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Chapter projections (authoritative judge inputs):
+[
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:BGD:17069",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/BGD-17069.json",
+    "sha256": "45919140e9761578140fe973522df2123385a9bb3c401c4ec64388c7a01a3797"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:BRA:16162",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/BRA-16162.json",
+    "sha256": "9d289672aae3746b9a0721dad18764c79b4ddb062d51fe45740e554d5d86eb5c"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:CHN:15833",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/CHN-15833.json",
+    "sha256": "93544533c973693d4a761180272a61258a640ca3743d2b53a9b85beb82c1ef3a"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:COD:16114",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/COD-16114.json",
+    "sha256": "40f40599a37c69035da721068f2661b372a6e7ee73d530bd63c533ca0e8ac9ce"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:DEU:16985",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/DEU-16985.json",
+    "sha256": "e5ad1f9d35ceae81575323ab6b7a92245b2627c6b6c0db57bb94ffe79c8b7b45"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:EGY:16233",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/EGY-16233.json",
+    "sha256": "8fc199a44aa93309d5fa0fd6c43cce90cf1e7696393396465bb12de3139ae9e3"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:ETH:16783",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/ETH-16783.json",
+    "sha256": "2ee8a87ea69558bf6e74d466d6cf705d93064b2bf21756c21ba480243eba32e9"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:IDN:16200",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/IDN-16200.json",
+    "sha256": "4371c3b413a59f5d2a20e548696cca56ea116510d6ff898be22753d240dc2c2d"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:IND:19639",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/IND-19639.json",
+    "sha256": "a3eff07f102262af4de281b7cf4c1157b5f6c08d7fb5c6860b3ec3bbdb5f6f6f"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:IRN:19641",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/IRN-19641.json",
+    "sha256": "36c1468689b569671c23356dfd0a098782321e377d2cbb2638a3ca1ed7521fd3"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:JPN:16637",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/JPN-16637.json",
+    "sha256": "3e8bca32aaabf7505cfb8c4656d0f9fdd4f247735a4d2dbcdcad25440baf3391"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:PAK:16683",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/PAK-16683.json",
+    "sha256": "87b2265081d4ce1ebe5f67f01f2e105274552e9a1abc6915e9856cf1398c89f2"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:PHL:16195",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/PHL-16195.json",
+    "sha256": "dea6a2643c9acc18817f5a112d30e00edc9a935c61ef0a2d5c5fed2fd675e627"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:RUS:15707",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/RUS-15707.json",
+    "sha256": "fd5591080a1753be545facc521aaaa8e546629adfd440aa13f4d1e0ddbd6f6bc"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:THA:17130",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/THA-17130.json",
+    "sha256": "9df6c23cb8fc6aaed93c8ba287d9c369d697e8cd5bb48e939cfc79d79d13af26"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:MEX:15802",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/MEX-15802.json",
+    "sha256": "73f84baaac2457d60a556d305f0c0605ce365563a11ff9372328c7fb8e352fd4"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:TUR:15973",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/TUR-15973.json",
+    "sha256": "5070bde44a801e4ea9da5e66b6f286d55150f662393b1488e7d41a0a61516a64"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:USA:15811",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/USA-15811.json",
+    "sha256": "c6a4177102ec978a5f9f161731f63c5c74492f0dd1ffb7fc93ebc814524e6e2b"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:VNM:19640",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/557/attempts/002-5e99e3ca-5eb/chapter-inputs/VNM-19640.json",
+    "sha256": "c37c22311fac0874297023ad0d625734617fca903728510e1244cacb17164ed2"
+  }
+]
+
+Active chapter guide:
+---
+# Chapter 3B — Domestic Safety, Restraint, And Protection
+
+Status: **draft; v5 objective-evidence questions require controlled rejudgment**
+
+## Chapter Identity
+
+- Chapter: `3B`
+- Rating: domestic safety versus violence, oppression, and incitement
+- Evidence strategy: local-first structured evidence plus cited manual research
+- Rubric version: `chapter_3b_v5`
+- Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
+
+## Purpose And Non-Goals
+
+This chapter asks whether people were protected from state and politically tolerated
+violence, whether coercive institutions were restrained and accountable, whether the
+ruler reduced fear without substituting state terror, and whether vulnerable groups and
+peaceful civic activity were protected. It does not score ordinary crime alone, political
+freedom wholesale, international battlefield conduct, or government popularity. Public
+safety gains do not excuse torture or collective punishment, while isolated misconduct
+with credible remedy is not equivalent to state policy. The client matrix is not evidence.
+
+## Ten Evidence Lenses
+
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **3B.1 — Protection from state abuse** | Did the ruler protect people from torture, disappearance, political imprisonment, and unlawful killing? | Did the ruler establish and enforce laws, orders, and detention practices that protected residents from torture, disappearance, political imprisonment, extrajudicial killing, and arbitrary punishment, and remedy verified abuse? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.2 — Control of coercive forces** | Did the ruler prevent and punish abuse by security forces and aligned groups? | Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.3 — Incitement and targeted hatred** | Did the ruler avoid encouraging hatred or violence against people or groups? | Did the ruler avoid personally or officially inciting hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or other groups, and act when supporters or officials translated such messages into harm? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.4 — Complaints and independent oversight** | Could abuse be reported, investigated, corrected, and remedied independently? | Did the ruler create, fund, and respect independent courts, complaint systems, civilian oversight, and investigations, comply with findings, and provide victim remedy? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.5 — Emergency and surveillance powers** | Did the ruler use exceptional security powers narrowly and lawfully? | Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, anti-terror, and security powers narrowly and lawfully rather than use them for intimidation, collective punishment, or control? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.6 — Safety without state terror** | Did the ruler reduce violence without creating a broader climate of fear? | Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence through lawful, proportionate policy without replacing it with state terror or a broader fear climate? | **Implementation and operational conduct**; **Outcomes** |
+| **3B.7 — Protection of vulnerable groups** | Did the ruler protect vulnerable groups from violence, displacement, and neglect? | Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups against targeted and intergroup violence, displacement, and systematic neglect, with equitable access across regions and populations? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.8 — Safe protest and dissent** | Could people protest, dissent, and organize without unlawful retaliation? | Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, and organization, with accountability and remedy for retaliation or excessive force? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.9 — Restrained crisis response** | During domestic crises, did the ruler protect people without collective punishment or spectacle? | During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures rather than use incitement, collective punishment, censorship, or militarized spectacle? | **Resources**; **Implementation and operational conduct**; **Rhetoric and representations** |
+| **3B.10 — Lasting domestic safety** | Did the ruler leave people safer from state and non-state violence? | Did the ruler leave people durably safer from state and non-state violence than inherited, accounting for reporting freedom, population exposure, authority, and external shocks? | **Outcomes**; **Implementation and operational conduct** |
+
+Priority evidence categories indicate promising evidence, not required coverage or an
+exclusive source list. Missing categories do not invalidate a lens.
+
+## Researcher Guidance
+
+Start with resolved ruler identity and local D12 facts: PTS, CIRIGHTS, V-Dem, and UCDP
+one-sided violence. Research integrated themes: physical-integrity abuse; security-force
+and aligned-actor conduct; ruler rhetoric; oversight/remedies; emergency and surveillance
+powers; state versus non-state fear; vulnerable-group protection; protest treatment;
+crisis response; and inherited-to-end safety. Collect evidence once and map it wherever
+materially relevant; do not inflate ten lenses with duplicate prose.
+
+Prefer UN mechanisms, courts and legal records, independent inquiries/ombuds institutions,
+PTS/CIRIGHTS/V-Dem/UCDP, reputable human-rights NGOs, credible local civil society,
+academic work, and high-quality reporting. Official sources can establish laws,
+appointments, prosecutions, and formal statistics but need corroboration for claims of
+restraint or legitimacy. Distinguish incident, recurring pattern, widespread practice,
+systematic policy, command/order, tolerated impunity, failure to prevent, and genuine
+remedy. Preserve positive and contrary evidence. Researchers do not finalize scores.
+
+Require a physical-safety nexus. Generic policy failure, economic or pandemic
+coordination, election controversy, and civil-liberties erosion belong elsewhere
+unless they directly expose people to state terror, political/identity violence,
+arbitrary detention, torture, killing, or preventable severe insecurity within this
+chapter. Classify adverse evidence by severity, scale, recurrence, state nexus,
+ruler attribution, and remedy before selecting an anchor.
+
+Apply a strict chapter-relevance gate before weighing evidence. Exclude foreign
+battlefield and overseas civilian-harm conduct from 3B unless the evidence establishes
+a direct domestic physical-safety consequence; Chapter 2B owns international conduct.
+Exclude inflation, growth, employment, and other macroeconomic conditions unless a
+specific causal chain establishes severe domestic physical insecurity; Chapters 5B
+and 6B own ordinary economic and social outcomes. Do not attribute municipal, state,
+provincial, campus, or otherwise decentralized policing to the national ruler merely
+because it occurred during the ruler's term. Such conduct may describe the national
+environment, but it affects the ruler score only in proportion to documented command,
+policy, funding conditions, encouragement, tolerance after notice, obstruction of
+remedy, or feasible failure to act.
+
+## Sparse, Historical, And Closed-Regime Evidence
+
+Use archives, truth commissions, court files, contemporaneous diplomatic/human-rights
+reports, demographic evidence, oral histories with corroboration, and later scholarship
+for older cases. In closed or highly repressive environments, few complaints or reports
+may reflect fear, censorship, inaccessible regions, or destroyed records. Triangulate
+victim, external monitor, administrative, event, and retrospective sources; never infer
+safety from silence. Conversely, open societies generate abundant reporting of lesser
+violations. Missing lens evidence lowers confidence. A defensible chapter score may rest
+on fewer strong lenses when they establish overall severity and responsibility.
+
+## Attribution And Inherited Baseline
+
+Resolve the ruler's formal and practical control over police, military, intelligence,
+prisons, governors, party forces, militias, and prosecutors. Attribute direct orders,
+public incitement, policy, appointments, systematic tolerance, obstruction of remedy,
+or failure to act where capacity and notice are evidenced. Do not transfer every local
+crime or autonomous abuse to the ruler. Compare inherited violence, institutional
+capacity, conflict and communal conditions with end-of-period outcomes, while judging
+the means used: reducing insurgent violence through state terror is not improvement.
+
+## Chapter-Level 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | Systematic state terror or mass political/identity violence is directed, incited, protected, or deliberately enabled by the ruler, with pervasive fear and no remedy. |
+| 2–3 | Severe recurring killings, torture, disappearances, imprisonment, collective punishment, aligned-actor violence, or incitement with broad impunity and weak protection. |
+| 4–5 | Significant abuse, selective repression, emergency-power misuse, group vulnerability, or recurring impunity, but violence is not fully generalized and some safeguards operate. |
+| 6–7 | No systematic terror and meaningful protection/oversight, but serious recurring police, detention, protest, minority, crisis-response, or accountability failures remain. |
+| 8–9 | Strong protection and restraint, rare serious abuse, credible independent remedies, vulnerable-group protection, open reporting, and sustained improvement in safety. |
+| 10 | Exceptional, durable, and well-evidenced protection from both political violence and preventable insecurity, with robust restraint/accountability even under severe pressure. |
+
+Scores below 4 require ruler-attributed physical-integrity or severe domestic-safety
+evidence, not adjacent-chapter harms. Scores of 8 or above require direct
+target-period evidence of ruler-attributed protection, restraint, or effective remedy
+from multiple independent source types; inherited institutional quality or low
+reported abuse alone is insufficient. A 9 normally requires meaningful pressure or
+consequential improvement. When evidence establishes conditions but not ruler
+contribution, cap the attribution claim and widen the range rather than over-crediting
+the inherited baseline.
+
+### Absolute-scale guardrails
+
+The annual cohort does not define the endpoints. Do not stretch the worst current ruler
+to 1 or compress the best current ruler toward the midpoint merely to distribute scores.
+Use the following fixed cross-period anchors while applying the evidence actually
+embedded for the target year:
+
+- **1:** an historical floor such as Nazi extermination rule, Khmer Rouge mass killing,
+  Stalin's mass-terror periods, or Assad-era systematic killing, torture, disappearance,
+  and terror at national scale. A score of 1 requires target-period evidence of mass
+  political/identity violence or systematic state terror—not censorship, authoritarian
+  control, political imprisonment, or even systematic repression standing alone.
+- **2–3:** severe authoritarian coercion with recurring torture, disappearance,
+  political imprisonment, collective punishment, identity persecution, or broad
+  impunity, but without evidence meeting the mass-terror floor for 1 in the target
+  period. A centralized closed regime can fit here even when ordinary crime is low.
+- **4–5:** selective or materially recurring coercion and weak remedies coexist with
+  meaningful areas of ordinary protection; abuse is serious but neither a mass-terror
+  system nor merely rare misconduct.
+- **6–7:** a broadly protective constitutional or institutional environment without
+  systematic terror, alongside serious recurring or insufficiently remedied police,
+  detention, protest, minority-protection, or crisis-response failures. Open reporting
+  of local incidents must not by itself pull such a system toward the authoritarian
+  bands, especially where national-ruler attribution is weak.
+- **8–9:** strong national restraint and protection, rare serious abuse, independent
+  investigation and meaningful remedy, including evidence that institutions worked
+  under pressure. A high inherited baseline is insufficient without ruler-period
+  contribution or maintained restraint under a real test.
+- **10:** exceptional protection and accountability under severe pressure, with durable
+  improvement or costly restraint beyond an ordinary high-performing baseline.
+
+Before finalizing each score, state the severity class—isolated, recurring, widespread,
+systematic repression, systematic terror, or mass violence—and verify that the selected
+numeric band matches it. `Systematic repression` is not a synonym for `systematic state
+terror`. Also identify every potentially material item rejected by the chapter-relevance
+or ruler-attribution gates in the rationale or chapter-specific fields.
+
+The ten lenses are qualitatively unequal and need no arithmetic aggregation. Systematic
+killing or torture can dominate many institutional positives; robust accountability can
+distinguish isolated violations from policy. Outcomes, means, severity, prevalence,
+duration, ruler responsibility, vulnerability, and remedy determine the holistic score.
+
+## Judge Workflow Across Rulers
+
+### V3 release-review gate
+
+Ordinary source limits, plausible ranges, and attribution caveats belong in confidence
+and rationale. Flag manual review only when a specific unresolved issue could move the
+score by at least one point or materially reorder adjacent rulers.
+
+One Chapter 3B judge reads all ruler dossiers in the batch. Establish information
+environment, inherited safety conditions, conflict/crime context, authority, and source
+coverage; classify severity, scale, responsibility, and accountability; compare anchor
+and edge cases; provisionally order rulers; then issue one chapter score and confidence
+per ruler. Explain decisive harms and protections, counterevidence, attribution, baseline
+change, and rejected adjacent bands. Recheck the complete ordering for open-society
+visibility, closed-regime silence, population, and conflict bias. Shards require shared
+anchors and final cross-shard calibration.
+
+## Minimum Evidence And Graceful Degradation
+
+A score requires at least one traceable relevant citation, a structured prior or
+explained `not_available`, and explicit temporal fit, information environment, ruler
+authority, severity, and remedy assessment. Extreme or high-confidence scores normally
+require multiple independent source types. One credible grave event may be decisive but
+must not automatically establish a nationwide pattern. Unknown protest, prison, or group
+protection evidence lowers confidence. Withhold for unresolved identity, fake/untraceable
+citations, or attribution too uncertain to judge—not for harmless coverage terminology
+or incomplete lens mappings.
+
+## Common Evidence-Item Semantics
+
+Each material evidence item should carry a stable evidence ID; a concise factual claim;
+source URL, title, publisher, and publication/access date where available; source type
+and confidence with a short reason; a quotation or precise locator when available;
+target-year/ruler-period fit; ruler attribution and inherited-baseline relevance; its
+positive, negative, mixed, contextual, or contrary role; and the supported lens IDs.
+Fields may be normalized later and natural-language equivalents are acceptable. The
+substantive minimum is a traceable source, intelligible claim, temporal fit, attribution,
+and evidence role. One item may support multiple lenses without duplication.
+
+## Common Chapter-Judgment Output Envelope
+
+The judge returns one object per ruler with:
+
+- `chapter_id`
+- `rubric_version`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence`
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`
+- `lower_anchor_rejected` and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Exact field serialization can be repaired cheaply after judgment; missing harmless
+formatting must not erase a substantively usable assessment.
+
+## Bias And Comparability Checks
+
+Check visibility, silence under repression, population and geographic scale, conflict
+context, state-versus-non-state responsibility, protected-group underreporting, official
+crime statistics, source-type and advocacy blind spots, incident-versus-pattern inflation,
+remedy versus impunity, inherited baseline, recency, and shared cross-ruler anchors. Do
+not treat reporting volume as severity, lower crime as proof of lawful rule, or formal
+oversight bodies as effective without evidence of independence and remedy.
+
+## Chapter-Specific Calibration Fields
+
+- `chapter_rubric_version`: `chapter_3b_v5`
+- `calibration_batch_id` and `calibrated_against`
+- `severity_band`: none/isolated/recurring/widespread/systematic/mass
+- `state_responsibility`: direct/state-aligned/tolerated/failed-to-prevent/non-state/unclear
+- `accountability_and_remedy`
+- `information_environment`
+- `inherited_safety_baseline` and `end_state_change`
+- `ruler_authority_and_attribution`
+- `physical_integrity_and_detention_assessment`
+- `aligned_actor_and_security_force_assessment`
+- `incitement_and_crisis_response`
+- `vulnerable_group_and_protest_protection`
+- `source_mix` and `period_fit`
+- `lens_strengths`, `lens_gaps`, and `contrary_evidence`
+- `score_rationale`, `lower_anchor_rejected`, `higher_anchor_rejected`
+- `confidence_score` (`0`–`100`) and `confidence_rationale`
+
+## Smoke-Test Ruler Set
+
+| Ruler | Country | Year / period | Calibration role |
+|---|---|---:|---|
+| Bashar al-Assad | Syria | 2011–2020 | mass/systematic state-violence low anchor |
+| Augusto Pinochet | Chile | 1973–1989 | historical repression and later records |
+| Rodrigo Duterte | Philippines | 2016–2022 | crime reduction claims versus extrajudicial killing |
+| Paul Kagame | Rwanda | 2000–2023 | safety/order versus closed-regime repression |
+| Narendra Modi | India | 2002 / 2014–2023 | communal violence, attribution, scale edge |
+| Michelle Bachelet | Chile | 2006–2010 | open-reporting, policing, and accountability case |
+| Jacinda Ardern | New Zealand | 2019 | crisis response and minority protection high case |
+| Nelson Mandela | South Africa | 1994–1999 | inherited violence and reconciliation constraints |
+| Nayib Bukele | El Salvador | 2022–2023 | public safety versus mass detention/emergency powers |
+| Hissene Habre | Chad | 1982–1990 | historical closed-regime low anchor |
+
+## Draft Acceptance Checklist
+
+- All ten exact lens texts appear.
+- Evidence separates severity, scale, responsibility, remedy, and information access.
+- One comparative judge produces one holistic score and confidence per ruler.
+- Missing lenses lower confidence and do not invalidate or mechanically zero a case.
+- Attribution and inherited safety are explicit; lawful outcomes and means are distinct.
+- Contrary evidence and citations are preserved.
+- Smoke testing and independent review occur before activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.
+Before returning, verify that every numeric evaluation cites at least one valid
+same-dossier E-ID in its decisive positive or negative evidence arrays; that every
+LF/LS ID in `decisive_local_evidence` accompanies such a decisive E-ID; that
+`structured_prior_summary` accurately describes the embedded local package; and that
+every confidence score is on the required 0-100 scale.

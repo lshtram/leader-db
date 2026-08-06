@@ -1,0 +1,1375 @@
+Audit the normalized source map against the original extract. Ignore prose style and all formatting problems in the original reader output. Count only affirmative evidence claims in claim_count; do not count an explicitly labelled limitation, absence-of-evidence warning, or reopen request as an accepted claim requiring an affirmative locator. Do not count source-identity metadata such as title, catalog ID, or manifest URL; provenance metadata is verified separately against the frozen manifest. Count a locator as usable when it identifies the supporting unit, block, page, section, article, table, or record precisely enough to reopen it. Identify material omitted facts and qualifications separately. An omission makes content_usable false only when it removes or distorts evidence decisive to the chapter questions; otherwise record material_omission=true and explain it without failing usability. A formatting repair is never a content failure. Return the required JSON only.
+
+READER SUMMARY:
+## MAC-015 — Compact source map
+
+**Source:** OECD, *OECD Economic Surveys: Mexico 2022* (February 2022). International-organization policy synthesis; Mexico’s economic situation and policies were reviewed by the OECD Economic and Development Review Committee on **22 November 2021**, and the revised draft received final approval on **10 December 2021**. **Locator:** p.5, “Foreword.” Most findings are OECD analysis, projections, or recommendations—not proof of enactment or AMLO-attributable outcomes.
+
+### Atomic claims
+
+- **Observed/reported fact — pandemic response (5B.9):** Mexico increased health expenditure by **0.4% of GDP in 2020**; measures also included front-loaded old-age non-contributory pension payments by **8 months**, loans to SMEs maintaining employees on payroll, loans to domestic and independent workers, development-bank liquidity support and guarantees, and a **three-month** subsidy for workers who lost employment and held a mortgage with the Housing Institute. Monetary authorities cut rates by **300 basis points from March 2020 through February 2021**; central-bank measures supporting the functioning of the financial system amounted to **up to 3.5% of GDP**. **Locator:** p.20, Box 1.1, “Main policy responses to the pandemic.” **Source basis:** “COVID Policy tracker database”; implementation details require primary-source verification.
+
+- **OECD comparative finding — fiscal response (5B.9):** The initial fiscal response was one of the lowest among emerging markets. Public spending increased by **around 0.7% of GDP**, compared with **4.4% of GDP in emerging economies**; public-sector programmable spending on social protection and health increased by **0.7 and 0.4 percentage points**, respectively, in **2020 relative to 2019**. **Locator:** pp.25–26, “Macroeconomic policies can be further strengthened,” paragraph continuing onto p.26. Figure 1.11 reports estimates as of **27 September 2021**. **Locator:** p.26, Figure 1.11 note.
+
+- **Observed fact plus OECD interpretation — fiscal/debt path (5B.3):** Tax revenues increased marginally despite the fall in activity. The OECD states that this was facilitated by tax-code changes and strengthened prosecution of pending tax liabilities, while revenues were also supported by stabilization funds and an oil hedge. The **official measure of public debt** increased from **44% at end-2019 to 55% of GDP at end-2020**, due to the budget deficit, peso depreciation, and the fall in GDP. **Locator:** p.26, “Gaining fiscal space and reinforcing the fiscal framework,” opening paragraph. **Qualification:** OECD causal account; underlying official series should be checked.
+
+- **Official figures/forecasts — fiscal aggregates (5B.3):** SHCP data report public-sector borrowing requirements of **−4.0% of GDP in 2020**, **−3.8% in 2021**, and forecasts of **−3.5% in 2022**, **−3.2% in 2023**, and **−2.9% in 2024**. Net public-sector debt is shown at **51.5%, 49.9%, 49.7%, 49.5%, and 49.4%**, respectively. **Locator:** p.28, Table 1.4, rows “Public sector borrowing requirements” and “Net public sector debt.” **Qualification:** 2022–24 are marked as forecasts; some rows may not add up due to rounding.
+
+- **OECD scenario, not outcome (5B.3/5B.10):** The baseline debt scenario assumes that real GDP growth and inflation follow OECD projections over **2021–23**, then gradually converge toward potential output growth and the **3% inflation target**, respectively; it also assumes a constant peso–US dollar exchange rate over the simulation period, specified primary balances, and later ageing costs. The downside scenario assumes a one-off **10% exchange-rate shock against the US dollar** and a permanent **100-basis-point upward vertical shift in the yield curve** relative to the baseline. **Locator:** p.29, Figure 1.13 note.
+
+- **OECD assessment/recommendation — fiscal institutions (5B.3/5B.7):** The existing current-spending rule covers only **around 36% of public-sector expenditure**. The OECD recommends introducing a long-term debt anchor, widening the share of public spending covered by the spending rule, and establishing an independent and adequately resourced fiscal council. **Locator:** p.14, “Further improving macroeconomic policies,” main findings and recommendations table. Table 1.5 records **“No action taken”** on the fiscal-council recommendation. **Locator:** p.30, Table 1.5, fiscal-council row.
+
+- **Observed and projected macro data (5B.10):** Real GDP changed by **−8.2% in 2020** and **+5.3% in 2021**; the OECD projected **+2.3% in 2022** and **+2.6% in 2023**. Average consumer-price inflation was projected at **5.6% in 2022** and **3.4% in 2023**. **Locator:** p.22, Table 1.2, rows “GDP at market prices” and “Consumer price index (average).” **Do not treat projections as realized results.**
+
+- **OECD/Banxico-based assessment — financial resilience (5B.3):** The financial system maintained capital and liquidity above regulatory minima, while non-performing loans remained contained at the time of writing; the OECD warned that such loans might still increase after the 2020 forbearance scheme ended, particularly if economic conditions deteriorated. Banxico stress tests suggested that the banking system had sufficient capital and liquidity buffers to withstand extreme economic events. Smaller and medium-sized banks with greater exposure to SMEs and consumer loans could nevertheless be substantially affected. **Locator:** p.23, opening paragraph under Figure 1.7. **Contrary/risk material:** resilience is qualified, not unconditional.
+
+- **OECD interpretation — investment and regulation (5B.4):** Investment was muted since **2015** and falling since **2019**. The OECD states that it was hindered by uncertainty about domestic policy settings, which increased particularly after proposals to reform the electricity market. It recommends certainty about existing contracts and regulatory stability. **Locator:** p.12, “Restarting investment and boosting productivity are key priorities,” opening paragraph. **Attribution limit:** no quantified causal effect and no ruler-specific attribution.
+
+- **OECD findings — distribution and labor (5B.8):** Informal workers, women, and youth were particularly hit by the pandemic. **Locator:** p.11, “The economy is rebounding,” opening text. The standard unemployment rate was **3.9%**, rising to **15%** when including people outside the labor force who would accept a job and to **24%** when adding those who would like to work more hours; women’s labor-market participation recovered more slowly. **Locator:** p.21, opening paragraph and Figure 1.6 note.
+
+- **OECD modelled interpretation (5B.4/5B.8/5B.10):** A combined reform scenario is estimated to raise the level of GDP per capita by **25.2% over ten years**. The scenarios assume closure of specified gaps with OECD averages, except that the control-of-corruption scenario assumes the gap is halved. The OECD explicitly describes the estimates as **illustrative** and subject to uncertainty regarding both magnitude and the time horizon of materialization. **Locator:** pp.16–18, text preceding Table 1.1 and Table 1.1 with note.
+
+- **Reported reform status (secondary 5B.1/5B.7):** Table 1.5 reports that digital services provided by foreign suppliers were subject to VAT; a cadastral information platform was being created, and legal adjustments were being discussed in the Senate. It records **“No action taken”** on recommendations concerning progressive personal income tax and responsibilities for public-service delivery across the three levels of government. **Locator:** p.30, Table 1.5, corresponding VAT, property-register, personal-income-tax, and *Ley de Coordinación Fiscal* rows. **Status caveat:** “being created” and “being discussed” do not establish completion or enactment.
+
+### Limitations and reopen list
+
+The extract ends at p.30 and omits the detailed later sections on monetary policy, competition, procurement and corruption, social programs, education, and finance. Reopen **Tables 1.9–1.13; Figures 1.21–1.40; and Chapter 2**. Verify fiscal and tax claims against SHCP/SAT, monetary and stress-test claims against Banxico, and reform status against complete legal texts, amendments, effective dates, regulations, and execution records. No unresolved allegation in this extract is adjudicated; policy uncertainty and corruption references are OECD assessments, not legal findings.
+
+ORIGINAL EXTRACT:
+page 1
+OECD Economic Surveys
+MEXICO
+FEBRUARY 2022
+OECD
+Economic
+Surveys
+Volume
+2022/4
+MEXICO
+February
+2022
+
+page 2
+
+
+page 3
+OECD Economic Surveys:
+Mexico
+2022
+
+page 4
+This document, as well as any data and map included herein, are without prejudice to the status of or sovereignty over
+any territory, to the delimitation of international frontiers and boundaries and to the name of any territory, city or area.
+The statistical data for Israel are supplied by and under the responsibility of the relevant Israeli authorities. The use of
+such data by the OECD is without prejudice to the status of the Golan Heights, East Jerusalem and Israeli settlements in
+the West Bank under the terms of international law.
+Note by Turkey
+The information in this document with reference to “Cyprus” relates to the southern part of the Island. There is no single
+authority representing both Turkish and Greek Cypriot people on the Island. Turkey recognises the Turkish Republic of
+Northern Cyprus (TRNC). Until a lasting and equitable solution is found within the context of the United Nations, Turkey
+shall preserve its position concerning the “Cyprus issue”.
+Note by all the European Union Member States of the OECD and the European Union
+The Republic of Cyprus is recognised by all members of the United Nations with the exception of Turkey. The
+information in this document relates to the area under the effective control of the Government of the Republic of Cyprus.
+Please cite this publication as:
+OECD (2022), OECD Economic Surveys: Mexico 2022, OECD Publishing, Paris, https://doi.org/10.1787/2e1de26c-en.
+ISBN 978-92-64-86069-8 (print)
+ISBN 978-92-64-77986-0 (pdf)
+OECD Economic Surveys
+ISSN 0376-6438 (print)
+ISSN 1609-7513 (online)
+OECD Economic Surveys: Mexico
+ISSN 1995-3666 (print)
+ISSN 1999-0723 (online)
+Photo credits: Cover © WitR/Shutterstock.com.
+Corrigenda to publications may be found on line at: www.oecd.org/about/publishing/corrigenda.htm.
+© OECD 2022
+The use of this work, whether digital or print, is governed by the Terms and Conditions to be found at https://www.oecd.org/termsandconditions.
+
+page 5
+ 3
+Foreword
+This Survey is published on the responsibility of the Economic and Development Review Committee of the
+OECD, which is charged with the examination of the economic situation of member countries. The
+economic situation and policies of Mexico were reviewed by the Committee on 22 November 2021. The
+draft report was then revised in the light of the discussions and given final approval as the agreed report
+of the whole Committee on 10 December 2021.
+The Secretariat’s draft report was prepared for the Committee by Alberto González Pandiella and
+Alessandro Maravalle under the supervision of Aida Caldera Sánchez. Statistical research assistance was
+provided by Véronique Gindrey and Roland Tusz, and editorial assistance by Karimatou Diallo. The Survey
+also benefited from contributions from Lou Turroques and Steven Cassimon. The previous Survey of
+Mexico was issued in May 2019. Information about the latest as well as previous Surveys and more
+information about how Surveys are prepared is available at https://www.oecd.org/eco/surveys/.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 6
+4 
+Table of contents
+Foreword 3
+Executive summary 8
+1 Key Policy Insights 13
+Mexico is recovering but medium-term growth prospects have weakened 14
+The recovery has broadened 16
+Macroeconomic policies can be further strengthened 23
+Gaining fiscal space and reinforcing the fiscal framework 24
+Monetary policy: containing inflation and supporting the recovery 38
+Restarting investment and strengthening productivity growth 41
+Boosting productivity through more competition 41
+Reducing informality: a win-win for productivity and inclusiveness 44
+Rebooting investment 46
+Enhancing trade integration in services 48
+Continuing to improve governance and reduce corruption 51
+Redoubling efforts to improve equality of opportunities 52
+Boosting coverage, targeting and efficiency of social programmes 55
+Boosting education outcomes 61
+Reducing greenhouse gas emissions and mainstreaming climate-change mitigation 63
+References 69
+2 Expanding access to finance to boost growth and reduce inequalities 75
+Firms’ and individuals’ access to finance is low 77
+Boosting firms’ access to finance 82
+Increasing individuals’ financial inclusion 87
+Embracing digitalisation is key to promote digital financial markets 100
+The digital infrastructure coverage is improving but still too few have access to it 100
+The diffusion of digital technology lags behind 103
+Accelerating the development of digital financial markets 108
+Boosting digital skills to facilitate diffusion of digital financial services 113
+References 117
+Tables
+Table 1. The economy is recovering 9
+Table 1.1. An ambitious package of reforms could boost potential output significantly 16
+Table 1.2. The recovery will continue 20
+Table 1.3. Possible shocks to the Mexican economy 20
+Table 1.4. Evolution of main fiscal aggregates 26
+Table 1.5. Past OECD recommendations to improve macroeconomic policies 28
+Table 1.6. Tax expenditures are large 33
+Table 1.7. Pass-through and speed of adjustment vary across banking lending rates 40
+Table 1.8. Past OECD recommendations to boost productivity 46
+Table 1.9. Impact on inequality and poverty of some reforms based on a simulation experiment 54
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 7
+ 5
+Table 1.10. Illustrative fiscal impact of some OECD recommendations 55
+Table 1.11. Past OECD recommendations on social policies 55
+Table 1.12. Past OECD recommendations on green growth 65
+Table 1.13. Policy recommendations from this chapter 67
+Table 2.1. Few adults in Mexico have a high level of cognitive skills in comparison to the average OECD
+country 114
+Table 2.2. Policy recommendations from this chapter 116
+Figures
+Figure 1. The recession was deep 9
+Figure 2. Growth has been low 9
+Figure 3. Investment has been weak 10
+Figure 4. Access to finance is low 11
+Figure 5. Female labour market participation is low 11
+Figure 1.1. Mexico has grown more slowly than its peers 14
+Figure 1.2. Regional differences are large 15
+Figure 1.3. The economy’s growth potential has fallen 15
+Figure 1.4. The recovery is underway 17
+Figure 1.5. COVID-19 cases have recently decreased and vaccination is progressing 18
+Figure 1.6. The labour market is gradually improving but challenges remain 19
+Figure 1.7. The financial sector appears resilient 21
+Figure 1.8. A positive non-oil trade balance and remittances drive the current account surplus 22
+Figure 1.9. Reserves are solid 23
+Figure 1.10. Sovereign risk premia have trended down 23
+Figure 1.11. Fiscal support provided as response to Covid-19 was low 24
+Figure 1.12. Tax revenues were resilient and the fiscal deficit increased marginally 25
+Figure 1.13. Public debt is expected to stabilise 27
+Figure 1.14. Tax revenues are low compared to Latin American and OECD peers 29
+Figure 1.15. Public investment is low 29
+Figure 1.16. Public spending is low 30
+Figure 1.17. The deficit and public debt levels are low in international comparison 31
+Figure 1.18. Dependence on oil revenues has fallen 32
+Figure 1.19. The VAT revenue ratio in Mexico is low 33
+Figure 1.20. Mexico has attracted investors to local currency debt instruments 37
+Figure 1.21. Inflation has strongly picked up 39
+Figure 1.22. Inflation has fallen significantly since introducing central bank independence 40
+Figure 1.23. Labour productivity is relatively low 41
+Figure 1.24. Markets are perceived to be dominated by a small number of firms 42
+Figure 1.25. The average mark-up at sector level is relatively high 43
+Figure 1.26. Most sectors have larger mark-ups than the OECD average 43
+Figure 1.27. Informality is high 45
+Figure 1.28. There is a room to facilitate start-up 46
+Figure 1.29. Investment in Mexico is persistently low 47
+Figure 1.30. Uncertainty about domestic policies has increased 48
+Figure 1.31. United States is the main trading partner 49
+Figure 1.32. Trade in services is low 49
+Figure 1.33. Services trade restrictions are high in some sectors 50
+Figure 1.34. Corruption perceptions remain higher than in regional peers 51
+Figure 1.35. There is room to increase the coverage of public procurement 52
+Figure 1.36. There is room for some social programmes to reach more low-income households 56
+Figure 1.37. The transfer and tax system redistribute little 57
+Figure 1.38. The minimum wage has increased 58
+Figure 1.39. Female labour market participation is low 60
+Figure 1.40. Educational inequalities are large 61
+Figure 1.41. Schools have been closed for a long time 62
+Figure 1.42. CO2 emissions are increasing 63
+Figure 1.43. The share of renewables in the energy matrix is lower than in OECD countries 65
+Figure 2.1. Mexico ranks low in access to formal financial services 77
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 8
+6 
+Figure 2.2. Financial depth is low 78
+Figure 2.3. Higher regional access to financial services is associated with higher regional growth and lower
+poverty 79
+Figure 2.4. Regional gaps in Mexico are the largest among OECD countries 81
+Figure 2.5. SMEs access to bank lending is relatively low 82
+Figure 2.6. Interest rate spreads are high 83
+Figure 2.7. Concentration in the banking sector has remained flat since 2016 84
+Figure 2.8. Online alternative financing is underdeveloped 85
+Figure 2.9. Few firms participate in the stock market 86
+Figure 2.10. Financial inclusion is slowly improving 88
+Figure 2.11. Regional gaps in financial infrastructure persist 89
+Figure 2.12. In some states a high share of the population has no access to bank branches 90
+Figure 2.13. Users of financial services concentrate in Mexico City and Northern states 91
+Figure 2.14. Individual access to credit has increased but there are gender and rural gaps 92
+Figure 2.15. Informal credit is common and easier to access in most states than formal credit 93
+Figure 2.16. Education, income and formal employment are the main drivers of financial inclusion 94
+Figure 2.17. Mexico needs to strengthen financial literacy 98
+Figure 2.18. Access to fixed broadband lags 100
+Figure 2.19. Fixed broadband subscriptions are expensive 101
+Figure 2.20. The number of mobile broadband subscriptions is low 102
+Figure 2.21. Low-income and rural households have low access to digital technology 103
+Figure 2.22. The digital divide in internet use is large in Mexico 104
+Figure 2.23. Average daily time spent using the Internet and social media 105
+Figure 2.24. The Mexican business sector lags in adopting digital technologies 106
+Figure 2.25. Mexico ranks last in the development of Internet of Things technology 106
+Figure 2.26. Online purchases are low 107
+Figure 2.27. Mexico ranks low in ICT task intensity 107
+Figure 2.28. What does an open card payment system look like? 109
+Figure 2.29. Mexico has large regional gaps in cognitive skills 114
+Figure 2.30. Informal workers have lower cognitive skills than formal ones 115
+Follow OECD Publications on:
+http://twitter.com/OECD_Pubs
+http://www.facebook.com/OECDPublications
+http://www.linkedin.com/groups/OECD-Publications-4645871
+http://www.youtube.com/oecdilibrary
+OECD http://www.oecd.org/oecddirect/
+Alerts
+This book has... StatLinks2
+A service that delivers Excel® files from the printed page!
+LookfortheStatLinks2at thebottomofthetablesorgraphsinthisbook.
+To download the matching Excel® spreadsheet, just type the link into your
+Internetbrowser,startingwiththehttp://dx.doi.orgprefix,orclickonthelinkfrom
+thee-bookedition.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 9
+ 7
+Basic statistics of Mexico, 20201
+(Numbers in parentheses refer to the OECD average)2
+LAND, PEOPLE AND ELECTORAL CYCLE
+Population (million) 128.9 Population density per km² 66.3 (38.6)
+Under 15 (%) 25.8 (17.8) Life expectancy at birth (years, 2019) 75.1 (80.2)
+Over 65 (%) 7.6 (17.4) Men (2019) 72.2 (77.6)
+International migrant stock (% of population, 2019) 0.8 (13.2) Women (2019) 77.9 (82.9)
+Latest 5-year average growth (%) 1.1 (0.6) Latest general election July 2018
+ECONOM Y
+Gross domestic product (GDP) Value added shares (%)
+In current prices (billion USD) 1 095.4 Agriculture, forestry and fishing 4.1 (2.7)
+In current prices (billion MXN) 23 357.4 Industry including construction 31.7 (26.2)
+Latest 5-year average real growth (%) -0.4 (0.8) Services 64.2 (71.1)
+Per capita (thousand USD PPP) 19.3 (46.2)
+GENERAL GOVERNMENT Per cent of GDP
+Expenditure 30.1 (48.5) Gross financial debt (OECD: 2019) 61.0 (108.9)
+Revenue 24.7 (38.1) Net financial debt (OECD: 2019) 52.4 (68.1)
+EXTERNAL ACCOUNTS
+Exchange rate (MXN per USD) 21.32 Main exports (% of total merchandise exports)
+PPP exchange rate (USA = 1) 9.38 Machinery and transport equipment 59.9
+In per cent of GDP Miscellaneous manufactured articles 9.3
+Exports of goods and services 39.6 (50.6) Food and live animals 7.1
+Imports of goods and services 37.6 (47.2) Main imports (% of total merchandise imports)
+Current account balance 2.3 (0.0) Machinery and transport equipment 46.0
+Net international investment position -51.8 Manufactured goods 12.2
+Chemicals and related products, n.e.s. 11.1
+LABOUR MARKET, SKILLS AND INNOVATION
+Employment rate (aged 15 and over, %) 53.1 (55.1) Unemployment rate, Labour Force Survey 4.5 (7.1)
+(aged 15 and over, %)
+Men 68.3 (63.0) Youth (aged 15-24, %, 2019, OECD : 2020) 7.2 (15.2)
+Women 39.3 (47.7) Long-term unemployed (1 year and over, %) 0.1 (1.3)
+Participation rate (aged 15 and over, %) 57.6 (59.5) Tertiary educational attainment (aged 25-64, %) 19.4 (39.0)
+Average hours worked product 2,124 (1,687) Gross domestic expenditure on R&D (% of 0.3 (2.6)
+GDP, 2018)
+ENVIRONMENT
+Total primary energy supply per capita (toe) 1.4 (3.7) CO2 emissions from fuel combustion per 4.5 ( 7.1)
+capita (tonnes, 2019)
+Renewables (%) 9.6 (11.9) Renewable internal freshwater resources per 0.7
+capita (1 000 m³, 2019)
+Exposure to air pollution (more than 10 µg/m³ of PM 99.5 (61.7) Municipal waste per capita (tonnes, 2012, 0.4 (0.5)
+2.5, % of population, 2019) OECD: 2019)
+SOCIETY
+Income inequality (Gini coefficient, 2018, OECD: latest 0.418 (0.317) Education outcomes (PISA score, 2018)
+available)
+Relative poverty rate (%, 2018) 15.9 (11.7) Reading 420 (485)
+Median disposable household income (thousand USD 6.4 (25.4) Mathematics 409 (487)
+PPP, 2018)
+Public and private spending (% of GDP) Science 419 (487)
+Health care (OECD : 2019) 6.2 (8.8) Share of women in parliament (%) 48.2 (31.5)
+Pensions (2019, OECD: 2017) 3.1 (8.6)
+Education (% of GNI, 2019) 4.5 (4.4)
+¹ The year is indicated in parenthesis if it deviates from the year in the main title of this table.
+² Where the OECD aggregate is not provided in the source database, a simple OECD average of latest available data is calculated where data
+exist for at least 80% of member countries.
+Source: Calculations based on data extracted from databases of the following organisations: OECD, International Energy Agency, International
+Labour Organisation, International Monetary Fund, United Nations, World Bank.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 10
+8 
+Executive summary
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 11
+ 9
+The economy is rebounding Table 1. The economy is recovering
+The COVID-19 pandemic was particularly deep 2020 2021 2022 2023
+(Figure 1). Mexico’s solid macroeconomic policy Gross domestic product -8.2 5.3 2.3 2.6
+framework, underpinned by an innovative debt Private consumption -10.5 7.3 2.0 2.3
+management, sound monetary policy and a flexible Gross fixed capital formation -17.8 10.4 4.4 4.5
+exchange rate, safeguarded macroeconomic Exports -7.3 5.9 6.5 5.3
+stability and comfortable access to international Imports -13.7 14.6 6.0 5.8
+capital markets. The manufacturing sector, deeply Unemployment rate 4.4 4.1 4.0 3.9
+integrated in global value chains, led the recovery Consumer price index 3.4 5.7 5.4 3.4
+with the services sectors taking over recently as Public balance (% of GDP) -2.9 -2.9 -3.2 -3.0
+main growth driver. Labour market participation, Public debt (net, % of GDP) 51.5 49.9 50.0 49.7
+Current account (% of GDP) 2.3 -0.7 -0.8 -0.9
+which fell markedly, is recovering, but remains
+below pre-pandemic levels. Informal workers, Source: OECD Economic Outlook database.
+women and youth were particularly hit,
+exacerbating long-standing inequalities. Mexico’s potential to be a high-growth economy is
+large. It has transitioned from being an oil-
+Figure 1. The recession was deep dependent economy in the early 1990s towards a
+Real GDP, Index 2019Q4 = 100 manufacturing hub, highly integrated in global
+value chains, today. The proximity to the United
+110 110
+MEX States export market is a fundamental competitive
+OECD advantage. However, such potential remains
+105 105
+unrealised and growth over the last decades has
+been low (Figure 2).
+100 100
+Figure 2. Growth has been low
+95 95
+Index of real PPP-adjusted GDP per capita, 2000 = 100
+90 90 225 225
+MEX CHL Dynamic Asian CRI
+85 85
+200 200
+80 80
+2020 2021 2022 175 175
+Source: OECD Economic Outlook database.
+StatLink 2 https://stat.link/gpfc1r
+150 150
+The last infectious wave peaked in January 2022
+and vaccination is progressing. Looking ahead, the 125 125
+recovery will continue (Table 1). Exports will
+continue to benefit from strong growth in the United
+100 100
+States. With a larger share of the population
+vaccinated and the gradual improvement in the
+75 75
+labour market, consumption will also be a key 2000 2005 2010 2015 2020
+growth driver. Investment will also pick up, driven Note: Dynamic Asia includes India, Indonesia, Malaysia, Philippines,
+Thailand, and Viet Nam.
+by planned infrastructure projects. Inflation will
+Source: World Bank World Development Indicators.
+edge down, after the significant increase in 2021.
+StatLink 2 https://stat.link/sjmony
+The latest fiscal plan foresees that the deficit will
+remain broadly unchanged in 2022 and gradually Medium-term growth prospects have weakened.
+decrease thereafter. As such, the fiscal stance, Informality, low competition, financial exclusion and
+while remaining cautious, has become less corruption are some of the factors hindering
+restrictive and provides mild support to the productivity growth. Weak investment and low
+recovery.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 12
+10 
+female participation rates deteriorate growth Figure 3. Investment has been weak
+prospects further. The updated trade agreement in Gross fixed capital formation, index, 2015Q1 = 100
+North America can give fresh impetus to growth.
+However, a comprehensive reform agenda is 140 140
+MEX OECD
+needed to reboot investment and turn around
+130 130
+productivity.
+120 120
+Tax revenues remain low
+110 110
+Mexico has been fiscally prudent over the years,
+broadly meeting its fiscal targets and ensuring 100 100
+fiscal sustainability despite having the lowest tax-
+to-GDP ratio in the OECD. Revenues have been 90 90
+resilient during the pandemic and the fiscal deficit
+80 80
+widened only slightly.
+70 70
+Social spending and public investment have
+recently increased, but the pandemic has created 60 60
+2015 2016 2017 2018 2019 2020 2021
+additional needs, as poverty has risen, health and
+Source: OECD Economic Outlook database.
+education systems are strained, and infrastructure
+StatLink 2 https://stat.link/03vywf
+gaps remain. Accompanying spending increases in
+these essential areas with a gradual increase in tax At around 55%, informality remains high and is both
+revenues would help to respond to these spending a cause and a consequence of low productivity. A
+needs while maintaining and reinforcing Mexico’s comprehensive strategy is needed to reduce
+commitment to debt sustainability. informality, with actions needed in several policy
+areas. Improving business regulations at state and
+Broadening tax bases, by eliminating inefficient and
+municipal, which in some instances remain costly
+regressive exemptions, holds the promise of
+and complex, should be a key building block of that
+increasing revenues without increasing tax rates.
+strategy.
+There is also significant room to strengthen
+subnational taxes, namely property and vehicle Reforming trade regulations would also bring
+taxes. benefits to consumers and strengthen productivity.
+Mexico is well integrated into manufacturing value
+Restarting investment and boosting
+chains, but there is room for further integration in
+productivity are key priorities
+services. Continuing to reinforce the anticorruption
+Investment, muted since 2015 and falling since framework and strengthening implementation of
+2019 (Figure 3), is hindered by uncertainty about already enacted legislation is also fundamental to
+domestic policy settings. Uncertainty particularly boost productivity and improve governance.
+increased following proposals to reform the
+There is significant room to improve access to
+electricity market. With the appropriate policy
+finance by firms and households (Figure 4), which
+settings, the potential for investment to restart is
+would boost growth and inclusion. Fostering
+high. Mexico could reap further benefits from the
+competition in the banking sector would contribute
+strong recovery in the United States and the on-
+to reduce interest rate margins, supporting SMEs
+going reorganisation of global supply chains closer
+access to credit. Fintech’s potential to strengthen
+to consumer markets. Of particular importance are
+financial inclusion could be realised by upgrading
+reforms to provide certainty about existing
+digital payment regulations.
+contracts and regulatory stability.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 13
+ 11
+Figure 4. Access to finance is low would offer the possibility of extending coverage
+% aged 15+ with bank account, 2017 further, particularly among low-income households.
+100 100
+Important reforms to labour market regulations and
+90 90 pensions are underway. Reforms to enhance
+80 80 conflict resolution, workers representation and
+collective bargaining hold the promise of facilitating
+70 70
+labour disputes resolution and compliance with
+60 60
+workers’ rights. The reform of the pension system,
+50 50 agreed with the private sector, addresses some of
+40 40 its weakness, such as low benefits and limited
+coverage.
+30 30
+20 20 Mexico has made good progress in improving
+female political representation but labour force
+10 10
+participation lags the OECD average and other
+0 0
+COL MEX CRI CHL OECD KOR Latin American countries (Figure 5). Care
+Note: Data for Mexico refer to 2018 and to adult population between responsibilities fall disproportionally on women,
+18 and 79 years of age.
+Source: Global Findex Database. hampering their prospects to complete education or
+StatLink 2 https://stat.link/nywi70 be in the labour force. Reducing gender inequalities
+would boost growth and well-being significantly.
+Mexico was a pioneer among emerging economies
+Women have been particularly hit by the pandemic,
+in taking action on climate change mitigation and
+as they were particularly affected by long schools
+adaptation. However, additional policy action is
+closures and were more predominantly employed
+needed to meet emission targets. Mexico’s
+in sectors requiring in-person work.
+potential in the renewables sector is high but
+remains untapped. The electricity market reform Figure 5. Female labour market participation is
+under discussion proposes to establish a low
+guaranteed market share of at least 54% for the
+% of female population aged 15-64, 2020
+public electricity company and to eliminate
+90 90
+regulatory bodies overseeing competition and
+80 80
+granting permits. Mexico is also increasing
+investment in fossil fuel exploration and extraction 70 70
+and building a new refinery. Transport is the 60 60
+second largest emitter sector. Experiences of
+50 50
+several Mexican states attest the benefits of
+40 40
+transitioning towards cleaner transportation
+means. 30 30
+20 20
+Efforts to improve the equality of
+10 10
+opportunities should be redoubled
+0 0
+Mexico has one of the highest levels of poverty and
+income inequality in the OECD, which calls for Source: OECD Labour Force Statistics.
+continuing efforts to strengthen social protection, StatLink 2 https://stat.link/unwykq
+reduce gender gaps and improve education.
+The education system was highly impacted by the
+The pandemic and the associated increase in pandemic. After one of the longest schools closure
+social vulnerability signal the need to continue in the OECD, pre-existing inequalities are likely to
+strengthening the social protection system and widen further. Before the pandemic hit, best
+making it more efficient and responsive to performing students had a similar level of
+economic cycles. The number of recipients of performance as the OECD average. However, the
+social programmes has recently increased. gap between top and bottom students in Mexico
+Reducing fragmentation and improving targeting was large and equivalent to four years of schooling.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+RUT XEM LHC ATI IRC ARB LOC ROK ARF ASU PSE DCEO NPJ SUA NAC RBG UED EWS
+2010
+
+page 14
+12 
+MAIN FINDINGS KEY RECOMMENDATIONS
+Safeguarding the on-going recovery
+The share of the vaccinated population is rising but remains below the Accelerate vaccination.
+one observed in OECD and regional peers. Additional infection waves
+would hamper the recovery.
+Activity has rebounded. The recovery of the labour market is still ongoing. Stand ready to provide further targeted fiscal support if the recovery
+The fiscal stance for the near-term provides mild support to the recovery. falters or the pandemic resurges.
+Further improving macroeconomic policies
+Public spending is low in international perspective. Spending on social Increase public investment, based on sound and transparent cost-benefit
+protection and public investment have recently increased, but the analysis, and spending on social programs, education and health, with a
+pandemic has strained health and education systems, poverty has special focus on low-income households, over the medium-term.
+increased and infrastructure gaps remain significant. Broaden tax bases by phasing out inefficient and regressive exemptions
+Responding to increasing spending needs while maintaining and by reducing informality, and foster property tax collection by updating
+commitment with debt sustainability requires increasing tax revenues. the cadastre using digital technologies.
+The tax-to-GDP ratio is the lowest in the OECD and lower than in regional
+peers.
+The budgetary process has improved. The ability to run countercyclical Introduce a long-term debt anchor and widen the share of public
+fiscal policies and support the economy during downturns is limited. The spending covered by the spending rule.
+existing current spending rule covers only around 36% of public sector Establish an independent and adequately resourced fiscal council.
+expenditure.
+Inflation picked up well above 3%. The increase was triggered by supply Gradually increase the interest rate if inflation does not return to the 3%
+chain disruptions and additional domestic pressures on some target. Tighten at a faster pace if long-term inflation expectations start to
+merchandise items. There are risks that price formation mechanisms rise.
+may be affected in a generalised way.
+Support to PEMEX has increased to 1% of GDP. Despite new business Strengthen PEMEX and other SOEs governance by aligning it to the
+plans, PEMEX remains a significant risk for the sovereign. OECD Guidelines on Corporate Governance of State-owned
+Enterprises.
+Restarting investment and boosting productivity
+Investment has been weak since 2015. Reform reversals and planned Provide investors with certainty about existing contracts and regulatory
+regulatory changes in electricity and oil markets increase uncertainty and stability.
+hamper investors’ confidence.
+Access to finance by firms and households is low. SMEs access to credit Strengthen the credit registry system by ensuring that all lenders are able
+is hampered by high interest rate margins and information asymmetries. to access all credit history information.
+Digitalisation and Fintech can widen access to finance but their impact is Upgrade digital payment regulations to facilitate entry in payment card
+hampered by barriers in digital payment markets and low digital skills. market.
+Modify the school curricula to strengthen digital literacy from a young age
+and upskill teachers’ digital capacity.
+Corruption perceptions have fallen but remain higher than in peers. The Continue to strengthen the fight against corruption, including by boosting
+toolkit to fight corruption has been strengthened but implementation technical expertise in anticorruption agencies.
+efforts lag.
+At about 55% of workers, informality is high. Informality is both a cause Establish a comprehensive strategy to reduce the cost of formalization,
+and a consequence of low productivity. including reducing firms’ registration costs at the state and municipal
+level.
+Competition has been weak in key sectors of the economy and a few Strengthen competition, including by ensuring that the competition
+companies tend to dominate markets. authority remains independent and adequately resourced and by
+reducing regulatory burden.
+Improving equality of opportunities
+Unemployment insurance schemes provide income protection for Establish a federal unemployment insurance scheme.
+individuals losing employment and act as valuable counter-cyclical tools.
+Education inequalities are large. Pandemic-related schools closures are Put in place programmes aimed at reintegrating back to schools those
+likely to have long-term negative effects on skills and growth. who dropped during the pandemic and provide targeted support and
+tutoring to those with learning difficulties.
+Female labour force participation at 45% is low. Family care Establish a network of childcare facilities, giving priority to low income
+responsibilities hamper women prospects to complete education or be in households.
+the labour force.
+Strengthening green growth
+Under currently implemented policies, Mexico’s commitments to curb Broaden the carbon tax base, gradually increase the rate, and use part
+emissions, as in many countries, will be challenging to achieve. of the revenues to offset the effects of higher energy prices on low-
+income households.
+Mexico has huge untapped potential in renewables. A reform of the Maintain regulations that promote renewables generation and private
+electricity market under discussion establishes a maximum private sector participation.
+participation of 46% in the electricity market and eliminates regulatory Upgrade the electricity grid by implementing smart grid technologies and
+bodies overseeing competition and granting permits. integrating storage devices into the network.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 15
+ 13
+1
+Key Policy Insights
+The economy is recovering from the pandemic-induced recession.
+Manufacturing and exports are above pre-pandemic levels and services are
+strengthening. Informal workers, women and youth were particularly hit,
+widening long-standing inequalities. Mexico’s large potential to be a high-
+growth economy remains unrealised and growth over the last decades has
+been low. The updated trade agreement in North America can give fresh
+impetus to growth. Still, a comprehensive reform agenda to reboot
+investment and turn around productivity is needed. Stepping efforts to
+transition towards carbon neutrality would also help Mexico to seize new
+opportunities and address climate change.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 16
+14 
+Mexico is recovering but medium-term growth prospects have weakened
+Mexico is recovering from a pandemic that had deep economic and social impacts. Informal workers,
+women and youth were particularly hit, exacerbating long-standing social challenges. Mexico’s solid
+macroeconomic policy framework, underpinned by an innovative debt management, sound monetary
+policy and a flexible exchange rate, safeguarded macroeconomic stability and comfortable access to
+international capital markets. The recovery is underway, thanks to strong manufacturing and agriculture
+sectors and accelerating services, supported by the vaccination rollover. But medium term growth
+prospects have weakened and growth over the past two decades has been low (Figure 1.1). Poverty rates
+and regional inequalities remain high (Figure 1.2). Growth increased during the 1990s, thanks to trade
+integration into the world economy, but has stagnated since the 2000s. Informality, financial exclusion or
+corruption have hindered productivity growth. Low female participation rates and weak investment since
+2015 have also impacted medium-term growth prospects (Figure 1.3).
+Figure 1.1. Mexico has grown more slowly than its peers
+6
+5
+4
+3
+2
+1
+0
+Note: Panel B: average annual growth refers to mean yearly GDP growth. LAC5 refers to Chile, Colombia, Costa Rica, Mexico and Brazil. DAE
+refers to a group of six dynamic Asian economies: India, Indonesia, Malaysia, Philippines, Thailand, and Viet Nam. All country group averages
+are unweighted.
+Source: OECD Economic Outlook database.
+StatLink 2 https://stat.link/lyrzi3
+The updated North America trade agreement can give fresh impetus to growth, as it brings long-term
+certainty to trade, foreign investment and conflict resolution in the region. However, additional reform
+efforts to boost growth and realise Mexico’s full growth potential are needed. These efforts would have
+substantial payoffs, according to simulations based on the OECD’s quantification framework (Égert,
+2017 ). An ambitious package that would reduce barriers to investment and trade, particularly in services,
+[1]
+improve access to finance, boost female labour participation and improve the control of corruption would
+raise GDP per capita by an additional 25% over 10 years (Table 1.1).
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+XEM ASU NAC ARB DCEO 5CAL LHC LOC IRC RUT EAD
+A. Annual GDP growth B. Average annual GDP growth
+5-year moving average,% 2000-2019, %
+10
+8
+6
+4
+2
+0
+-2
+1965 1975 1985 1995 2005 2015
+
+page 17
+ 15
+Figure 1.2. Regional differences are large
+400 80
+350 70
+300 60
+250 50
+200 40
+150 30
+100 20
+50 10
+0 0
+Note: The poverty rate refers to the multidimensional measurement of poverty, combining information on income and satisfaction of social needs,
+as compiled by CONEVAL. Campeche and Tabasco are the states where oil production is concentrated and GDP-per capita does not fully
+reflect living standards in those states.
+Source: INEGI and CONEVAL.
+StatLink 2 https://stat.link/l21upi
+Figure 1.3. The economy’s growth potential has fallen
+2000-2021, %
+Note: Potential growth is expressed as a percentage change. Contributions to growth are shown for the remaining variables. The OECD
+methodology is based on a Cobb-Douglas production function as described in (Chalaux and Guillemette, 2019[2]).
+Source: OECD Economic Outlook 110 database.
+StatLink 2 https://stat.link/8htszf
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+lanoitaN sapaihC acaxaO orerreuG zurcareV nátacuY ooR
+anatniuQ
+ocsabaT ehcepmaC alacxalT ogladiH albeuP ocixéM soleroM otaujanauG oratéreuQ XMDC nácaohciM sacetacaZ tirayaN ognaruD ísotoP
+siuL
+naS
+aolaniS ocsilaJ amiloC setneilacsaugA ruS
+.filaC
+ajaB
+sapiluamaT auhauhihC ainrofilaC
+ajaB
+aliuhaoC aronoS nóeL
+oveuN
+Thousands of MXN %
+565
+Real GDP per capita, 2019 Poverty rate (right-hand axis), 2020
+South Centre Centre-North North
+4.0 4.0
+Capital stock per worker Trend labour efficiency Trend employment rate
+3.5 3.5
+Trend working-age population Potential growth
+3.0 3.0
+2.5 2.5
+2.0 2.0
+1.5 1.5
+1.0 1.0
+0.5 0.5
+0.0 0.0
+-0.5 -0.5
+-1.0 -1.0
+2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021
+
+page 18
+16 
+Table 1.1. An ambitious package of reforms could boost potential output significantly
+Potential impact of structural reforms on GDP per capita at different horizons
+Structural policy Effect on the level of GDP per capita (%)
+2-years 5-years 10 years
+Boosting financial inclusion 1.1 3.0 4.1
+Greater control of corruption 1.1 4.0 7.9
+Lower barriers to trade and investment (PMR) 1.3 5.0 9.9
+Higher female labour market participation . . 3.5
+All above 25.2
+Corresponding to an average annual growth of: 2.5
+Note: These estimates were obtained based on numerical indicators of Mexico’s policy stance in each policy area pertaining to the latest available
+date. The scenario about financial inclusion is based on the number of bank branches per 100 thousand adults, the barriers to trade and
+investment on the Product Market Regulation indexes and the active labour market policies scenario on the spending per unemployed person
+as a % of GDP/capita. The three scenarios, as the female labour market participation, assume that the gap with the OECD average is closed.
+The control of corruption is based on World Bank Governance indicator. This scenario assumes that the gap with the OECD average is halved.
+The quantifications are illustrative, as they are subject to uncertainty about both their magnitude and the time horizon of their materialisation.
+Source: OECD calculations based on (Égert, 2017[1])
+Against this background, the main messages of the Survey are:
+ Maintaining and strengthening Mexico’s solid macroeconomic policy framework is key for stability.
+The ability of fiscal policy to smooth out economic cycles and support growth during recessions
+can be enhanced, creating more space for public investment.
+ Rebooting private investment and turning around low productivity growth are fundamental
+priorities. This will require comprehensive reforms to improve business regulations, boost
+competition, reduce informality, continue fighting corruption and transition towards carbon
+neutrality.
+ Widening access to finance and strengthening digitalization would provide more equal
+opportunities and help to boost growth.
+The recovery has broadened
+The economy is recovering from the pandemic-related recession (Figure 1.4). External demand was the
+main driving force at the beginning of the recovery, with manufacturing exports above their pre-pandemic
+levels since February 2020, benefitting from the strong rebound in the United States. Consumption has
+also become a key growth driver, supported by higher mobility, the vaccination rollout and robust
+remittances. It is 2% below its pre pandemic level. Investment is recovering at slower pace and remains
+8% below its pre pandemic level. The pace of the recovery is heterogeneous across sectors. While
+manufacturing and agriculture have recovered quickly and some services, such as retail, wholesale trade,
+education, health and financial services, are making progress, the recovery in leisure and hospitality lags
+behind. Tourism, an important source of jobs and revenues for several states, is 28% below pre-pandemic
+levels.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 19
+ 17
+Figure 1.4. The recovery is underway
+A. Post-recession GDP recovery B. Manufacturing exports
+Index, t+0 = 100 Index, 2013 = 100, s.a.
+115 180
+160
+110
+140
+105
+120
+100 100
+95 80
+Tequila (1994) 60
+90 Total manufacturing
+Financial crisis (2008) 40
+85 Automotive
+20
+Coronavirus (2020) Non-automotive manufacturing
+80 0
+t+0 t+2 t+4 t+6 t+8 t+10 t+12 t+14 t+16 2013 2015 2017 2019 2021
+C. Consumption D. Remittances per capita
+Y-o-y % changes 2013 USD, 3-quarter moving average
+30 90
+MEX OECD LAC
+25 80
+20
+70
+15
+60
+10
+5 50
+0 40
+-5
+30
+-10
+20
+-15
+-20 10
+-25 0
+2013 2015 2017 2019 2021 1996 2001 2006 2011 2016 2021
+Note: Panel A: t+0 refers to 1994Q4, 2008Q3, and 2019Q4, respectively. A broken line indicates projections. Panel C: country group averages are unweighted.
+LAC refers to Chile, Colombia, Costa Rica, Argentina, and Brazil. Panel D: population figures projected from 2021Q1 onward.
+Source: OECD Economic Outlook database; INEGI; OECD Population Statistics; and Bank of Mexico.
+StatLink 2 https://stat.link/sxbak9
+COVID-19 cases have recently started to fall and vaccination is progressing (Figure 1.5). The authorities
+response to the pandemic (Box 1.1) included confinement and social distancing measures, put in place in
+March 2020, after the first confirmed case was reported at the end of February 2020. The last infectious
+wave peaked in January 2022 (Figure 1.5, Panel A). Thanks to progress in vaccination (Figure 1.5,
+Panel B) there were fewer casualties than in previous waves (Figure 1.5, Panels C and D). As of
+January 30, 64% of the population have received at least one dose. This represents about 85% of the
+population over 18 years. 60% of the population are fully vaccinated. The vaccination roll-out is showing
+significant heterogeneity across regions. Accelerating vaccination as much as possible continues to be a
+fundamental priority and would help to protect against possible new virus outbreaks.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 20
+18 
+Figure 1.5. COVID-19 cases have recently decreased and vaccination is progressing
+A. Confirmed cases B. Vaccinations
+Per million inhabitants, 7-day rolling average % of population to receive first dose
+700 100
+MEX COL MEX CHL COL
+600
+80
+500
+60
+400
+300 40
+200
+20
+100
+0 0
+Mar 20 Jun 20 Sep 20 Dec 20 Mar 21 Jun 21 Sep 21 Dec 21 Jan 21 Mar 21 May 21 Jul 21 Sep 21 Nov 21 Jan 22
+C. Confirmed deaths D. Excess deaths
+Per million inhabitants, 7-day rolling average % increase on previous years
+15 200
+MEX CHL COL MEX CHL COL
+175
+12 150
+125
+9
+100
+75
+6
+50
+3 25
+0
+0 -25
+Mar 20 Jun 20 Sep 20 Dec 20 Mar 21 Jun 21 Sep 21 Dec 21 Mar 20 Jun 20 Sep 20 Dec 20 Mar 21 Jun 21 Sep 21 Dec 21
+Note: Panel D plots the percentage increase in recorded deaths from 2020-2021 compared to the baseline number of deaths in 2015-2019.
+Source: Our World In Data.
+StatLink 2 https://stat.link/h1al3m
+Box 1.1. Main policy responses to the pandemic
+To address the pandemic, Mexico increased health expenditure by 0.4 % of GDP in 2020. In addition,
+Mexico took additional measures:
+ Frontloaded payments of the old-age non-contributory pensions by 8 months.
+ Accelerated procurement processes and VAT refunds.
+ Provided loans to SMEs maintaining employees on payroll (Créditos a la Palabra para
+empresas).
+ Loans to domestic workers and independent workers (Créditos a la Palabra para personas).
+ Provided liquidity support and guarantees by development banks.
+ A 3-month subsidy for workers who lost employment and hold a mortgage with the Housing
+Institute.
+ Monetary authorities cut rates by 300 basis points from March 2020 through February 2021.
+The Central Bank also introduced measures to support the functioning of the financial system
+amounting to up to 3.5 % of GDP.
+ Temporary changes in accounting standards to allow credit providers to defer loans for up to 6
+months.
+ Reduction of the total amount of monetary regulation deposits for commercial banks to support
+their access to liquidity.
+Source: COVID Policy tracker database.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 21
+ 19
+The labour market is gradually improving but challenges remain (Figure 1.6) and the pandemic has led to
+significant income losses, increasing poverty. The standard unemployment rate, at 3.9%, is still 0.6
+percentage points above the level of late 2019. However, the rate jumps to 15% when considering also
+the population that remains outside the labour force and would accept a job, and to 24% when adding
+those who would like to work more hours. Labour market participation is gradually recovering, but remains
+below pre-pandemic levels. The recovery in participation is being slower for women, who were particularly
+impacted by the pandemic.
+Figure 1.6. The labour market is gradually improving but challenges remain
+A. Unemployment B. Labour force participation
+% of labour force % of population over 15 years old
+60 90
+Unemployed Total Women Men
+50 80
+Unemployed + available to work
+40 70
+Unemployed + available to work +
+underemployed
+30 60
+20 50
+10 40
+0 30
+2017 2018 2019 2020 2021 2017 2018 2019 2020 2021
+Note: Panel A: the underemployment rate refers to the share of economically active individuals aged 15 and over who have the ability and desire
+to work more hours than their current occupation permits.
+Source: INEGI.
+StatLink 2 https://stat.link/7sdtic
+The economy is projected to expand by 2.3% in 2022 (Table 1.2). Exports will keep benefiting from buoyant
+growth in the United States, and consumption will grow thanks to an increasing share of the population
+being vaccinated and the gradual improvement in the labour market. Investment will be supported by
+planned infrastructure projects. Based on these projections, GDP would reach its pre-pandemic level by
+2022Q3. Inflation will edge down, after the significant increase in 2021, that was triggered by higher energy
+prices supply bottlenecks in some inputs, such as semiconductors and pressures on some merchandise
+items.
+Uncertainty about these projections remains very high. If infections increase again significantly, a
+reinforcement of containment measures may be needed, hampering economic activity. Inflation may be
+higher for longer than anticipated, eroding purchasing power, particularly of vulnerable households, and
+requiring a larger tightening of monetary policy than projected, which would weaken the recovery. Episodes
+of financial volatility may trigger greater risk aversion, reduce net financial inflows and increase Mexico’s
+financing costs. An escalation of crime and violence could depress investment and compromise the
+recovery of tourism. Ongoing discussions about reform with some potential reversals in the energy sector
+creates uncertainty, which could further weaken the recovery. On the upside, if the recovery in trading
+partners is stronger than anticipated, exports and job creation could be more robust. Supply chain
+integration could deepen further thanks to the updated trade agreement with the United States and Canada
+and the relaunch of the high-level economic dialogue with the United States. The economy may also face
+unpredictable shocks, whose effects are difficult to factor into the projections. Should those shocks
+materialise, additional policy actions would be warranted. (Table 1.3).
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 22
+20 
+Table 1.2. The recovery will continue
+2017 2019 2020 2021 2022 2023
+Current prices MXN billion Percentage changes, volume (2013 prices)
+GDP at market prices 21,934.2 -0.2 -8.2 5.3 2.3 2.6
+Private consumption 14,305.3 0.4 -10.5 7.3 2.0 2.3
+Government consumption 2,548.0 -1.8 0.1 1.2 2.1 2.3
+Gross fixed capital formation 4,845.7 -4.7 -17.8 10.4 4.4 4.5
+Stockbuilding1 632.7 -0.2 -0.4 0.3 0.2 0.0
+Total domestic demand 22,331.7 -1.3 -11.3 7.7 2.8 2.9
+Exports of goods and services 8,258.6 1.5 -7.3 5.9 6.5 5.3
+Imports of goods and services 8,656.1 -0.7 -13.7 14.6 6.0 5.8
+Net exports1 -397.6 0.8 2.4 -2.9 0.2 -0.2
+Memorandum items
+GDP deflator - 3.6 3.4 5.7 5.4 3.4
+Consumer price index (average) - 3.7 3.8 4.7 5.6 3.4
+Core inflation index2 (average) - 3.7 3.8 4.5 4.0 3.3
+Potential growth - 2.0 1.5 1.4 1.5 1.6
+Output gap (% of GDP) - -4.5 -13.5 -10.2 -9.6 -8.7
+Unemployment rate3 (% of labour force) - 3.5 4.4 4.1 4.0 3.9
+Current account balance (% of GDP) - -0.3 2.3 -0.7 -0.8 -0.9
+Public balance4 (% of GDP) - -1.6 -2.9 -2.9 -3.2 -3.0
+Net public debt4 (% of GDP) - 45.1 51.5 49.9 50.0 49.7
+1. Contributions to changes in real GDP, actual amount in the first column. 2. Consumer price index excluding volatile items: agricultural, energy
+and tariffs approved by various levels of government. 3. Based on national employment survey. 4. Central government and public enterprises.
+Source: OECD Economic Outlook database.
+Table 1.3. Possible shocks to the Mexican economy
+Vulnerability Possible outcome Possible policy action
+Contagion from acute financial volatility in other Large exchange rate depreciation and higher Tighten monetary policy and continue active
+emerging markets costs of financing the fiscal deficit and servicing debt management to re-profile debt maturity.
+debt.
+Reversal of reforms Reversal of reforms or lack of reform progress Pursue reforms that facilitate private sector
+that can hurt the business climate and investment and reduce policy uncertainty in key
+investment in key sectors, such as energy. sectors, such as energy.
+Increase in social unrest Political disruption that could hamper Pursue efforts to reduce inequalities based on
+implementation of reforms and hamper broad agreements that go beyond political
+investment and the medium-term growth parties. Communicate that those reforms will
+outlook. help to share the benefits of growth more
+widely.
+Environmental risks and natural disasters Seasonal and unpredictable extreme weather Strengthen disaster risk management and
+events, such as hurricanes, droughts or floods, foster climate change adaptation strategies,
+hampering the agriculture sector and adding including its financing.
+pressure on food inflation.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 23
+ 21
+The financial system has been stable and resilient so far (Figure 1.7), maintaining sizable capital and
+liquidity levels above regulatory minima and sound profitability ratios. Non-performing loans remain so far
+contained, but the forbearance scheme put in place during 2020 has ended and non-performing loans may
+still increase, particularly if economic conditions deteriorate. Even if all loans within the forbearance
+scheme become non-performing, this would not trigger systemic stress (Banxico, 2021 ). However,
+[3]
+smaller and medium-sized banks, with a greater exposure towards SMEs and consumer loans, may be
+substantially impacted, even if they have built additional reserve buffers. The latest stress tests conducted
+by the Central Bank suggest that the banking system has sufficient capital buffers and liquidity to weather
+extreme economic events (Banxico, 2021 ). Households and firms indebtedness remain low in
+[3]
+international perspective (Figure 1.7, Panels C and D). Debt servicing costs for households and firms
+remain contained (Banxico, 2021 ) Households debt are largely in the form of mortgages, which are
+[3]
+concentrated in the upper part of the income distribution, which has been less affected by the labour market
+impact of the pandemic. The corporate sector remains naturally hedged against currency risks, as liabilities
+are well covered by revenues that corporates generate in foreign currencies in which they are indebted.
+Figure 1.7. The financial sector appears resilient
+25
+20
+15
+10
+5
+0
+Note: Panel A refers to regulatory tier 1 capital to risk-weighted assets.
+Source: IMF Financial Soundness Indicators; and IMF Global Debt Database.
+StatLink 2 https://stat.link/o1pjnx
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+LHC REP IRC NAC SUA ASU ARB LOC PSE RUT XEM ATI ARF UED LOP DCEO RBG UTL
+A. Bank capital to risk-weighted assets
+%, 2020 or latest year
+8
+7
+6
+5
+4
+3
+2
+1
+0
+NAC UED ASU SUA RBG LHC ARB XEM IRC ARF DCEO PSE LOP GRA RUT REP ATI LOC
+B. Non-performing loans to total gross loans
+%, 2020 or latest year
+140
+120
+100
+80
+60
+40
+20
+0
+GRA RUT XEM REP IRC LOC LOP ARB ATI LHC UED PSE DCEO NPJ ARF ASU RBG LZN NAC SUA
+C. Household debt
+% of GDP, 2020
+160
+140
+120
+100
+80
+60
+40
+20
+0
+GRA XEM LOC IRC LOP ARB RUT SUA UED ATI LZN RBG ASU DCEO PSE NPJ LHC NAC ARF
+D. Corporate debt
+% of GDP, 2020
+
+page 24
+22 
+Mexico is actively assessing the potential financial impact from climate change and other environmental
+vulnerabilities. This includes transition risks, such as those associated with the policies to reduce global
+emissions, which could trigger sharp changes in asset prices and impact particularly firms without
+strategies to reduce emissions, as well as lenders to these firms, thus involving financial risks. Physical
+risks, such as those related to hurricanes, droughts, heatwaves, or floods area also included. Higher
+intensity or frequency of these events, which are relatively frequent in Mexico, can generate financial
+stability risks, including for insurance companies, thus reducing liquidity and decreasing assets values.
+The Ministry of Finance is developing a taxonomy to provide financial players and companies with
+transparent and consistent definitions of the activities that qualify as sustainable. It is also improving the
+regulatory framework, by incorporating environmental and social investment policy considerations for
+institutional investors, such as pension funds, insurance companies and development banks. This aims at
+facilitating that a higher proportion of investors incorporate environmental, social, and governance
+considerations into their investment process. Looking forward, based on the taxonomy that is under
+progress, phasing in mandatory disclosure of climate-related risks by financial institutions and listed
+companies would facilitate a more transparent management of these risks and provide incentives for
+allocating resources to cleaner activities. Evidence from France, which made climate-risk disclosures
+obligatory for asset managers, insurers and pension funds in 2016, shows that firms that had to disclose
+climate risks held 40% fewer bonds, stocks and other securities in fossil-fuel firms by value than those that
+did not have to disclose risks (Mésonnier and Nguyen, 2021 ). The Central Bank is also taking steps to
+[4]
+integrate climate-related risks into their risk management framework. This could be followed up by running
+climate change stress tests, which have started to be conducted in several OECD economies, such as
+France, the Netherlands or the United Kingdom.
+On the external side, the current account moved into a 2.4% of GDP surplus in 2020 (Figure 1.8), as the
+recovery of external demand from the COVID-19 shock outpaced the recovery in domestic demand. The
+current account was also supported by strong remittances from abroad. Net foreign direct investment
+amounted to 2.3% of GDP in 2020. External debt remains contained (Figure 1.9). The flexible exchange
+rate is helping the economy to absorb external shocks, with further backstops provided by ample
+international reserves covering 40% of external debt, access to the US Federal Reserve and Treasury
+swap lines, as well as the IMF’s flexible credit line. Mexico’s risk measures have trended down, after
+peaking in April 2020 (Figure 1.10).
+Figure 1.8. A positive non-oil trade balance and remittances drive the current account surplus
+% of GDP
+A. Current account balance B. Financial account balance
+12 -6
+Primary income Secondary income Direct investment Portfolio investment
+Oil trade balance Non-oil trade balance Financial derivatives Other investment
+Services balance Current account Reserve assets Financial account
+8 -4
+4 -2
+0 0
+-4 2
+-8 4
+2018 2019 2020 2021 2018 2019 2020 2021
+Source: Banxico.
+StatLink 2 https://stat.link/jlarf4
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 25
+ 23
+Figure 1.9. Reserves are solid
+A. External debt
+% of GDP
+80 120
+MEX CHL COL CRI
+70
+100
+60
+80
+50
+40 60
+30
+40
+20
+20
+10
+0 0
+1991 1996 2001 2006 2011 2016 2021
+Source: IMF World Economic Outlook, April 2021; and World Bank World Development Indicators.
+StatLink 2 https://stat.link/3zv7bj
+Figure 1.10. Sovereign risk premia have trended down
+Sovereign risk bond spreads, basis points
+Note: The sovereign risk bond spread is the spread of 10-year USD-denominated bond yields vis-à-vis US Treasury bonds.
+Source: Refinitiv.
+StatLink 2 https://stat.link/i2e3vx
+Macroeconomic policies can be further strengthened
+Thanks to a solid macroeconomic framework, Mexico acted timely to mitigate the economic and financial
+impact of the pandemic. Monetary policy eased gradually and bold and innovative measures safeguarded
+financial stability and facilitated credit provision. Nonetheless, the initial fiscal response was one of the
+lowest among emerging markets (Figure 1.11). Public spending increased by around 0.7% of GDP,
+compared to 4.4% of GDP in emerging economies. Instead, the government opted for reallocating
+spending from operative spending towards social and health, increasing public sector programmable
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+GRA RUT IRC FAZ NDI LOC XEM CAL SYM ARB REP DNI
+B. Total reserves
+% of total external debt, 2020 or latest year
+1,000 1,000
+MEX CHL COL CRI
+900 900
+800 800
+700 700
+600 600
+500 500
+400 400
+300 300
+200 200
+100 100
+0 0
+2013 2014 2015 2016 2017 2018 2019 2020 2021
+
+page 26
+24 
+spending on social protection and health by 0.7 and 0.4 percentage points respectively in 2020, relative to
+2019. Mexico opted also for expanding access to existing social programmes. Looking ahead, continuing
+to boost social spending, including on education and health, and public investment is fundamental to
+support the ongoing recovery and make it reach more people. Strengthening the fiscal policy framework is
+also a medium-term priority to enhance fiscal policy’s ability to smooth out economic cycles and provide
+support during downturns.
+Figure 1.11. Fiscal support provided as response to Covid-19 was low
+Cumulative discretionary fiscal response, % of GDP
+16 16
+Additional spending and forgone revenue Equity, loans, and guarantees
+14 14
+12 12
+10 10
+8 8
+6 6
+4 4
+2 2
+0 0
+MEX EGY PAK TUN TUR IND PHL COL CHN RUS ZAF ARG Em. BRA IDN PER Adv. CHL THA
+Econ. Econ.
+Note: Estimates as of September 27, 2021. Em Econ = simple average of emerging economies shown in chart. Adv. Econ. = simple average of
+AUS, BEL, CAN, CHE, CZE, DEU, DNK, ESP, FIN, FRA, GBR, ITA, JPN, KOR, NLD, NOR, NZL, SGP, SWE, USA.
+Source: IMF Database of Country Fiscal Measures in Response to the COVID-19 Pandemic, available at https://www.imf.org/en/Topics/imf-and-
+covid19/Fiscal-Policies-Database-in-Response-to-COVID-19.
+StatLink 2 https://stat.link/9um3qz
+Gaining fiscal space and reinforcing the fiscal framework
+Revenues were very resilient during the pandemic and the fiscal deficit widened only marginally in 2020.
+According to historical fiscal elasticities, tax revenues should have fallen significantly, given the fall in
+activity, but increased marginally instead. This was facilitated by changes in the tax code (Box 1.2) and by
+strengthening the prosecution of pending tax liabilities, which resulted in sizeable tax settlements with
+several large companies. Revenues were also supported by the stabilization funds, and by a skilful oil
+hedge, which safeguarded fiscal accounts from 2020’s fall in oil prices. As a result, the fiscal deficit widened
+only slightly (Figure 1.12) and the official measure of public debt increased from 44% at end-2019 to 55%
+of GDP at end-2020, due to the budget deficit, the depreciation of the peso and the fall in GDP. The deficit
+is expected to increase during 2021 and the budget for 2022 foresees that it will remain broadly unchanged
+in 2022 and will gradually decrease thereafter (Table 1.4). As such, the fiscal stance for the near-term,
+while remaining cautious, is less restrictive than foreseen in the 2021 budget. This is a welcome change,
+as it will mildly support the ongoing recovery. If the recovery falters or the pandemic resurges, increasing
+social and health spending further and delaying the reduction of the deficit are warranted.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 27
+ 25
+Figure 1.12. Tax revenues were resilient and the fiscal deficit increased marginally
+Non-financial public sector, % of GDP
+A. Fiscal balance and primary balance
+3 3
+2 2
+1 1
+0 0
+-1 -1
+-2 -2
+Fiscal balance
+-3 -3
+Primary balance
+-4 -4
+2000 2005 2010 2015 2020
+B. Revenue and expenditure
+28 28
+Revenue Expenditure
+26 26
+24 24
+22 22
+20 20
+18 18
+16 16
+2000 2005 2010 2015 2020
+Note: In panel B, the widest definition of public revenues are displayed, including also social security contributions and State-Owned enterprises.
+Source: Secretaría de Hacienda y Crédito Público; and OECD Economic Outlook database.
+StatLink 2 https://stat.link/l5uizq
+Box 1.2. Measures to improve tax collection
+Several measures have been implemented by the Federal Government throughout 2019 and 2020 to
+increase tax revenues:
+ Elimination of universal compensation. Until 2018, VAT positive balances could be
+recovered by offsetting other taxes automatically and without prior authorisation from tax
+authorities. This opened space for tax evasion by using fake invoices to reduce tax liabilities. In
+2019, universal compensation was eliminated, which increased tax revenues by 0.5% of GDP
+in 2020.
+ Strengthening sanctions. As of 2020, crimes related to tax fraud are classified as serious
+criminal offences and the issuance of fake invoices are considered organized crime activities.
+This aims at deterring tax evasion by increasing the perception of the risk of being detected and
+by hardening sanctions if found guilty.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 28
+26 
+ Implementation of BEPS. In 2020, 5 of the 15 Actions of the BEPS project were implemented.
+These measures could increase revenues by up to 0.4 percentage points of GDP by 2024.
+ Taxing digital services. As of 2020, complexities for paying VAT for goods and services
+provided by international platforms offering intermediation services or digital goods were
+removed. Income tax withholding for participants on certain transactions, especially for
+platforms that offer intermediation services, were also introduced.
+ Phasing out tax expenditures in the special tax on production and services of fuels.
+Revenues from taxes on fuel increased in 2019 and 2020 thanks to a change in the methodology
+to set fuel prices. Tax expenditures related to SMEs’ payments on toll roads and diesel
+purchases for rail and mining companies were reduced.
+ General anti-avoidance rule. Tax authorities are entitled to re-characterize a transaction as
+inexistent if it deems such transaction to lack a business purpose and only be pursuing a tax
+benefit.
+Table 1.4. Evolution of main fiscal aggregates
+% of GDP
+2018 2019 2020 2021 2022* 2023* 2024*
+Total revenues 21.7 22.0 22.9 22.8 21.9 21.9 21.9
+Oil revenues 4.2 3.9 2.6 4.4 3.9 3.8 3.7
+Non-oil revenues 17.6 18.1 20.3 18.3 18.1 18.2 18.2
+Tax revenues 13.0 13.1 14.3 13.6 14.0 14.1 14.2
+Personal 7.1 6.9 7.5 7.2
+VAT 3.9 3.8 4.2 4.3
+Corporate 1.5 1.9 2.0 1.5
+Imports 0.3 0.3 0.2 0.3
+Other 0.2 0.2 0.3 0.3
+Non-tax revenues 4.5 5.0 6.0 4.8
+Total expenditure 23.8 23.7 25.7 25.7 25.1 24.7 24.4
+Primary 21.2 21.0 22.8 23.1 22.3 21.7 21.4
+Programmable 17.3 17.3 19.1 19.6 18.7 18.1 17.7
+of which: capital investment 2.6 2.3 2.8 2.6 3.1 2.9 2.6
+Non-programmable 6.5 6.4 6.6 6.1 6.5 6.7 6.8
+of which: transfers to states 3.6 3.6 3.6 3.5 3.6 3.6 3.6
+of which: Interest 2.6 2.7 2.9 2.6 2.8 3.0 3.0
+Primary public balance 0.6 1.1 0.1 -0.3 -0.3 0.3 0.6
+Public balance -2.1 -1.6 -2.9 -2.9 -3.1 -2.7 -2.4
+Financing needs outside budget 0.0 -0.7 -1.2 -0.8 -0.4 -0.5 -0.5
+Public sector borrowing requirements -2.2 -2.3 -4.0 -3.8 -3.5 -3.2 -2.9
+Gross public sector debt 51.3 51.0 57.9 55.5 57.4 57.4 57.4
+Net public sector debt 46.0 45.1 51.5 49.9 49.7 49.5 49.4
+Historical Balance of the Public Sector
+44.9 44.5 51.7 50.1 51.0 51.0 51.0
+Borrowing Requirements
+Note: * Are forecasts. Some rows may not add up due to rounding.
+Source: Secretaría de Hacienda y Crédito Público.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 29
+ 27
+Figure 1.13. Public debt is expected to stabilise
+% of GDP
+90 90
+Baseline Downside risk scenario
+80 80
+Comprehensive reforms scenario Delayed fiscal deficit reduction scenario
+70 70
+60 60
+50 50
+40 40
+30 30
+20 20
+10 10
+2000 2005 2010 2015 2020 2025 2030 2035 2040 2045 2050
+Note: In the baseline scenario real GDP growth and inflation follow OECD projections over 2021-23 and then gradually converge towards
+potential output growth and the inflation target rate of 3%, respectively; the exchange rate between the Mexican peso and US dollar is assumed
+constant over the simulation period. The interest rate yields is assumed to shift vertically following changes in inflation. The government primary
+balance is assumed to follow table 1.4 and remain constant until 2034 when aging costs, in the form of higher pensions and health costs, will
+gradually start to kick in. The downside risk scenario assumes a one-off shock of 10% to the exchange rate with the US dollar and a permanent
+upward vertical shift of 100 basis points in the yield curve, with respect to the baseline. In the comprehensive reform scenario a higher GDP
+growth is assumed over the period 2022-2031 under the hypothesis that structural reforms were implemented as to boost growth as reported in
+Table 1. In the delayed fiscal deficit reduction scenario, the deficit is assumed to stay at 3.2% until 2023, and fall gradually thereafter at the
+same pace as the reduction embedded in the Government 2022 Budget. It also assumes higher GDP growth stemming from comprehensive
+reforms. All scenarios and the baseline include aging costs.
+Source: OECD calculations. Data prior to 2020 are from SHCP and refer to net central government debt.
+StatLink 2 https://stat.link/sli51f
+Mexico has been fiscally prudent over the years (Table 1.5), broadly meeting its fiscal targets and ensuring
+fiscal sustainability despite having the lowest tax-to-GDP ratio in the OECD (Figure 1.14), which is
+commendable. But this has been largely achieved by cutting spending, particularly public investment
+(Figure 1.15), hurting growth prospects. Overall public spending is low in international perspective
+(Figure 1.16), suggesting that there is limited room for further cuts. The government’s 2022 Budget
+foresees an increase in social protection spending, to 5.1% of GDP in 2022 (from 3.8% in 2018). Capital
+spending has also increased to 3.1 % of GDP (from 2.7% in 2019), the highest level since 2016, although
+it is foreseen a gradual fall throughout 2023 and 2024. At the same time, the pandemic has created
+additional needs, as poverty has widened and the health and education systems are strained. Gaps in
+infrastructure remain also significant. For example, the increase in public investment needed to close the
+infrastructure gap in Mexico was estimated to be 1.3 percentage points of GDP a year (Woetzel et al.,
+2017 ). Conducting rigorous and transparent cost-benefit analysis would ensure sound project selection
+[5]
+and help to close that gap in a cost-effective manner.
+Responding to these increasing spending needs in essential areas, while preserving debt sustainability, is
+the fundamental priority. The budget deficit is relatively low in international comparison (Figure 1.17) and
+access to markets remains comfortable. If government’s medium-term fiscal targets were met, the public
+debt-to-GDP ratio would stabilise as of 2023 (Figure 1.13). But debt dynamics could worsen under a
+scenario of significant increases in global interest rates and exchange rate depreciation. Coupling spending
+increases in essential areas with a gradual increase in tax revenues, as outlined below, would help to
+respond to spending needs while maintaining and reinforcing Mexico’s commitment to debt sustainability.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022
+
+page 30
+28 
+Strengthening tax revenues will also increase Mexico’s ability to run anticyclical fiscal policies in the future.
+The ability of Mexico’s fiscal policy to smooth cycles and support growth during recessions is hampered
+by a lower tax base than in peer countries, together with a country-risk premium and foreign exchange
+rate, which increases the cost of servicing debt, and weak automatic stabilisers on the spending side (e.g.
+there is no unemployment benefits system in place at the Federal level).
+The additional tax measures could be designed, announced and legislated in 2022 and implementation
+start in 2023. Measures affecting individuals in higher income deciles, who have the lowest propensity to
+consume, could be prioritised. The comprehensive reform efforts proposed in this survey in Table 1.1
+would also have a significant positive impact on public debt dynamics.
+As Mexico is only at the beginning of its population ageing process, the fiscal costs of population ageing,
+which are included in the baseline projections, will not have much weight over the next decade but will start
+to kick in gradually thereafter. The reform of contributory pension system (more below) implies some
+savings for the budget over the next two decades. Conversely, recent rises in non-contributory pensions
+will increase spending. Public health expenditures have been estimated to rise by 1.5 % of GDP by 2065
+(IDB, 2021 ), although this does not account for any implications of the ongoing pandemic and for the
+[6]
+expected increases on long-term care.
+Table 1.5. Past OECD recommendations to improve macroeconomic policies
+PAST OECD RECOMMENDATIONS ACTIONS TAKEN
+Maintain a prudent fiscal stance to keep the debt-to-GDP ratio stable and The announced budget for 2022 foresees an increase to 3.1% (from
+consider lowering it over the medium-term. 2.9% in 2021)and a stable public debt-to-GDP ratio
+Develop a comprehensive tax reform for implementation in the medium Several measures have been implemented by the Federal Government
+term. throughout 2019 and 2021 to improve tax collection (See Box 1).
+Broaden the VAT base by cutting exemptions and abolishing reduced Digital services provided by foreign suppliers are now subject to VAT.
+rates while compensating the poor with targeted subsidies.
+Increase the progressivity of personal income tax by lowering the income No action taken
+threshold for the top rate and further cut back tax allowances or convert
+them into tax credits.
+Build a nationwide property register to make more use of recurrent taxes A cadastral information platform, facilitating the exchange of
+on immovable property. geographically referenced, is being created. Coordination between
+municipalities and states have been strengthened to improve cadastral
+data administration. Legal adjustments are being discussed in the senate
+to standardize at national level the property value and to use market
+valuation methods.
+Establish a non-partisan, independent and adequately resourced fiscal No action taken
+council, along the principles defined by the OECD.
+Revise the Ley de Coordinación Fiscal to redefine and clarify No action taken
+responsibilities of public service delivery across the three levels of
+government and cut overlaps. Build capacity and professionalise the civil
+service at the state and municipal levels.
+Further strengthen the tax administration through adequate staffing and The tax authority simplified tax filing, developed self-service oriented
+resourcing and improve technological capabilities. technological tools and increased enforcement and the effectiveness of
+inspection processes. All the above helped to strengthen the prosecution
+of pending tax liabilities.
+Maintain the current monetary policy stance to curb inflation. Monetary policy became supportive during the COVID-19 crisis by
+gradually decreasing the policy rate. The rate was increased gradually
+during 2021 as inflation was well above the 3% target.
+OECD ECONOMIC SURVEYS: MEXICO 2022 © OECD 2022

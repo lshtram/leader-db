@@ -1,0 +1,70 @@
+Continue the same ruler-period research thread with Chapter 1B.
+Do not score and do not research another chapter during this turn.
+
+Ruler-period: Andrés Manuel López Obrador, Mexico,
+2022-2022.
+Selected lenses: ["1B.1", "1B.10", "1B.2", "1B.3", "1B.4", "1B.5", "1B.6", "1B.7", "1B.8", "1B.9"]
+
+Chapter questions and research note:
+## Ten Evidence Lenses
+
+These are complementary prompts for evidence collection, not ten independent scores:
+
+1. **1B.1:** Did the ruler seek to reduce nuclear or other existential risk, rather than increase prestige, leverage, or personal power through escalation?
+2. **1B.2:** Did the ruler use nuclear rhetoric responsibly, avoiding reckless threats, brinkmanship, apocalyptic language, or normalization of nuclear use?
+3. **1B.3:** Did the ruler strengthen command-and-control discipline, custody, safety, and accident-prevention safeguards?
+4. **1B.4:** Did the ruler support arms-control, inspection, nonproliferation, disarmament, or de-escalation agreements in good faith?
+5. **1B.5:** Did the ruler avoid using nuclear capability to shield conventional aggression, territorial coercion, or domestic repression?
+6. **1B.6:** Did the ruler resist proliferation by allies, proxies, clients, or domestic factions when proliferation served short-term political interests?
+7. **1B.7:** Did the ruler invest in risk-reducing expertise and institutions rather than surrounding nuclear/security decisions with loyalists or ideologues?
+8. **1B.8:** In crisis moments, did the ruler de-escalate, communicate clearly, and preserve channels that reduce accidental war?
+9. **1B.9:** Did the ruler handle dual-use technology, cyber, biological, AI, or other catastrophic-risk domains with precaution and transparency?
+10. **1B.10:** Did the ruler leave the country's existential-risk posture safer or more dangerous than they inherited it?
+
+Lens labels and coverage wording are advisory LLM-to-LLM aids. Missing lenses lower
+confidence; they do not invalidate the dossier, mechanically produce zero, or require
+exact status vocabulary.
+
+Use the accumulated authority baseline, evidence environment, local-prior audit,
+candidate pool, and global evidence ledger. Reuse existing evidence when it genuinely
+applies, but do not count reused records as newly discovered documents.
+
+Run a complete chapter research wave:
+
+1. Use broad, event-specific, institution/archive, adverse or contrary, and
+   local-language discovery queries.
+2. Inspect about 30 plausible documents and
+   open at least 12 promising underlying pages,
+   reports, legal records, or PDFs when accessible.
+3. Retain 5-20 defensible source-claim units, normally about 10, from at least three
+   source organizations and two source types when the evidence permits.
+4. Include both favorable and adverse or limiting evidence, target-period fit,
+   inherited conditions, practical authority, and contrary interpretations.
+5. Do not stop at search snippets. Open the source and record a page, section,
+   paragraph, table, legal provision, transcript timestamp, or short exact excerpt.
+6. Check every selected lens. An empty lens requires its own source-landscape search
+   and recorded rejection or access-blocker reason.
+
+For every newly accepted unit, include one physical line outside code fences:
+SOURCE_CLAIM_JSON: {"title":"...","publisher":"...","publication_date":"...",
+"url":"https://...","claim":"one material claim","locator":"precise locator",
+"provisional_id":"E...","canonical_fact_key":"canonical URL|locator|claim",
+"disposition":"final_evidence|context|discovery_only",
+"chapter_ids":["1B"],"methodology_ids":["1B.1"],
+"source_type":"...","source_confidence":"...","source_confidence_reason":"...",
+"final_evidence_use":"final_evidence|context|discovery_only","period_fit":"...",
+"ruler_attribution":"...","contrary_evidence":["..."],
+"lenses":["1B.1"]}
+
+Before finishing, update the cumulative `research-ledger-manifest.json` in the writable
+attempt directory. It must retain every prior entry and add this turn's entries; never
+replace it with a chapter-only fragment. If file writing fails, include a cumulative
+manifest in the response. Finish with:
+
+- documents discovered, opened, accepted, rejected, and access-blocked;
+- new and reused evidence counts;
+- distinct organizations and source types;
+- lens coverage and exact residual gaps;
+- why another chapter-specific search wave would or would not have material value.
+
+Do the searches now. Do not return a plan for later research.

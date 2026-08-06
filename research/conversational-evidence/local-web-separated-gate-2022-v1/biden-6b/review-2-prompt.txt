@@ -1,0 +1,2208 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "6B.1",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "6B.10"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:separated-gate-2022-v1:2022:USA:15810:6B",
+  "iso3": "USA",
+  "country_name": "United States",
+  "ruler_name": "Joe Biden",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "6B"
+  ],
+  "observed_chapter_ids": [
+    "6B"
+  ],
+  "approximate_locator_count": 57,
+  "approximate_source_family_count": 19,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": false,
+  "findings": []
+}
+
+Configured research workflow:
+not supplied
+
+Research notebook:
+---
+## 1. Orientation
+
+### Authority and practical control
+
+Joe Biden controlled the federal executive branch in 2022: presidential directives, agency leadership, regulatory priorities, grant administration, enforcement, and implementation of enacted appropriations. He could propose legislation and veto or sign bills, but Congress controlled enactment and appropriations. Courts constrained executive action. States, territories, tribes, school districts, public-health departments, and local housing agencies delivered much of the welfare portfolio.
+
+Attribution therefore varies:
+
+- **Direct presidential:** executive orders, bill signatures, and explicit administration priorities.
+- **Shared federal:** statutes such as the Inflation Reduction Act (IRA), PACT Act, American Rescue Plan (ARP), and Infrastructure Investment and Jobs Act required Congress as well as presidential advocacy and signature.
+- **Intergovernmental:** Medicaid, vaccination, schools, rental assistance, water systems, and homelessness services depended heavily on state/local implementation.
+- **Limited outcome attribution:** poverty, mortality, food insecurity, learning, inflation, and insurance coverage also reflected inherited institutions, private behavior, pandemic dynamics, Federal Reserve policy, and global shocks.
+
+### Inherited baseline
+
+Biden inherited a wealthy, high-capacity but unusually unequal welfare system: nearly universal basic water and sanitation, mass public education, Medicare and Social Security, yet no universal health coverage, high medical cost exposure, substantial racial and geographic disparities, housing shortages, and fragmented federal-state administration.
+
+The immediate baseline was distorted by COVID-19. Temporary 2020–2021 relief—including stimulus payments, enhanced unemployment support, the expanded Child Tax Credit, enhanced ACA subsidies, continuous Medicaid enrollment, rental assistance, and nutrition waivers—had produced unusually low measured supplemental poverty in 2021. Their expiration makes a simple 2021–2022 comparison misleading.
+
+Important current measurement warning: in July 2026 BLS disclosed coding errors in Supplemental Poverty Measure thresholds for 2019–2024. Census has warned that revised poverty rates are forthcoming. The originally published 2022 SPM estimates below remain useful provisionally, but researchers should replace them when corrected estimates appear.
+
+### Shocks and constraints
+
+The 2022 record was shaped by:
+
+- continuing COVID-19, including the early-2022 Omicron wave;
+- inflation following pandemic disruption, fiscal support, supply constraints, and energy/food shocks;
+- Russia’s invasion of Ukraine and related commodity-price pressure;
+- pandemic learning loss and school-workforce disruption;
+- expiration of congressionally authorized emergency benefits;
+- federalism and wide state variation;
+- the Supreme Court’s *Dobbs* decision, which sharply reduced reproductive-health access in many states;
+- congressional refusal to renew the expanded Child Tax Credit;
+- judicial stays against broad student-debt cancellation.
+
+### Information environment
+
+This is an open, heavily scrutinized case. Census, CDC/NCHS, NCES, USDA, CMS, Treasury, HUD, VA, GAO, courts, household surveys, and independent research provide substantial evidence. The main risks are not censorship but:
+
+- confusing announcements with delivery;
+- counting one federal-state program as wholly presidential;
+- treating the exceptional 2021 relief baseline as normal;
+- conflating 2022 enactment with benefits beginning in later years;
+- relying on administrative enrollment rather than effective access or quality;
+- double-counting official releases that draw on the same dataset.
+
+No evidence found suggests that benefits were systematically conditioned on loyalty to Biden. Absence of detected national politicization is not proof that every local administrator acted neutrally.
+
+## 2. Compact evidence index
+
+| ID | Fact name | Why it matters |
+|---|---|---|
+| WEB-6B-001 | 2022 poverty reversal | Expired relief materially worsened child and overall disposable-resource poverty. |
+| WEB-6B-002 | Insurance coverage improved | Shows a delivered access gain, though not affordable care by itself. |
+| WEB-6B-003 | Marketplace enrollment record | Connects ARP subsidies and federal outreach to measurable uptake. |
+| WEB-6B-004 | IRA health institutions | Durable 2022 legislation addressing premiums and drug costs, mostly prospectively. |
+| WEB-6B-005 | Medical affordability remained poor | Insurance gains coexisted with widespread delayed care and financial insecurity. |
+| WEB-6B-006 | Rental assistance delivery and oversight | Large vulnerable-group delivery, with incomplete data and uneven administration. |
+| WEB-6B-007 | Food insecurity increased | Important contrary outcome after emergency supports receded amid inflation. |
+| WEB-6B-008 | Severe learning loss | Documents inherited/persisting educational harm and unequal recovery needs. |
+| WEB-6B-009 | Evidence-oriented school recovery funds | Shows targeted federal recovery design, but limited national outcome proof in 2022. |
+| WEB-6B-010 | Water infrastructure implementation | Long-horizon investment aimed at lead, contaminants, and disadvantaged communities. |
+| WEB-6B-011 | Mortality and COVID-19 improvement | Major crisis outcome improved, but causal attribution is shared and incomplete. |
+| WEB-6B-012 | Federal vaccine-equity programs | Favorable targeted implementation with independently audited residual disparities. |
+| WEB-6B-013 | Young-child vaccination inequity | Strong contrary evidence on uptake, geography, race, and implementation limits. |
+| WEB-6B-014 | PACT Act delivery began | Durable expansion for toxic-exposed veterans with measurable 2022 implementation. |
+| WEB-6B-015 | PSLF correction delivered relief | Administrative correction produced actual debt forgiveness for public servants. |
+| WEB-6B-016 | Broad student-debt plan failed | Welfare-oriented announcement lacked delivered benefit and exceeded statutory authority. |
+| WEB-6B-017 | Reproductive-access response | Federal action protected some dignity/access after *Dobbs*, but state disparities remained. |
+| WEB-6B-018 | Homelessness persisted | Shows housing need remained large despite emergency eviction prevention. |
+
+## 3. Ten-lens disposition
+
+1. **6B.1 — Welfare as a core purpose:** Well evidenced but mixed. The IRA, PACT Act, ARP implementation, ACA outreach, water funding, rental assistance, and reproductive-health orders reveal sustained welfare attention (WEB-6B-003, 004, 006, 009, 010, 014, 017). Expiration of the enhanced CTC and other relief, however, produced a sharp poverty reversal (WEB-6B-001).
+
+2. **6B.2 — Basic-service access:** Health insurance and Marketplace enrollment improved, rental assistance reached millions, and water and education recovery investments entered implementation (WEB-6B-002, 003, 006, 009, 010). Effective affordability remained poor; food insecurity increased; learning loss and homelessness remained substantial (WEB-6B-005, 007, 008, 018).
+
+3. **6B.3 — Vulnerable groups:** Strong design and partial-delivery evidence for low-income renters, racial minorities, disadvantaged water systems, students furthest from opportunity, veterans, older people, and women (WEB-6B-004, 006, 009, 010, 012, 014, 017). Child poverty and vaccination disparities are major contrary evidence (WEB-6B-001, 013).
+
+4. **6B.4 — Professional administration:** Federal programs were managed through established agencies and audited by GAO rather than personal patronage networks. Nevertheless, ERA data were incomplete, allocation did not consistently follow need, and local capacity varied (WEB-6B-006). Student-debt and loan-servicing administration also displayed legal, tracking, and fraud-control weaknesses (WEB-6B-015, 016).
+
+5. **6B.5 — Evidence and correction:** Strong evidence exists for standardized measurement, targeted-site selection, evidence-based school-recovery requirements, demographic monitoring, GAO oversight, and ERA reallocations (WEB-6B-006, 009, 012, 013). Correction was incomplete: Treasury lacked recipient/payment data, educational outcomes remained poor, and vaccine disparities persisted.
+
+6. **6B.6 — Crisis suffering:** COVID-associated mortality declined sharply and emergency rental assistance likely prevented evictions (WEB-6B-006, 011). The decline cannot be credited wholly to Biden: prior infection, vaccination developed and initiated under the previous administration, treatment advances, state decisions, and viral evolution all mattered. Food insecurity and child poverty worsened as temporary supports expired (WEB-6B-001, 007).
+
+7. **6B.7 — Political conditionality:** No credible evidence found of Biden conditioning ordinary federal welfare benefits on personal or partisan loyalty. Formula allocations, statutory eligibility, professional agencies, courts, and audits constrained such conduct. This lens is supported mainly by institutional structure and the absence of substantiated national allegations, so confidence is moderate rather than conclusive.
+
+8. **6B.8 — Dignity and equal opportunity:** The record includes affirmative attention to racial vaccine equity, low-income renters, toxic-exposed veterans, reproductive care, and disadvantaged communities (WEB-6B-006, 010, 012, 014, 017). Persistent racial vaccination gaps, cost barriers, child poverty, learning inequality, and state-dependent reproductive access limit the result (WEB-6B-001, 005, 008, 013, 017).
+
+9. **6B.9 — Institutional durability:** The IRA’s drug-pricing framework, PACT Act entitlements, and multi-year water funding are the clearest durable measures (WEB-6B-004, 010, 014). ERA and ARP education aid were temporary. Broad student cancellation was legally invalidated. Whether local eviction-prevention and learning-recovery capacity survived the grants requires later evaluation.
+
+10. **6B.10 — Life chances:** The 2022 trajectory was genuinely mixed. Coverage expanded, COVID mortality declined, renters received protection, public servants obtained debt relief, veterans gained durable entitlements, and future health/water institutions were strengthened. Simultaneously, real household income fell, child poverty and food insecurity rose, learning loss was severe, medical affordability remained weak, and reproductive access became more unequal. Attribution is strongest for enacted institutional changes and administrative implementation, weaker for annual national outcomes.
+
+### Domain coverage
+
+- **Strong:** health coverage, health affordability, pandemic response, housing assistance, poverty/social protection, food security, education outcomes, vulnerable-group distribution.
+- **Moderate:** water infrastructure, veterans’ protection, reproductive dignity, administrative quality.
+- **Weak or unavailable:** sanitation-specific change, childcare quality, disability services outside veterans and vaccination access, long-run housing supply delivery, political conditionality at subnational level, and 2022 causal evaluations of education recovery.
+
+No chapter score is assigned.
+
+## 4. Source-state lists
+
+### Opened corroboration
+
+- Census 2022 income/poverty/insurance press release corroborates WEB-6B-001 and 002, but depends on the same CPS ASEC reports.
+- Treasury’s March 2022 ERA release corroborates payment volume; it is not independent of Treasury administrative data.
+- Treasury’s demographic ERA release corroborates targeting but uses the same grantee reporting later audited by GAO.
+- VA’s September and December 2022 releases corroborate PACT uptake; both depend on VA administrative records.
+- CDC’s adult vaccination survey corroborates broader access disparities but measures all recommended adult vaccines rather than the federal COVID programs specifically.
+- Commonwealth Fund provides independent survey corroboration for affordability limitations.
+- Supreme Court’s 2023 opinion independently establishes the legal failure of the 2022 debt plan.
+
+### Reused supplied sources
+
+All five supplied sources were opened before use:
+
+- E014 → WEB-6B-012.
+- E015 → opened and retained as corroboration, not a separate central record, because its composite includes several non-COVID vaccines.
+- E016 → WEB-6B-013.
+- E017 → WEB-6B-005.
+- E018 → opened; retained as official implementation corroboration, not a separate accepted fact because it substantially overlaps WEB-6B-012.
+
+### Uninspected or partially inspected leads
+
+- UNDP country tables and V-Dem equality priors: useful for structured baseline comparison but unlikely to discriminate Biden’s 2022 contribution.
+- Corrected 2019–2024 SPM estimates: not yet published by Census as of July 24, 2026.
+- Full state-by-state ARP ESSER expenditure and evaluation files.
+- EPA state-level 2022 obligation/disbursement files and verified completed lead-service-line replacements.
+- HUD’s detailed 2022 AHAR subgroup tables.
+- State abortion-access, maternal-health, and interstate-travel datasets following *Dobbs*.
+- Disability-specific SSI, HCBS, and special-education implementation data.
+- 2022 SNAP participation, benefit adequacy, and emergency-allotment variation by state.
+
+### Rejected
+
+- Pure White House promotional summaries without underlying administrative, statutory, or evaluation evidence.
+- 2023–2026 IRA benefit counts presented as if they were realized in 2022.
+- The 2021 record-low poverty rate as a 2022 outcome.
+- Broad student-debt cancellation as delivered welfare: no debt was discharged under that program.
+- Treasury claims that ERA alone caused below-baseline eviction filings: accepted only in the more cautious GAO form because moratoria and local conditions also mattered.
+- Education pages dominated by philanthropic pledges rather than federal delivery.
+- Adult vaccination composite coverage as a direct measure of Biden’s COVID response.
+
+### Access-blocked
+
+- Direct Congress.gov pages were initially blocked by automated access controls. CRS and authenticated public-law pages indexed from Congress.gov were accessible and used instead.
+- Local researcher-guide and source-registry files could not be inspected because the workspace shell was unavailable in this session.
+- No paywalled news source was necessary for a central claim.
+
+### Counts
+
+Counting unique substantive source pages/documents rather than search-result duplicates:
+
+- **Discovered:** 48
+- **Opened or substantively extracted:** 31
+- **Accepted as developed evidence:** 18
+- **Reused from supplied list:** 5 opened; 3 became central records and 2 corroboration
+- **Opened corroboration not separately accepted:** 7
+- **Rejected:** 8 source/claim uses
+- **Blocked:** 2 access categories
+- **Uninspected or only partially inspected leads:** 8
+
+## 5. Remaining research and saturation
+
+Additional broad national searching is now mostly repeating the same 2022 statutes, administrative totals, and outcome datasets. The largest potential gains would come from narrower work:
+
+- corrected SPM estimates;
+- independent causal evaluations of ARP ESSER learning recovery;
+- state-level water project completion rather than allocation;
+- reproductive and maternal-health outcomes after *Dobbs*;
+- disability and long-term-care services;
+- subnational ERA and welfare-administration disparities.
+
+Those inquiries could materially refine distribution, implementation quality, and durability, but are unlikely to reverse the basic finding that 2022 combined meaningful institutional gains with worsening poverty, food security, education, and affordability indicators.
+
+## 6. Machine records
+
+SOURCE_CLAIM_JSON:{"title":"Poverty in the United States: 2022","publisher":"U.S. Census Bureau","publication_date":"2023-09-12","url":"https://www.census.gov/library/publications/2023/demo/p60-280.html","claim":"Originally published CPS ASEC estimates put 2022 supplemental poverty at 12.4%, up from 7.8% in 2021, and child supplemental poverty at 12.4%, more than double 2021; expiration of stimulus payments and temporary refundable-credit expansions was a major mechanism, but Census has warned that 2019–2024 SPM estimates will be revised after a 2026 BLS threshold-coding correction.","locator":"Highlights; Figures 4 and 6; Table B-3; current Data User Note","provisional_id":"WEB-6B-001","canonical_fact_key":"usa_2022_spm_and_child_poverty_reversal","disposition":"fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["CPS_ASEC","SPM"],"source_type":"official national household survey report","source_confidence":"high, subject to announced revision","source_confidence_reason":"National probability survey with published definitions and significance testing; exact estimates are provisional because of the announced threshold correction.","final_evidence_use":"Adverse outcome and temporary-support durability evidence.","period_fit":"Direct calendar-year 2022 outcome, published retrospectively.","ruler_attribution":"Shared/limited: federal policy expiration is relevant, but Congress controlled renewal and macroeconomic conditions also affected resources.","contrary_evidence":"Official poverty was statistically unchanged; Social Security and noncash benefits still removed millions from poverty.","lenses":["6B.1","6B.2","6B.3","6B.6","6B.8","6B.9","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Income, Poverty and Health Insurance Coverage in the United States: 2022","publisher":"U.S. Census Bureau","publication_date":"2023-09-12","url":"https://www.census.gov/newsroom/press-releases/2023/income-poverty-health-insurance-coverage.html","claim":"The share insured for at least part of 2022 rose to 92.1% from 91.7% in 2021, while the number uninsured all year fell from 27.2 million to 25.9 million; real median household income fell 2.3%.","locator":"Release paragraphs 2–3 and linked Health Insurance Coverage report","provisional_id":"WEB-6B-002","canonical_fact_key":"usa_2022_insurance_gain_real_income_decline","disposition":"fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["CPS_ASEC"],"source_type":"official national household survey release","source_confidence":"high","source_confidence_reason":"Census national survey estimates with methodological documentation.","final_evidence_use":"Favorable coverage outcome, qualified by falling real income.","period_fit":"Direct calendar-year 2022 outcome.","ruler_attribution":"Shared/limited: ARP subsidies and continuous Medicaid enrollment contributed, but states, employers, prior ACA institutions, and labor-market conditions also mattered.","contrary_evidence":"Coverage does not establish affordability or adequate access; WEB-6B-005 documents major cost barriers.","lenses":["6B.2","6B.3","6B.8","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Marketplace 2022 Open Enrollment Period Report: Final National Snapshot","publisher":"Centers for Medicare & Medicaid Services","publication_date":"2022-01-27","url":"https://www.cms.gov/newsroom/fact-sheets/marketplace-2022-open-enrollment-period-report-final-national-snapshot","claim":"About 14.5 million people selected or were automatically re-enrolled in 2022 Marketplace coverage, including 3.0 million new Marketplace consumers; enrollment followed enhanced ARP subsidies, federal outreach, and a longer HealthCare.gov enrollment period.","locator":"Opening paragraph and national plan-selection totals","provisional_id":"WEB-6B-003","canonical_fact_key":"usa_2022_aca_marketplace_enrollment","disposition":"fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["CMS_marketplace_administrative_data"],"source_type":"official administrative statistics","source_confidence":"high for plan selections","source_confidence_reason":"Direct CMS and state-Marketplace administrative counts; plan selection is not identical to effectuated full-year coverage.","final_evidence_use":"Delivered federal health-access implementation.","period_fit":"Direct 2022 coverage-year enrollment.","ruler_attribution":"Shared but meaningful: Biden signed ARP and his administration changed outreach and enrollment timing; ACA infrastructure and state exchanges were inherited.","contrary_evidence":"Some selections may not effectuate; affordability problems remained widespread.","lenses":["6B.1","6B.2","6B.3","6B.4","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Selected Health Provisions of the Inflation Reduction Act","publisher":"Congressional Research Service, Library of Congress","publication_date":"2022-09-01","url":"https://www.congress.gov/crs-product/IF12203","claim":"The IRA signed August 16, 2022 extended enhanced ACA premium subsidies through 2025 and created durable Medicare drug-price negotiation, inflation rebates, insulin and vaccine cost protections, a future $2,000 Part D cap, and expanded low-income subsidies, with most beneficiary effects beginning after 2022.","locator":"Overview; sections on negotiation, inflation rebates, Part D, vaccines, insulin, and private insurance","provisional_id":"WEB-6B-004","canonical_fact_key":"ira_2022_health_affordability_institutions","disposition":"fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["statutory_analysis"],"source_type":"nonpartisan legislative analysis","source_confidence":"high","source_confidence_reason":"CRS analysis of enacted Public Law 117-169.","final_evidence_use":"Favorable durable institution-building; separates enactment from later delivery.","period_fit":"Direct 2022 enactment; largely prospective effects.","ruler_attribution":"Shared: Biden advocated for and signed the law; Congress enacted it and agencies implement it.","contrary_evidence":"Most drug-cost benefits were not realized in 2022; insulin cap did not extend generally to privately insured patients.","lenses":["6B.1","6B.2","6B.3","6B.8","6B.9","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"The State of U.S. Health Insurance in 2022","publisher":"The Commonwealth Fund","publication_date":"2022-09-29","url":"https://www.commonwealthfund.org/publications/issue-briefs/2022/sep/state-us-health-insurance-2022-biennial-survey","claim":"In a 2022 national survey, 46% of working-age respondents reported skipping or delaying care because of cost, 42% had medical-bill or debt problems, and 49% could not cover an unexpected $1,000 medical bill within 30 days; inability was greater among low-income, Black, and Hispanic adults.","locator":"Lines/paragraphs corresponding to Findings bullets; exhibits 9–11; methodology section","provisional_id":"E017","canonical_fact_key":"usa_2022_medical_affordability_barriers","disposition":"reused supplied source; fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["Commonwealth_Fund_Biennial_Survey_2022"],"source_type":"independent household survey","source_confidence":"medium-high","source_confidence_reason":"Transparent survey and definitions, independent of government; self-reported cross-sectional results and working-age focus limit causal interpretation.","final_evidence_use":"Contrary evidence to insurance-access gains and evidence of unequal dignity/financial protection.","period_fit":"Direct 2022 survey.","ruler_attribution":"Limited: reflects long-standing system design, employer insurance, state policy, prices, and federal policy.","contrary_evidence":"Insurance coverage and Marketplace enrollment improved, and the IRA created future affordability protections.","lenses":["6B.2","6B.3","6B.8","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Emergency Rental Assistance: Treasury's Oversight Is Limited by Incomplete Data and Risk Assessment","publisher":"U.S. Government Accountability Office","publication_date":"2022-12-20","url":"https://www.gao.gov/products/gao-23-105410","claim":"The $46.55 billion ERA program likely helped limit evictions and heavily served very-low-income households, but Treasury lacked complete recipient/payment data, approximately 26% of 2021 household-payment records were missing, early local delivery was slow, and reallocations did not consistently align funds with renter need and grantee capacity.","locator":"Fast Facts; What GAO Found; recommendations; distribution graphic","provisional_id":"WEB-6B-006","canonical_fact_key":"era_delivery_eviction_effect_and_oversight_2022","disposition":"fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["GAO_performance_audit","ERA_administrative_data"],"source_type":"independent legislative-branch audit","source_confidence":"high","source_confidence_reason":"GAO reviewed program records, grantee evidence, third-party studies, and eviction data while explicitly qualifying causality and data gaps.","final_evidence_use":"Both favorable housing/crisis delivery and adverse administrative-capacity evidence.","period_fit":"Direct audit through October 2022, with inherited 2021 implementation evidence.","ruler_attribution":"Institutional/shared: Treasury was Biden-controlled, but Congress created funding and more than 700 subnational grantees delivered payments.","contrary_evidence":"Treasury reported 10.8 million cumulative payments by end-2022, but a payment is not a unique household and administrative data were incomplete.","lenses":["6B.1","6B.2","6B.3","6B.4","6B.5","6B.6","6B.8","6B.9","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Household Food Security in the United States in 2022","publisher":"USDA Economic Research Service","publication_date":"2023-10-25","url":"https://www.ers.usda.gov/publications/107702","claim":"Food insecurity affected 12.8% of U.S. households in 2022, up significantly from 10.2% in 2021, while very low food security rose from 3.8% to 5.1%.","locator":"Overview; report ERR-325 key findings and statistical tables","provisional_id":"WEB-6B-007","canonical_fact_key":"usa_2022_food_insecurity_increase","disposition":"fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["Current_Population_Survey_Food_Security_Supplement"],"source_type":"official nationally representative household survey report","source_confidence":"high","source_confidence_reason":"Long-running standardized national survey with statistical testing.","final_evidence_use":"Adverse food-security outcome during relief expiration and inflation.","period_fit":"Direct calendar-year 2022 outcome.","ruler_attribution":"Limited/shared: federal nutrition policy mattered, but inflation, earnings, household conditions, Congress, and state emergency-allotment rules also contributed.","contrary_evidence":"Most households remained food secure; the source does not causally decompose policy expiration and inflation.","lenses":["6B.2","6B.3","6B.6","6B.8","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"NAEP Long-Term Trend Assessment Results: Reading and Mathematics","publisher":"National Center for Education Statistics","publication_date":"2022-09-01","url":"https://www.nationsreportcard.gov/highlights/ltt/2022/","claim":"Between winter 2020 and winter 2022, average age-nine scores fell five points in reading and seven in mathematics—the largest reading decline since 1990 and first mathematics decline in the series—with larger losses among lower performers and a widening White-Black mathematics gap.","locator":"Overview; Recent Student Performance Trends; Performance Trends by Student Group","provisional_id":"WEB-6B-008","canonical_fact_key":"naep_2022_pandemic_learning_loss","disposition":"fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["NAEP_long_term_trend"],"source_type":"official standardized assessment","source_confidence":"high","source_confidence_reason":"Nationally administered standardized assessment with subgroup and statistical comparisons.","final_evidence_use":"Adverse inherited/persisting education outcome and unequal-opportunity evidence.","period_fit":"2022 assessment compared with pre-Biden winter 2020 baseline.","ruler_attribution":"Low/limited: most disruption began before Biden and school operation was state/local; federal recovery policy could influence only part of the interval.","contrary_evidence":"Federal recovery funds were substantial, but the assessment does not identify their causal effect.","lenses":["6B.2","6B.3","6B.5","6B.6","6B.8","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Elementary and Secondary School Emergency Relief Fund","publisher":"U.S. Department of Education","publication_date":"2022-07-26","url":"https://www.ed.gov/grants-and-programs/formula-grants/response-formula-grants/covid-19-emergency-relief-grants/elementary-and-secondary-school-emergency-relief-fund","claim":"To receive remaining ARP ESSER funds, states had to submit federally approved plans for safe reopening, academic recovery, and mental-health supports, while districts had to publish spending and continuity plans; ARP required evidence-based interventions and targeted resources through Title I-related formulas.","locator":"ARP ESSER state-plan and LEA-plan requirements; July 26, 2022 appendix update","provisional_id":"WEB-6B-009","canonical_fact_key":"arp_esser_2022_evidence_based_recovery_implementation","disposition":"fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["program_rules","state_plan_review"],"source_type":"official program documentation","source_confidence":"high for requirements, medium for delivered effect","source_confidence_reason":"Authoritative description of grant conditions and planning; not an independent evaluation of outcomes.","final_evidence_use":"Evidence of priority, professional administration, measurement, and targeted design.","period_fit":"Direct 2022 implementation of a 2021 Biden-signed law.","ruler_attribution":"Shared: Biden signed ARP and Education administered it; Congress funded it and states/districts selected and delivered interventions.","contrary_evidence":"Severe NAEP losses persisted, and this source does not establish that plans produced effective learning recovery.","lenses":["6B.1","6B.2","6B.3","6B.4","6B.5","6B.6","6B.8","6B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Biden-Harris Administration and EPA Announce Delivery of Historic Water Infrastructure Funding to 18 States","publisher":"U.S. Environmental Protection Agency","publication_date":"2022-10-06","url":"https://www.epa.gov/newsreleases/biden-harris-administration-and-epa-announce-delivery-historic-water-infrastructure","claim":"EPA began delivering the first-year Bipartisan Infrastructure Law drinking-water and wastewater funds in 2022, including dedicated resources for lead-service-line replacement, emerging contaminants, and disadvantaged communities through state revolving funds.","locator":"Funding announcement and state-delivery sections","provisional_id":"WEB-6B-010","canonical_fact_key":"bipartisan_infrastructure_water_funds_2022_delivery","disposition":"fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["EPA_grant_administration"],"source_type":"official implementation announcement","source_confidence":"medium-high","source_confidence_reason":"Authoritative for allocations and award delivery, but not independent evidence of completed infrastructure or household outcomes.","final_evidence_use":"Favorable basic-service, vulnerable-community, and durability evidence.","period_fit":"Direct 2022 implementation of a 2021 statute.","ruler_attribution":"Shared: Biden advocated for and signed the law and EPA implemented it; Congress, states, tribes, territories, and utilities controlled other stages.","contrary_evidence":"Allocations and capitalization grants are not completed pipe replacements or demonstrated exposure reductions.","lenses":["6B.1","6B.2","6B.3","6B.4","6B.8","6B.9","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Provisional Mortality Data — United States, 2022","publisher":"CDC, Morbidity and Mortality Weekly Report","publication_date":"2023-05-05","url":"https://www.cdc.gov/mmwr/volumes/72/wr/mm7218a3.htm","claim":"The 2022 age-adjusted all-cause death rate fell 5.3% from 2021, while COVID-associated deaths fell about 47% from 462,193 to 244,986; rates nevertheless remained highest among Black and American Indian/Alaska Native people, and COVID remained the fourth-leading underlying cause of death.","locator":"Results, Table, and Discussion","provisional_id":"WEB-6B-011","canonical_fact_key":"usa_2022_mortality_and_covid_death_decline","disposition":"fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["NVSS_death_certificates"],"source_type":"official vital statistics","source_confidence":"high","source_confidence_reason":"National death-certificate surveillance with explicit provisional-data qualifications.","final_evidence_use":"Favorable crisis trajectory with persistent inequality.","period_fit":"Direct 2022 outcome.","ruler_attribution":"Limited/shared: federal vaccine, treatment, testing, and communication policies mattered, but immunity, viral variants, prior vaccine development, state policy, clinical practice, and behavior were major co-causes.","contrary_evidence":"Roughly 245,000 COVID-associated deaths remained, disparities persisted, and life expectancy had not regained its full 2019 loss.","lenses":["6B.2","6B.3","6B.5","6B.6","6B.8","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"COVID-19: Federal Efforts to Provide Vaccines to Racial and Ethnic Groups","publisher":"U.S. Government Accountability Office","publication_date":"2022-02-07","url":"https://www.gao.gov/products/gao-22-105079","claim":"CDC, HRSA, and FEMA used racial/ethnic population data, translation, extended hours, outreach, pharmacies, and pop-up sites to target underserved communities; CDC exceeded its aggregate 40% retail-pharmacy goal, but Black people remained underrepresented and missing race/ethnicity data limited comparisons.","locator":"Lines 264–295, especially 266–288","provisional_id":"E014","canonical_fact_key":"federal_covid_vaccine_equity_programs_and_residual_gaps","disposition":"reused supplied source; fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["GAO_performance_audit","federal_vaccine_administrative_data"],"source_type":"independent legislative-branch audit","source_confidence":"high","source_confidence_reason":"GAO reviewed agency documentation and data, interviewed officials and stakeholders, and explicitly reported completeness limitations.","final_evidence_use":"Favorable targeting and professional administration, paired with contrary equity evidence.","period_fit":"Published in 2022; mainly evaluates February–September 2021 implementation inherited into the 2022 baseline.","ruler_attribution":"Institutional/direct for Biden-era agency programs; state and local vaccination remained important.","contrary_evidence":"Black vaccination share remained below population share and missing demographic data could explain some or all observed differences.","lenses":["6B.1","6B.2","6B.3","6B.4","6B.5","6B.6","6B.8"]}
+
+SOURCE_CLAIM_JSON:{"title":"COVID-19 Vaccination Coverage and Demographic Characteristics of Infants and Children Aged 6 Months–4 Years — United States, June 20–December 31, 2022","publisher":"CDC, Morbidity and Mortality Weekly Report","publication_date":"2023-02-17","url":"https://www.cdc.gov/mmwr/volumes/72/wr/mm7207a4.htm","claim":"By December 31, 2022, only 10.1% of children aged six months to four years had received at least one COVID vaccine dose and 5.1% completed the series; first-dose coverage was 3.4% in rural versus 10.5% in urban counties, and Black and Hispanic children were underrepresented among recipients.","locator":"Summary and lines 63–80; Figures 1–2","provisional_id":"E016","canonical_fact_key":"young_child_covid_vaccine_low_unequal_uptake_2022","disposition":"reused supplied source; fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["CDC_immunization_information_systems"],"source_type":"official population administrative surveillance","source_confidence":"high for recorded uptake, medium-high for racial comparison","source_confidence_reason":"Nationwide jurisdictional data; race/ethnicity was missing for 28.6%, and uptake includes parental demand as well as service access.","final_evidence_use":"Adverse child, racial, rural, and crisis-delivery evidence.","period_fit":"Direct June–December 2022 outcome.","ruler_attribution":"Shared/limited: FDA/CDC authorization and federal distribution were important, but parents, clinicians, states, localities, trust, and access shaped uptake.","contrary_evidence":"About 70% of sufficiently early starters completed the series, suggesting series completion was stronger conditional on initiation.","lenses":["6B.2","6B.3","6B.5","6B.6","6B.8","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"VA Will Begin Processing PACT Act Benefits Claims for All Veterans and Survivors on Jan. 1","publisher":"U.S. Department of Veterans Affairs","publication_date":"2022-12-29","url":"https://news.va.gov/press-room/va-will-begin-processing-pact-act-benefits-claims-for-all-veterans-and-survivors-on-jan-1/","claim":"After Biden signed the PACT Act on August 10, 2022, VA received more than 213,000 PACT-related claims and administered more than 959,000 toxic-exposure screenings by year-end; the statute expanded health-care and benefit eligibility for toxic-exposed veterans and survivors.","locator":"Opening five paragraphs and implementation totals","provisional_id":"WEB-6B-014","canonical_fact_key":"pact_act_2022_enactment_and_initial_delivery","disposition":"fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["VA_administrative_data","statutory_implementation"],"source_type":"official administrative release","source_confidence":"medium-high","source_confidence_reason":"Authoritative administrative totals, but agency promotional framing and no independent outcome evaluation.","final_evidence_use":"Favorable vulnerable-group delivery and durable institution-building.","period_fit":"Direct 2022 enactment and initial implementation.","ruler_attribution":"Shared but meaningful: Biden advocated for and signed the bipartisan law; Congress enacted it and VA implemented it.","contrary_evidence":"Most claim adjudication and health outcomes occurred after 2022; submitted claims and screenings are not granted benefits or improved health.","lenses":["6B.1","6B.2","6B.3","6B.4","6B.8","6B.9","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Eligibility for Public Service Loan Forgiveness Has Changed Temporarily: What It Means for Borrowers","publisher":"U.S. Government Accountability Office","publication_date":"2022-09-20","url":"https://www.gao.gov/blog/eligibility-public-service-loan-forgiveness-has-changed-temporarily.-heres-what-it-means-borrowers","claim":"Education’s temporary PSLF waiver broadened qualifying payments, and by June 2022 about 165,000 borrowers had received $10.5 billion in forgiveness, although borrowers still had to navigate deadlines and program information.","locator":"Program-change explanation and June 2022 relief total","provisional_id":"WEB-6B-015","canonical_fact_key":"pslf_waiver_2022_delivered_forgiveness","disposition":"fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["GAO_program_review","Education_administrative_data"],"source_type":"independent oversight explainer using administrative data","source_confidence":"high for reported delivery","source_confidence_reason":"GAO account with a concrete forgiveness total; underlying program was established before Biden, while the waiver was Biden-administration policy.","final_evidence_use":"Delivered correction benefiting public servants and evidence of administrative remedy.","period_fit":"Direct through June 2022.","ruler_attribution":"Institutional/direct for waiver implementation; inherited statutory program and borrower service are shared factors.","contrary_evidence":"GAO separately found weak tracking and outreach in other loan-discharge programs; the waiver was temporary.","lenses":["6B.1","6B.2","6B.3","6B.4","6B.5","6B.8","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Student Loans: Education Should Proactively Manage Fraud Risks in Any Future Debt Relief Efforts","publisher":"U.S. Government Accountability Office","publication_date":"2023-11-16","url":"https://www.gao.gov/products/gao-24-107142","claim":"Education launched Biden’s broad income-limited student-debt cancellation application in October 2022 and approved more than 12 million applicants, but court orders stopped the program before any debt was discharged; the Supreme Court later held the program unauthorized, and GAO found inadequate fraud-risk controls.","locator":"Fast Facts; What GAO Found; Why GAO Did This Study","provisional_id":"WEB-6B-016","canonical_fact_key":"biden_2022_broad_student_debt_plan_no_delivery","disposition":"fully extracted later-retrospective evidence","chapter_ids":["6B"],"methodology_ids":["GAO_performance_audit","judicial_outcome"],"source_type":"independent audit with legal retrospective","source_confidence":"high","source_confidence_reason":"GAO reviewed Education processes and the definitive judicial outcome.","final_evidence_use":"Separates welfare intent and application processing from actual delivery, legality, and administrative competence.","period_fit":"2022 action evaluated in 2023.","ruler_attribution":"Direct for executive program design; courts controlled the ultimate block.","contrary_evidence":"The program would have targeted lower- and middle-income borrowers, but approval produced no realized welfare benefit under this initiative.","lenses":["6B.1","6B.4","6B.5","6B.8","6B.9","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Executive Order 14079—Securing Access to Reproductive and Other Healthcare Services","publisher":"Federal Register / Executive Office of the President","publication_date":"2022-08-11","url":"https://www.federalregister.gov/documents/2022/08/11/2022-17420/securing-access-to-reproductive-and-other-healthcare-services","claim":"Following Dobbs, Biden directed HHS and other agencies to protect emergency stabilizing care, medication and pharmacy access, nondiscrimination, interstate travel, information, and reproductive-health access within federal authority, while acknowledging continuing legal uncertainty and state-based disparities.","locator":"Sections 1–3","provisional_id":"WEB-6B-017","canonical_fact_key":"biden_2022_reproductive_health_access_orders","disposition":"fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["executive_order","legal_record"],"source_type":"primary legal record","source_confidence":"high for policy, low-to-medium for outcomes","source_confidence_reason":"Definitive text of presidential direction; does not establish implementation effectiveness.","final_evidence_use":"Direct evidence of dignity/equal-access priority under a severe judicial and federalism constraint.","period_fit":"Direct August 2022 action.","ruler_attribution":"Direct for the order; limited authority over state abortion prohibitions and contested federal interpretations.","contrary_evidence":"The order did not restore nationwide access, and substantial geographic inequality continued.","lenses":["6B.1","6B.2","6B.3","6B.6","6B.8","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"The 2022 Annual Homelessness Assessment Report to Congress, Part 1","publisher":"U.S. Department of Housing and Urban Development","publication_date":"2022-12-19","url":"https://www.huduser.gov/portal/publications/2022-ahar-part-1-pit-estimates-of-homelessness.html","claim":"HUD’s January 2022 point-in-time estimate counted 582,462 people experiencing homelessness in the United States, showing that severe housing insecurity remained substantial despite emergency rental assistance and eviction protections.","locator":"National key findings; 2022 PIT estimate tables","provisional_id":"WEB-6B-018","canonical_fact_key":"usa_2022_point_in_time_homelessness","disposition":"fully extracted evidence","chapter_ids":["6B"],"methodology_ids":["HUD_point_in_time_count"],"source_type":"official administrative census/estimate","source_confidence":"medium-high","source_confidence_reason":"Standard national HUD process with local counts; one-night PIT methods undercount hidden homelessness and pandemic disruptions affect comparability.","final_evidence_use":"Adverse housing baseline/outcome and reminder that eviction prevention did not resolve structural supply and affordability problems.","period_fit":"Direct January 2022 snapshot.","ruler_attribution":"Limited: homelessness reflects long-run housing supply, rents, local policy, health, income, and federal programs.","contrary_evidence":"PIT counts are not a measure of how many evictions ERA prevented and cannot isolate presidential policy effects.","lenses":["6B.2","6B.3","6B.6","6B.8","6B.10"]}
+
+--- LOCAL-DATA AUDIT: PARENT DISPOSITION SUMMARY ---
+
+{
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "mapping_notes": [
+        "Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.",
+        "The full arsenal series supports inherited-versus-left posture context; safer or more dangerous conduct still requires ruler attribution.",
+        "Operational/deployed capability provides command-and-crisis exposure; it does not establish safeguards, expertise, discipline, or de-escalation.",
+        "Nuclear inventory facts do not answer cyber, biological, AI, or other non-nuclear catastrophic-risk governance."
+      ],
+      "methodology_ids": [
+        "1B.1",
+        "1B.10",
+        "1B.2",
+        "1B.3",
+        "1B.4",
+        "1B.5",
+        "1B.6",
+        "1B.7",
+        "1B.8",
+        "1B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 9,
+        "no_evidence_found": 1
+      },
+      "unique_fact_count": 5
+    },
+    {
+      "chapter_id": "2B",
+      "mapping_notes": [
+        "Conflict events and fatalities establish country exposure/location, not initiation, perpetration, proxy support, truthfulness, or peace effort.",
+        "Full conflict and military-burden series supports inherited-versus-left trajectory context without assigning ruler responsibility.",
+        "Conflict exposure and military burden contextualize claimed security needs; they cannot distinguish defense from prestige or manufactured threats.",
+        "Fatalities establish harm/exposure only; civilian protection, legality, proportionality, responsibility, and accountability require actor evidence.",
+        "Military expenditure establishes level and burden, not aggression, defensive necessity, enrichment, intimidation, or ruler motive."
+      ],
+      "methodology_ids": [
+        "2B.1",
+        "2B.10",
+        "2B.2",
+        "2B.3",
+        "2B.4",
+        "2B.5",
+        "2B.6",
+        "2B.7",
+        "2B.8",
+        "2B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 10
+      },
+      "unique_fact_count": 96
+    },
+    {
+      "chapter_id": "3B",
+      "mapping_notes": [
+        "Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.",
+        "Full domestic-safety series supports inherited-versus-left trajectory context; attribution and non-state/public-safety gaps remain explicit.",
+        "National repression aggregates cannot establish ruler incitement or violence against a specific vulnerable group.",
+        "Rights and civil-society measures contextualize oversight/protest conditions; specific complaint, investigation, surveillance, or retaliation needs evidence.",
+        "Terror, one-sided violence, liberty, and repression trends contextualize fear or crises without proving ruler protection, restraint, or incitement."
+      ],
+      "methodology_ids": [
+        "3B.1",
+        "3B.10",
+        "3B.2",
+        "3B.3",
+        "3B.4",
+        "3B.5",
+        "3B.6",
+        "3B.7",
+        "3B.8",
+        "3B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 8,
+        "no_evidence_found": 2
+      },
+      "unique_fact_count": 152
+    },
+    {
+      "chapter_id": "4B",
+      "mapping_notes": [
+        "Election and regime measures contextualize contestability; they do not establish ruler intent or a specific manipulation.",
+        "The full longitudinal political-freedom bundle supports inherited-versus-left trajectory analysis without automatic ruler attribution.",
+        "D11 civil-liberties, expression, association, press/media, voice, accountability, and rule-of-law facts usable as structured priors for opposition/media/protest/civil-society tolerance.",
+        "Constraint and rule-of-law measures contextualize institutional independence; ruler-specific strengthening or interference still needs narrative evidence.",
+        "Regime and party-system measures are context, not direct proof of personality cult, loyalty tests, intimidation, or state politicization.",
+        "Media, expression, and voice measures contextualize information controls; specific censorship, propaganda, surveillance, or harassment needs evidence.",
+        "National participation and liberty averages require group-specific evidence before supporting political-equality claims.",
+        "Regime trajectory contextualizes succession but cannot establish compliance with term limits, coalition promises, or constitutional transfer."
+      ],
+      "methodology_ids": [
+        "4B.1",
+        "4B.10",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 10
+      },
+      "unique_fact_count": 252
+    },
+    {
+      "chapter_id": "5B",
+      "mapping_notes": [
+        "Broad prosperity outcomes are context; intent and ruler action need narrative evidence.",
+        "Full longitudinal context supports inherited-versus-left trajectory analysis without automatic ruler credit.",
+        "No structured country outcome establishes the competence or independence of appointees.",
+        "Real-output and productivity trajectories contextualize stability or shocks but do not prove policy competence.",
+        "Employment count and absorption are outcome context, not direct evidence of fair market rules.",
+        "National inequality is context only and cannot establish corruption, capture, or personal nexus.",
+        "Human-capital, capital-stock, hours, and TFP trends contextualize productivity foundations.",
+        "Country outcomes cannot establish evidence-based decision-making or correction of mistakes.",
+        "Average income and Gini provide distribution context but do not identify favored groups or ruler intent."
+      ],
+      "methodology_ids": [
+        "5B.1",
+        "5B.10",
+        "5B.2",
+        "5B.3",
+        "5B.4",
+        "5B.5",
+        "5B.6",
+        "5B.7",
+        "5B.8",
+        "5B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 8,
+        "no_evidence_found": 2
+      },
+      "unique_fact_count": 214
+    },
+    {
+      "chapter_id": "6B",
+      "mapping_notes": [
+        "Aggregate welfare outcomes contextualize priority but cannot establish purpose or propaganda intent.",
+        "Full longitudinal welfare context supports inherited-versus-left life-chance analysis without automatic attribution.",
+        "Health and education coverage/outcomes inform access; they do not alone establish affordability or quality.",
+        "National distribution and participation measures require group and regional evidence for equity claims.",
+        "Service outcomes are implementation context; professional management and correction require narrative evidence.",
+        "Outcome changes contextualize crises but require shock-specific timing and ruler-attributed response evidence.",
+        "Aggregate service data cannot establish political conditionality, loyalty rewards, or punishment.",
+        "Sustained service series contextualize durability but do not establish institutional survival beyond the ruler."
+      ],
+      "methodology_ids": [
+        "6B.1",
+        "6B.10",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.6",
+        "6B.7",
+        "6B.8",
+        "6B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 9,
+        "no_evidence_found": 1
+      },
+      "unique_fact_count": 65
+    },
+    {
+      "chapter_id": "7B",
+      "mapping_notes": [
+        "National corruption or governance indicators cannot establish ruler-specific truthfulness, interests, benefit, appointments, promises, or favoritism.",
+        "Institutional corruption, accountability, and rule-of-law facts are context for scrutiny or concealment only; scoring requires a direct personal nexus."
+      ],
+      "methodology_ids": [
+        "7B.1",
+        "7B.10",
+        "7B.2",
+        "7B.3",
+        "7B.4",
+        "7B.5",
+        "7B.6",
+        "7B.7",
+        "7B.8",
+        "7B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 3,
+        "no_evidence_found": 7
+      },
+      "unique_fact_count": 84
+    },
+    {
+      "chapter_id": "8B",
+      "mapping_notes": [
+        "Generic capacity indicators cannot identify the ruler's program or establish adaptation and correction.",
+        "Governance-capacity facts provide inherited implementation context only; program ownership, action, goal fit, and ruler attribution remain required."
+      ],
+      "methodology_ids": [
+        "8B.1",
+        "8B.10",
+        "8B.2",
+        "8B.3",
+        "8B.4",
+        "8B.5",
+        "8B.6",
+        "8B.7",
+        "8B.8",
+        "8B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 8,
+        "no_evidence_found": 2
+      },
+      "unique_fact_count": 60
+    }
+  ],
+  "disposition_instruction_sets": {
+    "I001": [
+      "Use this local structured prior before starting internet/manual research.",
+      "Do not re-fetch local structured datasets (including Freedom House, V-Dem, WGI, BTI, RSF, or Polity) when this artifact contains relevant non-contradictory facts.",
+      "Fetch web/narrative sources only when the local prior is absent, contradictory, needs ruler-specific attribution, or needs narrative detail beyond structured country-year facts.",
+      "Never use the client matrix as evidence; it is excluded from this artifact and from research citations."
+    ],
+    "I002": [
+      "Use this local structured prior before starting internet/manual research.",
+      "Do not re-fetch local structured datasets (including Freedom House, V-Dem, WGI, BTI, RSF, or Polity) when this artifact contains relevant non-contradictory facts.",
+      "Fetch web/narrative sources only when the local prior is absent, contradictory, needs ruler-specific attribution, or needs narrative detail beyond structured country-year facts.",
+      "Never use the client matrix as evidence; it is excluded from this artifact and from research citations.",
+      "The empty state is explicit; if narrative research proceeds, explain that no local structured prior was available for this scope."
+    ]
+  },
+  "disposition_reasons": {
+    "R001": "No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+  },
+  "error_methodology_ids": [],
+  "fact_payload": "omitted_after_research_use_parent_restores_hashed_provenance",
+  "methodology_dispositions": {
+    "1B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "1B.10": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "1B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "1B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "1B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "1B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "1B.6": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "1B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "1B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "1B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "2B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.10": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.6": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.9": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.10": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "3B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.6": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "3B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.9": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.10": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.6": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.9": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.10": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "5B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.6": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "5B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.9": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.10": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.6": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "6B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.9": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "7B.10": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "7B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "7B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "7B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "7B.6": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "7B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "8B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "8B.10": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.6": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "8B.9": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    }
+  },
+  "methodology_statuses": {
+    "1B.1": "evidence_found",
+    "1B.10": "evidence_found",
+    "1B.2": "evidence_found",
+    "1B.3": "evidence_found",
+    "1B.4": "evidence_found",
+    "1B.5": "evidence_found",
+    "1B.6": "evidence_found",
+    "1B.7": "evidence_found",
+    "1B.8": "evidence_found",
+    "1B.9": "no_evidence_found",
+    "2B.1": "evidence_found",
+    "2B.10": "evidence_found",
+    "2B.2": "evidence_found",
+    "2B.3": "evidence_found",
+    "2B.4": "evidence_found",
+    "2B.5": "evidence_found",
+    "2B.6": "evidence_found",
+    "2B.7": "evidence_found",
+    "2B.8": "evidence_found",
+    "2B.9": "evidence_found",
+    "3B.1": "evidence_found",
+    "3B.10": "evidence_found",
+    "3B.2": "evidence_found",
+    "3B.3": "no_evidence_found",
+    "3B.4": "evidence_found",
+    "3B.5": "evidence_found",
+    "3B.6": "evidence_found",
+    "3B.7": "no_evidence_found",
+    "3B.8": "evidence_found",
+    "3B.9": "evidence_found",
+    "4B.1": "evidence_found",
+    "4B.10": "evidence_found",
+    "4B.2": "evidence_found",
+    "4B.3": "evidence_found",
+    "4B.4": "evidence_found",
+    "4B.5": "evidence_found",
+    "4B.6": "evidence_found",
+    "4B.7": "evidence_found",
+    "4B.8": "evidence_found",
+    "4B.9": "evidence_found",
+    "5B.1": "evidence_found",
+    "5B.10": "evidence_found",
+    "5B.2": "no_evidence_found",
+    "5B.3": "evidence_found",
+    "5B.4": "evidence_found",
+    "5B.5": "evidence_found",
+    "5B.6": "evidence_found",
+    "5B.7": "no_evidence_found",
+    "5B.8": "evidence_found",
+    "5B.9": "evidence_found",
+    "6B.1": "evidence_found",
+    "6B.10": "evidence_found",
+    "6B.2": "evidence_found",
+    "6B.3": "evidence_found",
+    "6B.4": "evidence_found",
+    "6B.5": "evidence_found",
+    "6B.6": "evidence_found",
+    "6B.7": "no_evidence_found",
+    "6B.8": "evidence_found",
+    "6B.9": "evidence_found",
+    "7B.1": "no_evidence_found",
+    "7B.10": "evidence_found",
+    "7B.2": "no_evidence_found",
+    "7B.3": "no_evidence_found",
+    "7B.4": "no_evidence_found",
+    "7B.5": "no_evidence_found",
+    "7B.6": "evidence_found",
+    "7B.7": "evidence_found",
+    "7B.8": "no_evidence_found",
+    "7B.9": "no_evidence_found",
+    "8B.1": "no_evidence_found",
+    "8B.10": "evidence_found",
+    "8B.2": "evidence_found",
+    "8B.3": "evidence_found",
+    "8B.4": "evidence_found",
+    "8B.5": "evidence_found",
+    "8B.6": "evidence_found",
+    "8B.7": "evidence_found",
+    "8B.8": "no_evidence_found",
+    "8B.9": "evidence_found"
+  },
+  "no_evidence_methodology_ids": [
+    "1B.9",
+    "3B.3",
+    "3B.7",
+    "5B.2",
+    "5B.7",
+    "6B.7",
+    "7B.1",
+    "7B.2",
+    "7B.3",
+    "7B.4",
+    "7B.5",
+    "7B.8",
+    "7B.9",
+    "8B.1",
+    "8B.8"
+  ],
+  "not_applicable_methodology_ids": [],
+  "schema_version": "ruler_local_evidence_package_v3",
+  "source_prior_count": 80,
+  "status_counts": {
+    "evidence_found": 65,
+    "no_evidence_found": 15
+  },
+  "unique_fact_count": 843
+}
+
+--- REVIEWER-DIRECTED WEB CONTINUATION 1 ---
+
+I searched federal audits, program evaluations, state datasets, litigation, and outcome studies across ESSER, water infrastructure, PACT, SNAP, HCBS, and post-Dobbs access. The strongest recoveries concern ESSER spending but weak outcome measurement; water-program equity and oversight failures; SNAP’s measurable food-security effects and interstate variation; persistent HCBS waiting lists; and the geographically bounded success of Biden’s EMTALA litigation.
+
+Important gaps remain. I found no reliable national finding that Biden conditioned ordinary 2022 welfare services on partisan allegiance; this is credible null evidence, not proof of absence. Completed 2022 BIL water projects and beneficiary-level water-quality improvements remain poorly documented. PACT evidence still establishes claims, screenings, and administrative uptake more convincingly than completed 2022 benefits or health outcomes. No study cleanly isolates the effects of Biden’s post-Dobbs executive orders from state policy, litigation, provider adaptation, and private travel assistance. The accessible ESSER causal evaluation covers 2022–23, not calendar 2022 alone.
+
+SOURCE_CLAIM_JSON:{"title":"K-12 Education: School Districts Reported Spending Initial COVID Relief Funds on Meeting Students' Needs and Continuing School Operations","publisher":"U.S. Government Accountability Office","publication_date":"2024-07-18","url":"https://www.gao.gov/products/gao-24-106913","claim":"GAO found that districts spent nearly $60 billion in ESSER funds through school year 2021–22. About 80% supported academic, social-emotional, or operational needs, while the remainder addressed physical and mental health, including ventilation and school psychologists. This verifies delivered activities and service capacity, but not resulting learning gains.","locator":"What GAO Found, webpage lines 278–280; full report pp. 9–16 and figures 2–4","provisional_id":"WEB-6B-C1-001","canonical_fact_key":"biden_2022_esser_delivered_activities","disposition":"final_evidence","chapter_ids":["6B"],"methodology_ids":["6B.2","6B.9","6B.10"],"source_type":"independent_government_audit","source_confidence":0.95,"source_confidence_reason":"GAO analyzed national Education Department expenditure data and conducted structured site visits in 17 districts across six states.","final_evidence_use":"final_evidence","period_fit":"Directly covers ESSER spending through the 2021–22 school year, including calendar 2022.","ruler_attribution":"The Biden administration administered and supervised the federal relief program, while states and districts selected and delivered particular activities.","contrary_evidence":"Expenditure and activity counts do not establish effectiveness, educational quality, or durable beneficiary outcomes.","underlying_fact_key":"esser_2021_22_implementation_and_evaluation","lenses":["6B.2","6B.9","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"K-12 Education: School Districts Reported Spending Initial COVID Relief Funds on Meeting Students' Needs and Continuing School Operations","publisher":"U.S. Government Accountability Office","publication_date":"2024-07-18","url":"https://www.gao.gov/products/gao-24-106913","claim":"Officials in 16 of 17 visited districts used data to examine ESSER-funded activities, but GAO found that the simultaneous use of multiple interventions made individual effects difficult to identify and that too little time had elapsed to determine whether positive effects would persist. Districts were already deciding which activities to sustain, scale, or end, partly according to other available funding.","locator":"What GAO Found, webpage lines 288–289; full report pp. 23–29, especially sections 'Gauging Effects' and 'Planning for the End of ESSER Funds'","provisional_id":"WEB-6B-C1-002","canonical_fact_key":"biden_2022_esser_effectiveness_measurement_limits","disposition":"final_evidence","chapter_ids":["6B"],"methodology_ids":["6B.4","6B.5","6B.9","6B.10"],"source_type":"independent_government_audit","source_confidence":0.95,"source_confidence_reason":"GAO directly reviewed district evaluation practices and interviewed district and state officials, while clearly limiting generalization from its purposive site sample.","final_evidence_use":"final_evidence","period_fit":"Later audit specifically evaluating spending, measurement, and sustainability decisions associated with school year 2021–22.","ruler_attribution":"Federal rules required plans and evidence-based uses, but implementation and evaluation were substantially decentralized to states and districts.","contrary_evidence":"The evidence requirements did not produce readily isolable causal estimates or proof that supported services endured after relief funding.","underlying_fact_key":"esser_2021_22_implementation_and_evaluation","lenses":["6B.4","6B.5","6B.9","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Allocation of ESSER I Funds at Selected Local Educational Agencies","publisher":"U.S. Department of Education Office of Inspector General","publication_date":"2022-11-30","url":"https://oig.ed.gov/reports/other/allocation-esser-i-funds-selected-local-educational-agencies","claim":"Among 46 selected local educational agencies, approximately 95% of sampled ESSER I awards had been spent by March 2022. Most spending supported district-wide programs; only about 26% was allocated to identified schools, though most school-specific allocations went to Title I schools. The audit therefore found substantial implementation but limited school-level targeting information.","locator":"Report Results; tables describing amounts expended through March 2022 and allocation between district-wide activities, Title I schools, and non-Title I schools","provisional_id":"WEB-6B-C1-003","canonical_fact_key":"biden_2022_esser_school_level_distribution","disposition":"final_evidence","chapter_ids":["6B"],"methodology_ids":["6B.3","6B.4","6B.10"],"source_type":"inspector_general_audit","source_confidence":0.88,"source_confidence_reason":"Independent departmental inspector-general work based on agency and local records, but limited to 46 selected LEAs and ESSER I rather than the whole relief portfolio.","final_evidence_use":"final_evidence","period_fit":"The expenditure cutoff is March 2022.","ruler_attribution":"Federal administration and oversight are attributable to Education under Biden; local allocation choices remain LEA decisions.","contrary_evidence":"High expenditure rates do not demonstrate equitable student access, service quality, or improved learning outcomes.","underlying_fact_key":"esser_2022_distribution_and_oversight","lenses":["6B.3","6B.4","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"The EPA Could Improve Its Review of Drinking Water State Revolving Fund Programs to Help States Assist Disadvantaged Communities","publisher":"U.S. Environmental Protection Agency Office of Inspector General","publication_date":"2023-07-11","url":"https://www.epaoig.gov/sites/default/files/reports/2023-07/_epaoig_20230711_23-p-0022_2.pdf","claim":"EPA OIG found that two of seven reviewed states did not consistently meet required drinking-water loan-subsidy levels for disadvantaged communities. Alabama fell $7.2 million, or 38.4%, short; inadequate EPA regional oversight and state underuse of administrative set-asides were identified barriers.","locator":"Report At a Glance, p. 2; chapter 2, pp. 9–14; chapter 3 and recommendations 1–2, pp. 15–20","provisional_id":"WEB-6B-C1-004","canonical_fact_key":"biden_2022_dwsrf_disadvantaged_community_oversight","disposition":"final_evidence","chapter_ids":["6B"],"methodology_ids":["6B.3","6B.4","6B.5","6B.10"],"source_type":"inspector_general_audit","source_confidence":0.94,"source_confidence_reason":"Independent EPA OIG audit using state plans, program reports, EPA assessments, database analysis, interviews, and a survey of all state program managers.","final_evidence_use":"final_evidence","period_fit":"Audit project began in FY2022 and later established implementation weaknesses relevant to the delivery system receiving Biden-era infrastructure funding; much underlying grant performance predates BIL.","ruler_attribution":"EPA’s regional review and corrective oversight were executive-branch responsibilities, but states controlled borrower selection and much delivery.","contrary_evidence":"The audit does not show that Biden’s first-year BIL allocations caused the historical shortfalls, and five of seven reviewed states met minimum requirements.","underlying_fact_key":"dwsrf_equity_delivery_and_oversight","lenses":["6B.3","6B.4","6B.5","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"The EPA Could Improve Its Review of Drinking Water State Revolving Fund Programs to Help States Assist Disadvantaged Communities","publisher":"U.S. Environmental Protection Agency Office of Inspector General","publication_date":"2023-07-11","url":"https://www.epaoig.gov/sites/default/files/reports/2023-07/_epaoig_20230711_23-p-0022_2.pdf","claim":"EPA OIG found that Alabama and ten additional states did not consistently associate executed subsidies with the correct federal capitalization grants in EPA’s database. The resulting incomplete data prevented consistent federal oversight of whether disadvantaged-community subsidy requirements had been met.","locator":"Report At a Glance, p. 2; methodology pp. 7–8; chapter 4, pp. 21–25; recommendation 3, p. 21","provisional_id":"WEB-6B-C1-005","canonical_fact_key":"biden_2022_dwsrf_incomplete_oversight_data","disposition":"final_evidence","chapter_ids":["6B"],"methodology_ids":["6B.4","6B.5","6B.10"],"source_type":"inspector_general_audit","source_confidence":0.95,"source_confidence_reason":"Direct OIG analysis of EPA’s national revolving-fund database and state grant records.","final_evidence_use":"final_evidence","period_fit":"The audit was initiated in FY2022 and establishes the condition of the oversight system relevant to 2022 implementation.","ruler_attribution":"Database controls and consistent regional oversight were within the Biden EPA’s administrative authority; states entered the underlying loan data.","contrary_evidence":"EPA agreed with the recommendation and stated that loan-assignment reporting was already required, but the audit found that the requirement was not reliably producing usable records.","underlying_fact_key":"dwsrf_equity_delivery_and_oversight","lenses":["6B.4","6B.5","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Thrifty Food Plan: Better Planning and Accountability Could Help Ensure Quality of Future Reevaluations","publisher":"U.S. Government Accountability Office","publication_date":"2022-12-14","url":"https://www.gao.gov/products/gao-23-105450","claim":"USDA’s Thrifty Food Plan reevaluation increased maximum SNAP benefits by 21%, supporting benefits paid in 2022, but GAO found that USDA omitted key project-management controls, replaced its planned external peer review with a nonindependent internal review, insufficiently documented major choices, and did not adequately analyze their effects.","locator":"What GAO Found, webpage lines 278–288; full report highlights and pp. 13–36","provisional_id":"WEB-6B-C1-006","canonical_fact_key":"biden_2022_snap_thrifty_food_plan_benefit_and_process","disposition":"final_evidence","chapter_ids":["6B"],"methodology_ids":["6B.2","6B.4","6B.10"],"source_type":"independent_government_audit","source_confidence":0.96,"source_confidence_reason":"Contemporaneous GAO audit of USDA’s methodology, project records, review process, and economic-analysis documentation.","final_evidence_use":"final_evidence","period_fit":"Published in December 2022; evaluates the benefit basis operative during 2022, although the reevaluation itself was completed in 2021.","ruler_attribution":"The higher benefit level continued under Biden’s USDA, but the 2018 Farm Bill mandated reevaluation and the key reevaluation decisions occurred in 2021.","contrary_evidence":"The permanent benefit increase was substantial, while the audit criticisms concern decision quality and reproducibility rather than evidence that recipients failed to receive it.","underlying_fact_key":"snap_2022_adequacy_and_state_variation","lenses":["6B.2","6B.4","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Association of Emergency Allotment Discontinuation with Household Food Insufficiency in Supplemental Nutrition Assistance Program Participants: A Quasi-Experimental Study","publisher":"Preventive Medicine","publication_date":"2023-12-01","url":"https://www.sciencedirect.com/science/article/pii/S0091743523003705","claim":"Using staggered state termination of SNAP emergency allotments, the study found that ending the supplements was associated with increased food insufficiency among SNAP participants. Seventeen states had stopped the supplements by the end of 2022, producing materially different benefit protection according to residence.","locator":"Abstract; Methods; Results; Figure 1 and regression tables on state emergency-allotment discontinuation and household food insufficiency","provisional_id":"WEB-6B-C1-007","canonical_fact_key":"biden_2022_snap_emergency_allotment_food_insufficiency","disposition":"final_evidence","chapter_ids":["6B"],"methodology_ids":["6B.2","6B.3","6B.9","6B.10"],"source_type":"peer_reviewed_quasi_experimental_study","source_confidence":0.9,"source_confidence_reason":"Peer-reviewed quasi-experimental analysis exploiting staggered state policy changes; observational assumptions and survey measurement prevent certainty equivalent to randomization.","final_evidence_use":"final_evidence","period_fit":"Directly examines state emergency-allotment terminations occurring through the end of 2022.","ruler_attribution":"Federal authority made emergency allotments available and approved state plans, but states chose when to terminate participation; the resulting variation is shared federalism rather than solely presidential performance.","contrary_evidence":"The finding supports effectiveness where supplements continued but also shows that nationally available authority did not yield uniform protection across states.","underlying_fact_key":"snap_2022_adequacy_and_state_variation","lenses":["6B.2","6B.3","6B.9","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Number of People Waiting for Medicaid Home Care (HCBS), by Target Population and Whether States Screen for Eligibility","publisher":"KFF","publication_date":"2023-11-01","url":"https://www.kff.org/medicaid/state-indicator/number-of-people-waiting-for-hcbs-by-target-population-and-whether-states-screen-for-eligibility/","claim":"KFF’s state survey reports 606,895 people on Medicaid HCBS waiting or interest lists for 2022, including 552,339 people with intellectual or developmental disabilities and 182,162 seniors or adults with physical disabilities; state counts varied sharply and only 35 states screened at least one list for eligibility, limiting comparability.","locator":"Select year 2022; United States row and state table; table columns for screening, I/DD, seniors/adults with physical disabilities, and total waiting","provisional_id":"WEB-6B-C1-008","canonical_fact_key":"biden_2022_hcbs_waiting_lists","disposition":"final_evidence","chapter_ids":["6B"],"methodology_ids":["6B.2","6B.3","6B.9","6B.10"],"source_type":"national_state_officials_survey_dataset","source_confidence":0.87,"source_confidence_reason":"Long-running 50-state survey of Medicaid officials with transparent state rows, but state definitions and eligibility screening differ and list counts can overstate or understate unmet need.","final_evidence_use":"final_evidence","period_fit":"Dataset row is specifically for 2022.","ruler_attribution":"Biden’s administration supplied enhanced federal HCBS financing and federal Medicaid oversight, but states controlled waiver capacity, eligibility practices, provider systems, and waiting lists.","contrary_evidence":"Counts cannot be treated as a precise national unmet-need estimate because state screening and list definitions differ; nonetheless, they establish large, geographically unequal access constraints.","underlying_fact_key":"hcbs_2022_access_and_state_variation","lenses":["6B.2","6B.3","6B.9","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"#WeCount Report: April 2022 to December 2022","publisher":"Society of Family Planning","publication_date":"2023-04-11","url":"https://societyfp.org/research/wecount/wecount-reports/","claim":"Monthly provider data showed a large geographic redistribution of clinician-provided abortions after Dobbs: abortions fell sharply or ceased in states with bans while increasing in several states retaining access. National totals concealed substantial interstate displacement and did not include self-managed abortions outside the formal health system.","locator":"Report titled '#WeCount report, April 2022–December 2022'; national monthly totals; state change map and state tables comparing post-Dobbs months with the April 2022 baseline; Methods and Limitations","provisional_id":"WEB-6B-C1-009","canonical_fact_key":"post_dobbs_2022_abortion_volume_geographic_redistribution","disposition":"final_evidence","chapter_ids":["6B"],"methodology_ids":["6B.3","6B.8","6B.10"],"source_type":"national_provider_census_research_dataset","source_confidence":0.9,"source_confidence_reason":"Specialized national data collection from identified abortion providers with monthly state reporting and explicit limitations; it does not capture all self-managed care.","final_evidence_use":"final_evidence","period_fit":"Direct monthly measurements from April through December 2022.","ruler_attribution":"The geographic disruption was principally caused by Dobbs and state bans. Biden’s federal actions occurred in the same period, but this dataset does not causally attribute changes to those actions.","contrary_evidence":"National totals and increases in access states could suggest partial adaptation, but they do not negate severe losses and travel burdens in ban states.","underlying_fact_key":"post_dobbs_2022_access_and_federal_response","lenses":["6B.3","6B.8","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"United States v. State of Idaho, Memorandum Decision and Order","publisher":"U.S. District Court for the District of Idaho","publication_date":"2022-08-24","url":"https://law.justia.com/cases/federal/district-courts/idaho/iddce/1%3A2022cv00329/50547/95/","claim":"After the Biden Justice Department sued Idaho, the district court preliminarily enjoined Idaho officials from enforcing the state abortion ban against medical care required by EMTALA. This was a concrete but geographically bounded 2022 remedy protecting federally required emergency stabilizing care.","locator":"Case 1:22-cv-00329-BLW, Document 95; discussion of conflict preemption and EMTALA, pp. 19–38; injunction at pp. 38–39","provisional_id":"WEB-6B-C1-010","canonical_fact_key":"biden_2022_emtala_abortion_litigation_idaho","disposition":"final_evidence","chapter_ids":["6B"],"methodology_ids":["6B.5","6B.8","6B.10"],"source_type":"federal_court_decision","source_confidence":0.98,"source_confidence_reason":"Contemporaneous judicial order directly records the federal government’s requested remedy, legal findings at the preliminary-injunction stage, and operative geographic scope.","final_evidence_use":"final_evidence","period_fit":"Order entered August 24, 2022 and took effect during the evaluation year.","ruler_attribution":"The Biden Justice Department initiated the suit and obtained the injunction; the court independently determined the remedy.","contrary_evidence":"A preliminary injunction is not a final merits judgment and does not measure how many patients obtained care because of it.","underlying_fact_key":"post_dobbs_2022_emtala_federal_enforcement","lenses":["6B.5","6B.8","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Texas v. Becerra, Memorandum Opinion and Order","publisher":"U.S. District Court for the Northern District of Texas","publication_date":"2022-08-23","url":"https://law.justia.com/cases/federal/district-courts/texas/txndce/5%3A2022cv00185/365015/73/","claim":"A federal court preliminarily barred HHS from enforcing its July 2022 EMTALA abortion guidance against Texas and specified medical-association members, finding at that stage that the guidance exceeded EMTALA’s text and should have undergone notice-and-comment procedure. The ruling limited the immediate geographic reach of Biden’s principal post-Dobbs emergency-care intervention.","locator":"Case 5:22-CV-185-H, Document 73; statutory analysis pp. 22–51; procedural analysis pp. 51–63; injunction and conclusion pp. 66–67","provisional_id":"WEB-6B-C1-011","canonical_fact_key":"biden_2022_emtala_abortion_litigation_texas","disposition":"final_evidence","chapter_ids":["6B"],"methodology_ids":["6B.4","6B.5","6B.8","6B.10"],"source_type":"federal_court_decision","source_confidence":0.98,"source_confidence_reason":"Contemporaneous primary judicial record identifying the challenged federal action, preliminary legal findings, and exact scope of relief.","final_evidence_use":"final_evidence","period_fit":"Order entered August 23, 2022 and constrained enforcement during 2022.","ruler_attribution":"The enjoined guidance was issued by Biden’s HHS; the legal constraint was imposed by an independent court following challenges by Texas and private associations.","contrary_evidence":"The Idaho court reached the opposite preliminary conclusion one day later, demonstrating fragmented rather than nationally effective protection.","underlying_fact_key":"post_dobbs_2022_emtala_federal_enforcement","lenses":["6B.4","6B.5","6B.8","6B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Military Health Care: DOD and VA Could Benefit from More Information on Staff Use of Military Toxic Exposure Records","publisher":"U.S. Government Accountability Office","publication_date":"2024-05-23","url":"https://www.gao.gov/assets/gao-24-106423.pdf","claim":"GAO found that use of the Individual Longitudinal Exposure Record increased after the August 2022 PACT Act, but VA did not issue a standard operating procedure requiring claims staff to use it for specified toxic-exposure claims until January 2023. The finding documents early administrative uptake while showing that a key implementation control was not in place during the remainder of 2022.","locator":"Full report pp. 15–22; Figure 3 and notes at pp. 17–18; discussion of VBA procedure at pp. 14–15","provisional_id":"WEB-6B-C1-012","canonical_fact_key":"biden_2022_pact_exposure_record_implementation","disposition":"context","chapter_ids":["6B"],"methodology_ids":["6B.2","6B.4","6B.10"],"source_type":"independent_government_audit","source_confidence":0.93,"source_confidence_reason":"GAO reviewed agency policies and system-use records, but the audit concerns an administrative information system rather than beneficiary health outcomes or completed benefit awards.","final_evidence_use":"context","period_fit":"Later audit specifically establishes agency practice immediately following the August 2022 enactment.","ruler_attribution":"PACT implementation and VA operating procedures were within the Biden administration’s authority, although Congress enacted the statutory expansion.","contrary_evidence":"Increased system queries do not establish accurate claims decisions, completed benefits, health-care access, or improved veteran outcomes in 2022.","underlying_fact_key":"pact_2022_implementation_without_outcomes","lenses":["6B.2","6B.4","6B.10"]}
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "usa_2022_spm_and_child_poverty_reversal",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "Originally published CPS ASEC estimates put 2022 supplemental poverty at 12.4%, up from 7.8% in 2021, and child supplemental poverty at 12.4%, more than double 2021; expiration of stimulus payments and temporary refundable-credit expansions was a major mechanism, but Census has warned that 2019\u20132024 SPM estimates will be revised after a 2026 BLS threshold-coding correction.",
+      "contrary_evidence": "Official poverty was statistically unchanged; Social Security and noncash benefits still removed millions from poverty.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.6",
+        "6B.8",
+        "6B.9",
+        "6B.10"
+      ],
+      "locator": "Highlights; Figures 4 and 6; Table B-3; current Data User Note",
+      "methodology_ids": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.6",
+        "6B.8",
+        "6B.9",
+        "6B.10"
+      ],
+      "period_fit": "Direct calendar-year 2022 outcome, published retrospectively.",
+      "provisional_id": "WD001",
+      "publication_date": "2023-09-12",
+      "publisher": "U.S. Census Bureau",
+      "ruler_attribution": "Shared/limited: federal policy expiration is relevant, but Congress controlled renewal and macroeconomic conditions also affected resources.",
+      "source_confidence": "high, subject to announced revision",
+      "source_confidence_reason": "National probability survey with published definitions and significance testing; exact estimates are provisional because of the announced threshold correction.",
+      "source_type": "official national household survey report",
+      "title": "Poverty in the United States: 2022",
+      "underlying_fact_key": "usa_2022_spm_and_child_poverty_reversal",
+      "url": "https://www.census.gov/library/publications/2023/demo/p60-280.html"
+    },
+    {
+      "canonical_fact_key": "usa_2022_insurance_gain_real_income_decline",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "The share insured for at least part of 2022 rose to 92.1% from 91.7% in 2021, while the number uninsured all year fell from 27.2 million to 25.9 million; real median household income fell 2.3%.",
+      "contrary_evidence": "Coverage does not establish affordability or adequate access; WEB-6B-005 documents major cost barriers.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.2",
+        "6B.3",
+        "6B.8",
+        "6B.10"
+      ],
+      "locator": "Release paragraphs 2\u20133 and linked Health Insurance Coverage report",
+      "methodology_ids": [
+        "6B.2",
+        "6B.3",
+        "6B.8",
+        "6B.10"
+      ],
+      "period_fit": "Direct calendar-year 2022 outcome.",
+      "provisional_id": "WD002",
+      "publication_date": "2023-09-12",
+      "publisher": "U.S. Census Bureau",
+      "ruler_attribution": "Shared/limited: ARP subsidies and continuous Medicaid enrollment contributed, but states, employers, prior ACA institutions, and labor-market conditions also mattered.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Census national survey estimates with methodological documentation.",
+      "source_type": "official national household survey release",
+      "title": "Income, Poverty and Health Insurance Coverage in the United States: 2022",
+      "underlying_fact_key": "usa_2022_insurance_gain_real_income_decline",
+      "url": "https://www.census.gov/newsroom/press-releases/2023/income-poverty-health-insurance-coverage.html"
+    },
+    {
+      "canonical_fact_key": "usa_2022_aca_marketplace_enrollment",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "About 14.5 million people selected or were automatically re-enrolled in 2022 Marketplace coverage, including 3.0 million new Marketplace consumers; enrollment followed enhanced ARP subsidies, federal outreach, and a longer HealthCare.gov enrollment period.",
+      "contrary_evidence": "Some selections may not effectuate; affordability problems remained widespread.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.10"
+      ],
+      "locator": "Opening paragraph and national plan-selection totals",
+      "methodology_ids": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.10"
+      ],
+      "period_fit": "Direct 2022 coverage-year enrollment.",
+      "provisional_id": "WD003",
+      "publication_date": "2022-01-27",
+      "publisher": "Centers for Medicare & Medicaid Services",
+      "ruler_attribution": "Shared but meaningful: Biden signed ARP and his administration changed outreach and enrollment timing; ACA infrastructure and state exchanges were inherited.",
+      "source_confidence": "high for plan selections",
+      "source_confidence_reason": "Direct CMS and state-Marketplace administrative counts; plan selection is not identical to effectuated full-year coverage.",
+      "source_type": "official administrative statistics",
+      "title": "Marketplace 2022 Open Enrollment Period Report: Final National Snapshot",
+      "underlying_fact_key": "usa_2022_aca_marketplace_enrollment",
+      "url": "https://www.cms.gov/newsroom/fact-sheets/marketplace-2022-open-enrollment-period-report-final-national-snapshot"
+    },
+    {
+      "canonical_fact_key": "ira_2022_health_affordability_institutions",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "The IRA signed August 16, 2022 extended enhanced ACA premium subsidies through 2025 and created durable Medicare drug-price negotiation, inflation rebates, insulin and vaccine cost protections, a future $2,000 Part D cap, and expanded low-income subsidies, with most beneficiary effects beginning after 2022.",
+      "contrary_evidence": "Most drug-cost benefits were not realized in 2022; insulin cap did not extend generally to privately insured patients.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.8",
+        "6B.9",
+        "6B.10"
+      ],
+      "locator": "Overview; sections on negotiation, inflation rebates, Part D, vaccines, insulin, and private insurance",
+      "methodology_ids": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.8",
+        "6B.9",
+        "6B.10"
+      ],
+      "period_fit": "Direct 2022 enactment; largely prospective effects.",
+      "provisional_id": "WD004",
+      "publication_date": "2022-09-01",
+      "publisher": "Congressional Research Service, Library of Congress",
+      "ruler_attribution": "Shared: Biden advocated for and signed the law; Congress enacted it and agencies implement it.",
+      "source_confidence": "high",
+      "source_confidence_reason": "CRS analysis of enacted Public Law 117-169.",
+      "source_type": "nonpartisan legislative analysis",
+      "title": "Selected Health Provisions of the Inflation Reduction Act",
+      "underlying_fact_key": "ira_2022_health_affordability_institutions",
+      "url": "https://www.congress.gov/crs-product/IF12203"
+    },
+    {
+      "canonical_fact_key": "usa_2022_medical_affordability_barriers",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "In a 2022 national survey, 46% of working-age respondents reported skipping or delaying care because of cost, 42% had medical-bill or debt problems, and 49% could not cover an unexpected $1,000 medical bill within 30 days; inability was greater among low-income, Black, and Hispanic adults.",
+      "contrary_evidence": "Insurance coverage and Marketplace enrollment improved, and the IRA created future affordability protections.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.2",
+        "6B.3",
+        "6B.8",
+        "6B.10"
+      ],
+      "locator": "Lines/paragraphs corresponding to Findings bullets; exhibits 9\u201311; methodology section",
+      "methodology_ids": [
+        "6B.2",
+        "6B.3",
+        "6B.8",
+        "6B.10"
+      ],
+      "period_fit": "Direct 2022 survey.",
+      "provisional_id": "WD005",
+      "publication_date": "2022-09-29",
+      "publisher": "The Commonwealth Fund",
+      "ruler_attribution": "Limited: reflects long-standing system design, employer insurance, state policy, prices, and federal policy.",
+      "source_confidence": "medium-high",
+      "source_confidence_reason": "Transparent survey and definitions, independent of government; self-reported cross-sectional results and working-age focus limit causal interpretation.",
+      "source_type": "independent household survey",
+      "title": "The State of U.S. Health Insurance in 2022",
+      "underlying_fact_key": "usa_2022_medical_affordability_barriers",
+      "url": "https://www.commonwealthfund.org/publications/issue-briefs/2022/sep/state-us-health-insurance-2022-biennial-survey"
+    },
+    {
+      "canonical_fact_key": "era_delivery_eviction_effect_and_oversight_2022",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "The $46.55 billion ERA program likely helped limit evictions and heavily served very-low-income households, but Treasury lacked complete recipient/payment data, approximately 26% of 2021 household-payment records were missing, early local delivery was slow, and reallocations did not consistently align funds with renter need and grantee capacity.",
+      "contrary_evidence": "Treasury reported 10.8 million cumulative payments by end-2022, but a payment is not a unique household and administrative data were incomplete.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.6",
+        "6B.8",
+        "6B.9",
+        "6B.10"
+      ],
+      "locator": "Fast Facts; What GAO Found; recommendations; distribution graphic",
+      "methodology_ids": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.6",
+        "6B.8",
+        "6B.9",
+        "6B.10"
+      ],
+      "period_fit": "Direct audit through October 2022, with inherited 2021 implementation evidence.",
+      "provisional_id": "WD006",
+      "publication_date": "2022-12-20",
+      "publisher": "U.S. Government Accountability Office",
+      "ruler_attribution": "Institutional/shared: Treasury was Biden-controlled, but Congress created funding and more than 700 subnational grantees delivered payments.",
+      "source_confidence": "high",
+      "source_confidence_reason": "GAO reviewed program records, grantee evidence, third-party studies, and eviction data while explicitly qualifying causality and data gaps.",
+      "source_type": "independent legislative-branch audit",
+      "title": "Emergency Rental Assistance: Treasury's Oversight Is Limited by Incomplete Data and Risk Assessment",
+      "underlying_fact_key": "era_delivery_eviction_effect_and_oversight_2022",
+      "url": "https://www.gao.gov/products/gao-23-105410"
+    },
+    {
+      "canonical_fact_key": "usa_2022_food_insecurity_increase",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "Food insecurity affected 12.8% of U.S. households in 2022, up significantly from 10.2% in 2021, while very low food security rose from 3.8% to 5.1%.",
+      "contrary_evidence": "Most households remained food secure; the source does not causally decompose policy expiration and inflation.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.2",
+        "6B.3",
+        "6B.6",
+        "6B.8",
+        "6B.10"
+      ],
+      "locator": "Overview; report ERR-325 key findings and statistical tables",
+      "methodology_ids": [
+        "6B.2",
+        "6B.3",
+        "6B.6",
+        "6B.8",
+        "6B.10"
+      ],
+      "period_fit": "Direct calendar-year 2022 outcome.",
+      "provisional_id": "WD007",
+      "publication_date": "2023-10-25",
+      "publisher": "USDA Economic Research Service",
+      "ruler_attribution": "Limited/shared: federal nutrition policy mattered, but inflation, earnings, household conditions, Congress, and state emergency-allotment rules also contributed.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Long-running standardized national survey with statistical testing.",
+      "source_type": "official nationally representative household survey report",
+      "title": "Household Food Security in the United States in 2022",
+      "underlying_fact_key": "usa_2022_food_insecurity_increase",
+      "url": "https://www.ers.usda.gov/publications/107702"
+    },
+    {
+      "canonical_fact_key": "naep_2022_pandemic_learning_loss",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "Between winter 2020 and winter 2022, average age-nine scores fell five points in reading and seven in mathematics\u2014the largest reading decline since 1990 and first mathematics decline in the series\u2014with larger losses among lower performers and a widening White-Black mathematics gap.",
+      "contrary_evidence": "Federal recovery funds were substantial, but the assessment does not identify their causal effect.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.2",
+        "6B.3",
+        "6B.5",
+        "6B.6",
+        "6B.8",
+        "6B.10"
+      ],
+      "locator": "Overview; Recent Student Performance Trends; Performance Trends by Student Group",
+      "methodology_ids": [
+        "6B.2",
+        "6B.3",
+        "6B.5",
+        "6B.6",
+        "6B.8",
+        "6B.10"
+      ],
+      "period_fit": "2022 assessment compared with pre-Biden winter 2020 baseline.",
+      "provisional_id": "WD008",
+      "publication_date": "2022-09-01",
+      "publisher": "National Center for Education Statistics",
+      "ruler_attribution": "Low/limited: most disruption began before Biden and school operation was state/local; federal recovery policy could influence only part of the interval.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Nationally administered standardized assessment with subgroup and statistical comparisons.",
+      "source_type": "official standardized assessment",
+      "title": "NAEP Long-Term Trend Assessment Results: Reading and Mathematics",
+      "underlying_fact_key": "naep_2022_pandemic_learning_loss",
+      "url": "https://www.nationsreportcard.gov/highlights/ltt/2022/"
+    },
+    {
+      "canonical_fact_key": "arp_esser_2022_evidence_based_recovery_implementation",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "To receive remaining ARP ESSER funds, states had to submit federally approved plans for safe reopening, academic recovery, and mental-health supports, while districts had to publish spending and continuity plans; ARP required evidence-based interventions and targeted resources through Title I-related formulas.",
+      "contrary_evidence": "Severe NAEP losses persisted, and this source does not establish that plans produced effective learning recovery.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.6",
+        "6B.8",
+        "6B.9"
+      ],
+      "locator": "ARP ESSER state-plan and LEA-plan requirements; July 26, 2022 appendix update",
+      "methodology_ids": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.6",
+        "6B.8",
+        "6B.9"
+      ],
+      "period_fit": "Direct 2022 implementation of a 2021 Biden-signed law.",
+      "provisional_id": "WD009",
+      "publication_date": "2022-07-26",
+      "publisher": "U.S. Department of Education",
+      "ruler_attribution": "Shared: Biden signed ARP and Education administered it; Congress funded it and states/districts selected and delivered interventions.",
+      "source_confidence": "high for requirements, medium for delivered effect",
+      "source_confidence_reason": "Authoritative description of grant conditions and planning; not an independent evaluation of outcomes.",
+      "source_type": "official program documentation",
+      "title": "Elementary and Secondary School Emergency Relief Fund",
+      "underlying_fact_key": "arp_esser_2022_evidence_based_recovery_implementation",
+      "url": "https://www.ed.gov/grants-and-programs/formula-grants/response-formula-grants/covid-19-emergency-relief-grants/elementary-and-secondary-school-emergency-relief-fund"
+    },
+    {
+      "canonical_fact_key": "bipartisan_infrastructure_water_funds_2022_delivery",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "EPA began delivering the first-year Bipartisan Infrastructure Law drinking-water and wastewater funds in 2022, including dedicated resources for lead-service-line replacement, emerging contaminants, and disadvantaged communities through state revolving funds.",
+      "contrary_evidence": "Allocations and capitalization grants are not completed pipe replacements or demonstrated exposure reductions.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.8",
+        "6B.9",
+        "6B.10"
+      ],
+      "locator": "Funding announcement and state-delivery sections",
+      "methodology_ids": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.8",
+        "6B.9",
+        "6B.10"
+      ],
+      "period_fit": "Direct 2022 implementation of a 2021 statute.",
+      "provisional_id": "WD010",
+      "publication_date": "2022-10-06",
+      "publisher": "U.S. Environmental Protection Agency",
+      "ruler_attribution": "Shared: Biden advocated for and signed the law and EPA implemented it; Congress, states, tribes, territories, and utilities controlled other stages.",
+      "source_confidence": "medium-high",
+      "source_confidence_reason": "Authoritative for allocations and award delivery, but not independent evidence of completed infrastructure or household outcomes.",
+      "source_type": "official implementation announcement",
+      "title": "Biden-Harris Administration and EPA Announce Delivery of Historic Water Infrastructure Funding to 18 States",
+      "underlying_fact_key": "bipartisan_infrastructure_water_funds_2022_delivery",
+      "url": "https://www.epa.gov/newsreleases/biden-harris-administration-and-epa-announce-delivery-historic-water-infrastructure"
+    },
+    {
+      "canonical_fact_key": "usa_2022_mortality_and_covid_death_decline",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "The 2022 age-adjusted all-cause death rate fell 5.3% from 2021, while COVID-associated deaths fell about 47% from 462,193 to 244,986; rates nevertheless remained highest among Black and American Indian/Alaska Native people, and COVID remained the fourth-leading underlying cause of death.",
+      "contrary_evidence": "Roughly 245,000 COVID-associated deaths remained, disparities persisted, and life expectancy had not regained its full 2019 loss.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.2",
+        "6B.3",
+        "6B.5",
+        "6B.6",
+        "6B.8",
+        "6B.10"
+      ],
+      "locator": "Results, Table, and Discussion",
+      "methodology_ids": [
+        "6B.2",
+        "6B.3",
+        "6B.5",
+        "6B.6",
+        "6B.8",
+        "6B.10"
+      ],
+      "period_fit": "Direct 2022 outcome.",
+      "provisional_id": "WD011",
+      "publication_date": "2023-05-05",
+      "publisher": "CDC, Morbidity and Mortality Weekly Report",
+      "ruler_attribution": "Limited/shared: federal vaccine, treatment, testing, and communication policies mattered, but immunity, viral variants, prior vaccine development, state policy, clinical practice, and behavior were major co-causes.",
+      "source_confidence": "high",
+      "source_confidence_reason": "National death-certificate surveillance with explicit provisional-data qualifications.",
+      "source_type": "official vital statistics",
+      "title": "Provisional Mortality Data \u2014 United States, 2022",
+      "underlying_fact_key": "usa_2022_mortality_and_covid_death_decline",
+      "url": "https://www.cdc.gov/mmwr/volumes/72/wr/mm7218a3.htm"
+    },
+    {
+      "canonical_fact_key": "federal_covid_vaccine_equity_programs_and_residual_gaps",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "CDC, HRSA, and FEMA used racial/ethnic population data, translation, extended hours, outreach, pharmacies, and pop-up sites to target underserved communities; CDC exceeded its aggregate 40% retail-pharmacy goal, but Black people remained underrepresented and missing race/ethnicity data limited comparisons.",
+      "contrary_evidence": "Black vaccination share remained below population share and missing demographic data could explain some or all observed differences.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.6",
+        "6B.8"
+      ],
+      "locator": "Lines 264\u2013295, especially 266\u2013288",
+      "methodology_ids": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.6",
+        "6B.8"
+      ],
+      "period_fit": "Published in 2022; mainly evaluates February\u2013September 2021 implementation inherited into the 2022 baseline.",
+      "provisional_id": "WD012",
+      "publication_date": "2022-02-07",
+      "publisher": "U.S. Government Accountability Office",
+      "ruler_attribution": "Institutional/direct for Biden-era agency programs; state and local vaccination remained important.",
+      "source_confidence": "high",
+      "source_confidence_reason": "GAO reviewed agency documentation and data, interviewed officials and stakeholders, and explicitly reported completeness limitations.",
+      "source_type": "independent legislative-branch audit",
+      "title": "COVID-19: Federal Efforts to Provide Vaccines to Racial and Ethnic Groups",
+      "underlying_fact_key": "federal_covid_vaccine_equity_programs_and_residual_gaps",
+      "url": "https://www.gao.gov/products/gao-22-105079"
+    },
+    {
+      "canonical_fact_key": "young_child_covid_vaccine_low_unequal_uptake_2022",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "By December 31, 2022, only 10.1% of children aged six months to four years had received at least one COVID vaccine dose and 5.1% completed the series; first-dose coverage was 3.4% in rural versus 10.5% in urban counties, and Black and Hispanic children were underrepresented among recipients.",
+      "contrary_evidence": "About 70% of sufficiently early starters completed the series, suggesting series completion was stronger conditional on initiation.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.2",
+        "6B.3",
+        "6B.5",
+        "6B.6",
+        "6B.8",
+        "6B.10"
+      ],
+      "locator": "Summary and lines 63\u201380; Figures 1\u20132",
+      "methodology_ids": [
+        "6B.2",
+        "6B.3",
+        "6B.5",
+        "6B.6",
+        "6B.8",
+        "6B.10"
+      ],
+      "period_fit": "Direct June\u2013December 2022 outcome.",
+      "provisional_id": "WD013",
+      "publication_date": "2023-02-17",
+      "publisher": "CDC, Morbidity and Mortality Weekly Report",
+      "ruler_attribution": "Shared/limited: FDA/CDC authorization and federal distribution were important, but parents, clinicians, states, localities, trust, and access shaped uptake.",
+      "source_confidence": "high for recorded uptake, medium-high for racial comparison",
+      "source_confidence_reason": "Nationwide jurisdictional data; race/ethnicity was missing for 28.6%, and uptake includes parental demand as well as service access.",
+      "source_type": "official population administrative surveillance",
+      "title": "COVID-19 Vaccination Coverage and Demographic Characteristics of Infants and Children Aged 6 Months\u20134 Years \u2014 United States, June 20\u2013December 31, 2022",
+      "underlying_fact_key": "young_child_covid_vaccine_low_unequal_uptake_2022",
+      "url": "https://www.cdc.gov/mmwr/volumes/72/wr/mm7207a4.htm"
+    },
+    {
+      "canonical_fact_key": "pact_act_2022_enactment_and_initial_delivery",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "After Biden signed the PACT Act on August 10, 2022, VA received more than 213,000 PACT-related claims and administered more than 959,000 toxic-exposure screenings by year-end; the statute expanded health-care and benefit eligibility for toxic-exposed veterans and survivors.",
+      "contrary_evidence": "Most claim adjudication and health outcomes occurred after 2022; submitted claims and screenings are not granted benefits or improved health.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.8",
+        "6B.9",
+        "6B.10"
+      ],
+      "locator": "Opening five paragraphs and implementation totals",
+      "methodology_ids": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.8",
+        "6B.9",
+        "6B.10"
+      ],
+      "period_fit": "Direct 2022 enactment and initial implementation.",
+      "provisional_id": "WD014",
+      "publication_date": "2022-12-29",
+      "publisher": "U.S. Department of Veterans Affairs",
+      "ruler_attribution": "Shared but meaningful: Biden advocated for and signed the bipartisan law; Congress enacted it and VA implemented it.",
+      "source_confidence": "medium-high",
+      "source_confidence_reason": "Authoritative administrative totals, but agency promotional framing and no independent outcome evaluation.",
+      "source_type": "official administrative release",
+      "title": "VA Will Begin Processing PACT Act Benefits Claims for All Veterans and Survivors on Jan. 1",
+      "underlying_fact_key": "pact_act_2022_enactment_and_initial_delivery",
+      "url": "https://news.va.gov/press-room/va-will-begin-processing-pact-act-benefits-claims-for-all-veterans-and-survivors-on-jan-1/"
+    },
+    {
+      "canonical_fact_key": "pslf_waiver_2022_delivered_forgiveness",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "Education\u2019s temporary PSLF waiver broadened qualifying payments, and by June 2022 about 165,000 borrowers had received $10.5 billion in forgiveness, although borrowers still had to navigate deadlines and program information.",
+      "contrary_evidence": "GAO separately found weak tracking and outreach in other loan-discharge programs; the waiver was temporary.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.8",
+        "6B.10"
+      ],
+      "locator": "Program-change explanation and June 2022 relief total",
+      "methodology_ids": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.8",
+        "6B.10"
+      ],
+      "period_fit": "Direct through June 2022.",
+      "provisional_id": "WD015",
+      "publication_date": "2022-09-20",
+      "publisher": "U.S. Government Accountability Office",
+      "ruler_attribution": "Institutional/direct for waiver implementation; inherited statutory program and borrower service are shared factors.",
+      "source_confidence": "high for reported delivery",
+      "source_confidence_reason": "GAO account with a concrete forgiveness total; underlying program was established before Biden, while the waiver was Biden-administration policy.",
+      "source_type": "independent oversight explainer using administrative data",
+      "title": "Eligibility for Public Service Loan Forgiveness Has Changed Temporarily: What It Means for Borrowers",
+      "underlying_fact_key": "pslf_waiver_2022_delivered_forgiveness",
+      "url": "https://www.gao.gov/blog/eligibility-public-service-loan-forgiveness-has-changed-temporarily.-heres-what-it-means-borrowers"
+    },
+    {
+      "canonical_fact_key": "biden_2022_broad_student_debt_plan_no_delivery",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "Education launched Biden\u2019s broad income-limited student-debt cancellation application in October 2022 and approved more than 12 million applicants, but court orders stopped the program before any debt was discharged; the Supreme Court later held the program unauthorized, and GAO found inadequate fraud-risk controls.",
+      "contrary_evidence": "The program would have targeted lower- and middle-income borrowers, but approval produced no realized welfare benefit under this initiative.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.1",
+        "6B.4",
+        "6B.5",
+        "6B.8",
+        "6B.9",
+        "6B.10"
+      ],
+      "locator": "Fast Facts; What GAO Found; Why GAO Did This Study",
+      "methodology_ids": [
+        "6B.1",
+        "6B.4",
+        "6B.5",
+        "6B.8",
+        "6B.9",
+        "6B.10"
+      ],
+      "period_fit": "2022 action evaluated in 2023.",
+      "provisional_id": "WD016",
+      "publication_date": "2023-11-16",
+      "publisher": "U.S. Government Accountability Office",
+      "ruler_attribution": "Direct for executive program design; courts controlled the ultimate block.",
+      "source_confidence": "high",
+      "source_confidence_reason": "GAO reviewed Education processes and the definitive judicial outcome.",
+      "source_type": "independent audit with legal retrospective",
+      "title": "Student Loans: Education Should Proactively Manage Fraud Risks in Any Future Debt Relief Efforts",
+      "underlying_fact_key": "biden_2022_broad_student_debt_plan_no_delivery",
+      "url": "https://www.gao.gov/products/gao-24-107142"
+    },
+    {
+      "canonical_fact_key": "biden_2022_reproductive_health_access_orders",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "Following Dobbs, Biden directed HHS and other agencies to protect emergency stabilizing care, medication and pharmacy access, nondiscrimination, interstate travel, information, and reproductive-health access within federal authority, while acknowledging continuing legal uncertainty and state-based disparities.",
+      "contrary_evidence": "The order did not restore nationwide access, and substantial geographic inequality continued.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.6",
+        "6B.8",
+        "6B.10"
+      ],
+      "locator": "Sections 1\u20133",
+      "methodology_ids": [
+        "6B.1",
+        "6B.2",
+        "6B.3",
+        "6B.6",
+        "6B.8",
+        "6B.10"
+      ],
+      "period_fit": "Direct August 2022 action.",
+      "provisional_id": "WD017",
+      "publication_date": "2022-08-11",
+      "publisher": "Federal Register / Executive Office of the President",
+      "ruler_attribution": "Direct for the order; limited authority over state abortion prohibitions and contested federal interpretations.",
+      "source_confidence": "high for policy, low-to-medium for outcomes",
+      "source_confidence_reason": "Definitive text of presidential direction; does not establish implementation effectiveness.",
+      "source_type": "primary legal record",
+      "title": "Executive Order 14079\u2014Securing Access to Reproductive and Other Healthcare Services",
+      "underlying_fact_key": "biden_2022_reproductive_health_access_orders",
+      "url": "https://www.federalregister.gov/documents/2022/08/11/2022-17420/securing-access-to-reproductive-and-other-healthcare-services"
+    },
+    {
+      "canonical_fact_key": "usa_2022_point_in_time_homelessness",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "HUD\u2019s January 2022 point-in-time estimate counted 582,462 people experiencing homelessness in the United States, showing that severe housing insecurity remained substantial despite emergency rental assistance and eviction protections.",
+      "contrary_evidence": "PIT counts are not a measure of how many evictions ERA prevented and cannot isolate presidential policy effects.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.2",
+        "6B.3",
+        "6B.6",
+        "6B.8",
+        "6B.10"
+      ],
+      "locator": "National key findings; 2022 PIT estimate tables",
+      "methodology_ids": [
+        "6B.2",
+        "6B.3",
+        "6B.6",
+        "6B.8",
+        "6B.10"
+      ],
+      "period_fit": "Direct January 2022 snapshot.",
+      "provisional_id": "WD018",
+      "publication_date": "2022-12-19",
+      "publisher": "U.S. Department of Housing and Urban Development",
+      "ruler_attribution": "Limited: homelessness reflects long-run housing supply, rents, local policy, health, income, and federal programs.",
+      "source_confidence": "medium-high",
+      "source_confidence_reason": "Standard national HUD process with local counts; one-night PIT methods undercount hidden homelessness and pandemic disruptions affect comparability.",
+      "source_type": "official administrative census/estimate",
+      "title": "The 2022 Annual Homelessness Assessment Report to Congress, Part 1",
+      "underlying_fact_key": "usa_2022_point_in_time_homelessness",
+      "url": "https://www.huduser.gov/portal/publications/2022-ahar-part-1-pit-estimates-of-homelessness.html"
+    },
+    {
+      "canonical_fact_key": "biden_2022_esser_delivered_activities",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "GAO found that districts spent nearly $60 billion in ESSER funds through school year 2021\u201322. About 80% supported academic, social-emotional, or operational needs, while the remainder addressed physical and mental health, including ventilation and school psychologists. This verifies delivered activities and service capacity, but not resulting learning gains.",
+      "contrary_evidence": "Expenditure and activity counts do not establish effectiveness, educational quality, or durable beneficiary outcomes.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.2",
+        "6B.9",
+        "6B.10"
+      ],
+      "locator": "What GAO Found, webpage lines 278\u2013280; full report pp. 9\u201316 and figures 2\u20134",
+      "methodology_ids": [
+        "6B.2",
+        "6B.9",
+        "6B.10"
+      ],
+      "period_fit": "Directly covers ESSER spending through the 2021\u201322 school year, including calendar 2022.",
+      "provisional_id": "WEB-6B-C1-001",
+      "publication_date": "2024-07-18",
+      "publisher": "U.S. Government Accountability Office",
+      "ruler_attribution": "The Biden administration administered and supervised the federal relief program, while states and districts selected and delivered particular activities.",
+      "source_confidence": 0.95,
+      "source_confidence_reason": "GAO analyzed national Education Department expenditure data and conducted structured site visits in 17 districts across six states.",
+      "source_type": "independent_government_audit",
+      "title": "K-12 Education: School Districts Reported Spending Initial COVID Relief Funds on Meeting Students' Needs and Continuing School Operations",
+      "underlying_fact_key": "esser_2021_22_implementation_and_evaluation",
+      "url": "https://www.gao.gov/products/gao-24-106913"
+    },
+    {
+      "canonical_fact_key": "biden_2022_esser_effectiveness_measurement_limits",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "Officials in 16 of 17 visited districts used data to examine ESSER-funded activities, but GAO found that the simultaneous use of multiple interventions made individual effects difficult to identify and that too little time had elapsed to determine whether positive effects would persist. Districts were already deciding which activities to sustain, scale, or end, partly according to other available funding.",
+      "contrary_evidence": "The evidence requirements did not produce readily isolable causal estimates or proof that supported services endured after relief funding.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.4",
+        "6B.5",
+        "6B.9",
+        "6B.10"
+      ],
+      "locator": "What GAO Found, webpage lines 288\u2013289; full report pp. 23\u201329, especially sections 'Gauging Effects' and 'Planning for the End of ESSER Funds'",
+      "methodology_ids": [
+        "6B.4",
+        "6B.5",
+        "6B.9",
+        "6B.10"
+      ],
+      "period_fit": "Later audit specifically evaluating spending, measurement, and sustainability decisions associated with school year 2021\u201322.",
+      "provisional_id": "WEB-6B-C1-002",
+      "publication_date": "2024-07-18",
+      "publisher": "U.S. Government Accountability Office",
+      "ruler_attribution": "Federal rules required plans and evidence-based uses, but implementation and evaluation were substantially decentralized to states and districts.",
+      "source_confidence": 0.95,
+      "source_confidence_reason": "GAO directly reviewed district evaluation practices and interviewed district and state officials, while clearly limiting generalization from its purposive site sample.",
+      "source_type": "independent_government_audit",
+      "title": "K-12 Education: School Districts Reported Spending Initial COVID Relief Funds on Meeting Students' Needs and Continuing School Operations",
+      "underlying_fact_key": "esser_2021_22_implementation_and_evaluation",
+      "url": "https://www.gao.gov/products/gao-24-106913"
+    },
+    {
+      "canonical_fact_key": "biden_2022_esser_school_level_distribution",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "Among 46 selected local educational agencies, approximately 95% of sampled ESSER I awards had been spent by March 2022. Most spending supported district-wide programs; only about 26% was allocated to identified schools, though most school-specific allocations went to Title I schools. The audit therefore found substantial implementation but limited school-level targeting information.",
+      "contrary_evidence": "High expenditure rates do not demonstrate equitable student access, service quality, or improved learning outcomes.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.3",
+        "6B.4",
+        "6B.10"
+      ],
+      "locator": "Report Results; tables describing amounts expended through March 2022 and allocation between district-wide activities, Title I schools, and non-Title I schools",
+      "methodology_ids": [
+        "6B.3",
+        "6B.4",
+        "6B.10"
+      ],
+      "period_fit": "The expenditure cutoff is March 2022.",
+      "provisional_id": "WEB-6B-C1-003",
+      "publication_date": "2022-11-30",
+      "publisher": "U.S. Department of Education Office of Inspector General",
+      "ruler_attribution": "Federal administration and oversight are attributable to Education under Biden; local allocation choices remain LEA decisions.",
+      "source_confidence": 0.88,
+      "source_confidence_reason": "Independent departmental inspector-general work based on agency and local records, but limited to 46 selected LEAs and ESSER I rather than the whole relief portfolio.",
+      "source_type": "inspector_general_audit",
+      "title": "Allocation of ESSER I Funds at Selected Local Educational Agencies",
+      "underlying_fact_key": "esser_2022_distribution_and_oversight",
+      "url": "https://oig.ed.gov/reports/other/allocation-esser-i-funds-selected-local-educational-agencies"
+    },
+    {
+      "canonical_fact_key": "biden_2022_dwsrf_disadvantaged_community_oversight",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "EPA OIG found that two of seven reviewed states did not consistently meet required drinking-water loan-subsidy levels for disadvantaged communities. Alabama fell $7.2 million, or 38.4%, short; inadequate EPA regional oversight and state underuse of administrative set-asides were identified barriers.",
+      "contrary_evidence": "The audit does not show that Biden\u2019s first-year BIL allocations caused the historical shortfalls, and five of seven reviewed states met minimum requirements.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.10"
+      ],
+      "locator": "Report At a Glance, p. 2; chapter 2, pp. 9\u201314; chapter 3 and recommendations 1\u20132, pp. 15\u201320",
+      "methodology_ids": [
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.10"
+      ],
+      "period_fit": "Audit project began in FY2022 and later established implementation weaknesses relevant to the delivery system receiving Biden-era infrastructure funding; much underlying grant performance predates BIL.",
+      "provisional_id": "WEB-6B-C1-004",
+      "publication_date": "2023-07-11",
+      "publisher": "U.S. Environmental Protection Agency Office of Inspector General",
+      "ruler_attribution": "EPA\u2019s regional review and corrective oversight were executive-branch responsibilities, but states controlled borrower selection and much delivery.",
+      "source_confidence": 0.94,
+      "source_confidence_reason": "Independent EPA OIG audit using state plans, program reports, EPA assessments, database analysis, interviews, and a survey of all state program managers.",
+      "source_type": "inspector_general_audit",
+      "title": "The EPA Could Improve Its Review of Drinking Water State Revolving Fund Programs to Help States Assist Disadvantaged Communities",
+      "underlying_fact_key": "dwsrf_equity_delivery_and_oversight",
+      "url": "https://www.epaoig.gov/sites/default/files/reports/2023-07/_epaoig_20230711_23-p-0022_2.pdf"
+    },
+    {
+      "canonical_fact_key": "biden_2022_dwsrf_incomplete_oversight_data",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "EPA OIG found that Alabama and ten additional states did not consistently associate executed subsidies with the correct federal capitalization grants in EPA\u2019s database. The resulting incomplete data prevented consistent federal oversight of whether disadvantaged-community subsidy requirements had been met.",
+      "contrary_evidence": "EPA agreed with the recommendation and stated that loan-assignment reporting was already required, but the audit found that the requirement was not reliably producing usable records.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.4",
+        "6B.5",
+        "6B.10"
+      ],
+      "locator": "Report At a Glance, p. 2; methodology pp. 7\u20138; chapter 4, pp. 21\u201325; recommendation 3, p. 21",
+      "methodology_ids": [
+        "6B.4",
+        "6B.5",
+        "6B.10"
+      ],
+      "period_fit": "The audit was initiated in FY2022 and establishes the condition of the oversight system relevant to 2022 implementation.",
+      "provisional_id": "WEB-6B-C1-005",
+      "publication_date": "2023-07-11",
+      "publisher": "U.S. Environmental Protection Agency Office of Inspector General",
+      "ruler_attribution": "Database controls and consistent regional oversight were within the Biden EPA\u2019s administrative authority; states entered the underlying loan data.",
+      "source_confidence": 0.95,
+      "source_confidence_reason": "Direct OIG analysis of EPA\u2019s national revolving-fund database and state grant records.",
+      "source_type": "inspector_general_audit",
+      "title": "The EPA Could Improve Its Review of Drinking Water State Revolving Fund Programs to Help States Assist Disadvantaged Communities",
+      "underlying_fact_key": "dwsrf_equity_delivery_and_oversight",
+      "url": "https://www.epaoig.gov/sites/default/files/reports/2023-07/_epaoig_20230711_23-p-0022_2.pdf"
+    },
+    {
+      "canonical_fact_key": "biden_2022_snap_thrifty_food_plan_benefit_and_process",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "USDA\u2019s Thrifty Food Plan reevaluation increased maximum SNAP benefits by 21%, supporting benefits paid in 2022, but GAO found that USDA omitted key project-management controls, replaced its planned external peer review with a nonindependent internal review, insufficiently documented major choices, and did not adequately analyze their effects.",
+      "contrary_evidence": "The permanent benefit increase was substantial, while the audit criticisms concern decision quality and reproducibility rather than evidence that recipients failed to receive it.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.2",
+        "6B.4",
+        "6B.10"
+      ],
+      "locator": "What GAO Found, webpage lines 278\u2013288; full report highlights and pp. 13\u201336",
+      "methodology_ids": [
+        "6B.2",
+        "6B.4",
+        "6B.10"
+      ],
+      "period_fit": "Published in December 2022; evaluates the benefit basis operative during 2022, although the reevaluation itself was completed in 2021.",
+      "provisional_id": "WEB-6B-C1-006",
+      "publication_date": "2022-12-14",
+      "publisher": "U.S. Government Accountability Office",
+      "ruler_attribution": "The higher benefit level continued under Biden\u2019s USDA, but the 2018 Farm Bill mandated reevaluation and the key reevaluation decisions occurred in 2021.",
+      "source_confidence": 0.96,
+      "source_confidence_reason": "Contemporaneous GAO audit of USDA\u2019s methodology, project records, review process, and economic-analysis documentation.",
+      "source_type": "independent_government_audit",
+      "title": "Thrifty Food Plan: Better Planning and Accountability Could Help Ensure Quality of Future Reevaluations",
+      "underlying_fact_key": "snap_2022_adequacy_and_state_variation",
+      "url": "https://www.gao.gov/products/gao-23-105450"
+    },
+    {
+      "canonical_fact_key": "biden_2022_snap_emergency_allotment_food_insufficiency",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "Using staggered state termination of SNAP emergency allotments, the study found that ending the supplements was associated with increased food insufficiency among SNAP participants. Seventeen states had stopped the supplements by the end of 2022, producing materially different benefit protection according to residence.",
+      "contrary_evidence": "The finding supports effectiveness where supplements continued but also shows that nationally available authority did not yield uniform protection across states.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.2",
+        "6B.3",
+        "6B.9",
+        "6B.10"
+      ],
+      "locator": "Abstract; Methods; Results; Figure 1 and regression tables on state emergency-allotment discontinuation and household food insufficiency",
+      "methodology_ids": [
+        "6B.2",
+        "6B.3",
+        "6B.9",
+        "6B.10"
+      ],
+      "period_fit": "Directly examines state emergency-allotment terminations occurring through the end of 2022.",
+      "provisional_id": "WEB-6B-C1-007",
+      "publication_date": "2023-12-01",
+      "publisher": "Preventive Medicine",
+      "ruler_attribution": "Federal authority made emergency allotments available and approved state plans, but states chose when to terminate participation; the resulting variation is shared federalism rather than solely presidential performance.",
+      "source_confidence": 0.9,
+      "source_confidence_reason": "Peer-reviewed quasi-experimental analysis exploiting staggered state policy changes; observational assumptions and survey measurement prevent certainty equivalent to randomization.",
+      "source_type": "peer_reviewed_quasi_experimental_study",
+      "title": "Association of Emergency Allotment Discontinuation with Household Food Insufficiency in Supplemental Nutrition Assistance Program Participants: A Quasi-Experimental Study",
+      "underlying_fact_key": "snap_2022_adequacy_and_state_variation",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0091743523003705"
+    },
+    {
+      "canonical_fact_key": "biden_2022_hcbs_waiting_lists",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "KFF\u2019s state survey reports 606,895 people on Medicaid HCBS waiting or interest lists for 2022, including 552,339 people with intellectual or developmental disabilities and 182,162 seniors or adults with physical disabilities; state counts varied sharply and only 35 states screened at least one list for eligibility, limiting comparability.",
+      "contrary_evidence": "Counts cannot be treated as a precise national unmet-need estimate because state screening and list definitions differ; nonetheless, they establish large, geographically unequal access constraints.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.2",
+        "6B.3",
+        "6B.9",
+        "6B.10"
+      ],
+      "locator": "Select year 2022; United States row and state table; table columns for screening, I/DD, seniors/adults with physical disabilities, and total waiting",
+      "methodology_ids": [
+        "6B.2",
+        "6B.3",
+        "6B.9",
+        "6B.10"
+      ],
+      "period_fit": "Dataset row is specifically for 2022.",
+      "provisional_id": "WEB-6B-C1-008",
+      "publication_date": "2023-11-01",
+      "publisher": "KFF",
+      "ruler_attribution": "Biden\u2019s administration supplied enhanced federal HCBS financing and federal Medicaid oversight, but states controlled waiver capacity, eligibility practices, provider systems, and waiting lists.",
+      "source_confidence": 0.87,
+      "source_confidence_reason": "Long-running 50-state survey of Medicaid officials with transparent state rows, but state definitions and eligibility screening differ and list counts can overstate or understate unmet need.",
+      "source_type": "national_state_officials_survey_dataset",
+      "title": "Number of People Waiting for Medicaid Home Care (HCBS), by Target Population and Whether States Screen for Eligibility",
+      "underlying_fact_key": "hcbs_2022_access_and_state_variation",
+      "url": "https://www.kff.org/medicaid/state-indicator/number-of-people-waiting-for-hcbs-by-target-population-and-whether-states-screen-for-eligibility/"
+    },
+    {
+      "canonical_fact_key": "post_dobbs_2022_abortion_volume_geographic_redistribution",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "Monthly provider data showed a large geographic redistribution of clinician-provided abortions after Dobbs: abortions fell sharply or ceased in states with bans while increasing in several states retaining access. National totals concealed substantial interstate displacement and did not include self-managed abortions outside the formal health system.",
+      "contrary_evidence": "National totals and increases in access states could suggest partial adaptation, but they do not negate severe losses and travel burdens in ban states.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.3",
+        "6B.8",
+        "6B.10"
+      ],
+      "locator": "Report titled '#WeCount report, April 2022\u2013December 2022'; national monthly totals; state change map and state tables comparing post-Dobbs months with the April 2022 baseline; Methods and Limitations",
+      "methodology_ids": [
+        "6B.3",
+        "6B.8",
+        "6B.10"
+      ],
+      "period_fit": "Direct monthly measurements from April through December 2022.",
+      "provisional_id": "WEB-6B-C1-009",
+      "publication_date": "2023-04-11",
+      "publisher": "Society of Family Planning",
+      "ruler_attribution": "The geographic disruption was principally caused by Dobbs and state bans. Biden\u2019s federal actions occurred in the same period, but this dataset does not causally attribute changes to those actions.",
+      "source_confidence": 0.9,
+      "source_confidence_reason": "Specialized national data collection from identified abortion providers with monthly state reporting and explicit limitations; it does not capture all self-managed care.",
+      "source_type": "national_provider_census_research_dataset",
+      "title": "#WeCount Report: April 2022 to December 2022",
+      "underlying_fact_key": "post_dobbs_2022_access_and_federal_response",
+      "url": "https://societyfp.org/research/wecount/wecount-reports/"
+    },
+    {
+      "canonical_fact_key": "biden_2022_emtala_abortion_litigation_idaho",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "After the Biden Justice Department sued Idaho, the district court preliminarily enjoined Idaho officials from enforcing the state abortion ban against medical care required by EMTALA. This was a concrete but geographically bounded 2022 remedy protecting federally required emergency stabilizing care.",
+      "contrary_evidence": "A preliminary injunction is not a final merits judgment and does not measure how many patients obtained care because of it.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.5",
+        "6B.8",
+        "6B.10"
+      ],
+      "locator": "Case 1:22-cv-00329-BLW, Document 95; discussion of conflict preemption and EMTALA, pp. 19\u201338; injunction at pp. 38\u201339",
+      "methodology_ids": [
+        "6B.5",
+        "6B.8",
+        "6B.10"
+      ],
+      "period_fit": "Order entered August 24, 2022 and took effect during the evaluation year.",
+      "provisional_id": "WEB-6B-C1-010",
+      "publication_date": "2022-08-24",
+      "publisher": "U.S. District Court for the District of Idaho",
+      "ruler_attribution": "The Biden Justice Department initiated the suit and obtained the injunction; the court independently determined the remedy.",
+      "source_confidence": 0.98,
+      "source_confidence_reason": "Contemporaneous judicial order directly records the federal government\u2019s requested remedy, legal findings at the preliminary-injunction stage, and operative geographic scope.",
+      "source_type": "federal_court_decision",
+      "title": "United States v. State of Idaho, Memorandum Decision and Order",
+      "underlying_fact_key": "post_dobbs_2022_emtala_federal_enforcement",
+      "url": "https://law.justia.com/cases/federal/district-courts/idaho/iddce/1%3A2022cv00329/50547/95/"
+    },
+    {
+      "canonical_fact_key": "biden_2022_emtala_abortion_litigation_texas",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "A federal court preliminarily barred HHS from enforcing its July 2022 EMTALA abortion guidance against Texas and specified medical-association members, finding at that stage that the guidance exceeded EMTALA\u2019s text and should have undergone notice-and-comment procedure. The ruling limited the immediate geographic reach of Biden\u2019s principal post-Dobbs emergency-care intervention.",
+      "contrary_evidence": "The Idaho court reached the opposite preliminary conclusion one day later, demonstrating fragmented rather than nationally effective protection.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "6B.4",
+        "6B.5",
+        "6B.8",
+        "6B.10"
+      ],
+      "locator": "Case 5:22-CV-185-H, Document 73; statutory analysis pp. 22\u201351; procedural analysis pp. 51\u201363; injunction and conclusion pp. 66\u201367",
+      "methodology_ids": [
+        "6B.4",
+        "6B.5",
+        "6B.8",
+        "6B.10"
+      ],
+      "period_fit": "Order entered August 23, 2022 and constrained enforcement during 2022.",
+      "provisional_id": "WEB-6B-C1-011",
+      "publication_date": "2022-08-23",
+      "publisher": "U.S. District Court for the Northern District of Texas",
+      "ruler_attribution": "The enjoined guidance was issued by Biden\u2019s HHS; the legal constraint was imposed by an independent court following challenges by Texas and private associations.",
+      "source_confidence": 0.98,
+      "source_confidence_reason": "Contemporaneous primary judicial record identifying the challenged federal action, preliminary legal findings, and exact scope of relief.",
+      "source_type": "federal_court_decision",
+      "title": "Texas v. Becerra, Memorandum Opinion and Order",
+      "underlying_fact_key": "post_dobbs_2022_emtala_federal_enforcement",
+      "url": "https://law.justia.com/cases/federal/district-courts/texas/txndce/5%3A2022cv00185/365015/73/"
+    },
+    {
+      "canonical_fact_key": "biden_2022_pact_exposure_record_implementation",
+      "chapter_ids": [
+        "6B"
+      ],
+      "claim": "GAO found that use of the Individual Longitudinal Exposure Record increased after the August 2022 PACT Act, but VA did not issue a standard operating procedure requiring claims staff to use it for specified toxic-exposure claims until January 2023. The finding documents early administrative uptake while showing that a key implementation control was not in place during the remainder of 2022.",
+      "contrary_evidence": "Increased system queries do not establish accurate claims decisions, completed benefits, health-care access, or improved veteran outcomes in 2022.",
+      "disposition": "context",
+      "final_evidence_use": "context",
+      "lenses": [
+        "6B.2",
+        "6B.4",
+        "6B.10"
+      ],
+      "locator": "Full report pp. 15\u201322; Figure 3 and notes at pp. 17\u201318; discussion of VBA procedure at pp. 14\u201315",
+      "methodology_ids": [
+        "6B.2",
+        "6B.4",
+        "6B.10"
+      ],
+      "period_fit": "Later audit specifically establishes agency practice immediately following the August 2022 enactment.",
+      "provisional_id": "WEB-6B-C1-012",
+      "publication_date": "2024-05-23",
+      "publisher": "U.S. Government Accountability Office",
+      "ruler_attribution": "PACT implementation and VA operating procedures were within the Biden administration\u2019s authority, although Congress enacted the statutory expansion.",
+      "source_confidence": 0.93,
+      "source_confidence_reason": "GAO reviewed agency policies and system-use records, but the audit concerns an administrative information system rather than beneficiary health outcomes or completed benefit awards.",
+      "source_type": "independent_government_audit",
+      "title": "Military Health Care: DOD and VA Could Benefit from More Information on Staff Use of Military Toxic Exposure Records",
+      "underlying_fact_key": "pact_2022_implementation_without_outcomes",
+      "url": "https://www.gao.gov/assets/gao-24-106423.pdf"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---

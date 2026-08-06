@@ -1,0 +1,316 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:USA:15810",
+  "iso3": "USA",
+  "country_name": "United States",
+  "ruler_name": "Joe Biden",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 21,
+  "approximate_source_family_count": 15,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 21 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 15 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed for Joe Biden, United States, 2022. No scores or score ranges assigned.
+
+Writes were unavailable because the workspace is read-only, so the complete ledger handoff is included here rather than persisted to the requested paths.
+
+### Authority and evidence environment
+
+- The President held formal responsibility for federal law execution, agency and Cabinet appointments, diplomacy, executive orders, and federal judges. Congress retained legislative, budgetary, treaty, confirmation, war, and oversight powers. [White House executive-branch description](https://www.whitehouse.gov/government/executive-branch/), [White House legislative-branch description](https://www.whitehouse.gov/government/legislative-branch/).
+- Evidence visibility was high: official records, CRS/GAO audits, congressional investigations, courts, NGOs, and extensive media coverage were available. This creates open-society reporting-volume bias but also strong scrutiny and correction channels.
+- State/local policing, Federal Reserve outcomes, congressional legislation, courts, and allied conduct were not automatically attributed to Biden.
+
+### Global evidence ledger
+
+Stable provisional IDs drafted: EV001–EV026.
+
+Key evidence included:
+
+- EV001–EV002: formal presidential authority and congressional constraints.
+- EV003–EV005: Biden’s New START extension, Strategic Stability Dialogue, 2022 Nuclear Posture Review, arms-control and risk-reduction posture. [CRS arms-control report](https://www.congress.gov/crs_external_products/RL/HTML/RL33865.html)
+- EV006–EV008: Ukraine security assistance, congressional appropriations, and creation of end-use/accountability oversight mechanisms. [CRS Ukraine report](https://www.congress.gov/crs_external_products/R/HTML/R47068.web.html)
+- EV007: UN documentation of civilian harm, humanitarian access concerns, investigation, and ceasefire calls in Ukraine. [UN Ukraine statement](https://ukraine.un.org/en/176730-statement-un-resident-humanitarian-coordinator-osnat-lubrani-behalf-united-nations-ukraine)
+- EV009–EV010: DOJ voting-rights enforcement and the December 2022 January 6 Committee report release. [DOJ voting-rights actions](https://www.justice.gov/archives/opa/pr/justice-department-releases-information-efforts-protect-right-vote-prosecute-election-fraud), [GovInfo January 6 collection](https://www.govinfo.gov/collection/january-6th-committee-final-report)
+- EV011–EV012 and EV022: federal use-of-force reforms, de-escalation, intervention, medical-aid requirements, and later OIG-identified implementation gaps. [DOJ policy fact sheet](https://www.justice.gov/archives/olp/department-justice-fact-sheet-implementing-executive-order-advancing-effective-accountable), [DOJ OIG review](https://oig.justice.gov/news/doj-oig-releases-report-on-doj-law-enforcement-and-corrections-components-use-force-policies)
+- EV013 and EV023: HRW criticism concerning migration, incarceration, policing, arms transfers, and human-rights conditionality. [HRW 2022 U.S. report](https://www.hrw.org/world-report/2022/country-chapters/united-states)
+- EV014 and EV026: ACLU criticism of biometric surveillance, privacy, AI governance, and EU–U.S. data-transfer safeguards. [ACLU civil-liberties review](https://www.aclu.org/news/capital-punishment/one-year-later-how-the-biden-administration-is-doing-on-civil-rights-and-civil-liberties), [ACLU data-transfer criticism](https://www.aclu.org/press-releases/new-biden-executive-order-on-eu-us-data-transfers-fails-adequately-protect-privacy)
+- EV015–EV016: CHIPS program goals, $52.7 billion appropriations, implementation strategy, steering council, and congressional oversight questions. [NIST implementation strategy](https://www.nist.gov/news-events/news/2022/09/biden-administration-releases-implementation-strategy-50-billion-chips), [CRS CHIPS report](https://www.congress.gov/crs-product/R47523)
+- EV017–EV018: IRA tax-credit implementation and $2.2 billion in RAISE infrastructure awards across all states. [Treasury IRA guidance](https://home.treasury.gov/news/press-releases/jy0923), [DOT RAISE awards](https://www.transportation.gov/briefing-room/bipartisan-infrastructure-law-raise-grants-2022-funding-projects-all-50-states)
+- EV019: independent Brookings assessment of inflation, labor-market tightness, and policy constraints in 2022. [Brookings 2022 economic review](https://www.brookings.edu/articles/key-economic-policy-developments-in-2022-and-what-to-expect-in-2023/)
+- EV020–EV021: CDC vaccination/global-response claims and GAO findings that only 39% of pandemic recommendations had been fully or partially addressed by March 2022. [CDC testimony](https://www.cdc.gov/washington/testimony/2022/t20220330.htm), [GAO pandemic review](https://www.gao.gov/products/gao-22-105397)
+- EV024: partisan House Republican allegations about Biden family business dealings; retained as adversarial context only, not an adjudicated finding. [House Oversight interim report](https://oversight.house.gov/wp-content/uploads/2022/11/Interim-Staff-Report-A-President-Compromised-The-Biden-Family-Investigation-1.pdf)
+- EV025: Biden financial disclosure and OGE compliance certification. [OGE filing](https://www.whitehouse.gov/wp-content/uploads/2023/05/Biden-Joseph-R.-2023-Annual-278.pdf)
+
+### Chapter yield
+
+- 1B: Strong formal evidence on arms control and nuclear-risk posture; weak on command safety, appointments, dual-use governance, and measurable end-state change.
+- 2B: Strong on Ukraine assistance, diplomacy, and oversight; weak on Biden-specific civilian-harm responsibility, proxy control, public threat accuracy, and peace alternatives.
+- 3B: Strong on federal policing safeguards; mixed/adverse evidence on migration, detention, surveillance, and implementation gaps. Local policing remains attribution-limited.
+- 4B: Strong on voting-rights enforcement, institutional constraints, and oversight. Limited direct evidence of Biden manipulating elections, courts, media, or opposition.
+- 5B: Strong on explicit CHIPS, IRA, and infrastructure programs and early implementation; mixed on inflation, distribution, and household effects; limited target-year durability evidence.
+- 6B: Strong on vaccination and public-health administration; mixed on GAO-identified preparedness and oversight gaps; weak on group-level quality, affordability, political conditionality, and durability.
+- 7B: Direct personal-nexus evidence remains thin. EV024 is a partisan allegation; EV025 is a formal disclosure/compliance record. Country corruption indicators were used only as context.
+- 8B: Strong on program definition, legislation, coordination, and early implementation; mixed on COVID oversight and inflation; limited evidence on adaptation, outcomes, and durability across the full portfolio.
+
+### Local structured audit
+
+Retained as context or direct measurement where applicable:
+
+- LF001–LF005: FAS nuclear inventory, 2014 inherited posture.
+- LF050–LF101: UCDP conflict exposure and SIPRI military expenditure through 2022.
+- LF197–LF253: CIRIGHTS, V-Dem, and PTS physical-integrity context.
+- LF346–LF505: Freedom House, V-Dem, EIU, Polity, RSF, and WGI political-freedom context.
+- LF577–LF719: GDP, consumption, inequality, capital formation, population, and longitudinal economic signals.
+- LF764–LF771: HDI, life expectancy, schooling, immunization, and enrollment.
+- LF816–LF819: corruption indicators.
+- LF842–LF843: government effectiveness and regulatory quality.
+
+These country-level facts were not personalized without narrative evidence. Missing local values were not treated as real-world zeros. LF448 was retained only as missing-value provenance.
+
+### Reuse and source diversity
+
+- Cross-chapter reuse was substantial for EV001–EV002, EV006–EV008, EV011–EV012, EV014, EV017–EV021, and EV023.
+- EV006 and EV008 are same-report splits supporting distinct Ukraine-assistance and oversight claims.
+- EV011 and EV022 are same-URL splits supporting distinct federal-policy and accountability claims.
+- Source families represented: White House, Congress/CRS, State Department, DOJ, DOJ OIG, GovInfo, UN, NIST/Commerce, Treasury, DOT, CDC, GAO, Brookings, HRW, ACLU, House Oversight, and local structured datasets.
+- Contrary evidence is preserved in EV012, EV013, EV014, EV019, EV021, EV023, EV024, and EV026.
+
+### Rejected or limited material
+
+Search-result snippets, Wikipedia, Reddit, current-period sources, unattributed opinion, and organization homepages were not retained. Official administration claims were used for formal acts and stated policy, not as sole proof of success or restraint. EV024 remains context-only because its conclusions are partisan and disputed.
+---

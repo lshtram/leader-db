@@ -1,0 +1,341 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:PHL:16194",
+  "iso3": "PHL",
+  "country_name": "Philippines",
+  "ruler_name": "Bongbong Marcos",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 14,
+  "approximate_source_family_count": 13,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 14 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 13 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_contrary_audit",
+      "message": "Contrary evidence is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed for Bongbong Marcos, Philippines, 2022. No scores or score ranges assigned. The supplied local package was treated as the first-order baseline; structured datasets were not re-fetched. Workspace writes were unavailable, so the ledger handoff is included below for parent persistence.
+
+## Authority and evidence environment
+
+- Marcos held the presidency from June 30, 2022. The Philippine Constitution makes the president commander-in-chief and grants appointment authority over department secretaries and other senior officials. [Constitution](https://elibrary.judiciary.gov.ph/thebookshelf/showdocs/3/353), [PNA inauguration record](https://www.pna.gov.ph/articles/1177892).
+- The period was an open but pressured information environment: active civil society and media coexisted with red-tagging, politically motivated lawsuits, cyberattacks, website blocking, criminal libel, and threats to journalists. [U.S. State Department 2022 report](https://www.ecoi.net/en/document/2089246.html), [Freedom House Freedom on the Net 2022](https://freedomhouse.org/country/philippines/freedom-net/2022).
+- National statistics and policy documents are usable for formal plans, budgets, and measured outcomes, but government self-assessments require independent corroboration. The available record is concentrated among government, multilateral, NGO, and major-media sources; local-language and regional reporting remain underrepresented.
+- Population-scale context: the local package records approximately 114 million people in 2022. Conflict and violence measures are country-level exposure indicators and do not by themselves establish Marcos’s responsibility.
+
+## Provisional evidence ledger
+
+| ID | Evidence and locator | Profile / role | Mapped chapters and lenses |
+|---|---|---|---|
+| E001 | Marcos assumed office June 30, 2022; official presidential authority includes appointments and command of armed forces. [Constitution](https://elibrary.judiciary.gov.ph/thebookshelf/showdocs/3/353), [PNA](https://www.pna.gov.ph/articles/1177892) | Official record, medium-high for formal facts; authority baseline | 1B–8B as attribution context |
+| E002 | The May 2022 election was generally viewed by observers as organized and broadly free and fair, but vote buying was widespread and dynastic families continued to monopolize elective offices. [U.S. State Department report, election section](https://www.ecoi.net/en/document/2089246.html) | Official/institutional synthesis, medium-high; mixed election evidence | 4B.1, 4B.2, 4B.5, 4B.7, 4B.8 |
+| E003 | Freedom House records election-period disinformation, including campaign-linked disinformation-for-hire firms, microinfluencers, meme pages, and hyperpartisan media. [Freedom House](https://freedomhouse.org/country/philippines/freedom-net/2022) | NGO report, medium-high; target-period and mechanism-specific | 4B.1, 4B.2, 4B.5, 4B.6, 4B.9; 7B.1, 7B.2 |
+| E004 | The government blocked Bulatlat and Pinoy Weekly after a national-security referral; journalists faced accreditation problems, “fake news” labeling, cyberattacks, and criminal libel exposure. [U.S. State Department report](https://www.ecoi.net/en/document/2089246.html) | Government report, medium-high for documented allegations and official actions; independent attribution varies | 3B.5, 3B.8; 4B.3, 4B.6, 4B.9 |
+| E005 | Human Rights Watch documented Marcos’s refusal to answer questions concerning a U.S. contempt order and warned of risks to press freedom, while distinguishing inherited Duterte-era pressure from future presidential authority. [HRW](https://www.hrw.org/news/2022/05/12/ferdinand-marcos-jrs-contempt-philippine-press) | NGO, medium-high; pre-accession/transition evidence, not full tenure | 4B.3, 4B.6; 7B.1, 7B.6, 7B.7 |
+| E006 | Amnesty called on the incoming administration to end drug-war killings, arbitrary detention, red-tagging, and attacks on activists; it reported absent domestic accountability for many Duterte-era killings and fear among witnesses. [Amnesty International](https://www.amnesty.org/en/latest/news/2022/06/philippines-marcos-president-inauguration/) | NGO, medium-high; strong inherited-baseline and transition evidence, weak for Marcos-specific completed action | 3B.1–3B.5, 3B.8–3B.10; 4B.3, 4B.6 |
+| E007 | The local package records 2022 physical-integrity and repression context: V-Dem physical-integrity value 0.284; CIRIGHTS physical-integrity 2/8, disappearances 1/2, political imprisonment 0/2, torture 0/2, repression 5/17; PTS Amnesty/State Department scores 4/5 and HRW 4/5. | Local structured priors, high for measured country-year context; not ruler-specific | 3B.1, 3B.2, 3B.4–3B.10 |
+| E008 | Local UCDP data records 120 state-based conflict events and 226 fatalities in 2022, with five one-sided violence events and seven fatalities; attribution to Marcos is not established. | Local structured priors, high for exposure; explicitly contextual | 2B.1–2B.10; 3B.6, 3B.9, 3B.10 |
+| E009 | Marcos’s campaign-period position favored a Philippine military presence in the South China Sea for defensive presence, while rejecting military resolution and emphasizing engagement with China. [Reuters via Euronews](https://www.euronews.com/2022/02/16/us-philippines-election-debate) | Reuters, medium-high; pre-accession stated policy | 2B.1, 2B.3, 2B.6; 8B.1 |
+| E010 | By October 2022, Marcos had combined early China engagement with a more uncompromising South China Sea position, revived U.S. security cooperation, and emphasized ASEAN, rules-based order, peaceful dispute resolution, and a code of conduct. [CSIS/AMTI](https://amti.csis.org/marcos-jr-and-asean-minilateralism-in-the-south-china-sea/) | Specialist think tank, medium-high; target-period policy analysis with attributed chronology | 2B.1, 2B.3, 2B.7, 2B.10; 8B.1–8B.3, 8B.9 |
+| E011 | The 2022 local package records military expenditure of approximately $5.54 billion constant 2024 dollars, 1.32% of GDP, and 5.08% of government spending. These are burden/exposure facts, not proof of aggression or motive. | Local SIPRI prior, high for measurement; contextual only | 2B.3, 2B.8, 2B.10 |
+| E012 | Marcos’s 2022 SONA identified infrastructure, energy, education, health, food, climate resilience, nuclear-energy review, public-sector reorganization, fiscal discipline, and 19 legislative priorities. [SONA transcript](https://pbbm.com.ph/2022-state-of-the-nation-address/) | Official speech, medium-low for claimed intent; medium-high for stated program | 1B.3, 1B.7, 1B.9; 5B.1–5B.10; 6B.1–6B.10; 8B.1, 8B.2, 8B.6 |
+| E013 | The eight-point socioeconomic agenda and medium-term fiscal framework specified food security, health, social protection, learning recovery, fiscal consolidation, jobs, infrastructure, competition, poverty reduction, and debt targets. [PIDS policy paper, pp. 27–28](https://pidswebs.pids.gov.ph/CDN/document/pidsdps2231.pdf) | PIDS/multilateral policy analysis, high for documenting the framework; implementation not established | 5B.1, 5B.3, 5B.4, 5B.6, 5B.9, 5B.10; 6B.1–6B.6; 8B.1–8B.6 |
+| E014 | The Department of Finance documented the economic team, its agenda, participation of Congress/private sector/civil society, fiscal targets, and intended infrastructure and tax reforms. [DOF](https://www.dof.gov.ph/economic-team-to-work-with-congress-private-sector-and-civil-society-to-sustain-economic-growth/) | Official record, medium-high for appointments and stated measures; self-assessment caveat | 5B.2–5B.4, 5B.6, 5B.7; 8B.2–8B.6 |
+| E015 | Marcos appointed technocrats and experienced officials including Benjamin Diokno, Felipe Medalla, Arsenio Balisacan, Alfred Pascual, and Manuel Bonoan; the record also documents long-standing personal relationships in some appointments. [PNA appointment report](https://www.pna.gov.ph/articles/1175248) | Official newswire, medium-high for appointment facts; competence/independence requires further evidence | 5B.2, 5B.5; 8B.3–8B.5; 7B.5, 7B.9 |
+| E016 | The World Bank described recovery alongside inflation, fiscal-consolidation pressure, food/energy burdens for poorer households, and the need for sustained health, education, and targeted social assistance. [World Bank Philippines Economic Update, pp. 20–25](https://thedocs.worldbank.org/en/doc/3935c27c779daa684141449c7a70478a-0070062022/original/World-Bank-Philippines-Economic-Update-December-2022-Web-Version.pdf) | World Bank, high; independent macro/social context | 5B.3, 5B.6, 5B.9, 5B.10; 6B.2, 6B.3, 6B.6, 6B.10 |
+| E017 | The World Bank recorded proposed 2023 spending priorities in education, health, social protection, employment, infrastructure, agriculture, and transport, while noting fiscal consolidation and a projected infrastructure-budget contraction. [World Bank, pp. 34–36](https://thedocs.worldbank.org/en/doc/3935c27c779daa684141449c7a70478a-0070062022/original/World-Bank-Philippines-Economic-Update-December-2022-Web-Version.pdf) | World Bank, high; implementation/outcome distinction required | 5B.3, 5B.6, 5B.9; 6B.2, 6B.4, 6B.6; 8B.2, 8B.6, 8B.7 |
+| E018 | Marcos’s 2022 nuclear-energy policy promoted diversification and possible civil nuclear power while explicitly invoking IAEA safety, security, safeguards, nonproliferation, infrastructure review, and capacity-building. [IAEA conference statement, pp. 1–2](https://www.iaea.org/sites/default/files/22/10/cn-296-philippines.pdf) | IAEA-hosted official statement, medium-high for formal policy; implementation and independent safety assessment unresolved | 1B.1, 1B.3, 1B.4, 1B.7, 1B.9, 1B.10; 8B.1–8B.3 |
+| E019 | The local package contains no Philippine nuclear arsenal, nuclear-use, or deployed nuclear-command facts. IAEA material shows civil nuclear planning, not weapons capability. | Local absence plus IAEA narrative; absence is not proof of complete non-exposure | 1B.1–1B.10 |
+| E020 | Local 2022 outcome context: GDP per capita, GNI per capita, HDI 0.710, life expectancy 72.187 years, mean schooling 8.971 years, immunization coverage, secondary enrollment, and government-effectiveness/regulatory-quality indicators. These are country outcomes, not automatically Marcos-attributable. | Local structured priors, high for measurement; attribution gap | 5B.1, 5B.3, 5B.6, 5B.9, 5B.10; 6B.2, 6B.8, 6B.10; 8B.7, 8B.10 |
+| E021 | The local package records 2022 corruption context: V-Dem political corruption 0.819, executive corruption 0.794, public-sector corruption 0.650, and WGI control of corruption −0.541. These do not establish Marcos’s personal integrity. | Local structured priors, high for national context; zero personal-nexus weight without narrative linkage | 7B.1–7B.10; 8B.10 |
+| E022 | A contemporaneous PCIJ-reported account described Marcos campaign financing from donors linked to older Marcos-era cronies, but the accessible page was not retrievable with a precise locator during this run. | Candidate only; rejected from defensible ledger because locator was unavailable | 7B.3–7B.5, 7B.9; discovery-only |
+| E023 | The Philippines’ 2022 civil-nuclear policy emphasized IAEA safeguards and nonproliferation, but no evidence was found here of a ruler-specific nuclear crisis, nuclear threat, arms-control negotiation, or weapons-control decision. [IAEA statement](https://www.iaea.org/sites/default/files/22/10/cn-296-philippines.pdf) | Final/context boundary; policy is civil and prospective | 1B.1–1B.10 |
+
+## Chapter yield and gaps
+
+### 1B
+
+Local facts: no nuclear arsenal or weapons-command evidence; civil nuclear planning only. E018/E019/E023 establish limited civil/dual-use exposure and formal safety language. Missing: nuclear rhetoric, crisis conduct, command safeguards in practice, inspections, proliferation, cyber/biological/AI governance, and end-posture evidence. The material is insufficient for a full ten-lens narrative dossier without further specialized research.
+
+### 2B
+
+Useful evidence: E008, E009, E010, E011. The local conflict series establishes exposure, not initiation or responsibility. Marcos’s documented positions emphasize territorial defense, dialogue, ASEAN, UNCLOS, and rules-based dispute management, while expanded security cooperation creates a need to examine escalation and alliance-risk evidence. Missing: target-period civilian-harm attribution, proxy/arms-recipient conduct, peace talks with insurgents, public threat-messaging accuracy, and accountability for operations.
+
+### 3B
+
+Strongest evidence: E004, E006, E007, E008. The country environment included killings, red-tagging, arbitrary detention, media pressure, protest arrests, and weak inherited accountability. Most serious evidence concerns Duterte-era conduct or national institutions rather than a completed Marcos-directed pattern in the six-month target period. Missing: Marcos-specific orders, security appointments and directives, 2022 investigations/remedies, vulnerable-group protection, and crisis-response evidence. Do not transfer all Duterte-era abuses automatically to Marcos.
+
+### 4B
+
+Strongest evidence: E002–E005. Competitive elections and a peaceful transfer coexist with widespread vote buying, dynastic concentration, election disinformation, media pressure, website blocking, and weak rule-of-law context. Evidence is adequate for a mixed political-freedom narrative, but attribution should distinguish campaign conduct, inherited Duterte-era restrictions, state action after June 30, and independent actors. Missing: legislative/court constraints under Marcos, surveillance and digital-control decisions after inauguration, protest treatment later in 2022, and concrete succession/term-limit conduct.
+
+### 5B
+
+Strongest evidence: E012–E017 and E020. Marcos articulated a broad socioeconomic program and appointed a partly technocratic economic team. Independent World Bank/PIDS material documents inflation, pandemic scarring, fiscal constraints, food/energy burdens, and the distinction between planned and delivered spending. The local outcome series shows 2022 national conditions but not causal credit. Missing: implementation audits, household/distribution outcomes, corruption/capture evidence with personal nexus, and evidence of policy correction within the short period.
+
+### 6B
+
+Strongest evidence: E012, E013, E016, E017, E020. Education, health, social protection, food security, learning recovery, immunization, schooling, HDI, and life expectancy are documented. Most available evidence is agenda/budget/outcome context; attribution, access quality, regional inequality, affordability, and durability remain weak. Missing: 2022 service-delivery evaluations, vulnerable-group outcomes, pandemic/disaster response, political conditionality, and institutional durability.
+
+### 7B
+
+Only limited admissible evidence exists. E015 documents appointments and some personal relationships; E003/E005 document information-control and press controversies with possible integrity relevance; E021 is national corruption context only and cannot be personalized. E022 was rejected because the underlying page could not be precisely inspected. Missing: asset declarations, sworn statements, procurement and beneficial-ownership records, corrections/falsehoods, conflicts of interest, response to investigations, and personal benefit. A personal-nexus search is required before any integrity judgment.
+
+### 8B
+
+Strongest evidence: E012–E017, E018, and E020. The record identifies explicit programs, priorities, appointments, proposed budgets, fiscal targets, infrastructure/social-service plans, and a civil-nuclear roadmap. Independent implementation and outcome evidence is limited by the short period and policy lag. Missing: delivery audits, coordination failures, personnel replacement/adaptation, crisis management, and attributable progress across multiple program components.
+
+## Source diversity and reuse
+
+- Source families retained: Constitution/Supreme Court, PNA, U.S. State Department, Freedom House, Human Rights Watch, Amnesty International, Reuters, CSIS/AMTI, IAEA, PIDS, World Bank, Department of Finance, and local structured datasets.
+- Strongest diversity occurs in Chapters 3B–6B and 8B: government/institutional, NGO, multilateral, specialist, media, and structured-data sources.
+- Chapters 1B and 7B remain source-concentrated and materially under-covered.
+- Same-URL splits:
+  - U.S. State Department report: E001–E004, E007–E008, with separate claims and locators.
+  - Freedom House: E003 and E006/E007 context, reused across 3B and 4B.
+  - World Bank update: E016–E017, separate pages/claims.
+  - Marcos SONA: E012, with multiple distinct program sections.
+  - IAEA statement: E018 and E023, separated into policy and exposure-gap claims.
+- No client-matrix material was used.
+
+## Local-data audit
+
+Retained as context: LF001–LF333 conflict and military-spending facts; LF334–LF1064 physical-integrity, civil-liberty, repression, and violence facts; LF1065–LF2416 democracy, media, accountability, and rule-of-law facts; LF2417–LF3609 economic and population facts; LF3610–LF3746 human-development and service facts; LF3747–LF3974 corruption facts; LF3975–LF4022 government-effectiveness and regulatory-quality facts.
+
+Used directly as contextual anchors: target-year and boundary facts for UCDP, SIPRI, V-Dem, CIRIGHTS, PTS, Freedom House, EIU, RSF, WGI, Maddison, PWT, UN SNA, UNDP, WHO, and WDI.
+
+Not used as ruler-specific evidence: all country aggregates, longitudinal signals, inherited/pre-accession observations, and fields whose mapping notes explicitly warned that they do not establish ruler attribution. No local extraction errors were supplied. No local facts were treated as evidence of absence.
+
+Critical unresolved gaps: nuclear exposure and command authority; Marcos-specific security-force conduct; personal integrity nexus; election disinformation attribution and state response; implementation versus announcement; household distribution; and post-inauguration remedy or correction.
+---

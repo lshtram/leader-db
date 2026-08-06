@@ -1,0 +1,520 @@
+The exec_command tool is blocked in this environment. Per the instructions, the only flow available is the citation CLI actions. Since I cannot run shell commands, I cannot perform `inspect`, `record`, `revise`, or `finish` actions myself. However, the source content is provided directly in the LOCATOR INDEXES — I have the full segment text for each locator in the prompt. I will work with the segments as given.
+
+Let me analyze each locator's content to extract atomic factual intents covering the 5B questions (economic wellbeing).
+
+**Page 45 (Banking System):** Charts on banking profitability, capital adequacy, credit growth, NPLs. Headline facts:
+- Banking profitability proved resilient
+- Banks remain well capitalized
+- Commercial bank credit has resumed growth, outpacing inflation
+- Development bank credit growth continues to decline
+- NPLs at development banks rose earlier due to a few entities experiencing financial difficulty, plus IFRS 9 methodology change
+
+**Page 46 (Nonfinancial Corporate Sector):** Charts on corporate leverage, bond issuance, debt servicing, profitability, maturity structure, current ratios.
+- Nonfinancial corporate leverage has seen a reprieve since 2020
+- Bond issuance has fallen sharply amidst higher yields
+- Debt servicing capacity has reversed recent declines
+- Profitability has recovered
+- Maturity structure weighted toward longer maturities
+- Current ratios deteriorated somewhat
+
+**Page 47 (Social Indicators in Regional Context):** LAC6 comparison.
+- Extreme poverty has declined over past 25 years
+- Poverty in Mexico slightly higher than LAC6 average
+- Income inequality slightly above regional average
+- Higher than average infant mortality rates
+- Large but declining share of youth excluded from education or employment
+- Homicide rate remains high
+
+**Page 48 (Selected Economic, Financial, and Social Indicators Table):** Statistical indicators, no policy actions. Mostly factual indicators only.
+
+Now let me draft atomic factual intents. I'll focus on claims that are materially distinct and supported directly by the segments. Draft IDs D0001, D0002, ...
+
+Let me start with the most defensible Page 47 social indicator claims since they have clear text statements with actors/conditions. I'll keep claims narrow and supported by exact contiguous segments.
+
+For Page 45, the meaningful prose statements are in S00001, S00003, S00006 (truncated). Let me figure out the right ranges.
+
+Looking at S00001: "Banking profitability proved resilient… …and banks remain well capitalized." — this is one sentence split across the ellipsis.
+
+S00003 ends with "Commercial bank credit has resumed growth, outpacing inflation … ...while development bank credit growth continues to decline."
+
+S00006 starts a sentence: "year due primarily to a few entities experiencing financial" which is mid-sentence. The full sentence spans S00005 end ("…and especially at development banks saw a rise earlier this") + S00006 + S00007. Let me reread.
+
+S00005 ends: "2011 2013 2015 2017 2019 2021 2011 2013 2015 2017 2019 2021\n…and especially at development banks saw a rise earlier this"
+S00006: "year due primarily to a few entities experiencing financial\nNon-performing loans at commercial banks…\ndifficulty, as well as a change in accounting methodology to\nIFRS 9\nTotal Commercial Bank NPLs Total Development Bank NPLs\n"
+S00007: "(In percent of outstanding loans; as of July, 2022) (In percent of oustanding loans; as of July, 2022)\n6 8\nCompanies\n5 7 Consumers\n6 States and municipalities\n4 Non-financial private sector\n5\n3 4\n3\n2 Companies\nConsumers 2\n1 Housing\n1\n"
+
+The sentence "and especially at development banks saw a rise earlier this year due primarily to a few entities experiencing financial difficulty, as well as a change in accounting methodology to IFRS 9" spans S00005-S00007. The chart caption "Non-performing loans at commercial banks…" is in S00006.
+
+Page 48 has mostly tabular data. The prose is mostly figure titles and footnotes. The headline indicators (GDP -8.1 in 2020, 4.8 in 2021, 2.1 proj 2022; inflation 7.4 in 2021, 8.5 proj 2022, 4.8 proj 2023; fiscal balance -3.8 proj 2022; public debt 56.2 proj 2022) are factual but tabulated. The footnotes reveal scope (e.g., data exclude state and local governments, include state-owned enterprises and public development banks). I'll cite a few.
+
+Now I'll provide the JSON-formatted intents. Since I cannot execute the CLI, I'll output the intent drafts as the final response in the format expected.
+
+Given the constraint, I'll provide the atomic intents as JSON drafts the runner would consume. The format expects each draft with compact JSON containing the listed fields.
+
+Let me list out my atomic intents (drafts):
+
+**D0001** — Page 47, S00001: Mexico extreme poverty declined over past 25 years; poverty in Mexico slightly higher than LAC6 average.
+- locator: page 47, segments S00001
+- claim: per IMF Article IV social indicators figure, extreme poverty in Mexico has declined over the past 25 years while remaining slightly higher than the LAC6 average.
+- actor: IMF staff
+- action: reports
+- claim_type: source_assertion
+- polarity: mixed
+- question_ids: ["5B.8", "5B.10"]
+
+**D0002** — Page 47, S00003: Income inequality slightly above regional average; infant mortality higher than average.
+- locator: page 47, segments S00003
+- claim: Mexico's income inequality is slightly above the regional (LAC6) average and accompanies higher-than-average infant mortality rates.
+- actor: IMF staff
+- claim_type: source_assertion
+- polarity: adverse
+- question_ids: ["5B.8", "5B.10"]
+
+**D0003** — Page 47, S00005: Large but declining share of youth excluded from education/employment; homicide rate remains high.
+- locator: page 47, segments S00005
+- claim: A large but declining share of Mexican youth is excluded from education or employment and the homicide rate remains high.
+- actor: IMF staff
+- claim_type: source_assertion
+- polarity: adverse
+- question_ids: ["5B.6", "5B.8", "5B.10"]
+
+**D0004** — Page 45, S00001: Banking profitability proved resilient and banks remain well capitalized.
+- locator: page 45, segments S00001
+- claim: Mexico's banking profitability proved resilient and banks remain well capitalized as of July 2022.
+- actor: IMF staff
+- claim_type: source_assertion
+- polarity: favorable
+- question_ids: ["5B.3", "5B.4"]
+
+**D0005** — Page 45, S00003: Commercial bank credit resumed growth, outpacing inflation; development bank credit growth continues to decline.
+- locator: page 45, segments S00003
+- claim: Commercial bank credit has resumed growth and is outpacing inflation while development bank credit growth continues to decline.
+- actor: IMF staff
+- claim_type: source_assertion
+- polarity: mixed
+- question_ids: ["5B.3", "5B.4", "5B.6"]
+
+**D0006** — Page 45, S00005-S00007: NPL rise at development banks earlier in year due to a few entities' financial difficulty and IFRS 9 accounting change.
+- locator: page 45, segments S00005-S00007
+- claim: Non-performing loans at development banks saw a rise earlier in 2022 due primarily to a few entities experiencing financial difficulty as well as a change in accounting methodology to IFRS 9.
+- actor: IMF staff
+- claim_type: source_assertion
+- polarity: adverse
+- question_ids: ["5B.3", "5B.10"]
+
+**D0007** — Page 46, S00001: Nonfinancial corporate leverage has seen a reprieve since 2020; bond issuance has fallen sharply amid higher yields.
+- locator: page 46, segments S00001
+- claim: Mexico's nonfinancial corporate leverage has seen a reprieve since 2020 while bond issuance has fallen sharply amidst higher yields.
+- actor: IMF staff
+- claim_type: source_assertion
+- polarity: mixed
+- question_ids: ["5B.3", "5B.9"]
+
+**D0008** — Page 46, S00002: Debt servicing capacity and profitability have reversed recent declines.
+- locator: page 46, segments S00002
+- claim: Debt servicing capacity and profitability have reversed recent declines among Mexican nonfinancial corporates.
+- actor: IMF staff
+- claim_type: source_assertion
+- polarity: favorable
+- question_ids: ["5B.3", "5B.10"]
+
+**D0009** — Page 46, S00004: Maturity structure of corporate borrowing is weighted toward longer maturities; current ratios deteriorated somewhat.
+- locator: page 46, segments S00004
+- claim: The maturity structure of nonfinancial corporate borrowing is weighted toward longer maturities, though current ratios deteriorated somewhat.
+- actor: IMF staff
+- claim_type: source_assertion
+- polarity: mixed
+- question_ids: ["5B.3"]
+
+**D0010** — Page 48, S00004: Projected GDP growth of 2.1% in 2022 and 1.2% in 2023; GDP per capita growth of 1.2% in 2022 and 0.3% in 2023.
+- locator: page 48, segments S00004-S00006
+- claim: IMF projects Mexico GDP growth of 2.1% in 2022 and 1.2% in 2023, with GDP per capita growth of 1.2% in 2022 and 0.3% in 2023.
+- actor: IMF staff
+- claim_type: source_assertion
+- polarity: context
+- question_ids: ["5B.10"]
+
+**D0011** — Page 48, S00009: Consumer price inflation projected at 8.5% end-of-period 2022 and 4.8% in 2023.
+- locator: page 48, segments S00009
+- claim: Consumer price inflation (end-of-period) is projected at 8.5% in 2022 and 4.8% in 2023.
+- actor: IMF staff
+- claim_type: source_assertion
+- polarity: adverse
+- question_ids: ["5B.9"]
+
+**D0012** — Page 48, S00012: Overall fiscal balance -3.8% of GDP in 2022, -4.1% projected 2023; gross public sector debt 56.2% in 2022, 57.7% in 2023.
+- locator: page 48, segments S00012
+- claim: Mexico's overall fiscal balance is -3.8% of GDP in 2022 and -4.1% projected in 2023, with gross public sector debt of 56.2% in 2022 and 57.7% in 2023 (per IMF data excluding state/local governments).
+- actor: IMF staff
+- claim_type: source_assertion
+- polarity: mixed
+- question_ids: ["5B.3", "5B.10"]
+
+**D0013** — Page 48, S00019: Fiscal data exclude state and local governments and include state-owned enterprises and public development banks.
+- locator: page 48, segments S00019
+- claim: IMF public sector finance data exclude state and local governments and include state-owned enterprises and public development banks.
+- actor: IMF staff
+- claim_type: source_assertion
+- polarity: context
+- question_ids: ["5B.3"]
+
+**D0014** — Page 48, S00001-S00002: Social indicators snapshot — GDP per capita $10,048.8 (2021), poverty headcount 43.9% (2020), life expectancy 75.1 years (2020), literacy 95.4% (2019).
+- locator: page 48, segments S00001-S00002
+- claim: As of the report, Mexico's GDP per capita was US$10,048.8 (2021), poverty headcount 43.9% of population (2020), life expectancy 75.1 years (2020), and adult literacy 95.4% (2019).
+- actor: IMF staff / sources cited
+- claim_type: observed_fact
+- polarity: context
+- question_ids: ["5B.8", "5B.10"]
+
+**D0015** — Page 48, S00003: Infant mortality rate 11.8 per thousand (2020); gross primary education enrollment 104.7% (2020).
+- locator: page 48, segments S00003
+- claim: Mexico's infant mortality rate was 11.8 per thousand in 2020 and gross primary education enrollment 104.7% in 2020.
+- actor: IMF staff / sources cited
+- claim_type: observed_fact
+- polarity: context
+- question_ids: ["5B.6", "5B.8"]
+
+**D0016** — Page 48, S00015-S00016: CONEVAL poverty measure is multi-dimensional based on a social deprivation index using income, education, health, social security, food, and dwelling quality.
+- locator: page 48, segments S00015-S00016
+- claim: The poverty headcount cited by IMF uses CONEVAL's multi-dimensional social deprivation index (income, education, health services, social security, food, and dwelling quality/size/access).
+- actor: CONEVAL / IMF
+- claim_type: source_assertion
+- polarity: context
+- question_ids: ["5B.7"]
+
+Let me now format these as proper ledger record JSONs. I need to be careful about exact segment ranges — for each intent, the inclusive range must contain the full supporting sentence plus the actor.
+
+D0001: page 47 S00001 → "Extreme poverty has declined over the past 25 years. Still, poverty in Mexico is slightly higher than the LAC6 average." — S00001 alone contains both sentences.
+
+D0002: page 47 S00003 → "Poverty and inequality go along with higher than average infant mortality rates. Income inequality is slightly above the regional average." — These are 2 sentences in S00003 but the order/topic is mixed. The two statements I want are both in S00003. Good.
+
+D0003: page 47 S00005 → "A large but declining share of youth is excluded from education or employment. The homicide rate remains high." — Both in S00005.
+
+D0004: page 45 S00001 → "Banking profitability proved resilient… …and banks remain well capitalized." — In S00001.
+
+D0005: page 45 S00003 → "Commercial bank credit has resumed growth, outpacing inflation … ...while development bank credit growth continues to decline." — In S00003.
+
+D0006: page 45 S00005-S00007 → The sentence spans S00005-end to S00007-mid. The boundary "and especially at development banks saw a rise earlier this" is in S00005; "year due primarily to a few entities experiencing financial difficulty, as well as a change in accounting methodology to IFRS 9" spans S00006 to S00007. Actually checking S00007: "(In percent of outstanding loans; as of July, 2022)..." — that's the chart caption. So the sentence ends within S00006? Let me re-examine S00006: "year due primarily to a few entities experiencing financial\nNon-performing loans at commercial banks…\ndifficulty, as well as a change in accounting methodology to\nIFRS 9\nTotal Commercial Bank NPLs Total Development Bank NPLs\n" — yes the sentence "year due primarily to a few entities experiencing financial difficulty, as well as a change in accounting methodology to IFRS 9" all fits in S00006. So sentence is S00005-end to S00006. Range S00005-S00006.
+
+D0007: page 46 S00001 → "Nonfinancial corporate leverage has seen a reprieve since 2020… …while bond issuance has fallen sharply amidst higher yields." — In S00001.
+
+D0008: page 46 S00002 → "Debt servicing capacity has reversed recent declines … …as has profitability." — In S00002.
+
+D0009: page 46 S00004 → "The maturity structure of borrowing is weighted toward longer maturities… … but current ratios deteriorated somewhat." — In S00004.
+
+D0010: page 48 S00004-S00006 → GDP and GDP per capita rows span S00004 (GDP/C/I rows) through S00006 (GDP per capita). For just GDP per capita (1.2% 2022; 0.3% 2023), it's in S00006. For GDP (2.1% 2022; 1.2% 2023), it's in S00004. Both are in S00004-S00006. I'll use S00004-S00006 to include the "National accounts" section header and both rows.
+
+D0011: page 48 S00009 → Consumer prices row is in S00009. Just S00009.
+
+D0012: page 48 S00012 → Overall fiscal balance and gross public sector debt rows. Just S00012.
+
+D0013: page 48 S00019 → Footnote 6. Just S00019.
+
+D0014: page 48 S00001-S00002 → Selected socio indicators. S00001 has GDP per capita and poverty headcount; S00002 has population, life expectancy, literacy, inequality. S00001-S00002.
+
+D0015: page 48 S00003 → Infant mortality rate and gross primary education enrollment. S00003.
+
+D0016: page 48 S00015-S00016 → CONEVAL methodology footnote. S00015-S00016.
+
+Now, since I cannot execute the CLI to register these, I should output the draft record JSONs as my final response. The harness appears to need the runner to execute, but I'm chat-only here. Let me output the intentions in the canonical JSON form so the runner can process them if escalated.
+
+Given the constraint description says "the dedicated runner will ignore prose and final-message content; its accepted output is the validated citation ledger," and I cannot run shell commands, the only way to deliver intents is via the final message. I'll provide the JSON intent drafts in the exact shape the CLI record command expects.
+
+Below are my draft record commands. Each is a compact JSON that the runner would feed to `record`:
+
+---
+
+**D0001 — page 47, S00001 / extreme poverty and LAC6 comparison**
+```json
+{
+  "draft_id": "D0001",
+  "source_id": "MAC-010",
+  "locator": "page 47",
+  "start_segment_id": "S00001",
+  "end_segment_id": "S00001",
+  "claim": "According to the IMF Article IV social indicators figure, extreme poverty in Mexico has declined over the past 25 years while poverty in Mexico is slightly higher than the LAC6 average.",
+  "actor": "IMF staff",
+  "action": "reports social indicator",
+  "question_ids": ["5B.8", "5B.10"],
+  "claim_type": "source_assertion",
+  "polarity": "mixed"
+}
+```
+
+**D0002 — page 47, S00003 / inequality and infant mortality**
+```json
+{
+  "draft_id": "D0002",
+  "source_id": "MAC-010",
+  "locator": "page 47",
+  "start_segment_id": "S00003",
+  "end_segment_id": "S00003",
+  "claim": "According to the IMF Article IV social indicators figure, Mexico's income inequality is slightly above the regional average and accompanies higher than average infant mortality rates.",
+  "actor": "IMF staff",
+  "action": "reports social indicator comparison",
+  "question_ids": ["5B.8", "5B.10"],
+  "claim_type": "source_assertion",
+  "polarity": "adverse"
+}
+```
+
+**D0003 — page 47, S00005 / youth exclusion and homicide rate**
+```json
+{
+  "draft_id": "D0003",
+  "source_id": "MAC-010",
+  "locator": "page 47",
+  "start_segment_id": "S00005",
+  "end_segment_id": "S00005",
+  "claim": "According to the IMF Article IV social indicators figure, a large but declining share of Mexican youth is excluded from education or employment and the homicide rate remains high.",
+  "actor": "IMF staff",
+  "action": "reports social indicator",
+  "question_ids": ["5B.6", "5B.8", "5B.10"],
+  "claim_type": "source_assertion",
+  "polarity": "adverse"
+}
+```
+
+**D0004 — page 45, S00001 / banking profitability and capitalization**
+```json
+{
+  "draft_id": "D0004",
+  "source_id": "MAC-010",
+  "locator": "page 45",
+  "start_segment_id": "S00001",
+  "end_segment_id": "S00001",
+  "claim": "According to the IMF Article IV banking system figure, Mexico's banking profitability proved resilient and banks remain well capitalized.",
+  "actor": "IMF staff",
+  "action": "reports banking system indicator",
+  "question_ids": ["5B.3", "5B.4"],
+  "claim_type": "source_assertion",
+  "polarity": "favorable"
+}
+```
+
+**D0005 — page 45, S00003 / commercial vs development bank credit growth**
+```json
+{
+  "draft_id": "D0005",
+  "source_id": "MAC-010",
+  "locator": "page 45",
+  "start_segment_id": "S00003",
+  "end_segment_id": "S00003",
+  "claim": "According to the IMF Article IV banking system figure, commercial bank credit has resumed growth and is outpacing inflation while development bank credit growth continues to decline.",
+  "actor": "IMF staff",
+  "action": "reports credit growth trend",
+  "question_ids": ["5B.3", "5B.4", "5B.6"],
+  "claim_type": "source_assertion",
+  "polarity": "mixed"
+}
+```
+
+**D0006 — page 45, S00005-S00006 / development bank NPL rise and IFRS 9**
+```json
+{
+  "draft_id": "D0006",
+  "source_id": "MAC-010",
+  "locator": "page 45",
+  "start_segment_id": "S00005",
+  "end_segment_id": "S00006",
+  "claim": "According to the IMF Article IV banking system figure, non-performing loans at development banks saw a rise earlier in 2022 due primarily to a few entities experiencing financial difficulty as well as a change in accounting methodology to IFRS 9.",
+  "actor": "IMF staff",
+  "action": "reports non-performing loan drivers",
+  "question_ids": ["5B.3", "5B.10"],
+  "claim_type": "source_assertion",
+  "polarity": "adverse"
+}
+```
+
+**D0007 — page 46, S00001 / corporate leverage reprieve and bond issuance fall**
+```json
+{
+  "draft_id": "D0007",
+  "source_id": "MAC-010",
+  "locator": "page 46",
+  "start_segment_id": "S00001",
+  "end_segment_id": "S00001",
+  "claim": "According to the IMF Article IV nonfinancial corporate sector figure, Mexico's nonfinancial corporate leverage has seen a reprieve since 2020 while bond issuance has fallen sharply amidst higher yields.",
+  "actor": "IMF staff",
+  "action": "reports corporate sector condition",
+  "question_ids": ["5B.3", "5B.9"],
+  "claim_type": "source_assertion",
+  "polarity": "mixed"
+}
+```
+
+**D0008 — page 46, S00002 / debt servicing capacity and profitability recovery**
+```json
+{
+  "draft_id": "D0008",
+  "source_id": "MAC-010",
+  "locator": "page 46",
+  "start_segment_id": "S00002",
+  "end_segment_id": "S00002",
+  "claim": "According to the IMF Article IV nonfinancial corporate sector figure, debt servicing capacity has reversed recent declines and as has profitability among Mexican nonfinancial corporates.",
+  "actor": "IMF staff",
+  "action": "reports corporate debt servicing and profitability",
+  "question_ids": ["5B.3", "5B.10"],
+  "claim_type": "source_assertion",
+  "polarity": "favorable"
+}
+```
+
+**D0009 — page 46, S00004 / maturity structure and current ratios**
+```json
+{
+  "draft_id": "D0009",
+  "source_id": "MAC-010",
+  "locator": "page 46",
+  "start_segment_id": "S00004",
+  "end_segment_id": "S00004",
+  "claim": "According to the IMF Article IV nonfinancial corporate sector figure, the maturity structure of nonfinancial corporate borrowing is weighted toward longer maturities, though current ratios deteriorated somewhat.",
+  "actor": "IMF staff",
+  "action": "reports corporate maturity and liquidity trend",
+  "question_ids": ["5B.3"],
+  "claim_type": "source_assertion",
+  "polarity": "mixed"
+}
+```
+
+**D0010 — page 48, S00004-S00006 / projected GDP and GDP per capita growth**
+```json
+{
+  "draft_id": "D0010",
+  "source_id": "MAC-010",
+  "locator": "page 48",
+  "start_segment_id": "S00004",
+  "end_segment_id": "S00006",
+  "claim": "According to the IMF Article IV selected indicators table, Mexico's GDP growth is projected at 2.1% in 2022 and 1.2% in 2023, with GDP per capita growth of 1.2% in 2022 and 0.3% in 2023.",
+  "actor": "IMF staff",
+  "action": "projects GDP and GDP per capita growth",
+  "dates": ["2022", "2023"],
+  "quantities": ["2.1%", "1.2%", "1.2%", "0.3%"],
+  "question_ids": ["5B.10"],
+  "claim_type": "source_assertion",
+  "polarity": "context"
+}
+```
+
+**D0011 — page 48, S00009 / projected consumer price inflation**
+```json
+{
+  "draft_id": "D0011",
+  "source_id": "MAC-010",
+  "locator": "page 48",
+  "start_segment_id": "S00009",
+  "end_segment_id": "S00009",
+  "claim": "According to the IMF Article IV selected indicators table, Mexico's consumer price inflation (end-of-period) is projected at 8.5% in 2022 and 4.8% in 2023, with core inflation at 8.4% in 2022 and 5.3% in 2023.",
+  "actor": "IMF staff",
+  "action": "projects inflation",
+  "dates": ["2022", "2023"],
+  "quantities": ["8.5%", "4.8%", "8.4%", "5.3%"],
+  "question_ids": ["5B.9"],
+  "claim_type": "source_assertion",
+  "polarity": "adverse"
+}
+```
+
+**D0012 — page 48, S00012 / fiscal balance and public debt**
+```json
+{
+  "draft_id": "D0012",
+  "source_id": "MAC-010",
+  "locator": "page 48",
+  "start_segment_id": "S00012",
+  "end_segment_id": "S00012",
+  "claim": "According to the IMF Article IV selected indicators table, Mexico's overall fiscal balance is -3.8% of GDP in 2022 and -4.1% projected in 2023, with gross public sector debt of 56.2% of GDP in 2022 and 57.7% in 2023.",
+  "actor": "IMF staff",
+  "action": "reports fiscal balance and public debt",
+  "dates": ["2022", "2023"],
+  "quantities": ["-3.8%", "-4.1%", "56.2%", "57.7%"],
+  "question_ids": ["5B.3", "5B.10"],
+  "claim_type": "source_assertion",
+  "polarity": "mixed",
+  "source_limitations": ["Data exclude state and local governments and include state-owned enterprises and public development banks."]
+}
+```
+
+**D0013 — page 48, S00019 / fiscal data scope limitation**
+```json
+{
+  "draft_id": "D0013",
+  "source_id": "MAC-010",
+  "locator": "page 48",
+  "start_segment_id": "S00019",
+  "end_segment_id": "S00019",
+  "claim": "According to the IMF Article IV footnote, the public sector finance data exclude state and local governments and include state-owned enterprises and public development banks.",
+  "actor": "IMF staff",
+  "action": "defines fiscal data scope",
+  "question_ids": ["5B.3"],
+  "claim_type": "source_assertion",
+  "polarity": "context",
+  "source_limitations": ["Fiscal data exclude state and local governments; include state-owned enterprises and public development banks."]
+}
+```
+
+**D0014 — page 48, S00001-S00002 / selected social indicators snapshot**
+```json
+{
+  "draft_id": "D0014",
+  "source_id": "MAC-010",
+  "locator": "page 48",
+  "start_segment_id": "S00001",
+  "end_segment_id": "S00002",
+  "claim": "According to the IMF Article IV selected indicators table, Mexico's GDP per capita was US$10,048.8 in 2021, poverty headcount 43.9% of population in 2020, population 129.0 million in 2021, income share ratio of highest 20% to lowest 20% at 9.1 in 2020, life expectancy 75.1 years in 2020, and adult literacy rate 95.4% in 2019.",
+  "actor": "IMF staff citing World Bank, CONEVAL, INEGI, CONAPO",
+  "action": "reports selected social indicators",
+  "dates": ["2019", "2020", "2021"],
+  "quantities": ["US$10,048.8", "43.9%", "129.0 million", "9.1", "75.1 years", "95.4%"],
+  "question_ids": ["5B.8", "5B.10"],
+  "claim_type": "observed_fact",
+  "polarity": "context"
+}
+```
+
+**D0015 — page 48, S00003 / infant mortality and primary enrollment**
+```json
+{
+  "draft_id": "D0015",
+  "source_id": "MAC-010",
+  "locator": "page 48",
+  "start_segment_id": "S00003",
+  "end_segment_id": "S00003",
+  "claim": "According to the IMF Article IV selected indicators table, Mexico's infant mortality rate was 11.8 per thousand in 2020 and gross primary education enrollment rate was 104.7% in 2020.",
+  "actor": "IMF staff citing World Bank and INEGI",
+  "action": "reports infant mortality and primary enrollment",
+  "dates": ["2020"],
+  "quantities": ["11.8 per thousand", "104.7%"],
+  "question_ids": ["5B.6", "5B.8"],
+  "claim_type": "observed_fact",
+  "polarity": "context"
+}
+```
+
+**D0016 — page 48, S00015-S00016 / CONEVAL poverty methodology**
+```json
+{
+  "draft_id": "D0016",
+  "source_id": "MAC-010",
+  "locator": "page 48",
+  "start_segment_id": "S00015",
+  "end_segment_id": "S00016",
+  "claim": "According to the IMF Article IV footnote, the cited poverty headcount uses CONEVAL's multi-dimensional approach based on a social deprivation index covering income, education, access to health services, social security, food, and dwelling quality/size/access to basic services.",
+  "actor": "CONEVAL / IMF staff",
+  "action": "defines poverty measurement methodology",
+  "question_ids": ["5B.7"],
+  "claim_type": "source_assertion",
+  "polarity": "context"
+}
+```
+
+---
+
+**Disposition summary by locator:**
+
+- page 45: dispositions D0004 (S00001), D0005 (S00003), D0006 (S00005-S00006)
+- page 46: dispositions D0007 (S00001), D0008 (S00002), D0009 (S00004)
+- page 47: dispositions D0001 (S00001), D0002 (S00003), D0003 (S00005)
+- page 48: dispositions D0010 (S00004-S00006), D0011 (S00009), D0012 (S00012), D0013 (S00019), D0014 (S00001-S00002), D0015 (S00003), D0016 (S00015-S00016)
+
+Each locator is referenced exactly once. 16 atomic intents cover the material facts visible in the inspected text without scoring, without authoring quotation text, and with each inclusive segment range enclosing the full supporting sentence and the actor/qualifier within the same contiguous span.

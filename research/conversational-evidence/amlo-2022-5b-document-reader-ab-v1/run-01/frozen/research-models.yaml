@@ -1,0 +1,97 @@
+version: 1
+profiles:
+  openai-gpt54-mini-researcher:
+    provider: openai
+    model: gpt-5.4-mini
+    execution_surface: codex
+    roles:
+      - dossier_researcher
+      - document_reader
+    cost_class: affordable_production_researcher
+    context_window: null
+    codex_config_path: ~/.codex/config.toml
+    credential_path: ~/.codex/auth.json
+    notes: Production evidence-discovery and document-reading-brief profile.
+  openai-luna-candidate:
+    provider: openai
+    model: gpt-5.6-luna
+    execution_surface: codex
+    roles:
+      - dossier_researcher
+      - dossier_evidence_reviewer
+      - dossier_formatter
+      - document_reader
+      - chapter_judge
+    cost_class: low_cost_candidate
+    context_window: 372000
+    codex_config_path: ~/.codex/config.toml
+    credential_path: ~/.codex/auth.json
+    notes: Fast/affordable local-catalog candidate; must pass role-specific quality tests.
+  openai-terra-candidate:
+    provider: openai
+    model: gpt-5.6-terra
+    execution_surface: codex
+    roles:
+      - dossier_researcher
+      - dossier_evidence_reviewer
+      - dossier_formatter
+      - document_reader
+      - chapter_judge
+    cost_class: low_cost_candidate
+    context_window: 372000
+    codex_config_path: ~/.codex/config.toml
+    credential_path: ~/.codex/auth.json
+    notes: Balanced local-catalog candidate; must pass role-specific quality tests.
+  openai-sol-supervisor:
+    provider: openai
+    model: gpt-5.6-sol
+    execution_surface: codex
+    roles:
+      - dossier_researcher
+      - dossier_evidence_reviewer
+      - dossier_formatter
+      - document_reader
+      - chapter_judge
+    cost_class: high_capability_candidate
+    context_window: 1050000
+    codex_config_path: ~/.codex/config.toml
+    credential_path: ~/.codex/auth.json
+    notes: Frontier supervisor candidate; reserve for role-specific quality tests and escalation.
+  minimax-m2.7-researcher:
+    provider: minimax
+    model: MiniMax-M2.7
+    execution_surface: codex
+    roles:
+      - dossier_researcher
+      - document_reader
+    cost_class: low_cost_candidate
+    context_window: 204800
+    codex_config_path: ~/.codex/minimax-m27.config.toml
+    credential_path: ~/.config/minimax/api-key
+    disabled_features: [apps, plugins, multi_agent, goals]
+    notes: Candidate low-cost ruler-dossier model; must pass dossier quality evaluation.
+  minimax-m3-long-context:
+    provider: minimax
+    model: MiniMax-M3
+    execution_surface: codex
+    roles:
+      - dossier_researcher
+      - chapter_judge
+    cost_class: user_managed
+    context_window: 1000000
+    codex_config_path: ~/.codex/minimax-m3.config.toml
+    credential_path: ~/.config/minimax/api-key
+    disabled_features: [apps, plugins, multi_agent, goals]
+    notes: Long-context candidate; role use still requires quality and calibration tests.
+  codex-session-default:
+    provider: openai
+    model: session_default
+    execution_surface: codex
+    roles:
+      - dossier_researcher
+      - chapter_judge
+    cost_class: unknown
+    context_window: null
+    codex_config_path: ~/.codex/config.toml
+    credential_path: ~/.codex/auth.json
+    notes: Uses the model selected by the active Codex session; no cost claim is implied.

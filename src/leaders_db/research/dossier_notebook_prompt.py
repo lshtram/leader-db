@@ -8,6 +8,7 @@ from typing import Any
 
 from .local_prior_package import build_local_research_briefing
 from .research_workflow import ResearchWorkflow
+from .source_candidate_catalog import read_source_candidate_catalog
 
 
 def build_research_notebook_prompt(
@@ -20,8 +21,9 @@ def build_research_notebook_prompt(
 ) -> str:
     """Build the tested natural-language, saturation-based orientation prompt."""
 
-    del project_root, worker_output_dir, workflow
+    del project_root, workflow
     briefing = build_local_research_briefing(local_priors)
+    source_candidates = _candidate_orientation(worker_output_dir)
     identity = (
         f'{job["ruler_name"]}, who governed {job["country_name"]}, '
         f'focusing on {job["period_start_year"]}-{job["period_end_year"]}'
@@ -48,10 +50,13 @@ censorship, intimidation, weak statistics, propaganda, political polarization, u
 international attention, and restrictions affecting journalists, victims, opposition
 groups, officials, courts, and investigators.
 
-Search until additional work mostly repeats facts already found instead of adding
-material information, a stronger underlying source, credible contrary evidence, or an
-important missing perspective. Preserve every credible source that could be useful to
-the researchers who continue this work.
+A separate source-discovery stage has already created a durable candidate catalogue.
+This pass is orientation and evidence inspection, not broad source discovery. Inspect
+the supplied candidates until additional work mostly repeats facts already found
+instead of adding material information, a stronger underlying source, credible
+contrary evidence, or an important missing perspective. Use new searches only for a
+specific gap exposed while opening the catalogue.
+Preserve every credible source inspected so chapter researchers can reuse it.
 
 Open and examine the underlying source before treating it as evidence. Prefer original
 documents, official records, courts, international organizations, independent
@@ -102,6 +107,11 @@ evidence preparation and re-fetching are outside this research assignment.
 
 {json.dumps(briefing, separators=(",", ":"), sort_keys=True, default=str)}
 
+The discovery stage supplied this bounded cross-chapter candidate index. The complete
+catalogue remains parent-owned and will also be routed to each chapter extraction turn.
+
+{json.dumps(source_candidates, separators=(",", ":"), sort_keys=True)}
+
 The following labels let the next researchers route each developed record:
 
 - 1B: catastrophic and nuclear risk
@@ -123,6 +133,19 @@ disposition, every relevant chapter label from the list above, and an empty
 `methodology_ids` list. This compact appendix allows the next researchers to recover
 the evidence records without changing the readable memo.
 """
+
+
+def _candidate_orientation(worker_output_dir: Path) -> tuple[dict[str, Any], ...]:
+    path = worker_output_dir / "source-candidate-catalog.json"
+    candidates = read_source_candidate_catalog(path).candidates
+    return tuple(
+        {
+            key: getattr(candidate, key)
+            for key in ("url", "title", "publisher", "document_type", "chapter_ids")
+            if getattr(candidate, key)
+        }
+        for candidate in candidates[:60]
+    )
 
 
 __all__ = ["build_research_notebook_prompt"]

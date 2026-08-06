@@ -453,7 +453,8 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
     assert "local\nevidence preparation and re-fetching are outside" in prompt
     assert "Chapter guides" not in prompt
     assert "Required methodology" not in prompt
-    assert "Search until additional work mostly repeats facts already found" in prompt
+    assert "A separate source-discovery stage has already created" in prompt
+    assert "This pass is orientation and evidence inspection" in prompt
     assert "Preserve every credible source" in prompt
     assert "one underlying fact per record" in prompt
     assert "sources opened and useful mainly for corroboration" in prompt

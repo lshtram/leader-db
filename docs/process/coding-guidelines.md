@@ -9,7 +9,13 @@ These apply to the Python package under `src/leaders_db/`. The goal is a reprodu
 - Favor deterministic behavior and reproducible outputs.
 - Avoid hidden global state; pass dependencies through parameters or constructors.
 - Design for extension through typed config, Pydantic schemas, registries, and composition — not through editing core execution code for each new run.
-- Keep every source and test file focused; split before files grow unwieldy (mirror the AGENTS.md 400-line convention used by other projects).
+- Keep every production, experiment, script, and test file focused. Split a file
+  before it exceeds 400 lines. A temporary exception requires a documented reason,
+  an owner, and a removal milestone in `docs/workplan.md`; calling code a prototype
+  is not an exception. Frozen historical diagnostics are archival artifacts rather
+  than active code: they may remain over the limit only when the workplan identifies
+  them as frozen, no active entry point or test imports them, and any reactivation or
+  substantive edit begins by splitting them below the limit.
 
 ## Strict Producers, Tolerant Consumers
 
@@ -74,6 +80,12 @@ The fixed weights are normative. See [`src/leaders_db/score/confidence.py`](../.
 - Persist the LLM prompt, response, and resolved Pydantic output to `data/outputs/llm_calls/<run-id>/` for audit.
 - Validate the LLM response against the schema before persisting. Reject and log if validation fails.
 - The `llm` extra is **not** installed by default. The package must remain importable and runnable without it.
+- Models identify, interpret, and map documentary evidence; they do not author
+  authoritative quotation text. For frozen-document evidence, a model selects a
+  hash-bound locator and exact segment range. Deterministic code copies the source
+  substring, persists its character offsets, and returns the stored record for
+  confirmation. Non-contiguous support remains separate spans or separate evidence
+  records and is never concatenated into a synthetic quotation.
 
 ## Python Standards
 

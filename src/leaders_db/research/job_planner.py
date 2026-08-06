@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from hashlib import sha256
 from pathlib import Path
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict
 from sqlalchemy.engine import Engine
@@ -192,12 +194,16 @@ def plan_single_dossier_job(
     model_profiles_path: Path,
     output_root: Path,
     research_workflow_path: Path | None = None,
+    source_catalog_seed_paths: tuple[Path, ...] = (),
     max_attempts: int = 3,
 ) -> DossierPlanResult:
     """Plan one comparison/pilot dossier for an exact eligible ruler-year."""
 
     if not methodology_ids:
         raise ValueError("at least one methodology_id is required")
+    missing_seeds = [path for path in source_catalog_seed_paths if not path.is_file()]
+    if missing_seeds:
+        raise ValueError(f"source catalogue seed does not exist: {missing_seeds[0]}")
     for methodology_id in methodology_ids:
         spec = get_question_spec_by_methodology_id(methodology_id)
         if spec is None or spec.evidence_strategy != "internet_manual":
@@ -244,6 +250,7 @@ def plan_single_dossier_job(
         formatter_profile=formatter,
         research_workflow=research_workflow,
         output_root=output_root,
+        source_catalog_seed_paths=source_catalog_seed_paths,
         max_attempts=max_attempts,
     )
     result = create_jobs(engine, (spec,))
@@ -259,7 +266,8 @@ def plan_chapter_judge_job(
     *,
     year: int,
     run_key: str,
-    dossier_run_key: str | None = None,
+    dossier_run_key: str | Sequence[str] | None = None,
+    completed_dossiers_only: bool = False,
     chapter_id: str,
     provider_profile: str,
     model_profiles_path: Path,
@@ -280,19 +288,21 @@ def plan_chapter_judge_job(
         role="chapter_judge",
     )
     _, rubric_version = load_chapter_guide(normalized_chapter)
-    source_run_key = dossier_run_key or run_key
+    source_run_keys = _normalize_dossier_run_keys(dossier_run_key, fallback=run_key)
     scoped_dossier_jobs = tuple(
         job
         for job in list_jobs(engine, job_type="dossier_researcher")
         if job["target_year"] == year
-        and job["run_key"] == source_run_key
+        and job["run_key"] in source_run_keys
+        and (not completed_dossiers_only or job["status"] == "completed")
         and set(methodology_ids).issubset(job["input"].get("question_ids", []))
     )
     if not scoped_dossier_jobs:
         raise ValueError(
             "no ruler dossier jobs cover this chapter and year "
-            f"for dossier run {source_run_key!r}"
+            f"for dossier runs {source_run_keys!r}"
         )
+    _reject_duplicate_dossier_identities(scoped_dossier_jobs)
     cohort_hashes = {
         job["input"].get("batch_manifest_sha256") for job in scoped_dossier_jobs
     }
@@ -326,7 +336,11 @@ def plan_chapter_judge_job(
                     "chapter_id": normalized_chapter,
                     "rubric_version": rubric_version,
                     "methodology_ids": list(methodology_ids),
-                    "dossier_run_key": source_run_key,
+                    "dossier_run_key": (
+                        source_run_keys[0] if len(source_run_keys) == 1 else None
+                    ),
+                    "dossier_run_keys": list(source_run_keys),
+                    "completed_dossiers_only": completed_dossiers_only,
                     "dossier_job_keys": [job["job_key"] for job in dossier_jobs],
                     "batch_id": cohort_id,
                     "batch_manifest_sha256": cohort_hash,
@@ -372,12 +386,52 @@ def _judge_cohort_identity(
     return lineage_hash, "append-only:" + "+".join(identifiers)
 
 
+def _normalize_dossier_run_keys(
+    value: str | Sequence[str] | None,
+    *,
+    fallback: str,
+) -> tuple[str, ...]:
+    """Return a stable, non-empty ordered dossier-run selection."""
+
+    raw_values = (value,) if isinstance(value, str) else tuple(value or (fallback,))
+    normalized = tuple(dict.fromkeys(item.strip() for item in raw_values if item.strip()))
+    if not normalized:
+        raise ValueError("at least one non-empty dossier run key is required")
+    return normalized
+
+
+def _reject_duplicate_dossier_identities(jobs: Sequence[dict[str, Any]]) -> None:
+    """Reject cohorts that select one ruler-year from more than one run."""
+
+    seen: dict[tuple[str, ...], str] = {}
+    for job in jobs:
+        ruler_year_id = job["input"].get("ruler_year_id")
+        identity = (
+            ("ruler_year_id", str(ruler_year_id))
+            if ruler_year_id is not None
+            else (
+                "legacy",
+                str(job["iso3"]),
+                str(job["ruler_id"]),
+                str(job["target_year"]),
+            )
+        )
+        prior = seen.setdefault(identity, str(job["run_key"]))
+        if prior != str(job["run_key"]):
+            raise ValueError(
+                "duplicate ruler identity across dossier runs: "
+                f"{'/'.join(identity)} appears in {prior!r} and "
+                f"{job['run_key']!r}"
+            )
+
+
 def plan_all_chapter_judge_jobs(
     engine: Engine,
     *,
     year: int,
     run_key: str,
-    dossier_run_key: str | None = None,
+    dossier_run_key: str | Sequence[str] | None = None,
+    completed_dossiers_only: bool = False,
     provider_profile: str,
     model_profiles_path: Path,
     output_root: Path | None = None,
@@ -391,6 +445,7 @@ def plan_all_chapter_judge_jobs(
             year=year,
             run_key=run_key,
             dossier_run_key=dossier_run_key,
+            completed_dossiers_only=completed_dossiers_only,
             chapter_id=f"{chapter}B",
             provider_profile=provider_profile,
             model_profiles_path=model_profiles_path,
@@ -454,6 +509,7 @@ def _dossier_spec(
     research_workflow: dict[str, object],
     output_root: Path | None,
     max_attempts: int,
+    source_catalog_seed_paths: tuple[Path, ...] = (),
     batch_id: str | None = None,
     batch_manifest_sha256: str | None = None,
 ) -> ResearchJobSpec:
@@ -486,6 +542,13 @@ def _dossier_spec(
             "identity_classification": case.identity_classification,
             "output_root": str(output_root) if output_root else None,
             "research_workflow": research_workflow,
+            "source_catalog_seed_paths": [
+                {
+                    "path": str(path),
+                    "sha256": sha256(path.read_bytes()).hexdigest(),
+                }
+                for path in source_catalog_seed_paths
+            ],
             "workflow_mode": "direct_search_chapter_loop_v1",
             "evidence_review_mode": "always",
             "reviewer_profile": reviewer_profile_name,

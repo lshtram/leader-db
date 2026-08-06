@@ -1,0 +1,885 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:BGD:17068",
+  "iso3": "BGD",
+  "country_name": "Bangladesh",
+  "ruler_name": "Sheikh Hasina",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 56,
+  "approximate_source_family_count": 13,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 13 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed as a substantive handoff. The supplied output paths were not writable in this read-only worker, so no files were persisted; the ledger below is the complete parent handoff. No additional local files were read.
+
+## Reconnaissance
+
+Sheikh Hasina was Bangladesh’s prime minister in 2022 and Awami League leader. Bangladesh’s Constitution places executive power in or under the prime minister and makes the cabinet prime-minister-led. The constitutional text supports formal responsibility for national policy and appointments, while practical attribution remains constrained by cabinet, parliament, security institutions, courts, donors, and subnational actors. [Constitution, Articles 55–56](https://bdlaws.minlaw.gov.bd/act-367/act-chapter-print-680.html)
+
+The 2022 environment combined:
+
+- strong international and NGO reporting access, but substantial intimidation, surveillance, blocked outlets, self-censorship, and DSA-based prosecution;
+- weak independent scrutiny and politicized enforcement;
+- major economic and humanitarian shocks from COVID-19 recovery, the Ukraine war, inflation, foreign-exchange pressure, climate vulnerability, flooding, and the Rohingya crisis;
+- limited international-security exposure: no nuclear arsenal, no internationalized conflict, but a civilian nuclear-power project and military/security authority;
+- a long tenure and high practical executive authority, with country-level outcomes that cannot automatically be credited to Hasina.
+
+Source visibility is uneven: open international reporting is strongest for political repression, media, security forces, and macroeconomic policy; nuclear command safety, personal finances, appointments, internal deliberation, local-service distribution, and minority protection remain less transparent.
+
+## Provisional global ledger
+
+| ID | Evidence and source profile | Fit / attribution | Mapped chapters |
+|---|---|---|---|
+| E001 | Bangladesh Constitution: cabinet headed by PM; executive power exercised by or under PM. Official legal record, high confidence for formal constitutional fact; final evidence. | All-period authority baseline; formal Hasina responsibility, not proof of personal direction. | 1B–8B |
+| E002 | IAEA 2022 statement: Rooppur construction continued; Bangladesh was creating safety, security, and safeguards infrastructure. IAEA/intergovernmental, high confidence; final evidence for formal nuclear-program facts. [IAEA](https://www.iaea.org/sites/default/files/22/09/bangladesh-gc66.pdf) | Target-year; Hasina government ownership is clear, but operational discipline and effectiveness remain incompletely evidenced. | 1B, 5B, 8B |
+| E003 | CTBTO records Bangladesh’s CTBT ratification in 2000; IAEA records NPT safeguards agreement and Additional Protocol signature. Intergovernmental/official treaty records, high confidence; final evidence for formal commitments. [CTBTO](https://www.ctbto.org/resources/for-the-media/press-releases/bangladesh-ratifies-comprehensive-nuclear-test-ban-treaty), [IAEA country profile](https://ola.iaea.org/Applications/FactSheets/Country/Detail?code=BD) | Historical/inherited context; not sufficient for a 2022 ruler-attributed risk-reduction claim. | 1B |
+| E004 | HRW reports that after 2021 US sanctions against RAB, extrajudicial killings and disappearances dropped dramatically; Hasina awarded two sanctioned RAB officials medals in January 2022. HRW NGO, medium-high confidence; final evidence for documented allegations and official actions. [HRW World Report 2023](https://www.hrw.org/world-report/2023/country-chapters/bangladesh) | Target-year; strong Hasina attribution for medals, indirect attribution for broader RAB conduct. | 3B, 4B, 7B |
+| E005 | HRW reports a leaked January 25 circular apparently assigning the Finance Ministry and Prime Minister’s Office to monitor foreign funding of human-rights organizations after sanctions. HRW, medium-high; context/final subject to document authenticity caveat. [HRW](https://www.hrw.org/news/2022/04/07/bangladesh-stop-reprisals-against-victims-activists) | Target-year; apparent PM-office involvement, but leaked-document status requires caution. | 3B, 4B, 7B |
+| E006 | HRW reports continued arrests under the Digital Security Act and government refusal to suspend or reform it; draft data-protection legislation raised surveillance concerns. HRW, medium-high; final evidence. [HRW World Report 2023](https://www.hrw.org/world-report/2023/country-chapters/bangladesh) | Target-year; Hasina government responsibility for legislative and executive policy. | 3B, 4B, 7B, 8B |
+| E007 | OHCHR technical note identifies vague and overbroad DSA provisions, arbitrary-application risk, harsh penalties, and chilling effects on expression and information. UN intergovernmental, high confidence; final evidence. [OHCHR June 2022 note](https://www.ohchr.org/sites/default/files/documents/countries/bangladesh/OHCHR-Technical-Note-on-review-of-the-Digital-Security-Act-June-2022.pdf) | Target-year; law-level attribution to government, not proof of every individual prosecution. | 3B, 4B |
+| E008 | Freedom House reports sustained harassment of opposition, critical media, and civil society; weak due process; security-force abuses with near impunity; and 2021 political violence and RAB allegations. NGO, medium-high; final evidence/context. [Freedom House 2022](https://freedomhouse.org/country/bangladesh/freedom-world/2022) | Mostly 2021 baseline used for 2022 context; not treated as direct 2022 event evidence. | 3B, 4B, 7B |
+| E009 | Freedom House Internet Freedom 2022 records more than 2,200 DSA charges from January 2020–February 2022, including journalists, and a majority of surveyed cases filed by Awami League activists against critics. NGO, medium-high; final evidence with dataset-method caveat. [Freedom House](https://freedomhouse.org/country/bangladesh/freedom-net/2022) | Period fit includes early 2022; attribution is institutional/party-network level, not every case to Hasina personally. | 3B, 4B, 7B |
+| E010 | RSF states Hasina’s government maintained a hostile media environment; DSA permits warrantless searches/arrests and source-compelled disclosure, encouraging editorial self-censorship. Press-freedom NGO, medium-high; final evidence. [RSF Bangladesh 2022](https://rsf.org/en/analyse_regionale/663) | Target-year; direct government-policy attribution. | 3B, 4B, 7B |
+| E011 | HRW reports at least four people killed and hundreds injured in clashes involving police, BNP supporters, and Awami League supporters after opposition protests beginning August 22, 2022; it characterizes the campaign as a crackdown. NGO, medium-high; final evidence for reported events, with role attribution caveats. [HRW October 2022](https://www.hrw.org/news/2022/10/10/bangladesh-crackdown-political-opposition) | Target-year; police conduct and government restrictions attributable institutionally; party violence requires separate attribution. | 2B, 3B, 4B |
+| E012 | HRW reports December 2022 restrictions and police action against BNP campaign activity as elections approached. NGO, medium-high; final evidence. [HRW December 2022](https://www.hrw.org/news/2022/12/09/bangladeshs-brutal-crackdown-political-opposition) | Target-year; direct political-freedom and domestic-safety relevance. | 3B, 4B, 7B |
+| E013 | UN Special Envoy reports Myanmar cross-border incursions, worsening conditions for Rohingya return, and Bangladesh hosting about one million refugees; she records Hasina’s view that the situation was unsustainable and UN appreciation for Bangladesh’s hosting. UN, high confidence; final evidence for regional context and humanitarian diplomacy. [UN October 2022](https://myanmar.un.org/en/204708-special-envoy-secretary-general-myanmar-noeleen-heyzer-third-committee) | Target-year; Hasina statement directly attributed; responsibility for Myanmar violence is not transferred to Bangladesh. | 2B, 3B, 6B |
+| E014 | HRW reports restrictions on Rohingya livelihoods, movement, and education and an underfunded 2022 response plan. NGO, medium-high; final evidence/context. [HRW World Report 2023](https://www.hrw.org/world-report/2023/country-chapters/bangladesh) | Target-year; Bangladesh policy attribution, but donor shortages and Myanmar conditions are major constraints. | 2B, 3B, 6B |
+| E015 | World Bank financing agreement supported fiscal/financial-sector resilience, procurement digitization, social-protection delivery, climate-response cash transfers, and cancellation of 8,451 MW of coal projects. World Bank, high confidence; final evidence for formal program actions. [World Bank April 2022](https://www.worldbank.org/en/news/press-release/2022/04/19/world-bank-helps-bangladesh-build-economic-resilience) | Target-year; government policy/action, but financing and implementation are jointly attributable. | 5B, 6B, 8B |
+| E016 | World Bank reported strong recovery but rising inflation and external risks; public debt remained sustainable and low-risk in March 2022 joint analysis. World Bank, high confidence; final evidence for outcomes/context. [World Bank April 2022](https://www.worldbank.org/en/news/press-release/2022/04/13/bangladesh-economy-shows-resilience-amid-global-uncertainty) | Target-year; country outcomes, not standalone ruler credit. | 5B, 8B |
+| E017 | IMF November 2022 staff-level agreement: Bangladesh sought approximately $3.2bn ECF/EFF and $1.3bn RSF to address inflation, reserves, structural weaknesses, climate investment, social protection, financial-sector governance, and exchange-rate flexibility. IMF, high confidence; final evidence for policy program and external conditions. [IMF](https://www.imf.org/en/news/articles/2022/11/08/pr22375-bangladesh) | Target-year; Hasina government requested and negotiated program; staff-level agreement is not implementation proof. | 5B, 6B, 8B |
+| E018 | UNICEF 2022 humanitarian reporting identifies prolonged COVID-related school disruption, learning loss, and need for education, health, and protection investment. UN agency, high confidence; final evidence/context. [UNICEF report](https://www.unicef.org/media/133961/file/Bangladesh-Humanitarian-SitRep-No.62-31-December-2022.pdf) | Target-year; broad national/social context; ruler attribution limited. | 6B, 8B |
+| E019 | AP reports Hasina government’s India engagement, development-project inaugurations, water-sharing and other 2022 agreements, and regional security concerns. Major public-service media, medium-high; final evidence for chronology and attributed diplomacy. [AP](https://apnews.com/article/fc7013640ed734a6b63809e3cd38ef3e) | Target-year; direct foreign-policy attribution, with claims of regional benefit requiring further assessment. | 2B, 8B |
+| E020 | IMF/World Bank and IAEA materials provide positive contrary evidence: macroeconomic resilience, reform commitments, social-protection modernization, climate financing, and formal nuclear safeguards infrastructure. High-confidence intergovernmental sources; final evidence/context. | Counterweight to rights and integrity evidence; does not erase attribution gaps. | 1B, 5B, 6B, 8B |
+
+## Local baseline audit
+
+The local package was treated as authoritative structured context, not re-fetched.
+
+- **1B:** no local facts. The package explicitly marks all ten lenses empty. Gap: nuclear/existential-risk narrative. Web evidence establishes non-nuclear status, treaty commitments, and Rooppur safeguards infrastructure, but not crisis conduct, command safety, dual-use governance, or consequential target-year risk reduction.
+- **2B:** retained as context: UCDP 2022 had 3 state-based conflict events and 6 fatalities, 0 internationalized events/fatalities; SIPRI 2022 military spending was 4,132.69 million constant USD, $25.48 per capita, 1.00% of GDP, and 7.60% of government spending. These measure exposure and burden, not initiation, legality, motives, or restraint.
+- **3B:** retained as context: 2022 CIRIGHTS entries were zero for disappearances, killings, physical-integrity violations, political imprisonment, and torture; V-Dem physical-integrity index was 0.253 and extrajudicial-killing measure −0.966; PTS Amnesty 4 and State Department 3; civil-political rights 2/6, repression 2/17, civil-society repression −0.725, one-sided violence 5 events/7 deaths, private civil liberties 0.649. These are country-level priors and do not establish personal orders or nationwide patterns.
+- **4B:** retained as context: 2022 Freedom House civil liberties and political-rights ratings were both 5/7; V-Dem electoral democracy 0.261, multiparty institutions 0.024, expression 0.230, association 0.489, judicial constraints 0.111, legislative constraints 0.125, liberal democracy 0.091, rule of law 0.075; WGI voice/accountability −0.753 and rule of law −0.601; RSF rank 162 and score 36.63. These support a weak institutional baseline but require narrative attribution.
+- **5B:** retained as context: 2022 nominal GDP per capita $2,716.49; PPP GDP per capita 4,925.72 in constant 2011 international dollars and 7,888.16 in constant 2017 international dollars; nominal GDP $432.91bn; real GDP $305.63bn in constant 2015 USD; Gini 30.9; GDP and consumption series increased substantially over the long run. Current-USD fields carry the explicit warning that nominal changes cannot be interpreted as real growth.
+- **6B:** retained as context: 2022 HDI 0.670, life expectancy 73.698 years, expected schooling 11.946 years, mean schooling 7.379 years, under-five mortality 30.67/1,000, BCG 99%, DTP3 97%, HepB3 97%, adult literacy 79%, secondary enrollment 67.04%. These are outcomes and service indicators, not proof of ruler intent, quality, equity, or political neutrality.
+- **7B:** retained as context only: V-Dem political corruption 0.919, executive corruption 0.793, public-sector corruption 0.962; WGI control of corruption −1.076. These cannot establish personal dishonesty, benefit, favoritism, or concealment without a personal nexus.
+- **8B:** retained as context: WGI government effectiveness −0.763 and regulatory quality −0.928. These measure national governance conditions, not Hasina’s program execution.
+- **Longitudinal signals:** used as trajectory context, not attribution. Relevant supplied signals include deterioration in accountability, political liberties, expression, rule of law, voice/accountability, press freedom, civil-society repression, and governance indicators, alongside long-run improvements in GDP per capita, HDI, life expectancy, schooling, and immunization. The package explicitly warns that none establishes ruler credit or blame.
+
+No local extraction errors were supplied. Empty local rows were treated as gaps, never as evidence of absence.
+
+## Chapter yield and gaps
+
+### 1B
+
+Evidence yield: E002–E003, plus local `not_available`.
+
+Supported themes: non-nuclear status, peaceful nuclear-energy program, IAEA safety/security/safeguards infrastructure, CTBT/NPT commitments.
+
+Missing: nuclear rhetoric, crisis de-escalation, command-and-control practice, dual-use cyber/biological/AI governance, proliferation restraint, independent assessment of Rooppur safety, and target-year end-posture comparison.
+
+### 2B
+
+Evidence yield: E011–E014, E019, plus UCDP/SIPRI local context.
+
+Supported themes: domestic political violence is not automatically international conflict; Myanmar spillover and Rohingya diplomacy; India diplomacy; military burden; regional-security constraints.
+
+Missing: ruler-specific initiation or expansion of external force, civilian-protection record in military operations, proxy/arms-recipient conduct, public threat manipulation, military procurement rationale, and accountability for military harm.
+
+### 3B
+
+Evidence yield: E004–E012, E014, plus local PTS/CIRIGHTS/V-Dem/UCDP context.
+
+Supported themes: security-force abuses, disappearances, extrajudicial killings, torture allegations, DSA-related detention, opposition violence, reprisals against monitors, Rohingya restrictions, and limited post-sanctions decline in abuses.
+
+Contrary evidence: HRW’s reported decline in killings/disappearances after sanctions; local CIRIGHTS 2022 zeros for several physical-integrity fields; formal government denials.
+
+Missing: complete target-year incident denominator, independent investigations and remedies, command-chain evidence, vulnerable-group protection beyond Rohingya, and systematic assessment of state versus party versus non-state violence.
+
+### 4B
+
+Evidence yield: E006–E012, E019, plus Freedom House, V-Dem, WGI, and RSF context.
+
+Supported themes: DSA, surveillance, self-censorship, opposition harassment, 2022 BNP protest crackdown, weak electoral environment inherited from 2018, media pressure, and low institutional-constraint indicators.
+
+Missing: 2022 election administration because no national election occurred; detailed 2022 appointment and operation of the Election Commission; judicial and legislative independence in specific cases; term-limit/succession conduct; minority political equality; and verified evidence on internet shutdowns.
+
+### 5B
+
+Evidence yield: E015–E017, E020, plus local GDP, consumption, Gini, investment, and employment context.
+
+Supported themes: recovery and resilience program, financial-sector reforms, procurement digitization, social-protection delivery, climate investment, macroeconomic shock management, and IMF-supported reform.
+
+Contrary evidence: inflation, reserve pressure, external-account deterioration, exchange-rate vulnerability, financial-sector weaknesses, and World Bank/IMF warnings that reform remained necessary.
+
+Missing: appointments and professional independence, corruption/capture in specific 2022 contracts, household distribution by region/gender/class, evidence-based correction, implementation completion, and direct personal Hasina decisions beyond government-level policy.
+
+### 6B
+
+Evidence yield: E013–E018, plus local HDI, health, immunization, schooling, mortality, literacy, and enrollment context.
+
+Supported themes: long-run human-development improvement, pandemic education disruption, social-protection and climate-response systems, Rohingya humanitarian burden, and refugee education/return constraints.
+
+Contrary evidence: prolonged school closures and learning loss; Rohingya movement, livelihood, and education restrictions; underfunding; donor and Myanmar constraints.
+
+Missing: affordability and quality, regional/group distribution, professional management, political conditionality, crisis correction, and durability beyond personal rule.
+
+### 7B
+
+Evidence yield: E004–E007, E010, and E013 where relevant; local corruption indicators used only as context.
+
+Supported personal-nexus themes: Hasina’s award of sanctioned RAB officials; apparent Prime Minister’s Office involvement in monitoring rights-group foreign funding; government response to allegations; DSA policy and treatment of critics.
+
+Strong exclusions: local V-Dem/WGI corruption indicators, general authoritarianism, repression, and weak rule of law were not personalized.
+
+Missing: assets, family/business interests, procurement, beneficial ownership, appointments, sworn statements, independent financial investigations, correction of false claims, and evidence of personal benefit. The integrity record remains materially incomplete.
+
+### 8B
+
+Evidence yield: E002, E013, E015–E019, plus local macro, HDI, governance, and military trajectories.
+
+Potential program components: economic modernization and upper-middle-income transition; infrastructure and energy expansion; digital/public-sector modernization; climate resilience; social development; regime control; regional diplomacy.
+
+Supported execution evidence: World Bank-supported fiscal, financial, procurement, social-protection, and climate programs; IMF reform negotiations; Rooppur construction; India-linked infrastructure and diplomacy.
+
+Missing: a frozen portfolio of explicit 2022 goals, implementation milestones, independent evaluations, personnel quality, adaptation after failures, coordination evidence, and durable outcomes attributable specifically to Hasina rather than the state, donors, or long-running trends.
+
+## Source diversity and reuse
+
+Source families retained:
+
+- constitutional/official legal records;
+- IAEA and CTBTO;
+- UN/OHCHR/UNICEF;
+- HRW;
+- Freedom House;
+- RSF;
+- CPJ discovery material;
+- World Bank;
+- IMF;
+- AP;
+- local structured datasets.
+
+The strongest chapters by source diversity are 3B and 4B. Chapters 1B, 5B, 6B, and 8B rely more heavily on intergovernmental and structured sources. Chapter 7B has the largest personal-nexus gap.
+
+Same-URL splits are intentional:
+
+- HRW World Report 2023 supports distinct claims about RAB sanctions, medals, disappearances, DSA, Rohingya restrictions, and school closures.
+- Freedom House 2022 supports distinct political-rights, civil-liberties, security-force, minority, and DSA claims.
+- IMF and World Bank sources support separate macroeconomic, financial-sector, climate, social-protection, and reform-program claims.
+- OHCHR’s DSA note is reused across 3B and 4B because it directly bears on detention, surveillance, expression, and institutional safeguards.
+
+## Rejected or downgraded candidates
+
+- Local country indicators were rejected as sole proof of ruler conduct.
+- Search-result pages, Wikipedia pages, Reddit discussions, and post-2022 allegations were not retained as final evidence.
+- Official government self-assessments were treated as context unless documenting a formal act.
+- Claims about the 2024–2026 collapse, prosecutions, or later corruption findings were excluded from the 2022 evidence base except where a later source directly reported a 2022 act.
+- The alleged secret detention site was retained only as a reported allegation through HRW, not as established fact.
+- No client-matrix material was used.
+
+## Manifest-equivalent accounting index
+
+```json
+{
+  "schema_version": "ruler_research_ledger_manifest_v1",
+  "entries": [
+    {"provisional_id":"E001","canonical_fact_key":"https://bdlaws.minlaw.gov.bd/act-367/act-chapter-print-680.html#articles-55-56","chapter_ids":["1B","2B","3B","4B","5B","6B","7B","8B"],"methodology_ids":["1B.1","1B.3","1B.4","1B.7","1B.8","2B.1","2B.4","2B.5","2B.7","2B.9","3B.2","3B.4","3B.5","3B.8","4B.2","4B.4","4B.5","4B.8","5B.2","5B.3","5B.4","5B.7","6B.4","6B.5","6B.9","7B.5","7B.6","7B.7","8B.2","8B.3","8B.4","8B.5"],"disposition":"final_evidence"},
+    {"provisional_id":"E002","canonical_fact_key":"https://www.iaea.org/sites/default/files/22/09/bangladesh-gc66.pdf#rooppur-safety-security-safeguards","chapter_ids":["1B","5B","8B"],"methodology_ids":["1B.3","1B.4","1B.7","1B.9","1B.10","5B.6","5B.10","8B.2","8B.3","8B.4","8B.6","8B.7"],"disposition":"final_evidence"},
+    {"provisional_id":"E003","canonical_fact_key":"https://www.ctbto.org/resources/for-the-media/press-releases/bangladesh-ratifies-comprehensive-nuclear-test-ban-treaty#ratification","chapter_ids":["1B"],"methodology_ids":["1B.1","1B.4","1B.6","1B.10"],"disposition":"context"},
+    {"provisional_id":"E004","canonical_fact_key":"https://www.hrw.org/world-report/2023/country-chapters/bangladesh#rab-sanctions-medals","chapter_ids":["3B","4B","7B"],"methodology_ids":["3B.1","3B.2","3B.4","3B.5","3B.8","3B.10","4B.3","4B.5","4B.9","7B.6","7B.7","7B.9"],"disposition":"final_evidence"},
+    {"provisional_id":"E005","canonical_fact_key":"https://www.hrw.org/news/2022/04/07/bangladesh-stop-reprisals-against-victims-activists#january-25-circular","chapter_ids":["3B","4B","7B"],"methodology_ids":["3B.4","3B.5","3B.8","4B.3","4B.6","4B.9","7B.6","7B.7"],"disposition":"context"},
+    {"provisional_id":"E006","canonical_fact_key":"https://www.hrw.org/world-report/2023/country-chapters/bangladesh#digital-security-act","chapter_ids":["3B","4B","7B","8B"],"methodology_ids":["3B.1","3B.5","3B.8","4B.3","4B.6","4B.9","7B.7","7B.10","8B.6","8B.9"],"disposition":"final_evidence"},
+    {"provisional_id":"E007","canonical_fact_key":"https://www.ohchr.org/sites/default/files/documents/countries/bangladesh/OHCHR-Technical-Note-on-review-of-the-Digital-Security-Act-June-2022.pdf#pages-1-3","chapter_ids":["3B","4B"],"methodology_ids":["3B.4","3B.5","3B.8","4B.3","4B.6","4B.9"],"disposition":"final_evidence"},
+    {"provisional_id":"E008","canonical_fact_key":"https://freedomhouse.org/country/bangladesh/freedom-world/2022#overview","chapter_ids":["3B","4B","7B"],"methodology_ids":["3B.2","3B.7","3B.8","3B.10","4B.1","4B.2","4B.3","4B.4","4B.5","4B.6","4B.7","4B.10","7B.6","7B.7"],"disposition":"context"},
+    {"provisional_id":"E009","canonical_fact_key":"https://freedomhouse.org/country/bangladesh/freedom-net/2022#lines-421-432","chapter_ids":["3B","4B","7B"],"methodology_ids":["3B.5","3B.8","4B.3","4B.6","4B.9","7B.7","7B.9"],"disposition":"final_evidence"},
+    {"provisional_id":"E010","canonical_fact_key":"https://rsf.org/en/analyse_regionale/663#legal-framework","chapter_ids":["3B","4B","7B"],"methodology_ids":["3B.5","3B.8","4B.3","4B.6","4B.9","7B.7","7B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"E011","canonical_fact_key":"https://www.hrw.org/news/2022/10/10/bangladesh-crackdown-political-opposition#august-22-clashes","chapter_ids":["2B","3B","4B"],"methodology_ids":["2B.1","2B.4","2B.5","2B.9","3B.2","3B.6","3B.8","3B.9","4B.3","4B.9"],"disposition":"final_evidence"},
+    {"provisional_id":"E012","canonical_fact_key":"https://www.hrw.org/news/2022/12/09/bangladeshs-brutal-crackdown-political-opposition#december-2022","chapter_ids":["3B","4B","7B"],"methodology_ids":["3B.2","3B.8","3B.9","4B.2","4B.3","4B.8","7B.7"],"disposition":"final_evidence"},
+    {"provisional_id":"E013","canonical_fact_key":"https://myanmar.un.org/en/204708-special-envoy-secretary-general-myanmar-noeleen-heyzer-third-committee#lines-64-75","chapter_ids":["2B","3B","6B"],"methodology_ids":["2B.1","2B.3","2B.7","2B.10","3B.6","3B.7","6B.3","6B.6","6B.8"],"disposition":"final_evidence"},
+    {"provisional_id":"E014","canonical_fact_key":"https://www.hrw.org/world-report/2023/country-chapters/bangladesh#rohingya-restrictions","chapter_ids":["2B","3B","6B"],"methodology_ids":["2B.4","2B.5","2B.7","2B.10","3B.6","3B.7","3B.10","6B.2","6B.3","6B.6","6B.8"],"disposition":"final_evidence"},
+    {"provisional_id":"E015","canonical_fact_key":"https://www.worldbank.org/en/news/press-release/2022/04/19/world-bank-helps-bangladesh-build-economic-resilience#lines-24-31","chapter_ids":["5B","6B","8B"],"methodology_ids":["5B.1","5B.3","5B.4","5B.6","5B.9","5B.10","6B.2","6B.3","6B.5","6B.6","6B.9","8B.2","8B.3","8B.6","8B.7","8B.8","8B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"E016","canonical_fact_key":"https://www.worldbank.org/en/news/press-release/2022/04/13/bangladesh-economy-shows-resilience-amid-global-uncertainty#2022-outlook","chapter_ids":["5B","8B"],"methodology_ids":["5B.3","5B.9","5B.10","8B.7","8B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"E017","canonical_fact_key":"https://www.imf.org/en/news/articles/2022/11/08/pr22375-bangladesh#lines-243-258","chapter_ids":["5B","6B","8B"],"methodology_ids":["5B.1","5B.3","5B.6","5B.9","5B.10","6B.1","6B.2","6B.5","6B.6","6B.9","8B.1","8B.2","8B.6","8B.7","8B.8","8B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"E018","canonical_fact_key":"https://www.unicef.org/media/133961/file/Bangladesh-Humanitarian-SitRep-No.62-31-December-2022.pdf#education-health-protection","chapter_ids":["6B","8B"],"methodology_ids":["6B.2","6B.3","6B.4","6B.5","6B.6","6B.9","6B.10","8B.6","8B.7"],"disposition":"final_evidence"},
+    {"provisional_id":"E019","canonical_fact_key":"https://apnews.com/article/fc7013640ed734a6b63809e3cd38ef3e#2022-india-projects","chapter_ids":["2B","8B"],"methodology_ids":["2B.1","2B.3","2B.7","2B.10","8B.1","8B.2","8B.3","8B.6","8B.9","8B.10"],"disposition":"final_evidence"}
+  ]
+}
+```
+
+No evidence item was assigned a chapter score, score range, anchor, ranking recommendation, or null recommendation.
+
+--- RESEARCH HANDOFF ---
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "https://bdlaws.minlaw.gov.bd/act-367/act-chapter-print-680.html#articles-55-56",
+      "chapter_ids": [
+        "1B",
+        "2B",
+        "3B",
+        "4B",
+        "5B",
+        "6B",
+        "7B",
+        "8B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.1",
+        "1B.3",
+        "1B.4",
+        "1B.7",
+        "1B.8",
+        "2B.1",
+        "2B.4",
+        "2B.5",
+        "2B.7",
+        "2B.9",
+        "3B.2",
+        "3B.4",
+        "3B.5",
+        "3B.8",
+        "4B.2",
+        "4B.4",
+        "4B.5",
+        "4B.8",
+        "5B.2",
+        "5B.3",
+        "5B.4",
+        "5B.7",
+        "6B.4",
+        "6B.5",
+        "6B.9",
+        "7B.5",
+        "7B.6",
+        "7B.7",
+        "8B.2",
+        "8B.3",
+        "8B.4",
+        "8B.5"
+      ],
+      "provisional_id": "E001"
+    },
+    {
+      "canonical_fact_key": "https://www.iaea.org/sites/default/files/22/09/bangladesh-gc66.pdf#rooppur-safety-security-safeguards",
+      "chapter_ids": [
+        "1B",
+        "5B",
+        "8B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "1B.3",
+        "1B.4",
+        "1B.7",
+        "1B.9",
+        "1B.10",
+        "5B.6",
+        "5B.10",
+        "8B.2",
+        "8B.3",
+        "8B.4",
+        "8B.6",
+        "8B.7"
+      ],
+      "provisional_id": "E002"
+    },
+    {
+      "canonical_fact_key": "https://www.ctbto.org/resources/for-the-media/press-releases/bangladesh-ratifies-comprehensive-nuclear-test-ban-treaty#ratification",
+      "chapter_ids": [
+        "1B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "1B.1",
+        "1B.4",
+        "1B.6",
+        "1B.10"
+      ],
+      "provisional_id": "E003"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2023/country-chapters/bangladesh#rab-sanctions-medals",
+      "chapter_ids": [
+        "3B",
+        "4B",
+        "7B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "3B.1",
+        "3B.2",
+        "3B.4",
+        "3B.5",
+        "3B.8",
+        "3B.10",
+        "4B.3",
+        "4B.5",
+        "4B.9",
+        "7B.6",
+        "7B.7",
+        "7B.9"
+      ],
+      "provisional_id": "E004"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/news/2022/04/07/bangladesh-stop-reprisals-against-victims-activists#january-25-circular",
+      "chapter_ids": [
+        "3B",
+        "4B",
+        "7B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "3B.4",
+        "3B.5",
+        "3B.8",
+        "4B.3",
+        "4B.6",
+        "4B.9",
+        "7B.6",
+        "7B.7"
+      ],
+      "provisional_id": "E005"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2023/country-chapters/bangladesh#digital-security-act",
+      "chapter_ids": [
+        "3B",
+        "4B",
+        "7B",
+        "8B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "3B.1",
+        "3B.5",
+        "3B.8",
+        "4B.3",
+        "4B.6",
+        "4B.9",
+        "7B.7",
+        "7B.10",
+        "8B.6",
+        "8B.9"
+      ],
+      "provisional_id": "E006"
+    },
+    {
+      "canonical_fact_key": "https://www.ohchr.org/sites/default/files/documents/countries/bangladesh/OHCHR-Technical-Note-on-review-of-the-Digital-Security-Act-June-2022.pdf#pages-1-3",
+      "chapter_ids": [
+        "3B",
+        "4B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "3B.4",
+        "3B.5",
+        "3B.8",
+        "4B.3",
+        "4B.6",
+        "4B.9"
+      ],
+      "provisional_id": "E007"
+    },
+    {
+      "canonical_fact_key": "https://freedomhouse.org/country/bangladesh/freedom-world/2022#overview",
+      "chapter_ids": [
+        "3B",
+        "4B",
+        "7B"
+      ],
+      "disposition": "context",
+      "methodology_ids": [
+        "3B.2",
+        "3B.7",
+        "3B.8",
+        "3B.10",
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.10",
+        "7B.6",
+        "7B.7"
+      ],
+      "provisional_id": "E008"
+    },
+    {
+      "canonical_fact_key": "https://freedomhouse.org/country/bangladesh/freedom-net/2022#lines-421-432",
+      "chapter_ids": [
+        "3B",
+        "4B",
+        "7B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "3B.5",
+        "3B.8",
+        "4B.3",
+        "4B.6",
+        "4B.9",
+        "7B.7",
+        "7B.9"
+      ],
+      "provisional_id": "E009"
+    },
+    {
+      "canonical_fact_key": "https://rsf.org/en/analyse_regionale/663#legal-framework",
+      "chapter_ids": [
+        "3B",
+        "4B",
+        "7B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "3B.5",
+        "3B.8",
+        "4B.3",
+        "4B.6",
+        "4B.9",
+        "7B.7",
+        "7B.10"
+      ],
+      "provisional_id": "E010"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/news/2022/10/10/bangladesh-crackdown-political-opposition#august-22-clashes",
+      "chapter_ids": [
+        "2B",
+        "3B",
+        "4B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "2B.1",
+        "2B.4",
+        "2B.5",
+        "2B.9",
+        "3B.2",
+        "3B.6",
+        "3B.8",
+        "3B.9",
+        "4B.3",
+        "4B.9"
+      ],
+      "provisional_id": "E011"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/news/2022/12/09/bangladeshs-brutal-crackdown-political-opposition#december-2022",
+      "chapter_ids": [
+        "3B",
+        "4B",
+        "7B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "3B.2",
+        "3B.8",
+        "3B.9",
+        "4B.2",
+        "4B.3",
+        "4B.8",
+        "7B.7"
+      ],
+      "provisional_id": "E012"
+    },
+    {
+      "canonical_fact_key": "https://myanmar.un.org/en/204708-special-envoy-secretary-general-myanmar-noeleen-heyzer-third-committee#lines-64-75",
+      "chapter_ids": [
+        "2B",
+        "3B",
+        "6B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "2B.1",
+        "2B.3",
+        "2B.7",
+        "2B.10",
+        "3B.6",
+        "3B.7",
+        "6B.3",
+        "6B.6",
+        "6B.8"
+      ],
+      "provisional_id": "E013"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2023/country-chapters/bangladesh#rohingya-restrictions",
+      "chapter_ids": [
+        "2B",
+        "3B",
+        "6B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "2B.4",
+        "2B.5",
+        "2B.7",
+        "2B.10",
+        "3B.6",
+        "3B.7",
+        "3B.10",
+        "6B.2",
+        "6B.3",
+        "6B.6",
+        "6B.8"
+      ],
+      "provisional_id": "E014"
+    },
+    {
+      "canonical_fact_key": "https://www.worldbank.org/en/news/press-release/2022/04/19/world-bank-helps-bangladesh-build-economic-resilience#lines-24-31",
+      "chapter_ids": [
+        "5B",
+        "6B",
+        "8B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "5B.1",
+        "5B.3",
+        "5B.4",
+        "5B.6",
+        "5B.9",
+        "5B.10",
+        "6B.2",
+        "6B.3",
+        "6B.5",
+        "6B.6",
+        "6B.9",
+        "8B.2",
+        "8B.3",
+        "8B.6",
+        "8B.7",
+        "8B.8",
+        "8B.10"
+      ],
+      "provisional_id": "E015"
+    },
+    {
+      "canonical_fact_key": "https://www.worldbank.org/en/news/press-release/2022/04/13/bangladesh-economy-shows-resilience-amid-global-uncertainty#2022-outlook",
+      "chapter_ids": [
+        "5B",
+        "8B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "5B.3",
+        "5B.9",
+        "5B.10",
+        "8B.7",
+        "8B.10"
+      ],
+      "provisional_id": "E016"
+    },
+    {
+      "canonical_fact_key": "https://www.imf.org/en/news/articles/2022/11/08/pr22375-bangladesh#lines-243-258",
+      "chapter_ids": [
+        "5B",
+        "6B",
+        "8B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "5B.1",
+        "5B.3",
+        "5B.6",
+        "5B.9",
+        "5B.10",
+        "6B.1",
+        "6B.2",
+        "6B.5",
+        "6B.6",
+        "6B.9",
+        "8B.1",
+        "8B.2",
+        "8B.6",
+        "8B.7",
+        "8B.8",
+        "8B.10"
+      ],
+      "provisional_id": "E017"
+    },
+    {
+      "canonical_fact_key": "https://www.unicef.org/media/133961/file/Bangladesh-Humanitarian-SitRep-No.62-31-December-2022.pdf#education-health-protection",
+      "chapter_ids": [
+        "6B",
+        "8B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.6",
+        "6B.9",
+        "6B.10",
+        "8B.6",
+        "8B.7"
+      ],
+      "provisional_id": "E018"
+    },
+    {
+      "canonical_fact_key": "https://apnews.com/article/fc7013640ed734a6b63809e3cd38ef3e#2022-india-projects",
+      "chapter_ids": [
+        "2B",
+        "8B"
+      ],
+      "disposition": "final_evidence",
+      "methodology_ids": [
+        "2B.1",
+        "2B.3",
+        "2B.7",
+        "2B.10",
+        "8B.1",
+        "8B.2",
+        "8B.3",
+        "8B.6",
+        "8B.9",
+        "8B.10"
+      ],
+      "provisional_id": "E019"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---

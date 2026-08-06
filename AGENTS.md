@@ -299,3 +299,14 @@ Run `leaders-db --help` for the live list as stages ship.
 3. Inspect `data/raw/`, `data/processed/`, and `research/` before assuming a clean slate.
 4. Run `pytest -q` to confirm the baseline is green.
 5. Identify which pipeline stage the active work belongs to (Stage 0–15) and resume from there.
+
+## 10. Customer-Facing Writing
+
+Use [`.agents/skills/customer-methodology-writing/SKILL.md`](.agents/skills/customer-methodology-writing/SKILL.md) for customer-facing methodology, pipeline, research, evaluation, report, guide, presentation, and explanatory prose.
+
+Core rules:
+
+- Describe the work factually; do not advertise its virtues.
+- Describe what each role and stage does. Use negative wording only for a concrete, material risk, exclusion, or boundary, and pair it with the control that addresses the risk.
+- Write clear adult prose. Plain language removes unnecessary jargon while preserving precision and nuance.
+- State each substantive point once in the best location. Repeat only for a necessary action, a material extension, or a safety-critical control.

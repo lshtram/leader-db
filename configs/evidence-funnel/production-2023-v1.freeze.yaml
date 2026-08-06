@@ -1,0 +1,53 @@
+schema_version: evidence_pipeline_freeze_v1
+release_id: production-2023-v1
+frozen_at: '2026-08-02'
+status: frozen
+model_profile: openai-luna-candidate
+target_year: 2023
+batch_manifest: configs/research-batches/2023-population-top20-canonical.yaml
+scope:
+  rulers: 20
+  chapters_per_ruler: 8
+  questions_per_chapter: 10
+aggregate_hashes:
+  pipeline_python_and_json:
+    file_count: 124
+    sha256: 6458728c6150b437c2689ecf230101033c672c0b50be0594facfc4a7b24a355f
+  methodology:
+    file_count: 22
+    sha256: 6cb1480f5f67bb1859253eb4d24bbb46a63726276e8b679f4b0c3ab1d724dadd
+  research_configuration:
+    file_count: 3
+    sha256: 72eb84c28be2d44662ad98ae21d0bd28c46a7959b7520308c11b1922e8b8e8bc
+  operating_directives:
+    file_count: 4
+    sha256: aaedd7a01044692e216219edde3473028ce48ac0cb88c1bf7fb9067eefe5c95c
+critical_file_hashes:
+  question_catalog:
+    path: src/leaders_db/conversational_evidence/data/questions.json
+    sha256: 6d57373bafc88b3096a333a0ef8bf8b7a02149de399e897d2d660f257fddb5cd
+  model_profiles:
+    path: configs/research-models.yaml
+    sha256: c02eb6ff3a89a2de1ce10edf9f9130ffc9ad6456e72c5ecc12fbf9bd0e6ec4d9
+  pricing:
+    path: configs/research-pricing.yaml
+    sha256: 2fc2c7c22683403356448154c5a388d9dffb684fdd3fc4ceeea5ca6ae60dcc2a
+required_gates:
+  - local_prior_has_all_80_question_records
+  - overview_and_all_8_chapter_discovery_artifacts_exist
+  - every_catalogue_url_receives_an_acquisition_disposition
+  - every_unique_readable_document_is_queued
+  - exact_excerpts_are_bound_by_code_and_freshly_verified
+  - mappings_preserve_evidence_identity
+  - every_chapter_reads_the_complete_verified_ledger
+  - every_chapter_receives_independent_quality_review
+  - unsafe_chapters_receive_at_most_3_immutable_targeted_revisions
+change_control:
+  policy: >-
+    Do not modify a frozen code, methodology, configuration, or directive file while
+    producing this batch. A hash mismatch stops the batch. A necessary defect fix
+    creates a new release and requires an explicit cross-ruler equivalence decision;
+    affected earlier stages are rerun for every ruler when equivalence cannot be proven.
+  prior_outputs: >-
+    Outputs produced before this freeze are diagnostics until their inputs and stage
+    behavior are reconciled with this release or the affected stage is rerun.

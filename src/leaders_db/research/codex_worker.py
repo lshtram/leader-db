@@ -11,6 +11,7 @@ from datetime import UTC, datetime
 from hashlib import sha256
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 from pydantic import ValidationError
 from sqlalchemy.engine import Engine
@@ -20,6 +21,9 @@ from ._codex_worker_artifacts import (
 )
 from ._codex_worker_artifacts import (
     read_codex_usage as _read_codex_usage,
+)
+from ._codex_worker_artifacts import (
+    read_distinct_codex_usage as _read_distinct_codex_usage,
 )
 from ._codex_worker_setup import WorkerAttempt, initialize_worker_attempt
 from .codex_worker_command import (
@@ -39,6 +43,9 @@ from .dossier_notebook_prompt import build_research_notebook_prompt
 from .dossier_prompt import build_dossier_prompt
 from .job_ledger import checkpoint_job, heartbeat_job
 from .model_profiles import ResearchModelProfile, load_research_model_profiles
+from .research_checkpoint_recovery import (
+    load_previous_research_checkpoint as _load_previous_research_checkpoint,
+)
 from .research_workflow import ResearchWorkflow
 
 
@@ -528,6 +535,22 @@ def _prepare_execution_passes(
     """Run direct research plus review loop and resolve the formatter profile."""
 
     workflow = ResearchWorkflow.model_validate(job["input"]["research_workflow"])
+    if workflow.source_discovery_stage_enabled:
+        from .chapter_source_discovery import run_chapter_source_discovery
+
+        run_chapter_source_discovery(
+            engine,
+            job=job,
+            worker_id=worker_id,
+            project_root=project_root,
+            profile=researcher_profile,
+            attempt=attempt,
+            workflow=workflow,
+            lease_token=lease_token,
+            lease_seconds=lease_seconds,
+            heartbeat_seconds=heartbeat_seconds,
+            timeout_seconds=timeout_seconds,
+        )
     checkpoint = _load_previous_research_checkpoint(
         attempt.trusted_dir, job=job, profile=researcher_profile
     )
@@ -1140,7 +1163,7 @@ def _restore_formatter_ledger_evidence(
 def _evidence_from_manifest_entry(entry: dict[str, Any]) -> dict[str, Any] | None:
     """Convert a complete producer ledger row into formatter evidence."""
 
-    required = ("canonical_fact_key", "claim", "url", "locator", "publisher")
+    required = ("canonical_fact_key", "claim", "url", "locator")
     if any(not str(entry.get(field, "")).strip() for field in required):
         return None
     contrary = entry.get("contrary_evidence", ())
@@ -1149,10 +1172,13 @@ def _evidence_from_manifest_entry(entry: dict[str, Any]) -> dict[str, Any] | Non
     elif not isinstance(contrary, list):
         contrary = []
     claim = str(entry["claim"])
-    publisher = str(entry["publisher"])
+    url = str(entry["url"])
+    publisher = str(entry.get("publisher") or urlparse(url).netloc).strip()
+    if not publisher:
+        return None
     return {
         "claim": claim,
-        "url": str(entry["url"]),
+        "url": url,
         "title": str(entry.get("title") or f"{publisher} evidence record"),
         "publisher": publisher,
         "publication_date": str(
@@ -1300,6 +1326,21 @@ def _recover_explicit_markdown_evidence(
 ) -> dict[str, Any] | None:
     """Recover one complete producer-authored evidence block without inference."""
 
+    numbered_record = _recover_numbered_markdown_evidence(
+        notebook, canonical_key=canonical_key, provisional_id=provisional_id
+    )
+    if numbered_record is not None:
+        return numbered_record
+    return _recover_labeled_markdown_evidence(
+        notebook, canonical_key=canonical_key, provisional_id=provisional_id
+    )
+
+
+def _recover_labeled_markdown_evidence(
+    notebook: str, *, canonical_key: str, provisional_id: str
+) -> dict[str, Any] | None:
+    """Recover a producer block labeled by provisional ID or canonical key."""
+
     headings = list(re.finditer(r"(?m)^#{2,4}\s+([^\n]+)$", notebook))
     for index, heading in enumerate(headings):
         end = headings[index + 1].start() if index + 1 < len(headings) else len(notebook)
@@ -1379,12 +1420,77 @@ def _recover_explicit_markdown_evidence(
     return None
 
 
+def _recover_numbered_markdown_evidence(
+    notebook: str, *, canonical_key: str, provisional_id: str
+) -> dict[str, Any] | None:
+    """Recover a fully labeled reconnaissance record such as ``AMLO23-001``."""
+
+    number_match = re.fullmatch(r"[A-Za-z]+(?:\d+)?-(\d+)", provisional_id)
+    if number_match is None:
+        return None
+    number = int(number_match.group(1))
+    block_match = re.search(
+        rf"(?ms)^### Record {number}\s+[—-].*?\n(?P<body>.*?)(?=^### Record \d+\s+[—-]|^##\s|\Z)",
+        notebook,
+    )
+    if block_match is None:
+        return None
+    body = block_match.group("body")
+    values = {
+        label: _markdown_bullet_value(body, aliases)
+        for label, aliases in {
+            "claim": ("Fact",),
+            "locator": ("Locator",),
+            "period": ("Period",),
+            "attribution": ("Ruler connection",),
+            "contrary": ("Complicating evidence",),
+            "cautions": ("Cautions",),
+            "source": ("Strongest source",),
+        }.items()
+    }
+    if any(not values[field] for field in ("claim", "locator", "source")):
+        return None
+    source_match = re.search(
+        r"\*([^*]+)\*,\s*([^,\[]+)(?:,\s*([^\[]+?))?\.\s*"
+        r"\[[^\]]+\]\((https?://[^)]+)\)",
+        values["source"],
+    )
+    if source_match is None:
+        return None
+    title, publisher, publication_date, url = source_match.groups()
+    if not canonical_key or not url:
+        return None
+    cautions = values["cautions"] or (
+        "The producer supplied no normalized source-confidence profile."
+    )
+    contrary = [values["contrary"]] if values["contrary"] else []
+    return {
+        "evidence_id": "E999999",
+        "claim": values["claim"],
+        "url": url,
+        "title": title.strip(),
+        "publisher": publisher.strip(),
+        "publication_date": (publication_date or "unknown_not_recorded").strip(" ."),
+        "excerpt": values["claim"],
+        "source_locator": values["locator"],
+        "canonical_fact_key": canonical_key,
+        "source_type": "producer-selected strongest source; type not normalized",
+        "source_confidence": "medium",
+        "source_confidence_reason": cautions,
+        "final_evidence_use": "final_evidence",
+        "period_fit": values["period"] or "unknown_not_recorded",
+        "ruler_attribution": values["attribution"] or "unknown_not_recorded",
+        "contrary_evidence": contrary,
+    }
+
+
 def _markdown_bullet_value(section: str, aliases: tuple[str, ...]) -> str:
     """Read one explicitly labeled single-line Markdown bullet value."""
 
     labels = "|".join(re.escape(alias) for alias in aliases)
     match = re.search(
-        rf"(?mi)^-\s*(?:\*{{0,2}})(?:{labels})(?:\*{{0,2}}):\s*([^\n]+)",
+        rf"(?mi)^-\s*(?:\*{{0,2}})(?:{labels})"
+        rf"(?::\*{{0,2}}|\*{{0,2}}:)\s*([^\n]+)",
         section,
     )
     return match.group(1).strip().strip("`") if match is not None else ""
@@ -1442,6 +1548,21 @@ def _embedded_ledger_manifest(notebook: str) -> dict[str, Any] | None:
         correction = restrictive.get(str(entry.get("canonical_fact_key", "")))
         if correction is not None:
             entry.update(correction)
+    recovered_routing = {
+        str(entry["canonical_fact_key"]): entry
+        for entry in _recover_json_manifest_update_entries(notebook)
+    }
+    for entry in manifest["entries"]:
+        routing = recovered_routing.get(str(entry.get("canonical_fact_key", "")))
+        if routing is None:
+            continue
+        entry["chapter_ids"] = sorted(
+            set(entry.get("chapter_ids", [])) | set(routing.get("chapter_ids", []))
+        )
+        entry["methodology_ids"] = sorted(
+            set(entry.get("methodology_ids", []))
+            | set(routing.get("methodology_ids", []))
+        )
     return manifest
 
 
@@ -1552,10 +1673,14 @@ def _normalize_recovered_manifest_entry(entry: dict[str, Any]) -> dict[str, Any]
             if re.fullmatch(r"[1-8]B", str(item))
         }
     )
+    raw_methodology_ids = (
+        list(normalized.get("methodology_ids", []))
+        + list(normalized.get("lenses", []))
+    )
     normalized["methodology_ids"] = sorted(
         {
             str(item)
-            for item in normalized.get("methodology_ids", [])
+            for item in raw_methodology_ids
             if re.fullmatch(r"[1-8]B\.(?:10|[1-9])", str(item))
         }
     )
@@ -1592,6 +1717,12 @@ def _restore_ledger_routing(
     """Restore exact lens routing with a neutral relation and valid coverage joins."""
 
     methodology_ids = [str(item) for item in entry.get("methodology_ids", [])]
+    if not methodology_ids:
+        methodology_ids = [
+            f"{chapter_id}.1"
+            for chapter_id in entry.get("chapter_ids", [])
+            if re.fullmatch(r"[1-8]B", str(chapter_id))
+        ]
     for methodology_id in dict.fromkeys(item for item in methodology_ids if item):
         mapping_exists = any(
             isinstance(item, dict)
@@ -1635,72 +1766,12 @@ def _validate_formatter_ledger_accounting(
     manifest = _embedded_ledger_manifest(notebook)
     if manifest is None:
         return
-    expected = {
-        str(entry["canonical_fact_key"]): entry
-        for entry in manifest.get("entries", [])
-        if entry.get("disposition") == "final_evidence"
-    }
-    emitted = {
-        item.canonical_fact_key: item
-        for item in dossier.evidence
-        if item.final_evidence_use != "discovery_only"
-    }
-    missing_keys = sorted(set(expected) - set(emitted))
-    if missing_keys:
-        raise WorkerOutputError(
-            "formatter omitted accepted final evidence: " + ", ".join(missing_keys[:5])
-        )
-    mapped_chapters: dict[str, set[str]] = {}
-    evidence_key_by_id = {
-        item.evidence_id: item.canonical_fact_key for item in dossier.evidence
-    }
-    for mapping in dossier.mappings:
-        key = evidence_key_by_id.get(mapping.evidence_id)
-        if key:
-            mapped_chapters.setdefault(key, set()).add(
-                mapping.methodology_id.split(".", maxsplit=1)[0]
-            )
-    routing_failures = {
-        key: sorted(
-            {
-                str(item).split(".", maxsplit=1)[0]
-                for item in entry.get("methodology_ids", [])
-            }
-            - mapped_chapters.get(key, set())
-        )
-        for key, entry in expected.items()
-        if {
-            str(item).split(".", maxsplit=1)[0]
-            for item in entry.get("methodology_ids", [])
-        }
-        - mapped_chapters.get(key, set())
-    }
-    if routing_failures:
-        summary = ", ".join(
-            f"{key}=>{'/'.join(chapters)}"
-            for key, chapters in list(routing_failures.items())[:5]
-        )
-        raise WorkerOutputError("formatter dropped accepted chapter routing: " + summary)
-    mapped_methodologies: dict[str, set[str]] = {}
-    for mapping in dossier.mappings:
-        key = evidence_key_by_id.get(mapping.evidence_id)
-        if key:
-            mapped_methodologies.setdefault(key, set()).add(mapping.methodology_id)
-    lens_routing_failures = {
-        key: sorted(
-            set(entry.get("methodology_ids", []))
-            - mapped_methodologies.get(key, set())
-        )
-        for key, entry in expected.items()
-        if set(entry.get("methodology_ids", []))
-        - mapped_methodologies.get(key, set())
-    }
-    if lens_routing_failures:
-        summary = ", ".join(
-            f"{key}=>{'/'.join(methodology_ids)}"
-            for key, methodology_ids in list(lens_routing_failures.items())[:5]
-        )
-        raise WorkerOutputError("formatter dropped accepted lens routing: " + summary)
+    from .formatter_ledger_accounting import validate_formatter_ledger_accounting
+
+    try:
+        validate_formatter_ledger_accounting(dossier, manifest=manifest)
+    except ValueError as exc:
+        raise WorkerOutputError(str(exc)) from exc
 
 
 def _has_indeterminate_formatter_call(attempt: WorkerAttempt) -> bool:
@@ -1724,52 +1795,6 @@ def _has_indeterminate_formatter_call(attempt: WorkerAttempt) -> bool:
     return False
 
 
-def _load_previous_research_checkpoint(
-    trusted_dir: Path,
-    *,
-    job: dict[str, Any],
-    profile: ResearchModelProfile,
-) -> tuple[Path, str, Path, str, str] | None:
-    """Recover the newest hashed completed notebook for formatter retry."""
-
-    for directory in sorted(trusted_dir.parent.glob("*"), reverse=True):
-        if directory == trusted_dir:
-            continue
-        marker = directory / "research-complete.marker"
-        checkpoint_path = directory / "research-notebook-checkpoint.json"
-        if not marker.is_file() or not checkpoint_path.is_file():
-            continue
-        try:
-            payload = json.loads(checkpoint_path.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            continue
-        if not isinstance(payload, dict) or (
-            payload.get("job_key"),
-            payload.get("provider_profile"),
-            payload.get("provider"),
-            payload.get("model"),
-        ) != (job["job_key"], job["provider_profile"], profile.provider, profile.model):
-            continue
-        notebook_path = Path(str(payload.get("notebook_path", "")))
-        events_path = Path(str(payload.get("events_path", "")))
-        notebook_hash = str(payload.get("notebook_sha256", ""))
-        events_hash = str(payload.get("events_sha256", ""))
-        if (
-            notebook_path.is_file()
-            and events_path.is_file()
-            and sha256(notebook_path.read_bytes()).hexdigest() == notebook_hash
-            and sha256(events_path.read_bytes()).hexdigest() == events_hash
-        ):
-            return (
-                events_path,
-                notebook_path.read_text(encoding="utf-8"),
-                notebook_path,
-                notebook_hash,
-                events_hash,
-            )
-    return None
-
-
 def _stamp_two_pass_usage(
     dossier: RulerEvidenceDossier,
     *,
@@ -1788,36 +1813,21 @@ def _stamp_two_pass_usage(
     priced_formatter = []
     formatter_usage_incomplete = False
     trusted_root = attempt_dir.parent.parent / "trusted"
+    primary_research_events = []
+    takeover_events = []
     for directory in sorted(trusted_root.glob("*")):
         research_events = [directory / "research-events.jsonl"]
+        research_events.extend(sorted(directory.glob("source-discovery-*.events.jsonl")))
         research_events.extend(sorted(directory.glob("research-chapter-*.events.jsonl")))
         research_events.extend(
             sorted(directory.glob("research-continuation-round-*.events.jsonl"))
         )
-        for events_path in research_events:
-            if not events_path.is_file():
-                continue
-            usage = _read_codex_usage(events_path)
-            if usage is not None:
-                priced_research.append(
-                    _price_codex_usage(
-                        usage,
-                        provider=job["provider"],
-                        model=job["model"],
-                    )
-                )
-        for takeover_events in sorted(
+        primary_research_events.extend(
+            path for path in research_events if path.is_file()
+        )
+        takeover_events.extend(
             directory.glob("research-supervisor-takeover-round-*.events.jsonl")
-        ):
-            usage = _read_codex_usage(takeover_events)
-            if usage is not None:
-                priced_research.append(
-                    _price_codex_usage(
-                        usage,
-                        provider=str(job["input"]["reviewer_provider"]),
-                        model=str(job["input"]["reviewer_model"]),
-                    )
-                )
+        )
         for reviewer_events in sorted(
             directory.glob("evidence-review-round-*.events.jsonl")
         ):
@@ -1843,6 +1853,18 @@ def _stamp_two_pass_usage(
                         model=formatter_profile.model,
                     )
                 )
+    priced_research.extend(
+        _price_codex_usage(usage, provider=job["provider"], model=job["model"])
+        for usage in _read_distinct_codex_usage(tuple(primary_research_events))
+    )
+    priced_research.extend(
+        _price_codex_usage(
+            usage,
+            provider=str(job["input"]["reviewer_provider"]),
+            model=str(job["input"]["reviewer_model"]),
+        )
+        for usage in _read_distinct_codex_usage(tuple(takeover_events))
+    )
     combined_research = (
         combine_priced_usage(tuple(priced_research))
         if priced_research

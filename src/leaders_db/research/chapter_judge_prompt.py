@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
@@ -17,6 +18,7 @@ def build_chapter_judge_prompt(
     projections: tuple[tuple[Path, RulerChapterProjection], ...],
     previous_candidate_path: Path | None = None,
     supplemental_instructions: str = "",
+    embed_projections: bool = True,
 ) -> str:
     """Build a no-discovery prompt for one chapter-wide comparative judgment."""
 
@@ -32,13 +34,41 @@ def build_chapter_judge_prompt(
         }
         for _, dossier in projections
     ]
-    embedded_projections = [
-        projection.model_dump(mode="json") for _, projection in projections
-    ]
+    if not embed_projections:
+        _validate_file_backed_paths(project_root=project_root, projections=projections)
+    projection_payload = (
+        json.dumps(
+            [projection.model_dump(mode="json") for _, projection in projections],
+            indent=2,
+            sort_keys=True,
+        )
+        if embed_projections
+        else json.dumps(
+            [
+                {
+                    "dossier_job_key": projection.job_key,
+                    "path": str(path.resolve()),
+                    "sha256": _file_sha256(path),
+                }
+                for path, projection in projections
+            ],
+            indent=2,
+            sort_keys=True,
+        )
+    )
+    projection_access = (
+        "All scoring inputs are embedded below. Do not invoke shell commands, "
+        "filesystem tools, MCP resources, or local file reads."
+        if embed_projections
+        else "The complete scoring inputs are the hash-bound local JSON files listed "
+        "below. Read every listed file in full using local filesystem tools. Do not "
+        "browse, search the web, read any unlisted research file, or modify an input."
+    )
     unavailable = job["input"].get("unavailable_dossiers", [])
     repair_note = (
         "A prior candidate was semantically rejected. Produce a fresh complete batch "
-        "from the embedded projections and correct the earlier defects; do not read "
+        f"from the {'embedded' if embed_projections else 'listed'} projections and "
+        "correct the earlier defects; do not read "
         "the prior candidate from the filesystem."
         if previous_candidate_path is not None
         else "There is no prior candidate for this attempt."
@@ -55,9 +85,8 @@ families separate. Do not browse, search the web, use the client matrix, add fac
 memory, or rewrite a local fact as a web citation. Evidence IDs are local to each
 dossier.
 
-All scoring inputs are embedded below. Do not invoke shell commands, filesystem
-tools, MCP resources, or local file reads. A local-tool failure is not a reason to
-return null scores because the complete chapter projections are present in this prompt.
+{projection_access} A local-tool failure is not a reason to return null scores; retry
+the local read before producing the complete batch.
 An `available` local package is authoritative structured context. An `unavailable` or
 `invalid` local package lowers confidence when material but does not erase usable web
 evidence or automatically force a null.
@@ -150,8 +179,8 @@ Unavailable dossiers (report them, do not invent evaluations):
 Available dossier manifest:
 {json.dumps(manifest, indent=2)}
 
-Embedded chapter projections (authoritative judge inputs):
-{json.dumps(embedded_projections, indent=2, sort_keys=True)}
+Chapter projections (authoritative judge inputs):
+{projection_payload}
 
 Active chapter guide:
 ---
@@ -171,3 +200,29 @@ every confidence score is on the required 0-100 scale.
 
 
 __all__ = ["build_chapter_judge_prompt"]
+
+
+def _file_sha256(path: Path) -> str:
+    """Return the immutable digest shown to a file-backed judge."""
+
+    return sha256(path.read_bytes()).hexdigest()
+
+
+def _validate_file_backed_paths(
+    *,
+    project_root: Path,
+    projections: tuple[tuple[Path, RulerChapterProjection], ...],
+) -> None:
+    """Reject untrusted projection paths before any file-backed input is read."""
+
+    root = project_root.resolve()
+    resolved = tuple(path.resolve() for path, _ in projections)
+    if any(
+        not path.is_relative_to(root) or path.parent.name != "chapter-inputs"
+        for path in resolved
+    ):
+        raise ValueError(
+            "file-backed judge inputs must remain in a project chapter-inputs directory"
+        )
+    if len({path.parent for path in resolved}) != 1:
+        raise ValueError("file-backed judge inputs must share one chapter-inputs directory")

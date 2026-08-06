@@ -1,0 +1,141 @@
+Audit the normalized source map against the original extract. Ignore prose style and all formatting problems in the original reader output. Count only affirmative evidence claims in claim_count; do not count an explicitly labelled limitation, absence-of-evidence warning, or reopen request as an accepted claim requiring an affirmative locator. Do not count source-identity metadata such as title, catalog ID, or manifest URL; provenance metadata is verified separately against the frozen manifest. Count a locator as usable when it identifies the supporting unit, block, page, section, article, table, or record precisely enough to reopen it. Identify material omitted facts and qualifications separately. An omission makes content_usable false only when it removes or distorts evidence decisive to the chapter questions; otherwise record material_omission=true and explain it without failing usability. A formatting repair is never a content failure. Return the required JSON only.
+
+READER SUMMARY:
+**Source Map — IMP-005 / SFP Segalmex report, 18 Aug 2022**
+
+Source ID: IMP-005. Title: "Secretaría de la Función Pública presenta informe sobre Segalmex." Issuer: SFP (Secretaría de la Función Pública), press comunicado disseminated on LICONSA gob.mx portal. Date: 18 Aug 2022. Type: audit_summary / executive-oversight-body communication. Audited entities: Segalmex, Liconsa, Diconsa. Period covered: 2019 (Segalmex creation) through cierre 2021 for SFP fiscalización acts; ongoing 2022 reviews; ASF portion tied to revisión de la Cuenta Pública 2020.
+
+**Atomic claims (observed in text):**
+
+1. SFP carried out 84 actos de fiscalización from Segalmex's creation in 2019 through cierre 2021, including auditorías, visitas y verificaciones, with montos observados of 6,052.3 mdp. [block 2]
+2. In 2022 SFP is executing revisiones to the programas de abasto rural, de abasto social de leche, and de precios de garantía, as well as to adquisiciones, arrendamientos, servicios, e inventarios. [block 2]
+3. ASF, in the revisión de la Cuenta Pública 2020, promoted acciones to the three entities that together include 22 pliegos de observaciones totaling 3,465.8 mdp. [block 3]
+4. Combined SFP + ASF montos observados are around 9,500 mdp; the report states this "no significa que representen un daño patrimonial" because items are in proceso de aclaración, documentación, or, where applicable, recuperación. [block 3]
+5. 618 investigation files (expedientes de investigación por presuntas responsabilidades administrativas) open at SFP. [block 2]
+6. 38 denuncias presented to the FGR by the Procuraduría Fiscal de la Federación, the Unidad de Inteligencia Financiera de la SHCP, the SFP, and the FGR itself, principally for the delito de uso ilícito de atribuciones y facultades, being integrated bajo la óptica de delincuencia organizada. [block 2]
+7. One ex servidor público was vinculado a proceso for investing 950 mdp of the institution without respecting the normativa; the recursos were recovered. [block 2]
+8. Independent audit opinions deteriorated: Liconsa pasó de opiniones limpias en 2019 a abstención de opinión en 2021; Diconsa pasó de opiniones con salvedad en 2019 a abstención en 2021; Segalmex ha mantenido dictámenes con abstención. [block 3]
+9. Servidores públicos were cesados in centrales and operativas across the three entities; the report states the cambios de mandos directivos y de personal focus on integrating proactive teams to improve controles internos, operación, y rendición de cuentas. [block 3]
+10. Interinstitutional work group created: Secretaría de Gobernación, de Agricultura y Desarrollo Rural, y de la Función Pública, plus Procuraduría Fiscal de la Federación and Oficialía Mayor de la SHCP. [block 1–2]
+11. Stated corrective lines: robustecer sistemas de control interno y de supervisión; armonizar la actuación de las tres entidades; establecer formalmente las representaciones de Segalmex en los estados donde opera; modernizar equipamiento y sistemas informáticos para los centros de acopio; fortalecer control de inventarios de mercancías; actualizar y gestionar eficazmente los padrones de pequeños productores, concesionarios, distribuidores y beneficiarios del Programa de Abasto Social de Leche. [block 3]
+12. Segalmex was created in 2019 to favor the productividad of maíz, frijol, arroz, y trigo, and to ensure its adquisición a precios de garantía en beneficio de la población más necesitada de México. [block 4]
+
+**Evidentiary status / qualifications:**
+- 9,500 mdp is observed monto, not adjudicated daño patrimonial; figures remain in proceso de aclaración, documentación, or recuperación.
+- "Presunta" corrupción, "presuntos" delitos; one case confirmed via vinculación a proceso.
+- Independent audit deterioration is factual reporting; root-cause analysis is not provided in the extract.
+- No individual sanctions beyond the one 950 mdp case and unspecified ceses are detailed.
+- No procurement-level contract IDs, beneficiary lists, or per-finding amounts appear in the extract.
+
+**Author assertions vs. observed facts:**
+- Observed: counts of audits, denuncias, files, opinion changes, ceses.
+- Author assertion (SFP, Roberto Salcedo Aquino): the causes are framed as "desarticulación administrativa" and "presunta corrupción"; forward-looking commitments to corrective lines. Treat as official position, not adjudicated.
+
+**Limitations / reopen items:**
+- No breakdown of which 22 ASF pliegos correspond to which entity or program.
+- No timeline for the 38 FGR denuncias beyond the 950 mdp case.
+- No individual identifications of cesados.
+- No procurement-specific records (contracts, suppliers, conflicts of interest) — full audit and FGR records needed for 5B.5 depth.
+- No delivery/output data to test 5B.6 (delivery vs. announcement).
+- No discussion of budget design or policy choice, so 5B.1/5B.9 only marginally relevant.
+
+**Sections for stronger model to reopen:** underlying SFP audit reports (84 acts), ASF Cuenta Pública 2020 individual pliegos, FGR case files, independent-audit financial statements, and procurement records.
+
+---
+
+**REVIEWER NOTES (factual verification against the supplied extract):**
+
+The draft was checked against the four substantive blocks of the original extract (blocks 1–4). Corrections applied:
+
+- Issuer named "Roberto Salcedo Aquino" (not "Salcedo Aquino" alone); block 1.
+- Period for the 84 actos of fiscalización and 6,052.3 mdp stated as "desde la creación de Segalmex, en 2019, hasta el cierre de 2021," not just "2019–cierre 2021"; block 2.
+- 2022 reviews described as "ejecutando diversas revisiones" to programas and to "adquisiciones, arrendamientos, servicios e inventarios"; block 2.
+- 38 denuncias wording matched to "presentadas ante la Fiscalía General de la República (FGR) por la Procuraduría Fiscal de la Federación, la Unidad de Inteligencia Financiera de la SHCP, la SFP y la propia Fiscalía"; block 2.
+- 950 mdp case paraphrased as "vincularon a proceso por invertir 950 mdp de la institución sin respetar la normativa, recursos que ya fueron recuperados"; block 2.
+- Independent-audit deterioration wording matched: Liconsa "opiniones limpias en 2019" → "abstención de opinión en 2021"; Diconsa "opiniones con salvedad en 2019" → "abstención en 2021"; Segalmex "ha mantenido dictámenes con abstención"; block 3.
+- Interinstitutional group composition rendered as "las secretarías de Gobernación, de Agricultura y Desarrollo Rural y de la Función Pública, además de la Procuraduría Fiscal de la Federación y la Oficialía Mayor de la Secretaría de Hacienda y Crédito Público (SHCP)"; block 1.
+- Corrective lines wording matched verbatim from block 3 (control interno y supervisión; armonización; representaciones estatales; equipamiento y sistemas informáticos para centros de acopio; control de inventarios; padrones de pequeños productores, concesionarios, distribuidores y beneficiarios del Programa de Abasto Social de Leche); block 3.
+- Segalmex creation purpose stated as "favorecer la productividad del maíz, frijol, arroz y trigo, y asegurar su adquisición a precios de garantía en beneficio de la población más necesitada de México"; block 4.
+- The combined "≈ 9,500 mdp" was reframed in the draft as "around 9,500 mdp" (the original wording is "alrededor de 9 mil 500 millones de pesos" / "alrededor de 9 mil 500 mdp"); block 2–3.
+
+No claims were added; no implied values were calculated; no synthesis beyond the supplied extract was introduced.
+
+**VERIFIED ADDITIONS:** None.
+
+**REOPEN REQUESTS:**
+- Per-entity or per-program allocation of the 22 ASF pliegos de observaciones and 3,465.8 mdp.
+- Identities of the cesados servidores públicos in centrales and operativas.
+- Time-stamped filing history of the 38 FGR denuncias and any additional vinculaciones a proceso beyond the 950 mdp case.
+- Independent-audit financial statements (dictámenes limpios / con salvedad / con abstención) for Liconsa 2019, Diconsa 2019, and Segalmex to anchor the deterioration claim with document-level evidence rather than the SFP summary.
+
+ORIGINAL EXTRACT:
+extracted HTML block 1
+Secretaría de la Función Pública presenta informe sobre Segalmex | LICONSA S.A. de C.V. | Gobierno | gob.mx Interruptor de Navegación
+Trámites
+Gobierno
+English
+Interruptor de Navegación
+Documentos
+Acciones y programas
+Prensa
+Contacto
+Multimedia
+¿Qué hacemos?
+Blog
+Transparencia
+Inicio
+LICONSA S.A. de C.V.
+Prensa
+Publicaciones Recientes Nuevo 2025-09-02 12:48:00 -0600 Leche entera Frisia: Nutrición y salud en cada vaso Nuevo 2025-08-08 15:49:00 -0600 Apertura de punto de venta Leche para el Bienestar Nuevo León Nuevo 2025-08-08 11:46:00 -0600 Durango incrementa padrón con la apertura de tres lecherías Nuevo 2025-06-18 12:17:00 -0600 Padrón de Derechohabientes del Programa de Abasto Social de Leche a cargo de Liconsa, S.A. de C.V. Nuevo 2024-08-13 10:47:00 -0600 Frescura y nutrición en cada sorbo: descubre la magia de la leche ultrapasteurizada Aa+ Aa-
+Secretaría de la Función Pública presenta informe sobre Segalmex
+Se creó un grupo de trabajo interinstitucional para integrar debidamente los expedientes de las investigaciones en curso y sentar las bases para una gestión eficaz y honesta.
+LICONSA S.A. de C.V. | 18 de agosto de 2022 | Comunicado
+SFP ha realizado 84 actos de fiscalización desde la creación de Segalmex.
+Las observaciones de la SFP y de la ASF suman cerca de 9 mil 500 millones de pesos.
+Hay 38 denuncias presentadas ante la FGR por la Procuraduría Fiscal de la Federación, la Unidad de Inteligencia Financiera de la SHCP, la SFP y la propia Fiscalía
+El titular de la Secretaría de la Función Pública (SFP), Roberto Salcedo Aquino, informó esta mañana que, con base en los resultados de diversas auditorías, en denuncias presentadas por servidores públicos y en el deterioro en la calidad de la rendición de cuentas en Segalmex, Liconsa y Diconsa, se creó un grupo de trabajo conformado por las secretarías de Gobernación, de Agricultura y Desarrollo Rural y de la Función Pública, además de la Procuraduría Fiscal de la Federación y la Oficialía Mayor de la Secretaría de Hacienda y Crédito Público (SHCP).
+
+extracted HTML block 2
+El propósito del grupo de trabajo interinstitucional es investigar, dar seguimiento y corregir la problemática relacionada con los actos de presunta corrupción de algunos servidores públicos que, además, ocasionaron una desarticulación administrativa en las tres instituciones.
+Al presentar un informe sobre Segalmex en la conferencia de prensa matutina del Presidente Andrés Manuel López Obrador, en el Salón Tesorería de Palacio Nacional, Salcedo Aquino detalló que la dependencia que encabeza tiene abiertos 618 expedientes de investigación por presuntas responsabilidades administrativas en el organismo.
+Refirió que hay 38 denuncias presentadas ante la Fiscalía General de la República (FGR) por la Procuraduría Fiscal de la Federación, la Unidad de Inteligencia Financiera de la SHCP, la SFP y la propia Fiscalía, por la presunta comisión de delitos que podrían haber ocasionado un daño patrimonial a Segalmex, Diconsa y Liconsa.
+Dichas denuncias están en etapa de investigación con miras a su judicialización, y principalmente son por el delito de uso ilícito de atribuciones y facultades, y se están integrando bajo la óptica de delincuencia organizada. A la fecha, un ex servidor público fue vinculado a proceso por invertir 950 mdp de la institución sin respetar la normativa, recursos que ya fueron recuperados.
+Refirió que la SFP realizó 84 actos de fiscalización desde la creación de Segalmex, en 2019, hasta el cierre de 2021, que incluyeron auditorías, visitas y verificaciones con montos observados por 6 mil 052.3 millones de pesos (mdp), y en 2022, para dar continuidad a estos actos, se están ejecutando diversas revisiones a los programas de abasto rural, de abasto social de leche y de precios de garantía, así como a las adquisiciones, arrendamientos, servicios e inventarios.
+
+extracted HTML block 3
+Por su parte, la Auditoría Superior de la Federación (ASF), con motivo de la revisión de la Cuenta Pública 2020, promovió diversas acciones a las tres entidades, que en conjunto incluyen 22 pliegos de observaciones por 3 mil 465.8 mdp.
+En total, los montos observados por la SFP y por el órgano auditor superior suman alrededor de 9 mil 500 mdp, lo que no significa que representen un daño patrimonial, debido a que se encuentran en proceso de aclaración, documentación o, en su caso, recuperación.
+Respecto a la dictaminación de los estados financieros que realizan firmas de auditoría independientes, informó que se observó un incremento en las inconsistencias en el registro de las operaciones y casos en los que no se aportó la información requerida por los auditores. Ello ocasionó que en el caso de Liconsa, se pasara de dictámenes con opiniones limpias en 2019 a dictámenes con abstención de opinión en 2021; Diconsa obtuvo opiniones con salvedad en 2019 y con abstención en 2021, y Segalmex ha mantenido dictámenes con abstención.
+Con motivo de las investigaciones se ha cesado a servidores públicos de áreas centrales y operativas de las tres entidades de la República, sin menoscabo de las acciones legales y administrativas que resulten en su contra. Los cambios de mandos directivos y de personal se enfocan en la integración de equipos de trabajo proactivos para mejorar los controles internos, la operación y la rendición de cuentas.
+El secretario de la Función Pública informó que están en proceso diversas acciones para definir las líneas estratégicas que permitan alcanzar los objetivos de las tres instituciones, entre las cuales destacan: robustecer los sistemas de control interno y de supervisión; armonizar la actuación de las tres entidades; establecer formalmente las representaciones de Segalmex en los estados donde opera, modernizar el equipamiento y los sistemas informáticos para los centros de acopio; fortalecer el control de los inventarios de mercancías; y actualizar y gestionar eficazmente los padrones de pequeños productores, concesionarios, distribuidores y beneficiarios del Programa de Abasto Social de Leche.
+
+extracted HTML block 4
+Concluyó que “la SFP actúa como coadyuvante en las indagatorias vigentes. Asimismo, acompaña, en coordinación con la SHCP, a las nuevas autoridades administrativas para evitar que se incurra en irregularidades, para atender las observaciones de las instancias fiscalizadoras, y sentar así las bases para una gestión eficaz y honesta”.
+Segalmex se creó en 2019 para favorecer la productividad del maíz, frijol, arroz y trigo, y asegurar su adquisición a precios de garantía en beneficio de la población más necesitada de México.
+Autor: Secretaría de la Función Pública
+Fecha de publicación: 18 de agosto de 2022
+Contesta nuestra encuesta de satisfacción. ¿Cómo fue tu experiencia en gob.mx? ¿Fue fácil encontrar lo que buscabas? Muy Fácil Fácil Difícil Muy Difícil ¿De qué estado de la República nos visitas? Siguiente ¿Qué buscabas? Máximo 250 caracteres Siguiente ¿Qué te gustó más?
+Puedes seleccionar más de uno.
+La información es clara y precisa El diseño es agradable Está bien organizado Es sencillo navegar El lenguaje es amigable Siguiente ¿Recomendarías nuestro portal a un amigo o familiar? Si No Finalizar ¿Fue fácil encontrar lo que buscabas? Muy Fácil Fácil Difícil Muy Difícil ¿Qué mejorarías?
+Puedes seleccionar más de una opción.
+Diseño Navegación dentro del sitio Claridad y precisión de la información Organización de los contenidos Lenguaje utilizado Finalizar ¿Qué buscabas? Máximo 250 caracteres Siguiente
+Gracias por tu opinión.
+Compartir Imprime la página completa
+La legalidad, veracidad y la calidad de la información es estricta responsabilidad de la dependencia, entidad o empresa productiva del Estado que la proporcionó en virtud de sus atribuciones y/o facultades normativas.
+
+extracted HTML block 5
+Enlaces
+Datos
+Sistema de Portales de Obligaciones de Transparencia (SIPOT)
+Plataforma Nacional de Transparencia
+Transparencia para el Pueblo
+Alerta
+Denuncia
+¿Qué es gob.mx?
+Es el portal único de trámites, información y participación ciudadana. Leer más
+Declaración de Accesibilidad
+Términos y Condiciones
+Denuncia contra servidores públicos
+Contacto
+Dudas e información a quejasabasto@liconsa.gob.mx
+Síguenos en

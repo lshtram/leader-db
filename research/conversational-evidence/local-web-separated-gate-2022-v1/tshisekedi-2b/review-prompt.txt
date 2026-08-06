@@ -1,0 +1,1570 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "2B.1",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "2B.10"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:separated-gate-2022-v1:2022:COD:16113:2B",
+  "iso3": "COD",
+  "country_name": "Congo, The Democratic Republic of the",
+  "ruler_name": "F\u00e9lix Tshisekedi",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "2B"
+  ],
+  "observed_chapter_ids": [
+    "2B"
+  ],
+  "approximate_locator_count": 26,
+  "approximate_source_family_count": 11,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": false,
+  "findings": []
+}
+
+Configured research workflow:
+not supplied
+
+Research notebook:
+---
+## Scope and orientation
+
+Period assessed: **1 January–31 December 2022**. “2022–2022” is treated as a single calendar year. No score is assigned.
+
+### Authority
+
+Félix Tshisekedi was president throughout 2022. Constitutionally and practically he was the supreme commander of the armed forces and police, chaired the Higher Defence Council, appointed senior security officials, directed foreign policy, and controlled the presidential decrees sustaining the state of siege. A formal declaration of war nevertheless required cabinet deliberation, Defence Council advice, and parliamentary authorization. Parliament repeatedly approved two-week extensions of the state of siege, so responsibility was shared but presidentially initiated and sustained.
+
+Tshisekedi directly participated in the Luanda interstate negotiations and authorized the Nairobi process, Ugandan operations on Congolese territory, and deployment of the East African Community Regional Force. Weak command systems, fragmented FARDC units, provincial military government, foreign partners, MONUSCO, and autonomous or semi-coordinated militias substantially limited practical control over individual operations.
+
+### Baseline and conflict gate
+
+The international-security exposure gate is decisively met. Tshisekedi inherited:
+
+- Decades of regionalized warfare in eastern DRC, involving Rwanda, Uganda, Burundi, foreign armed groups, and numerous Congolese militias.
+- A 2021 state of siege in North Kivu and Ituri.
+- Operation Shujaa, the joint FARDC–Ugandan campaign against the ADF, begun in late 2021.
+- M23’s reactivation in November 2021 and unresolved obligations arising from earlier peace arrangements.
+- Extremely weak civilian protection and military accountability.
+
+The local D13/UCDP prior records conflict events, fatalities, one-sided violence and government-actor killings but does not expose its numerical rows in the supplied material. An opened UCDP-authored publication provides the strongest accessible D13 fact: **at least 3,200 civilians were killed in one-sided violence in DRC during 2022**, while expressly warning that this excludes crossfire and indiscriminate shelling. UCDP classified Rwandan support to M23 against the Congolese government as one of five 2022 cases of state support to a rebel organization fighting another state.
+
+The D14/SIPRI prior and SIPRI-derived series report approximately **US$371 million** in DRC military expenditure in 2022, about **21.2% above 2021**. This measures spending, not procurement integrity or ruler enrichment.
+
+### Shocks and constraints
+
+The major period shock was the sharp M23 offensive, including the capture of Bunagana and other territory, with increasingly strong evidence of direct Rwandan military intervention. The ADF, CODECO, Nyatura and other inherited threats continued simultaneously. Conflict displaced hundreds of thousands of people, while humanitarian agencies operated under severe access and funding constraints. The Ukraine-related food and energy shock added fiscal and humanitarian pressure but does not explain the core military decisions.
+
+Reporting was comparatively plural but incomplete. MONUSCO, UN experts, NGOs, regional bodies and local journalists documented major incidents, yet military-site restrictions, insecurity, intimidation and inaccessible M23-held territory produced substantial undercounting and attribution uncertainty.
+
+## Compact evidence index
+
+| ID | Fact | Why it matters |
+|---|---|---|
+| WEB-2B-001 | Constitutional and practical command | Establishes Tshisekedi’s authority and institutional constraints. |
+| WEB-2B-002 | UCDP conflict burden | Establishes unusually severe conflict exposure and deterioration. |
+| WEB-2B-003 | M23/Rwandan intervention | Corroborates a genuine external defensive threat, while recording contested shelling allegations. |
+| WEB-2B-004 | Luanda ceasefire framework | Direct evidence that Tshisekedi accepted ceasefire, withdrawal, verification and dialogue. |
+| WEB-2B-005 | Nairobi dialogue commitments | Shows political, humanitarian and DDR alternatives to force. |
+| WEB-2B-006 | Partial implementation, continued fighting | Prevents treating signed commitments as a completed settlement. |
+| WEB-2B-007 | FARDC collaboration with FDLR/armed groups | Central adverse proxy-control and lawful-security evidence. |
+| WEB-2B-008 | State-force civilian harm | Documents FARDC killings and sexual violence, with partial accountability measures. |
+| WEB-2B-009 | State-of-siege failure and abuse | Connects presidential emergency policy to repression and worsened protection outcomes. |
+| WEB-2B-010 | Authorized foreign/regional forces | Shows reliance on Uganda, MONUSCO and EACRF against genuine threats, with control risks. |
+| WEB-2B-011 | Public threat framing and restraint | Records substantially corroborated Rwanda claims, coercive rhetoric, diplomacy and an anti-stigmatization instruction. |
+| WEB-2B-012 | Military expenditure increase | Establishes mobilization but not patronage or personal enrichment. |
+| WEB-2B-013 | Year-end end state | Shows limited diplomatic progress but greater regionalization, displacement and insecurity. |
+
+## Disposition of the ten lenses
+
+### 2B.1 — Diplomacy versus force
+
+**Mixed, with meaningful favorable evidence.** Tshisekedi joined the Luanda and Nairobi processes, signed the 23 November ceasefire framework, accepted monitoring and withdrawal arrangements, and supported DDR and humanitarian commitments (WEB-2B-004, 005). He also continued Uganda’s Operation Shujaa, sought a force-capable EAC deployment, strengthened FARDC “strike capacity,” and excluded direct M23 bargaining unless withdrawal conditions were met (WEB-2B-010, 011). The underlying M23/Rwandan and ADF threats were credible, so military resistance was not simply a war of choice.
+
+### 2B.2 — War of choice, cross-border coercion or proxy conflict
+
+**No persuasive evidence that Tshisekedi initiated an annexationist or external war of choice.** The 2022 M23/RDF offensive was directed against Congolese territory (WEB-2B-003). However, DRC authorized Ugandan forces to operate on its territory and FARDC elements cooperated with FDLR and other armed groups, extending regional proxy dynamics and creating foreseeable escalation risks (WEB-2B-007, 010). The available evidence does not establish that Tshisekedi personally ordered the FDLR cooperation.
+
+### 2B.3 — Defensive need versus prestige or manufactured threats
+
+**The central external threat was genuine, but security policy was not cleanly confined to lawful defense.** UN, EU, UCDP and independent reporting corroborated RDF support for M23 (WEB-2B-002, 003, 007). Tshisekedi’s description of Rwandan aggression therefore was not manufactured. Calling M23 “terrorists,” expanding military capacity, and relying on abusive militias nevertheless simplified a conflict containing unresolved political, communal and prior-agreement issues (WEB-2B-005, 007, 011). Evidence for diversionary or personal-prestige motivation is insufficient.
+
+### 2B.4 — Civilian protection and humanitarian law
+
+**Adverse overall, with limited remedial evidence.** Armed groups caused most documented abuses, but FARDC personnel committed extrajudicial killings and conflict-related sexual violence, while state-of-siege authorities killed protesters and subjected civilians to military courts (WEB-2B-008, 009). Some soldiers and police were convicted, and action plans and training were initiated, but impunity—especially at higher levels—remained pervasive. Evidence tying individual battlefield violations directly to Tshisekedi is generally absent.
+
+### 2B.5 — Control of allies, proxies and arms recipients
+
+**Serious adverse evidence.** UN findings and the EU’s year-end response identified FARDC cooperation with FDLR and other Congolese armed groups, despite their abusive records. Arms-trafficking charges against FARDC officers and abuses by allied Burundian actors reinforce the control problem (WEB-2B-007). The Luanda commitment to end all support to armed groups and some arrests count as contrary evidence, but implementation was incomplete. Direct presidential authorization of particular militia cooperation remains unproved.
+
+### 2B.6 — Truthful public explanation
+
+**The principal accusation was substantially corroborated, but official framing was selective.** Independent UN evidence supported the claim that Rwanda materially backed M23 and operated inside DRC (WEB-2B-003, 011). Official descriptions omitted or downplayed FARDC cooperation with FDLR, which provided Rwanda with a real—though not legally sufficient—security grievance (WEB-2B-007). There is no adequate evidence of fabricated intelligence directed by Tshisekedi.
+
+### 2B.7 — Ceasefires, talks and reconciliation
+
+**Favorable at the level of presidential commitment; weak and incomplete in outcome.** Tshisekedi signed or accepted the Luanda ceasefire, bilateral normalization, monitoring, withdrawal, cantonment, refugee-return and cessation-of-support provisions. The Nairobi dialogue added prisoner release, child-soldier release, humanitarian access, consultations and P-DDRCS review (WEB-2B-004, 005). M23 withdrew from Kibumba, but continued hostilities and incomplete compliance showed that the process had not produced peace by year’s end (WEB-2B-006).
+
+### 2B.8 — Military spending and patronage
+
+**Real security need is established; patronage conclusion is not.** SIPRI-derived data indicate spending rose to about US$371 million, 21.2% above 2021, during an exceptionally severe conflict year (WEB-2B-002, 012). Weak payroll and procurement controls make diversion plausible, but the searched 2022 material does not establish that the increase enriched Tshisekedi, his family, or a specified military network. This lens remains low-confidence.
+
+### 2B.9 — Accountability and correction
+
+**Partial institutional accountability, little ruler-level accountability.** Authorities convicted some soldiers, police and intelligence personnel and arrested officers accused of supplying CODECO; joint UN action plans and training were adopted (WEB-2B-007, 008). But the government repeatedly extended a demonstrably ineffective state of siege, did not provide an effective public remedy for its structural abuses, and higher-level impunity persisted (WEB-2B-009). No evidence was found of Tshisekedi accepting personal responsibility for failed protection or FARDC–FDLR cooperation.
+
+### 2B.10 — End-state change
+
+**Relations and security were worse at the end of 2022 than at its beginning, despite credible diplomacy.** The year ended with M23 holding territory, direct Rwandan involvement, expanded regional-force deployments, severed ambassadorial relations, mass displacement and continued fighting. Luanda and Nairobi created a lawful diplomatic architecture and produced one partial withdrawal, but not a durable settlement (WEB-2B-004, 005, 006, 013). Much deterioration was caused by external and inherited actors rather than initiated by Tshisekedi.
+
+## Source-state audit
+
+### Opened independent corroboration
+
+- UN Secretary-General/MONUSCO reports S/2022/503 and related 2022 reporting corroborate the multiple-actor threat, joint Ugandan operations, FARDC violations and limited prosecutions.
+- Human Rights Watch’s M23 investigation independently corroborates M23 civilian killings and reviews UN photographic/aerial evidence of RDF personnel.
+- The EU’s 31 December statement independently accepts the UN experts’ findings concerning both RDF/M23 support and FARDC–FDLR cooperation.
+- UCDP’s peer-reviewed 2022 review independently classifies Rwandan support to M23 and quantifies DRC one-sided violence.
+- The U.S. country report is secondary corroboration substantially dependent on UNJHRO, UN experts and NGO reporting; it is not counted as independent where it repeats those sources.
+
+### Reused supplied sources, opened before use
+
+E006, E008/E057, E009, E010, E025/E056, E026, E045, E054 and E055 were reconsidered. E054, E055, E006, E045 and E057 were opened and used. E025/E056 refer to the same Kenya Ministry of Defence article and were deduplicated. E008 and E057 are the same U.S. report and were deduplicated.
+
+### Promising leads still requiring inspection
+
+- Full French/English pagination of S/2022/967, especially annexes identifying individual FARDC units, commanders, dates and supplied weapons.
+- National Assembly extension votes and Defence Committee reports for responsibility shared between the presidency and legislature.
+- Audited 2022 defence appropriations, procurement contracts, payroll and off-budget security spending.
+- Full Operation Shujaa agreement, rules of engagement and civilian-casualty investigations.
+- Presidential correspondence or orders addressing FARDC–FDLR cooperation after UN findings.
+- Implementation records for Nairobi prisoner-release, humanitarian-access and P-DDRCS commitments.
+
+### Rejected
+
+- Wikipedia conflict chronologies: useful for discovery but superseded by UN, PA-X, official and NGO records.
+- Macrotrends and Helgi as final SIPRI authorities: they reproduce SIPRI data but are not the underlying database.
+- Rwanda’s later UNSC statements: useful contrary advocacy but outside the target year and not independent evidence of 2022 events.
+- 2024–2026 reporting on later Wazalendo structures: potentially retrospective, but too remote to establish Tshisekedi’s 2022 knowledge or orders.
+- Government white-paper allegations not independently verified were not used as proof of individual events.
+
+### Access-blocked or technically incomplete
+
+- Local D13/D14 underlying files: the workspace supplied only the earlier summary, and no shell/file-reading interface was available in this research session.
+- UN S/2022/967 PDF: search extraction exposed key text, but the direct UN PDF open returned an internal error.
+- African Union communiqué URL: direct open was rejected by the retrieval service’s URL-safety layer.
+- UN Secretary-General 25 November statement: direct open returned a cache miss.
+- Leganet constitution page and SIPRI 2022 fact-sheet landing page: direct retrieval failed or timed out; search extraction and independent official/academic records were used cautiously.
+
+### Counts
+
+Counting unique underlying publications rather than duplicate URLs:
+
+- Sources/leads discovered: **38**
+- Successfully opened or substantively extracted: **21**
+- Accepted as evidence or independent corroboration: **17**
+- Supplied sources reused after opening: **9 provisional IDs**, representing **7 unique publications**
+- Rejected as final evidence: **7**
+- Access-blocked or technically incomplete: **5**
+- Uninspected promising leads retained: **6**
+
+## Remaining research value
+
+Further searching is most likely to add material information on:
+
+1. Who authorized FARDC–FDLR cooperation and when the presidency learned of it.
+2. Rules of engagement and civilian-harm reviews for Operation Shujaa and FARDC artillery.
+3. Defence procurement, payroll diversion and patronage.
+4. Implementation of prisoner-release, humanitarian and DDR commitments.
+5. Ruler-level acceptance or avoidance of accountability.
+
+The factual landscape for the conflict baseline, RDF/M23 intervention, peace-process commitments, state-of-siege abuses and year-end deterioration is comparatively saturated. The military-patronage and ruler-direction questions are not.
+
+## Machine records
+
+SOURCE_CLAIM_JSON:{"title":"Constitution of the Democratic Republic of the Congo and Presidency Defence Council communiqué","publisher":"Leganet / Presidency of the Democratic Republic of the Congo","publication_date":"2006-02-18; 2022-10-29","url":"https://www.presidence.cd/actualite-detail/actualite/communique_officiel_du_conseil_superieur_de_la_defense_preside_ce_samedi_29_octobre_2022_par_le_chef_de_letat_felix_tshisekedi","claim":"Tshisekedi was supreme commander of the FARDC and police and chaired the Higher Defence Council, while formal war declaration required cabinet, Defence Council and parliamentary participation; he therefore held strong strategic and appointment authority but did not possess wholly unilateral lawful war powers.","locator":"Presidency communiqué, lines 68-84; Constitution articles 81-83 and 143 identified through official legal index","provisional_id":"WEB-2B-001","canonical_fact_key":"drc-2022-tshisekedi-security-command-authority","disposition":"fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["authority","attribution"],"source_type":"constitutional_and_official_record","source_confidence":"high","source_confidence_reason":"Official constitutional and presidential records establish formal authority; practical control over individual units remained limited.","final_evidence_use":"Establishes formal authority, shared institutional constraints and direct responsibility for high-level emergency, diplomatic and force-policy choices.","period_fit":"target-period with standing constitutional baseline","ruler_attribution":"direct and authority-based","contrary_evidence":"Parliament approved repeated emergency extensions; fragmented command and foreign forces constrained practical control.","lenses":["2B.1","2B.2","2B.4","2B.5","2B.7","2B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Organized violence 1989–2022, and the return of conflict between states","publisher":"Journal of Peace Research / Uppsala Conflict Data Program","publication_date":"2023","url":"https://journals.sagepub.com/doi/10.1177/00223433231185169","claim":"UCDP registered at least 3,200 civilian fatalities from one-sided violence in DRC during 2022 and classified Rwandan support to M23 against the DRC government as one of five cases of state support to rebels fighting another government.","locator":"Lines 171-180 and footnote 13, lines 239; methodology lines 222-225","provisional_id":"E005","canonical_fact_key":"ucdp-drc-2022-one-sided-violence-rwanda-m23","disposition":"reused_evidence_fully_extracted","chapter_ids":["2B","2B.10"],"methodology_ids":["D13","conflict_exposure","outcomes"],"source_type":"peer_reviewed_conflict_dataset_analysis","source_confidence":"high","source_confidence_reason":"UCDP is a structured, transparent conflict dataset; documented-event figures are conservative and exclude crossfire and indiscriminate attacks.","final_evidence_use":"Establishes extreme conflict burden, renewed proxy internationalization and adverse end-state conditions without assigning ruler responsibility.","period_fit":"target-period","ruler_attribution":"institutional exposure only","contrary_evidence":"Most one-sided killings were by non-state actors; UCDP figures do not attribute the national total to Tshisekedi.","lenses":["2B.2","2B.3","2B.4","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Letter dated 16 December 2022 from the Group of Experts on the Democratic Republic of the Congo","publisher":"United Nations Security Council","publication_date":"2022-12-16","url":"https://digitallibrary.un.org/record/3998599?v=pdf","claim":"The UN Group of Experts found substantial evidence of direct RDF intervention in DRC, weapons and other support to M23, while also documenting FARDC cooperation with FDLR and other Congolese armed groups.","locator":"S/2022/967, findings and annexes concerning RDF/M23 and FARDC/FDLR; UN Digital Library record 3998599","provisional_id":"WEB-2B-003","canonical_fact_key":"un-goe-2022-rdf-m23-and-fardc-fdlr-findings","disposition":"fully_extracted_via_un_index_and_opened_corroboration","chapter_ids":["2B"],"methodology_ids":["conflict_exposure","initiation","proxy_control","public_claims"],"source_type":"un_expert_investigation","source_confidence":"high","source_confidence_reason":"Mandated expert investigation drawing on fieldwork, imagery, documents and interviews; direct PDF extraction was technically incomplete but findings were independently opened through EU, HRW and CRG sources.","final_evidence_use":"Corroborates the genuine external threat while establishing serious adverse evidence about DRC proxy cooperation.","period_fit":"target-period","ruler_attribution":"institutional; ruler direction unknown","contrary_evidence":"Rwanda denied M23 support and cited FDLR and cross-border shelling; individual FARDC cooperation does not itself prove a presidential order.","lenses":["2B.2","2B.3","2B.5","2B.6","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Mini Summit on Peace and Security in the Eastern Region of the Democratic Republic of Congo – Final Communiqué","publisher":"PA-X Peace Agreements Database / University of Edinburgh","publication_date":"2022-11-23","url":"https://www.peaceagreements.org/agreements/2466/","claim":"Tshisekedi signed a regional framework providing for a 25 November cessation of hostilities, M23 withdrawal and cantonment, verified EACRF/MONUSCO deployment, cessation of support to all armed groups, displaced-person return and later bilateral normalization with Rwanda.","locator":"Agreement metadata and signatures, lines 23-79; ceasefire and withdrawal provisions, lines 399-408; DDR and support provisions, lines 419-442; bilateral dialogue, lines 189-193","provisional_id":"E054","canonical_fact_key":"luanda-2022-ceasefire-withdrawal-monitoring-framework","disposition":"reused_evidence_fully_extracted","chapter_ids":["2B"],"methodology_ids":["peace_process","direct_ruler_decision"],"source_type":"peace_agreement","source_confidence":"high","source_confidence_reason":"Primary signed agreement reproduced and coded by PA-X.","final_evidence_use":"Direct evidence of Tshisekedi choosing a ceasefire, monitored withdrawal, DDR and diplomatic normalization, while retaining conditional coercive enforcement.","period_fit":"target-period","ruler_attribution":"direct","contrary_evidence":"The agreement permitted EACRF force against non-compliant M23 and was only partially implemented.","lenses":["2B.1","2B.2","2B.5","2B.7","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Communiqué – The Third Inter-Congolese Dialogue under the EAC-Led Nairobi Process","publisher":"PA-X Peace Agreements Database / University of Edinburgh","publication_date":"2022-12-06","url":"https://www.peaceagreements.org/agreements/2465/","claim":"The Nairobi dialogue recorded Tshisekedi’s acceptance of community consultations and P-DDRCS review and funding, alongside commitments to continued cessation of hostilities, release of child soldiers and humanitarian access.","locator":"Metadata, lines 23-44; community and conservation commitments, lines 335-371; cessation, humanitarian and DDR provisions, lines 384-410","provisional_id":"E055","canonical_fact_key":"nairobi-2022-dialogue-humanitarian-ddr-commitments","disposition":"reused_evidence_fully_extracted","chapter_ids":["2B"],"methodology_ids":["peace_process","reconciliation","humanitarian_measures"],"source_type":"peace_agreement","source_confidence":"high","source_confidence_reason":"Contemporaneous multiparty communiqué preserved and coded by PA-X.","final_evidence_use":"Shows use of political dialogue, local consultation, DDR and humanitarian mechanisms rather than exclusive reliance on military defeat.","period_fit":"target-period","ruler_attribution":"direct and authority-based","contrary_evidence":"M23 was not integrated into this dialogue on equivalent terms, and implementation evidence is sparse.","lenses":["2B.1","2B.5","2B.7","2B.9","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"M23 to Withdraw from Rumangabo and Kishishe","publisher":"Ministry of Defence, Kenya / East African Community Regional Force","publication_date":"2023-01-02","url":"https://www.mod.go.ke/news/m23-to-withdraw-from-rumagambo-and-kishishe/","claim":"EACRF and regional verification bodies confirmed M23’s withdrawal from Kibumba as a partial Luanda milestone but reported ongoing hostilities against civilians and absence of a complete ceasefire.","locator":"Lines 136-145","provisional_id":"E056","canonical_fact_key":"luanda-implementation-partial-withdrawal-continuing-hostilities","disposition":"reused_opened_corroboration","chapter_ids":["2B"],"methodology_ids":["implementation","later_retrospective"],"source_type":"regional_force_official_report","source_confidence":"medium_high","source_confidence_reason":"Official participant report gives direct implementation observations but has institutional interests and was published immediately after the target year.","final_evidence_use":"Separates signed commitments and partial compliance from actual peace outcomes.","period_fit":"later-retrospective on late-2022 implementation","ruler_attribution":"institutional and limited","contrary_evidence":"Partial withdrawal demonstrates some process effect; continuing hostilities show it was not a durable settlement.","lenses":["2B.1","2B.7","2B.9","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Democratic Republic of the Congo: Statement on the recent UN Group of Experts report","publisher":"Council of the European Union","publication_date":"2022-12-31","url":"https://www.consilium.europa.eu/en/press/press-releases/2022/12/31/democratic-republic-of-the-congo-declaration-by-the-high-representative-on-behalf-of-the-eu-on-the-publication-of-the-recent-un-group-of-experts-report/","claim":"After reviewing the UN experts’ report, the EU urged Rwanda to end M23 support and separately called on DRC to stop and prevent FARDC cooperation with armed groups, especially FDLR, protect civilians and pursue DDR consultations.","locator":"Lines 124-136","provisional_id":"WEB-2B-007","canonical_fact_key":"eu-2022-response-rwanda-m23-fardc-fdlr","disposition":"fully_extracted_corroboration","chapter_ids":["2B"],"methodology_ids":["proxy_control","contrary_evidence","civilian_protection"],"source_type":"intergovernmental_diplomatic_assessment","source_confidence":"high","source_confidence_reason":"Official multistate response expressly grounded in the UN expert investigation; corroborative rather than independent field evidence.","final_evidence_use":"Balances corroboration of Rwandan aggression with authoritative criticism of DRC’s own proxy cooperation.","period_fit":"target-period","ruler_attribution":"institutional; direct ruler order unknown","contrary_evidence":"The DRC signed a same-year commitment to terminate all armed-group support, but compliance was incomplete.","lenses":["2B.2","2B.3","2B.5","2B.6","2B.9","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Report of the Secretary-General on the United Nations Organization Stabilization Mission in the Democratic Republic of the Congo","publisher":"United Nations Security Council","publication_date":"2022-06-22","url":"https://documents.un.org/doc/undoc/gen/n22/376/90/pdf/n2237690.pdf","claim":"MONUSCO documented FARDC violations of human rights and humanitarian law, including 58 alleged extrajudicial killings in North Kivu and Ituri during March-April, while armed groups caused most recorded abuses; 25 FARDC soldiers and other state and armed-group personnel were convicted during the reporting period.","locator":"S/2022/503, paragraphs 25-29, extracted lines 238-278","provisional_id":"WEB-2B-008","canonical_fact_key":"monusco-2022-fardc-violations-and-convictions","disposition":"fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["civilian_conduct","accountability"],"source_type":"un_monitoring_report","source_confidence":"high","source_confidence_reason":"Contemporaneous UN monitoring with actor-disaggregated allegations and accountability data; inaccessible areas and allegation status limit completeness.","final_evidence_use":"Documents significant state-force civilian harm while preserving the fact that armed groups caused most violations and some prosecutions occurred.","period_fit":"target-period","ruler_attribution":"institutional and command-policy; individual acts not directly attributed","contrary_evidence":"Armed groups caused 57 percent of documented violations and were responsible for many of the deadliest attacks; some state agents were convicted.","lenses":["2B.4","2B.5","2B.9","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"2022 Country Report on Human Rights Practices: Democratic Republic of the Congo","publisher":"United States Department of State, mirrored by ecoi.net","publication_date":"2023-03-20","url":"https://www.ecoi.net/en/document/2089109.html","claim":"UNJHRO data summarized in the report attributed 18 percent of 239 documented first-half conflict-related sexual-violence cases to state agents and 54 survivors specifically to FARDC soldiers; the report also records action plans, UNJHRO meetings and training, but persistent higher-level impunity.","locator":"Executive summary, lines 40-47; conflict abuses, lines 138-158; prevention measures, lines 162-164","provisional_id":"E057","canonical_fact_key":"drc-2022-state-force-sexual-violence-prevention-impunity","disposition":"reused_evidence_fully_extracted","chapter_ids":["2B"],"methodology_ids":["civilian_conduct","accountability","shared_source_dependency"],"source_type":"government_human_rights_report","source_confidence":"medium_high","source_confidence_reason":"Detailed and actor-disaggregated, but substantially dependent on UNJHRO, UN experts and NGO reporting rather than independent U.S. observation.","final_evidence_use":"Adds sexual-violence and remedial-action evidence while documenting persistent impunity.","period_fit":"target-period retrospective report","ruler_attribution":"institutional and limited","contrary_evidence":"The government adopted action plans, cooperated in training and prosecuted some perpetrators; no evidence ties these particular crimes to presidential orders.","lenses":["2B.4","2B.5","2B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"DRC: One year on, ‘State of Siege’ used as a tool to crush dissent","publisher":"Amnesty International","publication_date":"2022-05-10","url":"https://www.amnesty.org/en/latest/news/2022/05/drc-one-year-on-state-of-siege/","claim":"After 22 extensions of Tshisekedi’s state of siege, UN figures cited by Amnesty showed conflict-related civilian deaths in North Kivu and Ituri rising from 559 in June 2020–March 2021 to at least 1,261 in June 2021–March 2022, while military authorities arbitrarily detained critics, killed protesters and tried civilians in military courts.","locator":"Lines 56-108; based on 44 Amnesty interviews and official and UN documents","provisional_id":"E006","canonical_fact_key":"state-of-siege-extensions-abuses-and-protection-failure","disposition":"reused_evidence_fully_extracted","chapter_ids":["2B"],"methodology_ids":["command_policy","civilian_protection","accountability"],"source_type":"ngo_investigation","source_confidence":"high","source_confidence_reason":"Detailed methodology, named policy authority and UN casualty comparison; before/after totals do not by themselves prove the policy caused the increase.","final_evidence_use":"Shows a directly attributable presidential security policy failed its protection rationale and created serious rights abuses.","period_fit":"target-period with inherited policy beginning in 2021","ruler_attribution":"direct for decree and continuation; institutional for individual abuses","contrary_evidence":"Armed groups, not the state, caused most conflict deaths; the government and parliament described emergency rule as necessary against genuine threats.","lenses":["2B.1","2B.3","2B.4","2B.6","2B.9","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"DR Congo: Resurgent M23 Rebels Target Civilians","publisher":"Human Rights Watch","publication_date":"2022-07-25","url":"https://www.hrw.org/news/2022/07/25/dr-congo-resurgent-m23-rebels-target-civilians","claim":"HRW documented at least 29 summary killings by M23 and reviewed evidence of RDF personnel in M23 camps; it also reported indiscriminate explosive-weapon risks, while noting M23 and Rwanda denied responsibility or support.","locator":"Lines 584-624 and 628-674; methodology at lines 604-615","provisional_id":"E045","canonical_fact_key":"hrw-2022-m23-civilian-killings-rdf-evidence","disposition":"reused_evidence_fully_extracted","chapter_ids":["2B"],"methodology_ids":["threat_validation","civilian_conduct","contrary_claims"],"source_type":"ngo_field_investigation","source_confidence":"high","source_confidence_reason":"Forty-nine interviews and examination of UN and verification evidence; access restrictions made totals minimum estimates.","final_evidence_use":"Corroborates that Tshisekedi faced a real externalized threat and that M23 itself committed serious violations.","period_fit":"target-period","ruler_attribution":"contextual, not adverse attribution to Tshisekedi","contrary_evidence":"M23 denied the killings and blamed FDLR/Nyatura; Rwanda denied support, and some shell origins remained undetermined.","lenses":["2B.2","2B.3","2B.4","2B.6","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Official communiqué of the Higher Defence Council chaired by Félix Tshisekedi","publisher":"Presidency of the Democratic Republic of the Congo","publication_date":"2022-10-29","url":"https://www.presidence.cd/actualite-detail/actualite/communique_officiel_du_conseil_superieur_de_la_defense_preside_ce_samedi_29_octobre_2022_par_le_chef_de_letat_felix_tshisekedi","claim":"Tshisekedi’s Defence Council ordered Rwanda’s ambassador expelled, further access restrictions and increased FARDC strike capacity, while reaffirming commitment to the Nairobi and Luanda processes, dispatching humanitarian aid and instructing authorities to prevent violence or stigmatization against Rwandophone communities.","locator":"Lines 71-89","provisional_id":"WEB-2B-011","canonical_fact_key":"tshisekedi-october-2022-coercion-diplomacy-anti-stigmatization","disposition":"fully_extracted_evidence","chapter_ids":["2B"],"methodology_ids":["direct_ruler_decision","public_claims","de_escalation"],"source_type":"official_presidential_statement","source_confidence":"high_for_decisions_medium_for_battlefield_claims","source_confidence_reason":"Primary evidence of policy and rhetoric; assertions about battlefield events require independent corroboration, which UN findings substantially provide.","final_evidence_use":"Captures the simultaneous use of defensive mobilization, diplomatic pressure, continued mediation and anti-ethnic-incitement restraint.","period_fit":"target-period","ruler_attribution":"direct","contrary_evidence":"Expulsion and force expansion escalated bilateral coercion; FARDC–FDLR cooperation was omitted from the official explanation.","lenses":["2B.1","2B.2","2B.3","2B.6","2B.7","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Military Expenditure Database: Democratic Republic of the Congo, 2022","publisher":"Stockholm International Peace Research Institute","publication_date":"2023-04","url":"https://www.sipri.org/databases/milex","claim":"SIPRI-derived series place DRC military expenditure at approximately US$371.08 million in 2022, around 21.2 percent higher than in 2021.","locator":"SIPRI Military Expenditure Database, DRC 2021-2022 series; corroborated by SIPRI-derived World Bank and historical-series displays","provisional_id":"WEB-2B-012","canonical_fact_key":"sipri-drc-2022-military-expenditure","disposition":"accepted_structured_fact","chapter_ids":["2B"],"methodology_ids":["D14","military_expenditure"],"source_type":"structured_military_expenditure_database","source_confidence":"medium_high","source_confidence_reason":"SIPRI is the standard source, but the country row could not be directly rendered in the retrieval tool and the value was cross-checked through reproductions of SIPRI data.","final_evidence_use":"Establishes increased mobilization during a severe security year; does not establish corruption, patronage or personal benefit.","period_fit":"target-period","ruler_attribution":"institutional budget authority","contrary_evidence":"The increase coincided with genuine M23/RDF, ADF and CODECO threats; no opened evidence traces the increase to ruler enrichment.","lenses":["2B.8","2B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Year-end synthesis of Luanda implementation and eastern DRC security","publisher":"PA-X; Kenya Ministry of Defence/EACRF; Council of the European Union","publication_date":"2022-11-23 to 2023-01-02","url":"https://www.mod.go.ke/news/m23-to-withdraw-from-rumagambo-and-kishishe/","claim":"By the end of 2022 the Luanda and Nairobi processes had produced a monitored framework and one partial M23 withdrawal, but not a general ceasefire: M23 retained territory, RDF involvement and FARDC proxy cooperation remained documented, relations with Rwanda had deteriorated and hostilities against civilians continued.","locator":"EACRF lines 136-145; PA-X agreement 2466 lines 399-442; EU statement lines 124-136","provisional_id":"WEB-2B-013","canonical_fact_key":"drc-2022-year-end-security-and-diplomatic-end-state","disposition":"fully_developed_synthesis_record","chapter_ids":["2B"],"methodology_ids":["end_state","implementation","inherited_baseline"],"source_type":"triangulated_institutional_synthesis","source_confidence":"high","source_confidence_reason":"The record triangulates a signed agreement, an implementing regional force report and an EU response to UN expert findings; causal allocation remains contested.","final_evidence_use":"Supports the conclusion that lawful diplomatic architecture improved but actual peace, stability and bilateral relations deteriorated during 2022.","period_fit":"target-period with immediate later implementation report","ruler_attribution":"mixed: direct for diplomatic and coercive choices, limited for battlefield outcome","contrary_evidence":"External RDF/M23 action and inherited armed groups caused much of the deterioration; partial withdrawal and continuing talks were genuine favorable changes.","lenses":["2B.1","2B.2","2B.7","2B.9","2B.10"]}
+
+--- LOCAL-DATA AUDIT: PARENT DISPOSITION SUMMARY ---
+
+{
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "mapping_notes": [
+        "Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.",
+        "The full arsenal series supports inherited-versus-left posture context; safer or more dangerous conduct still requires ruler attribution.",
+        "Operational/deployed capability provides command-and-crisis exposure; it does not establish safeguards, expertise, discipline, or de-escalation.",
+        "Nuclear inventory facts do not answer cyber, biological, AI, or other non-nuclear catastrophic-risk governance."
+      ],
+      "methodology_ids": [
+        "1B.1",
+        "1B.10",
+        "1B.2",
+        "1B.3",
+        "1B.4",
+        "1B.5",
+        "1B.6",
+        "1B.7",
+        "1B.8",
+        "1B.9"
+      ],
+      "status_counts": {
+        "no_evidence_found": 10
+      },
+      "unique_fact_count": 0
+    },
+    {
+      "chapter_id": "2B",
+      "mapping_notes": [
+        "Conflict events and fatalities establish country exposure/location, not initiation, perpetration, proxy support, truthfulness, or peace effort.",
+        "Full conflict and military-burden series supports inherited-versus-left trajectory context without assigning ruler responsibility.",
+        "Conflict exposure and military burden contextualize claimed security needs; they cannot distinguish defense from prestige or manufactured threats.",
+        "Fatalities establish harm/exposure only; civilian protection, legality, proportionality, responsibility, and accountability require actor evidence.",
+        "Military expenditure establishes level and burden, not aggression, defensive necessity, enrichment, intimidation, or ruler motive."
+      ],
+      "methodology_ids": [
+        "2B.1",
+        "2B.10",
+        "2B.2",
+        "2B.3",
+        "2B.4",
+        "2B.5",
+        "2B.6",
+        "2B.7",
+        "2B.8",
+        "2B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 10
+      },
+      "unique_fact_count": 112
+    },
+    {
+      "chapter_id": "3B",
+      "mapping_notes": [
+        "Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.",
+        "Full domestic-safety series supports inherited-versus-left trajectory context; attribution and non-state/public-safety gaps remain explicit.",
+        "National repression aggregates cannot establish ruler incitement or violence against a specific vulnerable group.",
+        "Rights and civil-society measures contextualize oversight/protest conditions; specific complaint, investigation, surveillance, or retaliation needs evidence.",
+        "Terror, one-sided violence, liberty, and repression trends contextualize fear or crises without proving ruler protection, restraint, or incitement."
+      ],
+      "methodology_ids": [
+        "3B.1",
+        "3B.10",
+        "3B.2",
+        "3B.3",
+        "3B.4",
+        "3B.5",
+        "3B.6",
+        "3B.7",
+        "3B.8",
+        "3B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 8,
+        "no_evidence_found": 2
+      },
+      "unique_fact_count": 221
+    },
+    {
+      "chapter_id": "4B",
+      "mapping_notes": [
+        "Election and regime measures contextualize contestability; they do not establish ruler intent or a specific manipulation.",
+        "The full longitudinal political-freedom bundle supports inherited-versus-left trajectory analysis without automatic ruler attribution.",
+        "D11 civil-liberties, expression, association, press/media, voice, accountability, and rule-of-law facts usable as structured priors for opposition/media/protest/civil-society tolerance.",
+        "Constraint and rule-of-law measures contextualize institutional independence; ruler-specific strengthening or interference still needs narrative evidence.",
+        "Regime and party-system measures are context, not direct proof of personality cult, loyalty tests, intimidation, or state politicization.",
+        "Media, expression, and voice measures contextualize information controls; specific censorship, propaganda, surveillance, or harassment needs evidence.",
+        "National participation and liberty averages require group-specific evidence before supporting political-equality claims.",
+        "Regime trajectory contextualizes succession but cannot establish compliance with term limits, coalition promises, or constitutional transfer."
+      ],
+      "methodology_ids": [
+        "4B.1",
+        "4B.10",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 10
+      },
+      "unique_fact_count": 307
+    },
+    {
+      "chapter_id": "5B",
+      "mapping_notes": [
+        "Broad prosperity outcomes are context; intent and ruler action need narrative evidence.",
+        "Full longitudinal context supports inherited-versus-left trajectory analysis without automatic ruler credit.",
+        "No structured country outcome establishes the competence or independence of appointees.",
+        "Real-output and productivity trajectories contextualize stability or shocks but do not prove policy competence.",
+        "Employment count and absorption are outcome context, not direct evidence of fair market rules.",
+        "National inequality is context only and cannot establish corruption, capture, or personal nexus.",
+        "Human-capital, capital-stock, hours, and TFP trends contextualize productivity foundations.",
+        "Country outcomes cannot establish evidence-based decision-making or correction of mistakes.",
+        "Average income and Gini provide distribution context but do not identify favored groups or ruler intent."
+      ],
+      "methodology_ids": [
+        "5B.1",
+        "5B.10",
+        "5B.2",
+        "5B.3",
+        "5B.4",
+        "5B.5",
+        "5B.6",
+        "5B.7",
+        "5B.8",
+        "5B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 7,
+        "no_evidence_found": 3
+      },
+      "unique_fact_count": 144
+    },
+    {
+      "chapter_id": "6B",
+      "mapping_notes": [
+        "Aggregate welfare outcomes contextualize priority but cannot establish purpose or propaganda intent.",
+        "Full longitudinal welfare context supports inherited-versus-left life-chance analysis without automatic attribution.",
+        "Health and education coverage/outcomes inform access; they do not alone establish affordability or quality.",
+        "National distribution and participation measures require group and regional evidence for equity claims.",
+        "Service outcomes are implementation context; professional management and correction require narrative evidence.",
+        "Outcome changes contextualize crises but require shock-specific timing and ruler-attributed response evidence.",
+        "Aggregate service data cannot establish political conditionality, loyalty rewards, or punishment.",
+        "Sustained service series contextualize durability but do not establish institutional survival beyond the ruler."
+      ],
+      "methodology_ids": [
+        "6B.1",
+        "6B.10",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.6",
+        "6B.7",
+        "6B.8",
+        "6B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 9,
+        "no_evidence_found": 1
+      },
+      "unique_fact_count": 74
+    },
+    {
+      "chapter_id": "7B",
+      "mapping_notes": [
+        "National corruption or governance indicators cannot establish ruler-specific truthfulness, interests, benefit, appointments, promises, or favoritism.",
+        "Institutional corruption, accountability, and rule-of-law facts are context for scrutiny or concealment only; scoring requires a direct personal nexus."
+      ],
+      "methodology_ids": [
+        "7B.1",
+        "7B.10",
+        "7B.2",
+        "7B.3",
+        "7B.4",
+        "7B.5",
+        "7B.6",
+        "7B.7",
+        "7B.8",
+        "7B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 3,
+        "no_evidence_found": 7
+      },
+      "unique_fact_count": 98
+    },
+    {
+      "chapter_id": "8B",
+      "mapping_notes": [
+        "Generic capacity indicators cannot identify the ruler's program or establish adaptation and correction.",
+        "Governance-capacity facts provide inherited implementation context only; program ownership, action, goal fit, and ruler attribution remain required."
+      ],
+      "methodology_ids": [
+        "8B.1",
+        "8B.10",
+        "8B.2",
+        "8B.3",
+        "8B.4",
+        "8B.5",
+        "8B.6",
+        "8B.7",
+        "8B.8",
+        "8B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 8,
+        "no_evidence_found": 2
+      },
+      "unique_fact_count": 77
+    }
+  ],
+  "disposition_instruction_sets": {
+    "I001": [
+      "Use this local structured prior before starting internet/manual research.",
+      "Do not re-fetch local structured datasets (including Freedom House, V-Dem, WGI, BTI, RSF, or Polity) when this artifact contains relevant non-contradictory facts.",
+      "Fetch web/narrative sources only when the local prior is absent, contradictory, needs ruler-specific attribution, or needs narrative detail beyond structured country-year facts.",
+      "Never use the client matrix as evidence; it is excluded from this artifact and from research citations.",
+      "The empty state is explicit; if narrative research proceeds, explain that no local structured prior was available for this scope."
+    ],
+    "I002": [
+      "Use this local structured prior before starting internet/manual research.",
+      "Do not re-fetch local structured datasets (including Freedom House, V-Dem, WGI, BTI, RSF, or Polity) when this artifact contains relevant non-contradictory facts.",
+      "Fetch web/narrative sources only when the local prior is absent, contradictory, needs ruler-specific attribution, or needs narrative detail beyond structured country-year facts.",
+      "Never use the client matrix as evidence; it is excluded from this artifact and from research citations."
+    ]
+  },
+  "disposition_reasons": {
+    "R001": "No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period.",
+    "R002": "No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+  },
+  "error_methodology_ids": [],
+  "fact_payload": "omitted_after_research_use_parent_restores_hashed_provenance",
+  "methodology_dispositions": {
+    "1B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.10": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.6": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.9": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "2B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "3B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "3B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "5B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "5B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "5B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "6B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.9": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "8B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "8B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "8B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    }
+  },
+  "methodology_statuses": {
+    "1B.1": "no_evidence_found",
+    "1B.10": "no_evidence_found",
+    "1B.2": "no_evidence_found",
+    "1B.3": "no_evidence_found",
+    "1B.4": "no_evidence_found",
+    "1B.5": "no_evidence_found",
+    "1B.6": "no_evidence_found",
+    "1B.7": "no_evidence_found",
+    "1B.8": "no_evidence_found",
+    "1B.9": "no_evidence_found",
+    "2B.1": "evidence_found",
+    "2B.10": "evidence_found",
+    "2B.2": "evidence_found",
+    "2B.3": "evidence_found",
+    "2B.4": "evidence_found",
+    "2B.5": "evidence_found",
+    "2B.6": "evidence_found",
+    "2B.7": "evidence_found",
+    "2B.8": "evidence_found",
+    "2B.9": "evidence_found",
+    "3B.1": "evidence_found",
+    "3B.10": "evidence_found",
+    "3B.2": "evidence_found",
+    "3B.3": "no_evidence_found",
+    "3B.4": "evidence_found",
+    "3B.5": "evidence_found",
+    "3B.6": "evidence_found",
+    "3B.7": "no_evidence_found",
+    "3B.8": "evidence_found",
+    "3B.9": "evidence_found",
+    "4B.1": "evidence_found",
+    "4B.10": "evidence_found",
+    "4B.2": "evidence_found",
+    "4B.3": "evidence_found",
+    "4B.4": "evidence_found",
+    "4B.5": "evidence_found",
+    "4B.6": "evidence_found",
+    "4B.7": "evidence_found",
+    "4B.8": "evidence_found",
+    "4B.9": "evidence_found",
+    "5B.1": "evidence_found",
+    "5B.10": "evidence_found",
+    "5B.2": "no_evidence_found",
+    "5B.3": "evidence_found",
+    "5B.4": "evidence_found",
+    "5B.5": "no_evidence_found",
+    "5B.6": "evidence_found",
+    "5B.7": "no_evidence_found",
+    "5B.8": "evidence_found",
+    "5B.9": "evidence_found",
+    "6B.1": "evidence_found",
+    "6B.10": "evidence_found",
+    "6B.2": "evidence_found",
+    "6B.3": "evidence_found",
+    "6B.4": "evidence_found",
+    "6B.5": "evidence_found",
+    "6B.6": "evidence_found",
+    "6B.7": "no_evidence_found",
+    "6B.8": "evidence_found",
+    "6B.9": "evidence_found",
+    "7B.1": "no_evidence_found",
+    "7B.10": "evidence_found",
+    "7B.2": "no_evidence_found",
+    "7B.3": "no_evidence_found",
+    "7B.4": "no_evidence_found",
+    "7B.5": "no_evidence_found",
+    "7B.6": "evidence_found",
+    "7B.7": "evidence_found",
+    "7B.8": "no_evidence_found",
+    "7B.9": "no_evidence_found",
+    "8B.1": "no_evidence_found",
+    "8B.10": "evidence_found",
+    "8B.2": "evidence_found",
+    "8B.3": "evidence_found",
+    "8B.4": "evidence_found",
+    "8B.5": "evidence_found",
+    "8B.6": "evidence_found",
+    "8B.7": "evidence_found",
+    "8B.8": "no_evidence_found",
+    "8B.9": "evidence_found"
+  },
+  "no_evidence_methodology_ids": [
+    "1B.1",
+    "1B.10",
+    "1B.2",
+    "1B.3",
+    "1B.4",
+    "1B.5",
+    "1B.6",
+    "1B.7",
+    "1B.8",
+    "1B.9",
+    "3B.3",
+    "3B.7",
+    "5B.2",
+    "5B.5",
+    "5B.7",
+    "6B.7",
+    "7B.1",
+    "7B.2",
+    "7B.3",
+    "7B.4",
+    "7B.5",
+    "7B.8",
+    "7B.9",
+    "8B.1",
+    "8B.8"
+  ],
+  "not_applicable_methodology_ids": [],
+  "schema_version": "ruler_local_evidence_package_v3",
+  "source_prior_count": 80,
+  "status_counts": {
+    "evidence_found": 55,
+    "no_evidence_found": 25
+  },
+  "unique_fact_count": 921
+}
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "drc-2022-tshisekedi-security-command-authority",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Tshisekedi was supreme commander of the FARDC and police and chaired the Higher Defence Council, while formal war declaration required cabinet, Defence Council and parliamentary participation; he therefore held strong strategic and appointment authority but did not possess wholly unilateral lawful war powers.",
+      "contrary_evidence": "Parliament approved repeated emergency extensions; fragmented command and foreign forces constrained practical control.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.2",
+        "2B.4",
+        "2B.5",
+        "2B.7",
+        "2B.9"
+      ],
+      "locator": "Presidency communiqu\u00e9, lines 68-84; Constitution articles 81-83 and 143 identified through official legal index",
+      "methodology_ids": [
+        "2B.1",
+        "2B.2",
+        "2B.4",
+        "2B.5",
+        "2B.7",
+        "2B.9"
+      ],
+      "period_fit": "target-period with standing constitutional baseline",
+      "provisional_id": "WD001",
+      "publication_date": "2006-02-18; 2022-10-29",
+      "publisher": "Leganet / Presidency of the Democratic Republic of the Congo",
+      "ruler_attribution": "direct and authority-based",
+      "source_confidence": "high",
+      "source_confidence_reason": "Official constitutional and presidential records establish formal authority; practical control over individual units remained limited.",
+      "source_type": "constitutional_and_official_record",
+      "title": "Constitution of the Democratic Republic of the Congo and Presidency Defence Council communiqu\u00e9",
+      "underlying_fact_key": "drc-2022-tshisekedi-security-command-authority",
+      "url": "https://www.presidence.cd/actualite-detail/actualite/communique_officiel_du_conseil_superieur_de_la_defense_preside_ce_samedi_29_octobre_2022_par_le_chef_de_letat_felix_tshisekedi"
+    },
+    {
+      "canonical_fact_key": "ucdp-drc-2022-one-sided-violence-rwanda-m23",
+      "chapter_ids": [
+        "2B",
+        "2B.10"
+      ],
+      "claim": "UCDP registered at least 3,200 civilian fatalities from one-sided violence in DRC during 2022 and classified Rwandan support to M23 against the DRC government as one of five cases of state support to rebels fighting another government.",
+      "contrary_evidence": "Most one-sided killings were by non-state actors; UCDP figures do not attribute the national total to Tshisekedi.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.2",
+        "2B.3",
+        "2B.4",
+        "2B.10"
+      ],
+      "locator": "Lines 171-180 and footnote 13, lines 239; methodology lines 222-225",
+      "methodology_ids": [
+        "2B.2",
+        "2B.3",
+        "2B.4",
+        "2B.10"
+      ],
+      "period_fit": "target-period",
+      "provisional_id": "WD002",
+      "publication_date": "2023",
+      "publisher": "Journal of Peace Research / Uppsala Conflict Data Program",
+      "ruler_attribution": "institutional exposure only",
+      "source_confidence": "high",
+      "source_confidence_reason": "UCDP is a structured, transparent conflict dataset; documented-event figures are conservative and exclude crossfire and indiscriminate attacks.",
+      "source_type": "peer_reviewed_conflict_dataset_analysis",
+      "title": "Organized violence 1989\u20132022, and the return of conflict between states",
+      "underlying_fact_key": "ucdp-drc-2022-one-sided-violence-rwanda-m23",
+      "url": "https://journals.sagepub.com/doi/10.1177/00223433231185169"
+    },
+    {
+      "canonical_fact_key": "un-goe-2022-rdf-m23-and-fardc-fdlr-findings",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "The UN Group of Experts found substantial evidence of direct RDF intervention in DRC, weapons and other support to M23, while also documenting FARDC cooperation with FDLR and other Congolese armed groups.",
+      "contrary_evidence": "Rwanda denied M23 support and cited FDLR and cross-border shelling; individual FARDC cooperation does not itself prove a presidential order.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.2",
+        "2B.3",
+        "2B.5",
+        "2B.6",
+        "2B.10"
+      ],
+      "locator": "S/2022/967, findings and annexes concerning RDF/M23 and FARDC/FDLR; UN Digital Library record 3998599",
+      "methodology_ids": [
+        "2B.2",
+        "2B.3",
+        "2B.5",
+        "2B.6",
+        "2B.10"
+      ],
+      "period_fit": "target-period",
+      "provisional_id": "WD003",
+      "publication_date": "2022-12-16",
+      "publisher": "United Nations Security Council",
+      "ruler_attribution": "institutional; ruler direction unknown",
+      "source_confidence": "high",
+      "source_confidence_reason": "Mandated expert investigation drawing on fieldwork, imagery, documents and interviews; direct PDF extraction was technically incomplete but findings were independently opened through EU, HRW and CRG sources.",
+      "source_type": "un_expert_investigation",
+      "title": "Letter dated 16 December 2022 from the Group of Experts on the Democratic Republic of the Congo",
+      "underlying_fact_key": "un-goe-2022-rdf-m23-and-fardc-fdlr-findings",
+      "url": "https://digitallibrary.un.org/record/3998599?v=pdf"
+    },
+    {
+      "canonical_fact_key": "luanda-2022-ceasefire-withdrawal-monitoring-framework",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Tshisekedi signed a regional framework providing for a 25 November cessation of hostilities, M23 withdrawal and cantonment, verified EACRF/MONUSCO deployment, cessation of support to all armed groups, displaced-person return and later bilateral normalization with Rwanda.",
+      "contrary_evidence": "The agreement permitted EACRF force against non-compliant M23 and was only partially implemented.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.2",
+        "2B.5",
+        "2B.7",
+        "2B.10"
+      ],
+      "locator": "Agreement metadata and signatures, lines 23-79; ceasefire and withdrawal provisions, lines 399-408; DDR and support provisions, lines 419-442; bilateral dialogue, lines 189-193",
+      "methodology_ids": [
+        "2B.1",
+        "2B.2",
+        "2B.5",
+        "2B.7",
+        "2B.10"
+      ],
+      "period_fit": "target-period",
+      "provisional_id": "WD004",
+      "publication_date": "2022-11-23",
+      "publisher": "PA-X Peace Agreements Database / University of Edinburgh",
+      "ruler_attribution": "direct",
+      "source_confidence": "high",
+      "source_confidence_reason": "Primary signed agreement reproduced and coded by PA-X.",
+      "source_type": "peace_agreement",
+      "title": "Mini Summit on Peace and Security in the Eastern Region of the Democratic Republic of Congo \u2013 Final Communiqu\u00e9",
+      "underlying_fact_key": "luanda-2022-ceasefire-withdrawal-monitoring-framework",
+      "url": "https://www.peaceagreements.org/agreements/2466/"
+    },
+    {
+      "canonical_fact_key": "nairobi-2022-dialogue-humanitarian-ddr-commitments",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "The Nairobi dialogue recorded Tshisekedi\u2019s acceptance of community consultations and P-DDRCS review and funding, alongside commitments to continued cessation of hostilities, release of child soldiers and humanitarian access.",
+      "contrary_evidence": "M23 was not integrated into this dialogue on equivalent terms, and implementation evidence is sparse.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.5",
+        "2B.7",
+        "2B.9",
+        "2B.10"
+      ],
+      "locator": "Metadata, lines 23-44; community and conservation commitments, lines 335-371; cessation, humanitarian and DDR provisions, lines 384-410",
+      "methodology_ids": [
+        "2B.1",
+        "2B.5",
+        "2B.7",
+        "2B.9",
+        "2B.10"
+      ],
+      "period_fit": "target-period",
+      "provisional_id": "WD005",
+      "publication_date": "2022-12-06",
+      "publisher": "PA-X Peace Agreements Database / University of Edinburgh",
+      "ruler_attribution": "direct and authority-based",
+      "source_confidence": "high",
+      "source_confidence_reason": "Contemporaneous multiparty communiqu\u00e9 preserved and coded by PA-X.",
+      "source_type": "peace_agreement",
+      "title": "Communiqu\u00e9 \u2013 The Third Inter-Congolese Dialogue under the EAC-Led Nairobi Process",
+      "underlying_fact_key": "nairobi-2022-dialogue-humanitarian-ddr-commitments",
+      "url": "https://www.peaceagreements.org/agreements/2465/"
+    },
+    {
+      "canonical_fact_key": "luanda-implementation-partial-withdrawal-continuing-hostilities",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "EACRF and regional verification bodies confirmed M23\u2019s withdrawal from Kibumba as a partial Luanda milestone but reported ongoing hostilities against civilians and absence of a complete ceasefire.",
+      "contrary_evidence": "Partial withdrawal demonstrates some process effect; continuing hostilities show it was not a durable settlement.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.7",
+        "2B.9",
+        "2B.10"
+      ],
+      "locator": "Lines 136-145",
+      "methodology_ids": [
+        "2B.1",
+        "2B.7",
+        "2B.9",
+        "2B.10"
+      ],
+      "period_fit": "later-retrospective on late-2022 implementation",
+      "provisional_id": "WD006",
+      "publication_date": "2023-01-02",
+      "publisher": "Ministry of Defence, Kenya / East African Community Regional Force",
+      "ruler_attribution": "institutional and limited",
+      "source_confidence": "medium_high",
+      "source_confidence_reason": "Official participant report gives direct implementation observations but has institutional interests and was published immediately after the target year.",
+      "source_type": "regional_force_official_report",
+      "title": "M23 to Withdraw from Rumangabo and Kishishe",
+      "underlying_fact_key": "luanda-implementation-partial-withdrawal-continuing-hostilities",
+      "url": "https://www.mod.go.ke/news/m23-to-withdraw-from-rumagambo-and-kishishe/"
+    },
+    {
+      "canonical_fact_key": "eu-2022-response-rwanda-m23-fardc-fdlr",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "After reviewing the UN experts\u2019 report, the EU urged Rwanda to end M23 support and separately called on DRC to stop and prevent FARDC cooperation with armed groups, especially FDLR, protect civilians and pursue DDR consultations.",
+      "contrary_evidence": "The DRC signed a same-year commitment to terminate all armed-group support, but compliance was incomplete.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.2",
+        "2B.3",
+        "2B.5",
+        "2B.6",
+        "2B.9",
+        "2B.10"
+      ],
+      "locator": "Lines 124-136",
+      "methodology_ids": [
+        "2B.2",
+        "2B.3",
+        "2B.5",
+        "2B.6",
+        "2B.9",
+        "2B.10"
+      ],
+      "period_fit": "target-period",
+      "provisional_id": "WD007",
+      "publication_date": "2022-12-31",
+      "publisher": "Council of the European Union",
+      "ruler_attribution": "institutional; direct ruler order unknown",
+      "source_confidence": "high",
+      "source_confidence_reason": "Official multistate response expressly grounded in the UN expert investigation; corroborative rather than independent field evidence.",
+      "source_type": "intergovernmental_diplomatic_assessment",
+      "title": "Democratic Republic of the Congo: Statement on the recent UN Group of Experts report",
+      "underlying_fact_key": "eu-2022-response-rwanda-m23-fardc-fdlr",
+      "url": "https://www.consilium.europa.eu/en/press/press-releases/2022/12/31/democratic-republic-of-the-congo-declaration-by-the-high-representative-on-behalf-of-the-eu-on-the-publication-of-the-recent-un-group-of-experts-report/"
+    },
+    {
+      "canonical_fact_key": "monusco-2022-fardc-violations-and-convictions",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "MONUSCO documented FARDC violations of human rights and humanitarian law, including 58 alleged extrajudicial killings in North Kivu and Ituri during March-April, while armed groups caused most recorded abuses; 25 FARDC soldiers and other state and armed-group personnel were convicted during the reporting period.",
+      "contrary_evidence": "Armed groups caused 57 percent of documented violations and were responsible for many of the deadliest attacks; some state agents were convicted.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.4",
+        "2B.5",
+        "2B.9",
+        "2B.10"
+      ],
+      "locator": "S/2022/503, paragraphs 25-29, extracted lines 238-278",
+      "methodology_ids": [
+        "2B.4",
+        "2B.5",
+        "2B.9",
+        "2B.10"
+      ],
+      "period_fit": "target-period",
+      "provisional_id": "WD008",
+      "publication_date": "2022-06-22",
+      "publisher": "United Nations Security Council",
+      "ruler_attribution": "institutional and command-policy; individual acts not directly attributed",
+      "source_confidence": "high",
+      "source_confidence_reason": "Contemporaneous UN monitoring with actor-disaggregated allegations and accountability data; inaccessible areas and allegation status limit completeness.",
+      "source_type": "un_monitoring_report",
+      "title": "Report of the Secretary-General on the United Nations Organization Stabilization Mission in the Democratic Republic of the Congo",
+      "underlying_fact_key": "monusco-2022-fardc-violations-and-convictions",
+      "url": "https://documents.un.org/doc/undoc/gen/n22/376/90/pdf/n2237690.pdf"
+    },
+    {
+      "canonical_fact_key": "drc-2022-state-force-sexual-violence-prevention-impunity",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "UNJHRO data summarized in the report attributed 18 percent of 239 documented first-half conflict-related sexual-violence cases to state agents and 54 survivors specifically to FARDC soldiers; the report also records action plans, UNJHRO meetings and training, but persistent higher-level impunity.",
+      "contrary_evidence": "The government adopted action plans, cooperated in training and prosecuted some perpetrators; no evidence ties these particular crimes to presidential orders.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.4",
+        "2B.5",
+        "2B.9"
+      ],
+      "locator": "Executive summary, lines 40-47; conflict abuses, lines 138-158; prevention measures, lines 162-164",
+      "methodology_ids": [
+        "2B.4",
+        "2B.5",
+        "2B.9"
+      ],
+      "period_fit": "target-period retrospective report",
+      "provisional_id": "WD009",
+      "publication_date": "2023-03-20",
+      "publisher": "United States Department of State, mirrored by ecoi.net",
+      "ruler_attribution": "institutional and limited",
+      "source_confidence": "medium_high",
+      "source_confidence_reason": "Detailed and actor-disaggregated, but substantially dependent on UNJHRO, UN experts and NGO reporting rather than independent U.S. observation.",
+      "source_type": "government_human_rights_report",
+      "title": "2022 Country Report on Human Rights Practices: Democratic Republic of the Congo",
+      "underlying_fact_key": "drc-2022-state-force-sexual-violence-prevention-impunity",
+      "url": "https://www.ecoi.net/en/document/2089109.html"
+    },
+    {
+      "canonical_fact_key": "state-of-siege-extensions-abuses-and-protection-failure",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "After 22 extensions of Tshisekedi\u2019s state of siege, UN figures cited by Amnesty showed conflict-related civilian deaths in North Kivu and Ituri rising from 559 in June 2020\u2013March 2021 to at least 1,261 in June 2021\u2013March 2022, while military authorities arbitrarily detained critics, killed protesters and tried civilians in military courts.",
+      "contrary_evidence": "Armed groups, not the state, caused most conflict deaths; the government and parliament described emergency rule as necessary against genuine threats.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.3",
+        "2B.4",
+        "2B.6",
+        "2B.9",
+        "2B.10"
+      ],
+      "locator": "Lines 56-108; based on 44 Amnesty interviews and official and UN documents",
+      "methodology_ids": [
+        "2B.1",
+        "2B.3",
+        "2B.4",
+        "2B.6",
+        "2B.9",
+        "2B.10"
+      ],
+      "period_fit": "target-period with inherited policy beginning in 2021",
+      "provisional_id": "WD010",
+      "publication_date": "2022-05-10",
+      "publisher": "Amnesty International",
+      "ruler_attribution": "direct for decree and continuation; institutional for individual abuses",
+      "source_confidence": "high",
+      "source_confidence_reason": "Detailed methodology, named policy authority and UN casualty comparison; before/after totals do not by themselves prove the policy caused the increase.",
+      "source_type": "ngo_investigation",
+      "title": "DRC: One year on, \u2018State of Siege\u2019 used as a tool to crush dissent",
+      "underlying_fact_key": "state-of-siege-extensions-abuses-and-protection-failure",
+      "url": "https://www.amnesty.org/en/latest/news/2022/05/drc-one-year-on-state-of-siege/"
+    },
+    {
+      "canonical_fact_key": "hrw-2022-m23-civilian-killings-rdf-evidence",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "HRW documented at least 29 summary killings by M23 and reviewed evidence of RDF personnel in M23 camps; it also reported indiscriminate explosive-weapon risks, while noting M23 and Rwanda denied responsibility or support.",
+      "contrary_evidence": "M23 denied the killings and blamed FDLR/Nyatura; Rwanda denied support, and some shell origins remained undetermined.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.2",
+        "2B.3",
+        "2B.4",
+        "2B.6",
+        "2B.10"
+      ],
+      "locator": "Lines 584-624 and 628-674; methodology at lines 604-615",
+      "methodology_ids": [
+        "2B.2",
+        "2B.3",
+        "2B.4",
+        "2B.6",
+        "2B.10"
+      ],
+      "period_fit": "target-period",
+      "provisional_id": "WD011",
+      "publication_date": "2022-07-25",
+      "publisher": "Human Rights Watch",
+      "ruler_attribution": "contextual, not adverse attribution to Tshisekedi",
+      "source_confidence": "high",
+      "source_confidence_reason": "Forty-nine interviews and examination of UN and verification evidence; access restrictions made totals minimum estimates.",
+      "source_type": "ngo_field_investigation",
+      "title": "DR Congo: Resurgent M23 Rebels Target Civilians",
+      "underlying_fact_key": "hrw-2022-m23-civilian-killings-rdf-evidence",
+      "url": "https://www.hrw.org/news/2022/07/25/dr-congo-resurgent-m23-rebels-target-civilians"
+    },
+    {
+      "canonical_fact_key": "tshisekedi-october-2022-coercion-diplomacy-anti-stigmatization",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "Tshisekedi\u2019s Defence Council ordered Rwanda\u2019s ambassador expelled, further access restrictions and increased FARDC strike capacity, while reaffirming commitment to the Nairobi and Luanda processes, dispatching humanitarian aid and instructing authorities to prevent violence or stigmatization against Rwandophone communities.",
+      "contrary_evidence": "Expulsion and force expansion escalated bilateral coercion; FARDC\u2013FDLR cooperation was omitted from the official explanation.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.2",
+        "2B.3",
+        "2B.6",
+        "2B.7",
+        "2B.10"
+      ],
+      "locator": "Lines 71-89",
+      "methodology_ids": [
+        "2B.1",
+        "2B.2",
+        "2B.3",
+        "2B.6",
+        "2B.7",
+        "2B.10"
+      ],
+      "period_fit": "target-period",
+      "provisional_id": "WD012",
+      "publication_date": "2022-10-29",
+      "publisher": "Presidency of the Democratic Republic of the Congo",
+      "ruler_attribution": "direct",
+      "source_confidence": "high_for_decisions_medium_for_battlefield_claims",
+      "source_confidence_reason": "Primary evidence of policy and rhetoric; assertions about battlefield events require independent corroboration, which UN findings substantially provide.",
+      "source_type": "official_presidential_statement",
+      "title": "Official communiqu\u00e9 of the Higher Defence Council chaired by F\u00e9lix Tshisekedi",
+      "underlying_fact_key": "tshisekedi-october-2022-coercion-diplomacy-anti-stigmatization",
+      "url": "https://www.presidence.cd/actualite-detail/actualite/communique_officiel_du_conseil_superieur_de_la_defense_preside_ce_samedi_29_octobre_2022_par_le_chef_de_letat_felix_tshisekedi"
+    },
+    {
+      "canonical_fact_key": "sipri-drc-2022-military-expenditure",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "SIPRI-derived series place DRC military expenditure at approximately US$371.08 million in 2022, around 21.2 percent higher than in 2021.",
+      "contrary_evidence": "The increase coincided with genuine M23/RDF, ADF and CODECO threats; no opened evidence traces the increase to ruler enrichment.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.8",
+        "2B.10"
+      ],
+      "locator": "SIPRI Military Expenditure Database, DRC 2021-2022 series; corroborated by SIPRI-derived World Bank and historical-series displays",
+      "methodology_ids": [
+        "2B.8",
+        "2B.10"
+      ],
+      "period_fit": "target-period",
+      "provisional_id": "WD013",
+      "publication_date": "2023-04",
+      "publisher": "Stockholm International Peace Research Institute",
+      "ruler_attribution": "institutional budget authority",
+      "source_confidence": "medium_high",
+      "source_confidence_reason": "SIPRI is the standard source, but the country row could not be directly rendered in the retrieval tool and the value was cross-checked through reproductions of SIPRI data.",
+      "source_type": "structured_military_expenditure_database",
+      "title": "Military Expenditure Database: Democratic Republic of the Congo, 2022",
+      "underlying_fact_key": "sipri-drc-2022-military-expenditure",
+      "url": "https://www.sipri.org/databases/milex"
+    },
+    {
+      "canonical_fact_key": "drc-2022-year-end-security-and-diplomatic-end-state",
+      "chapter_ids": [
+        "2B"
+      ],
+      "claim": "By the end of 2022 the Luanda and Nairobi processes had produced a monitored framework and one partial M23 withdrawal, but not a general ceasefire: M23 retained territory, RDF involvement and FARDC proxy cooperation remained documented, relations with Rwanda had deteriorated and hostilities against civilians continued.",
+      "contrary_evidence": "External RDF/M23 action and inherited armed groups caused much of the deterioration; partial withdrawal and continuing talks were genuine favorable changes.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "2B.1",
+        "2B.2",
+        "2B.7",
+        "2B.9",
+        "2B.10"
+      ],
+      "locator": "EACRF lines 136-145; PA-X agreement 2466 lines 399-442; EU statement lines 124-136",
+      "methodology_ids": [
+        "2B.1",
+        "2B.2",
+        "2B.7",
+        "2B.9",
+        "2B.10"
+      ],
+      "period_fit": "target-period with immediate later implementation report",
+      "provisional_id": "WD014",
+      "publication_date": "2022-11-23 to 2023-01-02",
+      "publisher": "PA-X; Kenya Ministry of Defence/EACRF; Council of the European Union",
+      "ruler_attribution": "mixed: direct for diplomatic and coercive choices, limited for battlefield outcome",
+      "source_confidence": "high",
+      "source_confidence_reason": "The record triangulates a signed agreement, an implementing regional force report and an EU response to UN expert findings; causal allocation remains contested.",
+      "source_type": "triangulated_institutional_synthesis",
+      "title": "Year-end synthesis of Luanda implementation and eastern DRC security",
+      "underlying_fact_key": "drc-2022-year-end-security-and-diplomatic-end-state",
+      "url": "https://www.mod.go.ke/news/m23-to-withdraw-from-rumagambo-and-kishishe/"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---

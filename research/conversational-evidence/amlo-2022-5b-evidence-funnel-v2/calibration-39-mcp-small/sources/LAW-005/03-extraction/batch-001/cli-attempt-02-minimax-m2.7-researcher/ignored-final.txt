@@ -1,0 +1,256 @@
+The `inspect` tool returned an unsupported call, meaning the locator data I need is not yet materialized in the evidence store for this source-locator pair. I can still extract intents from the **Locator Indexes** provided in the passage, which contain the frozen segment text, hash, and inclusive character ranges. I will record intents using those indexed segments directly.
+
+---
+
+**Factual Intent Extraction — Chapter 5B, Source LAW-005**
+
+The passage is Mexican Executive Agreement 173/2022 (dated 8 December 2022, covering 10–16 December 2022), issued by the Secretaría de Hacienda y Crédito Público, which sets fiscal stimulus percentages, peso-per-litre stimulus amounts, and IEPS tax quotas for gasoline and diesel.
+
+---
+
+**D0001**
+```json
+{
+  "intent": "The Mexican federal government set a 26.96% fiscal stimulus rate for sub-91-octane gasoline and a 59.77% rate for diesel covering the period 10–16 December 2022.",
+  "methodology_ids": ["5B.3", "5B.9"],
+  "locator": "extracted HTML block 2",
+  "segment_id": "S00001",
+  "source_sha256": "9284e94294ac9d6e565c3186433b2b7b26efb621396d3bc2850cfa654277db3d",
+  "source_id": "LAW-005",
+  "supporting_segment_ids": ["S00001"],
+  "start_char": 0,
+  "end_char": 152,
+  "polarity": "positive",
+  "actor": "Gobierno federal mexicano",
+  "action": "estableció porcentaje de estímulo fiscal",
+  "outcome": "26.96% gasolina sub-91 octanos; 59.77% diésel",
+  "date": "2022-12-10 a 2022-12-16",
+  "limitation": "stimulus rate, not final pump price; period-bound"
+}
+```
+
+---
+
+**D0002**
+```json
+{
+  "intent": "The peso-per-litre fiscal stimulus for sub-91-octane gasoline was set at MXN 1.4803/litre, and for diesel at MXN 3.6071/litre, for the period 10–16 December 2022.",
+  "methodology_ids": ["5B.3", "5B.9"],
+  "locator": "extracted HTML block 2",
+  "segment_id": "S00003",
+  "source_sha256": "9284e94294ac9d6e565c3186433b2b7b26efb621396d3bc2850cfa654277db3d",
+  "source_id": "LAW-005",
+  "supporting_segment_ids": ["S00003"],
+  "start_char": 379,
+  "end_char": 500,
+  "polarity": "positive",
+  "actor": "Gobierno federal mexicano",
+  "action": "estableció monto de estímulo fiscal en pesos por litro",
+  "outcome": "MXN 1.4803/litro gasolina sub-91 octanos; MXN 3.6071/litro diésel",
+  "date": "2022-12-10 a 2022-12-16",
+  "limitation": "stimulus amount, not final consumer price; period-bound"
+}
+```
+
+---
+
+**D0003**
+```json
+{
+  "intent": "Higher-octane gasoline (≥91 octans) and non-fossil fuels received a 0.00% fiscal stimulus rate and MXN 0.0000 per litre for the period 10–16 December 2022.",
+  "methodology_ids": ["5B.3", "5B.8"],
+  "locator": "extracted HTML block 2",
+  "segment_id": "S00001",
+  "source_sha256": "9284e94294ac9d6e565c3186433b2b7b26efb621396d3bc2850cfa654277db3d",
+  "source_id": "LAW-005",
+  "supporting_segment_ids": ["S00001", "S00003"],
+  "start_char": 0,
+  "end_char": 500,
+  "polarity": "neutral",
+  "actor": "Gobierno federal mexicano",
+  "action": "no estableció estímulo para gasolina ≥91 octanos ni combustibles no fósiles",
+  "outcome": "0.00% y MXN 0.0000/litro",
+  "date": "2022-12-10 a 2022-12-16",
+  "limitation": "differentiated treatment by fuel type; distributive incidence only visible at pump level; source does not disclose incidence by income class or region"
+}
+```
+
+---
+
+**D0004**
+```json
+{
+  "intent": "The IEPS excise tax quota for sub-91-octane gasoline was set at MXN 4.0114/litre, for ≥91-octane gasoline at MXN 4.6375/litre, and for diesel at MXN 2.4283/litre, for the period 10–16 December 2022.",
+  "methodology_ids": ["5B.3", "5B.8"],
+  "locator": "extracted HTML block 2",
+  "segment_id": "S00004",
+  "source_sha256": "9284e94294ac9d6e565c3186433b2b7b26efb621396d3bc2850cfa654277db3d",
+  "source_id": "LAW-005",
+  "supporting_segment_ids": ["S00004", "S00005"],
+  "start_char": 500,
+  "end_char": 963,
+  "polarity": "neutral",
+  "actor": "Gobierno federal mexicano",
+  "action": "estableció cuotas del IEPS por litro",
+  "outcome": "MXN 4.0114/litro gasolina sub-91; MXN 4.6375/litro gasolina ≥91; MXN 2.4283/litro diésel",
+  "date": "2022-12-10 a 2022-12-16",
+  "limitation": "excise quota level, not net tax burden after stimulus; no distributional breakdown"
+}
+```
+
+---
+
+**D0005**
+```json
+{
+  "intent": "Complementary per-litre stimulus amounts for all fuel categories were set at MXN 0.0000 for the period 10–16 December 2022, meaning no supplemental top-up stimulus was activated.",
+  "methodology_ids": ["5B.3", "5B.9"],
+  "locator": "extracted HTML block 2",
+  "segment_id": "S00006",
+  "source_sha256": "9284e94294ac9d6e565c3186433b2b7b26efb621396d3bc2850cfa654277db3d",
+  "source_id": "LAW-005",
+  "supporting_segment_ids": ["S00006"],
+  "start_char": 963,
+  "end_char": 1168,
+  "polarity": "neutral",
+  "actor": "Gobierno federal mexicano",
+  "action": "estableció cantidades por litro de estímulos complementarios en MXN 0.0000",
+  "outcome": "sin estímulo complementario adicional para ningún combustible",
+  "date": "2022-12-10 a 2022-12-16",
+  "limitation": "zero supplemental stimulus; does not reveal whether base stimulus alone was adequate given market prices"
+}
+```
+
+---
+
+**D0006**
+```json
+{
+  "intent": "The agreement was signed on 8 December 2022 by Karina Ramírez Arras, Titular de la Unidad de Política de Ingresos No Tributarios de la Secretaría de Hacienda y Crédito Público, and entered into force the day after its publication in the Diario Oficial de la Federación.",
+  "methodology_ids": ["5B.2"],
+  "locator": "extracted HTML block 2",
+  "segment_id": "S00010",
+  "source_sha256": "9284e94294ac9d6e565c3186433b2b7b26efb621396d3bc2850cfa654277db3d",
+  "source_id": "LAW-005",
+  "supporting_segment_ids": ["S00007", "S00008", "S00009", "S00010"],
+  "start_char": 1299,
+  "end_char": 1870,
+  "polarity": "neutral",
+  "actor": "Karina Ramírez Arras, Titular de la Unidad de Política de Ingresos No Tributarios, SHCP",
+  "action": "firmó y autorizó el acuerdo fiscal",
+  "outcome": "firma y entrada en vigor al día siguiente de publicación",
+  "date": "2022-12-08",
+  "limitation": "authorization by a named income-policy official; does not disclose appointment process or performance-based retention rationale"
+}
+```
+
+---
+
+**D0007**
+```json
+{
+  "intent": "The fiscal stimulus for sub-91-octane gasoline (26.96%, MXN 1.4803/litre) was materially larger as a percentage than the stimulus for higher-octane gasoline (0.00%), and the diesel stimulus (59.77%, MXN 3.6071/litre) was the largest in percentage terms, indicating price-support prioritization of lower-income fuel consumers and freight/diesel users.",
+  "methodology_ids": ["5B.8"],
+  "locator": "extracted HTML block 2",
+  "segment_id": "S00001",
+  "source_sha256": "9284e94294ac9d6e565c3186433b2b7b26efb621396d3bc2850cfa654277db3d",
+  "source_id": "LAW-005",
+  "supporting_segment_ids": ["S00001", "S00003"],
+  "start_char": 0,
+  "end_char": 500,
+  "polarity": "positive",
+  "actor": "Gobierno federal mexicano",
+  "action": "diferenció el estímulo fiscal por tipo de combustible con mayor apoyo porcentual a combustibles de mayor uso popular y freight",
+  "outcome": "mayor apoyo porcentual a gasolina sub-91 y diésel vs. gasolina ≥91",
+  "date": "2022-12-10 a 2022-12-16",
+  "limitation": "percentage differences do not reveal actual incidence by income class, region, or user segment; final pump price depends on market conditions outside this instrument"
+}
+```
+
+---
+
+**D0008**
+```json
+{
+  "intent": "The agreement was issued under statutory authority derived from the 27 December 2016 Decree establishing fiscal stimuli for IEPS on specified fuels and the 4 March 2022 Decree establishing complementary fiscal stimuli for automotive fuels, both published in the Diario Oficial de la Federación.",
+  "methodology_ids": ["5B.3"],
+  "locator": "extracted HTML block 1",
+  "segment_id": "S00009",
+  "source_sha256": "9284e94294ac9d6e565c3186433b2b7b26efb621396d3bc2850cfa654277db3d",
+  "source_id": "LAW-005",
+  "supporting_segment_ids": ["S00009", "S00010"],
+  "start_char": 1331,
+  "end_char": 1780,
+  "polarity": "neutral",
+  "actor": "Secretaría de Hacienda y Crédito Público",
+  "action": "actuó con fundamento en los-Decretos de estímulos fiscales del 27 de diciembre de 2016 y 4 de marzo de 2022",
+  "outcome": "marco legal establecido para los estímulos",
+  "date": "vigencia según decretos referenciados",
+  "limitation": "legal basis only; does not evaluate credibility of rule-bound stimulus framework or compliance with fiscal rules over time"
+}
+```
+
+---
+
+**D0009**
+```json
+{
+  "intent": "The stimulus agreement covered a one-week period (10–16 December 2022), requiring repeated reissuance, which creates implementation discontinuity risk and does not provide long-term investment or business planning certainty.",
+  "methodology_ids": ["5B.3", "5B.10"],
+  "locator": "extracted HTML block 1",
+  "segment_id": "S00011",
+  "source_sha256": "9284e94294ac9d6e565c3186433b2b7b26efb621396d3bc2850cfa654277db3d",
+  "source_id": "LAW-005",
+  "supporting_segment_ids": ["S00011"],
+  "start_char": 1780,
+  "end_char": 1998,
+  "polarity": "negative",
+  "actor": "Gobierno federal mexicano",
+  "action": "emitiío acuerdo con cobertura de periodo de una semana",
+  "outcome": "riesgo de discontinuidad en la implementación; sin certeza para planificación de inversión a largo plazo",
+  "date": "2022-12-10 a 2022-12-16",
+  "limitation": "one-week period; source does not assess whether this cadence was typical or exceptional; no evidence on whether shorter periods correlate with higher price volatility for consumers"
+}
+```
+
+---
+
+**D0010**
+```json
+{
+  "intent": "The agreement was signed in Mexico City on 8 December 2022 by Karina Ramírez Arras acting in suplencia (in place of) the Subsecretario de Hacienda y Crédito Público, under the last paragraph of Article First of the complementary fuel stimulus decree.",
+  "methodology_ids": ["5B.2"],
+  "locator": "extracted HTML block 2",
+  "segment_id": "S00010",
+  "source_sha256": "9284e94294ac9d6e565c3186433b2b7b26efb621396d3bc2850cfa654277db3d",
+  "source_id": "LAW-005",
+  "supporting_segment_ids": ["S00010"],
+  "start_char": 1727,
+  "end_char": 1870,
+  "polarity": "neutral",
+  "actor": "Karina Ramírez Arras, en suplencia del Subsecretario de Hacienda y Crédito Público",
+  "action": "suplencia del Subsecretario para firma del acuerdo",
+  "outcome": "firma en suplencia",
+  "date": "2022-12-08",
+  "limitation": "suplencia arrangement; does not disclose whether the regular appointee was removed, reassigned, or temporarily absent, nor whether this affects operational independence of fiscal policy"
+}
+```
+
+---
+
+**Summary of Intent-to-Question Mapping**
+
+| Draft ID | 5B Questions Covered | Primary Lens |
+|---|---|---|
+| D0001 | 5B.3, 5B.9 | Stimulus rates set |
+| D0002 | 5B.3, 5B.9 | Peso-per-litre amounts |
+| D0003 | 5B.3, 5B.8 | Zero stimulus for premium fuels |
+| D0004 | 5B.3, 5B.8 | IEPS quota levels by fuel type |
+| D0005 | 5B.3, 5B.9 | Zero complementary top-up |
+| D0006 | 5B.2 | Named official; no performance basis disclosed |
+| D0007 | 5B.8 | Distributive differentiation by fuel type |
+| D0008 | 5B.3 | Legal authority chain |
+| D0009 | 5B.3, 5B.10 | Weekly reissuance; continuity risk |
+| D0010 | 5B.2 | suplencia signing arrangement |
+
+No scoring has been applied. All intents are factual and bounded to the indexed segments. No quotation text appears in semantic fields. Intent splits are non-contiguous-safe: each draft ID maps to a single locator and a single segment range within that locator.

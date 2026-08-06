@@ -1,0 +1,353 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:EGY:16232",
+  "iso3": "EGY",
+  "country_name": "Egypt",
+  "ruler_name": "Abdel Fattah el-Sisi",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 15,
+  "approximate_source_family_count": 9,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 15 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 9 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed for Abdel Fattah el-Sisi, Egypt, 2022. No scores or score ranges assigned.
+
+Notebook writes were unavailable in the read-only worker environment, so the ledger and manifest are provided below for parent persistence.
+
+## Reconnaissance and authority baseline
+
+Sisi was Egypt’s president throughout the period and, under the supplied constitutional text, Supreme Commander of the Armed Forces. This supports formal attribution for national policy, senior appointments, security policy, military operations, pardons, and major economic programs; practical constraints include military institutional interests, security agencies, external financing, regional conflict, and IMF conditionality. [Egyptian Constitution](https://wipolex.wipo.int/edocs/lexdocs/laws/en/eg/eg060en.html)
+
+The 2022 research environment was highly constrained: independent media and civil society operated under censorship, surveillance, intimidation, arbitrary detention, and limited safe protest space. Amnesty documented both official records and interviews with victims, lawyers, and former detainees, while noting that the government’s National Human Rights Strategy was prepared without independent civil-society consultation. [Amnesty, National Human Rights Strategy](https://www.amnesty.org/en/latest/news/2022/09/egypt-human-rights-crisis-deepens-one-year-after-national-human-rights-strategy-launched/)
+
+Evidence is therefore concentrated in international NGOs, official records, IMF/World Bank material, and government-controlled sources. Complaint volume cannot be interpreted as prevalence; silence is especially weak evidence. Economic statistics and military-finance data also require caution because military accounts are opaque. [Carnegie Endowment](https://carnegieendowment.org/research/2022/01/retain-restructure-or-divest-policy-options-for-egypts-military-economy?lang=en)
+
+## Local-prior audit
+
+- **1B:** No local facts supplied. The local package explicitly provides no nuclear/existential-risk evidence; Egypt’s NPT/safeguards status is exposure context only. IAEA records describe Egypt’s safeguards framework but do not establish a Sisi-specific 2022 risk-reducing choice. [IAEA country safeguards record](https://inis.iaea.org/records/07wzs-1r324)
+- **2B:** Local UCDP facts establish country conflict exposure: 65 state-based conflict events and 231 fatalities in 2022 (`LF075–LF076`), with no internationalized conflict events or fatalities (`LF073–LF074`). SIPRI facts show 2022 military spending of about $3.381bn, $41.58 per capita, 1.01% of GDP, and 4.56% of government spending (`LF149–LF152`). These are country-level context, not proof of Sisi’s role.
+- **3B:** Target-year local facts include CIRIGHTS physical-integrity, disappearance, imprisonment, killing, torture, and repression fields (`LF323–LF332`, `LF441–LF446`), plus V-Dem and PTS indicators. They establish national conditions and trends, not individual orders or personal incitement.
+- **4B:** Target-year local facts show low electoral-democracy and multiparty-institution values (`LF620–LF624`), Freedom House political/civil-liberties ratings (`LF617`, `LF622`), very low V-Dem expression/association values (`LF890–LF891`), RSF rank 168 and score 30.23 (`LF895–LF896`), and WGI voice/accountability of −1.45 (`LF898`). These are strong contextual priors; ruler-specific evidence comes from the national dialogue, arrests, media restrictions, and institutional design.
+- **5B:** Local facts show 2022 GDP and consumption outcomes (`LF1020–LF1025`, `LF1230–LF1235`) and longer-run GDP/GNI/productivity series. Current-dollar series carry explicit warnings against interpreting nominal changes as real growth.
+- **6B:** Local facts show 2022 HDI 0.728, life expectancy 70.159, schooling, immunization, under-five mortality, and adult literacy (`LF1309–LF1317`). These are outcome context; policy attribution requires program and implementation evidence.
+- **7B:** Local WGI/V-Dem corruption measures (`LF1390–LF1393`) are country-level context only. No supplied local fact establishes Sisi’s personal honesty, assets, family benefit, concealment, or response to scrutiny.
+- **8B:** Local government-effectiveness and regulatory-quality values (`LF1430–LF1431`) are inherited-capacity and implementation context. Program ownership and observable execution require narrative evidence.
+
+## Global provisional ledger
+
+| ID | Evidence claim and locator | Profile and role | Chapters/lenses |
+|---|---|---|---|
+| P001 | On 26 April 2022 Sisi reactivated the Presidential Pardons Committee; Amnesty records releases following its recommendations but also continuing arrests and security-agency control over review. HTML §§65–75, 92–94. | Amnesty; `ngo`; medium-high; final evidence. Strong documentation, but advocacy perspective. | 3B.1, 3B.2, 3B.4, 3B.5, 3B.8, 4B.3, 4B.10, 7B.7 |
+| P002 | Amnesty reported that released detainees were sometimes warned against activism or required to report weekly to security agencies. HTML §§83–89. | Amnesty; medium-high; final evidence. | 3B.5, 3B.8, 4B.3, 4B.9 |
+| P003 | Amnesty documented 766 releases before COP27 but 1,540 people questioned or arrested for speech and association during the same period. HTML §§67–73. | Amnesty; medium-high; final evidence; exact 2022 fit. | 3B.5, 3B.8, 3B.9, 4B.3, 4B.6, 4B.9 |
+| P004 | Amnesty reported that the National Human Rights Strategy was drafted without independent NGO consultation, portrayed a misleading rights environment, and coincided with continuing arbitrary detention, censorship, and impunity. HTML §§77–85. | Amnesty; medium-high; final evidence, with source-perspective caveat. | 3B.4, 3B.5, 4B.4, 4B.6, 4B.10, 7B.1, 7B.2, 7B.7, 8B.1, 8B.6 |
+| P005 | Human Rights Watch and Amnesty found that authorities failed to independently investigate Ayman Hadhoud’s 2022 death in custody; authorities concealed his death, closed the investigation, and rejected the family’s appeal. HTML §§608–620. | HRW/Amnesty joint investigation; `ngo`; medium-high; final evidence. | 3B.1, 3B.2, 3B.4, 3B.5, 3B.10, 7B.6, 7B.7 |
+| P006 | The Egyptian government’s official position presented the National Dialogue, pardons, and “Year of Civil Society” as reform initiatives. | Official government source; medium-low for fairness claims, context only. [Government report](https://hrightsstudies.sis.gov.eg/en/studies-reports/reports/the-first-executive-report-of-the-national-human-rights-strategy/) | 3B.4, 4B.1, 4B.10, 8B.1, 8B.6 |
+| P007 | The National Dialogue’s official structure placed proposals before the president and had no voting mechanism. | Official source; medium-low for democratic-legitimacy claims, final evidence only for institutional design. [National Dialogue account](https://sis.gov.eg/en/media-center/news/egypts-national-dialogue-has-no-voting-mechanism-president-to-receive-all-proposals/) | 4B.1, 4B.4, 4B.10, 8B.2, 8B.5 |
+| P008 | IMF approved a $3bn, 46-month program in December 2022 involving exchange-rate flexibility, fiscal consolidation, social safety-net protection, state-footprint reduction, and private-sector reforms. | IMF; `intergovernmental/financial institution`; high; final evidence for formal policy commitments, not implementation success. [IMF approval](https://www.imf.org/en/news/articles/2022/12/16/pr22441-egypt-imf-executive-board-approves-46-month-usd3b-extended-arrangement) | 5B.1, 5B.3, 5B.4, 5B.6, 5B.9, 5B.10, 8B.2, 8B.6 |
+| P009 | Carnegie reports that military financial opacity prevents definitive assessment, while available evidence indicates privileged access, distorted competition, weak private investment, and sustainability risks in Sisi’s state-led strategy. HTML §§76–89, 99–110, 174–192. | Carnegie; `research institute`; medium-high; final evidence with methodological caveats. | 5B.1, 5B.3, 5B.4, 5B.5, 5B.7, 5B.10, 7B.3, 7B.4, 7B.9, 8B.2, 8B.3, 8B.6, 8B.10 |
+| P010 | World Bank approved $500m in December 2022 to expand Takaful and Karama; as of June 2022 the program covered 3.69m households/12.84m people, 74% of direct beneficiaries were women, and 67% of cash went to Upper Egypt. HTML §§146–159. | World Bank; high; final evidence for program scale and distribution, not sole attribution to Sisi. [World Bank financing](https://www.worldbank.org/en/news/press-release/2022/12/23/new-world-bank-financing-will-expand-and-strengthen-egypt-s-flagship-social-protection-program) | 5B.6, 5B.8, 6B.1, 6B.2, 6B.3, 6B.4, 6B.8, 6B.9, 8B.2, 8B.6 |
+| P011 | Official Decent Life materials report rural infrastructure, health-unit, school, sanitation, and employment implementation, but these are self-reported program figures. | Official government source; medium-low for impact, context/final only for existence of official claims. [Decent Life materials](https://sis.gov.eg/en/media-center/files/decent-life-initiative/) | 5B.6, 6B.2, 6B.3, 6B.6, 6B.9, 8B.2, 8B.6 |
+| P012 | Sisi’s government formally adopted a state-ownership reform direction in 2022, including reduced state footprint and expanded private-sector participation, but later implementation evidence is outside the target period. | IMF/official policy record; high for policy text, context for outcome. [IMF FAQ](https://www.imf.org/en/countries/egy/egypt/egypt-qandas) | 5B.3, 5B.4, 5B.5, 8B.1, 8B.2, 8B.6 |
+| P013 | U.S. terrorism reporting records at least 95 Sinai terrorist incidents and roughly 260 casualties in 2022; Egyptian forces continued military operations and limited airstrikes. | U.S. government report; medium-high for reported incidents, medium-low for official operational framing. [State Department](https://www.state.gov/reports/country-reports-on-terrorism-2022/egypt/) | 2B.1, 2B.3, 2B.4, 2B.9, 3B.6, 3B.9 |
+| P014 | Egypt publicly supported the UN-backed Yemen truce and political settlement in 2022. | Official government source; medium-low for self-characterization, context unless independently corroborated. [Egypt–Yemen account](https://sis.gov.eg/en/media-center/news/sisi-stresses-full-support-for-peace-efforts-in-yemen/) | 2B.1, 2B.7, 2B.10 |
+| P015 | Egyptian official material describes a 2022 initiative to bring Libyan political institutions together and support dialogue. | Official government source; medium-low; context, not sufficient alone for peace-performance claims. [Libya crisis account](https://sis.gov.eg/en/international-relations/issues/libyan-crisis/) | 2B.1, 2B.7, 2B.10 |
+| P016 | Egypt’s UN mission advocated nuclear disarmament and nonproliferation obligations in 2022. | Official diplomatic statement; medium-low for self-presented restraint, final evidence only for the existence of a diplomatic position. [Egyptian UN statement](https://sis.gov.eg/en/media-center/news/egypts-delegate-in-new-york-stresses-importance-of-fulfilling-obligations-on-nuclear-disarmament/) | 1B.1, 1B.4, 1B.10 |
+| P017 | IAEA records establish Egypt’s NPT safeguards history, including application of safeguards since 1982; no target-year Sisi-specific command, safety, proliferation, or crisis choice was found. | IAEA; high; context only. [IAEA record](https://inis.iaea.org/records/07wzs-1r324) | 1B.1–1B.10, primarily exposure baseline |
+| P018 | The official National Dialogue was launched at Sisi’s invitation and its structure gave the president authority to receive proposals. | Official source; medium-low for legitimacy, high for formal process description. [Official dialogue record](https://sis.gov.eg/en/media-center/national-political-dialogue/the-1st-meeting-of-egypt-s-national-dialogue/) | 4B.1, 4B.4, 4B.8, 4B.10, 8B.1, 8B.2 |
+| P019 | Egypt’s 2022 policy portfolio included social protection expansion, rural development, IMF stabilization, and state-ownership reform, while implementation quality and distribution remained contested. | Cross-source synthesis from IMF, World Bank, official records, and Carnegie; `mixed`; final/context depending on component. | 5B, 6B, 8B |
+| P020 | No direct, traceable 2022 evidence was found in this pass establishing Sisi’s personal assets, personal enrichment, family contracts, sworn deception, correction of false claims, or direct obstruction of a personal integrity investigation. | Research gap, not evidence of integrity. | 7B.1–7B.10 |
+
+## Chapter yield and gaps
+
+### 1B
+
+Local yield: 0 usable facts. Internet yield: P016–P017 provide only diplomatic/nonproliferation posture and inherited safeguards context. No evidence was found of nuclear weapons control, nuclear rhetoric, command safety, proliferation, or target-period crisis decisions personally controlled by Sisi. The chapter remains an exposure-and-attribution gap, not a finding of safety or irresponsibility.
+
+### 2B
+
+Local yield: 152 facts, mainly UCDP conflict exposure and SIPRI military spending. Internet evidence adds Sinai counterterrorism exposure (P013) and official Yemen/Libya diplomacy claims (P014–P015). Missing or weak areas are initiation, civilian protection, proxy responsibility, arms transfers, truthful threat communication, and accountability. Official peace claims require independent corroboration.
+
+### 3B
+
+Local yield: 294 facts, including target-year physical-integrity, repression, disappearance, imprisonment, and one-sided-violence context. Internet evidence is comparatively strong: P001–P005 and P013. The most decisive themes are arbitrary detention, repression around COP27, security-agency control, death-in-custody investigation, and remedy failure. Missing or weak areas include ruler rhetoric/incitement and group-specific protection.
+
+### 4B
+
+Local yield: 453 facts, including low electoral-democracy, association, expression, press freedom, accountability, and rule-of-law measures. Internet evidence P001–P004 and P007/P018 addresses national dialogue, political space, media, protest, and institutional control. The national dialogue supplies contrary/positive institutional evidence, but its lack of voting power and presidential control limit its evidentiary reach.
+
+### 5B
+
+Local yield: 346 facts, including GDP/GNI, consumption, capital formation, productivity, and government-consumption series. Nominal-dollar facts carry explicit non-real-growth warnings. Internet evidence P008–P012 and P019 supplies policy and implementation themes. Strongest gaps are household-level distribution, inflation response at the target-year endpoint, professional appointments, correction of mistakes, and personal/factional economic benefit.
+
+### 6B
+
+Local yield: 100 facts, including HDI, schooling, life expectancy, immunization, mortality, and literacy. Internet evidence P010–P011 provides program delivery and social-protection reach. Missing areas include affordability, service quality, regional variation beyond Upper Egypt targeting, political conditionality, and independent evaluations of Decent Life implementation.
+
+### 7B
+
+Local yield: 133 facts, all country-level corruption and governance context; none directly establish personal integrity. P009 supplies a possible ruler-network/military-economy nexus but does not prove personal enrichment or Sisi-specific benefit. P004 may bear on strategic presentation of human-rights policy, but it does not independently establish personal deception. The chapter remains attribution-limited; P020 records the gap explicitly.
+
+### 8B
+
+Local yield: 104 facts, mainly government effectiveness and regulatory quality. Internet evidence identifies a substantial program portfolio: IMF stabilization, state-ownership reform, Takaful and Karama, Decent Life, and national dialogue. P008–P012 and P019 support program identification and operationalization. Missing areas are reliable target-year outcome attribution, adaptation after failure, personnel quality, and durable progress across the whole portfolio.
+
+## Source diversity and reuse
+
+The retained ledger uses Amnesty, Human Rights Watch, IMF, World Bank, Carnegie, U.S. State Department, IAEA, and Egyptian official sources. It includes NGO, intergovernmental, government, diplomatic, financial-institution, and research-institute source types.
+
+The Amnesty 2022 materials are intentionally split into distinct claims rather than duplicated: pardons/release process, continuing arrests, national-strategy design, and COP27 restrictions. They are reused across 3B and 4B, with limited 7B/8B relevance only where the claim concerns official strategy presentation or institutional implementation.
+
+## Rejected or context-only candidates
+
+- Freedom House and other structured indices were not re-fetched because the local package already supplied them.
+- Government claims that the National Human Rights Strategy, national dialogue, Decent Life, or Yemen/Libya diplomacy demonstrated genuine restraint or legitimacy were retained only as formal-policy/context evidence unless independently corroborated.
+- Search-result snippets, homepages, document indexes, and inaccessible gateway pages were not counted as defensible evidence.
+- General country corruption, repression, military spending, and governance indicators were not personalized to Sisi for Chapter 7B.
+- Absence of nuclear incidents, internationalized UCDP conflicts, or reported personal enrichment was not treated as evidence of responsible conduct or integrity.
+
+## Unresolved gaps
+
+1. No ruler-specific 2022 nuclear/existential-risk decision.
+2. Limited independent evidence on Egypt’s 2022 external military conduct, arms recipients, and proxy responsibility.
+3. Weak evidence on civilian harm and accountability in Sinai during the target year.
+4. No direct evidence of Sisi’s personal assets, family benefit, or personal integrity conduct.
+5. Incomplete independent evaluation of Decent Life and other major social programs.
+6. Limited evidence connecting macroeconomic outcomes to Sisi’s own decisions rather than external shocks, military institutions, ministers, or IMF constraints.
+7. Weak evidence on adaptation, replacement of ineffective officials, and implementation failure across the complete governing portfolio.
+---
