@@ -926,7 +926,16 @@ def _load_or_recover_research_ledger_manifest(
 
     if path.is_file():
         try:
-            return _load_research_ledger_manifest(path)
+            payload = _load_research_ledger_manifest(path)
+            from .ledger_manifest_dedup import collapse_recovered_url_duplicates
+
+            payload, collapsed = collapse_recovered_url_duplicates(payload)
+            if collapsed:
+                path.write_text(
+                    json.dumps(payload, indent=2, sort_keys=True) + "\n",
+                    encoding="utf-8",
+                )
+            return payload
         except WorkerOutputError:
             pass
     try:
