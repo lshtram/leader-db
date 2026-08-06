@@ -1,5 +1,11 @@
+import json
+from pathlib import Path
+
 from leaders_db.research.evidence_review import EvidenceReviewReport
-from leaders_db.research.partitioned_evidence_review import _merge_chapter_reviews
+from leaders_db.research.partitioned_evidence_review import (
+    _merge_chapter_reviews,
+    _read_report,
+)
 
 
 def _report(chapter_id: str, *, continue_research: bool) -> EvidenceReviewReport:
@@ -42,3 +48,15 @@ def test_merge_terminal_chapters_does_not_request_continuation() -> None:
 
     assert merged.needs_continuation is False
     assert merged.selected_theme_ids == ()
+
+
+def test_reader_code_owns_single_chapter_continuation_id(tmp_path: Path) -> None:
+    path = tmp_path / "review.json"
+    payload = _report("1B", continue_research=True).model_dump(mode="json")
+    payload["selected_theme_ids"] = ["1B.7.7.8.7.9"]
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    report = _read_report(path, chapter_id="1B")
+
+    assert report.needs_continuation is True
+    assert report.selected_theme_ids == ("1B",)

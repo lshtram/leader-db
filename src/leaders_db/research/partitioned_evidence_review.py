@@ -168,7 +168,7 @@ def _load_or_run_chapter_review(
         heartbeat_seconds=heartbeat_seconds,
         timeout_seconds=timeout_seconds,
     )
-    report = _read_report(output_path)
+    report = _read_report(output_path, chapter_id=chapter_id)
     _validate_chapter_report(report, chapter_id)
     return report
 
@@ -181,7 +181,7 @@ def _recover_chapter_review(
         if not path.is_file():
             continue
         try:
-            report = _read_report(path)
+            report = _read_report(path, chapter_id=chapter_id)
             _validate_chapter_report(report, chapter_id)
             return report
         except (OSError, UnicodeError, ValueError, ValidationError):
@@ -189,8 +189,17 @@ def _recover_chapter_review(
     return None
 
 
-def _read_report(path: Path) -> EvidenceReviewReport:
-    return EvidenceReviewReport.model_validate_json(path.read_text(encoding="utf-8"))
+def _read_report(
+    path: Path, *, chapter_id: str | None = None
+) -> EvidenceReviewReport:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if chapter_id is not None and isinstance(payload, dict):
+        needs_continuation = payload.get("needs_continuation")
+        if isinstance(needs_continuation, bool):
+            payload["selected_theme_ids"] = (
+                [chapter_id] if needs_continuation else []
+            )
+    return EvidenceReviewReport.model_validate(payload)
 
 
 def _validate_chapter_report(
