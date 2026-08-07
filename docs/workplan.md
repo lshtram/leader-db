@@ -1,6 +1,6 @@
 # Workplan
 
-## 2026-08-07 — Netanyahu 2023 full-catalogue pilot completed with two blocked chapters
+## 2026-08-07 — Netanyahu 2023 full-catalogue pilot approved
 
 - Completed the frozen Netanyahu 2023 evidence flow from 80 local temporal priors and
   eight chapter discovery searches through a 407-URL catalogue, lawful acquisition,
@@ -12,18 +12,30 @@
   evidence-question links covering all 80 methodology questions. Every chapter
   analysis received the complete 699-record compact ledger rather than a thin
   chapter-only shortlist.
-- Applied up to three immutable Luna correction-and-review rounds. Chapters 1B, 2B,
-  4B, 5B, 6B, and 8B are independently marked safe for judge use. Chapters 3B and 7B
-  remain blocked after the third round: their central factual accounts are reliable,
-  but the reviewer still identifies material full-index omissions and isolated
-  attribution/citation-precision defects.
-- The completed model profile records 508 calls, 88,746,305 input tokens (20,647,424
-  reported cached), 1,582,381 output tokens, and 118,834 reasoning-output tokens.
+- Applied immutable Luna correction-and-review rounds, then replaced the lossy
+  free-form revision handoff with a requirement-to-evidence repair ledger. Every
+  reviewer requirement receives a stable ID, mapped exact evidence, and a required
+  incorporated/qualified/excluded disposition. Oversized repairs split deterministically,
+  and a separate bounded compaction pass preserves evidence while producing readable
+  judge answers. All eight chapters are independently marked safe for judge use.
+- Calibrated completeness to the approved proportional standard: roughly 75% of
+  materially distinct relevant facts at 90% factual accuracy. Minor, duplicative, and
+  contextual omissions remain visible as nonblocking corrections; only defects that
+  could materially change a skeptical judge's understanding block approval.
+- The completed model profile, including retained failed diagnostics, records 660
+  completed calls, 112,859,494 input tokens (21,365,248 reported cached), 1,926,676
+  output tokens, and 152,811 reasoning-output tokens.
   All recorded calls used `gpt-5.6-luna` through the Codex surface; actual billed cost
   is not exposed by that surface and remains separate from any PAYG-equivalent estimate.
-- Next: correct the 3B/7B completeness failure at the pipeline level before beginning
-  the next comparable twenty-ruler batch. Do not send this pilot to a final judge as
-  an eight-chapter package while those two chapter gates remain false.
+- Generated a self-contained approved HTML report containing all 80 detailed answers,
+  linked exact evidence and locators, chapter quality ratings, phase profiling, and a
+  source-by-source processing table for all 407 candidate URLs.
+- Bound each independent chapter review to the SHA-256 of the exact selected analysis,
+  complete judge package, and review output. For the retained Netanyahu reviews, the
+  binding was issued only after code reconstructed and matched every persisted reviewer
+  payload containing the questions, answers, cited passages, and complete candidate index.
+- Next: freeze this approved pilot release and use the requirement-led repair and
+  proportional review contract for the next comparable ruler run.
 
 ## 2026-08-06 — Netanyahu pilot reviewer transport correction
 

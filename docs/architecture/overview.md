@@ -806,6 +806,22 @@ claims have independent checks; whether population, exposure, authority, inherit
 baseline, and shocks are addressed; and which material source type remains missing.
 Reviewer evidence IDs must occur in the notebook. Legacy reviews remain usable with an
 explicit unassessed-bias marker instead of being discarded.
+Chapter-answer repair converts every material reviewer correction into an immutable
+requirement ID. A model may add question routes but cannot remove a reviewer-bound
+route; chapter-wide requirements must receive at least one route. Code reopens only
+mapped exact passages, requires one disposition for every routed requirement, persists
+those dispositions, and splits oversized question packets below the transport ceiling.
+A separate bounded editorial pass may reduce repetition while retaining a minimum
+representative citation set. Final quality review applies the approved proportional
+standard—roughly 75% of materially distinct relevant facts at 90% factual accuracy—so
+minor or duplicative omissions remain visible but block release only when they could
+materially change a skeptical judge's understanding. An approved HTML evidence report
+requires exactly eight chapters and eighty unique answers, reconciled hashes and
+evidence IDs, safe chapter reviews, allow-listed web links, phase usage totals, and
+source-level extracted-size plus shared reading-batch input accounting. The reviewer
+persists a separate metadata artifact binding the selected analysis, complete candidate
+package, and review output by SHA-256; report selection verifies that binding rather than
+trusting paths or approval labels alone.
 An honestly sparse chapter remains valid when the researcher records the searches,
 rejections, and remaining gaps. After formatting,
 one no-search judge per chapter/year batch applies the common meter across rulers,

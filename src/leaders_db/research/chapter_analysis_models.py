@@ -207,12 +207,25 @@ class ChapterAnalysisQualityShard(BaseModel):
     rationale: str = Field(min_length=30)
 
 
+class ChapterQualityReviewBinding(BaseModel):
+    """Hash-bound inputs and output recorded by the independent quality reviewer."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    contract: Literal["independent-full-index-v1"]
+    chapter_id: str
+    analysis_sha256: str
+    judge_package_sha256: str
+    review_sha256: str
+
+
 __all__ = [
     "ChapterAnalysisCritique",
     "ChapterAnalysisDraft",
     "ChapterAnalysisQuality",
     "ChapterAnalysisQualityShard",
     "ChapterEvidenceShard",
+    "ChapterQualityReviewBinding",
     "CorrectedLensAnswer",
     "QuestionCritique",
     "QuestionFocusedChapterAnalysis",
