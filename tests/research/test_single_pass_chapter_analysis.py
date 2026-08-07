@@ -3,6 +3,7 @@
 import pytest
 
 from leaders_db.research.chapter_analysis_models import (
+    AnswerCritiqueIssue,
     ChapterAnalysisCritique,
     ChapterAnalysisDraft,
     ChapterEvidenceShard,
@@ -11,6 +12,7 @@ from leaders_db.research.chapter_analysis_models import (
     SelfReviewedChapterAnalysis,
 )
 from leaders_db.research.single_pass_chapter_analysis import (
+    _normalize_critique_registry,
     _normalize_shard_registry,
     _partition_evidence,
     _validate_result,
@@ -74,6 +76,27 @@ def test_self_reviewed_result_rejects_invented_corrected_id() -> None:
             expected_questions={f"1B.{number}" for number in range(1, 11)},
             evidence_ids={"E-1"},
         )
+
+
+def test_critique_registry_removes_unknown_audit_id_and_records_it() -> None:
+    result = _result()
+    issue = AnswerCritiqueIssue(
+        question_id="1B.1",
+        issue_type="material_omission",
+        evidence_ids=("E-1", "E-invented"),
+        explanation="The draft omitted qualifying material.",
+    )
+    result = result.model_copy(
+        update={
+            "critique": result.critique.model_copy(update={"issues": (issue,)})
+        }
+    )
+
+    normalized = _normalize_critique_registry(result, {"E-1"})
+
+    normalized_issue = normalized.critique.issues[0]
+    assert normalized_issue.evidence_ids == ("E-1",)
+    assert "E-invented" in normalized_issue.explanation
 
 
 def test_evidence_partition_preserves_every_record_once() -> None:

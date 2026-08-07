@@ -57,6 +57,7 @@ def run_single_pass_chapter_analysis(
             output_dir / "luna-synthesis",
         )
     evidence_ids = set(evidence)
+    result = _normalize_critique_registry(result, evidence_ids)
     _validate_result(
         result,
         chapter_id=chapter_id,
@@ -85,6 +86,34 @@ def run_single_pass_chapter_analysis(
     path = output_dir / "resolved-chapter-analysis.json"
     path.write_text(resolved.model_dump_json(indent=2) + "\n", encoding="utf-8")
     return path
+
+
+def _normalize_critique_registry(
+    result: SelfReviewedChapterAnalysis, evidence_ids: set[str]
+) -> SelfReviewedChapterAnalysis:
+    """Remove invented audit-only IDs while preserving the critique's substance."""
+
+    issues = []
+    for issue in result.critique.issues:
+        removed = sorted(set(issue.evidence_ids) - evidence_ids)
+        explanation = issue.explanation
+        if removed:
+            explanation += " Code removed unknown critique IDs: " + ", ".join(removed)
+        issues.append(
+            issue.model_copy(
+                update={
+                    "evidence_ids": tuple(
+                        item for item in issue.evidence_ids if item in evidence_ids
+                    ),
+                    "explanation": explanation,
+                }
+            )
+        )
+    return result.model_copy(
+        update={
+            "critique": result.critique.model_copy(update={"issues": tuple(issues)})
+        }
+    )
 
 
 def _validate_result(
