@@ -1,5 +1,30 @@
 # Workplan
 
+## 2026-08-07 — Netanyahu 2023 full-catalogue pilot completed with two blocked chapters
+
+- Completed the frozen Netanyahu 2023 evidence flow from 80 local temporal priors and
+  eight chapter discovery searches through a 407-URL catalogue, lawful acquisition,
+  full-corpus reading, verified evidence packaging, chapter analysis, and independent
+  chapter review. Acquisition yielded 296 readable sources from 407 dispositions;
+  the acquired corpus contains 20.91 million extracted characters and an estimated
+  5.23 million source tokens.
+- Produced 699 verified evidence records, 699 conservative clusters, and 3,641
+  evidence-question links covering all 80 methodology questions. Every chapter
+  analysis received the complete 699-record compact ledger rather than a thin
+  chapter-only shortlist.
+- Applied up to three immutable Luna correction-and-review rounds. Chapters 1B, 2B,
+  4B, 5B, 6B, and 8B are independently marked safe for judge use. Chapters 3B and 7B
+  remain blocked after the third round: their central factual accounts are reliable,
+  but the reviewer still identifies material full-index omissions and isolated
+  attribution/citation-precision defects.
+- The completed model profile records 508 calls, 88,746,305 input tokens (20,647,424
+  reported cached), 1,582,381 output tokens, and 118,834 reasoning-output tokens.
+  All recorded calls used `gpt-5.6-luna` through the Codex surface; actual billed cost
+  is not exposed by that surface and remains separate from any PAYG-equivalent estimate.
+- Next: correct the 3B/7B completeness failure at the pipeline level before beginning
+  the next comparable twenty-ruler batch. Do not send this pilot to a final judge as
+  an eight-chapter package while those two chapter gates remain false.
+
 ## 2026-08-06 — Netanyahu pilot reviewer transport correction
 
 - The Netanyahu pilot completed reconnaissance, all eight chapter discovery passes,
