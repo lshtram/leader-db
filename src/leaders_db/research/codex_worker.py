@@ -37,6 +37,7 @@ from .dossier_models import (
     DossierLocalPrior,
     DossierUsage,
     RulerEvidenceDossier,
+    _canonical_source_locator_claim,
     normalize_dossier_candidate,
 )
 from .dossier_notebook_prompt import build_research_notebook_prompt
@@ -1103,11 +1104,24 @@ def _restore_formatter_ledger_evidence(
         for item in catalog_items
         if isinstance(item, dict) and item.get("canonical_fact_key")
     }
-    emitted_by_key = {
-        str(item.get("canonical_fact_key", "")): str(item.get("evidence_id", ""))
-        for item in evidence
-        if isinstance(item, dict)
-    }
+    # Candidate normalization retains the first occurrence of a duplicated
+    # canonical key and renames later occurrences. Restore ledger routing to
+    # that same retained record so normalization cannot detach the routing
+    # from the manifest identity.
+    emitted_by_key: dict[str, str] = {}
+    retained_facts: set[tuple[str, str, str]] = set()
+    for item in evidence:
+        if not isinstance(item, dict):
+            continue
+        fact = _canonical_source_locator_claim(item)
+        if fact is not None and fact in retained_facts:
+            continue
+        if fact is not None:
+            retained_facts.add(fact)
+        emitted_by_key.setdefault(
+            str(item.get("canonical_fact_key", "")),
+            str(item.get("evidence_id", "")),
+        )
     used_ids = {
         str(item.get("evidence_id", ""))
         for item in evidence

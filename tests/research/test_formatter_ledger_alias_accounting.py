@@ -4,9 +4,13 @@ import pytest
 
 from leaders_db.research.codex_worker import (
     WorkerOutputError,
+    _restore_formatter_ledger_evidence,
     _validate_formatter_ledger_accounting,
 )
-from leaders_db.research.dossier_models import RulerEvidenceDossier
+from leaders_db.research.dossier_models import (
+    RulerEvidenceDossier,
+    normalize_dossier_candidate,
+)
 
 
 def test_duplicate_manifest_alias_is_satisfied_by_same_normalized_fact() -> None:
@@ -59,6 +63,86 @@ def test_incomplete_entry_requires_the_same_canonical_key() -> None:
     )
 
     _validate_formatter_ledger_accounting(dossier, notebook=notebook)
+
+
+def test_routing_restore_targets_first_duplicate_canonical_key() -> None:
+    payload = _dossier_payload()
+    duplicate = dict(payload["evidence"][0])
+    duplicate["evidence_id"] = "E002"
+    duplicate["claim"] = "A shorter formatter restatement of the policy."
+    payload["evidence"].append(duplicate)
+    payload["mappings"] = []
+    notebook = "--- RESEARCH LEDGER MANIFEST ---\n\n" + json.dumps(
+        {
+            "schema_version": "ruler_research_ledger_manifest_v1",
+            "entries": [_manifest_entry("fact-primary", ["1B.1", "1B.2"])],
+        }
+    )
+
+    restored = _restore_formatter_ledger_evidence(
+        payload,
+        existing_candidate=None,
+        notebook=notebook,
+    )
+    normalized = normalize_dossier_candidate(
+        restored,
+        methodology_ids=("1B.1", "1B.2"),
+    )
+
+    retained = next(
+        item
+        for item in normalized["evidence"]
+        if item["canonical_fact_key"] == "fact-primary"
+    )
+    assert {
+        mapping["methodology_id"]
+        for mapping in normalized["mappings"]
+        if mapping["evidence_id"] == retained["evidence_id"]
+    } == {"1B.1", "1B.2"}
+
+
+def test_routing_restore_skips_canonical_key_row_merged_into_earlier_fact() -> None:
+    payload = _dossier_payload()
+    earlier_fact = dict(payload["evidence"][0])
+    earlier_fact["canonical_fact_key"] = "other-fact"
+    merged_target = dict(payload["evidence"][0])
+    merged_target["evidence_id"] = "E002"
+    surviving_target = dict(payload["evidence"][0])
+    surviving_target.update(
+        evidence_id="E003",
+        claim="A distinct target fact.",
+        excerpt="A distinct target fact.",
+    )
+    payload["evidence"] = [earlier_fact, merged_target, surviving_target]
+    payload["mappings"] = []
+    notebook = "--- RESEARCH LEDGER MANIFEST ---\n\n" + json.dumps(
+        {
+            "schema_version": "ruler_research_ledger_manifest_v1",
+            "entries": [_manifest_entry("fact-primary", ["1B.1", "1B.2"])],
+        }
+    )
+
+    restored = _restore_formatter_ledger_evidence(
+        payload,
+        existing_candidate=None,
+        notebook=notebook,
+    )
+    normalized = normalize_dossier_candidate(
+        restored,
+        methodology_ids=("1B.1", "1B.2"),
+    )
+
+    retained = next(
+        item
+        for item in normalized["evidence"]
+        if item["canonical_fact_key"] == "fact-primary"
+    )
+    assert retained["claim"] == "A distinct target fact."
+    assert {
+        mapping["methodology_id"]
+        for mapping in normalized["mappings"]
+        if mapping["evidence_id"] == retained["evidence_id"]
+    } == {"1B.1", "1B.2"}
 
 
 def _manifest_entry(key: str, methodology_ids: list[str]) -> dict[str, object]:
