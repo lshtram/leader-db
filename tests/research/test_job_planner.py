@@ -325,6 +325,77 @@ def test_judge_run_can_combine_distinct_dossier_run_keys(
     ]
 
 
+def test_v2_judge_rejects_a_cohort_without_approved_corpus_packages(
+    database_url: str,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    profiles = _profiles(tmp_path)
+    monkeypatch.setattr(
+        "leaders_db.research.job_planner.list_local_prior_slice_cases",
+        lambda engine, *, year: _cases()[:1],
+    )
+    plan_dossier_jobs(
+        engine,
+        year=2020,
+        run_key="deep-dossiers",
+        methodology_ids=_chapter_ids("4B"),
+        provider_profile="researcher",
+        model_profiles_path=profiles,
+    )
+
+    with pytest.raises(ValueError, match="approved corpus package missing"):
+        plan_chapter_judge_job(
+            engine,
+            year=2020,
+            run_key="deep-judge",
+            dossier_run_key="deep-dossiers",
+            chapter_id="4B",
+            provider_profile="judge",
+            model_profiles_path=profiles,
+            require_approved_corpus=True,
+        )
+
+
+def test_release_config_enforces_approved_corpus_without_shadow_flags(
+    database_url: str,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    profiles = _profiles(tmp_path)
+    case = _cases()[0].model_copy(update={"year": 2023})
+    monkeypatch.setattr(
+        "leaders_db.research.job_planner.list_local_prior_slice_cases",
+        lambda engine, *, year: (case,),
+    )
+    plan_dossier_jobs(
+        engine,
+        year=2023,
+        run_key="release-dossiers",
+        methodology_ids=_chapter_ids("4B"),
+        provider_profile="researcher",
+        model_profiles_path=profiles,
+    )
+
+    with pytest.raises(ValueError, match="approved corpus package missing"):
+        plan_chapter_judge_job(
+            engine,
+            year=2023,
+            run_key="release-judge",
+            dossier_run_key="release-dossiers",
+            chapter_id="4B",
+            provider_profile="judge",
+            model_profiles_path=profiles,
+            release_config_path=Path(
+                "configs/evidence-funnel/production-2023-v2.yaml"
+            ),
+        )
+
+
 def test_judge_run_rejects_duplicate_ruler_across_dossier_runs(
     database_url: str,
     tmp_path: Path,

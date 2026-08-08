@@ -662,6 +662,23 @@ def test_runner_maps_recent_rulers_prime_minister_role_to_head_of_government(
     assert observation.extension["indicator_office_qid"] == "Q22857062"
 
 
+def test_runner_rejects_recent_rulers_row_without_source_iso3(tmp_path: Path) -> None:
+    """ISO3-bearing fallback rows cannot degrade into name-matched identity evidence."""
+
+    _stage_bundle(tmp_path, with_cache=False)
+    _write_recent_rulers_cache(
+        tmp_path,
+        year=2023,
+        omit_fields=("countryISO3",),
+    )
+
+    request = _request(tmp_path, years=(2023,), cache_policy="offline_only")
+    adapter = create_wikidata_heads_of_state_government_adapter()
+    raw = adapter.read_raw(request)
+
+    assert tuple(adapter.transform(request, raw)) == ()
+
+
 def test_readiness_recent_rulers_malformed_cache_fails(tmp_path: Path) -> None:
     """Malformed recent-rulers fallback cache is an actionable blocker."""
     _stage_bundle(tmp_path, with_cache=False)

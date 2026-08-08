@@ -822,6 +822,16 @@ source-level extracted-size plus shared reading-batch input accounting. The revi
 persists a separate metadata artifact binding the selected analysis, complete candidate
 package, and review output by SHA-256; report selection verifies that binding rather than
 trusting paths or approval labels alone.
+Before a deep-corpus package can enter comparative judging, a deterministic approval
+boundary validates all eight selected analyses, their independent reviews, the complete
+question index, cited evidence IDs, and every review-binding hash. It emits one
+project-local ruler manifest that binds the dossier, identity-bearing reading plan,
+verified corpus, analyses, reviews, and bindings. Corpus source IDs must occur in that
+reading plan, whose ruler and period must match the dossier. A judge job planned with
+the versioned deep-corpus release must provide exactly
+one such manifest for every cohort member. The worker revalidates the artifacts and
+projects the reviewed answers plus their cited code-bound passages; a missing or altered
+manifest stops before the model call and cannot trigger a compact-dossier fallback.
 An honestly sparse chapter remains valid when the researcher records the searches,
 rejections, and remaining gaps. After formatting,
 one no-search judge per chapter/year batch applies the common meter across rulers,

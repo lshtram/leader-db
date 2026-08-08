@@ -1,5 +1,30 @@
 # Workplan
 
+## 2026-08-08 — Deep-corpus judge handoff candidate implemented
+
+- Added a hash-bound approved ruler package that reconciles the dossier, identity-bearing
+  complete reading plan, eighty-question corpus index, eight selected ten-answer chapter
+  analyses, independent safe-for-judge reviews, and their review bindings. Loading repeats
+  semantic approval checks rather than trusting a previously emitted approval label.
+- Added a version-two chapter projection built from approved answers and the exact
+  code-bound corpus passages those answers cite. Corpus evidence IDs are deterministically
+  mapped into the existing judge evidence namespace without duplicating source records.
+- Added a versioned strict judge-planning gate. The v2 release requires every cohort
+  member to have exactly one approved package, freezes package and release hashes into the
+  job, and prevents fallback to the legacy compact dossier when an artifact is missing,
+  altered, or invalid.
+- Split local-evidence loading out of the active chapter-projection module so that the
+  modified projection implementation remains below the repository's 400-line limit.
+- The candidate release remains non-production until a complete cohort context/transport
+  smoke test passes. A real Netanyahu 4B projection contains 94 cited evidence records
+  and an estimated 441,004 input tokens, so the existing pre-claim context guard correctly
+  blocks any multi-ruler batch that cannot carry the approved material without omission.
+- Cleared the repository's previously red default test baseline: refreshed the corpus
+  binding fixture with required ruler-period identity, made formatter ledger accounting
+  tolerant of partial legacy objects while preserving omission failures, and corrected
+  Wikidata cache-shape discrimination between legacy SPARQL and ISO3-bearing recent-ruler
+  rows. The complete default suite passes; only explicitly marked slow tests are skipped.
+
 ## 2026-08-07 — Netanyahu 2023 full-catalogue pilot approved
 
 - Completed the frozen Netanyahu 2023 evidence flow from 80 local temporal priors and

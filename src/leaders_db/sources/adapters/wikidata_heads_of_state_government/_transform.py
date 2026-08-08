@@ -206,7 +206,7 @@ def _row_to_observation(
         # values.
         return None
 
-    if role_qid and not country_iso3:
+    if hasattr(row, "country_iso3") and role_qid and not country_iso3:
         # The recent-rulers fallback is only usable for I4 when Wikidata
         # supplies ISO3 directly. Do not emit rows that would later be
         # country-name matched into 2023 identity coverage.

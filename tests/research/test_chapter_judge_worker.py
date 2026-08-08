@@ -22,6 +22,7 @@ from leaders_db.research.chapter_judge_worker import (
     _normalize_lens_lists,
     _normalize_local_evidence_reference_lists,
     _prepare_batch,
+    _write_chapter_projections,
     _write_null_recovery_queue,
     execute_claimed_chapter_judge_job,
 )
@@ -1032,6 +1033,63 @@ def _projections(
         )
         for path, dossier in dossiers
     )
+
+
+def test_worker_cannot_fall_back_when_approved_corpus_is_required(
+    tmp_path: Path,
+) -> None:
+    job = _fixture_dossier_job(
+        index=1,
+        iso3="TST",
+        methodology_ids=tuple(f"4B.{i}" for i in range(1, 11)),
+    )
+    dossier_path = tmp_path / "dossier.json"
+    dossier = RulerEvidenceDossier.model_validate(
+        _dossier_payload(job, methodology_ids=tuple(f"4B.{i}" for i in range(1, 11)))
+    )
+    dossier_path.write_text(dossier.model_dump_json(), encoding="utf-8")
+    attempt_dir = tmp_path / "attempt"
+    attempt_dir.mkdir()
+
+    with pytest.raises(ValueError, match="approved corpus package missing"):
+        _write_chapter_projections(
+            ((dossier_path, dossier),),
+            chapter_id="4B",
+            attempt_dir=attempt_dir,
+            project_root=tmp_path,
+            require_approved_corpus=True,
+        )
+
+
+def test_worker_rejects_approved_manifest_changed_after_planning(tmp_path: Path) -> None:
+    methodology_ids = tuple(f"4B.{i}" for i in range(1, 11))
+    job = _fixture_dossier_job(index=1, iso3="TST", methodology_ids=methodology_ids)
+    dossier_path = tmp_path / "dossier.json"
+    dossier = RulerEvidenceDossier.model_validate(
+        _dossier_payload(job, methodology_ids=methodology_ids)
+    )
+    dossier_path.write_text(dossier.model_dump_json(), encoding="utf-8")
+    manifest_path = tmp_path / "approved.json"
+    manifest_path.write_text("planned", encoding="utf-8")
+    planned_hash = sha256(manifest_path.read_bytes()).hexdigest()
+    manifest_path.write_text("changed", encoding="utf-8")
+    attempt_dir = tmp_path / "attempt"
+    attempt_dir.mkdir()
+
+    with pytest.raises(ValueError, match="changed after planning"):
+        _write_chapter_projections(
+            ((dossier_path, dossier),),
+            chapter_id="4B",
+            attempt_dir=attempt_dir,
+            project_root=tmp_path,
+            approved_packages={
+                dossier.job_key: {
+                    "path": str(manifest_path),
+                    "sha256": planned_hash,
+                }
+            },
+            require_approved_corpus=True,
+        )
 
 
 def test_previous_policy_approved_chapter_result_is_reusable(tmp_path: Path) -> None:

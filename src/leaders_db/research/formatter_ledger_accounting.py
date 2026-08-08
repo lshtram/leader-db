@@ -24,7 +24,9 @@ def validate_formatter_ledger_accounting(
         if item.final_evidence_use != "discovery_only"
     }
     evidence_key_by_id = {
-        item.evidence_id: item.canonical_fact_key for item in dossier.evidence
+        evidence_id: item.canonical_fact_key
+        for item in dossier.evidence
+        if isinstance((evidence_id := getattr(item, "evidence_id", None)), str)
     }
     mapped_methodologies: dict[str, set[str]] = defaultdict(set)
     for mapping in dossier.mappings:
@@ -33,9 +35,11 @@ def validate_formatter_ledger_accounting(
             mapped_methodologies[key].add(mapping.methodology_id)
     emitted_by_fact: dict[tuple[str, str, str], set[str]] = defaultdict(set)
     for key, item in emitted.items():
-        emitted_by_fact[_accounting_fact(item.url, item.source_locator, item.claim)].add(
-            key
-        )
+        url = getattr(item, "url", None)
+        locator = getattr(item, "source_locator", None)
+        claim = getattr(item, "claim", None)
+        if all(isinstance(value, str) and value.strip() for value in (url, locator, claim)):
+            emitted_by_fact[_accounting_fact(url, locator, claim)].add(key)
 
     resolved = {
         key: _resolve_emitted_key(

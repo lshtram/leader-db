@@ -16,6 +16,8 @@ from ._codex_worker_artifacts import (
     price_codex_usage,
     read_codex_usage,
 )
+from .approved_chapter_projection import build_approved_chapter_projection
+from .approved_ruler_package import ApprovedPackageReference
 from .chapter_guides import load_chapter_guide
 from .chapter_judge_models import (
     ChapterJudgmentBatch,
@@ -30,6 +32,7 @@ from .chapter_projection import (
 )
 from .codex_worker import WorkerOutputError, _run_codex
 from .codex_worker_command import build_codex_exec_command, validate_worker_timing
+from .deep_corpus_release import validate_release_reference
 from .dossier_models import DossierUsage, RulerEvidenceDossier
 from .job_ledger import checkpoint_job, heartbeat_job
 from .job_ledger_queries import list_jobs
@@ -277,11 +280,24 @@ def _initialize_attempt(
     )
     if rubric_version != job["input"].get("rubric_version"):
         raise ValueError("active chapter guide rubric differs from the planned judge job")
+    release_reference = job["input"].get("deep_corpus_release")
+    if release_reference is not None:
+        release = validate_release_reference(
+            release_reference, project_root=project_root
+        )
+        if release.target_year != int(job["target_year"]):
+            raise ValueError("deep-corpus release target year differs from judge job")
     dossiers = _load_dependency_dossiers(engine, job=job, project_root=project_root)
     projections = _write_chapter_projections(
         dossiers,
         chapter_id=str(job["input"]["chapter_id"]),
+        target_year=int(job["target_year"]),
         attempt_dir=attempt_dir,
+        project_root=project_root,
+        approved_packages=job["input"].get("approved_ruler_packages", {}),
+        require_approved_corpus=bool(
+            job["input"].get("require_approved_corpus", False)
+        ),
     )
     prompt_overhead = 5_000 + (len(guide_text.encode("utf-8")) + 2) // 3
     context_ceiling = context_window - 60_000
@@ -316,20 +332,54 @@ def _write_chapter_projections(
     dossiers: tuple[tuple[Path, RulerEvidenceDossier], ...],
     *,
     chapter_id: str,
+    target_year: int | None = None,
     attempt_dir: Path,
+    project_root: Path | None = None,
+    approved_packages: dict[str, dict[str, str]] | None = None,
+    require_approved_corpus: bool = False,
 ) -> tuple[tuple[Path, RulerChapterProjection], ...]:
     """Write immutable chapter-only model inputs beside the judge attempt."""
 
     inputs_dir = attempt_dir / "chapter-inputs"
     inputs_dir.mkdir()
     written: list[tuple[Path, RulerChapterProjection]] = []
+    package_paths = approved_packages or {}
     for source_path, dossier in dossiers:
-        projection = build_ruler_chapter_projection(
-            dossier,
-            chapter_id=chapter_id,
-            source_dossier_path=Path(source_path.name),
-            source_dossier_sha256=sha256(source_path.read_bytes()).hexdigest(),
-        )
+        approved_value = package_paths.get(dossier.job_key)
+        if approved_value is not None:
+            if project_root is None:
+                raise ValueError("approved corpus projection requires project root")
+            approved = ApprovedPackageReference.model_validate(approved_value)
+            path_value = Path(approved.path)
+            manifest_path = (
+                project_root / path_value if not path_value.is_absolute() else path_value
+            )
+            actual_hash = sha256(manifest_path.read_bytes()).hexdigest()
+            if actual_hash != approved.sha256:
+                raise ValueError(
+                    f"approved corpus package changed after planning: {dossier.job_key}"
+                )
+            projection = build_approved_chapter_projection(
+                dossier,
+                chapter_id=chapter_id,
+                dossier_path=source_path,
+                approval_manifest_path=manifest_path,
+                project_root=project_root,
+                target_year=(
+                    target_year if target_year is not None else dossier.period_end_year
+                ),
+            )
+        else:
+            if require_approved_corpus:
+                raise ValueError(
+                    f"approved corpus package missing for dossier: {dossier.job_key}"
+                )
+            projection = build_ruler_chapter_projection(
+                dossier,
+                chapter_id=chapter_id,
+                source_dossier_path=Path(source_path.name),
+                source_dossier_sha256=sha256(source_path.read_bytes()).hexdigest(),
+            )
         path = inputs_dir / f"{dossier.iso3}-{dossier.ruler_year_id}.json"
         path.write_text(projection.model_dump_json(indent=2), encoding="utf-8")
         written.append((path, projection))

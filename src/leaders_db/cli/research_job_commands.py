@@ -106,6 +106,21 @@ def plan_chapter_judge_cmd(
         "--completed-dossiers-only",
         help="Compose the cohort only from completed dossier jobs.",
     ),
+    approved_ruler_package: list[Path] | None = typer.Option(
+        None,
+        "--approved-ruler-package",
+        help="Repeat once per ruler; required by --require-approved-corpus.",
+    ),
+    require_approved_corpus: bool = typer.Option(
+        False,
+        "--require-approved-corpus/--allow-legacy-dossier",
+        help="Reject judge planning unless every ruler has a deep approved package.",
+    ),
+    release_config: Path | None = typer.Option(
+        None,
+        "--release-config",
+        help="Versioned deep-corpus release; its judge contract overrides fallback flags.",
+    ),
     chapter_id: str | None = typer.Option(None, "--chapter-id"),
     all_chapters: bool = typer.Option(False, "--all-chapters"),
     provider_profile: str = typer.Option(
@@ -153,6 +168,9 @@ def plan_chapter_judge_cmd(
             "run_key": run_key,
             "dossier_run_key": dossier_run_key,
             "completed_dossiers_only": completed_dossiers_only,
+            "approved_ruler_package_paths": tuple(approved_ruler_package or ()),
+            "require_approved_corpus": require_approved_corpus,
+            "release_config_path": release_config,
             "provider_profile": provider_profile,
             "model_profiles_path": profiles,
             "output_root": output_root,

@@ -268,6 +268,9 @@ def plan_chapter_judge_job(
     run_key: str,
     dossier_run_key: str | Sequence[str] | None = None,
     completed_dossiers_only: bool = False,
+    approved_ruler_package_paths: Sequence[Path] = (),
+    require_approved_corpus: bool = False,
+    release_config_path: Path | None = None,
     chapter_id: str,
     provider_profile: str,
     model_profiles_path: Path,
@@ -318,6 +321,26 @@ def plan_chapter_judge_job(
         for job in scoped_dossier_jobs
         if job["status"] in {"failed", "cancelled", "quarantined"}
     )
+    release_reference = None
+    if release_config_path is not None:
+        from .deep_corpus_release import (
+            load_deep_corpus_release,
+        )
+        from .deep_corpus_release import (
+            release_reference as build_release_reference,
+        )
+
+        release = load_deep_corpus_release(release_config_path)
+        if release.target_year != year:
+            raise ValueError("deep-corpus release target year differs from judge year")
+        require_approved_corpus = release.judge_contract.require_approved_corpus_package
+        release_reference = build_release_reference(release_config_path)
+    approved_packages = _approved_package_map(
+        approved_ruler_package_paths,
+        expected_job_keys={job["job_key"] for job in dossier_jobs},
+        require_complete=require_approved_corpus,
+        target_year=year,
+    )
     job_key = f"chapter-judge:{run_key}:{year}:{normalized_chapter}"
     write_result = create_jobs(
         engine,
@@ -342,6 +365,9 @@ def plan_chapter_judge_job(
                     "dossier_run_keys": list(source_run_keys),
                     "completed_dossiers_only": completed_dossiers_only,
                     "dossier_job_keys": [job["job_key"] for job in dossier_jobs],
+                    "require_approved_corpus": require_approved_corpus,
+                    "approved_ruler_packages": approved_packages,
+                    "deep_corpus_release": release_reference,
                     "batch_id": cohort_id,
                     "batch_manifest_sha256": cohort_hash,
                     "unavailable_dossiers": [
@@ -432,6 +458,9 @@ def plan_all_chapter_judge_jobs(
     run_key: str,
     dossier_run_key: str | Sequence[str] | None = None,
     completed_dossiers_only: bool = False,
+    approved_ruler_package_paths: Sequence[Path] = (),
+    require_approved_corpus: bool = False,
+    release_config_path: Path | None = None,
     provider_profile: str,
     model_profiles_path: Path,
     output_root: Path | None = None,
@@ -446,6 +475,9 @@ def plan_all_chapter_judge_jobs(
             run_key=run_key,
             dossier_run_key=dossier_run_key,
             completed_dossiers_only=completed_dossiers_only,
+            approved_ruler_package_paths=approved_ruler_package_paths,
+            require_approved_corpus=require_approved_corpus,
+            release_config_path=release_config_path,
             chapter_id=f"{chapter}B",
             provider_profile=provider_profile,
             model_profiles_path=model_profiles_path,
@@ -462,6 +494,40 @@ def plan_all_chapter_judge_jobs(
         judge_jobs=len(results),
         dossier_dependency_count_per_judge=next(iter(dependency_counts)),
     )
+
+
+def _approved_package_map(
+    paths: Sequence[Path],
+    *,
+    expected_job_keys: set[str],
+    require_complete: bool,
+    target_year: int,
+) -> dict[str, dict[str, str]]:
+    from .approved_ruler_package import (
+        ApprovedPackageReference,
+        ApprovedRulerEvidencePackage,
+    )
+
+    mapped: dict[str, dict[str, str]] = {}
+    for path in paths:
+        package = ApprovedRulerEvidencePackage.model_validate_json(
+            path.read_text(encoding="utf-8")
+        )
+        if package.dossier_job_key in mapped:
+            raise ValueError("duplicate approved ruler package for dossier job")
+        if package.dossier_job_key not in expected_job_keys:
+            raise ValueError("approved ruler package is outside the judge cohort")
+        if package.target_year != target_year:
+            raise ValueError("approved ruler package target year differs from judge year")
+        reference = ApprovedPackageReference(
+            path=str(path),
+            sha256=sha256(path.read_bytes()).hexdigest(),
+        )
+        mapped[package.dossier_job_key] = reference.model_dump(mode="json")
+    if require_complete and set(mapped) != expected_job_keys:
+        missing = ", ".join(sorted(expected_job_keys - set(mapped)))
+        raise ValueError(f"approved corpus package missing for dossier jobs: {missing}")
+    return mapped
 
 
 def _validate_dossier_cohort_identity(

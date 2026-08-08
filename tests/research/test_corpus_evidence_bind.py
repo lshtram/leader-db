@@ -26,6 +26,9 @@ def test_binding_copies_exact_units_and_rejects_unaccounted_sources(tmp_path: Pa
     )
     plan = CorpusReadingPlan.model_validate(
         {
+            "ruler_name": "Fixture Ruler",
+            "period_start_year": 2023,
+            "period_end_year": 2023,
             "config": {},
             "documents": [
                 {

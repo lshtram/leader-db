@@ -1,0 +1,49 @@
+schema_version: evidence_pipeline_release_v2
+release_id: production-2023-v2
+status: candidate
+supersedes: production-2023-v1
+target_year: 2023
+model_profile: openai-luna-candidate
+methodology_freeze: configs/evidence-funnel/methodology-2026-08-v2.freeze.yaml
+research_workflow: configs/research-workflow.yaml
+model_profiles: configs/research-models.yaml
+pricing: configs/research-pricing.yaml
+
+depth_contract:
+  preserve_complete_candidate_catalogue: true
+  acquire_every_candidate: true
+  queue_every_unique_readable_document: true
+  accept_document_counts_as_profiling_only: true
+  verify_exact_code_bound_passages: true
+  expose_complete_verified_ledger_to_each_chapter: true
+  questions_per_chapter: 10
+  chapters: [1B, 2B, 3B, 4B, 5B, 6B, 7B, 8B]
+
+quality_contract:
+  material_fact_coverage_target: 0.75
+  factual_accuracy_target: 0.90
+  maximum_targeted_repair_rounds: 3
+  use_requirement_led_repairs: true
+  compact_only_when_required: true
+  review_after_compaction: true
+  independent_review_contract: independent-full-index-v1
+
+judge_contract:
+  require_approved_corpus_package: true
+  allow_legacy_dossier_fallback: false
+  require_all_eight_approved_chapters: true
+  require_hash_bound_analysis_review_and_corpus: true
+
+profiling:
+  record_candidate_urls: true
+  record_acquisition_dispositions: true
+  record_queued_documents: true
+  record_extracted_characters_and_source_tokens: true
+  record_model_usage_by_phase: true
+  record_shared_batch_input_without_per_document_cost_allocation: true
+
+change_control: >-
+  This release does not alter production-2023-v1. Promotion requires an artifact-level
+  pilot proving that a judge projection is built from an approved full-corpus package
+  and cannot fall back to the original compact dossier. Any later scientific change
+  creates a new release and an explicit cross-ruler equivalence decision.
