@@ -49,8 +49,6 @@ def build_codex_exec_command(
             "--disable",
             "unified_exec",
             "--disable",
-            "code_mode_host",
-            "--disable",
             "apps",
             "--disable",
             "plugins",

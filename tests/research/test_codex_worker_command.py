@@ -20,7 +20,7 @@ def _profile() -> ResearchModelProfile:
     )
 
 
-def test_reconnaissance_command_disables_project_and_file_tools(
+def test_reconnaissance_command_keeps_web_host_but_disables_file_tools(
     tmp_path: Path,
 ) -> None:
     command = build_codex_exec_command(
@@ -41,12 +41,12 @@ def test_reconnaissance_command_disables_project_and_file_tools(
     assert {
         "shell_tool",
         "unified_exec",
-        "code_mode_host",
         "apps",
         "plugins",
         "multi_agent",
         "goals",
     } <= disabled
+    assert "code_mode_host" not in disabled
 
 
 def test_other_roles_retain_their_configured_tools(tmp_path: Path) -> None:
