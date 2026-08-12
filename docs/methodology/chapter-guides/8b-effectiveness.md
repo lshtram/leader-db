@@ -12,11 +12,12 @@ Status: draft; v5 declared-goals questions require controlled rejudgment
 
 ## Chapter Purpose
 
-Assess how effectively the ruler turns the principal officially declared governing
-goals into coordinated action and durable results. This measures capability, not
-moral worth; the goals’ morality and consequences are assessed elsewhere. Personal
-enrichment, prestige, family advantage, and remaining in power are not governing
-achievements. The ten questions are evidence
+Assess how effectively the ruler turns the principal declared or reliably revealed
+governing goals into coordinated action and durable results. This measures capability,
+not moral worth; the goals’ morality and consequences are assessed elsewhere. Personal
+enrichment, prestige, and family advantage remain outside effectiveness. Political power
+retention, regime survival, and system control may be part of the assessed program when
+the ruler pursued them, but survival or control alone is not effectiveness. The ten questions are evidence
 lenses feeding one final 1-10 chapter score, not equal sub-scores.
 
 This chapter is ideology-neutral. Moral worth and execution competence are
@@ -24,25 +25,26 @@ separate. A ruler may execute a cruel, aggressive, corrupt, or authoritarian
 program competently and score highly in 8B while scoring very poorly in other
 chapters. Never smuggle moral approval or condemnation into the competence score.
 
-Before applying the lenses, identify only the three to five principal officially
-declared governing goals; the inherited position, authority, and main obstacles; the
+Before applying the lenses, identify only the three to five principal declared or
+reliably revealed governing, power-maintenance, or regime-survival goals; the inherited
+position, authority, and main obstacles; the
 principal actions, resources, and implementers; observable progress and failure; and
-the durability of results. Remaining in power is excluded as a governing achievement.
+the durability of results.
 
 ## Ten Evidence Lenses
 
 | Lens | Simple question | Detailed research question | Priority evidence |
 |---|---|---|---|
-| **8B.1 — Clear governing program** | Were the ruler’s principal officially declared governing goals sufficiently clear to evaluate? | Identify only the three to five most important officially declared governing goals in dated speeches, manifestos, strategies, directives, or formal acts. Do not infer hidden personal goals and then credit the ruler for achieving them. | **Rhetoric and representations**; **Formal acts and law** |
+| **8B.1 — Clear governing program** | Were the ruler’s principal declared or reliably revealed governing and power-maintenance goals sufficiently clear to evaluate? | Identify only the three to five most important goals the ruler officially declared or reliably revealed through repeated, discriminating choices, including policy, state-building, power-maintenance, regime-survival, or international-influence goals where evidenced. Do not infer hidden goals from mere survival or status. | **Rhetoric and representations**; **Formal acts and law** |
 | **8B.2 — Turning goals into machinery** | Did the ruler turn goals into concrete plans, rules, resources, people, and institutions? | Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority? | **Formal acts and law**; **Personnel**; **Implementation and operational conduct** |
 | **8B.3 — Mobilizing the ruling system** | Did the ruler effectively mobilize the state and ruling network toward those goals? | Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program? | **Resources**; **Personnel**; **Implementation and operational conduct** |
 | **8B.4 — Capable implementers** | Did the ruler choose and manage people capable of carrying out the program? | Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
 | **8B.5 — Coordination and control** | Did the ruler maintain coordination and follow-through across the system? | Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies? | **Implementation and operational conduct**; **Outcomes** |
 | **8B.6 — From plans to practice** | Did the ruler turn plans and announcements into real government action? | Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **8B.7 — Progress toward declared goals** | Did the ruler produce meaningful progress toward the principal officially declared governing goals? | Did outcome and distribution indicators move toward the principal officially declared governing goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives? | **Outcomes**; **Implementation and operational conduct** |
+| **8B.7 — Progress toward declared goals** | Did the ruler produce meaningful progress toward the principal declared or reliably revealed governing and power-maintenance goals? | Did outcome and distribution indicators move toward the principal declared or reliably revealed governing and power-maintenance goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives? | **Outcomes**; **Implementation and operational conduct** |
 | **8B.8 — Learning and correction** | Did the ruler adapt and correct course when methods failed? | Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
-| **8B.9 — Managing crises and resistance** | Did the ruler handle crises and resistance without losing the declared governing program? | Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the declared governing objectives and durable implementation? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **8B.10 — Durable goal achievement** | By the end of the ruler’s tenure, had the principal officially declared governing goals been substantially and durably achieved? | Assess whether the principal officially declared governing goals became durable law, institutions, capacity, state practice, and achieved outcomes, accounting for failures and long-term fragility. Remaining in power does not count as achievement of a governing goal. | **Outcomes**; **Formal acts and law**; **Implementation and operational conduct** |
+| **8B.9 — Managing crises and resistance** | Did the ruler handle crises and resistance without losing the declared or reliably revealed governing program? | Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the declared or reliably revealed governing objectives and durable implementation? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **8B.10 — Durable goal achievement** | By the end of the ruler’s tenure, had the principal declared or reliably revealed governing and power-maintenance goals been substantially and durably achieved? | Assess whether the principal declared or reliably revealed governing and power-maintenance goals became durable law, institutions, capacity, state practice, and achieved outcomes, accounting for failures and long-term fragility. Treat political power retention or system control as relevant when evidence shows it was a pursued goal or necessary means of executing the program; survival or control alone does not establish effectiveness. | **Outcomes**; **Formal acts and law**; **Implementation and operational conduct** |
 
 Priority evidence categories indicate promising evidence, not required coverage or an
 exclusive source list. Missing categories do not invalidate a lens.
@@ -58,7 +60,9 @@ exclusive source list. Missing categories do not invalidate a lens.
   or personally honest. Those judgments belong in 1B-7B.
 - Do not reward repression, propaganda, longevity, survival, economic growth,
   administrative size, or institutional quality by itself. Ask whether it
-  effectively served the ruler's identified program.
+  effectively served the ruler's identified program. Political retention and system
+  manipulation may be evidence of effectiveness when they were pursued as goals or
+  materially enabled execution.
 - Do not assume failure from an outcome the ruler did not seek, except where
   maintaining basic government function was necessarily part of governing.
 - Do not use the client matrix as evidence.

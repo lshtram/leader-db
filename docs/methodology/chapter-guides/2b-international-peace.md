@@ -20,18 +20,18 @@ or blame a ruler automatically for an inherited war. Domestic repression belongs
 primarily in Chapter 3B; economic opportunity cost is contextual here. The client
 matrix is never evidence.
 
-Before applying the lenses, establish the ruler’s authority and security context;
-inherited wars, deployments, and support; a complete inventory of material overseas
-force; scale and consequences; and ruler attribution based on independent evidence.
-Record conduct before judging justification. Ruler explanations are claims and receive
-no presumption of credibility.
+Preliminary focus. Establish the ruler’s authority and security context; inherited
+wars, deployments, and support; a complete inventory of material overseas force;
+scale and consequences; and ruler attribution based on independent evidence. Record
+conduct before judging justification. Ruler explanations are claims and receive no
+presumption of credibility.
 
 ## Ten Evidence Lenses
 
 | Lens | Simple question | Detailed research question | Priority evidence |
 |---|---|---|---|
 | **2B.1 — Peaceful alternatives** | Did the ruler seriously try peaceful options before using force? | When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force? | **Formal acts and law**; **Implementation and operational conduct** |
-| **2B.2 — Actual overseas force, war, and escalation** | Did the ruler initiate, order, authorize, support, knowingly allow, expand, or prolong material military or violent action abroad, and what were its scale and consequences? | First record every material action without excluding conduct described as defensive, lawful, necessary, retaliatory, or humanitarian. Include force outside the state’s broadly internationally recognized territory, destructive cyber operations causing physical harm or material escalation, and material enabling support. Identify the ruler’s role, direct and supported actors, scale, casualties, displacement, destruction, territorial effects, escalation, and whether the ruler inherited, expanded, reduced, or ended the action. ‘Knowingly allowed’ requires knowledge, practical authority or leverage, and failure to take reasonable corrective action. | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.2 — Actual initiation or escalation of overseas tensions and conflicts** | Did the ruler initiate, order, authorize, support, allow, expand, or prolong material military or violent action abroad, and what were its scale and consequences? | First record every material action without excluding conduct described as defensive, lawful, necessary, retaliatory, or humanitarian. Include force outside the state’s broadly internationally recognized territory, destructive cyber operations causing physical harm or material escalation, and material enabling support. Identify the ruler’s role, direct and supported actors, scale, casualties, displacement, destruction, territorial effects, escalation, and whether the ruler inherited, expanded, reduced, or ended the action. | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
 | **2B.3 — Honest justification for force** | Was the ruler’s stated justification for force supported by independent evidence? | Treat the ruler’s explanation only as a claim or evidence of intent. Assess contemporaneous evidence, actual conduct, independent findings, peaceful alternatives, legality, necessity, proportionality, and consequences from outside in, with no presumption that claims of defense, necessity, retaliation, humanitarian purpose, or national interest are true. | **Rhetoric and representations**; **Formal acts and law** |
 | **2B.4 — Civilian and prisoner protection** | Did the ruler protect civilians and prisoners during conflict? | Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
 | **2B.5 — Control of proxies, arms, and enabling support** | Did the ruler prevent supported forces and arms recipients from causing abuse? | Did the ruler establish and enforce controls over arms, intelligence, targeting, financing, logistics, bases, proxies, and allied forces; monitor foreseeable abuse; and suspend support or correct policy when harm emerged? Enabling support ordinarily receives less weight than direct action, but more where it was indispensable, large, knowing, controlled, or readily stoppable. | **Resources**; **Implementation and operational conduct**; **Outcomes** |

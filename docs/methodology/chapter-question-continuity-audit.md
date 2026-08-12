@@ -29,7 +29,7 @@ contextual evidence.
 | 3B | State abuse; aligned coercive actors; incitement and targeted groups; due process and oversight; emergency and surveillance powers; state and non-state fear; vulnerable groups and displacement; protest; crisis restraint; inherited-to-end safety |
 | 4B | Contestable elections; entrenchment and public-resource misuse; opposition and civic space; institutional checks; loyalty and personality cults; media and information; political equality; succession; digital repression; democratic resilience |
 | 5B | Broad prosperity versus extraction; professional appointments; macro stability; fair market rules; capture; productive investment; evidence and correction versus denial; distribution; shock management; inherited trajectory |
-| 6B | Welfare purpose; service access; vulnerable groups; professional delivery; measurement and correction; crises; political allocation; dignity and equality; durable institutions; life chances |
+| 6B | Welfare purpose; service access; vulnerable groups; professional delivery; measurement and correction; crises; political allocation; dignity and equality; durable institutions; durable social outcomes |
 | 7B | Truthfulness; correction and truth-teller treatment; conflicts of interest; personal and family enrichment; nepotism and loyalists; independent investigation; obstruction; promises and concealed tradeoffs; favoritism and clientelism; ethical example |
 | 8B | Stated and revealed goals; translation into plans and machinery; mobilization; capable personnel; coordination and control; implementation and state reach; goal-relative outcomes; adaptation; crisis and resistance management; durable goal achievement |
 
