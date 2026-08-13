@@ -98,6 +98,12 @@ def run_corpus_reading(
         + "\n",
         encoding="utf-8",
     )
+    failed = [item["batch_id"] for item in ordered if item.get("status") == "failed"]
+    if failed:
+        raise RuntimeError(
+            "corpus reading is incomplete; resume the same plan until every batch "
+            f"succeeds: {', '.join(failed)}"
+        )
     return path
 
 
@@ -318,7 +324,13 @@ def execute_json_model(
         "w", encoding="utf-8"
     ) as stderr:
         subprocess.run(
-            command, input=prompt, text=True, stdout=events, stderr=stderr, check=True
+            command,
+            input=prompt,
+            text=True,
+            stdout=events,
+            stderr=stderr,
+            check=True,
+            timeout=1_800,
         )
     return model.model_validate_json(output_path.read_text(encoding="utf-8"))
 

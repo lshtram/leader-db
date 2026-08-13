@@ -1214,3 +1214,20 @@ Work is split into five sequential phases (see [`../workplan.md`](../workplan.md
 - **C. Data acquisition** — Stage 0-2 source adapters.
 - **D. Testing** — coverage, boundary tests, smoke pipeline cases.
 - **E. Activation** — Stage 3-15 on the full client 2023 scope.
+# Canonical production evidence pipeline
+
+There is one production path for ruler-quality results: canonical identity lock,
+versioned question and methodology freeze, source discovery, acquisition of every
+catalogue candidate or an explicit disposition, deduplicated reading of every readable
+document, code-bound evidence packaging, independent full-index chapter review,
+hash-bound ruler approval, comparative chapter judging, score/order audit, and cited
+HTML publication. A direct researcher dossier is an intermediate discovery artifact;
+it is never judge-ready or publishable by itself.
+
+The production release under `configs/evidence-funnel/` assigns a unique pipeline
+version and implementation/contract ID to every stage. Approved ruler packages,
+judge jobs, audits, and publications carry the complete release-bound provenance.
+Changing any scientific stage requires a new release ID and pipeline version.
+Corpus completion is strict: an undispositioned document or failed reading batch keeps
+the run incomplete, and the approval boundary revalidates exact plan-to-run coverage
+and every verified-evidence artifact rather than trusting a completion label.

@@ -128,6 +128,7 @@ def _plan_with_retries(
             CoveragePlan,
             output_dir,
         )
+        plan = _drop_unknown_evidence_ids(plan, evidence)
         try:
             _validate_plan(chapter_id, requirements, questions, evidence, plan)
             return plan
@@ -146,6 +147,28 @@ def _plan_with_retries(
                 "and every immutable question route must be preserved."
             )
     raise AssertionError("unreachable")
+
+
+def _drop_unknown_evidence_ids(plan: CoveragePlan, evidence) -> CoveragePlan:
+    """Remove model-invented IDs while preserving the immutable repair routing."""
+
+    valid_ids = set(evidence)
+    return plan.model_copy(
+        update={
+            "mappings": tuple(
+                mapping.model_copy(
+                    update={
+                        "evidence_ids": tuple(
+                            evidence_id
+                            for evidence_id in mapping.evidence_ids
+                            if evidence_id in valid_ids
+                        )
+                    }
+                )
+                for mapping in plan.mappings
+            )
+        }
+    )
 
 
 def _requirements(chapter_id: str, quality: ChapterAnalysisQuality):

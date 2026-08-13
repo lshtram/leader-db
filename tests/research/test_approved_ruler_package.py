@@ -5,13 +5,20 @@ import json
 from pathlib import Path
 
 import pytest
+import yaml
 
 from leaders_db.research.approved_chapter_projection import (
+    _bounded_transport_text,
     build_approved_chapter_projection,
 )
 from leaders_db.research.approved_ruler_package import (
     build_approved_ruler_package,
     load_approved_ruler_package,
+)
+from leaders_db.research.batch_manifest import (
+    ResearchBatchCase,
+    ResearchBatchManifest,
+    compute_resolved_content_sha256,
 )
 from leaders_db.research.chapter_analysis_models import (
     ChapterAnalysisCritique,
@@ -28,15 +35,30 @@ from leaders_db.research.corpus_judge_package import (
 )
 from leaders_db.research.corpus_reader_models import BoundEvidence
 from leaders_db.research.deep_corpus_release import load_deep_corpus_release
+from leaders_db.research.production_run import build_production_run_manifest
 from tests.research.test_chapter_projection import _dossier
 
 
-def test_production_v2_release_requires_hash_bound_approved_corpus() -> None:
+def test_bounded_transport_text_marks_and_preserves_source_ends() -> None:
+    excerpt = "A" * 4_000 + "B" * 4_000
+
+    bounded = _bounded_transport_text(excerpt, limit=800)
+
+    assert bounded.startswith("A" * 100)
+    assert bounded.endswith("B" * 100)
+    assert "TRANSPORT ELISION sha256=" in bounded
+    assert len(bounded) <= 800
+
+
+def test_production_release_requires_hash_bound_approved_corpus() -> None:
     release = load_deep_corpus_release(
-        Path("configs/evidence-funnel/production-2023-v2.yaml")
+        Path("configs/evidence-funnel/production-2023-v4.yaml")
     )
 
     assert release.target_year == 2023
+    assert release.status == "production"
+    assert release.pipeline_version_id == "leaders-db-production-pipeline-2023-v4"
+    assert len(release.stage_versions) == 12
     assert release.judge_contract.require_approved_corpus_package is True
     assert release.judge_contract.allow_legacy_dossier_fallback is False
 
@@ -94,6 +116,20 @@ def test_approved_package_binds_full_corpus_and_builds_v2_projection(  # noqa: P
         ),
         encoding="utf-8",
     )
+    reading_manifest_path = tmp_path / "reading-run-manifest.json"
+    reading_manifest_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "corpus_reading_run_v1",
+                "profile": "test-reader",
+                "model": "test-model",
+                "batches": [],
+                "evidence_count": 0,
+                "failed_batch_ids": [],
+            }
+        ),
+        encoding="utf-8",
+    )
     selected = []
     for chapter in range(1, 9):
         chapter_id = f"{chapter}B"
@@ -139,12 +175,65 @@ def test_approved_package_binds_full_corpus_and_builds_v2_projection(  # noqa: P
         encoding="utf-8",
     )
     approval_path = tmp_path / "approved.json"
+    release_dir = tmp_path / "configs" / "evidence-funnel"
+    release_dir.mkdir(parents=True)
+    release_path = release_dir / "production-2023-v4.yaml"
+    release_payload = yaml.safe_load(
+        Path("configs/evidence-funnel/production-2023-v4.yaml").read_text()
+    )
+    release_payload["target_year"] = dossier.period_end_year
+    release_path.write_text(yaml.safe_dump(release_payload), encoding="utf-8")
+    (release_dir / "methodology-2026-08-v2.freeze.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "release_id": "methodology-2026-08-v2",
+                "file_hashes": {},
+                "aggregate_sha256": hashlib.sha256(b"").hexdigest(),
+            }
+        ),
+        encoding="utf-8",
+    )
+    batch = ResearchBatchManifest(
+        version=1,
+        batch_id="test-approved-package",
+        year=dossier.period_end_year,
+        rationale="Synthetic production approval boundary test.",
+        resolved_content_sha256="0" * 64,
+        cases=(
+            ResearchBatchCase(
+                ruler_year_id=dossier.ruler_year_id,
+                ruler_id=1,
+                iso3=dossier.iso3,
+                ruler_name=dossier.ruler_name,
+            ),
+        ),
+    )
+    batch = batch.model_copy(
+        update={"resolved_content_sha256": compute_resolved_content_sha256(batch)}
+    )
+    batch_dir = tmp_path / "configs" / "research-batches"
+    batch_dir.mkdir(parents=True)
+    batch_path = batch_dir / "test.yaml"
+    batch_path.write_text(
+        yaml.safe_dump(batch.model_dump(mode="json"), sort_keys=False),
+        encoding="utf-8",
+    )
+    production_run_path = tmp_path / "research" / "runs" / "test" / "run.yaml"
+    build_production_run_manifest(
+        project_root=tmp_path,
+        run_id="test-approved-package",
+        batch_manifest_path=batch_path,
+        release_config_path=release_path,
+        output_path=production_run_path,
+    )
     build_approved_ruler_package(
         project_root=tmp_path,
         dossier_path=dossier_path,
         corpus_package_path=corpus_path,
         reading_plan_path=reading_plan_path,
+        reading_manifest_path=reading_manifest_path,
         selection_manifest_path=selection_path,
+        production_run_manifest_path=production_run_path,
         output_path=approval_path,
     )
 
@@ -159,6 +248,11 @@ def test_approved_package_binds_full_corpus_and_builds_v2_projection(  # noqa: P
     )
 
     assert approved.dossier_job_key == dossier.job_key
+    assert approved.schema_version == "approved_ruler_evidence_package_v3"
+    assert (
+        approved.pipeline_provenance.pipeline_version_id
+        == "leaders-db-production-pipeline-2023-v4"
+    )
     assert projection.schema_version == "ruler_chapter_projection_v2"
     assert len(projection.approved_question_answers) == 10
     assert [item.evidence_id for item in projection.evidence] == ["E000001"]
@@ -186,6 +280,18 @@ def test_approved_package_binds_full_corpus_and_builds_v2_projection(  # noqa: P
     with pytest.raises(ValueError, match="eighty methodology questions"):
         load_approved_ruler_package(approval_path, project_root=tmp_path)
     corpus_path.write_text(original_corpus, encoding="utf-8")
+    approval_path.write_text(original_approval, encoding="utf-8")
+
+    original_reading_manifest = reading_manifest_path.read_text(encoding="utf-8")
+    incomplete = json.loads(original_reading_manifest)
+    incomplete["failed_batch_ids"] = ["BATCH-0001"]
+    reading_manifest_path.write_text(json.dumps(incomplete), encoding="utf-8")
+    approval_payload = json.loads(original_approval)
+    approval_payload["reading_manifest_sha256"] = _digest(reading_manifest_path)
+    approval_path.write_text(json.dumps(approval_payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="failed batches"):
+        load_approved_ruler_package(approval_path, project_root=tmp_path)
+    reading_manifest_path.write_text(original_reading_manifest, encoding="utf-8")
     approval_path.write_text(original_approval, encoding="utf-8")
 
     review_path.write_text("tampered", encoding="utf-8")

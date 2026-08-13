@@ -94,12 +94,8 @@ def plan_dossiers_cmd(
 
 @jobs_app.command("plan-chapter-judge")
 def plan_chapter_judge_cmd(
-    year: int = typer.Option(..., "--year"),
-    run_key: str = typer.Option(..., "--run-key"),
-    dossier_run_key: list[str] | None = typer.Option(
-        None,
-        "--dossier-run-key",
-        help="Reuse dossiers from one or more run keys; repeat this option.",
+    production_run: Path = typer.Option(
+        ..., "--production-run", exists=True, dir_okay=False
     ),
     completed_dossiers_only: bool = typer.Option(
         False,
@@ -109,17 +105,7 @@ def plan_chapter_judge_cmd(
     approved_ruler_package: list[Path] | None = typer.Option(
         None,
         "--approved-ruler-package",
-        help="Repeat once per ruler; required by --require-approved-corpus.",
-    ),
-    require_approved_corpus: bool = typer.Option(
-        False,
-        "--require-approved-corpus/--allow-legacy-dossier",
-        help="Reject judge planning unless every ruler has a deep approved package.",
-    ),
-    release_config: Path | None = typer.Option(
-        None,
-        "--release-config",
-        help="Versioned deep-corpus release; its judge contract overrides fallback flags.",
+        help="Repeat once per ruler; required for every production judge run.",
     ),
     chapter_id: str | None = typer.Option(None, "--chapter-id"),
     all_chapters: bool = typer.Option(False, "--all-chapters"),
@@ -135,6 +121,12 @@ def plan_chapter_judge_cmd(
     """Plan one chapter-year judge job with ruler-dossier dependencies."""
 
     engine, project, profiles = _runtime(db_url, model_profiles_path)
+    from ..research.production_run import load_production_run_manifest
+
+    production = load_production_run_manifest(production_run, project_root=project)
+    year = production.target_year
+    run_key = production.run_id
+    release_config = project / production.release_config
     from ..research.job_planner import (
         plan_all_chapter_judge_jobs,
         plan_chapter_judge_job,
@@ -166,10 +158,10 @@ def plan_chapter_judge_cmd(
         common = {
             "year": year,
             "run_key": run_key,
-            "dossier_run_key": dossier_run_key,
+            "dossier_run_key": [run_key],
             "completed_dossiers_only": completed_dossiers_only,
             "approved_ruler_package_paths": tuple(approved_ruler_package or ()),
-            "require_approved_corpus": require_approved_corpus,
+            "require_approved_corpus": True,
             "release_config_path": release_config,
             "provider_profile": provider_profile,
             "model_profiles_path": profiles,

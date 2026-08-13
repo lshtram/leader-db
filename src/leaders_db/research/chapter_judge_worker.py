@@ -562,6 +562,7 @@ def _prepare_batch(  # noqa: PLR0912, PLR0915
         "target_year": job["target_year"],
         "rubric_version": rubric_version,
         "calibration_batch_id": job["job_key"],
+        "pipeline_provenance": job["input"].get("pipeline_provenance"),
         "unavailable_dossiers": job["input"].get("unavailable_dossiers", []),
     }
     profile = candidate.get("run_profile")

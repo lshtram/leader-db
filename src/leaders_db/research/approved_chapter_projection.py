@@ -138,12 +138,12 @@ def _convert_evidence(item: BoundEvidence, evidence_id: str) -> DossierEvidence:
     final_use = "context" if item.polarity == "context" else "final_evidence"
     return DossierEvidence(
         evidence_id=evidence_id,
-        claim=item.fact_summary,
+        claim=_bounded_transport_text(item.fact_summary, limit=800),
         url=item.url,
         title=item.title or item.url,
         publisher=item.publisher or "unknown publisher",
         publication_date="unknown_not_recorded",
-        excerpt=item.exact_excerpt,
+        excerpt=_bounded_transport_text(item.exact_excerpt, limit=800),
         source_locator=item.locator,
         canonical_fact_key=f"{item.source_id}:{item.excerpt_sha256}",
         source_type="verified_corpus_document",
@@ -156,6 +156,17 @@ def _convert_evidence(item: BoundEvidence, evidence_id: str) -> DossierEvidence:
         ruler_attribution=item.ruler_attribution,
         contrary_evidence=item.limitations,
     )
+
+
+def _bounded_transport_text(text: str, *, limit: int) -> str:
+    """Bound repeated judge text while preserving an audited corpus locator."""
+
+    if len(text) <= limit:
+        return text
+    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
+    marker = f"\n[... TRANSPORT ELISION sha256={digest} ...]\n"
+    half = (limit - len(marker)) // 2
+    return text[:half] + marker + text[-half:]
 
 
 def _mappings(evidence, id_map, question_ids, analysis):
@@ -182,7 +193,7 @@ def _mappings(evidence, id_map, question_ids, analysis):
             evidence_id=id_map[item.evidence_id],
             methodology_id=question_id,
             relation=answer_relation.get((item.evidence_id, question_id), "context"),
-            relevance=item.fact_summary,
+            relevance=_bounded_transport_text(item.fact_summary, limit=250),
         )
         for item in evidence
         for question_id in sorted(routed[item.evidence_id])

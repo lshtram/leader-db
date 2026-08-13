@@ -1,5 +1,26 @@
 # Workplan
 
+## 2026-08-12 — Five-ruler diagnostic discarded; complete-reading gate added
+
+- Audited the aborted five-ruler run against the approved Netanyahu deep-corpus
+  benchmark. Catalogue and readable-document breadth were comparable, but evidence
+  yield varied materially and one Putin batch failed while the run still emitted a
+  nominal reading manifest.
+- Removed the generic normalization behavior that silently converted an omitted
+  document into `documents_with_no_material_fact`. Every queued document must now
+  receive an explicit model disposition; omission fails the batch.
+- Corpus reading now persists diagnostics but raises whenever any planned batch fails.
+  Ruler approval independently reopens the reading plan and manifest, requires exact
+  ordered coverage of every planned batch, rejects all failed batches, and requires
+  every verified-evidence artifact to exist.
+- Promoted the corrected sole path to `leaders-db-production-pipeline-2023-v4` /
+  `production-2023-v4`. The corpus reader is
+  `complete-code-bound-corpus-reader-v2`; ruler approval is
+  `complete-reading-bound-ruler-approval-v3`.
+- The complete `2023-five-ruler-test-v1` diagnostic run and its ledger rows were
+  intentionally deleted. The next five-ruler test starts from a new run ID and no
+  artifact reuse.
+
 ## 2026-08-08 — Deep-corpus judge handoff candidate implemented
 
 - Added a hash-bound approved ruler package that reconciles the dossier, identity-bearing
@@ -5620,3 +5641,16 @@ Per [`docs/sources/vetting/report.md`](sources/vetting/report.md) §8, the build
   input tokens (11,761,536 cached) and 1,225,688 output tokens. Artifacts,
   per-call profiling, failure accounting, and readable chapter packages are under
   `research/runs/xi-jinping-2023-full-pipeline-v1/`.
+# Active production-pipeline consolidation — 2026-08-12
+
+- The five-ruler 2023 test exposed that the direct dossier path could be mistaken for
+  a production judge handoff. Netanyahu's direct dossier contained 58 evidence records,
+  while the prior deep-corpus pilot contained 407 candidates, 296 readable documents,
+  and 699 coded evidence units.
+- Production is being consolidated on release `production-2023-v4`: deep-corpus
+  acquisition, full reading, verified evidence packaging, independent chapter review,
+  hash-bound ruler approval, comparative judging, audit, and cited HTML publication.
+- Public chapter-judge planning now requires a production release and approved ruler
+  packages. The former legacy-dossier CLI alternative has been removed.
+- Complete stage implementation and contract identities are persisted as pipeline
+  provenance and will be carried by the five-ruler results.

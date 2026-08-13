@@ -167,10 +167,37 @@ def _quality_payload(questions, answer_by_id, evidence_by_id):
             + answer.contrary_or_qualifying_evidence_ids
         )
     }
-    cited = [
-        evidence_by_id[item].model_dump(mode="json") for item in sorted(cited_ids)
-    ]
+    cited = [_quality_cited_evidence(evidence_by_id[item]) for item in sorted(cited_ids)]
     return answers, cited
+
+
+def _quality_cited_evidence(item) -> dict[str, object]:
+    """Keep claim-verification text while removing duplicated transport metadata."""
+
+    return {
+        "evidence_id": item.evidence_id,
+        "title": item.title,
+        "publisher": item.publisher,
+        "fact_summary": item.fact_summary,
+        "period_fit": item.period_fit,
+        "ruler_attribution": item.ruler_attribution,
+        "limitations": item.limitations,
+        "locator": item.locator,
+        "exact_excerpt": _bounded_excerpt(item.exact_excerpt),
+        "excerpt_sha256": item.excerpt_sha256,
+        "verification_status": item.verification_status,
+    }
+
+
+def _bounded_excerpt(excerpt: str, limit: int = 6_000) -> str:
+    """Bound transport size without silently hiding that source text was elided."""
+
+    if len(excerpt) <= limit:
+        return excerpt
+    half = (limit - 80) // 2
+    omitted = len(excerpt) - (2 * half)
+    marker = f"\n[... {omitted} SOURCE CHARACTERS OMITTED FOR TRANSPORT ...]\n"
+    return excerpt[:half] + marker + excerpt[-half:]
 
 
 def _validate_quality_shard(chapter_id, question_ids, shard) -> None:

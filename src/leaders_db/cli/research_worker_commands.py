@@ -20,6 +20,7 @@ def register_worker_commands(jobs_app: typer.Typer) -> None:
     jobs_app.command("run-corpus-reading")(run_corpus_reading_cmd)
     jobs_app.command("build-corpus-judge-package")(build_corpus_judge_package_cmd)
     jobs_app.command("build-approved-ruler-package")(build_approved_ruler_package_cmd)
+    jobs_app.command("init-production-run")(init_production_run_cmd)
     jobs_app.command("run-one")(run_one_job_cmd)
     jobs_app.command("run-queue")(run_queue_cmd)
 
@@ -166,7 +167,14 @@ def build_approved_ruler_package_cmd(
     dossier: Path = typer.Option(..., "--dossier"),
     corpus_package: Path = typer.Option(..., "--corpus-package"),
     reading_plan: Path = typer.Option(..., "--reading-plan"),
+    reading_manifest: Path = typer.Option(..., "--reading-manifest"),
     selection_manifest: Path = typer.Option(..., "--selection-manifest"),
+    production_run: Path = typer.Option(
+        ...,
+        "--production-run",
+        exists=True,
+        dir_okay=False,
+    ),
     output: Path = typer.Option(..., "--output"),
     output_json: bool = typer.Option(False, "--json"),
 ) -> None:
@@ -180,10 +188,38 @@ def build_approved_ruler_package_cmd(
         dossier_path=dossier,
         corpus_package_path=corpus_package,
         reading_plan_path=reading_plan,
+        reading_manifest_path=reading_manifest,
         selection_manifest_path=selection_manifest,
+        production_run_manifest_path=production_run,
         output_path=output,
     )
     _emit({"approved_ruler_package": str(path)}, output_json=output_json)
+
+
+def init_production_run_cmd(
+    run_id: str = typer.Option(..., "--run-id"),
+    batch_manifest: Path = typer.Option(
+        ..., "--batch-manifest", exists=True, dir_okay=False
+    ),
+    release_config: Path = typer.Option(
+        ..., "--release-config", exists=True, dir_okay=False
+    ),
+    output: Path = typer.Option(..., "--output"),
+    output_json: bool = typer.Option(False, "--json"),
+) -> None:
+    """Freeze the complete version identity for one production run."""
+
+    from ..paths import project_root
+    from ..research.production_run import build_production_run_manifest
+
+    path = build_production_run_manifest(
+        project_root=project_root(),
+        run_id=run_id,
+        batch_manifest_path=batch_manifest,
+        release_config_path=release_config,
+        output_path=output,
+    )
+    _emit({"production_run_manifest": str(path)}, output_json=output_json)
 
 
 def plan_case_cmd(

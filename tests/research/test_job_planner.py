@@ -346,7 +346,7 @@ def test_v2_judge_rejects_a_cohort_without_approved_corpus_packages(
         model_profiles_path=profiles,
     )
 
-    with pytest.raises(ValueError, match="approved corpus package missing"):
+    with pytest.raises(ValueError, match="versioned deep-corpus release"):
         plan_chapter_judge_job(
             engine,
             year=2020,
@@ -391,8 +391,42 @@ def test_release_config_enforces_approved_corpus_without_shadow_flags(
             provider_profile="judge",
             model_profiles_path=profiles,
             release_config_path=Path(
-                "configs/evidence-funnel/production-2023-v2.yaml"
+                "configs/evidence-funnel/production-2023-v4.yaml"
             ),
+        )
+
+
+def test_production_judge_requires_a_release_even_with_strict_flag(
+    database_url: str,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    profiles = _profiles(tmp_path)
+    monkeypatch.setattr(
+        "leaders_db.research.job_planner.list_local_prior_slice_cases",
+        lambda engine, *, year: _cases()[:1],
+    )
+    plan_dossier_jobs(
+        engine,
+        year=2020,
+        run_key="strict-dossiers",
+        methodology_ids=_chapter_ids("4B"),
+        provider_profile="researcher",
+        model_profiles_path=profiles,
+    )
+
+    with pytest.raises(ValueError, match="versioned deep-corpus release"):
+        plan_chapter_judge_job(
+            engine,
+            year=2020,
+            run_key="strict-judge",
+            dossier_run_key="strict-dossiers",
+            require_approved_corpus=True,
+            chapter_id="4B",
+            provider_profile="judge",
+            model_profiles_path=profiles,
         )
 
 

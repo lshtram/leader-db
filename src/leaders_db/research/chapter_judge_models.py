@@ -7,6 +7,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .dossier_models import DossierUsage
+from .pipeline_provenance import ProductionPipelineProvenance
 
 ManualReviewReasonType = Literal[
     "identity",
@@ -215,6 +216,7 @@ class ChapterJudgmentBatch(BaseModel):
     target_year: int
     rubric_version: str
     calibration_batch_id: str
+    pipeline_provenance: ProductionPipelineProvenance | None = None
     evaluations: tuple[RulerChapterJudgment, ...] = Field(min_length=1)
     unavailable_dossiers: tuple[UnavailableDossier, ...] = ()
     batch_notes: tuple[str, ...] = ()
@@ -226,6 +228,7 @@ def codex_chapter_judgment_json_schema() -> dict[str, Any]:
 
     schema = ChapterJudgmentBatch.model_json_schema()
     _remove_server_owned_usage_fields(schema)
+    schema.get("properties", {}).pop("pipeline_provenance", None)
     _require_every_property(schema)
     return schema
 

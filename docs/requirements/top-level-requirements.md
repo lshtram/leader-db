@@ -669,8 +669,14 @@ selection is forbidden under concurrent execution. Broad runs must bind exact re
 ruler-year identities in a versioned canonical-hash manifest and use bounded concurrency
 with a failure circuit breaker.
 
-An optional long-document reader may be tested between source discovery and evidence
-acceptance. It must first distinguish lawfully machine-readable full text from metadata,
+The production ruler-quality path includes the deep-corpus document stages between
+source discovery and evidence acceptance. There is no direct-dossier production
+alternative. The pipeline must acquire or explicitly disposition every catalogue
+candidate, deduplicate and queue every readable document, read and code-bind the full
+queue, expose the complete verified ledger to each chapter, independently review all
+ten chapter answers against the full index, and hash-bind all eight accepted chapters
+before judging. Direct researcher dossiers remain discovery and formatting inputs only.
+The document stage must distinguish lawfully machine-readable full text from metadata,
 paywall/login, bot or JavaScript challenge, robots denial, transient failure, and
 unavailability without bypassing restrictions. Raw and extracted documents retain
 checksums and page/section boundaries. Versioned document-type prompts produce compact
@@ -679,6 +685,12 @@ not count as content failures. A stronger compiler must reopen consequential cla
 against the underlying extract before dossier acceptance. Reader evaluation measures
 claim support, material omissions, locator fidelity, contrary evidence, source
 incentives, official-source concentration, and phase-level token cost.
+An omitted source disposition is never interpreted as evidence that the source contains
+no material fact. Every queued source must receive an explicit fact or no-material-fact
+disposition. Any failed batch leaves corpus reading incomplete. Before ruler approval,
+the parent independently reconciles the immutable reading plan to the run manifest,
+requires every planned batch exactly once, rejects failed batches, and verifies every
+batch's persisted verified-evidence artifact.
 
 Every such ruler session starts from local structured evidence, not web discovery.
 The parent queries the harmonized country-year fact layer for all selected chapters,
@@ -689,8 +701,8 @@ treat missing local rows as gaps rather than favorable or zero observations. Web
 evidence is then used for decisions, attribution, implementation, contrary evidence,
 and themes not answered by the local package.
 
-The executable chapter judge consumes only completed cited dossiers and the
-versioned chapter guide; it performs no new discovery. Its model input is a deterministic,
+The executable chapter judge consumes only complete approved ruler packages bound to
+the active production-run manifest; it performs no new discovery. Its model input is a deterministic,
 source-hash-bound chapter projection containing only the relevant ten lenses and mapped
 evidence. The parent must reserve output context and block an oversized projected batch
 before model invocation. Before publication the
@@ -700,6 +712,15 @@ to `chapter_scores` and completes the owning fenced ledger job in one transactio
 so an expired worker cannot publish a partial or canonical batch. A separate
 score/order auditor then checks comparative ordering, attribution, missingness,
 source balance, and systematic rubric drift without changing the cited record.
+
+Each production run has one immutable run manifest. It records the exact ruler/year
+batch hash, methodology freeze and aggregate hash, production release hash, complete
+pipeline version ID, and unique implementation and contract IDs for identity, discovery,
+acquisition, corpus planning, corpus reading, evidence packaging, evidence review,
+dossier formatting, ruler approval, chapter judging, score/order audit, and publication.
+Approved ruler packages, judgment batches, audits, and HTML outputs carry this complete
+provenance. Any scientific or implementation change requires a new pipeline release;
+production commands reject legacy fallback flags and mismatched manifests.
 
 ### Score output example
 

@@ -35,8 +35,7 @@ def normalize_reader_output(
     }
     missing = expected_source_ids - fact_sources - no_fact
     if missing:
-        warnings.append(_reopen_warning(missing))
-        no_fact.update(missing)
+        raise ValueError(_reopen_warning(missing))
     normalized = BatchFactOutput(
         facts=tuple(valid_facts),
         documents_with_no_material_fact=tuple(sorted(no_fact)),
@@ -72,8 +71,7 @@ def reconcile_reader(reader: BatchFactOutput, batch: ReadingBatch) -> BatchFactO
     no_fact = (set(reader.documents_with_no_material_fact) & expected) - fact_sources
     missing = expected - fact_sources - no_fact
     if missing:
-        warnings.append(_reopen_warning(missing))
-        no_fact.update(missing)
+        raise ValueError(_reopen_warning(missing))
     return BatchFactOutput(
         facts=tuple(facts),
         documents_with_no_material_fact=tuple(sorted(no_fact)),

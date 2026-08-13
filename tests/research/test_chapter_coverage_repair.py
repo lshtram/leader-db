@@ -15,6 +15,7 @@ from leaders_db.research.chapter_coverage_models import (
     validate_routed_dispositions,
 )
 from leaders_db.research.chapter_coverage_repair import (
+    _drop_unknown_evidence_ids,
     _requirements,
     _validate_plan,
     _validate_repair,
@@ -108,6 +109,27 @@ def test_plan_rejects_invented_evidence() -> None:
         _validate_plan(
             "3B", (requirement,), [{"id": "3B.1"}], {"E-1": object()}, plan
         )
+
+
+def test_plan_normalization_drops_only_unknown_evidence_ids() -> None:
+    plan = CoveragePlan(
+        chapter_id="3B",
+        mappings=(
+            RequirementMapping(
+                requirement_id="REQ-001",
+                question_ids=("3B.1",),
+                evidence_ids=("E-1", "INVENTED", "E-2"),
+                rationale="Use the available records.",
+            ),
+        ),
+    )
+
+    normalized = _drop_unknown_evidence_ids(
+        plan, {"E-1": object(), "E-2": object()}
+    )
+
+    assert normalized.mappings[0].evidence_ids == ("E-1", "E-2")
+    assert normalized.mappings[0].question_ids == ("3B.1",)
 
 
 def test_plan_cannot_reassign_an_immutable_question_route() -> None:

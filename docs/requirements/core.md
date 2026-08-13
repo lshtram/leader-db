@@ -218,3 +218,22 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 - Schema details live in [`../architecture/database-schema.md`](../architecture/database-schema.md).
 - Per-source provenance lives in [`../sources/registry.md`](../sources/registry.md).
 - Future modules may split this file into `requirements-<module>.md` files as surface area grows.
+# Production pipeline identity
+
+- **REQ-PIPE-001:** Ruler-quality production results use only the complete deep-corpus
+  pipeline. Compact/direct dossiers are intermediate artifacts and cannot be supplied
+  to production judges.
+- **REQ-PIPE-002:** Every production release has one unique pipeline version ID, one
+  methodology version ID, and unique implementation and contract IDs for identity,
+  discovery, acquisition, corpus planning, reading, packaging, review, formatting,
+  approval, judging, audit, and publication.
+- **REQ-PIPE-003:** Every approved ruler package, judgment batch, audit, and published
+  report is hash-bound to the exact production release and carries its complete
+  pipeline provenance.
+- **REQ-PIPE-004:** Production judge planning fails unless every ruler has a complete,
+  independently reviewed, hash-bound approved corpus package for all eight chapters.
+- **REQ-PIPE-005:** Every queued readable document receives an explicit fact or
+  no-material-fact disposition. Missing dispositions and failed reading batches are
+  recoverable run failures and cannot be normalized into successful completion.
+- **REQ-PIPE-006:** Ruler approval independently verifies exact reading-plan batch
+  coverage, zero failed batches, and the presence of every verified-evidence artifact.

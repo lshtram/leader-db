@@ -321,25 +321,43 @@ def plan_chapter_judge_job(
         for job in scoped_dossier_jobs
         if job["status"] in {"failed", "cancelled", "quarantined"}
     )
+    if require_approved_corpus and release_config_path is None:
+        raise ValueError(
+            "production chapter judging requires a versioned deep-corpus release"
+        )
     release_reference = None
+    provenance = None
     if release_config_path is not None:
         from .deep_corpus_release import (
             load_deep_corpus_release,
+            pipeline_provenance,
         )
         from .deep_corpus_release import (
             release_reference as build_release_reference,
         )
 
         release = load_deep_corpus_release(release_config_path)
+        if release.status != "production":
+            raise ValueError("chapter judging requires a production-status release")
         if release.target_year != year:
             raise ValueError("deep-corpus release target year differs from judge year")
         require_approved_corpus = release.judge_contract.require_approved_corpus_package
+        if not require_approved_corpus:
+            raise ValueError("production release must require approved corpus packages")
         release_reference = build_release_reference(release_config_path)
+        provenance = pipeline_provenance(release_config_path, release).model_dump(
+            mode="json"
+        )
     approved_packages = _approved_package_map(
         approved_ruler_package_paths,
         expected_job_keys={job["job_key"] for job in dossier_jobs},
         require_complete=require_approved_corpus,
         target_year=year,
+        expected_run_id=run_key,
+        expected_batch_sha256=cohort_hash,
+        expected_pipeline_version_id=(
+            provenance["pipeline_version_id"] if provenance is not None else None
+        ),
     )
     job_key = f"chapter-judge:{run_key}:{year}:{normalized_chapter}"
     write_result = create_jobs(
@@ -368,6 +386,7 @@ def plan_chapter_judge_job(
                     "require_approved_corpus": require_approved_corpus,
                     "approved_ruler_packages": approved_packages,
                     "deep_corpus_release": release_reference,
+                    "pipeline_provenance": provenance,
                     "batch_id": cohort_id,
                     "batch_manifest_sha256": cohort_hash,
                     "unavailable_dossiers": [
@@ -502,6 +521,9 @@ def _approved_package_map(
     expected_job_keys: set[str],
     require_complete: bool,
     target_year: int,
+    expected_run_id: str,
+    expected_batch_sha256: str,
+    expected_pipeline_version_id: str | None,
 ) -> dict[str, dict[str, str]]:
     from .approved_ruler_package import (
         ApprovedPackageReference,
@@ -519,6 +541,16 @@ def _approved_package_map(
             raise ValueError("approved ruler package is outside the judge cohort")
         if package.target_year != target_year:
             raise ValueError("approved ruler package target year differs from judge year")
+        if (
+            package.production_run.run_id != expected_run_id
+            or package.production_run.batch_manifest_sha256 != expected_batch_sha256
+            or (
+                expected_pipeline_version_id is not None
+                and package.pipeline_provenance.pipeline_version_id
+                != expected_pipeline_version_id
+            )
+        ):
+            raise ValueError("approved ruler package differs from the judge production run")
         reference = ApprovedPackageReference(
             path=str(path),
             sha256=sha256(path.read_bytes()).hexdigest(),

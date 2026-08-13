@@ -250,6 +250,7 @@ def _write_reviewed_package(
     corrections = []
     evaluation_count = 0
     ruler_keys: set[tuple[str, int]] = set()
+    expected_ruler_keys: set[tuple[str, int]] | None = None
     for item in sorted(results, key=lambda value: value["chapter_id"]):
         judgment_path = Path(item["reviewed_judgment"])
         review_path = Path(item["review"])
@@ -260,10 +261,15 @@ def _write_reviewed_package(
             review_path.read_text(encoding="utf-8")
         )
         evaluation_count += len(judgment.evaluations)
-        ruler_keys.update(
+        chapter_ruler_keys = {
             (evaluation.dossier_job_key, evaluation.ruler_year_id)
             for evaluation in judgment.evaluations
-        )
+        }
+        if expected_ruler_keys is None:
+            expected_ruler_keys = chapter_ruler_keys
+        elif chapter_ruler_keys != expected_ruler_keys:
+            raise ValueError("reviewed chapters do not share one ruler cohort")
+        ruler_keys.update(chapter_ruler_keys)
         corrections.extend(
             {
                 "chapter_id": review.chapter_id,
@@ -286,8 +292,15 @@ def _write_reviewed_package(
                 "judgment": judgment.model_dump(mode="json"),
             }
         )
-    if len(chapters) != 8 or evaluation_count != 152:
-        raise ValueError("reviewed package requires eight chapters and 152 evaluations")
+    expected_evaluations = len(chapters) * len(expected_ruler_keys or ())
+    if (
+        len(chapters) != 8
+        or not expected_ruler_keys
+        or evaluation_count != expected_evaluations
+    ):
+        raise ValueError(
+            "reviewed package requires eight chapters with one consistent ruler cohort"
+        )
     package_path = output_dir / "reviewed-judge-package.json"
     package_path.write_text(
         json.dumps(
