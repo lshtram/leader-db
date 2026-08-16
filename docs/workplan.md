@@ -45,13 +45,11 @@ run ID, after the material-accuracy contract receives focused and independent re
   usage, and unknown subscription billing separately.
 - Model execution currently uses the Codex subscription. Before any API-key call, obtain
   user approval for the specific model and estimated token or monetary quota.
-- Temporary module-size exception owner: the next research-pipeline development session.
-  Before the fresh Luna/Sol gate starts, split `chapter_judge_worker.py`,
+- The temporary module-size exception is closed. `chapter_judge_worker.py`,
   `corpus_reader_runner.py`, `research_worker_commands.py`, `model_call_budget.py`, and
-  `question_packet_chapter.py`, together with their oversized focused test modules, below
-  the 400-line convention without changing their public contracts. No new behavior may be
-  added to those files before that split. The exception exists only to publish the already
-  reviewed, passing integrated-gate work as one recoverable checkpoint.
+  `question_packet_chapter.py` are below the 400-line convention, and their two named
+  oversized focused test modules have been split by responsibility. The original public
+  imports and patchable test seams remain available.
 
 ## Decisions already made
 
@@ -81,10 +79,10 @@ its original implementation sequence is no longer literal.
 | 3. Chapter synthesis | Goal addressed through deterministic question packets and straight-through per-question writing. |
 | 4. Chapter-scoped review | Tested without a model call and removed because the request is too large. |
 | 5–6. Delta repair and changed-only review | Not adopted; these would recreate the review loops the current design avoids. |
-| 7. Compact research/reading output | Active. Paragraph granularity was insufficient; table-row feasibility is next. |
-| 8. Stage budgets and stop rules | Partly complete for reader transport; complete pipeline budgets remain pending. |
-| 9. Integrated one-ruler gate | Pending Steps 7–8 and the simplification decision. |
-| 10. Five-ruler confirmation | Pending a successful one-ruler gate. |
+| 7. Compact research/reading output | Complete for the selected table-row representation; paragraph granularity was rejected. |
+| 8. Stage budgets and stop rules | Complete for the straight-through pipeline. |
+| 9. Integrated one-ruler gate | Rejected after the fresh Terra/Sol comparison and the Luna `xhigh` material omission. |
+| 10. Five-ruler confirmation | Blocked pending an explicit new candidate decision and a passing fresh one-ruler gate. |
 
 ## Remaining task sequence
 

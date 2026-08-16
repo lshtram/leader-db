@@ -8,16 +8,12 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from hashlib import sha256
 from pathlib import Path
-from threading import Lock
 from typing import Any
 
-import tiktoken
 from pydantic import BaseModel
 
 from leaders_db.conversational_evidence.judging import CODEX_INPUT_CHARACTER_LIMIT
-from leaders_db.evidence_funnel.execution_schema import make_strict_response_schema
 
-from ._codex_worker_artifacts import read_codex_usage
 from .codex_worker_command import build_codex_exec_command
 from .control_flow import enforce_model_action
 from .corpus_evidence_bind import bind_batch_evidence
@@ -47,42 +43,14 @@ from .corpus_verification_request import (
     bind_verification_request,
     load_bound_verification_result,
 )
+from .json_model_execution import execute_json_model as _execute_json_model
 from .model_call_budget import (
     RunUsageBudgetTracker,
     StageBudgetTracker,
     load_stage_budget_tracker,
-    model_max_output_tokens,
-    resolve_integrated_run_budget,
 )
+from .model_call_coordinator import ModelCallCoordinator
 from .model_profiles import load_research_model_profiles
-
-
-class ModelCallCoordinator:
-    """Atomically separate authorized in-flight calls from post-failure launches."""
-
-    def __init__(self) -> None:
-        self._lock = Lock()
-        self._failed = False
-        self._in_flight = 0
-
-    def authorize_launch(self) -> None:
-        with self._lock:
-            if self._failed:
-                raise RuntimeError("model call launch blocked after material failure")
-            self._in_flight += 1
-
-    def complete_call(self) -> None:
-        with self._lock:
-            self._in_flight -= 1
-
-    def publish_failure(self) -> None:
-        with self._lock:
-            self._failed = True
-
-    @property
-    def in_flight(self) -> int:
-        with self._lock:
-            return self._in_flight
 
 
 def run_corpus_reading(
@@ -375,78 +343,20 @@ def execute_json_model(
     call_coordinator: ModelCallCoordinator | None = None,
     run_budget_tracker: RunUsageBudgetTracker | None = None,
 ):
-    schema = model.model_json_schema()
-    make_strict_response_schema(schema)
-    run_budget_tracker = resolve_integrated_run_budget(output_dir, run_budget_tracker)
-    if call_coordinator is not None:
-        call_coordinator.authorize_launch()
-    run_reservation: str | None = None
-    launched = False
-    events_path: Path | None = None
-    try:
-        schema_text = json.dumps(schema, ensure_ascii=False, sort_keys=True)
-        estimated_input_tokens = len(
-            tiktoken.get_encoding("o200k_base").encode(prompt + schema_text)
-        )
-        if run_budget_tracker is not None:
-            run_reservation = run_budget_tracker.reserve(
-                stage=budget_tracker.stage if budget_tracker is not None else "unspecified",
-                component=request_component,
-                estimated_input_tokens=estimated_input_tokens,
-                output_token_allowance=model_max_output_tokens(profile.model),
-                output_dir=output_dir,
-            )
-        if budget_tracker is not None:
-            budget_tracker.reserve(
-                component=request_component,
-                prompt=prompt,
-                response_schema=schema,
-                output_dir=output_dir,
-            )
-        output_dir.mkdir(parents=True, exist_ok=True)
-        prompt_path = output_dir / "prompt.txt"
-        schema_path = output_dir / "schema.json"
-        output_path = output_dir / "output.json"
-        events_path = output_dir / "events.jsonl"
-        stderr_path = output_dir / "stderr.txt"
-        prompt_path.write_text(prompt, encoding="utf-8")
-        schema_path.write_text(json.dumps(schema, indent=2), encoding="utf-8")
-        command = build_codex_exec_command(
-            profile=profile,
-            project_root=project_root,
-            schema_path=schema_path,
-            final_message_path=output_path,
-            writable_dir=output_dir,
-            isolated_web_research=True,
-            reasoning_effort=reasoning_effort,
-        )
-        with (
-            events_path.open("w", encoding="utf-8") as events,
-            stderr_path.open("w", encoding="utf-8") as stderr,
-        ):
-            launched = True
-            subprocess.run(
-                command,
-                input=prompt,
-                text=True,
-                stdout=events,
-                stderr=stderr,
-                check=True,
-                timeout=1_800,
-            )
-    finally:
-        if run_budget_tracker is not None and run_reservation is not None:
-            if launched and events_path is not None:
-                usage = read_codex_usage(events_path)
-                run_budget_tracker.reconcile(
-                    run_reservation,
-                    usage.model_dump(mode="json") if usage is not None else None,
-                )
-            else:
-                run_budget_tracker.cancel_unlaunched(run_reservation)
-        if call_coordinator is not None:
-            call_coordinator.complete_call()
-    return model.model_validate_json(output_path.read_text(encoding="utf-8"))
+    return _execute_json_model(
+        project_root,
+        profile,
+        prompt,
+        model,
+        output_dir,
+        budget_tracker=budget_tracker,
+        request_component=request_component,
+        reasoning_effort=reasoning_effort,
+        call_coordinator=call_coordinator,
+        run_budget_tracker=run_budget_tracker,
+        process_runner=subprocess.run,
+        command_builder=build_codex_exec_command,
+    )
 
 
 def _load_or_execute_json(

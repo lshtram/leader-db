@@ -2,12 +2,9 @@
 
 from __future__ import annotations
 
-import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from hashlib import sha256
 from pathlib import Path
 
-from .chapter_analysis_models import ResolvedChapterAnalysis
 from .corpus_reader_runner import ModelCallCoordinator
 from .model_call_budget import (
     RunUsageBudgetTracker,
@@ -20,7 +17,27 @@ from .question_packet_chapter_models import (
     ChapterQuestionArtifact,
     ChapterQuestionPhaseManifest,
 )
-from .question_packet_prompts import load_question_packet_prompts
+from .question_packet_phase_validation import (
+    configuration_binding as _configuration_binding,
+)
+from .question_packet_phase_validation import (
+    inside as _inside,
+)
+from .question_packet_phase_validation import (
+    load_approved_analysis as _load_approved_analysis,
+)
+from .question_packet_phase_validation import (
+    payload_hash as _payload_hash,
+)
+from .question_packet_phase_validation import (
+    sha256_file as _sha256,
+)
+from .question_packet_phase_validation import (
+    validate_chapter_question_review as _validate_chapter_question_review,
+)
+from .question_packet_phase_validation import (
+    validate_chapter_question_writing as _validate_chapter_question_writing,
+)
 from .question_packet_quality import (
     run_blind_question_quality_review,
     validate_blind_review_artifacts,
@@ -28,7 +45,6 @@ from .question_packet_quality import (
 from .question_packet_writer import (
     DiagnosticQuestionAnswer,
     build_question_writer_prompt,
-    load_normalized_question_answer,
     validate_question_answer,
     write_diagnostic_question_answer,
 )
@@ -153,6 +169,27 @@ def run_all_chapter_question_writing(
             f"chapter writing stopped after material failure: {failures[0]}"
         ) from failures[0]
     return tuple(sorted(results))
+
+
+def validate_chapter_question_writing(**kwargs) -> ChapterQuestionPhaseManifest:
+    """Validate writing while preserving the original patchable facade hooks."""
+
+    return _validate_chapter_question_writing(
+        **kwargs,
+        question_validator=validate_question_answer,
+        prompt_builder=build_question_writer_prompt,
+    )
+
+
+def validate_chapter_question_review(**kwargs) -> ChapterQuestionPhaseManifest:
+    """Validate review while preserving the original patchable facade hooks."""
+
+    return _validate_chapter_question_review(
+        **kwargs,
+        blind_review_validator=validate_blind_review_artifacts,
+        question_validator=validate_question_answer,
+        prompt_builder=build_question_writer_prompt,
+    )
 
 
 def run_chapter_question_review(
@@ -312,136 +349,6 @@ def run_all_chapter_question_review(
     return tuple(sorted(results))
 
 
-def validate_chapter_question_writing(
-    *,
-    project_root: Path,
-    package: ChapterQuestionEvidencePackage,
-    output_dir: Path,
-    approved_analysis_path: Path,
-    profile_name: str,
-    profiles_path: Path,
-) -> ChapterQuestionPhaseManifest:
-    """Reload a writing phase and verify its exact inputs and child answers."""
-
-    manifest = ChapterQuestionPhaseManifest.model_validate_json(
-        (output_dir / "writing-manifest.json").read_text()
-    )
-    analysis = _load_approved_analysis(package, approved_analysis_path)
-    predecessor = {item.question_id: item.model_dump(mode="json") for item in analysis.answers}
-    model, profile_hash, _ = _configuration_binding(project_root, profile_name, profiles_path)
-    if (
-        manifest.schema_version != "diagnostic_chapter_question_writing_v1"
-        or manifest.chapter_id != package.chapter_id
-        or manifest.profile != profile_name
-        or manifest.model != model
-        or manifest.package_sha256 != _payload_hash(package.model_dump(mode="json"))
-        or manifest.profile_config_sha256 != profile_hash
-        or manifest.approved_analysis_sha256 != _sha256(approved_analysis_path)
-        or manifest.writing_manifest_sha256 is not None
-        or manifest.phase_gate != "pass"
-    ):
-        raise ValueError("chapter writing manifest does not match current inputs")
-    packets = {item.question_id: item for item in package.packets}
-    prompts, _ = load_question_packet_prompts(project_root / "configs/question-packet-prompts.yaml")
-    for artifact in manifest.artifacts:
-        path = _inside(output_dir, artifact.artifact_path)
-        packet = packets[artifact.question_id]
-        answer = (
-            load_normalized_question_answer(packet, path.parent)
-            if path.name == "accepted-output.json"
-            else DiagnosticQuestionAnswer.model_validate_json(path.read_text())
-        )
-        expected_prompt = build_question_writer_prompt(
-            packet, prompts, predecessor[artifact.question_id]
-        )
-        if (path.parent / "prompt.txt").read_bytes() != expected_prompt.encode():
-            raise ValueError("saved question-writer prompt differs from current writer input")
-        if _sha256(path) != artifact.artifact_sha256 or (
-            validate_question_answer(packet, answer)["functional_gate"] != "pass"
-        ):
-            raise ValueError("chapter writing child artifact is invalid")
-    return manifest
-
-
-def validate_chapter_question_review(
-    *,
-    project_root: Path,
-    package: ChapterQuestionEvidencePackage,
-    approved_analysis_path: Path,
-    writing_dir: Path,
-    output_dir: Path,
-    profile_name: str,
-    writing_profile_name: str,
-    profiles_path: Path,
-    reasoning_effort: str | None = None,
-) -> ChapterQuestionPhaseManifest:
-    """Reload a review phase and reconstruct its result from trusted children."""
-
-    actual = ChapterQuestionPhaseManifest.model_validate_json(
-        (output_dir / "review-manifest.json").read_text()
-    )
-    writing_path = writing_dir / "writing-manifest.json"
-    writing = validate_chapter_question_writing(
-        project_root=project_root,
-        package=package,
-        output_dir=writing_dir,
-        approved_analysis_path=approved_analysis_path,
-        profile_name=writing_profile_name,
-        profiles_path=profiles_path,
-    )
-    analysis_hash = _sha256(approved_analysis_path)
-    if analysis_hash != package.selected_analysis_sha256:
-        raise ValueError("approved analysis hash does not match the question package")
-    analysis = ResolvedChapterAnalysis.model_validate_json(approved_analysis_path.read_text())
-    approved = {item.question_id: item.model_dump(mode="json") for item in analysis.answers}
-    packets = {item.question_id: item for item in package.packets}
-    artifacts = []
-    for written in writing.artifacts:
-        answer = DiagnosticQuestionAnswer.model_validate_json(
-            _inside(writing_dir, written.artifact_path).read_text()
-        )
-        review_dir = output_dir / "questions" / written.question_id
-        review = validate_blind_review_artifacts(
-            packet=packets[written.question_id],
-            approved_answer=approved[written.question_id],
-            experimental_answer=answer,
-            output_dir=review_dir,
-            project_root=project_root,
-            profile_name=profile_name,
-            profiles_path=profiles_path,
-            reasoning_effort=reasoning_effort,
-        )
-        child = review_dir / "blind-review-manifest.json"
-        artifacts.append(
-            ChapterQuestionArtifact(
-                question_id=written.question_id,
-                artifact_path=str(child.relative_to(output_dir)),
-                artifact_sha256=_sha256(child),
-                status=review["quality_gate"],
-            )
-        )
-    model, profile_hash, prompt_hash = _configuration_binding(
-        project_root, profile_name, profiles_path
-    )
-    expected = ChapterQuestionPhaseManifest(
-        schema_version="diagnostic_chapter_question_review_v1",
-        chapter_id=package.chapter_id,
-        profile=profile_name,
-        model=model,
-        package_sha256=_payload_hash(package.model_dump(mode="json")),
-        profile_config_sha256=profile_hash,
-        prompt_config_sha256=prompt_hash,
-        approved_analysis_sha256=analysis_hash,
-        writing_manifest_sha256=_sha256(writing_path),
-        question_count=10,
-        artifacts=tuple(artifacts),
-        phase_gate=("pass" if all(item.status == "pass" for item in artifacts) else "fail"),
-    )
-    if actual != expected:
-        raise ValueError("chapter review manifest differs from trusted child reviews")
-    return actual
-
-
 def _write_manifest(output_dir: Path, name: str, manifest: ChapterQuestionPhaseManifest) -> Path:
     output_dir.mkdir(parents=True, exist_ok=True)
     path = output_dir / name
@@ -449,55 +356,9 @@ def _write_manifest(output_dir: Path, name: str, manifest: ChapterQuestionPhaseM
     return path
 
 
-def _sha256(path: Path) -> str:
-    return sha256(path.read_bytes()).hexdigest()
-
-
-def _payload_hash(payload: object) -> str:
-    encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-    return sha256(encoded.encode()).hexdigest()
-
-
-def _configuration_binding(
-    project_root: Path, profile_name: str, profiles_path: Path
-) -> tuple[str, str, str]:
-    profile = load_research_model_profiles(profiles_path).profiles[profile_name]
-    if profile.execution_surface != "codex" or profile.provider != "openai":
-        raise ValueError("chapter question phases require the OpenAI Codex subscription")
-    _, prompt_hash = load_question_packet_prompts(
-        project_root / "configs/question-packet-prompts.yaml"
-    )
-    return profile.model, _sha256(profiles_path), prompt_hash
-
-
-def _load_approved_analysis(
-    package: ChapterQuestionEvidencePackage, path: Path
-) -> ResolvedChapterAnalysis:
-    if _sha256(path) != package.selected_analysis_sha256:
-        raise ValueError("approved analysis hash does not match the question package")
-    analysis = ResolvedChapterAnalysis.model_validate_json(path.read_text())
-    expected = {f"{package.chapter_id}.{number}" for number in range(1, 11)}
-    actual = [item.question_id for item in analysis.answers]
-    if (
-        analysis.chapter_id != package.chapter_id
-        or len(actual) != len(set(actual))
-        or set(actual) != expected
-    ):
-        raise ValueError("approved analysis must contain the chapter's ten questions")
-    return analysis
-
-
 def _require_unused_output_dir(output_dir: Path) -> None:
     if output_dir.exists() and any(output_dir.iterdir()):
         raise ValueError("chapter phase output directory is already in use")
-
-
-def _inside(root: Path, relative: str) -> Path:
-    resolved_root = root.resolve()
-    path = (root / relative).resolve()
-    if not path.is_relative_to(resolved_root) or not path.is_file():
-        raise ValueError("chapter artifact path escapes its phase directory")
-    return path
 
 
 __all__ = [
@@ -506,4 +367,6 @@ __all__ = [
     "run_all_chapter_question_writing",
     "run_chapter_question_review",
     "run_chapter_question_writing",
+    "validate_chapter_question_review",
+    "validate_chapter_question_writing",
 ]
