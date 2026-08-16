@@ -55,7 +55,7 @@ def test_question_packets_preserve_exact_records_and_complete_dispositions(
             update={
                 "question_id": f"4B.{number}",
                 "supporting_evidence_ids": ("E-1",) if number == 1 else (),
-                "contrary_or_qualifying_evidence_ids": ("E-2",) if number == 2 else (),
+                "contrary_or_qualifying_evidence_ids": (("E-2",) if number in {1, 2} else ()),
             }
         )
         for number, answer in enumerate(base.corrected_answers, start=1)
@@ -124,9 +124,7 @@ def test_question_packets_preserve_exact_records_and_complete_dispositions(
             }
         )
     )
-    catalogue_path = (
-        tmp_path / "src/leaders_db/conversational_evidence/data/questions.json"
-    )
+    catalogue_path = tmp_path / "src/leaders_db/conversational_evidence/data/questions.json"
     catalogue_path.parent.mkdir(parents=True)
     catalogue_path.write_text(
         json.dumps(
@@ -155,10 +153,12 @@ def test_question_packets_preserve_exact_records_and_complete_dispositions(
 
     assert len(result.packets) == 10
     assert result.packets[0].priority_evidence[0] == evidence[0]
+    assert result.packets[0].source_routed_priority_evidence_ids == ("E-1",)
+    assert result.packets[0].selection_added_priority_evidence_ids == ("E-2",)
     assert result.packets[0].candidate_index[0].evidence_id == "E-1"
     assert result.packets[0].favorable_evidence_ids == ("E-1",)
     assert result.packets[1].adverse_evidence_ids == ("E-2",)
-    assert result.packets[0].coverage.required_evidence_ids == ("E-1",)
+    assert result.packets[0].coverage.required_evidence_ids == ("E-1", "E-2")
     assert result.packets[0].coverage.reopenable_evidence_ids == ()
     assert result.packets[0].coverage.favorable_available is True
     assert result.packets[1].coverage.adverse_available is True
@@ -205,6 +205,16 @@ def _assert_tamper_resistance(
     tampered["packets"][1]["adverse_evidence_ids"] = []
     tampered["packets"][1]["favorable_evidence_ids"] = ["E-2"]
     with pytest.raises(ValidationError, match="polarity partitions"):
+        ChapterQuestionEvidencePackage.model_validate(tampered)
+
+    tampered = deepcopy(result.model_dump(mode="json"))
+    tampered["packets"][0]["source_routed_priority_evidence_ids"] = []
+    with pytest.raises(ValidationError, match="source-routed priority"):
+        ChapterQuestionEvidencePackage.model_validate(tampered)
+
+    tampered = deepcopy(result.model_dump(mode="json"))
+    tampered["packets"][0]["selection_added_priority_evidence_ids"] = []
+    with pytest.raises(ValidationError, match="selection-added priority"):
         ChapterQuestionEvidencePackage.model_validate(tampered)
 
     trusted = load_trusted_chapter_question_evidence_package(

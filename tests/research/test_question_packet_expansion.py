@@ -44,6 +44,9 @@ def test_expansion_promotes_reviewed_candidates_to_exact_evidence() -> None:
     for packet in expanded.packets:
         required = set(packet.coverage.required_evidence_ids)
         assert set(additions[packet.question_id]).issubset(required)
+        assert set(additions[packet.question_id]).issubset(
+            packet.source_routed_priority_evidence_ids
+        )
         assert not required.intersection(packet.coverage.reopenable_evidence_ids)
 
 
@@ -112,27 +115,21 @@ def test_expanded_package_trusted_roundtrip_and_tamper(tmp_path: Path) -> None:
     payload["packets"][0]["priority_evidence"][0]["fact_summary"] = "altered"
     tampered.write_text(json.dumps(payload))
     with pytest.raises(ValueError):
-        load_expanded_question_evidence_package(
-            **{**arguments, "expanded_package_path": tampered}
-        )
+        load_expanded_question_evidence_package(**{**arguments, "expanded_package_path": tampered})
 
     base = tmp_path / "base.json"
     base_payload = json.loads(arguments["base_package_path"].read_text())
     base_payload["packets"][0]["question"] = "altered question"
     base.write_text(json.dumps(base_payload))
     with pytest.raises(ValueError, match="differs from its approved sources"):
-        load_expanded_question_evidence_package(
-            **{**arguments, "base_package_path": base}
-        )
+        load_expanded_question_evidence_package(**{**arguments, "base_package_path": base})
 
     config = yaml.safe_load(arguments["config_path"].read_text())
     config["chapters"]["4B"]["4B.1"][0] = "BATCH-0007-E002"
     config_path = tmp_path / "expansion.yaml"
     config_path.write_text(yaml.safe_dump(config))
     with pytest.raises(ValueError, match="source review recommendation"):
-        load_expanded_question_evidence_package(
-            **{**arguments, "config_path": config_path}
-        )
+        load_expanded_question_evidence_package(**{**arguments, "config_path": config_path})
 
     copied_root = tmp_path / "copied"
     review_relative = "netanyahu-2023-cost-opt-step03-chapter-v1/4B/review-v3"

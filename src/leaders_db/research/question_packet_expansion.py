@@ -14,7 +14,10 @@ from .question_evidence_packet_models import (
     ChapterQuestionEvidencePackage,
     QuestionEvidencePacket,
 )
-from .question_evidence_packets import load_trusted_chapter_question_evidence_package
+from .question_evidence_packets import (
+    _upgrade_legacy_provenance,
+    load_trusted_chapter_question_evidence_package,
+)
 
 
 def _payload_hash(payload: object) -> str:
@@ -51,17 +54,14 @@ def load_question_packet_expansion(
 ) -> dict[str, tuple[str, ...]]:
     """Load additions only when their source review manifest is unchanged."""
 
-    config = QuestionPacketExpansionConfig.model_validate(
-        yaml.safe_load(config_path.read_bytes())
-    )
+    config = QuestionPacketExpansionConfig.model_validate(yaml.safe_load(config_path.read_bytes()))
     review_dir = (project_root / "research/runs" / config.source_review).resolve()
     runs_root = (project_root / "research/runs").resolve()
     manifest_path = review_dir / "review-manifest.json"
     if (
         not review_dir.is_relative_to(runs_root)
         or not manifest_path.is_file()
-        or sha256(manifest_path.read_bytes()).hexdigest()
-        != config.source_review_manifest_sha256
+        or sha256(manifest_path.read_bytes()).hexdigest() != config.source_review_manifest_sha256
     ):
         raise ValueError("question expansion source review is missing or changed")
     try:
@@ -74,9 +74,7 @@ def load_question_packet_expansion(
         raise ValueError("source review does not contain the expansion questions")
     for question_id, expected_ids in additions.items():
         child_path = review_dir / artifacts[question_id]["artifact_path"]
-        if sha256(child_path.read_bytes()).hexdigest() != artifacts[question_id][
-            "artifact_sha256"
-        ]:
+        if sha256(child_path.read_bytes()).hexdigest() != artifacts[question_id]["artifact_sha256"]:
             raise ValueError("source review child manifest changed")
         child = json.loads(child_path.read_text())
         output_path = child_path.parent / "output.json"
@@ -117,12 +115,11 @@ def load_expanded_question_evidence_package(
         judge_package_path=judge_package_path,
         additions_by_question=additions,
     )
-    actual = ChapterQuestionEvidencePackage.model_validate_json(
-        expanded_package_path.read_text()
-    )
-    if actual != expected:
+    actual = ChapterQuestionEvidencePackage.model_validate_json(expanded_package_path.read_text())
+    normalized = _upgrade_legacy_provenance(actual, expected)
+    if normalized != expected:
         raise ValueError("expanded question package differs from its exact derivation")
-    return actual
+    return normalized
 
 
 def expand_question_evidence_package(
@@ -145,7 +142,9 @@ def expand_question_evidence_package(
         _expand_packet(packet, ledger, additions_by_question.get(packet.question_id, ()))
         for packet in package.packets
     )
-    return package.model_copy(update={"packets": packets})
+    return ChapterQuestionEvidencePackage.model_validate(
+        package.model_copy(update={"packets": packets}).model_dump()
+    )
 
 
 def _expand_packet(
@@ -161,6 +160,12 @@ def _expand_packet(
     priority = packet.priority_evidence + tuple(ledger[item] for item in new_ids)
     required = tuple(item.evidence_id for item in priority)
     required_set = set(required)
+    source_routed = tuple(
+        item.evidence_id for item in priority if packet.question_id in item.question_ids
+    )
+    selection_added = tuple(
+        item.evidence_id for item in priority if item.evidence_id not in set(source_routed)
+    )
     coverage = packet.coverage.model_copy(
         update={
             "items": tuple(
@@ -185,7 +190,12 @@ def _expand_packet(
     )
     return QuestionEvidencePacket.model_validate(
         packet.model_copy(
-            update={"priority_evidence": priority, "coverage": coverage}
+            update={
+                "priority_evidence": priority,
+                "source_routed_priority_evidence_ids": source_routed,
+                "selection_added_priority_evidence_ids": selection_added,
+                "coverage": coverage,
+            }
         ).model_dump()
     )
 

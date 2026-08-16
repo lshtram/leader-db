@@ -56,9 +56,7 @@ class QuestionCoverageChecklist(BaseModel):
             raise ValueError("coverage checklist contains duplicate evidence")
         required = {item.evidence_id for item in self.items if item.requirement == "must_address"}
         reopenable = {
-            item.evidence_id
-            for item in self.items
-            if item.requirement == "available_for_reopen"
+            item.evidence_id for item in self.items if item.requirement == "available_for_reopen"
         }
         if required != set(self.required_evidence_ids) or reopenable != set(
             self.reopenable_evidence_ids
@@ -72,6 +70,8 @@ class QuestionEvidencePacket(BaseModel):
     question_id: str
     question: str
     priority_evidence: tuple[BoundEvidence, ...]
+    source_routed_priority_evidence_ids: tuple[str, ...] = ()
+    selection_added_priority_evidence_ids: tuple[str, ...] = ()
     candidate_index: tuple[CompactEvidenceCandidate, ...]
     direct_evidence_count: int = Field(ge=0)
     favorable_evidence_ids: tuple[str, ...]
@@ -129,8 +129,21 @@ def _validate_packet(packet: QuestionEvidencePacket, ledger_ids: set[str]) -> No
         raise ValueError("packet and coverage question identities differ")
     priority = tuple(item.evidence_id for item in packet.priority_evidence)
     candidates = tuple(item.evidence_id for item in packet.candidate_index)
+    by_id = {item.evidence_id: item for item in packet.candidate_index}
     if len(priority) != len(set(priority)) or priority != packet.coverage.required_evidence_ids:
         raise ValueError("priority evidence does not match required coverage")
+    source_routed = tuple(
+        item for item in priority if packet.question_id in by_id[item].question_ids
+    )
+    selection_added = tuple(item for item in priority if item not in set(source_routed))
+    if "source_routed_priority_evidence_ids" in packet.model_fields_set and (
+        packet.source_routed_priority_evidence_ids != source_routed
+    ):
+        raise ValueError("source-routed priority evidence does not reconcile")
+    if "selection_added_priority_evidence_ids" in packet.model_fields_set and (
+        packet.selection_added_priority_evidence_ids != selection_added
+    ):
+        raise ValueError("selection-added priority evidence does not reconcile")
     if candidates != tuple(item.evidence_id for item in packet.coverage.items) or not set(
         candidates
     ).issubset(ledger_ids):
@@ -139,15 +152,12 @@ def _validate_packet(packet: QuestionEvidencePacket, ledger_ids: set[str]) -> No
         packet.coverage.reopenable_evidence_ids
     ):
         raise ValueError("reopenable evidence does not match non-priority candidates")
-    by_id = {item.evidence_id: item for item in packet.candidate_index}
     direct = tuple(item for item in candidates if packet.question_id in by_id[item].question_ids)
     expected = (
         tuple(item for item in direct if by_id[item].polarity.lower() == "favorable"),
         tuple(item for item in direct if by_id[item].polarity.lower() == "adverse"),
         tuple(
-            item
-            for item in direct
-            if by_id[item].polarity.lower() not in {"favorable", "adverse"}
+            item for item in direct if by_id[item].polarity.lower() not in {"favorable", "adverse"}
         ),
     )
     if expected != (

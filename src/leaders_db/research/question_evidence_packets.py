@@ -81,10 +81,7 @@ def _construct_chapter_question_evidence_package(
     _reject_duplicates(catalogue_ids, "catalogue question")
     if set(catalogue_ids) != set(expected) or len(catalogue_ids) != 10:
         raise ValueError("question catalogue must contain exactly ten chapter questions")
-    question_text = {
-        str(item["id"]): str(item["text"])
-        for item in catalogue_chapter["questions"]
-    }
+    question_text = {str(item["id"]): str(item["text"]) for item in catalogue_chapter["questions"]}
     answer_rows = selected["answers"]
     _reject_duplicates([str(answer["question_id"]) for answer in answer_rows], "answer")
     priority_by_question = {
@@ -154,9 +151,7 @@ def load_trusted_chapter_question_evidence_package(
         judge_package_path,
         package.chapter_id,
     )
-    catalogue_path = (
-        project_root / "src/leaders_db/conversational_evidence/data/questions.json"
-    )
+    catalogue_path = project_root / "src/leaders_db/conversational_evidence/data/questions.json"
     actual = (
         sha256(judge_package_path.read_bytes()).hexdigest(),
         sha256(selection_bytes).hexdigest(),
@@ -177,9 +172,29 @@ def load_trusted_chapter_question_evidence_package(
         selection_manifest_path=selection_manifest_path,
         chapter_id=package.chapter_id,
     )
-    if package != expected:
+    normalized = _upgrade_legacy_provenance(package, expected)
+    if normalized != expected:
         raise ValueError("question evidence package differs from its approved sources")
-    return package
+    return normalized
+
+
+def _upgrade_legacy_provenance(
+    package: ChapterQuestionEvidencePackage,
+    expected: ChapterQuestionEvidencePackage,
+) -> ChapterQuestionEvidencePackage:
+    """Fill only provenance fields omitted by a trusted historical packet."""
+
+    upgraded = []
+    for actual, current in zip(package.packets, expected.packets, strict=True):
+        updates = {}
+        for field in (
+            "source_routed_priority_evidence_ids",
+            "selection_added_priority_evidence_ids",
+        ):
+            if field not in actual.model_fields_set:
+                updates[field] = getattr(current, field)
+        upgraded.append(actual.model_copy(update=updates))
+    return package.model_copy(update={"packets": tuple(upgraded)})
 
 
 def _packet(
@@ -195,23 +210,17 @@ def _packet(
     if not set(priority_ids).issubset(evidence):
         raise ValueError(f"selected answer cites unknown evidence for {question_id}")
     reverse_ids = {
-        item.evidence_id
-        for item in evidence.values()
-        if question_id in item.question_ids
+        item.evidence_id for item in evidence.values() if question_id in item.question_ids
     }
     if set(routed_ids) != reverse_ids:
-        raise ValueError(
-            f"question routing is not complete in both directions: {question_id}"
-        )
+        raise ValueError(f"question routing is not complete in both directions: {question_id}")
     candidate_ids = tuple(dict.fromkeys([*priority_ids, *routed_ids]))
     records = tuple(evidence[item] for item in candidate_ids)
     for record in tuple(evidence[item] for item in routed_ids):
         if question_id not in record.question_ids:
             raise ValueError(f"question mapping disagrees with evidence record: {question_id}")
     polarity = {item.evidence_id: item.polarity.lower() for item in records}
-    direct_ids = tuple(
-        item.evidence_id for item in records if question_id in item.question_ids
-    )
+    direct_ids = tuple(item.evidence_id for item in records if question_id in item.question_ids)
     favorable = tuple(item for item in direct_ids if polarity[item] == "favorable")
     adverse = tuple(item for item in direct_ids if polarity[item] == "adverse")
     mixed = tuple(item for item in direct_ids if item not in {*favorable, *adverse})
@@ -219,6 +228,12 @@ def _packet(
         question_id=question_id,
         question=question_text,
         priority_evidence=tuple(evidence[item] for item in priority_ids),
+        source_routed_priority_evidence_ids=tuple(
+            item for item in priority_ids if item in reverse_ids
+        ),
+        selection_added_priority_evidence_ids=tuple(
+            item for item in priority_ids if item not in reverse_ids
+        ),
         candidate_index=tuple(_compact(item) for item in records),
         direct_evidence_count=len(direct_ids),
         favorable_evidence_ids=favorable,
@@ -277,13 +292,9 @@ def _compact(item: BoundEvidence) -> CompactEvidenceCandidate:
 def _disposition(
     item: BoundEvidence, chapter_id: str, chapter_priority_ids: set[str]
 ) -> EvidenceDisposition:
-    direct = tuple(
-        sorted(qid for qid in item.question_ids if qid.startswith(f"{chapter_id}."))
-    )
+    direct = tuple(sorted(qid for qid in item.question_ids if qid.startswith(f"{chapter_id}.")))
     sibling = tuple(
-        sorted(
-            qid for qid in item.question_ids if not qid.startswith(f"{chapter_id}.")
-        )
+        sorted(qid for qid in item.question_ids if not qid.startswith(f"{chapter_id}."))
     )
     disposition = (
         "direct"
