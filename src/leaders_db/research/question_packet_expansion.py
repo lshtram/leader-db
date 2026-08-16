@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import json
+from dataclasses import dataclass
 from hashlib import sha256
 from pathlib import Path
+from typing import Literal
 
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, field_validator
@@ -86,6 +88,190 @@ def load_question_packet_expansion(
         ):
             raise ValueError("expansion differs from the source review recommendation")
     return additions
+
+
+class MaterialDefectAddition(BaseModel):
+    """One failed review's exact, hash-bound evidence recommendation."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    review_manifest: str
+    review_manifest_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    evidence_ids: tuple[str, ...] = Field(min_length=1)
+
+    @field_validator("evidence_ids")
+    @classmethod
+    def reject_duplicate_ids(cls, evidence_ids: tuple[str, ...]) -> tuple[str, ...]:
+        if len(evidence_ids) != len(set(evidence_ids)):
+            raise ValueError("material-defect evidence IDs must be unique")
+        return evidence_ids
+
+
+class MaterialDefectReturnConfig(BaseModel):
+    """One explicit, user-authorized return from review to evidence selection."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    schema_version: Literal["question_material_defect_return_v1"]
+    source_run: str
+    source_release_id: str
+    source_preflight_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    prior_return_count: Literal[0]
+    return_ordinal: Literal[1]
+    user_authorized: Literal[True]
+    chapters: dict[str, dict[str, MaterialDefectAddition]]
+
+    @field_validator("chapters")
+    @classmethod
+    def validate_questions(
+        cls, chapters: dict[str, dict[str, MaterialDefectAddition]]
+    ) -> dict[str, dict[str, MaterialDefectAddition]]:
+        if not chapters or any(not questions for questions in chapters.values()):
+            raise ValueError("material-defect return must contain reviewed questions")
+        for chapter_id, questions in chapters.items():
+            expected = {f"{chapter_id}.{number}" for number in range(1, 11)}
+            if not set(questions).issubset(expected):
+                raise ValueError("material-defect return contains an invalid question")
+        return chapters
+
+
+@dataclass(frozen=True)
+class _ReviewSnapshot:
+    manifest_path: Path
+    manifest_sha256: str
+    output_path: Path
+    output_sha256: str
+    manifest: dict
+    review: dict
+    evidence_ids: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class MaterialDefectReturnReceipt:
+    """One stable return snapshot shared by every chapter in a preflight."""
+
+    config_path: Path
+    config_sha256: str
+    source_run: Path
+    source_preflight_path: Path
+    source_preflight_sha256: str
+    source_release_id: str
+    reviews: dict[str, _ReviewSnapshot]
+
+    def additions_for(
+        self, package: ChapterQuestionEvidencePackage
+    ) -> dict[str, tuple[str, ...]]:
+        additions = {}
+        packets = {item.question_id: item for item in package.packets}
+        for question_id, snapshot in self.reviews.items():
+            if not question_id.startswith(f"{package.chapter_id}."):
+                continue
+            packet = packets[question_id]
+            reopenable = set(packet.coverage.reopenable_evidence_ids)
+            if (
+                snapshot.manifest.get("packet_sha256")
+                != _payload_hash(packet.model_dump(mode="json"))
+                or not set(snapshot.evidence_ids).issubset(reopenable)
+            ):
+                raise ValueError("material-defect return differs from its question packet")
+            additions[question_id] = snapshot.evidence_ids
+        return additions
+
+    def verify_unchanged(self) -> None:
+        paths = {
+            self.config_path: self.config_sha256,
+            self.source_preflight_path: self.source_preflight_sha256,
+        }
+        for snapshot in self.reviews.values():
+            paths[snapshot.manifest_path] = snapshot.manifest_sha256
+            paths[snapshot.output_path] = snapshot.output_sha256
+        if any(sha256(path.read_bytes()).hexdigest() != digest for path, digest in paths.items()):
+            raise ValueError("material-defect return source changed during preflight")
+
+    def manifest_details(self) -> list[dict]:
+        return [
+            {
+                "question_id": question_id,
+                "evidence_ids": list(snapshot.evidence_ids),
+                "review_manifest": str(snapshot.manifest_path),
+                "review_manifest_sha256": snapshot.manifest_sha256,
+                "review_output_sha256": snapshot.output_sha256,
+            }
+            for question_id, snapshot in sorted(self.reviews.items())
+        ]
+
+
+def load_material_defect_return(
+    *,
+    project_root: Path,
+    config_path: Path,
+    active_chapters: tuple[str, ...],
+) -> MaterialDefectReturnReceipt:
+    """Verify one explicit return against immutable failed-review artifacts."""
+
+    project_root = project_root.resolve()
+    config_path = config_path.resolve()
+    if not config_path.is_relative_to(project_root) or not config_path.is_file():
+        raise ValueError("material-defect return config is outside the project")
+    config_bytes = config_path.read_bytes()
+    config = MaterialDefectReturnConfig.model_validate(yaml.safe_load(config_bytes))
+    if not set(config.chapters).issubset(active_chapters):
+        raise ValueError("material-defect return contains a chapter outside the active run")
+    source_run = (project_root / "research/runs" / config.source_run).resolve()
+    runs_root = (project_root / "research/runs").resolve()
+    if not source_run.is_relative_to(runs_root) or not source_run.is_dir():
+        raise ValueError("material-defect source run is outside the run store")
+    preflight_path = (source_run / "preflight-manifest.json").resolve()
+    if not preflight_path.is_relative_to(source_run) or not preflight_path.is_file():
+        raise ValueError("material-defect source preflight is missing")
+    preflight_bytes = preflight_path.read_bytes()
+    if sha256(preflight_bytes).hexdigest() != config.source_preflight_sha256:
+        raise ValueError("material-defect source preflight changed")
+    preflight = json.loads(preflight_bytes)
+    prior_count = preflight.get("material_defect_return_count") or 0
+    if preflight.get("release_id") != config.source_release_id or prior_count != 0:
+        raise ValueError("material-defect return exceeds its permitted source lineage")
+    reviews = {}
+    for questions in config.chapters.values():
+        for question_id, addition in questions.items():
+            manifest_path = (source_run / addition.review_manifest).resolve()
+            if not manifest_path.is_relative_to(source_run) or not manifest_path.is_file():
+                raise ValueError("material-defect review manifest is outside its source run")
+            manifest_bytes = manifest_path.read_bytes()
+            if sha256(manifest_bytes).hexdigest() != addition.review_manifest_sha256:
+                raise ValueError("material-defect review manifest changed")
+            manifest = json.loads(manifest_bytes)
+            output_path = (manifest_path.parent / "output.json").resolve()
+            if not output_path.is_relative_to(source_run) or not output_path.is_file():
+                raise ValueError("material-defect review output is outside its source run")
+            output_bytes = output_path.read_bytes()
+            review = json.loads(output_bytes)
+            if (
+                manifest.get("question_id") != question_id
+                or manifest.get("quality_gate") != "fail"
+                or manifest.get("review_sha256") != _payload_hash(review)
+                or tuple(review.get("strongest_omitted_evidence_ids", ()))
+                != addition.evidence_ids
+            ):
+                raise ValueError("material-defect return differs from its failed review")
+            reviews[question_id] = _ReviewSnapshot(
+                manifest_path=manifest_path,
+                manifest_sha256=sha256(manifest_bytes).hexdigest(),
+                output_path=output_path,
+                output_sha256=sha256(output_bytes).hexdigest(),
+                manifest=manifest,
+                review=review,
+                evidence_ids=addition.evidence_ids,
+            )
+    return MaterialDefectReturnReceipt(
+        config_path=config_path,
+        config_sha256=sha256(config_bytes).hexdigest(),
+        source_run=source_run,
+        source_preflight_path=preflight_path,
+        source_preflight_sha256=sha256(preflight_bytes).hexdigest(),
+        source_release_id=config.source_release_id,
+        reviews=reviews,
+    )
 
 
 def load_expanded_question_evidence_package(
@@ -201,7 +387,9 @@ def _expand_packet(
 
 
 __all__ = [
+    "MaterialDefectReturnReceipt",
     "expand_question_evidence_package",
     "load_expanded_question_evidence_package",
+    "load_material_defect_return",
     "load_question_packet_expansion",
 ]

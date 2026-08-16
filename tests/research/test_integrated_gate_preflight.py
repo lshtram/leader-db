@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 import yaml
@@ -170,3 +171,106 @@ def test_preflight_rejects_unapproved_luna_review_pairing(tmp_path: Path) -> Non
             config_path=changed,
             output_dir=tmp_path / "invalid-review",
         )
+
+
+def test_preflight_applies_one_explicit_material_defect_return(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    source = PROJECT_ROOT / "configs/evidence-funnel/netanyahu-2023-integrated-luna-sol-v6.yaml"
+    payload = yaml.safe_load(source.read_text(encoding="utf-8"))
+    payload["material_defect_return"] = "configs/research-control-flow.yaml"
+    config_path = tmp_path / "release.yaml"
+    config_path.write_text(yaml.safe_dump(payload))
+    promoted: dict[str, tuple[str, ...]] = {}
+
+    def additions_for(package):
+        if package.chapter_id != "3B":
+            return {}
+        packet = next(item for item in package.packets if item.question_id == "3B.2")
+        existing = {item.evidence_id for item in packet.priority_evidence}
+        evidence_id = next(
+            item.evidence_id for item in packet.candidate_index if item.evidence_id not in existing
+        )
+        promoted[packet.question_id] = (evidence_id,)
+        return {packet.question_id: (evidence_id,)}
+
+    def fake_load(*, project_root, config_path, active_chapters):
+        assert project_root == PROJECT_ROOT
+        assert config_path == PROJECT_ROOT / "configs/research-control-flow.yaml"
+        assert active_chapters == tuple(f"{number}B" for number in range(1, 9))
+        return SimpleNamespace(
+            source_run=tmp_path / "source-run",
+            config_sha256="a" * 64,
+            source_release_id="failed-v1",
+            source_preflight_sha256="b" * 64,
+            additions_for=additions_for,
+            verify_unchanged=lambda: None,
+            manifest_details=lambda: [
+                {"question_id": "3B.2", "evidence_ids": list(promoted["3B.2"])}
+            ],
+        )
+
+    monkeypatch.setattr(
+        "leaders_db.research.integrated_gate_preflight.load_material_defect_return",
+        fake_load,
+    )
+    manifest_path = run_integrated_gate_preflight(
+        project_root=PROJECT_ROOT,
+        config_path=config_path,
+        output_dir=tmp_path / "fresh-run",
+    )
+
+    manifest = json.loads(manifest_path.read_text())
+    package = json.loads(
+        (tmp_path / "fresh-run/question-packages/3B/package.json").read_text()
+    )
+    question = next(item for item in package["packets"] if item["question_id"] == "3B.2")
+    assert manifest["material_defect_return"] == "configs/research-control-flow.yaml"
+    assert manifest["material_defect_return_count"] == 1
+    assert len(manifest["material_defect_return_sha256"]) == 64
+    assert set(promoted["3B.2"]).issubset(question["coverage"]["required_evidence_ids"])
+
+
+def test_preflight_rejects_return_when_control_limit_is_zero(tmp_path: Path) -> None:
+    source = PROJECT_ROOT / "configs/evidence-funnel/netanyahu-2023-integrated-luna-sol-v6.yaml"
+    payload = yaml.safe_load(source.read_text())
+    flow = yaml.safe_load((PROJECT_ROOT / "configs/research-control-flow.yaml").read_text())
+    flow["control_limits"]["maximum_explicit_material_defect_returns"] = 0
+    flow_path = tmp_path / "flow.yaml"
+    flow_path.write_text(yaml.safe_dump(flow))
+    payload["control_flow"] = str(flow_path)
+    payload["material_defect_return"] = "configs/research-control-flow.yaml"
+    config_path = tmp_path / "release.yaml"
+    config_path.write_text(yaml.safe_dump(payload))
+
+    with pytest.raises(ValueError, match="does not permit"):
+        run_integrated_gate_preflight(
+            project_root=PROJECT_ROOT,
+            config_path=config_path,
+            output_dir=tmp_path / "fresh-run",
+        )
+
+
+def test_preflight_rejects_output_inside_failed_source_run(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    source = PROJECT_ROOT / "configs/evidence-funnel/netanyahu-2023-integrated-luna-sol-v6.yaml"
+    payload = yaml.safe_load(source.read_text())
+    payload["material_defect_return"] = "configs/research-control-flow.yaml"
+    config_path = tmp_path / "release.yaml"
+    config_path.write_text(yaml.safe_dump(payload))
+    source_run = tmp_path / "failed-run"
+    source_run.mkdir()
+    receipt = SimpleNamespace(source_run=source_run)
+    monkeypatch.setattr(
+        "leaders_db.research.integrated_gate_preflight.load_material_defect_return",
+        lambda **kwargs: receipt,
+    )
+
+    with pytest.raises(ValueError, match="overlaps"):
+        run_integrated_gate_preflight(
+            project_root=PROJECT_ROOT,
+            config_path=config_path,
+            output_dir=source_run / "fresh-run",
+        )
+    assert not (source_run / "fresh-run").exists()

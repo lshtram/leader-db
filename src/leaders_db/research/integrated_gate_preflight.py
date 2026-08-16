@@ -9,10 +9,15 @@ from pathlib import Path
 import yaml
 from pydantic import BaseModel, ConfigDict, Field
 
-from .control_flow import load_control_flow
+from .control_flow import ResearchControlFlow, load_control_flow
 from .model_call_budget import RunUsageBudgetTracker, RunUsageLimits, StageBudgets
 from .question_evidence_packet_models import ChapterQuestionEvidencePackage
 from .question_evidence_packets import build_chapter_question_evidence_package
+from .question_packet_expansion import (
+    MaterialDefectReturnReceipt,
+    expand_question_evidence_package,
+    load_material_defect_return,
+)
 
 
 class CallStage(BaseModel):
@@ -49,6 +54,7 @@ class IntegratedGateConfig(BaseModel):
     questions_per_chapter: int = Field(gt=0)
     call_inventory: dict[str, CallStage]
     reasoning_effort: dict[str, str] | None = None
+    material_defect_return: str | None = None
     promotion_limits: PromotionLimits
 
 
@@ -66,6 +72,8 @@ def run_integrated_gate_preflight(
         raise ValueError("integrated gate requires exactly ten questions per chapter")
     flow_path = project_root / config.control_flow
     flow = load_control_flow(flow_path)
+    return_receipt = _load_return_receipt(project_root, config, flow)
+    _reject_output_overlap(output_dir, return_receipt)
     budget_path = project_root / config.stage_budgets
     budgets = StageBudgets.model_validate(yaml.safe_load(budget_path.read_text(encoding="utf-8")))
     expected_actions = {
@@ -123,30 +131,14 @@ def run_integrated_gate_preflight(
     corpus_path = project_root / config.frozen_corpus_package
     selection_path = project_root / config.frozen_selection_manifest
     output_dir.mkdir(parents=True, exist_ok=False)
-    packages = []
-    for chapter_id in config.chapters:
-        package_path = output_dir / "question-packages" / chapter_id / "package.json"
-        build_chapter_question_evidence_package(
-            project_root=project_root,
-            judge_package_path=corpus_path,
-            selection_manifest_path=selection_path,
-            chapter_id=chapter_id,
-            output_path=package_path,
-        )
-        package = ChapterQuestionEvidencePackage.model_validate_json(
-            package_path.read_text(encoding="utf-8")
-        )
-        question_ids = tuple(item.question_id for item in package.packets)
-        expected_question_ids = tuple(f"{chapter_id}.{number}" for number in range(1, 11))
-        if question_ids != expected_question_ids:
-            raise ValueError(f"question package is incomplete or unordered: {chapter_id}")
-        packages.append(
-            {
-                "chapter_id": chapter_id,
-                "path": str(package_path),
-                "sha256": _sha256(package_path),
-            }
-        )
+    packages = _build_question_packages(
+        project_root=project_root,
+        config=config,
+        return_receipt=return_receipt,
+        judge_package_path=corpus_path,
+        selection_manifest_path=selection_path,
+        output_dir=output_dir,
+    )
     planned_calls = sum(stage.calls for stage in config.call_inventory.values())
     eligible = planned_calls <= config.promotion_limits.maximum_calls_per_ruler
     payload = {
@@ -177,6 +169,22 @@ def run_integrated_gate_preflight(
             key: value.model_dump(mode="json") for key, value in config.call_inventory.items()
         },
         "reasoning_effort": config.reasoning_effort,
+        "material_defect_return": config.material_defect_return,
+        "material_defect_return_count": 1 if return_receipt is not None else 0,
+        "material_defect_return_sha256": (
+            return_receipt.config_sha256 if return_receipt is not None else None
+        ),
+        "material_defect_return_source_release_id": (
+            return_receipt.source_release_id if return_receipt is not None else None
+        ),
+        "material_defect_return_source_preflight_sha256": (
+            return_receipt.source_preflight_sha256 if return_receipt is not None else None
+        ),
+        "material_defect_return_details": (
+            return_receipt.manifest_details()
+            if return_receipt is not None
+            else None
+        ),
         "planned_calls": planned_calls,
         "maximum_calls_per_ruler": config.promotion_limits.maximum_calls_per_ruler,
         "maximum_input_tokens_per_ruler": (config.promotion_limits.maximum_input_tokens_per_ruler),
@@ -195,6 +203,96 @@ def run_integrated_gate_preflight(
     path = output_dir / "preflight-manifest.json"
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return path
+
+
+def _build_question_packages(
+    *,
+    project_root: Path,
+    config: IntegratedGateConfig,
+    return_receipt: MaterialDefectReturnReceipt | None,
+    judge_package_path: Path,
+    selection_manifest_path: Path,
+    output_dir: Path,
+) -> list[dict]:
+    packages = []
+    for chapter_id in config.chapters:
+        package_path = output_dir / "question-packages" / chapter_id / "package.json"
+        package = _prepare_question_package(
+            project_root=project_root,
+            return_receipt=return_receipt,
+            judge_package_path=judge_package_path,
+            selection_manifest_path=selection_manifest_path,
+            chapter_id=chapter_id,
+            output_path=package_path,
+        )
+        expected = tuple(f"{chapter_id}.{number}" for number in range(1, 11))
+        if tuple(item.question_id for item in package.packets) != expected:
+            raise ValueError(f"question package is incomplete or unordered: {chapter_id}")
+        packages.append(
+            {
+                "chapter_id": chapter_id,
+                "path": str(package_path),
+                "sha256": _sha256(package_path),
+            }
+        )
+    if return_receipt is not None:
+        return_receipt.verify_unchanged()
+    return packages
+
+
+def _prepare_question_package(
+    *,
+    project_root: Path,
+    return_receipt: MaterialDefectReturnReceipt | None,
+    judge_package_path: Path,
+    selection_manifest_path: Path,
+    chapter_id: str,
+    output_path: Path,
+) -> ChapterQuestionEvidencePackage:
+    build_chapter_question_evidence_package(
+        project_root=project_root,
+        judge_package_path=judge_package_path,
+        selection_manifest_path=selection_manifest_path,
+        chapter_id=chapter_id,
+        output_path=output_path,
+    )
+    package = ChapterQuestionEvidencePackage.model_validate_json(output_path.read_text())
+    if return_receipt is None:
+        return package
+    additions = return_receipt.additions_for(package)
+    expanded = expand_question_evidence_package(
+        package=package,
+        judge_package_path=judge_package_path,
+        additions_by_question=additions,
+    )
+    output_path.write_text(expanded.model_dump_json(indent=2) + "\n")
+    return expanded
+
+
+def _load_return_receipt(
+    project_root: Path, config: IntegratedGateConfig, flow: ResearchControlFlow
+) -> MaterialDefectReturnReceipt | None:
+    return_path = config.material_defect_return
+    if return_path is None:
+        return None
+    if flow.control_limits.maximum_explicit_material_defect_returns != 1:
+        raise ValueError("control flow does not permit a material-defect return")
+    return load_material_defect_return(
+        project_root=project_root,
+        config_path=project_root / return_path,
+        active_chapters=config.chapters,
+    )
+
+
+def _reject_output_overlap(
+    output_dir: Path, receipt: MaterialDefectReturnReceipt | None
+) -> None:
+    if receipt is None:
+        return
+    output = output_dir.resolve()
+    source = receipt.source_run.resolve()
+    if output.is_relative_to(source) or source.is_relative_to(output):
+        raise ValueError("fresh output overlaps the immutable material-defect source run")
 
 
 def _sha256(path: Path) -> str:

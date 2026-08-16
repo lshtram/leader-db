@@ -334,7 +334,11 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
   with exactly one dedicated independent model-quality action, keep deterministic checks
   outside that pair, and perform no automatic model retry, repair, re-review, or supervisor
   takeover. At most one material-defect return may be proposed visibly, and it requires
-  explicit user authorization before execution.
+  explicit user authorization before execution. A fresh returned release shall prove that
+  its predecessor used zero returns; hash-bind the authorization, predecessor preflight,
+  failed review manifest and output, exact question packet, and promoted evidence IDs;
+  promote only reviewer-named currently reopenable evidence; record the applied return in
+  its preflight; and reject source/output overlap or any second return in the lineage.
 - **REQ-PIPE-008:** An integrated experimental release shall bind its frozen scientific
   inputs and control contracts by hash, construct and validate all expected question
   packages, and inventory every planned model action before execution. If a hard promotion

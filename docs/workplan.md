@@ -400,6 +400,20 @@ equivalent is 44.912297, while actual subscription billing remains unavailable. 
 the general evidence-selection or answer-coverage contract before a completely fresh v10;
 do not resume, alter, or selectively repair v9.
 
+The general v9 material-coverage return repair is complete without changing the reviewer or
+the failed run. Diagnosis showed that the three omitted `3B.2` records were available only
+in the compact omission index, which the writer is correctly forbidden to cite as exact
+evidence. Integrated preflight can now consume the single explicit user-authorized return
+defined by the control contract and promote only the failed review's named, currently
+reopenable IDs into a completely fresh release. The authorization binds the predecessor
+release and zero-return lineage, predecessor preflight, failed review manifest and output,
+question packet, promoted IDs, and configuration by hash. All return inputs are read into
+one stable snapshot, fresh output may not overlap the failed run, the applied IDs and hashes
+are recorded, and a second descendant return is rejected. Forty-five broader boundary tests
+pass, focused Ruff passes, and independent review is clean. No model call was used for the
+repair. The next step is to create and zero-call preflight a fresh v10 configuration using
+the authorized v9 `3B.2` recommendation; v9 remains immutable.
+
 ### Task 7 — Run five-ruler confirmation and decide production promotion
 
 Status: **blocked by a passing Task 6**
@@ -481,6 +495,6 @@ Known limits: v9 proves the exact-key contract prevents required evidence from s
 disappearing, but it does not yet ensure that the answer gives every materially important
 record enough substantive weight. Judging, audit, and publication did not run.
 
-Next task: diagnose and repair the general evidence-selection or material-coverage contract,
-independently review that repair, then evaluate it only in a completely fresh v10. Task 7
+Next task: create and zero-call preflight the authorized v9 material-defect return and a
+completely fresh v10 release, then state its bounded model envelope before execution. Task 7
 remains blocked.

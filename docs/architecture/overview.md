@@ -941,6 +941,15 @@ source-level extracted-size plus shared reading-batch input accounting. The revi
 persists a separate metadata artifact binding the selected analysis, complete candidate
 package, and review output by SHA-256; report selection verifies that binding rather than
 trusting paths or approval labels alone.
+If that independent review finds a material omission that exists only in the compact
+candidate index, the straight-through run stops. A later fresh release may use the one
+explicit user-authorized material-defect return to promote exactly the review-named IDs
+into full question evidence. Preflight accepts that return only from a predecessor with
+zero prior returns; binds the predecessor release, preflight, failed child review, output,
+question packet, and authorization by hash; requires every promoted ID to be currently
+reopenable; snapshots all inputs once; and rejects any fresh output path overlapping the
+failed run. The new preflight records the return ordinal, applied IDs, and every source
+hash. No failed artifact is edited or resumed, and no second descendant return is allowed.
 Before a deep-corpus package can enter comparative judging, a deterministic approval
 boundary validates all eight selected analyses, their independent reviews, the complete
 question index, cited evidence IDs, and every review-binding hash. It emits one
