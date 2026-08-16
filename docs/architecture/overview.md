@@ -133,6 +133,13 @@ The established corpus evidence record now has an optional list of exact paragra
 citations beside its unchanged whole-unit excerpt. This compatibility boundary lets the
 current pipeline retain historical records while downstream consumers migrate to
 independently hashed substrings; non-contiguous support remains separate citations.
+Question packets preserve two ordered provenance partitions for required evidence:
+source-routed records from the corpus question map and selection-added records introduced
+by the independently reviewed approved analysis. Historical packets omit these fields and
+are upgraded only after exact trusted reconstruction; explicitly cleared or changed fields
+fail reconciliation. The question-writer transport schema represents required dispositions
+as an object with every exact evidence ID as a mandatory key. Deterministic conversion then
+writes the established ordered-list artifact for downstream compatibility.
 New corpus-reading plans apply both token and rendered-character budgets before calls.
 The existing fact-discovery prompt is versioned, retains whole-unit labels after a
 paragraph-labeled discovery test reduced material coverage, and persists its configuration

@@ -372,6 +372,19 @@ this general producer-contract inconsistency and make the strict response contra
 complete dispositions structurally rather than relying on an unbounded array instruction.
 Do not resume or alter v8 and do not repair either failed output.
 
+The general v8 contract repair is complete in two independently revertible versions. The
+routing audit found 622 selection-added assignments across 76 of 80 questions, so deleting
+cross-mapped records would discard reviewed evidence. Question packets now preserve ordered
+source-routed and selection-added provenance separately; frozen historical base and expanded
+packets upgrade only omitted fields after trusted reconstruction, while explicit clearing or
+tampering fails. Separately, writer prompt version 10 and its dynamic strict JSON schema make
+every required evidence ID a mandatory object key and reject extra or generated internal
+keys. The transport response is deterministically converted to the existing ordered-list
+accepted artifact, and trusted reload supports both the new keyed raw shape and historical
+canonical raw files. Independent review is clean for both versions. No model calls were used
+for these repairs; a completely fresh release is required to test whether the repeated
+`2B.3` omission is eliminated in practice.
+
 ### Task 7 — Run five-ruler confirmation and decide production promotion
 
 Status: **blocked by a passing Task 6**
