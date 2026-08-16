@@ -7,9 +7,11 @@ import os
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+import tiktoken
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .catalog_acquisition import CatalogAcquisitionManifest
+from .corpus_extraction import load_validated_extraction, render_reader_unit
 from .source_candidate_catalog import read_source_candidate_catalog
 
 
@@ -20,6 +22,9 @@ class ReadingPlanConfig(BaseModel):
 
     target_batch_tokens: int = Field(default=220_000, ge=20_000, le=300_000)
     maximum_batch_tokens: int = Field(default=280_000, ge=30_000, le=340_000)
+    maximum_batch_characters: int = Field(
+        default=800_000, ge=100_000, le=900_000
+    )
     maximum_documents_per_batch: int = Field(default=12, ge=1, le=30)
 
 
@@ -65,6 +70,24 @@ class CorpusReadingPlan(BaseModel):
     config: ReadingPlanConfig
     documents: tuple[ReadingDocument, ...]
     batches: tuple[ReadingBatch, ...]
+
+    @model_validator(mode="after")
+    def validate_identities(self) -> CorpusReadingPlan:
+        document_ids = [item.source_id for item in self.documents]
+        batch_ids = [item.batch_id for item in self.batches]
+        if len(document_ids) != len(set(document_ids)):
+            raise ValueError("reading plan document source IDs must be unique")
+        if len(batch_ids) != len(set(batch_ids)):
+            raise ValueError("reading plan batch IDs must be unique")
+        known = set(document_ids)
+        for batch in self.batches:
+            if len(batch.source_ids) != len(set(batch.source_ids)):
+                raise ValueError("reading batch source IDs must be unique")
+            if set(batch.source_ids) != set(batch.unit_ranges):
+                raise ValueError("reading batch sources and unit ranges must match")
+            if not set(batch.source_ids).issubset(known):
+                raise ValueError("reading batch references an unknown source")
+        return self
 
 
 def build_corpus_reading_plan(
@@ -158,18 +181,30 @@ def build_transport_repair_plan(
         number = 0
         for source_id in batch.source_ids:
             document = documents[source_id]
-            extraction = json.loads(
-                (acquisition_dir / str(document.extracted_path)).read_text(encoding="utf-8")
+            units = load_validated_extraction(
+                acquisition_dir / str(document.extracted_path),
+                expected_source_id=document.source_id,
+                expected_raw_sha256=str(document.raw_sha256),
             )
             lower, upper = batch.unit_ranges[source_id]
             current_start = lower
             characters = 0
-            for unit in extraction["units"]:
+            tokens = 0
+            for unit in units:
                 unit_number = int(unit["unit"])
                 if not lower <= unit_number <= upper:
                     continue
-                unit_characters = len(str(unit["text"]))
-                if characters and characters + unit_characters > maximum_document_characters:
+                rendering = render_reader_unit(source_id, unit)
+                unit_characters = len(rendering) + 2
+                unit_tokens = len(tiktoken.get_encoding("o200k_base").encode(rendering))
+                if unit_characters > maximum_document_characters:
+                    raise ValueError("one extraction unit exceeds repair character budget")
+                if unit_tokens > plan.config.maximum_batch_tokens:
+                    raise ValueError("one extraction unit exceeds repair token budget")
+                if characters and (
+                    characters + unit_characters > maximum_document_characters
+                    or tokens + unit_tokens > plan.config.maximum_batch_tokens
+                ):
                     number += 1
                     repairs.append(
                         _repair_batch(
@@ -178,15 +213,16 @@ def build_transport_repair_plan(
                             number,
                             current_start,
                             unit_number - 1,
-                            characters,
+                            tokens,
                         )
                     )
-                    current_start, characters = unit_number, 0
+                    current_start, characters, tokens = unit_number, 0, 0
                 characters += unit_characters
+                tokens += unit_tokens
             if characters:
                 number += 1
                 repairs.append(
-                    _repair_batch(batch, document, number, current_start, upper, characters)
+                        _repair_batch(batch, document, number, current_start, upper, tokens)
                 )
     repair_plan = CorpusReadingPlan(
         ruler_name=plan.ruler_name,
@@ -206,14 +242,14 @@ def _repair_batch(
     number: int,
     start: int,
     end: int,
-    characters: int,
+    tokens: int,
 ) -> ReadingBatch:
     return ReadingBatch(
         batch_id=f"{parent.batch_id}-R{number:02d}",
         source_ids=(document.source_id,),
         unit_ranges={document.source_id: (start, end)},
         chapter_ids=parent.chapter_ids,
-        estimated_tokens=(characters + 3) // 4,
+        estimated_tokens=tokens,
     )
 
 
@@ -234,22 +270,25 @@ def _pack_batches(
         for document in documents
         for item in _document_slices(document, acquisition_dir, config)
     ]
-    current: list[tuple[ReadingDocument, int, int, int]] = []
+    current: list[tuple[ReadingDocument, int, int, int, int]] = []
     tokens = 0
+    characters = 0
     for item in slices:
-        _, _, _, slice_tokens = item
+        _, _, _, slice_tokens, slice_characters = item
         would_exceed = (
             current
             and (
                 tokens + slice_tokens > config.target_batch_tokens
+                or characters + slice_characters > config.maximum_batch_characters
                 or len(current) >= config.maximum_documents_per_batch
             )
         )
         if would_exceed:
             batches.append(_batch(len(batches) + 1, current))
-            current, tokens = [], 0
+            current, tokens, characters = [], 0, 0
         current.append(item)
         tokens += slice_tokens
+        characters += slice_characters
     if current:
         batches.append(_batch(len(batches) + 1, current))
     return tuple(batches)
@@ -259,37 +298,55 @@ def _document_slices(
     document: ReadingDocument,
     acquisition_dir: Path,
     config: ReadingPlanConfig,
-) -> list[tuple[ReadingDocument, int, int, int]]:
-    extraction = json.loads(
-        (acquisition_dir / str(document.extracted_path)).read_text(encoding="utf-8")
+) -> list[tuple[ReadingDocument, int, int, int, int]]:
+    units = load_validated_extraction(
+        acquisition_dir / str(document.extracted_path),
+        expected_source_id=document.source_id,
+        expected_raw_sha256=str(document.raw_sha256),
     )
-    units = extraction["units"]
     slices = []
     start = 1
     tokens = 0
+    characters = 0
     for unit in units:
-        unit_tokens = (len(str(unit["text"])) + 3) // 4
-        if tokens and tokens + unit_tokens > config.maximum_batch_tokens:
-            slices.append((document, start, int(unit["unit"]) - 1, tokens))
-            start, tokens = int(unit["unit"]), 0
+        rendering = render_reader_unit(document.source_id, unit)
+        unit_tokens = len(tiktoken.get_encoding("o200k_base").encode(rendering))
+        unit_characters = len(rendering) + 2
+        if unit_tokens > config.maximum_batch_tokens:
+            raise ValueError("one extraction unit exceeds reader token budget")
+        if unit_characters > config.maximum_batch_characters:
+            raise ValueError("one extraction unit exceeds reader character budget")
+        if tokens and (
+            tokens + unit_tokens > config.maximum_batch_tokens
+            or characters + unit_characters > config.maximum_batch_characters
+        ):
+            slices.append(
+                (document, start, int(unit["unit"]) - 1, tokens, characters)
+            )
+            start, tokens, characters = int(unit["unit"]), 0, 0
         tokens += unit_tokens
+        characters += unit_characters
     if units:
-        slices.append((document, start, int(units[-1]["unit"]), tokens))
+        slices.append(
+            (document, start, int(units[-1]["unit"]), tokens, characters)
+        )
     return slices
 
 
 def _batch(
-    number: int, documents: list[tuple[ReadingDocument, int, int, int]]
+    number: int, documents: list[tuple[ReadingDocument, int, int, int, int]]
 ) -> ReadingBatch:
     chapters = sorted(
-        {chapter for item, _, _, _ in documents for chapter in item.chapter_ids}
+        {chapter for item, _, _, _, _ in documents for chapter in item.chapter_ids}
     )
     return ReadingBatch(
         batch_id=f"BATCH-{number:04d}",
-        source_ids=tuple(item.source_id for item, _, _, _ in documents),
-        unit_ranges={item.source_id: (start, end) for item, start, end, _ in documents},
+        source_ids=tuple(item.source_id for item, _, _, _, _ in documents),
+        unit_ranges={
+            item.source_id: (start, end) for item, start, end, _, _ in documents
+        },
         chapter_ids=tuple(chapters),
-        estimated_tokens=sum(tokens for _, _, _, tokens in documents),
+        estimated_tokens=sum(tokens for _, _, _, tokens, _ in documents),
     )
 
 

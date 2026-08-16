@@ -517,6 +517,7 @@ dependencies = [
     { name = "pyyaml" },
     { name = "requests" },
     { name = "sqlalchemy" },
+    { name = "tiktoken" },
     { name = "typer" },
 ]
 
@@ -526,7 +527,6 @@ dev = [
     { name = "pytest-cov" },
     { name = "reportlab" },
     { name = "ruff" },
-    { name = "tiktoken" },
 ]
 duckdb = [
     { name = "duckdb" },
@@ -551,7 +551,7 @@ requires-dist = [
     { name = "requests", specifier = ">=2.31" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.5" },
     { name = "sqlalchemy", specifier = ">=2.0" },
-    { name = "tiktoken", marker = "extra == 'dev'", specifier = ">=0.12,<1" },
+    { name = "tiktoken", specifier = ">=0.12,<1" },
     { name = "typer", specifier = ">=0.12" },
 ]
 provides-extras = ["dev", "llm", "duckdb"]

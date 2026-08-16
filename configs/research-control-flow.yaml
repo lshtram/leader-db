@@ -1,0 +1,30 @@
+schema_version: research_control_flow_v1
+release_status: candidate
+baseline_release: configs/evidence-funnel/production-2023-v4.yaml
+model_actions:
+  - {id: corpus_reading, role: production, quality_action: corpus_verification}
+  - {id: corpus_verification, role: independent_quality, quality_action: null}
+  - {id: question_writing, role: production, quality_action: question_review}
+  - {id: question_review, role: independent_quality, quality_action: null}
+  - {id: chapter_judging, role: production, quality_action: chapter_judgment_review}
+  - {id: chapter_judgment_review, role: independent_quality, quality_action: null}
+deterministic_actions:
+  - source_identity_and_hash_validation
+  - schema_validation
+  - evidence_and_citation_validation
+  - corpus_completion_validation
+  - score_order_audit
+  - publication_validation
+control_limits:
+  automatic_retry_rounds: 0
+  automatic_repair_rounds: 0
+  automatic_rereview_rounds: 0
+  automatic_supervisor_takeovers: 0
+  maximum_explicit_material_defect_returns: 1
+  defect_return_requires_user_authorization: true
+  defect_return_runs_automatically: false
+retired_from_baseline:
+  - three_targeted_repair_rounds
+  - requirement_led_automatic_repairs
+  - review_after_compaction
+  - retryable_model_job_failures

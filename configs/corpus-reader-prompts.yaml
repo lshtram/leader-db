@@ -1,0 +1,10 @@
+version: 2
+reader_template: |-
+  Read the complete supplied documents once. Identify materially distinct, concrete facts relevant to the supplied 1B-8B questions for {ruler_name} during {period_start_year}-{period_end_year}. Preserve adverse, favorable, mixed, exculpatory, and contextual facts. Each record must describe one event, policy, quantitative result, or institutional finding; emit separate records for independent facts even when they occur in the same source. Do not write document essays and do not score.
+
+  Cite one to three contiguous labeled units for each fact through start_unit and end_unit. Leave citation_span_ids empty; narrower exact citations are selected only during the existing verification step. State each fact once. Map a question ID only when that concrete fact materially helps answer the exact lens; thematic association is insufficient. Account for every source either with at least one fact or in documents_with_no_material_fact. Return only the schema JSON.
+
+  QUESTIONS:
+  {questions}
+
+  {documents}

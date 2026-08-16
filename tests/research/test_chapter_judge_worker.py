@@ -165,13 +165,14 @@ def test_null_recovery_queue_reuses_existing_judgment_fields(tmp_path: Path) -> 
         "current_evidence_count": 3,
         "dossier_job_key": "dossier:test",
         "iso3": "NZL",
-        "maximum_research_rounds": 2,
+        "maximum_research_rounds": 1,
         "missing_or_weak_lenses": ["4B.2", "4B.6"],
-        "next_action": "resume_same_ruler_research",
+        "next_action": "request_user_authorized_research_return",
         "reason": "Relevant conduct was not recovered.",
         "requested_follow_up": "Research the ruler's response to constraints.",
         "ruler_name": "Test Ruler",
         "ruler_year_id": 12,
+        "runs_automatically": False,
     }
 
 
@@ -410,6 +411,14 @@ def test_chapter_judge_executes_two_dossiers_and_persists_scores_atomically(  # 
     engine = create_engine(database_url)
     project = tmp_path / "project"
     project.mkdir()
+    budget_dir = project / "configs"
+    budget_dir.mkdir()
+    (budget_dir / "research-stage-budgets.yaml").write_bytes(
+        Path("configs/research-stage-budgets.yaml").read_bytes()
+    )
+    (budget_dir / "research-control-flow.yaml").write_bytes(
+        Path("configs/research-control-flow.yaml").read_bytes()
+    )
     guide_dir = project / "docs/methodology/chapter-guides"
     guide_dir.mkdir(parents=True)
     (guide_dir / "4b-political-freedom.md").write_text(

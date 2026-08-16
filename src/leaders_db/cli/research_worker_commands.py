@@ -7,7 +7,6 @@ from pathlib import Path
 from typing import Literal
 
 import typer
-from pydantic import ValidationError
 
 from .research_common import fail
 
@@ -381,7 +380,7 @@ def run_one_job_cmd(
                 worker_id=worker_id,
                 lease_token=token,
                 error=error,
-                retryable=_is_retryable(exc),
+                retryable=False,
             )
         except ValueError:
             failed_job = None
@@ -429,10 +428,6 @@ def run_queue_cmd(
         )
     )
     _emit(result.model_dump(mode="json"), output_json=output_json)
-
-
-def _is_retryable(exc: Exception) -> bool:
-    return isinstance(exc, (TimeoutError, RuntimeError, OSError, ValidationError))
 
 
 def _emit(payload: dict[str, object], *, output_json: bool) -> None:

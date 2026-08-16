@@ -1,0 +1,25 @@
+schema_version: integrated_gate_release_v1
+release_id: netanyahu-2023-integrated-terra-v1
+status: diagnostic_only
+target_year: 2023
+iso3: ISR
+ruler_name: Benjamin Netanyahu
+frozen_release: configs/evidence-funnel/production-2023-v4.yaml
+control_flow: configs/research-control-flow.yaml
+stage_budgets: configs/research-stage-budgets.yaml
+frozen_corpus_package: research/runs/2023-five-ruler-flow-test-v2/corpus/ISR/corpus-judge-package.json
+frozen_selection_manifest: research/runs/2023-five-ruler-flow-test-v2/corpus/ISR/selected-chapter-manifest.json
+chapters: [1B, 2B, 3B, 4B, 5B, 6B, 7B, 8B]
+questions_per_chapter: 10
+call_inventory:
+  question_writing: {model: gpt-5.6-terra, surface: codex_subscription, calls: 80}
+  question_review: {model: gpt-5.6-sol, surface: codex_subscription, calls: 80}
+  chapter_judging: {model: gpt-5.6-terra, surface: codex_subscription, calls: 8}
+  chapter_judgment_review: {model: gpt-5.6-sol, surface: codex_subscription, calls: 8}
+reasoning_effort:
+  production: medium
+  independent_quality: high
+promotion_limits:
+  maximum_calls_per_ruler: 176
+  maximum_input_tokens_per_ruler: 40000000
+  maximum_output_tokens_per_ruler: 500000

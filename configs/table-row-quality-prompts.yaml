@@ -1,0 +1,22 @@
+version: 1
+template: |-
+  Interpret one frozen statistical-table excerpt. Return only the response required by
+  the supplied JSON schema. Treat the exact lines as the sole factual source. Bidirectional
+  text may display awkwardly, so use line spacing and the English column labels together.
+
+  Extract these four employment-rate percentages:
+  1. total population aged 15 and over, owner-occupied dwelling;
+  2. total population aged 15 and over, rented dwelling total;
+  3. Jewish population aged 15 and over, total column;
+  4. Arab population aged 15 and over, total column.
+
+  State the age population, statistic, unit of measure, and the column meaning for each
+  value. State limitations needed to prevent confusing population totals with dwelling
+  columns and to prevent ruler-specific causal attribution. Cite the exact supplied line
+  IDs supporting every value and interpretation. Do not infer policy effects or causation.
+
+  Source ID: {source_id}
+  Source title: {source_title}
+
+  Exact source lines:
+  {lines}

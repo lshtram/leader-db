@@ -1,0 +1,22 @@
+version: 2
+reader_template: |-
+  Read this frozen source slice once. Identify materially distinct concrete facts relevant to the listed Leaders Database questions. Preserve adverse, favorable, mixed, exculpatory, and qualifying facts. Do not score. For each fact select one or more labeled paragraph spans that directly support it; do not cite a whole source unit when narrower spans suffice. State each fact once and return only schema JSON.
+
+  REQUIRED BASELINE COVERAGE CHECKPOINTS (preserve each supported material point; correct it if the exact spans require correction):
+  {baseline_requirements}
+
+  QUESTIONS:
+  {questions}
+
+  SOURCE ID: {source_id}
+  TITLE: {title}
+  LABELED EXACT PARAGRAPH SPANS:
+  {spans}
+review_template: |-
+  Compare the baseline whole-unit evidence record with the experimental paragraph-span findings from the same frozen source slice. Decide whether the experimental result preserves or improves factual accuracy, material fact coverage, favorable/adverse balance, question routing, period fit, ruler attribution, limitations, locator fidelity, and usefulness to a skeptical downstream judge. Treat narrower exact excerpts as an efficiency benefit only if material evidence is not omitted. Return only schema JSON.
+
+  BASELINE:
+  {baseline}
+
+  EXPERIMENTAL:
+  {experimental}

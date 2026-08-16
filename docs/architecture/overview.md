@@ -1,5 +1,14 @@
 # Architecture — Leaders Database Prototype
 
+## Public study-site projection
+
+The public ruler-study website is a derived static projection of an audit-approved
+production run. The projection validates approved ruler packages, reviewed chapter
+judgments, question answers, and cited evidence before rendering. It emits physical
+routes beneath `/leaders-study/` plus a SHA-256 file manifest. Public pages contain
+chapter scores and cited excerpts while excluding client scores, raw acquired documents,
+operational logs, prompts, and local filesystem paths.
+
 This document defines the system design. The authoritative product brief is
 [`../requirements/top-level-requirements.md`](../requirements/top-level-requirements.md); section numbers below
 reference that document.
@@ -30,6 +39,105 @@ shared selector are the only navigation files updated when another year is relea
 The customer/client matrix is a **validation/test reference only**. It is not
 ground truth, not an evidence source, and never contributes to source agreement,
 source authority, factual claims, leader identity, or category scoring.
+
+### Canonical model-cost profiles
+
+The read-only research cost profiler scans trusted completed-call event logs using
+the versioned artifact-type registry in `configs/research-cost-profile-stages.yaml`.
+It records per-call input, cached input, uncached input, output, and reasoning output;
+classifies chapter and shared work; and separates selected, superseded, and failed
+attempts using the selected-chapter manifest. Each run emits deterministic JSON, CSV,
+and Markdown artifacts. Profile comparison is allowed only when both inputs bind the
+same stage-rule version and hash.
+
+The cache-oriented request-envelope experiment was removed after repeated outputs failed
+substantive equivalence and the Codex subscription surface reported no cache reuse. The
+established chapter-analysis path remains the only active implementation. Immutable run
+diagnostics preserve the failed experiment for audit without leaving an unused alternate
+mechanism in production code.
+
+The replacement optimization begins with deterministic question-evidence packages. For
+each of a chapter's ten questions, code carries forward the exact records cited by the
+selected approved answer and provides a compact index of every other directly routed
+candidate. A complete-ledger disposition proves that no record disappeared during the
+projection. This package is an input-planning artifact only; the established answer
+writer remains unchanged until a later blind quality gate passes.
+Each question packet also carries a deterministic coverage checklist. Approved citations
+are mandatory context; other routed candidates remain reopenable. The checklist records
+evidence-balance availability and whether priority records carry attribution, period, and
+limitation fields. It does not decide factual importance or generate prose.
+The diagnostic question writer must disposition every exact priority record. Its single
+citation ledger states the evidence ID, material point, and whether the record supports,
+qualifies, or limits the answer. The prose places evidence IDs beside the factual claims
+it makes so a reader can audit them without cross-matching an unlocated list. Brackets contain either one ID or a
+semicolon-delimited group. Code rejects missing or unknown inline IDs and
+missing, duplicate, or unknown ledger records before blind quality review. Compact
+candidates cannot be cited as facts until a later bounded reopening step restores their
+exact source text.
+The prospective affordable question path applies a human-judgment materiality standard.
+Every exact priority record still receives one structured disposition, but duplicative or
+immaterial records need not be repeated in prose. Claims actually made remain cited.
+Harmless rounding and approximation may pass when they cannot affect direction, comparison,
+attribution, period, confidence, or the likely chapter judgment. Reversed measures or
+populations, materially wrong magnitudes, unsupported causation or ruler attribution, and
+judgment-changing omissions remain failures. Comparative preference between two adequate
+answers does not by itself fail the candidate.
+The chapter diagnostic keeps production and quality phases separate: ten ordered
+question writes complete before ten independent blind reviews begin. It has no internal
+critique or repair loop. The first full 4B test showed that this control flow is viable
+but that using only predecessor citations as exact input is not sufficient; material
+compact candidates must be selected upstream before another chapter test. The subsequent
+4B cycle selected those candidates upstream, revised the approved predecessor, and passed
+all ten comparisons. The gate requires six passing quality dimensions, no unsupported
+claims, and blind preference or a tie; reviewer tradeoff comments remain visible.
+
+An isolated citation-span prototype can subdivide an immutable extracted unit at existing
+blank-line paragraph boundaries. Each address carries the parent unit number, exact
+character offsets, and a substring hash; deterministic resolution copies the original
+text and rejects source drift. This is not yet part of corpus reading or evidence
+publication. A frozen one-source diagnostic preserved all material facts and limitations
+while reducing cited text by 62.2%; its reader and comparison artifacts are exactly
+reconstructable, and the comparison gate is derived deterministically. Production
+integration remains a separate decision rather than an automatic pipeline change.
+An isolated exact-row extension addresses nonblank physical table lines with the same
+source/unit/Unicode-offset/UTF-8-hash contract. A one-call frozen Labour Force Survey gate
+showed that explicitly selected source, header, population, percentage, and data-row lines
+preserve corrected table meanings and limitations while materially reducing citation text.
+Numeric-line classification remains a navigation heuristic; it does not decide which
+headers are necessary. Whole-unit discovery remains unchanged. The diagnostic question
+writer is the first compact consumer: its default remains the whole-unit record, while an
+explicit table mode reconstructs every cited line from frozen source units before omitting
+the duplicate whole-unit excerpt from that request. The compatibility record retains the
+whole-unit excerpt and hash, and other consumers are unchanged.
+The active frozen-corpus model stages share a versioned pre-call budget contract. Reader,
+verifier, question-writer, independent-question-review, comparative-judge, and final
+judgment-review calls reserve exact
+prompt-plus-schema characters and tokens plus cumulative stage calls and tokens before
+execution. Integrated releases additionally share one file-locked run-usage ledger across
+writing, question review, chapter judging, and judgment review. Every execution boundary
+under an eligible integrated preflight automatically resolves the same tracker from the
+manifest and refuses a mismatched explicit tracker. Each call reserves measured input and
+the configured model's full provider output maximum before its stage reservation, then
+reconciles against trusted completed event usage. Outstanding or usage-unavailable calls retain their full
+allowance; only an unlaunched call can cancel its reservation. This prevents concurrent
+workers or separate stages from independently consuming the same remaining run capacity.
+File-backed judge projections are measured from their exact serialized text.
+Successful and refused reservations persist their stage/component decision; judge workers
+share a locked run ledger, and invalid saved output stops instead of automatically
+repeating an unchanged request.
+The established corpus evidence record now has an optional list of exact paragraph
+citations beside its unchanged whole-unit excerpt. This compatibility boundary lets the
+current pipeline retain historical records while downstream consumers migrate to
+independently hashed substrings; non-contiguous support remains separate citations.
+New corpus-reading plans apply both token and rendered-character budgets before calls.
+The existing fact-discovery prompt is versioned, retains whole-unit labels after a
+paragraph-labeled discovery test reduced material coverage, and persists its configuration
+and request hashes per batch. Historical records continue through the same whole-unit path.
+The existing passage verifier receives deterministic paragraph candidates for each
+whole-unit fact, selects the supporting IDs as part of its normal verdict, and code binds
+the exact substrings. Historical verifier artifacts retain an explicit legacy path. New
+verifier requests bind candidates, partitions, prompts, schema, profile, and model, and a
+failed citation selection stops rather than launching an automatic second call.
 
 Controlled cohort evaluations are frozen separately from production releases. The
 evaluation manifest binds the ruler cohort, preserved baselines, model/workflow
@@ -1231,3 +1339,18 @@ Changing any scientific stage requires a new release ID and pipeline version.
 Corpus completion is strict: an undispositioned document or failed reading batch keeps
 the run incomplete, and the approval boundary revalidates exact plan-to-run coverage
 and every verified-evidence artifact rather than trusting a completion label.
+
+The candidate control contract in `configs/research-control-flow.yaml` does not mutate the
+production release. It defines three model-bearing production/independent-quality pairs:
+corpus reading/verification, question writing/review, and chapter judging/judgment review.
+Hash, schema, citation, completion, score/order, and publication checks remain deterministic.
+The candidate permits no automatic model retry, repair, re-review, or supervisor takeover.
+A material defect can produce one visible research-return request, but execution requires
+an explicit user decision. Task 6 must bind this contract to a fresh experimental release.
+
+Integrated experimental releases perform a deterministic eligibility preflight before any
+model process starts. The preflight validates and hashes the frozen release, corpus,
+selection, and control contracts; constructs all eight question packages; inventories each
+model action; and blocks execution when a promotion ceiling is already impossible. The
+first Netanyahu integrated release was rejected because its 176 mandatory calls exceeded
+the one-ruler ceiling of 149.

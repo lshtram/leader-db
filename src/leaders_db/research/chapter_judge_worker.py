@@ -9,6 +9,7 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
+import tiktoken
 from pydantic import ValidationError
 from sqlalchemy.engine import Engine
 
@@ -32,10 +33,18 @@ from .chapter_projection import (
 )
 from .codex_worker import WorkerOutputError, _run_codex
 from .codex_worker_command import build_codex_exec_command, validate_worker_timing
+from .control_flow import enforce_model_action
 from .deep_corpus_release import validate_release_reference
 from .dossier_models import DossierUsage, RulerEvidenceDossier
 from .job_ledger import checkpoint_job, heartbeat_job
 from .job_ledger_queries import list_jobs
+from .model_call_budget import (
+    RunUsageBudgetTracker,
+    StageBudgetTracker,
+    load_stage_budget_tracker,
+    model_max_output_tokens,
+    resolve_integrated_run_budget,
+)
 from .model_profiles import load_research_model_profiles
 
 FILE_BACKED_PROMPT_THRESHOLD_BYTES = 850_000
@@ -68,9 +77,11 @@ def execute_claimed_chapter_judge_job(
     lease_seconds: int,
     heartbeat_seconds: int,
     timeout_seconds: int,
+    run_budget_tracker: RunUsageBudgetTracker | None = None,
 ) -> tuple[Path, ChapterJudgmentBatch]:
     """Run and validate one claimed chapter judge, without completing its lease."""
 
+    enforce_model_action(project_root, "chapter_judging", role="production")
     validate_worker_timing(
         lease_seconds=lease_seconds,
         heartbeat_seconds=heartbeat_seconds,
@@ -95,6 +106,7 @@ def execute_claimed_chapter_judge_job(
         project_root=project_root,
         context_window=profile.context_window,
     )
+    run_budget_tracker = resolve_integrated_run_budget(attempt.attempt_dir, run_budget_tracker)
     batch, existing = _recover_previous_chapter_batch(attempt=attempt, job=job)
     if batch is not None:
         _write_null_recovery_queue(
@@ -140,35 +152,37 @@ def execute_claimed_chapter_judge_job(
             writable_dir=attempt.attempt_dir,
             sandbox_mode="read-only" if embed_projections else "danger-full-access",
         )
-        checkpoint_job(
-            engine,
-            job_id=int(job["id"]),
-            worker_id=worker_id,
-            lease_token=lease_token,
-            checkpoint={
-                "phase": "chapter_judge_starting",
-                "attempt_dir": str(attempt.attempt_dir),
-                "dossier_count": len(attempt.dossiers),
-                "estimated_input_tokens": attempt.context_estimate.estimated_input_tokens,
-            },
+        budget = load_stage_budget_tracker(
+            project_root / "configs/research-stage-budgets.yaml",
+            "chapter_judge",
+            ledger_path=(
+                attempt.attempt_dir.parents[3] / "stage-budgets" / "chapter-judge-reservations.json"
+            ),
         )
-        _run_judge(
-            engine,
-            command=command,
-            prompt=prompt,
-            events_path=attempt.events_path,
-            job_id=int(job["id"]),
+        additional_inputs = (
+            ()
+            if embed_projections
+            else tuple(path.read_text(encoding="utf-8") for path, _ in attempt.projections)
+        )
+        _run_budgeted_judge(
+            engine=engine,
+            attempt=attempt,
+            job=job,
             worker_id=worker_id,
             lease_token=lease_token,
             lease_seconds=lease_seconds,
             heartbeat_seconds=heartbeat_seconds,
             timeout_seconds=timeout_seconds,
+            command=command,
+            prompt=prompt,
+            additional_inputs=additional_inputs,
+            stage_budget=budget,
+            run_budget=run_budget_tracker,
+            model_name=profile.model,
         )
         if _projection_hashes(attempt.projections) != input_hashes:
             raise ValueError("chapter projection changed while the judge was running")
-        (attempt.attempt_dir / "judge-complete.marker").write_text(
-            "complete\n", encoding="utf-8"
-        )
+        (attempt.attempt_dir / "judge-complete.marker").write_text("complete\n", encoding="utf-8")
         heartbeat_job(
             engine,
             job_id=int(job["id"]),
@@ -208,6 +222,84 @@ def execute_claimed_chapter_judge_job(
     return attempt.result_path, batch
 
 
+def _run_budgeted_judge(
+    *,
+    engine: Engine,
+    attempt: ChapterJudgeAttempt,
+    job: dict[str, Any],
+    worker_id: str,
+    lease_token: str,
+    lease_seconds: int,
+    heartbeat_seconds: int,
+    timeout_seconds: int,
+    command: list[str],
+    prompt: str,
+    additional_inputs: tuple[str, ...],
+    stage_budget: StageBudgetTracker,
+    run_budget: RunUsageBudgetTracker | None,
+    model_name: str,
+) -> None:
+    schema = codex_chapter_judgment_json_schema()
+    reservation = None
+    launched = False
+    try:
+        if run_budget is not None:
+            complete = (
+                prompt
+                + json.dumps(schema, ensure_ascii=False, sort_keys=True)
+                + "".join(additional_inputs)
+            )
+            reservation = run_budget.reserve(
+                stage="chapter_judge",
+                component=str(job["input"]["chapter_id"]),
+                estimated_input_tokens=len(tiktoken.get_encoding("o200k_base").encode(complete)),
+                output_token_allowance=model_max_output_tokens(model_name),
+                output_dir=attempt.attempt_dir,
+            )
+        stage_budget.reserve(
+            component=str(job["input"]["chapter_id"]),
+            prompt=prompt,
+            response_schema=schema,
+            output_dir=attempt.attempt_dir,
+            additional_inputs=additional_inputs,
+        )
+        checkpoint_job(
+            engine,
+            job_id=int(job["id"]),
+            worker_id=worker_id,
+            lease_token=lease_token,
+            checkpoint={
+                "phase": "chapter_judge_starting",
+                "attempt_dir": str(attempt.attempt_dir),
+                "dossier_count": len(attempt.dossiers),
+                "estimated_input_tokens": attempt.context_estimate.estimated_input_tokens,
+            },
+        )
+        launched = True
+        _run_judge(
+            engine,
+            command=command,
+            prompt=prompt,
+            events_path=attempt.events_path,
+            job_id=int(job["id"]),
+            worker_id=worker_id,
+            lease_token=lease_token,
+            lease_seconds=lease_seconds,
+            heartbeat_seconds=heartbeat_seconds,
+            timeout_seconds=timeout_seconds,
+        )
+    finally:
+        if run_budget is not None and reservation is not None:
+            if launched:
+                usage = read_codex_usage(attempt.events_path)
+                run_budget.reconcile(
+                    reservation,
+                    usage.model_dump(mode="json") if usage is not None else None,
+                )
+            else:
+                run_budget.cancel_unlaunched(reservation)
+
+
 def _write_null_recovery_queue(
     batch: ChapterJudgmentBatch,
     *,
@@ -231,16 +323,17 @@ def _write_null_recovery_queue(
                 "ruler_year_id": evaluation.ruler_year_id,
                 "ruler_name": evaluation.ruler_name,
                 "chapter_id": evaluation.chapter_id,
-                "current_evidence_count": evidence_counts.get(
-                    evaluation.dossier_job_key, 0
-                ),
+                "current_evidence_count": evidence_counts.get(evaluation.dossier_job_key, 0),
                 "reason": evaluation.insufficient_evidence_reason,
                 "missing_or_weak_lenses": list(evaluation.missing_or_weak_lenses),
                 "requested_follow_up": evaluation.manual_review_reason,
                 "next_action": (
-                    "resume_same_ruler_research" if recoverable else "substantive_review"
+                    "request_user_authorized_research_return"
+                    if recoverable
+                    else "substantive_review"
                 ),
-                "maximum_research_rounds": 2 if recoverable else 0,
+                "maximum_research_rounds": 1 if recoverable else 0,
+                "runs_automatically": False,
             }
         )
     payload = {
@@ -282,9 +375,7 @@ def _initialize_attempt(
         raise ValueError("active chapter guide rubric differs from the planned judge job")
     release_reference = job["input"].get("deep_corpus_release")
     if release_reference is not None:
-        release = validate_release_reference(
-            release_reference, project_root=project_root
-        )
+        release = validate_release_reference(release_reference, project_root=project_root)
         if release.target_year != int(job["target_year"]):
             raise ValueError("deep-corpus release target year differs from judge job")
     dossiers = _load_dependency_dossiers(engine, job=job, project_root=project_root)
@@ -295,9 +386,7 @@ def _initialize_attempt(
         attempt_dir=attempt_dir,
         project_root=project_root,
         approved_packages=job["input"].get("approved_ruler_packages", {}),
-        require_approved_corpus=bool(
-            job["input"].get("require_approved_corpus", False)
-        ),
+        require_approved_corpus=bool(job["input"].get("require_approved_corpus", False)),
     )
     prompt_overhead = 5_000 + (len(guide_text.encode("utf-8")) + 2) // 3
     context_ceiling = context_window - 60_000
@@ -365,15 +454,11 @@ def _write_chapter_projections(
                 dossier_path=source_path,
                 approval_manifest_path=manifest_path,
                 project_root=project_root,
-                target_year=(
-                    target_year if target_year is not None else dossier.period_end_year
-                ),
+                target_year=(target_year if target_year is not None else dossier.period_end_year),
             )
         else:
             if require_approved_corpus:
-                raise ValueError(
-                    f"approved corpus package missing for dossier: {dossier.job_key}"
-                )
+                raise ValueError(f"approved corpus package missing for dossier: {dossier.job_key}")
             projection = build_ruler_chapter_projection(
                 dossier,
                 chapter_id=chapter_id,
@@ -465,9 +550,7 @@ def _prepare_batch(  # noqa: PLR0912, PLR0915
     events_path: Path,
 ) -> ChapterJudgmentBatch:
     dossier_by_key = {dossier.job_key: dossier for _, dossier in dossiers}
-    projection_by_key = {
-        projection.job_key: projection for _, projection in projections
-    }
+    projection_by_key = {projection.job_key: projection for _, projection in projections}
     if set(projection_by_key) != set(dossier_by_key):
         raise ValueError("chapter projections differ from the dossier cohort")
     raw_evaluations = candidate.get("evaluations")
@@ -494,13 +577,9 @@ def _prepare_batch(  # noqa: PLR0912, PLR0915
             if any(prior.get(field) != evaluation.get(field) for field in comparable_fields):
                 raise ValueError("chapter evaluation has conflicting duplicate judgments")
             prior_reason = str(prior.get("insufficient_evidence_reason") or "").strip()
-            duplicate_reason = str(
-                evaluation.get("insufficient_evidence_reason") or ""
-            ).strip()
+            duplicate_reason = str(evaluation.get("insufficient_evidence_reason") or "").strip()
             if duplicate_reason and duplicate_reason != prior_reason:
-                prior["insufficient_evidence_reason"] = (
-                    f"{prior_reason} {duplicate_reason}".strip()
-                )
+                prior["insufficient_evidence_reason"] = f"{prior_reason} {duplicate_reason}".strip()
             continue
         deduplicated.append(evaluation)
         emitted_by_key[dossier_key] = evaluation
@@ -526,9 +605,7 @@ def _prepare_batch(  # noqa: PLR0912, PLR0915
         )
         _normalize_local_evidence_reference_lists(
             evaluation,
-            valid_local_evidence_ids=_local_evidence_ids(
-                projection_by_key[dossier_key]
-            ),
+            valid_local_evidence_ids=_local_evidence_ids(projection_by_key[dossier_key]),
         )
         _ensure_bias_assessment(
             evaluation,
@@ -536,21 +613,21 @@ def _prepare_batch(  # noqa: PLR0912, PLR0915
                 item.evidence_id for item in projection_by_key[dossier_key].evidence
             },
         )
-        _normalize_calibration_references(
-            evaluation, available_dossier_keys=set(dossier_by_key)
-        )
+        _normalize_calibration_references(evaluation, available_dossier_keys=set(dossier_by_key))
         _normalize_judgment_envelope(evaluation)
-        evaluation.update({
-            "iso3": dossier.iso3,
-            "ruler_id": dossier.ruler_id,
-            "ruler_year_id": dossier.ruler_year_id,
-            "ruler_name": dossier.ruler_name,
-            "period_start_year": dossier.period_start_year,
-            "period_end_year": dossier.period_end_year,
-            "chapter_id": job["input"]["chapter_id"],
-            "rubric_version": rubric_version,
-            "calibration_batch_id": job["job_key"],
-        })
+        evaluation.update(
+            {
+                "iso3": dossier.iso3,
+                "ruler_id": dossier.ruler_id,
+                "ruler_year_id": dossier.ruler_year_id,
+                "ruler_name": dossier.ruler_name,
+                "period_start_year": dossier.period_start_year,
+                "period_end_year": dossier.period_end_year,
+                "chapter_id": job["input"]["chapter_id"],
+                "rubric_version": rubric_version,
+                "calibration_batch_id": job["job_key"],
+            }
+        )
     _normalize_confidence_scale(raw_evaluations, candidate=candidate)
     if seen != set(dossier_by_key):
         raise ValueError("chapter batch must evaluate every available dossier exactly once")
@@ -646,14 +723,10 @@ def _normalize_calibration_references(
         return
     if len(available_dossier_keys) == 1:
         evaluation["calibrated_against"] = list(
-            dict.fromkeys(
-                str(value) for value in values if str(value) in available_dossier_keys
-            )
+            dict.fromkeys(str(value) for value in values if str(value) in available_dossier_keys)
         )
         return
-    canonical_by_suffix = {
-        ":".join(key.rsplit(":", 3)[-3:]): key for key in available_dossier_keys
-    }
+    canonical_by_suffix = {":".join(key.rsplit(":", 3)[-3:]): key for key in available_dossier_keys}
     normalized = []
     for value in values:
         reference = str(value)
@@ -666,9 +739,7 @@ def _normalize_calibration_references(
     evaluation["calibrated_against"] = list(dict.fromkeys(normalized))
 
 
-def _ensure_bias_assessment(
-    evaluation: dict[str, Any], *, valid_evidence_ids: set[str]
-) -> None:
+def _ensure_bias_assessment(evaluation: dict[str, Any], *, valid_evidence_ids: set[str]) -> None:
     """Retain an otherwise usable judgment while exposing missing bias reasoning."""
 
     assessment = evaluation.get("bias_assessment")
@@ -750,9 +821,7 @@ def _ensure_bias_assessment(
             score_range["upper"] = min(10, float(upper) + 1)
 
 
-def _normalize_lens_lists(
-    evaluation: dict[str, Any], *, valid_methodology_ids: set[str]
-) -> None:
+def _normalize_lens_lists(evaluation: dict[str, Any], *, valid_methodology_ids: set[str]) -> None:
     """Keep free-form gap observations without treating them as methodology IDs."""
 
     qualitative_gaps: list[str] = []
@@ -762,8 +831,7 @@ def _normalize_lens_lists(
         if not isinstance(values, list):
             continue
         normalized_values = [
-            (_lens_id_from_value(value, valid_methodology_ids), str(value))
-            for value in values
+            (_lens_id_from_value(value, valid_methodology_ids), str(value)) for value in values
         ]
         valid_values = [lens_id for lens_id, _ in normalized_values if lens_id]
         if field == "supported_lenses":
@@ -774,9 +842,7 @@ def _normalize_lens_lists(
                 for lens_id, original in normalized_values
                 if not lens_id or original != lens_id
             )
-            overlap = list(
-                dict.fromkeys(value for value in valid_values if value in supported)
-            )
+            overlap = list(dict.fromkeys(value for value in valid_values if value in supported))
             if overlap:
                 qualitative_gaps.append(
                     "Partially supported but weak lenses: " + ", ".join(overlap)
@@ -888,9 +954,7 @@ def _local_evidence_ids(projection: RulerChapterProjection) -> set[str]:
     }
 
 
-def _normalize_confidence_scale(
-    evaluations: list[object], *, candidate: dict[str, Any]
-) -> None:
+def _normalize_confidence_scale(evaluations: list[object], *, candidate: dict[str, Any]) -> None:
     """Normalize an unambiguous batch-wide 0-1 confidence scale to 0-100."""
 
     values: list[float] = []
@@ -907,9 +971,7 @@ def _normalize_confidence_scale(
         return
     for evaluation in evaluations:
         assert isinstance(evaluation, dict)
-        evaluation["confidence_score"] = round(
-            float(evaluation["confidence_score"]) * 100, 6
-        )
+        evaluation["confidence_score"] = round(float(evaluation["confidence_score"]) * 100, 6)
     note = "Confidence scores normalized from a batch-wide 0-1 scale to 0-100."
     notes = candidate.get("batch_notes")
     if isinstance(notes, list):
@@ -949,20 +1011,13 @@ def _validate_batch_evidence(
             *evaluation.decisive_local_evidence,
             *evaluation.contextual_local_evidence,
         )
-        if any(
-            item.local_evidence_id not in local_ids for item in local_references
-        ):
-            raise ValueError(
-                "chapter evaluation references local evidence outside its package"
-            )
+        if any(item.local_evidence_id not in local_ids for item in local_references):
+            raise ValueError("chapter evaluation references local evidence outside its package")
         summary = evaluation.structured_prior_summary.casefold()
-        if (
-            projection.local_evidence.status == "available"
-            and ("not_available" in summary or "unavailable" in summary)
+        if projection.local_evidence.status == "available" and (
+            "not_available" in summary or "unavailable" in summary
         ):
-            raise ValueError(
-                "structured_prior_summary contradicts available local evidence"
-            )
+            raise ValueError("structured_prior_summary contradicts available local evidence")
         bias_ids = {
             evidence_id
             for finding in evaluation.bias_assessment.material_biases
@@ -977,24 +1032,20 @@ def _validate_batch_evidence(
             raise ValueError("chapter evaluation decisively cites discovery-only evidence")
 
 
-def _completed_judge_usage(
-    attempt_dir: Path, current_events_path: Path
-) -> DossierUsage | None:
+def _completed_judge_usage(attempt_dir: Path, current_events_path: Path) -> DossierUsage | None:
     """Include current and prior completed judge execution turns."""
 
     event_paths = {current_events_path}
     attempts_dir = attempt_dir.parent
     if attempts_dir.is_dir():
         for prior in attempts_dir.iterdir():
-            if prior.is_dir() and prior != attempt_dir and (
-                prior / "judge-complete.marker"
-            ).is_file():
+            if (
+                prior.is_dir()
+                and prior != attempt_dir
+                and (prior / "judge-complete.marker").is_file()
+            ):
                 event_paths.add(prior / "codex-events.jsonl")
-    usages = tuple(
-        usage
-        for path in event_paths
-        if (usage := read_codex_usage(path)) is not None
-    )
+    usages = tuple(usage for path in event_paths if (usage := read_codex_usage(path)) is not None)
     if not usages:
         return None
     input_tokens = sum(int(item.input_tokens) for item in usages)
@@ -1041,9 +1092,7 @@ def _run_judge(
     )
 
 
-def _find_previous_chapter_candidate(
-    job_dir: Path, *, attempt_dir: Path
-) -> dict[str, Any] | None:
+def _find_previous_chapter_candidate(job_dir: Path, *, attempt_dir: Path) -> dict[str, Any] | None:
     """Return the newest completed chapter candidate from an earlier attempt."""
 
     candidates = _find_previous_chapter_candidates(job_dir, attempt_dir=attempt_dir)

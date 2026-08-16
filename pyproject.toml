@@ -27,6 +27,8 @@ dependencies = [
     # Deterministic syntax repair for malformed local-model JSON; strict schemas
     # still decide whether repaired content is admissible.
     "json-repair==0.61.7",
+    # Complete-request token preflight is part of the research runtime contract.
+    "tiktoken>=0.12,<1",
     # CLI
     "typer>=0.12",
     # .env loader
@@ -44,7 +46,6 @@ dev = [
     "pytest>=8.0",
     "pytest-cov>=5.0",
     "ruff>=0.5",
-    "tiktoken>=0.12,<1",
     # Test fixture PDF generation (SIPRI Yearbook Ch.7 fixture builder)
     "reportlab>=4.0",
 ]

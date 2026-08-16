@@ -17,6 +17,7 @@ from .research_cited_commands import (
     research_persist_8b_evaluations_cmd,
     research_persist_cited_evaluations_cmd,
 )
+from .research_cost_profile_commands import register_cost_profile_commands
 from .research_job_commands import jobs_app, register_job_commands
 from .research_judgment_review_commands import register_judgment_review_commands
 from .research_local_prior_commands import (
@@ -33,6 +34,7 @@ from .research_readiness_commands import (
     register_readiness_commands,
     research_readiness_cmd,
 )
+from .research_study_site_commands import register_study_site_commands
 from .research_watchdog_commands import (
     register_watchdog_commands,
     research_validate_shard_output_cmd,
@@ -47,6 +49,7 @@ app.add_typer(research_app, name="research")
 
 register_answer_commands(research_app)
 register_cited_commands(research_app)
+register_cost_profile_commands(research_app)
 register_local_prior_commands(research_app)
 register_parallel_commands(research_app)
 register_watchdog_commands(research_app)
@@ -54,6 +57,7 @@ register_readiness_commands(research_app)
 register_job_commands(research_app)
 register_worker_commands(jobs_app)
 register_judgment_review_commands(jobs_app)
+register_study_site_commands(research_app)
 
 __all__ = [
     "research_app",
