@@ -46,6 +46,11 @@ from .chapter_judge_recovery import (
 from .codex_worker import WorkerOutputError, _run_codex
 from .codex_worker_command import build_codex_exec_command, validate_worker_timing
 from .control_flow import enforce_model_action
+from .execution_profile import (
+    finalize_execution,
+    start_execution_profile,
+    write_execution_profile,
+)
 from .job_ledger import checkpoint_job, heartbeat_job
 from .model_call_budget import (
     RunUsageBudgetTracker,
@@ -234,17 +239,18 @@ def _run_budgeted_judge(
     schema = codex_chapter_judgment_json_schema()
     reservation = None
     launched = False
+    started = None
+    return_code = None
+    complete = (
+        prompt + json.dumps(schema, ensure_ascii=False, sort_keys=True) + "".join(additional_inputs)
+    )
+    estimated_input_tokens = len(tiktoken.get_encoding("o200k_base").encode(complete))
     try:
         if run_budget is not None:
-            complete = (
-                prompt
-                + json.dumps(schema, ensure_ascii=False, sort_keys=True)
-                + "".join(additional_inputs)
-            )
             reservation = run_budget.reserve(
                 stage="chapter_judge",
                 component=str(job["input"]["chapter_id"]),
-                estimated_input_tokens=len(tiktoken.get_encoding("o200k_base").encode(complete)),
+                estimated_input_tokens=estimated_input_tokens,
                 output_token_allowance=model_max_output_tokens(model_name),
                 output_dir=attempt.attempt_dir,
             )
@@ -268,6 +274,7 @@ def _run_budgeted_judge(
             },
         )
         launched = True
+        started = start_execution_profile()
         _run_judge(
             engine,
             command=command,
@@ -280,16 +287,48 @@ def _run_budgeted_judge(
             heartbeat_seconds=heartbeat_seconds,
             timeout_seconds=timeout_seconds,
         )
+        return_code = 0
     finally:
+        finalizers = []
         if run_budget is not None and reservation is not None:
             if launched:
-                usage = read_codex_usage(attempt.events_path)
-                run_budget.reconcile(
-                    reservation,
-                    usage.model_dump(mode="json") if usage is not None else None,
+                finalizers.append(
+                    lambda: run_budget.reconcile(
+                        reservation,
+                        (
+                            usage.model_dump(mode="json")
+                            if (usage := read_codex_usage(attempt.events_path)) is not None
+                            else None
+                        ),
+                    )
                 )
             else:
-                run_budget.cancel_unlaunched(reservation)
+                finalizers.append(lambda: run_budget.cancel_unlaunched(reservation))
+        if launched and started is not None:
+            finalizers.append(
+                lambda: write_execution_profile(
+                    output_dir=attempt.attempt_dir,
+                    events_path=attempt.events_path,
+                    model=model_name,
+                    reasoning_effort="high",
+                    started=started,
+                    return_code=return_code,
+                    request_characters=len(prompt) + sum(map(len, additional_inputs)),
+                    response_schema_characters=len(
+                        json.dumps(schema, ensure_ascii=False, sort_keys=True)
+                    ),
+                    estimated_input_tokens=estimated_input_tokens,
+                    output_token_allowance=(
+                        model_max_output_tokens(model_name) if run_budget is not None else None
+                    ),
+                    command=command,
+                    extra={
+                        "stage": "chapter_judging",
+                        "component": str(job["input"]["chapter_id"]),
+                    },
+                )
+            )
+        finalize_execution(*finalizers)
 
 
 def _run_judge(

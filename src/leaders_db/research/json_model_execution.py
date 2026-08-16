@@ -14,6 +14,11 @@ from leaders_db.evidence_funnel.execution_schema import make_strict_response_sch
 
 from ._codex_worker_artifacts import read_codex_usage
 from .codex_worker_command import build_codex_exec_command
+from .execution_profile import (
+    finalize_execution,
+    start_execution_profile,
+    write_execution_profile,
+)
 from .model_call_budget import (
     RunUsageBudgetTracker,
     StageBudgetTracker,
@@ -55,6 +60,8 @@ def execute_json_model(
     run_reservation: str | None = None
     launched = False
     events_path: Path | None = None
+    command, return_code = None, None
+    started: tuple[str, float] | None = None
     try:
         schema_text = json.dumps(schema, ensure_ascii=False, sort_keys=True)
         estimated_input_tokens = len(
@@ -97,25 +104,54 @@ def execute_json_model(
             stderr_path.open("w", encoding="utf-8") as stderr,
         ):
             launched = True
-            process_runner(
-                command,
-                input=prompt,
-                text=True,
-                stdout=events,
-                stderr=stderr,
-                check=True,
-                timeout=1_800,
-            )
+            started = start_execution_profile()
+            try:
+                completed = process_runner(
+                    command,
+                    input=prompt,
+                    text=True,
+                    stdout=events,
+                    stderr=stderr,
+                    check=True,
+                    timeout=1_800,
+                )
+                return_code = getattr(completed, "returncode", 0)
+            except subprocess.CalledProcessError as exc:
+                return_code = exc.returncode
+                raise
     finally:
+        finalizers = []
         if run_budget_tracker is not None and run_reservation is not None:
             if launched and events_path is not None:
-                usage = read_codex_usage(events_path)
-                run_budget_tracker.reconcile(
-                    run_reservation,
-                    usage.model_dump(mode="json") if usage is not None else None,
+                finalizers.append(
+                    lambda: run_budget_tracker.reconcile(
+                        run_reservation,
+                        (
+                            usage.model_dump(mode="json")
+                            if (usage := read_codex_usage(events_path)) is not None
+                            else None
+                        ),
+                    )
                 )
             else:
-                run_budget_tracker.cancel_unlaunched(run_reservation)
+                finalizers.append(lambda: run_budget_tracker.cancel_unlaunched(run_reservation))
         if call_coordinator is not None:
-            call_coordinator.complete_call()
+            finalizers.append(call_coordinator.complete_call)
+        if launched and started is not None and events_path is not None:
+            finalizers.append(
+                lambda: write_execution_profile(
+                    output_dir=output_dir,
+                    events_path=events_path,
+                    model=profile.model,
+                    reasoning_effort=reasoning_effort,
+                    started=started,
+                    return_code=return_code,
+                    request_characters=len(prompt),
+                    response_schema_characters=len(schema_text),
+                    estimated_input_tokens=estimated_input_tokens,
+                    output_token_allowance=model_max_output_tokens(profile.model),
+                    command=command,
+                )
+            )
+        finalize_execution(*finalizers)
     return model.model_validate_json(output_path.read_text(encoding="utf-8"))

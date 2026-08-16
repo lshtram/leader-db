@@ -27,7 +27,11 @@ def event_rows(root: Path, rules: StageRules) -> list[dict[str, Any]]:
     selected_roots = _selected_artifact_roots(root)
     seen: set[Path] = set()
     rows = []
-    for path in sorted(root.rglob(rules.event_filename)):
+    filenames = {PurePosixPath(rule.path_pattern).name for rule in rules.rules} | {
+        rules.event_filename
+    }
+    paths = {path for filename in filenames for path in root.rglob(filename) if path.is_file()}
+    for path in sorted(paths):
         resolved = path.resolve(strict=True)
         if resolved in seen:
             continue
@@ -40,9 +44,9 @@ def event_rows(root: Path, rules: StageRules) -> list[dict[str, Any]]:
         status = _selection_status(relative, chapter_id, rule, selected_roots)
         usages = tuple(_completed_usages(path))
         if not usages:
-            rows.append(_failed_row(relative, chapter_id, rule))
+            rows.append(_failed_row(path, relative, chapter_id, rule))
         for call_index, usage in enumerate(usages, start=1):
-            rows.append(_completed_row(relative, chapter_id, rule, status, call_index, usage))
+            rows.append(_completed_row(path, relative, chapter_id, rule, status, call_index, usage))
     return rows
 
 
@@ -56,15 +60,11 @@ def totals(rows: list[dict[str, Any]]) -> dict[str, int | float]:
     for key in TOKEN_KEYS:
         result[key] = sum(row[key] for row in rows)
     inputs = int(result["input_tokens"])
-    result["cache_rate"] = (
-        round(int(result["cached_input_tokens"]) / inputs, 6) if inputs else 0
-    )
+    result["cache_rate"] = round(int(result["cached_input_tokens"]) / inputs, 6) if inputs else 0
     return result
 
 
-def group_totals(
-    rows: list[dict[str, Any]], key: str
-) -> dict[str, dict[str, int | float]]:
+def group_totals(rows: list[dict[str, Any]], key: str) -> dict[str, dict[str, int | float]]:
     """Aggregate rows by a stable string dimension."""
 
     grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -77,9 +77,7 @@ def cache_distribution(rows: list[dict[str, Any]]) -> dict[str, int]:
     """Count calls meeting the plan's cache-rate thresholds."""
 
     rates = [
-        row["cached_input_tokens"] / row["input_tokens"]
-        for row in rows
-        if row["input_tokens"]
+        row["cached_input_tokens"] / row["input_tokens"] for row in rows if row["input_tokens"]
     ]
     return {
         "calls_with_input": len(rates),
@@ -118,6 +116,7 @@ def _completed_usages(path: Path) -> Iterable[dict[str, Any]]:
 
 
 def _completed_row(
+    source_path: Path,
     path: PurePosixPath,
     chapter_id: str | None,
     rule: StageRule,
@@ -130,25 +129,99 @@ def _completed_row(
     if cached > input_tokens:
         raise ValueError(f"cached input exceeds input in {path}")
     return {
-        "event_path": path.as_posix(), "call_index": call_index,
-        "artifact_type": rule.artifact_type, "stage": rule.stage,
-        "chapter_id": chapter_id or "shared", "selection_status": status,
-        "call_status": "completed", "input_tokens": input_tokens,
-        "cached_input_tokens": cached, "uncached_input_tokens": input_tokens - cached,
+        "event_path": path.as_posix(),
+        "call_index": call_index,
+        "artifact_type": rule.artifact_type,
+        "stage": rule.stage,
+        "chapter_id": chapter_id or "shared",
+        "selection_status": status,
+        "call_status": "completed",
+        "input_tokens": input_tokens,
+        "cached_input_tokens": cached,
+        "uncached_input_tokens": input_tokens - cached,
         "output_tokens": _token(usage, "output_tokens"),
         "reasoning_output_tokens": _token(usage, "reasoning_output_tokens"),
+        **_call_metadata(source_path),
     }
 
 
 def _failed_row(
-    path: PurePosixPath, chapter_id: str | None, rule: StageRule
+    source_path: Path,
+    path: PurePosixPath,
+    chapter_id: str | None,
+    rule: StageRule,
 ) -> dict[str, Any]:
     return {
-        "event_path": path.as_posix(), "call_index": 0,
-        "artifact_type": rule.artifact_type, "stage": rule.stage,
-        "chapter_id": chapter_id or "shared", "selection_status": "failed",
-        "call_status": "failed", **dict.fromkeys(TOKEN_KEYS, 0),
+        "event_path": path.as_posix(),
+        "call_index": 0,
+        "artifact_type": rule.artifact_type,
+        "stage": rule.stage,
+        "chapter_id": chapter_id or "shared",
+        "selection_status": "failed",
+        "call_status": "failed",
+        **dict.fromkeys(TOKEN_KEYS, 0),
+        **_call_metadata(source_path),
     }
+
+
+def _call_metadata(events_path: Path) -> dict[str, Any]:
+    directory = events_path.parent
+    request = _first_json(
+        directory / "request-manifest.json",
+        directory / "blind-review-manifest.json",
+    )
+    stage_reservation = _first_json(directory / "budget-reservation.json")
+    run_reservation = _first_json(directory / "run-budget-reservation.json")
+    execution = _first_json(directory / "execution-profile.json")
+    validation = _first_json(
+        directory / "deterministic-validation.json",
+        directory / "blind-review-manifest.json",
+    )
+    prompt = _first_existing(directory / "prompt.txt", directory / "review-prompt.txt")
+    schema = _first_existing(directory / "schema.json", directory / "review-schema.json")
+    return {
+        "model": request.get("model", execution.get("model")),
+        "profile": request.get("profile", execution.get("profile")),
+        "reasoning_effort": request.get("reasoning_effort", execution.get("reasoning_effort")),
+        "api_key_used": request.get("api_key_used", execution.get("api_key_used")),
+        "estimated_input_tokens": (
+            run_reservation.get("estimated_input_tokens")
+            or stage_reservation.get("estimated_input_tokens")
+            or request.get("estimated_input_tokens")
+            or execution.get("estimated_input_tokens")
+        ),
+        "request_characters": stage_reservation.get(
+            "request_characters", execution.get("request_characters")
+        ),
+        "prompt_characters": len(prompt.read_text(encoding="utf-8")) if prompt else None,
+        "response_schema_characters": (
+            len(schema.read_text(encoding="utf-8"))
+            if schema
+            else execution.get("response_schema_characters")
+        ),
+        "output_token_allowance": run_reservation.get(
+            "output_token_allowance", execution.get("output_token_allowance")
+        ),
+        "run_reservation_id": run_reservation.get("reservation_id"),
+        "elapsed_seconds": execution.get("elapsed_seconds"),
+        "timing_status": "recorded" if execution else "unavailable_historical",
+        "return_code": execution.get("return_code"),
+        "validation_gate": validation.get("functional_gate", validation.get("quality_gate")),
+    }
+
+
+def _first_json(*paths: Path) -> dict[str, Any]:
+    for path in paths:
+        if not path.is_file():
+            continue
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(payload, dict):
+            return payload
+    return {}
+
+
+def _first_existing(*paths: Path) -> Path | None:
+    return next((path for path in paths if path.is_file()), None)
 
 
 def _token(usage: dict[str, Any], key: str) -> int:
@@ -198,6 +271,10 @@ def _selection_status(
 
 
 __all__ = [
-    "TOKEN_KEYS", "cache_distribution", "event_rows", "group_totals",
-    "output_distribution", "totals",
+    "TOKEN_KEYS",
+    "cache_distribution",
+    "event_rows",
+    "group_totals",
+    "output_distribution",
+    "totals",
 ]

@@ -322,6 +322,18 @@ admits at most three simultaneous Sol calls. The rejected v5 writer stage alone 
 run remains blocked until a prospective release chooses a larger honest output limit or a
 different approved production architecture.
 
+Profiling and fresh-run follow-up: the partial `netanyahu-2023-integrated-luna-sol-v6`
+attempt is immutable diagnostic evidence rather than a resumable run. Its seven completed
+Luna-high writing calls reconcile exactly to the run ledger: 346,307 input tokens, 7,936
+cached input tokens, 33,617 output tokens, and 18,736 reasoning-output tokens. The canonical
+profiler now covers all four integrated stages, run reservations and budget breaches,
+preflight limits, per-call timing and transport metadata, validation outcomes, PAYG and
+Codex-credit equivalents, and explicit unknown subscription billing. Independent review
+of the profiler and execution instrumentation is clean, the full suite passes, and fresh
+release `netanyahu-2023-integrated-luna-sol-v7` has an eligible 176-call preflight with
+40,000,000 input-token and 1,000,000 output-token hard ceilings. No v7 model call had been
+made at this checkpoint.
+
 ### Task 7 — Run five-ruler confirmation and decide production promotion
 
 Status: **blocked by a passing Task 6**

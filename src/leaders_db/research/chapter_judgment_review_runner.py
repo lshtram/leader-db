@@ -18,9 +18,15 @@ from .chapter_judgment_review import (
     codex_chapter_review_json_schema,
     validate_review,
 )
+from .chapter_judgment_review_outputs import sum_usage, write_reviewed_package
 from .chapter_projection import RulerChapterProjection
 from .codex_worker_command import build_codex_exec_command
 from .control_flow import enforce_model_action
+from .execution_profile import (
+    finalize_execution,
+    start_execution_profile,
+    write_execution_profile,
+)
 from .model_call_budget import (
     RunUsageBudgetTracker,
     StageBudgetTracker,
@@ -76,7 +82,7 @@ def review_chapter_judgments(
                 "reasoning_effort": "high",
                 "chapter_count": len(results),
                 "chapters": results,
-                "usage": _sum_usage(results),
+                "usage": sum_usage(results),
             },
             indent=2,
             sort_keys=True,
@@ -84,7 +90,7 @@ def review_chapter_judgments(
         + "\n",
         encoding="utf-8",
     )
-    _write_reviewed_package(output_dir=output_dir, results=results)
+    write_reviewed_package(output_dir=output_dir, results=results)
     return manifest_path
 
 
@@ -103,10 +109,12 @@ def _review_one(
     chapter_dir.mkdir()
     projection_paths = _projection_paths(judgment_path, judgment)
     source_digest = sha256(judgment_path.read_bytes()).hexdigest()
-    prompt_path = chapter_dir / "review-prompt.txt"
-    schema_path = chapter_dir / "review-schema.json"
-    pending_path = chapter_dir / "review.pending.json"
-    events_path = chapter_dir / "review-events.jsonl"
+    prompt_path, schema_path, pending_path, events_path = (
+        chapter_dir / "review-prompt.txt",
+        chapter_dir / "review-schema.json",
+        chapter_dir / "review.pending.json",
+        chapter_dir / "review-events.jsonl",
+    )
     prompt_path.write_text(
         _review_prompt(judgment_path, judgment, projection_paths, source_digest),
         encoding="utf-8",
@@ -121,8 +129,7 @@ def _review_one(
     prompt = prompt_path.read_text(encoding="utf-8")
     input_paths = (judgment_path, *projection_paths)
     additional_inputs = tuple(path.read_text(encoding="utf-8") for path in input_paths)
-    run_reservation = None
-    launched = False
+    run_reservation, started, completed, launched = None, None, None, False
     try:
         if run_budget_tracker is not None:
             complete = (
@@ -158,6 +165,7 @@ def _review_one(
             reasoning_effort="high",
         )
         launched = True
+        started = start_execution_profile()
         completed = subprocess.run(
             command,
             input=prompt,
@@ -169,15 +177,36 @@ def _review_one(
         )
         events_path.write_text(completed.stdout, encoding="utf-8")
     finally:
+        finalizers = []
         if run_budget_tracker is not None and run_reservation is not None:
             if launched:
-                usage = read_codex_usage(events_path)
-                run_budget_tracker.reconcile(
-                    run_reservation,
-                    usage.model_dump(mode="json") if usage is not None else None,
+                finalizers.append(
+                    lambda: run_budget_tracker.reconcile(
+                        run_reservation,
+                        (
+                            usage.model_dump(mode="json")
+                            if (usage := read_codex_usage(events_path)) is not None
+                            else None
+                        ),
+                    )
                 )
             else:
-                run_budget_tracker.cancel_unlaunched(run_reservation)
+                finalizers.append(lambda: run_budget_tracker.cancel_unlaunched(run_reservation))
+        if launched and started is not None:
+            finalizers.append(
+                lambda: _profile_review_execution(
+                    chapter_dir=chapter_dir,
+                    events_path=events_path,
+                    profile=profile,
+                    started=started,
+                    completed=completed,
+                    prompt=prompt,
+                    additional_inputs=additional_inputs,
+                    command=command,
+                    chapter_id=judgment.chapter_id,
+                )
+            )
+        finalize_execution(*finalizers)
     if any(
         not path.is_file() or sha256(path.read_bytes()).hexdigest() != digest
         for path, digest in protected_hashes.items()
@@ -217,6 +246,36 @@ def _review_one(
         "score_change_count": changes,
         "usage": usage.model_dump(mode="json") if usage is not None else None,
     }
+
+
+def _profile_review_execution(
+    *,
+    chapter_dir: Path,
+    events_path: Path,
+    profile: Any,
+    started: tuple[str, float],
+    completed: subprocess.CompletedProcess[str] | None,
+    prompt: str,
+    additional_inputs: tuple[str, ...],
+    command: tuple[str, ...],
+    chapter_id: str,
+) -> None:
+    schema_text = json.dumps(codex_chapter_review_json_schema(), ensure_ascii=False, sort_keys=True)
+    complete = prompt + schema_text + "".join(additional_inputs)
+    write_execution_profile(
+        output_dir=chapter_dir,
+        events_path=events_path,
+        model=profile.model,
+        reasoning_effort="high",
+        started=started,
+        return_code=completed.returncode if completed is not None else None,
+        request_characters=len(prompt) + sum(map(len, additional_inputs)),
+        response_schema_characters=len(schema_text),
+        estimated_input_tokens=len(tiktoken.get_encoding("o200k_base").encode(complete)),
+        output_token_allowance=model_max_output_tokens(profile.model),
+        command=command,
+        extra={"stage": "chapter_judgment_review", "component": chapter_id},
+    )
 
 
 def _projection_paths(judgment_path: Path, judgment: ChapterJudgmentBatch) -> tuple[Path, ...]:
@@ -294,100 +353,6 @@ Ruler projections:
 Return only the requested JSON. Include exactly one decision for each of the
 {len(judgment.evaluations)} source evaluations.
 """
-
-
-def _sum_usage(results: tuple[dict[str, Any], ...]) -> dict[str, int]:
-    fields = (
-        "input_tokens",
-        "cached_input_tokens",
-        "uncached_input_tokens",
-        "output_tokens",
-        "reasoning_output_tokens",
-        "total_tokens",
-    )
-    return {
-        field: sum(
-            int(item["usage"][field])
-            for item in results
-            if item["usage"] is not None and isinstance(item["usage"].get(field), int)
-        )
-        for field in fields
-    }
-
-
-def _write_reviewed_package(*, output_dir: Path, results: tuple[dict[str, Any], ...]) -> Path:
-    """Assemble reviewed chapters and their immutable correction ledger."""
-
-    chapters = []
-    corrections = []
-    evaluation_count = 0
-    ruler_keys: set[tuple[str, int]] = set()
-    expected_ruler_keys: set[tuple[str, int]] | None = None
-    for item in sorted(results, key=lambda value: value["chapter_id"]):
-        judgment_path = Path(item["reviewed_judgment"])
-        review_path = Path(item["review"])
-        judgment = ChapterJudgmentBatch.model_validate_json(
-            judgment_path.read_text(encoding="utf-8")
-        )
-        review = ChapterJudgmentReview.model_validate_json(review_path.read_text(encoding="utf-8"))
-        evaluation_count += len(judgment.evaluations)
-        chapter_ruler_keys = {
-            (evaluation.dossier_job_key, evaluation.ruler_year_id)
-            for evaluation in judgment.evaluations
-        }
-        if expected_ruler_keys is None:
-            expected_ruler_keys = chapter_ruler_keys
-        elif chapter_ruler_keys != expected_ruler_keys:
-            raise ValueError("reviewed chapters do not share one ruler cohort")
-        ruler_keys.update(chapter_ruler_keys)
-        corrections.extend(
-            {
-                "chapter_id": review.chapter_id,
-                "dossier_job_key": decision.dossier_job_key,
-                "original_score": decision.original_score,
-                "reviewed_score": decision.reviewed_score,
-                "disposition": decision.disposition,
-                "review_explanation": decision.review_explanation,
-            }
-            for decision in review.decisions
-            if decision.disposition != "retain"
-        )
-        chapters.append(
-            {
-                "chapter_id": judgment.chapter_id,
-                "reviewed_artifact": str(judgment_path),
-                "reviewed_sha256": sha256(judgment_path.read_bytes()).hexdigest(),
-                "review_artifact": str(review_path),
-                "review_sha256": sha256(review_path.read_bytes()).hexdigest(),
-                "judgment": judgment.model_dump(mode="json"),
-            }
-        )
-    expected_evaluations = len(chapters) * len(expected_ruler_keys or ())
-    if len(chapters) != 8 or not expected_ruler_keys or evaluation_count != expected_evaluations:
-        raise ValueError(
-            "reviewed package requires eight chapters with one consistent ruler cohort"
-        )
-    package_path = output_dir / "reviewed-judge-package.json"
-    package_path.write_text(
-        json.dumps(
-            {
-                "schema_version": "reviewed_ruler_judge_package_v1",
-                "reviewer_model": "gpt-5.6-sol",
-                "reasoning_effort": "high",
-                "chapter_count": len(chapters),
-                "evaluation_count": evaluation_count,
-                "ruler_count": len(ruler_keys),
-                "score_correction_count": len(corrections),
-                "score_corrections": corrections,
-                "chapters": chapters,
-            },
-            indent=2,
-            sort_keys=True,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
-    return package_path
 
 
 __all__ = ["review_chapter_judgments"]

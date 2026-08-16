@@ -19,6 +19,12 @@ from .cost_profile_events import (
     output_distribution,
     totals,
 )
+from .cost_profile_integrated import (
+    cost_equivalents,
+    execution_metadata,
+    integrated_preflight,
+    run_budget_reconciliation,
+)
 from .cost_profile_models import StageRules
 
 _TOKEN_KEYS = TOKEN_KEYS
@@ -47,28 +53,26 @@ def build_cost_profile(run_root: Path, output_dir: Path, rules_path: Path) -> Pa
         "by_selection_status": group_totals(rows, "selection_status"),
         "cache_distribution": cache_distribution(rows),
         "output_distribution": output_distribution(rows),
-        "largest_calls": sorted(
-            rows, key=lambda row: (-row["input_tokens"], row["event_path"])
-        )[:20],
+        "execution_metadata": execution_metadata(rows),
+        "run_budget_reconciliation": run_budget_reconciliation(root, rows),
+        "integrated_preflight": integrated_preflight(root),
+        "cost_equivalents": cost_equivalents(rows),
+        "largest_calls": sorted(rows, key=lambda row: (-row["input_tokens"], row["event_path"]))[
+            :20
+        ],
         "scientific_metrics": metrics,
         "selected_scientific_snapshot": snapshot,
         "gate_results": _gate_results(snapshot, rows),
     }
     output_dir.mkdir(parents=True, exist_ok=True)
     json_path = output_dir / "profile-manifest.json"
-    json_path.write_text(
-        json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
+    json_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     _write_ledger(output_dir / "call-ledger.csv", rows)
-    (output_dir / "profile-report.md").write_text(
-        _profile_markdown(manifest), encoding="utf-8"
-    )
+    (output_dir / "profile-report.md").write_text(_profile_markdown(manifest), encoding="utf-8")
     return json_path
 
 
-def compare_cost_profiles(
-    baseline_path: Path, candidate_path: Path, output_path: Path
-) -> Path:
+def compare_cost_profiles(baseline_path: Path, candidate_path: Path, output_path: Path) -> Path:
     """Compare profiles built with the same schema and stage definitions."""
 
     baseline = _read_profile(baseline_path)
@@ -80,9 +84,7 @@ def compare_cost_profiles(
         "schema_version": "research_cost_comparison_v1",
         "baseline_profile": str(baseline_path.resolve()),
         "candidate_profile": str(candidate_path.resolve()),
-        "delta": {
-            key: candidate["totals"][key] - baseline["totals"][key] for key in keys
-        },
+        "delta": {key: candidate["totals"][key] - baseline["totals"][key] for key in keys},
         "baseline": baseline["totals"],
         "candidate": candidate["totals"],
     }
@@ -127,16 +129,11 @@ def _source_artifacts(root: Path) -> list[dict[str, Any]]:
     return sorted(artifacts, key=lambda item: item["path"])
 
 
-def _gate_results(
-    snapshot: dict[str, Any], rows: list[dict[str, Any]]
-) -> dict[str, Any]:
+def _gate_results(snapshot: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str, Any]:
     complete_selection = (
         snapshot["chapter_count"] == 8
         and snapshot["answer_count"] == 80
-        and all(
-            chapter.get("safe_for_judge_use") is True
-            for chapter in snapshot["chapters"]
-        )
+        and all(chapter.get("safe_for_judge_use") is True for chapter in snapshot["chapters"])
     )
     return {
         "functional_gate": "pass" if rows and complete_selection else "inconclusive",
@@ -173,16 +170,12 @@ def _selected_scientific_snapshot(root: Path) -> dict[str, Any]:
                     "supporting_citation_count": (
                         len(supporting) if isinstance(supporting, list) else 0
                     ),
-                    "contrary_citation_count": (
-                        len(contrary) if isinstance(contrary, list) else 0
-                    ),
+                    "contrary_citation_count": (len(contrary) if isinstance(contrary, list) else 0),
                 }
             )
         review_path_value = item.get("review_path")
         review = (
-            _optional_json(root / review_path_value)
-            if isinstance(review_path_value, str)
-            else None
+            _optional_json(root / review_path_value) if isinstance(review_path_value, str) else None
         )
         chapters.append(
             {
@@ -256,9 +249,7 @@ def _scientific_metrics(root: Path) -> dict[str, int]:
         if isinstance(questions, list):
             counts["question_count"] = len(questions)
             counts["mapping_count"] = sum(
-                len(item.get("evidence_ids", []))
-                for item in questions
-                if isinstance(item, dict)
+                len(item.get("evidence_ids", [])) for item in questions if isinstance(item, dict)
             )
     return dict(sorted(counts.items()))
 
@@ -271,10 +262,20 @@ def _optional_json(path: Path) -> dict[str, Any] | None:
 
 
 def _write_ledger(path: Path, rows: list[dict[str, Any]]) -> None:
-    fields = list(rows[0]) if rows else [
-        "event_path", "call_index", "artifact_type", "stage", "chapter_id",
-        "selection_status", "call_status", *_TOKEN_KEYS,
-    ]
+    fields = (
+        list(rows[0])
+        if rows
+        else [
+            "event_path",
+            "call_index",
+            "artifact_type",
+            "stage",
+            "chapter_id",
+            "selection_status",
+            "call_status",
+            *_TOKEN_KEYS,
+        ]
+    )
     with path.open("w", encoding="utf-8", newline="") as output:
         writer = csv.DictWriter(output, fieldnames=fields)
         writer.writeheader()
@@ -297,8 +298,7 @@ def _profile_markdown(profile: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            f"Total completed calls: {totals['calls']}. "
-            f"Cache rate: {totals['cache_rate']:.1%}.",
+            f"Total completed calls: {totals['calls']}. Cache rate: {totals['cache_rate']:.1%}.",
             "",
         ]
     )

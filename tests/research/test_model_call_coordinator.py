@@ -119,6 +119,12 @@ def test_executor_reconciles_run_budget_from_trusted_events(
     ledger = json.loads((tmp_path / "run-usage.json").read_text())
     assert ledger[0]["status"] == "completed"
     assert ledger[0]["observed_output_tokens"] == 40
+    execution = json.loads((output_dir / "execution-profile.json").read_text())
+    assert execution["model"] == "gpt-5.6-sol"
+    assert execution["return_code"] == 0
+    assert execution["request_characters"] == len("prompt")
+    assert execution["usage"]["output_tokens"] == 40
+    assert execution["elapsed_seconds"] >= 0
 
 
 def test_run_budget_refusal_prevents_executor_subprocess(
@@ -148,6 +154,53 @@ def test_run_budget_refusal_prevents_executor_subprocess(
         )
 
     assert not called
+
+
+def test_reconciliation_failure_still_profiles_and_releases_coordinator(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    output_dir = tmp_path / "call"
+    tracker = RunUsageBudgetTracker(
+        ledger_path=tmp_path / "run-usage.json",
+        limits=RunUsageLimits(10, 500, 200_000),
+        config_sha256="a" * 64,
+    )
+    coordinator = ModelCallCoordinator()
+
+    def fake_run(*args, stdout, **kwargs) -> None:
+        stdout.write(
+            '{"type":"turn.completed","usage":{"input_tokens":10000,'
+            '"cached_input_tokens":20,"output_tokens":40,'
+            '"reasoning_output_tokens":10}}\n'
+        )
+        stdout.flush()
+        (output_dir / "output.json").write_text('{"value":"ok"}', encoding="utf-8")
+
+    monkeypatch.setattr("leaders_db.research.corpus_reader_runner.subprocess.run", fake_run)
+    monkeypatch.setattr(
+        "leaders_db.research.corpus_reader_runner.build_codex_exec_command",
+        lambda **kwargs: ("codex", "--api-key", "sk-secret", "https://u:p@example.test"),
+    )
+
+    with pytest.raises(ValueError, match="observed model usage exceeded"):
+        execute_json_model(
+            tmp_path,
+            SimpleNamespace(model="gpt-5.6-sol"),
+            "prompt",
+            _Result,
+            output_dir,
+            run_budget_tracker=tracker,
+            call_coordinator=coordinator,
+        )
+
+    profile = json.loads((output_dir / "execution-profile.json").read_text())
+    assert coordinator.in_flight == 0
+    assert profile["sanitized_argv"] == [
+        "codex",
+        "--api-key",
+        "<redacted>",
+        "https://<redacted>@example.test",
+    ]
 
 
 def test_integrated_executor_automatically_uses_preflight_budget(
@@ -219,3 +272,44 @@ def test_integrated_executor_rejects_mismatched_explicit_tracker(tmp_path: Path)
             run_dir / "question-writing" / "1B.1",
             run_budget_tracker=tracker,
         )
+
+
+def test_malformed_usage_still_persists_execution_profile(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    output_dir = tmp_path / "call"
+    tracker = RunUsageBudgetTracker(
+        ledger_path=tmp_path / "run-usage.json",
+        limits=RunUsageLimits(10, 10_000, 200_000),
+        config_sha256="a" * 64,
+    )
+
+    def fake_run(*args, stdout, **kwargs) -> None:
+        stdout.write(
+            '{"type":"turn.completed","usage":{"input_tokens":-1,'
+            '"cached_input_tokens":0,"output_tokens":1,'
+            '"reasoning_output_tokens":0}}\n'
+        )
+        stdout.flush()
+        (output_dir / "output.json").write_text('{"value":"ok"}', encoding="utf-8")
+
+    monkeypatch.setattr("leaders_db.research.corpus_reader_runner.subprocess.run", fake_run)
+    monkeypatch.setattr(
+        "leaders_db.research.corpus_reader_runner.build_codex_exec_command",
+        lambda **kwargs: ("codex",),
+    )
+
+    with pytest.raises(ValueError, match="token counters cannot be negative"):
+        execute_json_model(
+            tmp_path,
+            SimpleNamespace(model="gpt-5.6-sol"),
+            "prompt",
+            _Result,
+            output_dir,
+            run_budget_tracker=tracker,
+        )
+
+    profile = json.loads((output_dir / "execution-profile.json").read_text())
+    assert profile["usage"] is None
+    assert profile["usage_status"] == "invalid"
+    assert profile["usage_error"]["error_type"] == "ValueError"
