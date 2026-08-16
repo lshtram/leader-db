@@ -385,6 +385,21 @@ canonical raw files. Independent review is clean for both versions. No model cal
 for these repairs; a completely fresh release is required to test whether the repeated
 `2B.3` omission is eliminated in practice.
 
+Fresh v9 is frozen as a failed diagnostic after independent question review. All eighty
+Luna-high question-writing calls passed, including `2B.3` with all 28 required evidence
+dispositions. This confirms that the dynamic exact-key response contract fixed the repeated
+structural omission. Review then completed twelve calls before `3B.2` failed material
+coverage: the preferred new answer was factual, cited, balanced, period-aware, and usable,
+but did not adequately incorporate `BATCH-0031-E004`, `BATCH-0036-E023`, or
+`BATCH-0009-E005`, which bear materially on personal superior responsibility and detention
+oversight. The fail-stop prevented the other 68 reviews and all judging calls. All 92 calls
+reconcile exactly to the run ledger: 6,193,807 input tokens, 90,624 cached input tokens,
+478,369 output tokens, and 237,131 reasoning-output tokens. Summed call time is
+9,069.232289 seconds; the PAYG equivalent is $1.796495-$2.101654 and the Codex-credit
+equivalent is 44.912297, while actual subscription billing remains unavailable. Diagnose
+the general evidence-selection or answer-coverage contract before a completely fresh v10;
+do not resume, alter, or selectively repair v9.
+
 ### Task 7 — Run five-ruler confirmation and decide production promotion
 
 Status: **blocked by a passing Task 6**
@@ -437,31 +452,35 @@ decision, lasting constraints, and next dependency here.
 
 ## Current handoff
 
-Task: integrated Netanyahu gate
+Task: integrated Netanyahu v9 gate
 
-Outcome: rejected during Luna `xhigh` writing
+Outcome: rejected during Luna-high independent question review
 
-Decision and plain-language reason: after the user relaxed the ceiling to 176 calls, Luna
-`xhigh` omitted one mandatory evidence record from question 2B.3. The deterministic gate
-failed and stopped all work without an automatic retry or repair.
+Decision and plain-language reason: all 80 newly written answers passed their structural
+checks, including complete coverage of the 28 required evidence records for `2B.3`. The
+independent reviewer rejected `3B.2` because the answer omitted three material records about
+personal superior responsibility and detention oversight. This is a content-coverage
+failure, not a response-format failure.
 
-Artifacts: `configs/evidence-funnel/netanyahu-2023-integrated-luna-xhigh-v1.yaml`,
-`research/runs/netanyahu-2023-integrated-luna-xhigh-v1/run-result.json`, and
-`docs/archive/workplan/2026-08-14-integrated-luna-xhigh-comparison.md`.
+Artifacts: `configs/evidence-funnel/netanyahu-2023-integrated-luna-sol-v9.yaml`,
+`research/runs/netanyahu-2023-integrated-luna-sol-v9/`, and
+`research/runs/netanyahu-2023-integrated-luna-sol-v9-profile-terminal-v1/`.
 
-Model calls and execution surface: 19 Luna `xhigh` Codex-subscription calls were reserved;
-13 completed with usage, and 6 concurrent calls were interrupted on the failure. No API
-key, Sol review, chapter-judge, or judgment-review call was used.
+Model calls and execution surface: 92 Luna-high Codex-subscription calls completed: 80
+question-writing calls and 12 question-review calls. The fail-stop prevented 68 remaining
+reviews and all Sol judge and judgment-review calls. No API key was used.
 
-Input / cached / output tokens: 945,789 / 176,128 / 108,499 completed-call tokens;
-68,112 reasoning-output tokens and 1,054,288 total tokens.
+Input / cached / output tokens: 6,193,807 / 90,624 / 478,369; 237,131 reasoning-output
+tokens and 6,672,176 total tokens. Event and ledger accounting agree exactly.
 
-Tests and review: the 28-test focused Luna/integrated suite passes; scoped Ruff and diff
-checks pass. Independent review reproduced usage and failure arithmetic and completed clean
-after reasoning-effort provenance was bounded honestly and future manifests were fixed.
+Tests and review: 80/80 deterministic writing gates passed. Independent review produced
+11 passes and one material-coverage failure. The terminal profile records all 92 calls,
+their timing, validation results, and exact run-budget reconciliation.
 
-Known limits: twelve new answers passed deterministic validation, but the first failed
-answer stopped the run before independent quality review, judging, audit, or publication.
+Known limits: v9 proves the exact-key contract prevents required evidence from silently
+disappearing, but it does not yet ensure that the answer gives every materially important
+record enough substantive weight. Judging, audit, and publication did not run.
 
-Next task: user decision on the one permitted explicit material-defect return for 2B.3 or
-final rejection of this Luna configuration. Task 7 remains blocked.
+Next task: diagnose and repair the general evidence-selection or material-coverage contract,
+independently review that repair, then evaluate it only in a completely fresh v10. Task 7
+remains blocked.
