@@ -118,9 +118,13 @@ writing, question review, chapter judging, and judgment review. Every execution 
 under an eligible integrated preflight automatically resolves the same tracker from the
 manifest and refuses a mismatched explicit tracker. Each call reserves measured input and
 the configured model's full provider output maximum before its stage reservation, then
-reconciles against trusted completed event usage. Outstanding or usage-unavailable calls retain their full
-allowance; only an unlaunched call can cancel its reservation. This prevents concurrent
-workers or separate stages from independently consuming the same remaining run capacity.
+reconciles against trusted completed event usage. When only active reservations make
+capacity temporarily unavailable, a new call waits for reconciliation and rechecks the
+shared failure coordinator before reserving or launching. It stops immediately when even
+the best case after active calls settle cannot fit, and a bounded wait stops if a worker
+never reconciles. Outstanding or usage-unavailable calls retain their full allowance; only
+an unlaunched call can cancel its reservation. This prevents concurrent workers or separate
+stages from independently consuming the same remaining run capacity.
 File-backed judge projections are measured from their exact serialized text.
 Successful and refused reservations persist their stage/component decision; judge workers
 share a locked run ledger, and invalid saved output stops instead of automatically

@@ -344,9 +344,15 @@ call-seconds; the PAYG equivalent is $0.490183-$0.570066 and the Codex-credit eq
 refused `3B.5` because outstanding 128,000-token provider-maximum reservations would exceed
 the one-million-token output ceiling. Review and judging did not run. The ledger itself is
 complete and token reconciliation passes; the integrated scientific gate is inconclusive.
-Before any fresh v8 call, define and independently test a prospective stage-specific output
-allowance that preserves a hard cumulative ceiling without treating every call as if it will
-emit the provider maximum. Do not resume or alter v7, and do not repair its failed answer.
+The general scheduler correction is complete without weakening the ceiling or inventing a
+smaller per-call allowance. When active provider-maximum reservations are the only obstacle,
+new work now waits for reconciliation; permanently exhausted capacity still stops at once.
+The shared failure coordinator is checked before and throughout the wait, a 30-minute bound
+stops a genuinely stuck reservation, and reservation-file failures cancel their unlaunched
+ledger capacity. Focused scheduler, coordinator, question-concurrency, profiling, preflight,
+judge, and judgment-review tests pass, and independent re-review is clean. A fresh v8 may be
+preflighted, but it must use new model outputs and must not resume or alter v7 or repair its
+failed answer.
 
 ### Task 7 — Run five-ruler confirmation and decide production promotion
 

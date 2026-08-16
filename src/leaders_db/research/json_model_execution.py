@@ -34,6 +34,8 @@ class CallCoordinator(Protocol):
 
     def complete_call(self) -> None: ...
 
+    def ensure_open(self) -> None: ...
+
 
 def execute_json_model(
     project_root: Path,
@@ -55,9 +57,8 @@ def execute_json_model(
     schema = model.model_json_schema()
     make_strict_response_schema(schema)
     run_budget_tracker = resolve_integrated_run_budget(output_dir, run_budget_tracker)
-    if call_coordinator is not None:
-        call_coordinator.authorize_launch()
     run_reservation: str | None = None
+    call_authorized = False
     launched = False
     events_path: Path | None = None
     command, return_code = None, None
@@ -68,13 +69,17 @@ def execute_json_model(
             tiktoken.get_encoding("o200k_base").encode(prompt + schema_text)
         )
         if run_budget_tracker is not None:
+            capacity_check = call_coordinator.ensure_open if call_coordinator is not None else None
             run_reservation = run_budget_tracker.reserve(
                 stage=budget_tracker.stage if budget_tracker is not None else "unspecified",
                 component=request_component,
                 estimated_input_tokens=estimated_input_tokens,
                 output_token_allowance=model_max_output_tokens(profile.model),
                 output_dir=output_dir,
+                wait_for_capacity=True,
+                capacity_check=capacity_check,
             )
+        call_authorized = _authorize_call(call_coordinator)
         if budget_tracker is not None:
             budget_tracker.reserve(
                 component=request_component,
@@ -135,7 +140,7 @@ def execute_json_model(
                 )
             else:
                 finalizers.append(lambda: run_budget_tracker.cancel_unlaunched(run_reservation))
-        if call_coordinator is not None:
+        if call_coordinator is not None and call_authorized:
             finalizers.append(call_coordinator.complete_call)
         if launched and started is not None and events_path is not None:
             finalizers.append(
@@ -155,3 +160,10 @@ def execute_json_model(
             )
         finalize_execution(*finalizers)
     return model.model_validate_json(output_path.read_text(encoding="utf-8"))
+
+
+def _authorize_call(call_coordinator: CallCoordinator | None) -> bool:
+    if call_coordinator is None:
+        return False
+    call_coordinator.authorize_launch()
+    return True

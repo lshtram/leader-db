@@ -343,4 +343,8 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
   at the model-launch boundary from the eligible preflight manifest, validate its immutable
   config hash and limits against every existing ledger entry, and reserve the selected
   model's full configured provider output maximum so concurrent calls cannot exceed the
-  run ceiling before their observed usage is known.
+  run ceiling before their observed usage is known. Capacity unavailable solely because of
+  active reservations shall cause a bounded wait, with the shared failure coordinator
+  checked before and during that wait. Permanently exhausted capacity shall fail without
+  waiting, and failure to publish a reservation artifact shall release its unlaunched ledger
+  capacity.

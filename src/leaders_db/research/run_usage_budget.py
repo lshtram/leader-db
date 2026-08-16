@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import fcntl
 import json
+import math
 import os
+import time
+from collections.abc import Callable
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -36,7 +39,18 @@ class RunUsageBudgetTracker:
     ledger_path: Path
     limits: RunUsageLimits
     config_sha256: str
+    capacity_wait_timeout_seconds: float = 1_800.0
+    capacity_poll_seconds: float = 0.1
     _lock: Lock = field(default_factory=Lock, repr=False)
+
+    def __post_init__(self) -> None:
+        if (
+            not math.isfinite(self.capacity_wait_timeout_seconds)
+            or self.capacity_wait_timeout_seconds < 0
+        ):
+            raise ValueError("capacity wait timeout must be finite and nonnegative")
+        if not math.isfinite(self.capacity_poll_seconds) or self.capacity_poll_seconds <= 0:
+            raise ValueError("capacity poll interval must be finite and positive")
 
     def safe_parallel_calls(self, model: str) -> int:
         """Return the maximum initially safe in-flight calls for one model."""
@@ -51,55 +65,106 @@ class RunUsageBudgetTracker:
         estimated_input_tokens: int,
         output_token_allowance: int,
         output_dir: Path,
+        wait_for_capacity: bool = False,
+        capacity_check: Callable[[], None] | None = None,
     ) -> str:
-        """Reserve worst-case run capacity before a model subprocess starts."""
+        """Reserve capacity, optionally waiting for active calls to reconcile."""
 
         if min(estimated_input_tokens, output_token_allowance) < 0:
             raise ValueError("run usage reservations cannot be negative")
-        with self._lock, _locked_json_list(self.ledger_path) as (handle, ledger):
-            _validate_run_ledger_identity(ledger, self.config_sha256, self.limits)
-            totals = _reserved_or_observed_totals(ledger)
-            reasons = []
-            if totals["calls"] + 1 > self.limits.max_calls:
-                reasons.append("run_call_count")
-            if totals["input_tokens"] + estimated_input_tokens > self.limits.max_input_tokens:
-                reasons.append("run_input_tokens")
-            if totals["output_tokens"] + output_token_allowance > self.limits.max_output_tokens:
-                reasons.append("run_output_tokens")
-            reservation_id = f"run-call-{len(ledger) + 1:04d}"
-            entry: dict[str, Any] = {
-                "schema_version": "run_usage_reservation_v1",
-                "reservation_id": reservation_id,
-                "stage": stage,
-                "component": component,
-                "config_sha256": self.config_sha256,
-                "run_limits": {
-                    "max_calls": self.limits.max_calls,
-                    "max_input_tokens": self.limits.max_input_tokens,
-                    "max_output_tokens": self.limits.max_output_tokens,
-                },
-                "status": "stopped" if reasons else "reserved",
-                "estimated_input_tokens": estimated_input_tokens,
-                "output_token_allowance": output_token_allowance,
-                "totals_before": totals,
-                "stop_reasons": reasons,
-            }
-            if reasons:
-                output_dir.mkdir(parents=True, exist_ok=True)
-                (output_dir / "run-budget-stop.json").write_text(
-                    json.dumps(entry, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        started = time.monotonic()
+        while True:
+            if capacity_check is not None:
+                capacity_check()
+            with self._lock, _locked_json_list(self.ledger_path) as (handle, ledger):
+                _validate_run_ledger_identity(ledger, self.config_sha256, self.limits)
+                totals = _reserved_or_observed_totals(ledger)
+                reasons = _reservation_stop_reasons(
+                    totals,
+                    estimated_input_tokens=estimated_input_tokens,
+                    output_token_allowance=output_token_allowance,
+                    limits=self.limits,
                 )
-                raise ValueError(
-                    f"run usage budget stopped stage={stage} component={component}: "
-                    + ", ".join(reasons)
+                pending = any(item.get("status") == "reserved" for item in ledger)
+                best_case_totals = _settled_totals(ledger)
+                could_fit_after_pending = not _reservation_stop_reasons(
+                    best_case_totals,
+                    estimated_input_tokens=estimated_input_tokens,
+                    output_token_allowance=output_token_allowance,
+                    limits=self.limits,
                 )
-            ledger.append(entry)
-            _write_locked_json(handle, ledger)
-            output_dir.mkdir(parents=True, exist_ok=True)
-            (output_dir / "run-budget-reservation.json").write_text(
-                json.dumps(entry, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-            )
-            return reservation_id
+                timed_out = time.monotonic() - started >= self.capacity_wait_timeout_seconds
+                if not reasons:
+                    entry = self._reservation_entry(
+                        ledger=ledger,
+                        stage=stage,
+                        component=component,
+                        estimated_input_tokens=estimated_input_tokens,
+                        output_token_allowance=output_token_allowance,
+                        totals=totals,
+                        waited_seconds=time.monotonic() - started,
+                    )
+                    ledger.append(entry)
+                    _write_locked_json(handle, ledger)
+                    break
+                if not (
+                    wait_for_capacity and pending and could_fit_after_pending and not timed_out
+                ):
+                    if timed_out and wait_for_capacity and pending:
+                        reasons.append("capacity_wait_timeout")
+                    entry = self._reservation_entry(
+                        ledger=ledger,
+                        stage=stage,
+                        component=component,
+                        estimated_input_tokens=estimated_input_tokens,
+                        output_token_allowance=output_token_allowance,
+                        totals=totals,
+                        waited_seconds=time.monotonic() - started,
+                        reasons=reasons,
+                    )
+                    _write_stop(output_dir, entry)
+                    raise ValueError(
+                        f"run usage budget stopped stage={stage} component={component}: "
+                        + ", ".join(reasons)
+                    )
+            time.sleep(self.capacity_poll_seconds)
+        reservation_id = str(entry["reservation_id"])
+        try:
+            return _write_reservation(output_dir, entry)
+        except Exception:
+            self.cancel_unlaunched(reservation_id)
+            raise
+
+    def _reservation_entry(
+        self,
+        *,
+        ledger: list[dict[str, Any]],
+        stage: str,
+        component: str,
+        estimated_input_tokens: int,
+        output_token_allowance: int,
+        totals: dict[str, int],
+        waited_seconds: float,
+        reasons: list[str] | None = None,
+    ) -> dict[str, Any]:
+        return {
+            "schema_version": "run_usage_reservation_v1",
+            "reservation_id": f"run-call-{len(ledger) + 1:04d}",
+            "stage": stage,
+            "component": component,
+            "config_sha256": self.config_sha256,
+            "run_limits": {
+                "max_calls": self.limits.max_calls,
+                "max_input_tokens": self.limits.max_input_tokens,
+                "max_output_tokens": self.limits.max_output_tokens,
+            },
+            "status": "stopped" if reasons else "reserved",
+            "estimated_input_tokens": estimated_input_tokens,
+            "output_token_allowance": output_token_allowance,
+            "totals_before": totals,
+            "capacity_wait_seconds": round(waited_seconds, 6),
+            "stop_reasons": reasons or [],
+        }
 
     def reconcile(self, reservation_id: str, usage: dict[str, int] | None) -> None:
         """Replace a reservation with observed usage, retaining it when unavailable."""
@@ -216,6 +281,38 @@ def _reconciliation_overages(
     return exceeded
 
 
+def _reservation_stop_reasons(
+    totals: dict[str, int],
+    *,
+    estimated_input_tokens: int,
+    output_token_allowance: int,
+    limits: RunUsageLimits,
+) -> list[str]:
+    reasons = []
+    if totals["calls"] + 1 > limits.max_calls:
+        reasons.append("run_call_count")
+    if totals["input_tokens"] + estimated_input_tokens > limits.max_input_tokens:
+        reasons.append("run_input_tokens")
+    if totals["output_tokens"] + output_token_allowance > limits.max_output_tokens:
+        reasons.append("run_output_tokens")
+    return reasons
+
+
+def _write_reservation(output_dir: Path, entry: dict[str, Any]) -> str:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    (output_dir / "run-budget-reservation.json").write_text(
+        json.dumps(entry, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    return str(entry["reservation_id"])
+
+
+def _write_stop(output_dir: Path, entry: dict[str, Any]) -> None:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    (output_dir / "run-budget-stop.json").write_text(
+        json.dumps(entry, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+
+
 @contextmanager
 def _locked_json_list(path: Path):
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -258,6 +355,15 @@ def _reserved_or_observed_totals(ledger: list[dict[str, Any]]) -> dict[str, int]
     }
 
 
+def _settled_totals(ledger: list[dict[str, Any]]) -> dict[str, int]:
+    totals = _reserved_or_observed_totals(ledger)
+    settled = _reserved_or_observed_totals(
+        [item for item in ledger if item.get("status") != "reserved"]
+    )
+    settled["calls"] = totals["calls"]
+    return settled
+
+
 def _unique_reservation(ledger: list[dict[str, Any]], reservation_id: str) -> dict[str, Any]:
     matches = [item for item in ledger if item.get("reservation_id") == reservation_id]
     if len(matches) != 1:
@@ -274,8 +380,7 @@ def _validate_run_ledger_identity(
         "max_output_tokens": limits.max_output_tokens,
     }
     if any(
-        item.get("config_sha256") != config_sha256
-        or item.get("run_limits") != expected_limits
+        item.get("config_sha256") != config_sha256 or item.get("run_limits") != expected_limits
         for item in ledger
     ):
         raise ValueError("run usage ledger identity differs from the active release")

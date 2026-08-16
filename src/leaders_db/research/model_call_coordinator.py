@@ -19,6 +19,13 @@ class ModelCallCoordinator:
                 raise RuntimeError("model call launch blocked after material failure")
             self._in_flight += 1
 
+    def ensure_open(self) -> None:
+        """Reject work that must not wait or reserve after a material failure."""
+
+        with self._lock:
+            if self._failed:
+                raise RuntimeError("model call launch blocked after material failure")
+
     def complete_call(self) -> None:
         with self._lock:
             self._in_flight -= 1
