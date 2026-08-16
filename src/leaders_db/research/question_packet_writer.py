@@ -9,7 +9,14 @@ from pathlib import Path
 from typing import Literal
 
 import tiktoken
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    ValidationError,
+    create_model,
+    field_validator,
+)
 
 from .citation_table_rows import TableLineSpan, resolve_table_line
 from .control_flow import enforce_model_action
@@ -31,6 +38,13 @@ class AnswerEvidenceDisposition(BaseModel):
     material_point: str = Field(min_length=20)
 
 
+class _AnswerEvidenceDispositionDetail(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    role: Literal["supporting", "contrary_or_qualifying", "limitation_only"]
+    material_point: str = Field(min_length=20)
+
+
 class EvidenceReopenRequest(BaseModel):
     """One compact candidate whose exact record may materially change the answer."""
 
@@ -48,8 +62,8 @@ class EvidenceReopenRequest(BaseModel):
         return stripped
 
 
-class DiagnosticQuestionAnswer(BaseModel):
-    """One diagnostic answer with structured requests to reopen compact candidates."""
+class _DiagnosticQuestionAnswerBase(BaseModel):
+    """Fields shared by the transport response and canonical saved answer."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -57,6 +71,11 @@ class DiagnosticQuestionAnswer(BaseModel):
     answer: str = Field(min_length=30)
     limitations_and_gaps: tuple[str, ...] = ()
     reopen_requests: tuple[EvidenceReopenRequest, ...] = ()
+
+
+class DiagnosticQuestionAnswer(_DiagnosticQuestionAnswerBase):
+    """Canonical saved answer with an ordered evidence-disposition ledger."""
+
     evidence_dispositions: tuple[AnswerEvidenceDisposition, ...]
 
 
@@ -124,14 +143,16 @@ def write_diagnostic_question_answer(
     if run_budget_tracker is not None:
         execution_kwargs["run_budget_tracker"] = run_budget_tracker
     try:
-        answer = execute_json_model(
+        response_model = _question_answer_response_model(packet.coverage.required_evidence_ids)
+        response = execute_json_model(
             project_root,
             profile,
             prompt,
-            DiagnosticQuestionAnswer,
+            response_model,
             output_dir,
             **execution_kwargs,
         )
+        answer = _canonical_question_answer(response, packet.coverage.required_evidence_ids)
     except Exception:
         if call_coordinator is not None:
             call_coordinator.publish_failure()
@@ -154,6 +175,47 @@ def write_diagnostic_question_answer(
             call_coordinator.publish_failure()
         raise ValueError("diagnostic question answer failed deterministic validation")
     return accepted, validation
+
+
+def _question_answer_response_model(
+    required_evidence_ids: tuple[str, ...],
+) -> type[BaseModel]:
+    """Build a strict object schema with one required key per evidence ID."""
+
+    digest = sha256("\n".join(required_evidence_ids).encode()).hexdigest()[:12]
+    fields = {
+        f"item_{index:04d}": (
+            _AnswerEvidenceDispositionDetail,
+            Field(alias=evidence_id),
+        )
+        for index, evidence_id in enumerate(required_evidence_ids, start=1)
+    }
+    ledger = create_model(
+        f"RequiredEvidenceLedger_{digest}",
+        __config__=ConfigDict(extra="forbid"),
+        **fields,
+    )
+    return create_model(
+        f"DiagnosticQuestionAnswerResponse_{digest}",
+        __base__=_DiagnosticQuestionAnswerBase,
+        evidence_dispositions=(ledger, ...),
+    )
+
+
+def _canonical_question_answer(
+    response: BaseModel, required_evidence_ids: tuple[str, ...]
+) -> DiagnosticQuestionAnswer:
+    """Convert the keyed transport ledger to the stable canonical tuple."""
+
+    payload = response.model_dump(mode="json", by_alias=True)
+    raw_ledger = payload.pop("evidence_dispositions")
+    if not isinstance(raw_ledger, dict):
+        raise ValueError("question response evidence ledger must be an object")
+    payload["evidence_dispositions"] = [
+        {"evidence_id": evidence_id, **raw_ledger[evidence_id]}
+        for evidence_id in required_evidence_ids
+    ]
+    return DiagnosticQuestionAnswer.model_validate(payload)
 
 
 def normalize_optional_reopen_requests(
@@ -185,7 +247,13 @@ def load_normalized_question_answer(
     raw_path = output_dir / "output.json"
     accepted_path = output_dir / "accepted-output.json"
     ledger_path = output_dir / "normalization-ledger.json"
-    raw = DiagnosticQuestionAnswer.model_validate_json(raw_path.read_text(encoding="utf-8"))
+    raw_text = raw_path.read_text(encoding="utf-8")
+    response_model = _question_answer_response_model(packet.coverage.required_evidence_ids)
+    try:
+        response = response_model.model_validate_json(raw_text)
+        raw = _canonical_question_answer(response, packet.coverage.required_evidence_ids)
+    except ValidationError:
+        raw = DiagnosticQuestionAnswer.model_validate_json(raw_text)
     expected, ledger = normalize_optional_reopen_requests(packet, raw)
     ledger["raw_output_sha256"] = sha256(raw_path.read_bytes()).hexdigest()
     ledger["accepted_output_sha256"] = sha256(accepted_path.read_bytes()).hexdigest()

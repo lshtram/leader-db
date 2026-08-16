@@ -3,7 +3,9 @@ from hashlib import sha256
 from pathlib import Path
 
 import pytest
+from pydantic import ValidationError
 
+from leaders_db.evidence_funnel.execution_schema import make_strict_response_schema
 from leaders_db.research.question_evidence_packet_models import (
     CompactEvidenceCandidate,
     EvidenceCoverageItem,
@@ -15,12 +17,80 @@ from leaders_db.research.question_packet_writer import (
     AnswerEvidenceDisposition,
     DiagnosticQuestionAnswer,
     EvidenceReopenRequest,
+    _canonical_question_answer,
+    _question_answer_response_model,
     build_question_writer_prompt,
     load_normalized_question_answer,
     normalize_optional_reopen_requests,
     validate_question_answer,
 )
 from tests.research.test_corpus_mapping_review import _evidence
+
+
+def test_transport_schema_requires_every_evidence_id_as_an_exact_key() -> None:
+    required = ("BATCH-1", "SRC:42")
+    response_model = _question_answer_response_model(required)
+    schema = response_model.model_json_schema()
+    make_strict_response_schema(schema)
+    ledger = schema["$defs"][next(key for key in schema["$defs"] if key.startswith("Required"))]
+
+    assert ledger["required"] == ["BATCH-1", "SRC:42"]
+    assert ledger["additionalProperties"] is False
+    with pytest.raises(ValidationError):
+        response_model.model_validate(
+            {
+                "question_id": "2B.3",
+                "answer": "A sufficiently detailed answer cites evidence [BATCH-1].",
+                "evidence_dispositions": {
+                    "BATCH-1": {
+                        "role": "supporting",
+                        "material_point": "This record materially supports the conclusion.",
+                    }
+                },
+            }
+        )
+    with pytest.raises(ValidationError):
+        response_model.model_validate(
+            {
+                "question_id": "2B.3",
+                "answer": "A sufficiently detailed answer cites all evidence.",
+                "evidence_dispositions": {
+                    "item_0001": {
+                        "role": "supporting",
+                        "material_point": "This record materially supports the conclusion.",
+                    },
+                    "item_0002": {
+                        "role": "contrary_or_qualifying",
+                        "material_point": "This record materially qualifies the conclusion.",
+                    },
+                },
+            }
+        )
+
+
+def test_keyed_transport_ledger_converts_to_canonical_ordered_answer() -> None:
+    required = ("BATCH-1", "SRC:42")
+    response_model = _question_answer_response_model(required)
+    response = response_model.model_validate(
+        {
+            "question_id": "2B.3",
+            "answer": "A sufficiently detailed answer [BATCH-1; SRC:42].",
+            "evidence_dispositions": {
+                "SRC:42": {
+                    "role": "contrary_or_qualifying",
+                    "material_point": "This record materially qualifies the conclusion.",
+                },
+                "BATCH-1": {
+                    "role": "supporting",
+                    "material_point": "This record materially supports the conclusion.",
+                },
+            },
+        }
+    )
+
+    answer = _canonical_question_answer(response, required)
+
+    assert tuple(item.evidence_id for item in answer.evidence_dispositions) == required
 
 
 def test_grouped_required_inline_citations_pass() -> None:
@@ -229,23 +299,56 @@ def test_writer_validation_requires_every_exact_id_and_no_compact_citation(
     assert normalized.evidence_dispositions == unknown_reopen.evidence_dispositions
     assert ledger["rejected_reopen_ids"] == ["E-UNKNOWN"]
     assert ledger["mandatory_evidence_dispositions_changed"] is False
-    raw_path = tmp_path / "output.json"
-    accepted_path = tmp_path / "accepted-output.json"
-    raw_path.write_text(unknown_reopen.model_dump_json(), encoding="utf-8")
-    accepted_path.write_text(normalized.model_dump_json(), encoding="utf-8")
-    ledger["raw_output_sha256"] = sha256(raw_path.read_bytes()).hexdigest()
-    ledger["accepted_output_sha256"] = sha256(accepted_path.read_bytes()).hexdigest()
-    (tmp_path / "normalization-ledger.json").write_text(json.dumps(ledger), encoding="utf-8")
-    assert load_normalized_question_answer(packet, tmp_path) == normalized
-    accepted_path.write_text(
-        normalized.model_copy(update={"answer": normalized.answer + " tampered"}).model_dump_json(),
-        encoding="utf-8",
-    )
-    with pytest.raises(ValueError, match="immutable raw output"):
-        load_normalized_question_answer(packet, tmp_path)
+    _assert_normalized_roundtrip(tmp_path, packet, unknown_reopen, normalized, ledger)
 
     prompts, _ = load_question_packet_prompts(Path.cwd() / "configs/question-packet-prompts.yaml")
     prompt = build_question_writer_prompt(packet, prompts, {"question_id": "8B.9"})
     compact_section = prompt.split("COMPACT CANDIDATE INDEX:", 1)[1]
     assert '"evidence_id": "E-2"' in compact_section
     assert '"evidence_id": "E-1"' not in compact_section
+
+
+def _assert_normalized_roundtrip(
+    tmp_path: Path,
+    packet: QuestionEvidencePacket,
+    unknown_reopen: DiagnosticQuestionAnswer,
+    normalized: DiagnosticQuestionAnswer,
+    ledger: dict[str, object],
+) -> None:
+    raw_path = tmp_path / "output.json"
+    accepted_path = tmp_path / "accepted-output.json"
+    response_model = _question_answer_response_model(("E-1",))
+    keyed_raw = response_model.model_validate(
+        {
+            "question_id": unknown_reopen.question_id,
+            "answer": unknown_reopen.answer,
+            "limitations_and_gaps": unknown_reopen.limitations_and_gaps,
+            "reopen_requests": [
+                item.model_dump(mode="json") for item in unknown_reopen.reopen_requests
+            ],
+            "evidence_dispositions": {
+                "E-1": {
+                    "role": "supporting",
+                    "material_point": ("The exact record directly supports the stated conclusion."),
+                }
+            },
+        }
+    )
+    raw_path.write_text(keyed_raw.model_dump_json(by_alias=True), encoding="utf-8")
+    accepted_path.write_text(normalized.model_dump_json(), encoding="utf-8")
+    ledger["raw_output_sha256"] = sha256(raw_path.read_bytes()).hexdigest()
+    ledger["accepted_output_sha256"] = sha256(accepted_path.read_bytes()).hexdigest()
+    (tmp_path / "normalization-ledger.json").write_text(json.dumps(ledger), encoding="utf-8")
+    assert load_normalized_question_answer(packet, tmp_path) == normalized
+
+    raw_path.write_text(unknown_reopen.model_dump_json(), encoding="utf-8")
+    ledger["raw_output_sha256"] = sha256(raw_path.read_bytes()).hexdigest()
+    (tmp_path / "normalization-ledger.json").write_text(json.dumps(ledger), encoding="utf-8")
+    assert load_normalized_question_answer(packet, tmp_path) == normalized
+
+    accepted_path.write_text(
+        normalized.model_copy(update={"answer": normalized.answer + " tampered"}).model_dump_json(),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="immutable raw output"):
+        load_normalized_question_answer(packet, tmp_path)
