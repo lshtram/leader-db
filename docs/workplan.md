@@ -423,6 +423,23 @@ failed child-review and output hashes, and the three applied IDs. It inventories
 calls under the existing 250-call, 40,000,000-input-token, and 1,000,000-output-token hard
 ceilings. No model call has been made in v10 at this checkpoint.
 
+Fresh v10 is now frozen as a failed diagnostic after independent question review. All
+eighty Luna-high writing calls passed, and the repaired `3B.2` answer substantively used all
+three promoted records and passed independent review. Nine review calls completed before
+the fail-stop settled: six passed and three failed. `2B.2` omitted four compact-only records
+about administrative detention, settlement policy, and the 7 October response. `1B.2`
+compressed the chronology by treating a 3 November statement as preceding the 28 October
+ground-operation announcement. `4B.2` exposed a reviewer-contract inconsistency: every
+quality dimension and the overall rationale said the answer passed, but the reviewer also
+populated `material_regressions`, which deterministic code correctly treats as a failure.
+The lineage permits no second material-defect return, and no judging call ran. All 89 calls
+reconcile exactly to 6,075,388 input tokens, 320,000 cached input tokens, 442,823 output
+tokens, and 201,024 reasoning-output tokens. Summed call time is 8,564.770910 seconds; the
+PAYG equivalent is $1.688864-$1.976636 and the Codex-credit equivalent is 42.221630, while
+actual subscription billing remains unavailable. Do not resume or alter v10. Diagnose the
+reviewer output-contract inconsistency separately, but reject this returned Luna lineage
+rather than attempting another evidence return.
+
 ### Task 7 — Run five-ruler confirmation and decide production promotion
 
 Status: **blocked by a passing Task 6**
@@ -477,30 +494,33 @@ decision, lasting constraints, and next dependency here.
 
 Task: integrated Netanyahu v10 gate
 
-Outcome: eligible zero-call preflight; execution not yet started
+Outcome: rejected during Luna-high independent question review
 
-Decision and plain-language reason: the one permitted material-defect return has promoted
-the three v9 reviewer-named `3B.2` records from the compact index into exact required
-evidence. All frozen inputs, source reviews, lineage, and applied IDs validate without a
-model call, so a completely fresh v10 execution is eligible.
+Decision and plain-language reason: the one permitted return worked—`3B.2` used the three
+promoted records and passed review—but fresh answers exposed two other content failures and
+one reviewer-output inconsistency. This Luna lineage cannot use another return and is
+rejected before judging.
 
 Artifacts: `configs/evidence-funnel/netanyahu-2023-integrated-luna-sol-v10.yaml`,
 `configs/question-material-defect-returns/netanyahu-2023-v9-3b2.yaml`, and
-`research/runs/netanyahu-2023-integrated-luna-sol-v10/preflight-manifest.json`.
+`research/runs/netanyahu-2023-integrated-luna-sol-v10-profile-terminal-v1/`.
 
-Model calls and execution surface: zero calls so far. The eligible inventory contains 80
-Luna-high writing calls, 80 Luna-high review calls, 8 Sol-high judge calls, and 8 Sol-high
-judgment-review calls on the Codex subscription surface. No API key is authorized.
+Model calls and execution surface: 89 Luna-high Codex-subscription calls completed: 80
+writing calls and 9 review calls. The fail-stop prevented 71 remaining reviews and all Sol
+judge and judgment-review calls. No API key was used.
 
-Input / cached / output tokens: 0 / 0 / 0 for v10 at this checkpoint.
+Input / cached / output tokens: 6,075,388 / 320,000 / 442,823; 201,024 reasoning-output
+tokens and 6,518,211 total tokens. Event and ledger accounting agree exactly.
 
-Tests and review: 45 boundary tests and focused Ruff pass; independent code review is clean.
-The v10 preflight validates eight packages, eighty questions, the one-return lineage, and
-all source and applied-evidence hashes.
+Tests and review: all 80 writing gates passed. Independent review produced six passes and
+three failures; the repaired `3B.2` passed. The terminal profile covers all 89 calls and
+reconciles exactly. The return code's 45-test boundary suite and independent review remain
+clean.
 
-Known limits: preflight proves the repaired inputs and controls, not answer quality. v10 must
-still pass fresh writing, independent review, judging, judgment review, audit, and
-publication. No second material-defect return is permitted in this lineage.
+Known limits: the returned Luna lineage is spent and rejected. Judging, judgment review,
+audit, and publication did not run. The contradictory `4B.2` review fields require a
+general reviewer-contract diagnosis independent of this failed run.
 
-Next task: state the bounded v10 subscription-model envelope and begin fresh question
-writing. Task 7 remains blocked until the complete integrated gate passes.
+Next task: diagnose and correct the general reviewer output-contract inconsistency, review
+and commit that module separately, and decide whether a different fresh experimental
+lineage is justified. Task 7 remains blocked.
