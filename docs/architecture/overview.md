@@ -950,6 +950,14 @@ question packet, and authorization by hash; requires every promoted ID to be cur
 reopenable; snapshots all inputs once; and rejects any fresh output path overlapping the
 failed run. The new preflight records the return ordinal, applied IDs, and every source
 hash. No failed artifact is edited or resumed, and no second descendant return is allowed.
+Question-review prompt version 11 also makes the deterministic blocking rule explicit:
+`material_regressions` may be populated only with a failed quality dimension, and
+`unsupported_claims` only with failed factual support or citation entailment. Non-blocking
+corrections belong in `material_improvements`. Local cross-field validation rejects a fresh
+contradictory response before it can receive a gate. Immutable version-10 reviews retain
+their original semantics through a byte-identical frozen prompt configuration selected only
+by trusted saved-artifact reload; their raw output and prompt/config/schema hashes are
+reconstructed and verified without rewriting or normalization.
 Before a deep-corpus package can enter comparative judging, a deterministic approval
 boundary validates all eight selected analyses, their independent reviews, the complete
 question index, cited evidence IDs, and every review-binding hash. It emits one

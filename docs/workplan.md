@@ -440,6 +440,18 @@ actual subscription billing remains unavailable. Do not resume or alter v10. Dia
 reviewer output-contract inconsistency separately, but reject this returned Luna lineage
 rather than attempting another evidence return.
 
+The general reviewer-output inconsistency exposed by v10 `4B.2` is fixed independently of
+the failed run. Prompt version 11 now tells the reviewer that `material_regressions` and
+`unsupported_claims` are blocking fields and requires corresponding failed dimensions;
+non-blocking corrections belong in `material_improvements`. Local cross-field validation
+rejects contradictory fresh JSON. Immutable version-10 reviews remain trusted-loadable via
+a byte-identical frozen v10 prompt configuration and legacy parsing limited to that saved
+version; raw output, prompt, configuration, schema, and full-manifest hashes are still
+reconstructed without rewriting. Thirty focused and adjacent tests pass, Ruff passes, and
+independent review is clean. No model call was used. This repair improves future review
+integrity but cannot reopen the spent v10 lineage or cure its separate `1B.2` and `2B.2`
+content failures.
+
 ### Task 7 — Run five-ruler confirmation and decide production promotion
 
 Status: **blocked by a passing Task 6**
@@ -521,6 +533,6 @@ Known limits: the returned Luna lineage is spent and rejected. Judging, judgment
 audit, and publication did not run. The contradictory `4B.2` review fields require a
 general reviewer-contract diagnosis independent of this failed run.
 
-Next task: diagnose and correct the general reviewer output-contract inconsistency, review
-and commit that module separately, and decide whether a different fresh experimental
-lineage is justified. Task 7 remains blocked.
+Next task: decide whether the accumulated Luna instability justifies a different fresh
+experimental lineage or whether to stop the token-efficiency candidate here. Task 7 remains
+blocked.

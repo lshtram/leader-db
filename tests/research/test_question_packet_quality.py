@@ -1,19 +1,26 @@
 import json
+from hashlib import sha256
 from pathlib import Path
 
 import pytest
+import tiktoken
 import yaml
 
 from leaders_db.evidence_funnel.execution_schema import make_strict_response_schema
 from leaders_db.research.question_evidence_packets import (
     load_trusted_chapter_question_evidence_package,
 )
-from leaders_db.research.question_packet_prompts import QuestionPacketPrompts
+from leaders_db.research.question_packet_prompts import (
+    QuestionPacketPrompts,
+    load_question_packet_prompts,
+)
 from leaders_db.research.question_packet_quality import (
     BlindCandidateQuality,
     BlindQuestionQualityReview,
     _blind_labels,
     _experimental_passes,
+    _payload_hash,
+    _review_prompt,
     _validate_review_conclusion,
     run_blind_question_quality_review,
     validate_blind_review_artifacts,
@@ -74,8 +81,14 @@ def test_clean_experimental_answer_passes_when_baseline_is_preferred() -> None:
     assert _experimental_passes(review, {"A": "approved", "B": "experimental"})
 
 
-def test_explicit_material_regression_fails_despite_passing_dimensions() -> None:
-    experimental = _candidate("B").model_copy(
+def test_material_regression_requires_and_preserves_failed_dimension() -> None:
+    payload = _candidate("B").model_dump()
+    payload["material_regressions"] = (
+        "The answer reverses the population comparison and changes the judgment.",
+    )
+    with pytest.raises(ValueError, match="require a failed quality dimension"):
+        BlindCandidateQuality.model_validate(payload)
+    experimental = _candidate("B", "fail").model_copy(
         update={
             "material_regressions": (
                 "The answer reverses the population comparison and changes the judgment.",
@@ -90,6 +103,14 @@ def test_explicit_material_regression_fails_despite_passing_dimensions() -> None
     )
 
     assert not _experimental_passes(review, {"A": "approved", "B": "experimental"})
+
+
+def test_unsupported_claim_requires_factual_or_citation_failure() -> None:
+    payload = _candidate("B").model_dump()
+    payload["unsupported_claims"] = ("This material claim has no supporting citation.",)
+
+    with pytest.raises(ValueError, match="require factual or citation failure"):
+        BlindCandidateQuality.model_validate(payload)
 
 
 def test_prompt_config_rejects_missing_evidence_placeholder() -> None:
@@ -168,6 +189,7 @@ def test_trusted_review_reload_rejects_gate_tampering(monkeypatch, tmp_path: Pat
     )
     manifest_path = tmp_path / "blind-review-manifest.json"
     manifest = json.loads(manifest_path.read_text())
+    original_manifest = dict(manifest)
     assert manifest["reasoning_effort"] == "high"
     arguments = {
         "packet": packet,
@@ -199,3 +221,64 @@ def test_trusted_review_reload_rejects_gate_tampering(monkeypatch, tmp_path: Pat
     (tmp_path / "prompt.txt").write_text("tampered prompt")
     with pytest.raises(ValueError, match="saved blind-review prompt"):
         validate_blind_review_artifacts(**arguments)
+
+    _write_legacy_review_artifacts(
+        root=root,
+        output_dir=tmp_path,
+        packet=packet,
+        approved=approved,
+        experimental=experimental,
+        labels=labels,
+        experimental_label=experimental_label,
+        review=review,
+        manifest=original_manifest,
+    )
+
+    assert validate_blind_review_artifacts(**arguments)["quality_gate"] == "fail"
+
+
+def _write_legacy_review_artifacts(
+    *,
+    root,
+    output_dir,
+    packet,
+    approved,
+    experimental,
+    labels,
+    experimental_label,
+    review,
+    manifest,
+) -> None:
+    prompts, prompt_config_hash = load_question_packet_prompts(
+        root / "configs/question-packet-prompts-v10.yaml"
+    )
+    payload = review.model_dump(mode="json")
+    candidate = next(
+        item for item in payload["candidates"] if item["candidate"] == experimental_label
+    )
+    candidate["material_regressions"] = [
+        "A comparative deficiency retained by the historical version-ten contract."
+    ]
+    BlindQuestionQualityReview.model_validate(
+        payload, context={"allow_legacy_blocking_findings": True}
+    )
+    prompt = _review_prompt(
+        packet,
+        {
+            label: approved if source == "approved" else experimental.model_dump(mode="json")
+            for label, source in labels.items()
+        },
+        prompts.review_template,
+    )
+    (output_dir / "output.json").write_text(json.dumps(payload))
+    (output_dir / "prompt.txt").write_text(prompt)
+    legacy_manifest = {
+        **manifest,
+        "prompt_config_version": 10,
+        "prompt_config_sha256": prompt_config_hash,
+        "estimated_input_tokens": len(tiktoken.get_encoding("o200k_base").encode(prompt)),
+        "prompt_sha256": sha256(prompt.encode()).hexdigest(),
+        "review_sha256": _payload_hash(payload),
+        "quality_gate": "fail",
+    }
+    (output_dir / "blind-review-manifest.json").write_text(json.dumps(legacy_manifest))

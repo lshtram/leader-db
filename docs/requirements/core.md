@@ -339,6 +339,12 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
   failed review manifest and output, exact question packet, and promoted evidence IDs;
   promote only reviewer-named currently reopenable evidence; record the applied return in
   its preflight; and reject source/output overlap or any second return in the lineage.
+- **REQ-PIPE-007A:** Fresh independent question reviews shall use one internally consistent
+  blocking contract: a material regression requires a failed quality dimension, an
+  unsupported claim requires failed factual support or citation entailment, and non-blocking
+  corrections remain improvements. Trusted historical reload may use the exact frozen
+  prompt semantics named by the saved manifest, but shall reconstruct and verify the raw
+  output, prompt, configuration, schema, and manifest hashes without rewriting the artifact.
 - **REQ-PIPE-008:** An integrated experimental release shall bind its frozen scientific
   inputs and control contracts by hash, construct and validate all expected question
   packages, and inventory every planned model action before execution. If a hard promotion

@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Literal
 
 import tiktoken
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, model_validator
 
 from leaders_db.evidence_funnel.execution_schema import make_strict_response_schema
 
@@ -17,7 +17,7 @@ from .corpus_reader_runner import ModelCallCoordinator, execute_json_model
 from .model_call_budget import RunUsageBudgetTracker, StageBudgetTracker
 from .model_profiles import load_research_model_profiles
 from .question_evidence_packet_models import QuestionEvidencePacket
-from .question_packet_prompts import load_question_packet_prompts
+from .question_packet_prompts import QuestionPacketPrompts, load_question_packet_prompts
 from .question_packet_writer import DiagnosticQuestionAnswer, validate_question_answer
 
 
@@ -35,6 +35,28 @@ class BlindCandidateQuality(BaseModel):
     missed_evidence_ids: tuple[str, ...] = ()
     unsupported_claims: tuple[str, ...] = ()
     rationale: str = Field(min_length=30)
+
+    @model_validator(mode="after")
+    def reject_contradictory_blocking_findings(
+        self, info: ValidationInfo
+    ) -> BlindCandidateQuality:
+        if info.context and info.context.get("allow_legacy_blocking_findings"):
+            return self
+        dimensions = (
+            self.factual_support,
+            self.citation_entailment,
+            self.material_coverage,
+            self.balance_and_limits,
+            self.attribution_and_period,
+            self.judgeability,
+        )
+        if self.material_regressions and all(value == "pass" for value in dimensions):
+            raise ValueError("material regressions require a failed quality dimension")
+        if self.unsupported_claims and (
+            self.factual_support == "pass" and self.citation_entailment == "pass"
+        ):
+            raise ValueError("unsupported claims require factual or citation failure")
+        return self
 
 
 class BlindQuestionQualityReview(BaseModel):
@@ -166,13 +188,12 @@ def validate_blind_review_artifacts(
     """Reload and bind a saved review to the exact current inputs."""
 
     manifest = json.loads((output_dir / manifest_name).read_text())
+    prompts, prompt_config_hash = _load_saved_prompt_contract(project_root, manifest)
     review = BlindQuestionQualityReview.model_validate_json(
-        (output_dir / "output.json").read_text()
+        (output_dir / "output.json").read_text(),
+        context={"allow_legacy_blocking_findings": prompts.version < 11},
     )
     labels = _blind_labels(packet.question_id)
-    prompts, prompt_config_hash = load_question_packet_prompts(
-        project_root / "configs/question-packet-prompts.yaml"
-    )
     profile_config_hash = sha256(profiles_path.read_bytes()).hexdigest()
     profile = load_research_model_profiles(profiles_path).profiles[profile_name]
     prompt = _review_prompt(
@@ -221,6 +242,20 @@ def validate_blind_review_artifacts(
     if validate_question_answer(packet, experimental_answer)["functional_gate"] != "pass":
         raise ValueError("saved review uses an invalid experimental answer")
     return manifest
+
+
+def _load_saved_prompt_contract(
+    project_root: Path, manifest: dict
+) -> tuple[QuestionPacketPrompts, str]:
+    current_path = project_root / "configs/question-packet-prompts.yaml"
+    current, current_hash = load_question_packet_prompts(current_path)
+    version = manifest.get("prompt_config_version")
+    if version == current.version:
+        return current, current_hash
+    legacy_path = project_root / f"configs/question-packet-prompts-v{version}.yaml"
+    if not legacy_path.is_file():
+        raise ValueError("saved review prompt version is unavailable")
+    return load_question_packet_prompts(legacy_path)
 
 
 def _blind_labels(question_id: str) -> dict[str, str]:
