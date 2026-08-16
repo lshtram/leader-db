@@ -334,6 +334,20 @@ release `netanyahu-2023-integrated-luna-sol-v7` has an eligible 176-call preflig
 40,000,000 input-token and 1,000,000 output-token hard ceilings. No v7 model call had been
 made at this checkpoint.
 
+The fresh v7 execution is also now frozen as a failed diagnostic. It launched 28 Luna-high
+question-writing calls before stopping the stage: 28 calls completed and reconciled exactly
+to 1,605,550 input tokens, 7,936 cached input tokens, 142,086 output tokens, and 68,407
+reasoning-output tokens. All 28 calls have measured execution profiles totaling 2,721.462288
+call-seconds; the PAYG equivalent is $0.490183-$0.570066 and the Codex-credit equivalent is
+12.254618, while actual subscription billing remains unavailable. One completed answer
+(`2B.3`) failed deterministic evidence coverage, and the prospective run-wide budget then
+refused `3B.5` because outstanding 128,000-token provider-maximum reservations would exceed
+the one-million-token output ceiling. Review and judging did not run. The ledger itself is
+complete and token reconciliation passes; the integrated scientific gate is inconclusive.
+Before any fresh v8 call, define and independently test a prospective stage-specific output
+allowance that preserves a hard cumulative ceiling without treating every call as if it will
+emit the provider maximum. Do not resume or alter v7, and do not repair its failed answer.
+
 ### Task 7 — Run five-ruler confirmation and decide production promotion
 
 Status: **blocked by a passing Task 6**
