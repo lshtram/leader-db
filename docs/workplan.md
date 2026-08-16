@@ -354,6 +354,24 @@ judge, and judgment-review tests pass, and independent re-review is clean. A fre
 preflighted, but it must use new model outputs and must not resume or alter v7 or repair its
 failed answer.
 
+Fresh v8 is now frozen as a failed diagnostic after its question-writing phase. Its
+zero-call preflight passed with all eight packages and eighty questions, and the repaired
+scheduler behaved correctly: one call waited 22.026149 seconds for temporary capacity, then
+continued; after the scientific failure, one reserved but unlaunched call was cancelled.
+Thirty-one Luna-high calls completed and reconcile exactly to 1,759,628 input tokens, 15,872
+cached input tokens, 152,135 output tokens, and 77,346 reasoning-output tokens. Measured
+call time totals 2,927.983972 seconds; the PAYG equivalent is $0.531631-$0.618820 and the
+Codex-credit equivalent is 13.290766, while actual subscription billing remains unavailable.
+Thirty answers passed and `2B.3` failed. It cited `BATCH-0030-R02-E002` in prose but omitted
+the required machine-readable evidence-disposition entry. v7 had failed on the same record,
+although it had omitted both the prose citation and disposition. The approved predecessor's
+metadata classifies this record as contrary/qualifying for `2B.3`, even though the evidence
+record's own methodology mappings are `2B.5`, `6B.6`, and `8B.9`; its predecessor prose also
+does not cite the record. Review and judging did not run. Before another model call, resolve
+this general producer-contract inconsistency and make the strict response contract enforce
+complete dispositions structurally rather than relying on an unbounded array instruction.
+Do not resume or alter v8 and do not repair either failed output.
+
 ### Task 7 — Run five-ruler confirmation and decide production promotion
 
 Status: **blocked by a passing Task 6**
