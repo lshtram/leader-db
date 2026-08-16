@@ -414,6 +414,15 @@ pass, focused Ruff passes, and independent review is clean. No model call was us
 repair. The next step is to create and zero-call preflight a fresh v10 configuration using
 the authorized v9 `3B.2` recommendation; v9 remains immutable.
 
+Fresh v10 now has an eligible zero-call preflight. It binds the single authorized return to
+v9 and constructs all eight packages and eighty questions. `3B.2` contains eleven exact
+required records rather than eight: `BATCH-0031-E004`, `BATCH-0036-E023`, and
+`BATCH-0009-E005` are now full required evidence and are no longer compact-only candidates.
+The preflight records return count one, the predecessor release and preflight hash, the
+failed child-review and output hashes, and the three applied IDs. It inventories 176 planned
+calls under the existing 250-call, 40,000,000-input-token, and 1,000,000-output-token hard
+ceilings. No model call has been made in v10 at this checkpoint.
+
 ### Task 7 — Run five-ruler confirmation and decide production promotion
 
 Status: **blocked by a passing Task 6**
@@ -466,35 +475,32 @@ decision, lasting constraints, and next dependency here.
 
 ## Current handoff
 
-Task: integrated Netanyahu v9 gate
+Task: integrated Netanyahu v10 gate
 
-Outcome: rejected during Luna-high independent question review
+Outcome: eligible zero-call preflight; execution not yet started
 
-Decision and plain-language reason: all 80 newly written answers passed their structural
-checks, including complete coverage of the 28 required evidence records for `2B.3`. The
-independent reviewer rejected `3B.2` because the answer omitted three material records about
-personal superior responsibility and detention oversight. This is a content-coverage
-failure, not a response-format failure.
+Decision and plain-language reason: the one permitted material-defect return has promoted
+the three v9 reviewer-named `3B.2` records from the compact index into exact required
+evidence. All frozen inputs, source reviews, lineage, and applied IDs validate without a
+model call, so a completely fresh v10 execution is eligible.
 
-Artifacts: `configs/evidence-funnel/netanyahu-2023-integrated-luna-sol-v9.yaml`,
-`research/runs/netanyahu-2023-integrated-luna-sol-v9/`, and
-`research/runs/netanyahu-2023-integrated-luna-sol-v9-profile-terminal-v1/`.
+Artifacts: `configs/evidence-funnel/netanyahu-2023-integrated-luna-sol-v10.yaml`,
+`configs/question-material-defect-returns/netanyahu-2023-v9-3b2.yaml`, and
+`research/runs/netanyahu-2023-integrated-luna-sol-v10/preflight-manifest.json`.
 
-Model calls and execution surface: 92 Luna-high Codex-subscription calls completed: 80
-question-writing calls and 12 question-review calls. The fail-stop prevented 68 remaining
-reviews and all Sol judge and judgment-review calls. No API key was used.
+Model calls and execution surface: zero calls so far. The eligible inventory contains 80
+Luna-high writing calls, 80 Luna-high review calls, 8 Sol-high judge calls, and 8 Sol-high
+judgment-review calls on the Codex subscription surface. No API key is authorized.
 
-Input / cached / output tokens: 6,193,807 / 90,624 / 478,369; 237,131 reasoning-output
-tokens and 6,672,176 total tokens. Event and ledger accounting agree exactly.
+Input / cached / output tokens: 0 / 0 / 0 for v10 at this checkpoint.
 
-Tests and review: 80/80 deterministic writing gates passed. Independent review produced
-11 passes and one material-coverage failure. The terminal profile records all 92 calls,
-their timing, validation results, and exact run-budget reconciliation.
+Tests and review: 45 boundary tests and focused Ruff pass; independent code review is clean.
+The v10 preflight validates eight packages, eighty questions, the one-return lineage, and
+all source and applied-evidence hashes.
 
-Known limits: v9 proves the exact-key contract prevents required evidence from silently
-disappearing, but it does not yet ensure that the answer gives every materially important
-record enough substantive weight. Judging, audit, and publication did not run.
+Known limits: preflight proves the repaired inputs and controls, not answer quality. v10 must
+still pass fresh writing, independent review, judging, judgment review, audit, and
+publication. No second material-defect return is permitted in this lineage.
 
-Next task: create and zero-call preflight the authorized v9 material-defect return and a
-completely fresh v10 release, then state its bounded model envelope before execution. Task 7
-remains blocked.
+Next task: state the bounded v10 subscription-model envelope and begin fresh question
+writing. Task 7 remains blocked until the complete integrated gate passes.
