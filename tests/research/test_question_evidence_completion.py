@@ -372,6 +372,68 @@ def test_exact_evidence_expansion_hashes_and_parses_one_read(
     assert judge_reads == 1
 
 
+def test_completion_binds_saved_historical_package_shape(tmp_path: Path) -> None:
+    preflight_path, writing_path, _ = _source_run(tmp_path)
+    package_path = tmp_path / "research/runs/failed-v1/question-packages/4B/package.json"
+    package_payload = json.loads(package_path.read_text())
+    for packet in package_payload["packets"]:
+        packet["coverage"].pop("adjudicated_nonmaterial_evidence_ids")
+    package_path.write_text(json.dumps(package_payload))
+    writing_payload = json.loads(writing_path.read_text())
+    writing_payload["package_sha256"] = sha256(
+        json.dumps(
+            package_payload,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode()
+    ).hexdigest()
+    writing_path.write_text(json.dumps(writing_payload))
+    preflight_payload = json.loads(preflight_path.read_text())
+    preflight_payload["question_packages"][0]["sha256"] = _digest(package_path)
+    preflight_path.write_text(json.dumps(preflight_payload))
+    answer_path = (
+        tmp_path
+        / "research/runs/failed-v1/question-writing/4B/questions/4B.1/accepted-output.json"
+    )
+    config_path = tmp_path / "completion.yaml"
+    config_path.write_text(
+        yaml.safe_dump(
+            {
+                "schema_version": "question_evidence_completion_v1",
+                "source_run": "failed-v1",
+                "source_release_id": "failed-v1",
+                "source_preflight_sha256": _digest(preflight_path),
+                "user_authorized": True,
+                "chapters": {
+                    "4B": {
+                        "question_package_sha256": _digest(package_path),
+                        "writing_manifest_sha256": _digest(writing_path),
+                        "questions": {
+                            "4B.1": {
+                                "answer_artifact_sha256": _digest(answer_path),
+                                "items": [
+                                    {
+                                        "evidence_id": "E-2",
+                                        "decision": "promote",
+                                        "reason": "Authorized historical exact-evidence promotion.",
+                                    }
+                                ],
+                            }
+                        },
+                    }
+                },
+            }
+        )
+    )
+
+    receipt = load_evidence_completion(
+        project_root=tmp_path, config_path=config_path, active_chapters=("4B",)
+    )
+
+    assert receipt.additions_for("4B") == {"4B.1": ("E-2",)}
+
+
 @pytest.mark.parametrize("reason", ["", " ", "\n\t", "too short"])
 def test_completion_rejects_blank_or_insubstantial_reason(reason: str) -> None:
     with pytest.raises(ValidationError, match="20 non-space characters"):

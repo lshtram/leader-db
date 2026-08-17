@@ -24,9 +24,10 @@ straightforward: one production phase, one dedicated independent quality phase, 
 automatic model repair or re-review loops inside either phase.
 
 The compact table-row representation, lossless writer transport, stage budgets, and
-straight-through control contract have passed their bounded gates. The next experiment is
-a fresh Luna-high question-work and Sol-high chapter-decision gate under a new release and
-run ID, after the material-accuracy contract receives focused and independent review.
+straight-through control contract have passed their bounded gates. The 72 unresolved v10
+evidence requests have now been explicitly promoted and the fresh v11 zero-call preflight
+has passed. The next bounded phase is Luna-high writing only; review and judging remain
+stopped until all 80 new answers pass deterministic validation with no reopen requests.
 
 ## Current production baseline
 
@@ -593,12 +594,17 @@ material. The next task is a prospective, hash-bound evidence-completion decisio
 dispositions each request before constructing a completely fresh release. See
 [`reviews/2026-08-17-v10-reopen-request-classification.md`](reviews/2026-08-17-v10-reopen-request-classification.md).
 
-The general evidence-completion contract is implemented and locally verified. A fresh
-release may now consume an explicit user-authorized decision covering every accepted
-request from a hash-bound failed writing run. `promote` records become required exact
-evidence; `retain_compact` records remain in the audit inventory but are excluded from the
-next writer prompt and cannot be reopened again. The source preflight, all eight packages,
-writing manifests, affected accepted answers, decisions, reasons, and resulting package
-partitions are validated and recorded. The implementation does not decide the 72 v10
-items: that evidence-level decision and its explicit approval remain the next phase before
-a fresh zero-call release preflight.
+The general evidence-completion contract is implemented and locally verified. The user
+explicitly authorized all 72 accepted v10 requests for promotion. The hash-bound decision
+ledger covers 56 questions in all eight chapters, preserves accepted-output order, and
+promotes every item to required exact evidence; none is retained as compact-only evidence.
+
+The completely fresh `netanyahu-2023-integrated-luna-sol-v11` zero-call preflight is
+eligible. It verified the frozen source release and all authorized hashes, built eight
+packages containing 80 questions, applied 72 completion items across 56 questions, and
+executed zero model calls. The prospective full pipeline contains 176 calls within its
+250-call ceiling and has no material-defect return. The next phase is limited to the 80
+Luna-high writing calls. Their complete prompts are estimated at 4,160,207 input tokens in
+total (mean 52,003; maximum 156,985 for `6B.10`), with no request above the configured
+300,000-token ceiling. Review, judging, audit, and publication must not start during that
+bounded writing phase.

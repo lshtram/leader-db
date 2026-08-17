@@ -234,6 +234,7 @@ def _load_chapter(
     ):
         raise ValueError("evidence completion question package changed")
     package = ChapterQuestionEvidencePackage.model_validate_json(package_bytes)
+    saved_package_payload_hash = _payload_hash(json.loads(package_bytes))
     writing_path = _inside(
         source_run, source_run / "question-writing" / chapter_id / "writing-manifest.json"
     )
@@ -244,7 +245,7 @@ def _load_chapter(
     if (
         writing.chapter_id != chapter_id
         or writing.phase_gate != "pass"
-        or writing.package_sha256 != _payload_hash(package.model_dump(mode="json"))
+        or writing.package_sha256 != saved_package_payload_hash
     ):
         raise ValueError("evidence completion requires a passed writing phase")
     packets = {item.question_id: item for item in package.packets}
