@@ -452,6 +452,17 @@ independent review is clean. No model call was used. This repair improves future
 integrity but cannot reopen the spent v10 lineage or cure its separate `1B.2` and `2B.2`
 content failures.
 
+A review-only Luna-high experiment then ran two independent version-11 passes over the
+same frozen 80 v10 answers. No other pipeline stage ran. The passes agreed on 67 of 80
+outcomes, but both missed the known `1B.2` chronology error; `2B.2` failed only in the
+second pass. Each pass also produced three unavailable evidence IDs, all rejected by the
+validator. Combined use was 160 Luna-high calls, 11,555,462 input tokens, 103,168 cached
+input tokens, 737,315 output tokens, and 642,614 reasoning-output tokens. The duplicate
+two-pass design is rejected as a production gate. The next bounded experiment should make
+pass two a focused Luna verifier of chronology, priority-evidence disposition, allowed IDs,
+and pass-one defect claims. Full results are in
+[`reviews/2026-08-17-luna-high-question-review-two-pass.md`](reviews/2026-08-17-luna-high-question-review-two-pass.md).
+
 ### Task 7 — Run five-ruler confirmation and decide production promotion
 
 Status: **blocked by a passing Task 6**
@@ -504,35 +515,32 @@ decision, lasting constraints, and next dependency here.
 
 ## Current handoff
 
-Task: integrated Netanyahu v10 gate
+Task: Luna-high independent question-review experiment
 
-Outcome: rejected during Luna-high independent question review
+Outcome: duplicate two-pass review rejected; focused Luna verification remains viable
 
-Decision and plain-language reason: the one permitted return worked—`3B.2` used the three
-promoted records and passed review—but fresh answers exposed two other content failures and
-one reviewer-output inconsistency. This Luna lineage cannot use another return and is
-rejected before judging.
+Decision and plain-language reason: two identical Luna-high reviews agreed on 67 of 80
+questions, but both missed the known `1B.2` chronology error, detected the known `2B.2`
+omission only once, and each named unavailable evidence IDs three times. Repeating the same
+review and voting is not a sufficient quality gate.
 
-Artifacts: `configs/evidence-funnel/netanyahu-2023-integrated-luna-sol-v10.yaml`,
-`configs/question-material-defect-returns/netanyahu-2023-v9-3b2.yaml`, and
-`research/runs/netanyahu-2023-integrated-luna-sol-v10-profile-terminal-v1/`.
+Artifacts: `research/runs/netanyahu-2023-luna-review-v11-pass1-v2/`,
+`research/runs/netanyahu-2023-luna-review-v11-pass2-v1/`, their `-profile-v1` directories,
+and `docs/reviews/2026-08-17-luna-high-question-review-two-pass.md`.
 
-Model calls and execution surface: 89 Luna-high Codex-subscription calls completed: 80
-writing calls and 9 review calls. The fail-stop prevented 71 remaining reviews and all Sol
-judge and judgment-review calls. No API key was used.
+Model calls and execution surface: 160 Luna-high Codex-subscription review calls completed.
+No writing, judging, scoring, audit, or publication call ran. No API key was used.
 
-Input / cached / output tokens: 6,075,388 / 320,000 / 442,823; 201,024 reasoning-output
-tokens and 6,518,211 total tokens. Event and ledger accounting agree exactly.
+Input / cached / output tokens: 11,555,462 / 103,168 / 737,315; 642,614 reasoning-output
+tokens and 12,292,777 total tokens. Both event ledgers reconcile exactly.
 
-Tests and review: all 80 writing gates passed. Independent review produced six passes and
-three failures; the repaired `3B.2` passed. The terminal profile covers all 89 calls and
-reconciles exactly. The return code's 45-test boundary suite and independent review remain
-clean.
+Tests and review: both 80-call passes completed. Pass 1 produced 67 passes, 10 failures,
+and 3 invalid evidence-ID responses; pass 2 produced 70 passes, 7 failures, and 3 invalid
+responses. The strict validator rejected every invalid response. Both profiles reconcile.
 
-Known limits: the returned Luna lineage is spent and rejected. Judging, judgment review,
-audit, and publication did not run. The contradictory `4B.2` review fields require a
-general reviewer-contract diagnosis independent of this failed run.
+Known limits: only four substantive failures repeated in both passes. `8B.9` was invalid in
+both. Two identical reviews do not provide reliable defect detection. Later stages remain
+unrun.
 
-Next task: decide whether the accumulated Luna instability justifies a different fresh
-experimental lineage or whether to stop the token-efficiency candidate here. Task 7 remains
-blocked.
+Next task: design and zero-call test a focused second-pass Luna verifier, then evaluate it
+on a bounded diagnostic set before any new 80-question run. Task 7 remains blocked.
