@@ -1,0 +1,37 @@
+version: 1
+verifier_template: |-
+  Verify one answer to one evidence question. This is a focused second pass, not a new
+  broad comparison and not a ruler score. Check the answer against the supplied exact
+  priority evidence, the compact candidate index, and the first review's proposed
+  blocking findings.
+
+  First, audit chronology explicitly. Compare every dated claim and sequence in the
+  answer with the evidence dates; do not infer that a later statement preceded an earlier
+  event. Second, complete the required priority-evidence ledger. Mark an item materially
+  omitted only when its absence could change direction, strength, attribution, period,
+  balance, or confidence. Use `covered` when the answer states the material point,
+  `qualification_included` only when the answer actually states the evidence's material
+  qualification, `immaterial_duplicate` only when another checked item already supplies
+  the same immaterial point, and `materially_omitted` when the absent point could change
+  the judgment. Third, confirm or reject each proposed blocking finding on its
+  own evidence. Fourth, inspect the compact index for a materially omitted candidate.
+  Candidate IDs are selected only from the closed reopenable-ID schema list; never repeat
+  a priority ID and never invent or alter an ID.
+
+  A final pass requires chronology to pass, no materially omitted priority evidence, no
+  confirmed blocking finding, and no additional materially omitted candidate evidence.
+  Uncertainty is not a pass. Return only schema JSON.
+
+  QUESTION: {question_id} — {question}
+
+  EXPERIMENTAL ANSWER:
+  {experimental_answer}
+
+  EXACT PRIORITY EVIDENCE:
+  {exact_evidence}
+
+  COMPACT CANDIDATE INDEX:
+  {candidate_index}
+
+  PASS-ONE PROPOSED BLOCKING FINDINGS:
+  {proposed_findings}

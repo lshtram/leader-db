@@ -345,6 +345,13 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
   corrections remain improvements. Trusted historical reload may use the exact frozen
   prompt semantics named by the saved manifest, but shall reconstruct and verify the raw
   output, prompt, configuration, schema, and manifest hashes without rewriting the artifact.
+- **REQ-PIPE-007B:** A diagnostic second-pass question verifier shall use Luna on the Codex
+  subscription surface, check chronology separately, disposition every priority evidence
+  ID, constrain new omissions to the packet's reopenable-ID set, and verify each first-pass
+  blocking finding. Code shall derive the final gate and trusted reload shall reconstruct
+  and bind the prompt, raw response, strict schema, canonical output, inputs, and manifest.
+  This verifier shall not enter the production path until it passes a bounded known-defect
+  and repeatability gate.
 - **REQ-PIPE-008:** An integrated experimental release shall bind its frozen scientific
   inputs and control contracts by hash, construct and validate all expected question
   packages, and inventory every planned model action before execution. If a hard promotion
