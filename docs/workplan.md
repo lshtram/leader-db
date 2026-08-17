@@ -463,6 +463,15 @@ pass two a focused Luna verifier of chronology, priority-evidence disposition, a
 and pass-one defect claims. Full results are in
 [`reviews/2026-08-17-luna-high-question-review-two-pass.md`](reviews/2026-08-17-luna-high-question-review-two-pass.md).
 
+A subsequent ten-case diagnostic replaced the duplicate second review with a focused
+Luna-high verifier. It caught both known defects (`1B.2`, `2B.2`), confirmed the repeated
+`1B.1`, `2B.4`, `6B.9`, and `7B.6` failures, preserved the `4B.2` pass, and prevented the
+`8B.9` invalid-ID behavior through a schema allowlist. It passed disputed `2B.1` and failed
+previously repaired `3B.2` on newly identified omissions, so it is not yet approved for an
+80-question gate. All ten calls reconciled exactly to 768,878 input and 76,785 output
+tokens, including 64,168 reasoning tokens. Full results are in
+[`reviews/2026-08-17-focused-luna-question-verifier.md`](reviews/2026-08-17-focused-luna-question-verifier.md).
+
 ### Task 7 — Run five-ruler confirmation and decide production promotion
 
 Status: **blocked by a passing Task 6**
@@ -515,32 +524,33 @@ decision, lasting constraints, and next dependency here.
 
 ## Current handoff
 
-Task: Luna-high independent question-review experiment
+Task: focused Luna-high question-verifier diagnostic
 
-Outcome: duplicate two-pass review rejected; focused Luna verification remains viable
+Outcome: promising but not yet approved for an 80-question gate
 
-Decision and plain-language reason: two identical Luna-high reviews agreed on 67 of 80
-questions, but both missed the known `1B.2` chronology error, detected the known `2B.2`
-omission only once, and each named unavailable evidence IDs three times. Repeating the same
-review and voting is not a sufficient quality gate.
+Decision and plain-language reason: the focused verifier caught both known defects,
+confirmed repeated failures, and eliminated invalid evidence IDs. It also failed repaired
+`3B.2` and passed disputed `2B.1`; those findings must be checked against the exact evidence
+before deciding whether the verifier is accurately stricter or over-sensitive.
 
-Artifacts: `research/runs/netanyahu-2023-luna-review-v11-pass1-v2/`,
-`research/runs/netanyahu-2023-luna-review-v11-pass2-v1/`, their `-profile-v1` directories,
-and `docs/reviews/2026-08-17-luna-high-question-review-two-pass.md`.
+Artifacts: `research/runs/netanyahu-2023-luna-focused-verifier-v1/`,
+`research/runs/netanyahu-2023-luna-focused-verifier-v1-profile-v2/`, and
+`docs/reviews/2026-08-17-focused-luna-question-verifier.md`.
 
-Model calls and execution surface: 160 Luna-high Codex-subscription review calls completed.
+Model calls and execution surface: 10 Luna-high Codex-subscription verifier calls completed.
 No writing, judging, scoring, audit, or publication call ran. No API key was used.
 
-Input / cached / output tokens: 11,555,462 / 103,168 / 737,315; 642,614 reasoning-output
-tokens and 12,292,777 total tokens. Both event ledgers reconcile exactly.
+Input / cached / output tokens: 768,878 / 0 / 76,785; 64,168 reasoning-output tokens and
+845,663 total tokens. Event and ledger accounting agree exactly.
 
-Tests and review: both 80-call passes completed. Pass 1 produced 67 passes, 10 failures,
-and 3 invalid evidence-ID responses; pass 2 produced 70 passes, 7 failures, and 3 invalid
-responses. The strict validator rejected every invalid response. Both profiles reconcile.
+Tests and review: all 10 calls completed, strictified, and trusted-reloaded; 8 failed and 2
+passed. The verifier code's 26-test gate and independent review are clean. The profiler
+integration's 11-test gate and independent review are also clean.
 
-Known limits: only four substantive failures repeated in both passes. `8B.9` was invalid in
-both. Two identical reviews do not provide reliable defect detection. Later stages remain
+Known limits: `3B.2` and `2B.1` remain scientifically disputed. The ten cases were selected
+diagnostically and do not estimate the pass rate of all 80 questions. Later stages remain
 unrun.
 
-Next task: design and zero-call test a focused second-pass Luna verifier, then evaluate it
-on a bounded diagnostic set before any new 80-question run. Task 7 remains blocked.
+Next task: adjudicate `3B.2` and `2B.1` locally against their exact evidence and answer text.
+Do not run another model call or an 80-question gate until that decision. Task 7 remains
+blocked.
