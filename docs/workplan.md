@@ -583,3 +583,12 @@ nonempty set writes a hash-bound `reopen-stop.json` containing every affected qu
 answer hash, and evidence ID, records zero launched review calls, and stops the phase. The
 single-chapter entry point applies the same barrier, and trusted review reload rejects a
 review built over unresolved writer requests. No model call was used for this repair.
+
+The follow-on zero-call classification is complete. All 72 accepted requests in 56 frozen
+v10 answers name existing dossier records routed to the exact requesting question but left
+out of required exact evidence; 37 are among the first 15 routed candidates and 47 among
+the first 20. No request requires new research. The artifacts establish a general
+selection/completion defect, but do not independently prove that all 72 requests are
+material. The next task is a prospective, hash-bound evidence-completion decision that
+dispositions each request before constructing a completely fresh release. See
+[`reviews/2026-08-17-v10-reopen-request-classification.md`](reviews/2026-08-17-v10-reopen-request-classification.md).
