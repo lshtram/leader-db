@@ -33,7 +33,9 @@ class CompactEvidenceCandidate(BaseModel):
 class EvidenceCoverageItem(BaseModel):
     model_config = ConfigDict(extra="forbid")
     evidence_id: str
-    requirement: Literal["must_address", "available_for_reopen"]
+    requirement: Literal[
+        "must_address", "available_for_reopen", "adjudicated_nonmaterial"
+    ]
     carries_attribution: bool
     carries_period_fit: bool
     carries_limitations: bool
@@ -45,6 +47,7 @@ class QuestionCoverageChecklist(BaseModel):
     items: tuple[EvidenceCoverageItem, ...]
     required_evidence_ids: tuple[str, ...]
     reopenable_evidence_ids: tuple[str, ...]
+    adjudicated_nonmaterial_evidence_ids: tuple[str, ...] = ()
     favorable_available: bool
     adverse_available: bool
     mixed_or_context_available: bool
@@ -58,9 +61,14 @@ class QuestionCoverageChecklist(BaseModel):
         reopenable = {
             item.evidence_id for item in self.items if item.requirement == "available_for_reopen"
         }
+        adjudicated = {
+            item.evidence_id
+            for item in self.items
+            if item.requirement == "adjudicated_nonmaterial"
+        }
         if required != set(self.required_evidence_ids) or reopenable != set(
             self.reopenable_evidence_ids
-        ):
+        ) or adjudicated != set(self.adjudicated_nonmaterial_evidence_ids):
             raise ValueError("coverage checklist partitions do not reconcile")
         return self
 
@@ -148,8 +156,12 @@ def _validate_packet(packet: QuestionEvidencePacket, ledger_ids: set[str]) -> No
         candidates
     ).issubset(ledger_ids):
         raise ValueError("candidate index does not match coverage or ledger")
-    if tuple(item for item in candidates if item not in set(priority)) != (
+    nonpriority = tuple(item for item in candidates if item not in set(priority))
+    adjudicated = set(packet.coverage.adjudicated_nonmaterial_evidence_ids)
+    if tuple(item for item in nonpriority if item not in adjudicated) != (
         packet.coverage.reopenable_evidence_ids
+    ) or tuple(item for item in nonpriority if item in adjudicated) != (
+        packet.coverage.adjudicated_nonmaterial_evidence_ids
     ):
         raise ValueError("reopenable evidence does not match non-priority candidates")
     direct = tuple(item for item in candidates if packet.question_id in by_id[item].question_ids)

@@ -110,6 +110,15 @@ answer hash, evidence ID, and writing-manifest hash, then launches zero review c
 keeps a known incomplete writing phase from spending review quota or being mislabeled as a
 review failure.
 
+A stopped writing release can feed a separate evidence-completion decision for a new
+release. The decision covers every accepted reopen request and records either `promote` or
+`retain_compact` with a reason. It is accepted only when explicitly authorized and when the
+source preflight, packages, writing manifests, and accepted answers still match their saved
+hashes. Promoted records become required exact evidence. Reviewed `retain_compact` records
+stay in the complete packet audit inventory but are removed from the next writer's omission
+alarm, preventing an already adjudicated request from recurring. The new release records
+the complete decision and predecessor hashes; the failed source run remains unchanged.
+
 An isolated citation-span prototype can subdivide an immutable extracted unit at existing
 blank-line paragraph boundaries. Each address carries the parent unit number, exact
 character offsets, and a substring hash; deterministic resolution copies the original

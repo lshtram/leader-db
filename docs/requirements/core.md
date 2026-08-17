@@ -358,6 +358,13 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
   output in its launch scope has been checked for accepted reopen requests. Any unresolved
   request shall persist a hash-bound zero-call stop manifest naming every affected question,
   answer artifact, and evidence ID, and shall prevent all review calls in that scope.
+- **REQ-PIPE-007D:** A fresh release that follows a writing-phase evidence stop shall use
+  an explicit, user-authorized completion ledger that dispositions every accepted reopen
+  request as either promoted exact evidence or reviewed nonmaterial compact evidence. The
+  ledger shall bind the failed source preflight, question packages, writing manifests, and
+  answer artifacts by hash. Promoted records shall become mandatory exact evidence;
+  reviewed nonmaterial records shall remain auditable but shall not be presented again as
+  reopenable writer candidates.
 - **REQ-PIPE-008:** An integrated experimental release shall bind its frozen scientific
   inputs and control contracts by hash, construct and validate all expected question
   packages, and inventory every planned model action before execution. If a hard promotion

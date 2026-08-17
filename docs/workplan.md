@@ -592,3 +592,13 @@ selection/completion defect, but do not independently prove that all 72 requests
 material. The next task is a prospective, hash-bound evidence-completion decision that
 dispositions each request before constructing a completely fresh release. See
 [`reviews/2026-08-17-v10-reopen-request-classification.md`](reviews/2026-08-17-v10-reopen-request-classification.md).
+
+The general evidence-completion contract is implemented and locally verified. A fresh
+release may now consume an explicit user-authorized decision covering every accepted
+request from a hash-bound failed writing run. `promote` records become required exact
+evidence; `retain_compact` records remain in the audit inventory but are excluded from the
+next writer prompt and cannot be reopened again. The source preflight, all eight packages,
+writing manifests, affected accepted answers, decisions, reasons, and resulting package
+partitions are validated and recorded. The implementation does not decide the 72 v10
+items: that evidence-level decision and its explicit approval remain the next phase before
+a fresh zero-call release preflight.

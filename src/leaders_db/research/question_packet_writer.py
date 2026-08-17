@@ -223,7 +223,7 @@ def normalize_optional_reopen_requests(
 ) -> tuple[DiagnosticQuestionAnswer, dict[str, object]]:
     """Discard only advisory reopen IDs outside the immutable candidate index."""
 
-    allowed = {item.evidence_id for item in packet.candidate_index}
+    allowed = set(packet.coverage.reopenable_evidence_ids)
     rejected = tuple(item for item in answer.reopen_requests if item.evidence_id not in allowed)
     accepted = tuple(item for item in answer.reopen_requests if item.evidence_id in allowed)
     normalized = answer.model_copy(update={"reopen_requests": accepted})
