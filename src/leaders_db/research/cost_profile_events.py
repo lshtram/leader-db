@@ -169,6 +169,7 @@ def _call_metadata(events_path: Path) -> dict[str, Any]:
     request = _first_json(
         directory / "request-manifest.json",
         directory / "blind-review-manifest.json",
+        directory / "focused-verification-manifest.json",
     )
     stage_reservation = _first_json(directory / "budget-reservation.json")
     run_reservation = _first_json(directory / "run-budget-reservation.json")
@@ -176,6 +177,7 @@ def _call_metadata(events_path: Path) -> dict[str, Any]:
     validation = _first_json(
         directory / "deterministic-validation.json",
         directory / "blind-review-manifest.json",
+        directory / "focused-verification-manifest.json",
     )
     prompt = _first_existing(directory / "prompt.txt", directory / "review-prompt.txt")
     schema = _first_existing(directory / "schema.json", directory / "review-schema.json")

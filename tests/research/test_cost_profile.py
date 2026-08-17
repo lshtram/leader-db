@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 from leaders_db.research.cost_profile import build_cost_profile, compare_cost_profiles
+from leaders_db.research.cost_profile_events import _call_metadata
 
 
 def _rules(path: Path) -> Path:
@@ -46,6 +47,34 @@ def _event(path: Path, *, input_tokens: int = 100, cached: int = 50) -> None:
         + "\n",
         encoding="utf-8",
     )
+
+
+def test_focused_verification_manifest_supplies_profile_and_gate_metadata(
+    tmp_path: Path,
+) -> None:
+    call = tmp_path / "question-review" / "1B" / "questions" / "1B.2"
+    call.mkdir(parents=True)
+    (call / "focused-verification-manifest.json").write_text(
+        json.dumps(
+            {
+                "model": "gpt-5.6-luna",
+                "profile": "openai-luna-candidate",
+                "reasoning_effort": "high",
+                "api_key_used": False,
+                "estimated_input_tokens": 42,
+                "quality_gate": "fail",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    metadata = _call_metadata(call / "events.jsonl")
+
+    assert metadata["model"] == "gpt-5.6-luna"
+    assert metadata["profile"] == "openai-luna-candidate"
+    assert metadata["reasoning_effort"] == "high"
+    assert metadata["estimated_input_tokens"] == 42
+    assert metadata["validation_gate"] == "fail"
 
 
 def test_profile_classifies_selected_superseded_shared_and_cache(tmp_path: Path) -> None:
