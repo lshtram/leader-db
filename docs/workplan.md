@@ -548,14 +548,17 @@ passed. The verifier code's 26-test gate and independent review are clean. The p
 integration's 11-test gate and independent review are also clean.
 
 Known limits: local evidence-level adjudication confirmed the focused verifier's `3B.2`
-fail and `2B.1` pass. In `3B.2`, one priority source was presented as favorable without its
-material coercive qualification, while the second cited problem was already an explicit
-unresolved reopen request rather than a silently missing record. Repeatability remains
-untested. The ten cases were selected
+fail and `2B.1` pass. A fresh repeatability run matched nine of ten final gates: all eight
+first-run failures failed again, `2B.1` passed again, and `4B.2` changed from pass to fail.
+The `4B.2` failure is correct because its answer explicitly records a material National
+Guard reopen request; the first focused run failed to rediscover that structured signal.
+Detailed omission lists varied substantially, including one versus ten additional gaps for
+`3B.2`, and chronology changed for `7B.6` and `8B.9`. The ten cases were selected
 diagnostically and do not estimate the pass rate of all 80 questions. Later stages remain
 unrun.
 
-Next task: rerun the same ten frozen cases in a fresh directory to measure focused-verifier
-repeatability before considering an 80-question diagnostic.
-Do not run an 80-question gate until the repeatability result is adjudicated. Task 7
-remains blocked.
+Next task: make accepted writer reopen requests a deterministic blocking category in the
+focused verifier, test and independently review that general rule, and rerun only the
+affected controls before considering an 80-question diagnostic. Do not treat Luna's
+variable candidate-omission list as authoritative without evidence-level adjudication.
+Task 7 remains blocked.

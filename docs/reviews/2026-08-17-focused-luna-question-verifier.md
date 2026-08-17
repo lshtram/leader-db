@@ -99,7 +99,70 @@ as an unresolved reopen request rather than a silently omitted record.
 
 ## Next bounded step
 
-Do not run all 80 questions yet. Test repeatability on the same ten frozen cases in a fresh
-run directory. Before that run, clarify only the report language: an answer that explicitly
-requests reopening material evidence still fails, but the reason is an unresolved material
-gap rather than silent omission. No scientific gate change is warranted by these two cases.
+Do not run all 80 questions yet. Make accepted reopen requests deterministic blocking
+inputs rather than asking Luna to rediscover them. Keep Luna responsible for chronology,
+priority-evidence materiality, first-review findings, and new candidate gaps. Test that
+general change independently, then rerun only the affected controls before deciding on a
+larger diagnostic.
+
+## Repeatability test
+
+### Test performed
+
+The same ten frozen packets, answers, and first reviews were sent through a second fresh
+sequential Luna-high run. No writing, judging, scoring, audit, or publication stage ran.
+The fresh run completed ten of ten calls; every strict response validated and every saved
+artifact passed trusted reconstruction.
+
+### Results and differences
+
+Nine of ten final gates matched the first focused run. All eight first-run failures failed
+again, and `2B.1` passed again after rejecting the earlier broad review's false attribution
+finding. `4B.2` changed from pass to fail.
+
+The `4B.2` change is a correction, not a newly invented defect. Its answer explicitly
+requested reopening `BATCH-0032-E013`, saying the proposed National Guard could materially
+change the security-forces analysis and its attribution to Netanyahu. The second verifier
+correctly treated that unresolved material gap as blocking. The first verifier had missed
+the answer's explicit reopen signal.
+
+The detailed findings were substantially less stable than the final gates:
+
+- `1B.2` caught the known chronology error in both runs.
+- `2B.2` failed in both runs, but the first named four priority omissions and one additional
+  gap while the second named three priority omissions and three additional gaps.
+- `3B.2` failed in both runs, but the first named one priority omission and one additional
+  gap while the second named no priority omission and ten additional gaps. Both included
+  the answer's explicit `BATCH-0004-E021` reopen request.
+- `7B.6` and `8B.9` failed in both runs, but chronology passed in the first run and failed in
+  the second.
+- No run emitted an invented or disallowed evidence ID.
+
+This means Luna is repeatable enough to identify these answers as unsafe, but not yet
+repeatable enough for its complete list of reasons to be treated as authoritative. The
+current design also wastes model judgment on a fact already recorded structurally: a
+writer's accepted reopen request states that candidate evidence may materially change the
+answer. That condition should block deterministically before interpreting Luna's newly
+discovered omissions.
+
+### Repeatability profile
+
+- Calls: 10 Luna-high Codex-subscription calls.
+- Input: 768,878 tokens; cached input: 0.
+- Output: 79,999 tokens, including 65,738 reasoning-output tokens.
+- Total: 848,877 tokens.
+- Combined call time: 1,496.318462 seconds.
+- Codex-equivalent usage: 6.244360 credits.
+- PAYG-equivalent estimate: $0.249773-$0.288220.
+- Actual subscription billing: unavailable from the execution surface.
+- Reconciliation: exact; all ten reservations completed, with zero unresolved reservations
+  and zero token differences.
+
+### Decision
+
+Do not run an 80-question verifier yet. First make explicit accepted reopen requests a
+deterministic blocking category with their own clear label. This removes the observed
+`4B.2` inconsistency without asking the model to make the same decision twice. Then test
+the affected cases and independently review the code. Luna's variable newly discovered
+candidate lists still require conservative treatment and evidence-level adjudication; they
+should not silently become production truth.
