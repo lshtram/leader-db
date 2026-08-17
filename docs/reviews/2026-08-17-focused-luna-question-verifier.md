@@ -4,10 +4,10 @@
 
 The focused second Luna pass is materially better than a duplicate broad review, but it is
 not ready for an 80-question gate. It caught both known defects, preserved one clean
-control, confirmed three repeated failures, and produced no invalid evidence ID. It also
-failed repaired `3B.2` on newly identified omissions and passed disputed `2B.1` after
-rejecting the first review's attribution finding. Those two cases require bounded
-evidence-level adjudication before another model experiment.
+control, confirmed three repeated failures, and produced no invalid evidence ID. A local
+evidence-level inspection also confirmed its two disputed decisions: repaired `3B.2`
+still contains a material imbalance and unresolved evidence gap, while `2B.1` correctly
+attributes the disputed statement and should pass. Repeatability remains untested.
 
 No writing, chapter judging, judgment review, scoring, audit, or publication stage ran.
 
@@ -37,10 +37,10 @@ Expected actual output was below 120,000 tokens.
 |---|---|---|
 | `1B.1` | fail | Confirmed all three first-pass blocking findings. |
 | `1B.2` | fail | Correctly found that the 3 November Amalek letter followed the 28 October ground-operation announcement. It also identified priority and reopenable omissions. |
-| `2B.1` | pass | Rejected all five first-pass findings and found no omission. The earlier speaker-attribution concern remains disputed and needs evidence-level adjudication. |
+| `2B.1` | pass | Correctly rejected all five first-pass findings. The answer says that the United States representative characterized Israel as committed to another agreement, which is exactly how the UN transcript identifies the speaker. |
 | `2B.2` | fail | Found four materially omitted priority records and one reopenable omission. |
 | `2B.4` | fail | Confirmed that the answer incorrectly described the State Comptroller investigation as suspended by the High Court. |
-| `3B.2` | fail | Found that one priority record omitted Netanyahu's demand to stop refusal to serve and named one reopenable record about intelligence and initial-response failures. This is a plausible new finding against a previously repaired control and requires adjudication. |
+| `3B.2` | fail | Correctly found that the answer used a mixed source as favorable evidence while omitting Netanyahu's demand that military and security forces stop refusal to serve, which he called a crime. The answer also explicitly requested reopening the record about intelligence and initial-response failures; this is an unresolved material gap rather than a silently missing record. |
 | `4B.2` | pass | Found chronology, priority coverage, and reopen handling adequate. |
 | `6B.9` | fail | Confirmed omission of the record about the civilian-home-front authority gap and Netanyahu's responsibility. |
 | `7B.6` | fail | Confirmed all three first-pass findings and four reopenable omissions. |
@@ -67,12 +67,39 @@ unavailable because the generic profiler did not recognize the new focused manif
 reviewed general fix added that manifest to metadata discovery. Fresh profile v2 reports
 eight failures and two passes with no unavailable gate.
 
+## Local adjudication of the disputed cases
+
+### `2B.1`: focused pass confirmed
+
+The answer states: “The United States representative said Israel was committed to another
+agreement and that further pauses depended on Hamas.” In the exact UN transcript, the
+speaker is United States representative Linda Thomas-Greenfield, and her statement says
+that “Israel has made clear that it is committed to reaching another agreement.” The
+answer therefore did not reverse the speaker attribution. The first broad review's five
+blocking findings all depended on that mistaken premise. The focused verifier correctly
+rejected them.
+
+### `3B.2`: focused failure confirmed, with one wording correction
+
+The answer cites `BATCH-0030-R01-E010` as countervailing evidence that Netanyahu delayed
+the judicial-overhaul legislation, called for debate, and urged security forces to defend
+everyone. The same exact passage also says that refusal to serve was a crime and records
+Netanyahu demanding that military and security forces put an end to it. That is not a
+minor detail for a question about how a ruler directed coercive institutions. Omitting it
+makes the cited record appear more unambiguously favorable than it is and can change the
+balance and strength of the judgment. The focused verifier was right to treat this as a
+material priority-evidence omission.
+
+The verifier also named `BATCH-0004-E021`, concerning intelligence and initial-response
+failures around 7 October. The answer had not ignored this record: it explicitly requested
+that it be reopened because a fuller account could change attribution and weight. Under
+the current contract, that remains a blocking unresolved material gap—the final answer
+does not contain the evidence needed to resolve it—but future reports should describe it
+as an unresolved reopen request rather than a silently omitted record.
+
 ## Next bounded step
 
-Do not run all 80 questions yet. Inspect the exact evidence, answer text, and verifier
-rationale for `3B.2` and `2B.1` without a model call. Decide whether each focused result is
-correct under the materiality standard. If both are correct, define the focused verifier
-as deliberately stricter and test repeatability on the same ten cases. If either is an
-over-sensitive or mistaken result, change the general verifier instruction or gate rule,
-unit-test it, independently review it, and rerun only the affected diagnostic cases in a
-fresh directory.
+Do not run all 80 questions yet. Test repeatability on the same ten frozen cases in a fresh
+run directory. Before that run, clarify only the report language: an answer that explicitly
+requests reopening material evidence still fails, but the reason is an unresolved material
+gap rather than silent omission. No scientific gate change is warranted by these two cases.

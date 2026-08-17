@@ -547,10 +547,15 @@ Tests and review: all 10 calls completed, strictified, and trusted-reloaded; 8 f
 passed. The verifier code's 26-test gate and independent review are clean. The profiler
 integration's 11-test gate and independent review are also clean.
 
-Known limits: `3B.2` and `2B.1` remain scientifically disputed. The ten cases were selected
+Known limits: local evidence-level adjudication confirmed the focused verifier's `3B.2`
+fail and `2B.1` pass. In `3B.2`, one priority source was presented as favorable without its
+material coercive qualification, while the second cited problem was already an explicit
+unresolved reopen request rather than a silently missing record. Repeatability remains
+untested. The ten cases were selected
 diagnostically and do not estimate the pass rate of all 80 questions. Later stages remain
 unrun.
 
-Next task: adjudicate `3B.2` and `2B.1` locally against their exact evidence and answer text.
-Do not run another model call or an 80-question gate until that decision. Task 7 remains
-blocked.
+Next task: rerun the same ten frozen cases in a fresh directory to measure focused-verifier
+repeatability before considering an 80-question diagnostic.
+Do not run an 80-question gate until the repeatability result is adjudicated. Task 7
+remains blocked.
