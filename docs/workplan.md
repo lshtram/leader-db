@@ -564,6 +564,15 @@ semantics trusted-reloaded all 20 earlier focused artifacts exactly. The 33-test
 and adjacent gate, Ruff, strict manifest-version tamper regressions, and independent review
 are clean.
 
-Next task: rerun only the affected controls under v2 before considering an 80-question
-diagnostic. Do not treat Luna's variable newly discovered candidate-omission list as
-authoritative without evidence-level adjudication. Task 7 remains blocked.
+The fresh v2 control run completed `3B.2` and `4B.2` successfully at the transport and
+trusted-reload levels. Both failed deterministically on their accepted reopen requests;
+neither reopen ID reappeared in Luna's new-omission field. The two calls used 129,496 input
+and 18,051 output tokens (147,547 total), 1.189010 Codex-equivalent credits, and 333.511867
+combined seconds, with exact ledger reconciliation.
+
+A zero-call inventory found accepted reopen requests in 56 of 80 frozen answers, covering
+72 unresolved IDs. Those 56 are guaranteed v2 failures, so an 80-call run is not justified.
+The next optional model diagnostic is bounded to the 24 answers without reopen requests;
+the 56 deterministic failures require an upstream selection/completion decision instead.
+Do not treat Luna's variable newly discovered candidate-omission list as authoritative
+without evidence-level adjudication. Task 7 remains blocked.

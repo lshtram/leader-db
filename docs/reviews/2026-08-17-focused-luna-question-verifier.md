@@ -185,3 +185,41 @@ versions.
 Verification completed with 33 focused and adjacent tests passing, Ruff passing, and a
 clean independent review after one manifest-version tamper issue was found and repaired.
 No model call was used for this update.
+
+## Focused v2 control run
+
+The first live v2 check ran only `3B.2` and `4B.2` in a fresh directory. Both calls
+completed, passed strict parsing and trusted reconstruction, and failed as expected:
+
+- `3B.2` records `BATCH-0004-E021` as an unresolved accepted reopen request. Luna did not
+  repeat that ID as a new omission. It independently found the previously adjudicated
+  `BATCH-0030-R01-E010` priority omission and proposed nine other advisory candidate gaps.
+- `4B.2` records `BATCH-0032-E013` as an unresolved accepted reopen request. Luna did not
+  repeat that ID as a new omission. It proposed two other advisory candidate gaps.
+
+The update therefore fixed the observed category error: accepted reopen requests are
+stable deterministic inputs, while Luna's newly proposed gaps remain separate and subject
+to evidence-level adjudication.
+
+Profile:
+
+- Calls: 2 Luna-high Codex-subscription calls.
+- Input: 129,496 tokens; cached input: 0.
+- Output: 18,051 tokens, including 16,360 reasoning-output tokens.
+- Total: 147,547 tokens.
+- Combined call time: 333.511867 seconds.
+- Codex-equivalent usage: 1.189010 credits.
+- PAYG-equivalent estimate: $0.047561-$0.054036.
+- Actual subscription billing: unavailable from the execution surface.
+- Reconciliation: exact; both reservations completed with zero token differences.
+
+A deterministic inventory then found that 56 of the 80 frozen answers already contain
+one or more accepted reopen requests: 72 unresolved IDs in total. Those 56 answers are
+known v2 failures without a model call. Only 24 answers have no accepted reopen request.
+An 80-call verifier run would therefore spend 56 calls rediscovering a gate result that
+code already knows.
+
+The next possible diagnostic is limited to the 24 no-reopen answers. It requires a new
+bounded subscription-run decision. The 56 deterministic failures instead identify an
+upstream evidence-selection and answer-completion problem; they should not be sent through
+Luna merely to reproduce the same failure.
