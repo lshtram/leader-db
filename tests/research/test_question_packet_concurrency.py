@@ -79,6 +79,23 @@ def test_concurrent_review_runner_blocks_launch_after_failure(
         fake_review,
     )
     packages = (SimpleNamespace(chapter_id="1B"), SimpleNamespace(chapter_id="2B"))
+    monkeypatch.setattr(
+        "leaders_db.research.question_packet_chapter.validate_chapter_question_writing",
+        lambda **kwargs: SimpleNamespace(chapter_id=kwargs["package"].chapter_id),
+    )
+    monkeypatch.setattr(
+        "leaders_db.research.question_packet_chapter.load_review_input_snapshot",
+        lambda writing_dir, writing: SimpleNamespace(
+            writing_dir=writing_dir,
+            writing=writing,
+            writing_manifest_sha256="0" * 64,
+            answers={},
+        ),
+    )
+    monkeypatch.setattr(
+        "leaders_db.research.question_packet_chapter.require_trusted_snapshot",
+        lambda snapshot: None,
+    )
 
     with pytest.raises(RuntimeError, match="review failure"):
         run_all_chapter_question_review(

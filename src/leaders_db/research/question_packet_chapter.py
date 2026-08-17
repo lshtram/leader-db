@@ -20,9 +20,7 @@ from .question_packet_chapter_models import (
 from .question_packet_phase_validation import (
     configuration_binding as _configuration_binding,
 )
-from .question_packet_phase_validation import (
-    inside as _inside,
-)
+from .question_packet_phase_validation import inside as _inside
 from .question_packet_phase_validation import (
     load_approved_analysis as _load_approved_analysis,
 )
@@ -43,10 +41,15 @@ from .question_packet_quality import (
     validate_blind_review_artifacts,
 )
 from .question_packet_writer import (
-    DiagnosticQuestionAnswer,
     build_question_writer_prompt,
     validate_question_answer,
     write_diagnostic_question_answer,
+)
+from .question_review_preflight import (
+    QuestionReviewInputSnapshot,
+    load_review_input_snapshot,
+    require_trusted_snapshot,
+    stop_for_reopen_requests,
 )
 
 
@@ -205,20 +208,29 @@ def run_chapter_question_review(
     reasoning_effort: str | None = None,
     call_coordinator: ModelCallCoordinator | None = None,
     run_budget_tracker: RunUsageBudgetTracker | None = None,
+    input_snapshot: QuestionReviewInputSnapshot | None = None,
 ) -> Path:
     """Review each completed question once in a phase separate from writing."""
 
     _require_unused_output_dir(output_dir)
-    writing_path = writing_dir / "writing-manifest.json"
-    writing = validate_chapter_question_writing(
-        project_root=project_root,
-        package=package,
-        output_dir=writing_dir,
-        approved_analysis_path=approved_analysis_path,
-        profile_name=writing_profile_name,
-        profiles_path=profiles_path,
-    )
     analysis = _load_approved_analysis(package, approved_analysis_path)
+    if input_snapshot is None:
+        writing = validate_chapter_question_writing(
+            project_root=project_root,
+            package=package,
+            output_dir=writing_dir,
+            approved_analysis_path=approved_analysis_path,
+            profile_name=writing_profile_name,
+            profiles_path=profiles_path,
+        )
+        input_snapshot = load_review_input_snapshot(writing_dir, writing)
+    else:
+        require_trusted_snapshot(input_snapshot)
+        writing = input_snapshot.writing
+        if writing.chapter_id != package.chapter_id or input_snapshot.writing_dir != writing_dir:
+            raise ValueError("review input snapshot differs from its chapter invocation")
+    stop_for_reopen_requests(output_dir, (input_snapshot,))
+    trusted_answers = input_snapshot.answers
     analysis_hash = _sha256(approved_analysis_path)
     model, profile_hash, prompt_hash = _configuration_binding(
         project_root, profile_name, profiles_path
@@ -230,11 +242,8 @@ def run_chapter_question_review(
         project_root / "configs/research-stage-budgets.yaml", "question_review"
     )
     for written in writing.artifacts:
-        answer_path = _inside(writing_dir, written.artifact_path)
-        if _sha256(answer_path) != written.artifact_sha256:
-            raise ValueError("written question answer changed after the writing phase")
         packet = packets[written.question_id]
-        answer = DiagnosticQuestionAnswer.model_validate_json(answer_path.read_text())
+        answer = trusted_answers[written.question_id]
         review_dir = output_dir / "questions" / written.question_id
         run_blind_question_quality_review(
             project_root=project_root,
@@ -280,7 +289,7 @@ def run_chapter_question_review(
         profile_config_sha256=profile_hash,
         prompt_config_sha256=prompt_hash,
         approved_analysis_sha256=analysis_hash,
-        writing_manifest_sha256=_sha256(writing_path),
+        writing_manifest_sha256=input_snapshot.writing_manifest_sha256,
         question_count=len(artifacts),
         artifacts=tuple(artifacts),
         phase_gate="pass" if passed else "fail",
@@ -306,6 +315,7 @@ def run_all_chapter_question_review(
 
     if not packages or max_workers < 1:
         raise ValueError("concurrent chapter review requires packages and workers")
+    _require_unused_output_dir(output_root)
     chapter_ids = [package.chapter_id for package in packages]
     if len(chapter_ids) != len(set(chapter_ids)) or set(chapter_ids) != set(
         approved_analysis_paths
@@ -316,6 +326,22 @@ def run_all_chapter_question_review(
         model = load_research_model_profiles(profiles_path).profiles[profile_name].model
         max_workers = min(max_workers, run_budget_tracker.safe_parallel_calls(model))
     coordinator = ModelCallCoordinator()
+    snapshots = tuple(
+        load_review_input_snapshot(
+            writing_root / package.chapter_id,
+            validate_chapter_question_writing(
+                project_root=project_root,
+                package=package,
+                output_dir=writing_root / package.chapter_id,
+                approved_analysis_path=approved_analysis_paths[package.chapter_id],
+                profile_name=writing_profile_name,
+                profiles_path=profiles_path,
+            ),
+        )
+        for package in packages
+    )
+    stop_for_reopen_requests(output_root, snapshots)
+    snapshots_by_chapter = {item.writing.chapter_id: item for item in snapshots}
 
     def run(package: ChapterQuestionEvidencePackage) -> Path:
         return run_chapter_question_review(
@@ -330,6 +356,7 @@ def run_all_chapter_question_review(
             reasoning_effort=reasoning_effort,
             call_coordinator=coordinator,
             run_budget_tracker=run_budget_tracker,
+            input_snapshot=snapshots_by_chapter[package.chapter_id],
         )
 
     results: list[Path] = []
@@ -363,6 +390,7 @@ def _require_unused_output_dir(output_dir: Path) -> None:
 
 __all__ = [
     "ChapterQuestionPhaseManifest",
+    "_inside",
     "run_all_chapter_question_review",
     "run_all_chapter_question_writing",
     "run_chapter_question_review",

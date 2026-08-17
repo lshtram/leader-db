@@ -21,6 +21,7 @@ from .question_packet_writer import (
     load_normalized_question_answer,
     validate_question_answer,
 )
+from .question_review_preflight import load_review_input_snapshot
 
 
 def validate_chapter_question_writing(
@@ -96,7 +97,6 @@ def validate_chapter_question_review(
     actual = ChapterQuestionPhaseManifest.model_validate_json(
         (output_dir / "review-manifest.json").read_text()
     )
-    writing_path = writing_dir / "writing-manifest.json"
     writing = validate_chapter_question_writing(
         project_root=project_root,
         package=package,
@@ -107,6 +107,9 @@ def validate_chapter_question_review(
         question_validator=question_validator,
         prompt_builder=prompt_builder,
     )
+    snapshot = load_review_input_snapshot(writing_dir, writing)
+    if any(answer.reopen_requests for answer in snapshot.answers.values()):
+        raise ValueError("question review cannot consume unresolved writer reopen requests")
     analysis_hash = sha256_file(approved_analysis_path)
     if analysis_hash != package.selected_analysis_sha256:
         raise ValueError("approved analysis hash does not match the question package")
@@ -115,9 +118,7 @@ def validate_chapter_question_review(
     packets = {item.question_id: item for item in package.packets}
     artifacts = []
     for written in writing.artifacts:
-        answer = DiagnosticQuestionAnswer.model_validate_json(
-            inside(writing_dir, written.artifact_path).read_text()
-        )
+        answer = snapshot.answers[written.question_id]
         review_dir = output_dir / "questions" / written.question_id
         review = blind_review_validator(
             packet=packets[written.question_id],
@@ -150,7 +151,7 @@ def validate_chapter_question_review(
         profile_config_sha256=profile_hash,
         prompt_config_sha256=prompt_hash,
         approved_analysis_sha256=analysis_hash,
-        writing_manifest_sha256=sha256_file(writing_path),
+        writing_manifest_sha256=snapshot.writing_manifest_sha256,
         question_count=10,
         artifacts=tuple(artifacts),
         phase_gate=("pass" if all(item.status == "pass" for item in artifacts) else "fail"),
@@ -158,6 +159,8 @@ def validate_chapter_question_review(
     if actual != expected:
         raise ValueError("chapter review manifest differs from trusted child reviews")
     return actual
+
+
 
 
 def sha256_file(path: Path) -> str:

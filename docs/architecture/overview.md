@@ -103,6 +103,13 @@ reconstructs the versioned raw response, strict schema, prompt, canonical output
 manifest; the frozen v1 prompt preserves exact reload of earlier diagnostics. This remains
 an isolated diagnostic until a bounded known-defect gate passes.
 
+The writing-to-review boundary has a deterministic reopen barrier. Before any independent
+review call begins, it validates the complete writing scope and inventories accepted writer
+reopen requests. A nonempty inventory writes `reopen-stop.json`, binding each question,
+answer hash, evidence ID, and writing-manifest hash, then launches zero review calls. This
+keeps a known incomplete writing phase from spending review quota or being mislabeled as a
+review failure.
+
 An isolated citation-span prototype can subdivide an immutable extracted unit at existing
 blank-line paragraph boundaries. Each address carries the parent unit number, exact
 character offsets, and a substring hash; deterministic resolution copies the original

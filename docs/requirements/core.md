@@ -354,6 +354,10 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
   output, inputs, and manifest while preserving frozen v1 diagnostic artifacts.
   This verifier shall not enter the production path until it passes a bounded known-defect
   and repeatability gate.
+- **REQ-PIPE-007C:** Independent question review shall begin only after every trusted writer
+  output in its launch scope has been checked for accepted reopen requests. Any unresolved
+  request shall persist a hash-bound zero-call stop manifest naming every affected question,
+  answer artifact, and evidence ID, and shall prevent all review calls in that scope.
 - **REQ-PIPE-008:** An integrated experimental release shall bind its frozen scientific
   inputs and control contracts by hash, construct and validate all expected question
   packages, and inventory every planned model action before execution. If a hard promotion

@@ -576,3 +576,10 @@ The next optional model diagnostic is bounded to the 24 answers without reopen r
 the 56 deterministic failures require an upstream selection/completion decision instead.
 Do not treat Luna's variable newly discovered candidate-omission list as authoritative
 without evidence-level adjudication. Task 7 remains blocked.
+
+The general writing-to-review repair is now implemented: a trusted full-scope preflight
+collects accepted writer reopen requests before any independent review worker starts. A
+nonempty set writes a hash-bound `reopen-stop.json` containing every affected question,
+answer hash, and evidence ID, records zero launched review calls, and stops the phase. The
+single-chapter entry point applies the same barrier, and trusted review reload rejects a
+review built over unresolved writer requests. No model call was used for this repair.

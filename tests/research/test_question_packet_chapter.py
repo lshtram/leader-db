@@ -15,7 +15,11 @@ from leaders_db.research.question_packet_chapter import (
     validate_chapter_question_review,
     validate_chapter_question_writing,
 )
-from leaders_db.research.question_packet_writer import DiagnosticQuestionAnswer
+from leaders_db.research.question_packet_chapter_models import QuestionReviewReopenStopManifest
+from leaders_db.research.question_packet_writer import (
+    DiagnosticQuestionAnswer,
+    EvidenceReopenRequest,
+)
 from tests.research.test_single_pass_chapter_analysis import _result
 
 ROOT = Path.cwd()
@@ -381,3 +385,81 @@ def test_review_rejects_wrong_approved_analysis_hash(monkeypatch, tmp_path: Path
             writing_profile_name="openai-terra-candidate",
             profiles_path=PROFILES,
         )
+
+
+def test_review_stops_before_calls_when_writer_requested_reopen(
+    monkeypatch, tmp_path: Path
+) -> None:
+    writing_dir = tmp_path / "writing"
+
+    def fake_writer(**kwargs):
+        output_dir = kwargs["output_dir"]
+        output_dir.mkdir(parents=True)
+        question_id = kwargs["packet"].question_id
+        answer = _answer(question_id)
+        if question_id == "4B.1":
+            answer = answer.model_copy(
+                update={
+                    "reopen_requests": (
+                        EvidenceReopenRequest(
+                            evidence_id="E-REOPEN",
+                            reason="This candidate may materially change the final answer.",
+                        ),
+                    )
+                }
+            )
+        (output_dir / "output.json").write_text(answer.model_dump_json())
+        (output_dir / "prompt.txt").write_text("prompt")
+        return answer, {"functional_gate": "pass"}
+
+    monkeypatch.setattr(
+        "leaders_db.research.question_packet_chapter.write_diagnostic_question_answer",
+        fake_writer,
+    )
+    monkeypatch.setattr(
+        "leaders_db.research.question_packet_chapter.validate_question_answer",
+        lambda packet, answer: {"functional_gate": "pass"},
+    )
+    monkeypatch.setattr(
+        "leaders_db.research.question_packet_chapter.build_question_writer_prompt",
+        lambda packet, prompts, predecessor: "prompt",
+    )
+    analysis_path = _analysis_path(tmp_path)
+    package = _package(sha256(analysis_path.read_bytes()).hexdigest())
+    run_chapter_question_writing(
+        project_root=ROOT,
+        package=package,
+        output_dir=writing_dir,
+        approved_analysis_path=analysis_path,
+        profile_name="openai-terra-candidate",
+        profiles_path=PROFILES,
+    )
+    called = False
+
+    def forbidden_review(**kwargs):
+        nonlocal called
+        called = True
+
+    monkeypatch.setattr(
+        "leaders_db.research.question_packet_chapter.run_blind_question_quality_review",
+        forbidden_review,
+    )
+    review_dir = tmp_path / "review"
+    with pytest.raises(RuntimeError, match="stopped before model calls"):
+        run_chapter_question_review(
+            project_root=ROOT,
+            package=package,
+            approved_analysis_path=analysis_path,
+            writing_dir=writing_dir,
+            output_dir=review_dir,
+            profile_name="openai-sol-supervisor",
+            writing_profile_name="openai-terra-candidate",
+            profiles_path=PROFILES,
+        )
+    assert not called
+    stop = QuestionReviewReopenStopManifest.model_validate_json(
+        (review_dir / "reopen-stop.json").read_text()
+    )
+    assert stop.review_calls_launched == 0
+    assert stop.unresolved[0].question_id == "4B.1"
+    assert stop.unresolved[0].evidence_ids == ("E-REOPEN",)

@@ -16,6 +16,46 @@ class ChapterQuestionArtifact(BaseModel):
     status: Literal["pass", "fail"]
 
 
+class UnresolvedQuestionReopen(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    chapter_id: str
+    question_id: str
+    answer_artifact_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    evidence_ids: tuple[str, ...] = Field(min_length=1)
+
+
+class QuestionReviewReopenStopManifest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    schema_version: Literal["question_review_reopen_stop_v1"] = (
+        "question_review_reopen_stop_v1"
+    )
+    production_status: Literal["diagnostic_only"] = "diagnostic_only"
+    api_key_used: Literal[False] = False
+    writing_manifest_sha256s: dict[str, str]
+    unresolved: tuple[UnresolvedQuestionReopen, ...] = Field(min_length=1)
+    review_calls_launched: Literal[0] = 0
+    phase_gate: Literal["fail"] = "fail"
+
+    @model_validator(mode="after")
+    def validate_bindings(self) -> QuestionReviewReopenStopManifest:
+        chapters = {item.chapter_id for item in self.unresolved}
+        if not chapters.issubset(self.writing_manifest_sha256s) or any(
+            len(value) != 64 or any(char not in "0123456789abcdef" for char in value)
+            for value in self.writing_manifest_sha256s.values()
+        ):
+            raise ValueError("reopen stop must hash-bind every affected writing manifest")
+        question_ids = [item.question_id for item in self.unresolved]
+        if len(question_ids) != len(set(question_ids)) or any(
+            not item.question_id.startswith(f"{item.chapter_id}.")
+            or len(item.evidence_ids) != len(set(item.evidence_ids))
+            for item in self.unresolved
+        ):
+            raise ValueError("reopen stop contains inconsistent or duplicate identities")
+        return self
+
+
 class ChapterQuestionPhaseManifest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -55,4 +95,9 @@ class ChapterQuestionPhaseManifest(BaseModel):
         return self
 
 
-__all__ = ["ChapterQuestionArtifact", "ChapterQuestionPhaseManifest"]
+__all__ = [
+    "ChapterQuestionArtifact",
+    "ChapterQuestionPhaseManifest",
+    "QuestionReviewReopenStopManifest",
+    "UnresolvedQuestionReopen",
+]
