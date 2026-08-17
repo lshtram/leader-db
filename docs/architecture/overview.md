@@ -96,9 +96,12 @@ quality phase without repeating the broad blind comparison. It receives the expe
 answer, every exact priority record, only the compact IDs that remain reopenable, and the
 first review's proposed blocking findings. Its strict schema requires an ordered check for
 every priority record, constrains any new omission to the reopenable-ID allowlist, and
-requires a separate chronology decision. Deterministic code derives the final gate and
-trusted reload reconstructs the raw response, strict schema, prompt, canonical output, and
-manifest. This remains an isolated diagnostic until a bounded known-defect gate passes.
+requires a separate chronology decision. An accepted writer reopen request is carried into
+the canonical verification as an unresolved deterministic blocker and removed from the
+candidate list sent back to Luna. Deterministic code derives the final gate. Trusted reload
+reconstructs the versioned raw response, strict schema, prompt, canonical output, and
+manifest; the frozen v1 prompt preserves exact reload of earlier diagnostics. This remains
+an isolated diagnostic until a bounded known-defect gate passes.
 
 An isolated citation-span prototype can subdivide an immutable extracted unit at existing
 blank-line paragraph boundaries. Each address carries the parent unit number, exact

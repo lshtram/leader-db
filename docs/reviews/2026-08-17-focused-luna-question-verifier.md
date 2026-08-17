@@ -166,3 +166,22 @@ deterministic blocking category with their own clear label. This removes the obs
 the affected cases and independently review the code. Luna's variable newly discovered
 candidate lists still require conservative treatment and evidence-level adjudication; they
 should not silently become production truth.
+
+### Deterministic reopen update
+
+Contract v2 now records every accepted writer reopen request separately as an unresolved
+reopen ID and makes that field a deterministic blocker. Those IDs are removed from Luna's
+compact candidate list and response allowlist, leaving Luna to identify only genuinely new
+candidate gaps. The raw v2 response no longer contains `final_gate`; code derives the gate
+from chronology, priority checks, first-review finding checks, unresolved reopen requests,
+and new omissions.
+
+The original prompt is frozen byte-for-byte as v1. Trusted reload selects the saved
+contract version and reconstructs old v1 artifacts without applying v2 semantics. All 20
+artifacts from the two completed focused runs trusted-reloaded exactly. Strict version
+parsing also rejects boolean and floating-point substitutions for integer manifest
+versions.
+
+Verification completed with 33 focused and adjacent tests passing, Ruff passing, and a
+clean independent review after one manifest-version tamper issue was found and repaired.
+No model call was used for this update.

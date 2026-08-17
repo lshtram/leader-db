@@ -557,8 +557,13 @@ Detailed omission lists varied substantially, including one versus ten additiona
 diagnostically and do not estimate the pass rate of all 80 questions. Later stages remain
 unrun.
 
-Next task: make accepted writer reopen requests a deterministic blocking category in the
-focused verifier, test and independently review that general rule, and rerun only the
-affected controls before considering an 80-question diagnostic. Do not treat Luna's
-variable candidate-omission list as authoritative without evidence-level adjudication.
-Task 7 remains blocked.
+The focused verifier v2 update now makes accepted writer reopen requests a separate
+deterministic blocking category, removes them from Luna's candidate scan, and derives the
+final gate in code rather than accepting a model gate. Frozen v1 prompt and schema
+semantics trusted-reloaded all 20 earlier focused artifacts exactly. The 33-test focused
+and adjacent gate, Ruff, strict manifest-version tamper regressions, and independent review
+are clean.
+
+Next task: rerun only the affected controls under v2 before considering an 80-question
+diagnostic. Do not treat Luna's variable newly discovered candidate-omission list as
+authoritative without evidence-level adjudication. Task 7 remains blocked.

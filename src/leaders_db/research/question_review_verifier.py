@@ -5,11 +5,10 @@ from __future__ import annotations
 import json
 from hashlib import sha256
 from pathlib import Path
-from typing import Literal
 
 import tiktoken
 import yaml
-from pydantic import BaseModel, ConfigDict, Field, create_model, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from leaders_db.evidence_funnel.execution_schema import make_strict_response_schema
 
@@ -20,52 +19,15 @@ from .model_profiles import load_research_model_profiles
 from .question_evidence_packet_models import QuestionEvidencePacket
 from .question_packet_quality import BlindQuestionQualityReview, _blind_labels
 from .question_packet_writer import DiagnosticQuestionAnswer, validate_question_answer
-
-
-class PriorityEvidenceVerification(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-    status: Literal[
-        "covered", "qualification_included", "immaterial_duplicate", "materially_omitted"
-    ]
-    rationale: str = Field(min_length=20)
-
-
-class ProposedFindingVerification(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-    verdict: Literal["confirmed", "rejected", "uncertain"]
-    rationale: str = Field(min_length=20)
-
-
-class CanonicalPriorityEvidenceVerification(PriorityEvidenceVerification):
-    evidence_id: str
-
-class CanonicalProposedFindingVerification(ProposedFindingVerification):
-    finding_id: str
-
-
-class FocusedQuestionVerification(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-    question_id: str
-    chronology_status: Literal["pass", "fail", "uncertain"]
-    chronology_finding: str = Field(min_length=20)
-    priority_evidence_checks: tuple[CanonicalPriorityEvidenceVerification, ...]
-    proposed_finding_checks: tuple[CanonicalProposedFindingVerification, ...]
-    additional_omitted_evidence_ids: tuple[str, ...] = ()
-    final_gate: Literal["pass", "fail"]
-    rationale: str = Field(min_length=30)
-
-    @model_validator(mode="after")
-    def validate_gate(self) -> FocusedQuestionVerification:
-        blocking = self.chronology_status != "pass" or bool(self.additional_omitted_evidence_ids)
-        blocking = blocking or any(
-            item.status == "materially_omitted" for item in self.priority_evidence_checks
-        )
-        blocking = blocking or any(
-            item.verdict != "rejected" for item in self.proposed_finding_checks
-        )
-        if self.final_gate != ("fail" if blocking else "pass"):
-            raise ValueError("focused verifier final gate contradicts its checks")
-        return self
+from .question_review_verifier_contract import (
+    FocusedQuestionVerification,
+)
+from .question_review_verifier_contract import (
+    canonical_verification as _canonical_verification,
+)
+from .question_review_verifier_contract import (
+    verification_response_model as _verification_response_model,
+)
 
 
 class _VerifierPromptConfig(BaseModel):
@@ -115,7 +77,10 @@ def run_focused_question_verification(
     prompt = _verifier_prompt(
         packet, experimental_answer, findings, prompt_config.verifier_template
     )
-    response_model = _verification_response_model(packet, tuple(findings))
+    unresolved_reopen_ids = tuple(item.evidence_id for item in experimental_answer.reopen_requests)
+    response_model = _verification_response_model(
+        packet, tuple(findings), unresolved_reopen_ids=unresolved_reopen_ids
+    )
     tokens = _estimated_tokens(prompt, response_model)
     if profile.context_window is None or tokens + 12_000 > int(profile.context_window * 0.9):
         raise ValueError("focused verification exceeds context safety margin")
@@ -132,7 +97,12 @@ def run_focused_question_verification(
         response = execute_json_model(
             project_root, profile, prompt, response_model, output_dir, **kwargs
         )
-        verification = _canonical_verification(response, packet, tuple(findings))
+        verification = _canonical_verification(
+            response,
+            packet,
+            tuple(findings),
+            unresolved_reopen_ids=unresolved_reopen_ids,
+        )
     except Exception:
         if call_coordinator is not None:
             call_coordinator.publish_failure()
@@ -140,7 +110,7 @@ def run_focused_question_verification(
     accepted_path = output_dir / "accepted-verification.json"
     accepted_path.write_text(verification.model_dump_json(indent=2) + "\n", encoding="utf-8")
     manifest = {
-        "schema_version": "diagnostic_focused_question_verification_v1",
+        "schema_version": "diagnostic_focused_question_verification_v2",
         "production_status": "diagnostic_only",
         "api_key_used": False,
         "profile": profile_name,
@@ -180,29 +150,48 @@ def validate_focused_question_verification(
 ) -> dict:
     """Reconstruct and validate all focused-verification artifacts."""
 
+    saved_manifest = json.loads((output_dir / "focused-verification-manifest.json").read_text())
+    contract_version = _contract_version(saved_manifest)
     profile_hash = sha256(profiles_path.read_bytes()).hexdigest()
     profile = load_research_model_profiles(profiles_path).profiles[profile_name]
     _validate_inputs(packet, experimental_answer, first_review, profile)
     prompt_config, prompt_hash = _load_prompt_config(
-        project_root / "configs/question-review-verifier-prompts.yaml"
+        _prompt_config_path(project_root, contract_version)
     )
     findings = _proposed_blocking_findings(first_review, packet.question_id)
     finding_ids = tuple(findings)
-    response_model = _verification_response_model(packet, finding_ids)
+    unresolved_reopen_ids = tuple(item.evidence_id for item in experimental_answer.reopen_requests)
+    response_model = _verification_response_model(
+        packet,
+        finding_ids,
+        contract_version=contract_version,
+        unresolved_reopen_ids=unresolved_reopen_ids,
+    )
     prompt = _verifier_prompt(
-        packet, experimental_answer, findings, prompt_config.verifier_template
+        packet,
+        experimental_answer,
+        findings,
+        prompt_config.verifier_template,
+        contract_version=contract_version,
     )
     if (output_dir / "prompt.txt").read_bytes() != prompt.encode():
         raise ValueError("saved focused-verifier prompt differs from reconstruction")
     raw_path = output_dir / "output.json"
     response = response_model.model_validate_json(raw_path.read_text(encoding="utf-8"))
-    verification = _canonical_verification(response, packet, finding_ids)
+    verification = _canonical_verification(
+        response,
+        packet,
+        finding_ids,
+        contract_version=contract_version,
+        unresolved_reopen_ids=unresolved_reopen_ids,
+    )
     accepted_path = output_dir / "accepted-verification.json"
-    expected_accepted = verification.model_dump_json(indent=2) + "\n"
+    exclude = {"unresolved_reopen_request_ids"} if contract_version == 1 else None
+    expected_accepted = verification.model_dump_json(indent=2, exclude=exclude) + "\n"
     if accepted_path.read_bytes() != expected_accepted.encode():
         raise ValueError("accepted focused verification differs from raw output")
     expected = {
-        "schema_version": "diagnostic_focused_question_verification_v1",
+        "schema_version": f"diagnostic_focused_question_verification_v{contract_version}",
         "production_status": "diagnostic_only",
         "api_key_used": False,
         "profile": profile_name,
@@ -222,10 +211,25 @@ def validate_focused_question_verification(
         "accepted_verification_sha256": sha256(accepted_path.read_bytes()).hexdigest(),
         "quality_gate": verification.final_gate,
     }
-    manifest = json.loads((output_dir / "focused-verification-manifest.json").read_text())
-    if manifest != expected:
+    if saved_manifest != expected:
         raise ValueError("focused-verification manifest differs from reconstructed artifacts")
-    return manifest
+    return saved_manifest
+
+
+def _prompt_config_path(project_root: Path, version: int) -> Path:
+    name = (
+        "question-review-verifier-prompts.yaml"
+        if version == 2
+        else "question-review-verifier-prompts-v1.yaml"
+    )
+    return project_root / "configs" / name
+
+
+def _contract_version(manifest: dict) -> int:
+    version = manifest.get("prompt_config_version")
+    if type(version) is not int or version not in {1, 2}:
+        raise ValueError("focused-verification manifest has an unsupported prompt version")
+    return version
 
 
 def _load_prompt_config(path: Path) -> tuple[_VerifierPromptConfig, str]:
@@ -278,82 +282,20 @@ def _proposed_blocking_findings(
     return {f"finding_{index:03d}": text for index, text in enumerate(dict.fromkeys(findings), 1)}
 
 
-def _verification_response_model(
-    packet: QuestionEvidencePacket, finding_ids: tuple[str, ...]
-) -> type[BaseModel]:
-    reopenable_ids = packet.coverage.reopenable_evidence_ids
-    digest = sha256(
-        "\n".join(
-            (
-                packet.question_id,
-                *packet.coverage.required_evidence_ids,
-                *reopenable_ids,
-                *finding_ids,
-            )
-        ).encode()
-    ).hexdigest()[:12]
-    evidence_ledger = create_model(
-        f"PriorityEvidenceVerificationLedger_{digest}",
-        __config__=ConfigDict(extra="forbid"),
-        **{
-            f"item_{index:04d}": (PriorityEvidenceVerification, Field(alias=evidence_id))
-            for index, evidence_id in enumerate(packet.coverage.required_evidence_ids, 1)
-        },
-    )
-    finding_ledger = create_model(
-        f"ProposedFindingVerificationLedger_{digest}",
-        __config__=ConfigDict(extra="forbid"),
-        **{
-            f"item_{index:04d}": (ProposedFindingVerification, Field(alias=finding_id))
-            for index, finding_id in enumerate(finding_ids, 1)
-        },
-    )
-    omission_field = (
-        (tuple[Literal.__getitem__(reopenable_ids), ...], ())
-        if reopenable_ids
-        else (tuple[str, ...], Field(default=(), max_length=0))
-    )
-    return create_model(
-        f"FocusedQuestionVerificationResponse_{digest}",
-        __config__=ConfigDict(extra="forbid"),
-        question_id=(str, ...),
-        chronology_status=(Literal["pass", "fail", "uncertain"], ...),
-        chronology_finding=(str, Field(min_length=20)),
-        priority_evidence_checks=(evidence_ledger, ...),
-        proposed_finding_checks=(finding_ledger, ...),
-        additional_omitted_evidence_ids=omission_field,
-        final_gate=(Literal["pass", "fail"], ...),
-        rationale=(str, Field(min_length=30)),
-    )
-
-
-def _canonical_verification(
-    response: BaseModel,
-    packet: QuestionEvidencePacket,
-    finding_ids: tuple[str, ...],
-) -> FocusedQuestionVerification:
-    payload = response.model_dump(mode="json", by_alias=True)
-    if payload["question_id"] != packet.question_id:
-        raise ValueError("focused verifier changed question identity")
-    evidence = payload.pop("priority_evidence_checks")
-    findings = payload.pop("proposed_finding_checks")
-    payload["priority_evidence_checks"] = [
-        {"evidence_id": evidence_id, **evidence[evidence_id]}
-        for evidence_id in packet.coverage.required_evidence_ids
-    ]
-    payload["proposed_finding_checks"] = [
-        {"finding_id": finding_id, **findings[finding_id]} for finding_id in finding_ids
-    ]
-    return FocusedQuestionVerification.model_validate(payload)
-
-
 def _verifier_prompt(
     packet: QuestionEvidencePacket,
     answer: DiagnosticQuestionAnswer,
     findings: dict[str, str],
     template: str,
+    *,
+    contract_version: int = 2,
 ) -> str:
-    reopenable = set(packet.coverage.reopenable_evidence_ids)
+    unresolved = (
+        {item.evidence_id for item in answer.reopen_requests}
+        if contract_version >= 2
+        else set()
+    )
+    reopenable = set(packet.coverage.reopenable_evidence_ids) - unresolved
     return template.format(
         question_id=packet.question_id,
         question=packet.question,

@@ -347,9 +347,11 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
   output, prompt, configuration, schema, and manifest hashes without rewriting the artifact.
 - **REQ-PIPE-007B:** A diagnostic second-pass question verifier shall use Luna on the Codex
   subscription surface, check chronology separately, disposition every priority evidence
-  ID, constrain new omissions to the packet's reopenable-ID set, and verify each first-pass
-  blocking finding. Code shall derive the final gate and trusted reload shall reconstruct
-  and bind the prompt, raw response, strict schema, canonical output, inputs, and manifest.
+  ID, deterministically block every accepted writer reopen request, constrain model-found
+  new omissions to the remaining packet reopenable-ID set, and verify each first-pass
+  blocking finding. Code rather than the model shall derive the final gate. Trusted reload
+  shall reconstruct and bind the versioned prompt, raw response, strict schema, canonical
+  output, inputs, and manifest while preserving frozen v1 diagnostic artifacts.
   This verifier shall not enter the production path until it passes a bounded known-defect
   and repeatability gate.
 - **REQ-PIPE-008:** An integrated experimental release shall bind its frozen scientific
