@@ -608,3 +608,13 @@ Luna-high writing calls. Their complete prompts are estimated at 4,160,207 input
 total (mean 52,003; maximum 156,985 for `6B.10`), with no request above the configured
 300,000-token ceiling. Review, judging, audit, and publication must not start during that
 bounded writing phase.
+
+The approved v11 writing launch is frozen as an incomplete diagnostic after its interactive
+execution owner disappeared at a session boundary. Sixty-two answers completed and passed
+deterministic validation; five launched calls were interrupted with unresolved reservations
+(`2B.7`, `5B.10`, `6B.9`, `7B.10`, and `8B.1`), and thirteen calls never launched. No model
+or validation failure caused the stop, but only three complete chapter manifests exist, so
+v11 cannot pass and must not be resumed or repaired. The completed calls recorded 4,261,555
+input tokens, 285,440 cached input tokens, 321,726 output tokens, and 134,088 reasoning-output
+tokens. A fresh v12 release must use a detached durable execution owner and a new bounded
+approval before repeating question writing; later stages remain stopped.
