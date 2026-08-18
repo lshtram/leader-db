@@ -660,3 +660,14 @@ prompts total 4,144,575 estimated input tokens (mean 51,807; maximum 157,035 for
 with one request above 150,000 and none above the 300,000-token ceiling. It is superseded
 without a model call because that repair did not address the actual v12 failure. Review and
 judging remain stopped.
+
+The fresh `netanyahu-2023-integrated-luna-sol-v14` zero-call preflight is eligible under
+prompt version 13. It binds eight packages, 80 questions, all 72 authorized evidence
+promotions, and the exact 176-call inventory while executing zero calls. Before the bounded
+`6B.6` diagnostic, the complete prompt plus strict response schema measures 136,623 input
+tokens (574,464 characters), below the 300,000-token request ceiling and the model context
+safety limit. Its dynamic citation enum contains exactly the question's 34 required evidence
+IDs; both answer and limitation sections use that same closed list. The approved predecessor
+is included because all of its referenced IDs are available in the v14 exact packet. The
+next permitted action is one Luna-high Codex-subscription diagnostic call for `6B.6`; no
+other writing, review, or judging call is authorized by this checkpoint.
