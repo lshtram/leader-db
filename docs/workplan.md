@@ -684,3 +684,16 @@ input tokens, zero cached input tokens, 5,580 output tokens including 1,808 reas
 tokens, and 133.734149 seconds. The run ledger reconciles one reservation to one completed
 call with no pending capacity. This validates the actual foreign-citation repair on the known
 failure before any broader diagnostic set is authorized.
+
+The fresh v15 bounded writer batch then tested all nine questions whose unsafe predecessors
+are excluded (`2B.3`, `2B.5`, `2B.9`, `2B.10`, `4B.4`, `4B.10`, `6B.4`, `7B.3`, and
+`7B.10`) plus `6B.10`, the largest complete request. All ten Luna-high calls passed
+deterministic validation, trusted raw-to-accepted reconstruction, exact ordered disposition
+coverage, and the closed citation allowlist. No free-text field contained an evidence-ID
+shape, no attached citation was outside its question's required IDs, and no answer requested
+additional evidence. This includes `2B.3`, which had twice failed the older disposition
+contract. The batch used 932,004 input tokens, zero cached input tokens, 46,285 output tokens
+including 18,709 reasoning-output tokens, and 930.813884 summed call seconds. Its run ledger
+reconciles exactly to ten completed reservations with no pending or failed entry. The next
+decision is whether to authorize a completely fresh 80-question writing release under prompt
+13; independent question review and all judging remain stopped until that writing gate passes.
