@@ -637,3 +637,12 @@ request manifest. The byte-exact v11 prompt is frozen for historical reconstruct
 trusted writing reload selects and hash-checks each saved prompt version. A completely fresh
 release is required after focused tests and independent review; v12 must not be resumed or
 modified.
+
+The completely fresh `netanyahu-2023-integrated-luna-sol-v13` zero-call preflight is
+eligible after the prompt-v12 repair. It again binds eight packages, 80 questions, all 72
+authorized evidence promotions, and the exact 176-call inventory while executing zero
+calls. The prospective writer includes 71 predecessors and deliberately excludes nine that
+reference ten evidence IDs unavailable in their current exact packets. Its 80 complete
+prompts total 4,144,575 estimated input tokens (mean 51,807; maximum 157,035 for `6B.10`),
+with one request above 150,000 and none above the 300,000-token ceiling. A new bounded
+approval is required before v13 writing; review and judging remain stopped.
