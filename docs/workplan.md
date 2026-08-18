@@ -671,3 +671,16 @@ IDs; both answer and limitation sections use that same closed list. The approved
 is included because all of its referenced IDs are available in the v14 exact packet. The
 next permitted action is one Luna-high Codex-subscription diagnostic call for `6B.6`; no
 other writing, review, or judging call is authorized by this checkpoint.
+
+That single v14 `6B.6` diagnostic is complete and passes. The raw response used prompt-13
+answer and limitation sections, every attached citation ID belonged to the exact 34-ID
+allowlist, no model-written free-text field contained an evidence-ID-shaped string, and the
+ordered disposition ledger contained all 34 required IDs. Deterministic validation found no
+unknown or missing required citations and returned `pass`; two limitation/qualification
+records were absent from rendered prose but remained explicitly and validly dispositioned.
+Trusted reconstruction from raw output, accepted output, and the normalization ledger also
+passed, and the model requested no evidence reopen. The sole Luna-high call used 151,836
+input tokens, zero cached input tokens, 5,580 output tokens including 1,808 reasoning-output
+tokens, and 133.734149 seconds. The run ledger reconciles one reservation to one completed
+call with no pending capacity. This validates the actual foreign-citation repair on the known
+failure before any broader diagnostic set is authorized.
