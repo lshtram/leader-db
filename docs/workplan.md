@@ -629,20 +629,34 @@ ran. Profiling reconciles exactly to 3,839,477 input tokens, 373,760 cached inpu
 the PAYG equivalent is $1.047805-$1.221093 and the Codex-credit equivalent is 26.195155,
 while actual subscription billing remains unavailable.
 
-Diagnosis found the foreign ID in the approved predecessor's structured evidence list even
-though it was absent from the current packet. Prompt version 12 now supplies a predecessor
-only when every evidence ID it references is current required exact evidence; otherwise the
-entire predecessor is replaced by an empty object and the excluded IDs are recorded in the
-request manifest. The byte-exact v11 prompt is frozen for historical reconstruction, and
-trusted writing reload selects and hash-checks each saved prompt version. A completely fresh
-release is required after focused tests and independent review; v12 must not be resumed or
-modified.
+An initial diagnosis attributed the foreign ID to the approved predecessor. Prompt version
+12 consequently added a valid general control: it supplies a predecessor only when every
+referenced evidence ID is current required exact evidence, otherwise replaces the entire
+predecessor with an empty object, and records the exclusion. Before the authorized `6B.6`
+probe launched, exact prompt reconstruction disproved that diagnosis for this failure:
+`BATCH-0036-E019` was absent from the complete v12 prompt. Luna had invented a plausible ID
+inside unrestricted prose. The one-call probe was therefore not spent, and the v13 zero-call
+release below was superseded before writing.
 
-The completely fresh `netanyahu-2023-integrated-luna-sol-v13` zero-call preflight is
-eligible after the prompt-v12 repair. It again binds eight packages, 80 questions, all 72
+Prompt version 13 fixes the actual boundary. Luna now returns ordered prose sections whose
+citation IDs are selected from a dynamic strict-schema enum containing only the current
+required exact IDs. Answer and limitation sections are bounded, separately cited claim
+items; their text cannot contain brackets, newlines, or evidence-ID-shaped text. Disposition
+explanations and reopen reasons likewise reject evidence-ID-shaped text. Deterministic code
+renders the canonical bracketed prose, so a foreign citation cannot reach accepted output.
+This structure proves that attached citation IDs are allowed; it cannot prove that an
+allowed record actually supports the claim or that a model has perfectly separated every
+semantic claim. Deterministic validation and independent review retain those responsibilities.
+The byte-exact v11 and v12 prompts and their legacy keyed/free-text transports remain
+reconstructable. A completely fresh release is required after focused tests and independent
+review; neither v12 nor v13 may be resumed or modified.
+
+The `netanyahu-2023-integrated-luna-sol-v13` zero-call preflight was eligible under the
+prompt-v12 predecessor repair. It bound eight packages, 80 questions, all 72
 authorized evidence promotions, and the exact 176-call inventory while executing zero
 calls. The prospective writer includes 71 predecessors and deliberately excludes nine that
 reference ten evidence IDs unavailable in their current exact packets. Its 80 complete
 prompts total 4,144,575 estimated input tokens (mean 51,807; maximum 157,035 for `6B.10`),
-with one request above 150,000 and none above the 300,000-token ceiling. A new bounded
-approval is required before v13 writing; review and judging remain stopped.
+with one request above 150,000 and none above the 300,000-token ceiling. It is superseded
+without a model call because that repair did not address the actual v12 failure. Review and
+judging remain stopped.

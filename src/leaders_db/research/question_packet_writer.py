@@ -6,10 +6,11 @@ import json
 import re
 from hashlib import sha256
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 
 import tiktoken
 from pydantic import (
+    AfterValidator,
     BaseModel,
     ConfigDict,
     Field,
@@ -23,6 +24,7 @@ from .corpus_reader_runner import ModelCallCoordinator, execute_json_model
 from .model_call_budget import RunUsageBudgetTracker, StageBudgetTracker
 from .model_profiles import load_research_model_profiles
 from .question_evidence_packet_models import QuestionEvidencePacket
+from .question_packet_answer_validation import validate_question_answer
 from .question_packet_prompts import load_question_packet_prompts
 from .question_packet_writer_prompt import (
     build_question_writer_prompt,
@@ -45,6 +47,29 @@ class _AnswerEvidenceDispositionDetail(BaseModel):
 
     role: Literal["supporting", "contrary_or_qualifying", "limitation_only"]
     material_point: str = Field(min_length=20)
+
+
+def _reject_evidence_id_text(value: str) -> str:
+    if re.search(r"\b(?:BATCH-[A-Z0-9-]+|E-[A-Z0-9]+|SRC:[A-Z0-9]+)\b", value):
+        raise ValueError("transport prose must not contain evidence IDs")
+    return value
+
+
+_EvidenceFreeText = Annotated[str, AfterValidator(_reject_evidence_id_text)]
+
+
+class _TransportEvidenceDispositionDetail(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    role: Literal["supporting", "contrary_or_qualifying", "limitation_only"]
+    material_point: _EvidenceFreeText = Field(min_length=20)
+
+
+class _TransportReopenRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    evidence_id: str
+    reason: _EvidenceFreeText = Field(min_length=20)
 
 
 class EvidenceReopenRequest(BaseModel):
@@ -73,6 +98,14 @@ class _DiagnosticQuestionAnswerBase(BaseModel):
     answer: str = Field(min_length=30)
     limitations_and_gaps: tuple[str, ...] = ()
     reopen_requests: tuple[EvidenceReopenRequest, ...] = ()
+
+
+class _DiagnosticQuestionAnswerTransportBase(BaseModel):
+    """Non-prose fields shared by the current structured transport response."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    question_id: str
 
 
 class DiagnosticQuestionAnswer(_DiagnosticQuestionAnswerBase):
@@ -187,25 +220,64 @@ def write_diagnostic_question_answer(
 def _question_answer_response_model(
     required_evidence_ids: tuple[str, ...],
 ) -> type[BaseModel]:
-    """Build a strict object schema with one required key per evidence ID."""
+    """Build a strict response whose prose citations are exact-ID enums."""
+
+    if not required_evidence_ids:
+        raise ValueError("question writer requires at least one exact evidence ID")
+    digest = sha256("\n".join(required_evidence_ids).encode()).hexdigest()[:12]
+    citation_id = Literal.__getitem__(required_evidence_ids)
+    section = create_model(
+        f"CitedAnswerSection_{digest}",
+        __config__=ConfigDict(extra="forbid"),
+        text=(
+            _EvidenceFreeText,
+            Field(min_length=20, max_length=1000, pattern=r"^[^\[\]\r\n]+$"),
+        ),
+        citation_ids=(tuple[citation_id, ...], Field(min_length=1)),
+    )
+    ledger = _required_evidence_ledger(
+        required_evidence_ids, digest, _TransportEvidenceDispositionDetail
+    )
+    return create_model(
+        f"DiagnosticQuestionAnswerResponse_{digest}",
+        __base__=_DiagnosticQuestionAnswerTransportBase,
+        answer_sections=(tuple[section, ...], Field(min_length=1)),
+        limitation_sections=(tuple[section, ...], ...),
+        reopen_requests=(tuple[_TransportReopenRequest, ...], ()),
+        evidence_dispositions=(ledger, ...),
+    )
+
+
+def _legacy_question_answer_response_model(
+    required_evidence_ids: tuple[str, ...],
+) -> type[BaseModel]:
+    """Reconstruct the keyed prompt-v10 through prompt-v12 transport."""
 
     digest = sha256("\n".join(required_evidence_ids).encode()).hexdigest()[:12]
+    ledger = _required_evidence_ledger(required_evidence_ids, digest)
+    return create_model(
+        f"LegacyDiagnosticQuestionAnswerResponse_{digest}",
+        __base__=_DiagnosticQuestionAnswerBase,
+        evidence_dispositions=(ledger, ...),
+    )
+
+
+def _required_evidence_ledger(
+    required_evidence_ids: tuple[str, ...],
+    digest: str,
+    detail_model: type[BaseModel] = _AnswerEvidenceDispositionDetail,
+) -> type[BaseModel]:
     fields = {
         f"item_{index:04d}": (
-            _AnswerEvidenceDispositionDetail,
+            detail_model,
             Field(alias=evidence_id),
         )
         for index, evidence_id in enumerate(required_evidence_ids, start=1)
     }
-    ledger = create_model(
+    return create_model(
         f"RequiredEvidenceLedger_{digest}",
         __config__=ConfigDict(extra="forbid"),
         **fields,
-    )
-    return create_model(
-        f"DiagnosticQuestionAnswerResponse_{digest}",
-        __base__=_DiagnosticQuestionAnswerBase,
-        evidence_dispositions=(ledger, ...),
     )
 
 
@@ -218,11 +290,29 @@ def _canonical_question_answer(
     raw_ledger = payload.pop("evidence_dispositions")
     if not isinstance(raw_ledger, dict):
         raise ValueError("question response evidence ledger must be an object")
+    sections = payload.pop("answer_sections", None)
+    if sections is not None:
+        payload["answer"] = "\n\n".join(
+            _render_cited_section(section["text"], section["citation_ids"])
+            for section in sections
+        )
+        payload["limitations_and_gaps"] = [
+            _render_cited_section(section["text"], section["citation_ids"])
+            for section in payload.pop("limitation_sections")
+        ]
     payload["evidence_dispositions"] = [
         {"evidence_id": evidence_id, **raw_ledger[evidence_id]}
         for evidence_id in required_evidence_ids
     ]
     return DiagnosticQuestionAnswer.model_validate(payload)
+
+
+def _render_cited_section(text: str, citation_ids: list[str]) -> str:
+    stripped = text.strip()
+    citation = f"[{'; '.join(citation_ids)}]"
+    if stripped[-1] in ".?!":
+        return f"{stripped[:-1].rstrip()} {citation}{stripped[-1]}"
+    return f"{stripped} {citation}"
 
 
 def normalize_optional_reopen_requests(
@@ -255,12 +345,30 @@ def load_normalized_question_answer(
     accepted_path = output_dir / "accepted-output.json"
     ledger_path = output_dir / "normalization-ledger.json"
     raw_text = raw_path.read_text(encoding="utf-8")
-    response_model = _question_answer_response_model(packet.coverage.required_evidence_ids)
-    try:
+    payload = json.loads(raw_text)
+    request = json.loads((output_dir / "request-manifest.json").read_bytes())
+    prompt_version = request.get("prompt_config_version")
+    if type(prompt_version) is not int or prompt_version < 1:
+        raise ValueError("question writer request has an invalid prompt version")
+    if prompt_version >= 13:
+        if "answer_sections" not in payload or "answer" in payload:
+            raise ValueError("current question writer raw output uses a legacy transport")
+        response_model = _question_answer_response_model(
+            packet.coverage.required_evidence_ids
+        )
         response = response_model.model_validate_json(raw_text)
         raw = _canonical_question_answer(response, packet.coverage.required_evidence_ids)
-    except ValidationError:
-        raw = DiagnosticQuestionAnswer.model_validate_json(raw_text)
+    else:
+        if "answer_sections" in payload:
+            raise ValueError("legacy question writer raw output uses the current transport")
+        response_model = _legacy_question_answer_response_model(
+            packet.coverage.required_evidence_ids
+        )
+        try:
+            response = response_model.model_validate_json(raw_text)
+            raw = _canonical_question_answer(response, packet.coverage.required_evidence_ids)
+        except ValidationError:
+            raw = DiagnosticQuestionAnswer.model_validate_json(raw_text)
     expected, ledger = normalize_optional_reopen_requests(packet, raw)
     ledger["raw_output_sha256"] = sha256(raw_path.read_bytes()).hexdigest()
     ledger["accepted_output_sha256"] = sha256(accepted_path.read_bytes()).hexdigest()
@@ -269,65 +377,6 @@ def load_normalized_question_answer(
     if actual != expected or saved_ledger != ledger:
         raise ValueError("normalized question answer does not match immutable raw output")
     return actual
-
-
-def validate_question_answer(
-    packet: QuestionEvidencePacket, answer: DiagnosticQuestionAnswer
-) -> dict:
-    """Require a complete ledger and reject foreign inline citations before review."""
-
-    required = set(packet.coverage.required_evidence_ids)
-    reopenable = set(packet.coverage.reopenable_evidence_ids)
-    reopen_ids = [item.evidence_id for item in answer.reopen_requests]
-    reopened = set(reopen_ids)
-    duplicate_reopen_requests = sorted({item for item in reopen_ids if reopen_ids.count(item) > 1})
-    disposition_ids = [item.evidence_id for item in answer.evidence_dispositions]
-    duplicate_dispositions = sorted(
-        {item for item in disposition_ids if disposition_ids.count(item) > 1}
-    )
-    missing_dispositions = sorted(required - set(disposition_ids))
-    unknown_dispositions = sorted(set(disposition_ids) - required)
-    cited = set(disposition_ids)
-    inline_ids = {
-        evidence_id.strip()
-        for group in re.findall(r"\[([^\[\]\r\n]+)\]", answer.answer)
-        for evidence_id in group.split(";")
-        if evidence_id.strip()
-    }
-    missing_inline_citations = sorted(required - inline_ids)
-    unknown_inline_citations = sorted(inline_ids - required)
-    unknown_citations = sorted(cited - required)
-    missing_required = sorted(required - cited)
-    unknown_reopen_requests = sorted(reopened - reopenable)
-    return {
-        "question_id": packet.question_id,
-        "identity_matches": answer.question_id == packet.question_id,
-        "required_evidence_count": len(required),
-        "cited_evidence_count": len(cited),
-        "missing_required_evidence_ids": missing_required,
-        "unknown_citation_ids": unknown_citations,
-        "inline_citation_count": len(inline_ids),
-        "missing_inline_citation_ids": missing_inline_citations,
-        "unknown_inline_citation_ids": unknown_inline_citations,
-        "unknown_reopen_request_ids": unknown_reopen_requests,
-        "duplicate_reopen_request_ids": duplicate_reopen_requests,
-        "missing_evidence_disposition_ids": missing_dispositions,
-        "unknown_evidence_disposition_ids": unknown_dispositions,
-        "duplicate_evidence_disposition_ids": duplicate_dispositions,
-        "functional_gate": (
-            "pass"
-            if answer.question_id == packet.question_id
-            and not missing_required
-            and not unknown_citations
-            and not unknown_inline_citations
-            and not unknown_reopen_requests
-            and not duplicate_reopen_requests
-            and not missing_dispositions
-            and not unknown_dispositions
-            and not duplicate_dispositions
-            else "fail"
-        ),
-    }
 
 
 __all__ = [

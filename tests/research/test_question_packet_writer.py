@@ -46,7 +46,13 @@ def test_transport_schema_requires_every_evidence_id_as_an_exact_key() -> None:
         response_model.model_validate(
             {
                 "question_id": "2B.3",
-                "answer": "A sufficiently detailed answer cites evidence [BATCH-1].",
+                "answer_sections": [
+                    {
+                        "text": "A sufficiently detailed answer cites the evidence.",
+                        "citation_ids": ["BATCH-1"],
+                    }
+                ],
+                "limitation_sections": [],
                 "evidence_dispositions": {
                     "BATCH-1": {
                         "role": "supporting",
@@ -59,7 +65,13 @@ def test_transport_schema_requires_every_evidence_id_as_an_exact_key() -> None:
         response_model.model_validate(
             {
                 "question_id": "2B.3",
-                "answer": "A sufficiently detailed answer cites all evidence.",
+                "answer_sections": [
+                    {
+                        "text": "A sufficiently detailed answer cites all evidence.",
+                        "citation_ids": ["BATCH-1", "SRC:42"],
+                    }
+                ],
+                "limitation_sections": [],
                 "evidence_dispositions": {
                     "item_0001": {
                         "role": "supporting",
@@ -80,7 +92,13 @@ def test_keyed_transport_ledger_converts_to_canonical_ordered_answer() -> None:
     response = response_model.model_validate(
         {
             "question_id": "2B.3",
-            "answer": "A sufficiently detailed answer [BATCH-1; SRC:42].",
+            "answer_sections": [
+                {
+                    "text": "A sufficiently detailed answer.",
+                    "citation_ids": ["BATCH-1", "SRC:42"],
+                }
+            ],
+            "limitation_sections": [],
             "evidence_dispositions": {
                 "SRC:42": {
                     "role": "contrary_or_qualifying",
@@ -97,6 +115,73 @@ def test_keyed_transport_ledger_converts_to_canonical_ordered_answer() -> None:
     answer = _canonical_question_answer(response, required)
 
     assert tuple(item.evidence_id for item in answer.evidence_dispositions) == required
+    assert answer.answer == "A sufficiently detailed answer [BATCH-1; SRC:42]."
+
+    with pytest.raises(ValidationError):
+        response_model.model_validate(
+            {
+                "question_id": "2B.3",
+                "answer_sections": [
+                    {
+                        "text": "A section cannot contain manual [FOREIGN] citations.",
+                        "citation_ids": ["BATCH-1"],
+                    }
+                ],
+                "limitation_sections": [],
+                "evidence_dispositions": response.model_dump(
+                    mode="json", by_alias=True
+                )["evidence_dispositions"],
+            }
+        )
+    with pytest.raises(ValidationError):
+        response_model.model_validate(
+            {
+                **response.model_dump(mode="json", by_alias=True),
+                "limitation_sections": [
+                    {
+                        "text": "A limitation cannot contain a manual [FOREIGN] citation.",
+                        "citation_ids": ["BATCH-1"],
+                    }
+                ],
+            }
+        )
+    with pytest.raises(ValidationError):
+        response_model.model_validate(
+            {
+                "question_id": "2B.3",
+                "answer_sections": [
+                    {
+                        "text": "A sufficiently detailed answer cites exact evidence.",
+                        "citation_ids": ["FOREIGN-1"],
+                    }
+                ],
+                "limitation_sections": [],
+                "evidence_dispositions": response.model_dump(
+                    mode="json", by_alias=True
+                )["evidence_dispositions"],
+            }
+        )
+    for field, foreign_text in (
+        ("answer", "A foreign prose citation BATCH-9999-E999 supports this claim."),
+        ("limitation", "A foreign limitation E-999 would qualify this claim."),
+        ("material_point", "A foreign SRC:999 record supposedly supports this claim."),
+        ("reopen_reason", "Unavailable BATCH-9999-E999 evidence could change this claim."),
+    ):
+        payload = response.model_dump(mode="json", by_alias=True)
+        if field == "answer":
+            payload["answer_sections"][0]["text"] = foreign_text
+        elif field == "limitation":
+            payload["limitation_sections"] = [
+                {"text": foreign_text, "citation_ids": ["BATCH-1"]}
+            ]
+        elif field == "material_point":
+            payload["evidence_dispositions"]["BATCH-1"]["material_point"] = foreign_text
+        else:
+            payload["reopen_requests"] = [
+                {"evidence_id": "E-2", "reason": foreign_text}
+            ]
+        with pytest.raises(ValidationError, match="must not contain evidence IDs"):
+            response_model.model_validate(payload)
 
 
 def test_grouped_required_inline_citations_pass() -> None:
@@ -371,11 +456,18 @@ def _assert_normalized_roundtrip(
     raw_path = tmp_path / "output.json"
     accepted_path = tmp_path / "accepted-output.json"
     response_model = _question_answer_response_model(("E-1",))
+    request_path = tmp_path / "request-manifest.json"
+    request_path.write_text(json.dumps({"prompt_config_version": 13}), encoding="utf-8")
     keyed_raw = response_model.model_validate(
         {
             "question_id": unknown_reopen.question_id,
-            "answer": unknown_reopen.answer,
-            "limitations_and_gaps": unknown_reopen.limitations_and_gaps,
+            "answer_sections": [
+                {
+                    "text": "A sufficiently detailed answer grounded in the exact evidence.",
+                    "citation_ids": ["E-1"],
+                }
+            ],
+            "limitation_sections": [],
             "reopen_requests": [
                 item.model_dump(mode="json") for item in unknown_reopen.reopen_requests
             ],
@@ -391,6 +483,34 @@ def _assert_normalized_roundtrip(
     accepted_path.write_text(normalized.model_dump_json(), encoding="utf-8")
     ledger["raw_output_sha256"] = sha256(raw_path.read_bytes()).hexdigest()
     ledger["accepted_output_sha256"] = sha256(accepted_path.read_bytes()).hexdigest()
+    (tmp_path / "normalization-ledger.json").write_text(json.dumps(ledger), encoding="utf-8")
+    assert load_normalized_question_answer(packet, tmp_path) == normalized
+
+    raw_path.write_text(
+        json.dumps(
+            {
+                "question_id": unknown_reopen.question_id,
+                "answer": unknown_reopen.answer,
+                "limitations_and_gaps": list(unknown_reopen.limitations_and_gaps),
+                "reopen_requests": [
+                    item.model_dump(mode="json") for item in unknown_reopen.reopen_requests
+                ],
+                "evidence_dispositions": {
+                    "E-1": {
+                        "role": "supporting",
+                        "material_point": (
+                            "The exact record directly supports the stated conclusion."
+                        ),
+                    }
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="legacy transport"):
+        load_normalized_question_answer(packet, tmp_path)
+    request_path.write_text(json.dumps({"prompt_config_version": 12}), encoding="utf-8")
+    ledger["raw_output_sha256"] = sha256(raw_path.read_bytes()).hexdigest()
     (tmp_path / "normalization-ledger.json").write_text(json.dumps(ledger), encoding="utf-8")
     assert load_normalized_question_answer(packet, tmp_path) == normalized
 
