@@ -618,3 +618,22 @@ v11 cannot pass and must not be resumed or repaired. The completed calls recorde
 input tokens, 285,440 cached input tokens, 321,726 output tokens, and 134,088 reasoning-output
 tokens. A fresh v12 release must use a detached durable execution owner and a new bounded
 approval before repeating question writing; later stages remain stopped.
+
+The detached v12 writing run is frozen as a failed diagnostic after a genuine deterministic
+answer failure. Fifty-five Luna-high calls completed; 54 answers passed and `6B.6` failed.
+Its structured disposition ledger covered all 34 required records, but its prose cited
+`BATCH-0036-E019`, which was not available in the current exact-evidence packet. The shared
+fail-stop ended the other chapters without stale reservations, and no review or judging call
+ran. Profiling reconciles exactly to 3,839,477 input tokens, 373,760 cached input tokens,
+289,323 output tokens, 126,678 reasoning-output tokens, and 5,558.512590 summed call seconds;
+the PAYG equivalent is $1.047805-$1.221093 and the Codex-credit equivalent is 26.195155,
+while actual subscription billing remains unavailable.
+
+Diagnosis found the foreign ID in the approved predecessor's structured evidence list even
+though it was absent from the current packet. Prompt version 12 now supplies a predecessor
+only when every evidence ID it references is current required exact evidence; otherwise the
+entire predecessor is replaced by an empty object and the excluded IDs are recorded in the
+request manifest. The byte-exact v11 prompt is frozen for historical reconstruction, and
+trusted writing reload selects and hash-checks each saved prompt version. A completely fresh
+release is required after focused tests and independent review; v12 must not be resumed or
+modified.

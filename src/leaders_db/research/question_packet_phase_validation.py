@@ -13,7 +13,10 @@ from .question_packet_chapter_models import (
     ChapterQuestionArtifact,
     ChapterQuestionPhaseManifest,
 )
-from .question_packet_prompts import load_question_packet_prompts
+from .question_packet_prompts import (
+    load_question_packet_prompts,
+    load_versioned_question_packet_prompts,
+)
 from .question_packet_quality import validate_blind_review_artifacts
 from .question_packet_writer import (
     DiagnosticQuestionAnswer,
@@ -21,6 +24,7 @@ from .question_packet_writer import (
     load_normalized_question_answer,
     validate_question_answer,
 )
+from .question_packet_writer_prompt import project_predecessor_answer
 from .question_review_preflight import load_review_input_snapshot
 
 
@@ -56,7 +60,7 @@ def validate_chapter_question_writing(
     ):
         raise ValueError("chapter writing manifest does not match current inputs")
     packets = {item.question_id: item for item in package.packets}
-    prompts, _ = load_question_packet_prompts(project_root / "configs/question-packet-prompts.yaml")
+    prompt_hashes: set[str] = set()
     for artifact in manifest.artifacts:
         path = inside(output_dir, artifact.artifact_path)
         packet = packets[artifact.question_id]
@@ -65,6 +69,22 @@ def validate_chapter_question_writing(
             if path.name == "accepted-output.json"
             else DiagnosticQuestionAnswer.model_validate_json(path.read_text())
         )
+        request = json.loads((path.parent / "request-manifest.json").read_bytes())
+        prompts, prompt_hash = load_versioned_question_packet_prompts(
+            project_root, request.get("prompt_config_version")
+        )
+        if request.get("prompt_config_sha256") != prompt_hash:
+            raise ValueError("saved question-writer prompt configuration hash differs")
+        if prompts.version >= 12:
+            projected, excluded = project_predecessor_answer(
+                packet, predecessor[artifact.question_id]
+            )
+            if (
+                request.get("predecessor_answer_included") != bool(projected)
+                or request.get("predecessor_excluded_evidence_ids") != list(excluded)
+            ):
+                raise ValueError("saved predecessor projection metadata differs")
+        prompt_hashes.add(prompt_hash)
         expected_prompt = prompt_builder(
             packet, prompts, predecessor[artifact.question_id]
         )
@@ -74,6 +94,8 @@ def validate_chapter_question_writing(
             question_validator(packet, answer)["functional_gate"] != "pass"
         ):
             raise ValueError("chapter writing child artifact is invalid")
+    if prompt_hashes != {manifest.prompt_config_sha256}:
+        raise ValueError("chapter writing manifest mixes prompt configurations")
     return manifest
 
 

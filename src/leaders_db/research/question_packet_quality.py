@@ -17,7 +17,11 @@ from .corpus_reader_runner import ModelCallCoordinator, execute_json_model
 from .model_call_budget import RunUsageBudgetTracker, StageBudgetTracker
 from .model_profiles import load_research_model_profiles
 from .question_evidence_packet_models import QuestionEvidencePacket
-from .question_packet_prompts import QuestionPacketPrompts, load_question_packet_prompts
+from .question_packet_prompts import (
+    QuestionPacketPrompts,
+    load_question_packet_prompts,
+    load_versioned_question_packet_prompts,
+)
 from .question_packet_writer import DiagnosticQuestionAnswer, validate_question_answer
 
 
@@ -247,15 +251,9 @@ def validate_blind_review_artifacts(
 def _load_saved_prompt_contract(
     project_root: Path, manifest: dict
 ) -> tuple[QuestionPacketPrompts, str]:
-    current_path = project_root / "configs/question-packet-prompts.yaml"
-    current, current_hash = load_question_packet_prompts(current_path)
-    version = manifest.get("prompt_config_version")
-    if version == current.version:
-        return current, current_hash
-    legacy_path = project_root / f"configs/question-packet-prompts-v{version}.yaml"
-    if not legacy_path.is_file():
-        raise ValueError("saved review prompt version is unavailable")
-    return load_question_packet_prompts(legacy_path)
+    return load_versioned_question_packet_prompts(
+        project_root, manifest.get("prompt_config_version")
+    )
 
 
 def _blind_labels(question_id: str) -> dict[str, str]:

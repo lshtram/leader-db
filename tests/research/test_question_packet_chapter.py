@@ -16,10 +16,12 @@ from leaders_db.research.question_packet_chapter import (
     validate_chapter_question_writing,
 )
 from leaders_db.research.question_packet_chapter_models import QuestionReviewReopenStopManifest
+from leaders_db.research.question_packet_prompts import load_question_packet_prompts
 from leaders_db.research.question_packet_writer import (
     DiagnosticQuestionAnswer,
     EvidenceReopenRequest,
 )
+from leaders_db.research.question_packet_writer_prompt import project_predecessor_answer
 from tests.research.test_single_pass_chapter_analysis import _result
 
 ROOT = Path.cwd()
@@ -30,6 +32,7 @@ def _package(analysis_hash: str = "0" * 64):
     packets = tuple(
         SimpleNamespace(
             question_id=f"4B.{number}",
+            coverage=SimpleNamespace(required_evidence_ids=()),
             model_dump=lambda mode="json", number=number: {"number": number},
         )
         for number in range(1, 11)
@@ -47,6 +50,23 @@ def _answer(question_id: str) -> DiagnosticQuestionAnswer:
         question_id=question_id,
         answer="A sufficiently detailed evidence answer for the requested question.",
         evidence_dispositions=(),
+    )
+
+
+def _write_request_manifest(output_dir: Path, packet, predecessor: dict) -> None:
+    prompts, prompt_hash = load_question_packet_prompts(
+        ROOT / "configs/question-packet-prompts.yaml"
+    )
+    projected, excluded = project_predecessor_answer(packet, predecessor)
+    (output_dir / "request-manifest.json").write_text(
+        json.dumps(
+            {
+                "prompt_config_version": prompts.version,
+                "prompt_config_sha256": prompt_hash,
+                "predecessor_answer_included": bool(projected),
+                "predecessor_excluded_evidence_ids": list(excluded),
+            }
+        )
     )
 
 
@@ -207,6 +227,7 @@ def test_chapter_review_is_separate_and_rejects_changed_writer_output(
     def fake_writer(**kwargs):
         output_dir = kwargs["output_dir"]
         output_dir.mkdir(parents=True)
+        _write_request_manifest(output_dir, kwargs["packet"], kwargs["predecessor_answer"])
         answer = _answer(kwargs["packet"].question_id)
         (output_dir / "output.json").write_text(answer.model_dump_json())
         (output_dir / "prompt.txt").write_text("prompt")
@@ -234,6 +255,28 @@ def test_chapter_review_is_separate_and_rejects_changed_writer_output(
         profile_name="openai-terra-candidate",
         profiles_path=PROFILES,
     )
+    request_path = writing_dir / "questions/4B.1/request-manifest.json"
+    request = json.loads(request_path.read_text())
+    request_path.write_text(
+        json.dumps(
+            {
+                **request,
+                "predecessor_answer_included": not request[
+                    "predecessor_answer_included"
+                ],
+            }
+        )
+    )
+    with pytest.raises(ValueError, match="predecessor projection metadata"):
+        validate_chapter_question_writing(
+            project_root=ROOT,
+            package=package,
+            output_dir=writing_dir,
+            approved_analysis_path=analysis_path,
+            profile_name="openai-terra-candidate",
+            profiles_path=PROFILES,
+        )
+    request_path.write_text(json.dumps(request))
     first = writing_dir / "questions/4B.1/output.json"
     first.write_text(json.dumps({"tampered": True}))
     with pytest.raises(ValueError):
@@ -255,6 +298,7 @@ def test_chapter_review_calls_each_question_once(monkeypatch, tmp_path: Path) ->
     def fake_writer(**kwargs):
         output_dir = kwargs["output_dir"]
         output_dir.mkdir(parents=True)
+        _write_request_manifest(output_dir, kwargs["packet"], kwargs["predecessor_answer"])
         answer = _answer(kwargs["packet"].question_id)
         (output_dir / "output.json").write_text(answer.model_dump_json())
         (output_dir / "prompt.txt").write_text("prompt")
@@ -395,6 +439,7 @@ def test_review_stops_before_calls_when_writer_requested_reopen(
     def fake_writer(**kwargs):
         output_dir = kwargs["output_dir"]
         output_dir.mkdir(parents=True)
+        _write_request_manifest(output_dir, kwargs["packet"], kwargs["predecessor_answer"])
         question_id = kwargs["packet"].question_id
         answer = _answer(question_id)
         if question_id == "4B.1":

@@ -18,14 +18,16 @@ from pydantic import (
     field_validator,
 )
 
-from .citation_table_rows import TableLineSpan, resolve_table_line
 from .control_flow import enforce_model_action
-from .corpus_reader_models import BoundEvidence
 from .corpus_reader_runner import ModelCallCoordinator, execute_json_model
 from .model_call_budget import RunUsageBudgetTracker, StageBudgetTracker
 from .model_profiles import load_research_model_profiles
 from .question_evidence_packet_models import QuestionEvidencePacket
-from .question_packet_prompts import QuestionPacketPrompts, load_question_packet_prompts
+from .question_packet_prompts import load_question_packet_prompts
+from .question_packet_writer_prompt import (
+    build_question_writer_prompt,
+    project_predecessor_answer,
+)
 
 
 class AnswerEvidenceDisposition(BaseModel):
@@ -101,6 +103,9 @@ def write_diagnostic_question_answer(
     prompts, prompt_config_hash = load_question_packet_prompts(
         project_root / "configs/question-packet-prompts.yaml"
     )
+    projected_predecessor, excluded_predecessor_ids = project_predecessor_answer(
+        packet, predecessor_answer
+    )
     prompt = build_question_writer_prompt(packet, prompts, predecessor_answer)
     estimated_tokens = len(tiktoken.get_encoding("o200k_base").encode(prompt))
     if profile.context_window is None or estimated_tokens + 12_000 > int(
@@ -123,6 +128,8 @@ def write_diagnostic_question_answer(
                 "estimated_input_tokens": estimated_tokens,
                 "required_evidence_ids": list(packet.coverage.required_evidence_ids),
                 "reopenable_evidence_ids": list(packet.coverage.reopenable_evidence_ids),
+                "predecessor_answer_included": bool(projected_predecessor),
+                "predecessor_excluded_evidence_ids": list(excluded_predecessor_ids),
             },
             indent=2,
             sort_keys=True,
@@ -262,72 +269,6 @@ def load_normalized_question_answer(
     if actual != expected or saved_ledger != ledger:
         raise ValueError("normalized question answer does not match immutable raw output")
     return actual
-
-
-def build_question_writer_prompt(
-    packet: QuestionEvidencePacket,
-    prompts: QuestionPacketPrompts,
-    predecessor_answer: dict | None = None,
-    *,
-    compact_table_citations: bool = False,
-    source_units: dict[tuple[str, int], str] | None = None,
-) -> str:
-    """Serialize a single-question writing task without the full ruler ledger."""
-
-    exact = [
-        _writer_evidence_payload(
-            item,
-            compact_table_citations=compact_table_citations,
-            source_units=source_units,
-        )
-        for item in packet.priority_evidence
-    ]
-    reopenable = set(packet.coverage.reopenable_evidence_ids)
-    candidates = [
-        item.model_dump(mode="json")
-        for item in packet.candidate_index
-        if item.evidence_id in reopenable
-    ]
-    return prompts.writer_template.format(
-        question_id=packet.question_id,
-        question=packet.question,
-        predecessor_answer=json.dumps(predecessor_answer or {}, ensure_ascii=False),
-        exact_evidence=json.dumps(exact, ensure_ascii=False),
-        candidate_index=json.dumps(candidates, ensure_ascii=False),
-    )
-
-
-def _writer_evidence_payload(
-    evidence: BoundEvidence,
-    *,
-    compact_table_citations: bool,
-    source_units: dict[tuple[str, int], str] | None,
-) -> dict:
-    payload = evidence.model_dump(mode="json")
-    if not compact_table_citations:
-        return payload
-    table_citations = [
-        citation for citation in evidence.citations if isinstance(citation.span, TableLineSpan)
-    ]
-    if not table_citations or len(table_citations) != len(evidence.citations):
-        raise ValueError("compact table transport requires only exact table citations")
-    if source_units is None:
-        raise ValueError("compact table transport requires frozen source units")
-    for citation in table_citations:
-        key = (evidence.source_id, citation.span.unit)
-        if key not in source_units:
-            raise ValueError("compact table transport source unit is unavailable")
-        exact = resolve_table_line(
-            source_units[key],
-            citation.span,
-            expected_source_id=evidence.source_id,
-            expected_unit=citation.span.unit,
-        )
-        if exact != citation.exact_excerpt:
-            raise ValueError("compact table citation differs from frozen source")
-    payload.pop("exact_excerpt")
-    payload.pop("excerpt_sha256")
-    return payload
 
 
 def validate_question_answer(

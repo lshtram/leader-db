@@ -1,18 +1,23 @@
 import json
 from hashlib import sha256
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 from pydantic import ValidationError
 
 from leaders_db.evidence_funnel.execution_schema import make_strict_response_schema
+from leaders_db.research.chapter_analysis_models import CorrectedLensAnswer
 from leaders_db.research.question_evidence_packet_models import (
     CompactEvidenceCandidate,
     EvidenceCoverageItem,
     QuestionCoverageChecklist,
     QuestionEvidencePacket,
 )
-from leaders_db.research.question_packet_prompts import load_question_packet_prompts
+from leaders_db.research.question_packet_prompts import (
+    load_question_packet_prompts,
+    load_versioned_question_packet_prompts,
+)
 from leaders_db.research.question_packet_writer import (
     AnswerEvidenceDisposition,
     DiagnosticQuestionAnswer,
@@ -24,6 +29,7 @@ from leaders_db.research.question_packet_writer import (
     normalize_optional_reopen_requests,
     validate_question_answer,
 )
+from leaders_db.research.question_packet_writer_prompt import project_predecessor_answer
 from tests.research.test_corpus_mapping_review import _evidence
 
 
@@ -306,6 +312,53 @@ def test_writer_validation_requires_every_exact_id_and_no_compact_citation(
     compact_section = prompt.split("COMPACT CANDIDATE INDEX:", 1)[1]
     assert '"evidence_id": "E-2"' in compact_section
     assert '"evidence_id": "E-1"' not in compact_section
+
+    contaminated = {
+        "question_id": "8B.9",
+        "answer": "A prior claim used evidence unavailable now [BATCH-9999-E999].",
+        "supporting_evidence_ids": ["E-1", "BATCH-9999-E999"],
+        "contrary_or_qualifying_evidence_ids": [],
+    }
+    current_prompt = build_question_writer_prompt(packet, prompts, contaminated)
+    predecessor_section = current_prompt.split("APPROVED PREDECESSOR ANSWER:", 1)[1].split(
+        "REQUIRED EXACT EVIDENCE:", 1
+    )[0]
+    assert predecessor_section.strip() == "{}"
+
+    legacy_prompts, _ = load_versioned_question_packet_prompts(Path.cwd(), 11)
+    legacy_prompt = build_question_writer_prompt(packet, legacy_prompts, contaminated)
+    legacy_predecessor = legacy_prompt.split("APPROVED PREDECESSOR ANSWER:", 1)[1].split(
+        "REQUIRED EXACT EVIDENCE:", 1
+    )[0]
+    assert "BATCH-9999-E999" in legacy_predecessor
+
+    with pytest.raises(ValueError, match="version is invalid"):
+        load_versioned_question_packet_prompts(Path.cwd(), True)
+
+
+@pytest.mark.parametrize(
+    "field",
+    ("limitations_and_gaps", "corrections_made", "reasons_to_reopen_full_ledger"),
+)
+def test_predecessor_projection_checks_every_auxiliary_text_field(field: str) -> None:
+    predecessor = CorrectedLensAnswer(
+        question_id="8B.9",
+        answer="A sufficiently detailed predecessor grounded in exact evidence [E-1].",
+        supporting_evidence_ids=("E-1",),
+        contrary_or_qualifying_evidence_ids=(),
+    ).model_copy(
+        update={field: ("This note refers to unavailable BATCH-9999-E999 evidence.",)}
+    )
+    packet = SimpleNamespace(
+        coverage=SimpleNamespace(required_evidence_ids=("E-1",))
+    )
+
+    projected, excluded = project_predecessor_answer(
+        packet, predecessor.model_dump(mode="json")
+    )
+
+    assert projected == {}
+    assert excluded == ("BATCH-9999-E999",)
 
 
 def _assert_normalized_roundtrip(

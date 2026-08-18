@@ -41,4 +41,28 @@ def load_question_packet_prompts(path: Path) -> tuple[QuestionPacketPrompts, str
     return QuestionPacketPrompts.model_validate(payload), sha256(raw).hexdigest()
 
 
-__all__ = ["QuestionPacketPrompts", "load_question_packet_prompts"]
+def load_versioned_question_packet_prompts(
+    project_root: Path, version: object
+) -> tuple[QuestionPacketPrompts, str]:
+    """Load the exact saved prompt contract for a trusted historical artifact."""
+
+    if type(version) is not int or version < 1:
+        raise ValueError("saved question-packet prompt version is invalid")
+    current_path = project_root / "configs/question-packet-prompts.yaml"
+    current, current_hash = load_question_packet_prompts(current_path)
+    if version == current.version:
+        return current, current_hash
+    legacy_path = project_root / f"configs/question-packet-prompts-v{version}.yaml"
+    if not legacy_path.is_file():
+        raise ValueError("saved question-packet prompt version is unavailable")
+    legacy, legacy_hash = load_question_packet_prompts(legacy_path)
+    if legacy.version != version:
+        raise ValueError("saved question-packet prompt file has the wrong version")
+    return legacy, legacy_hash
+
+
+__all__ = [
+    "QuestionPacketPrompts",
+    "load_question_packet_prompts",
+    "load_versioned_question_packet_prompts",
+]
