@@ -746,3 +746,16 @@ request above 150,000 tokens. The preflight records one completion, zero materia
 returns, 176 planned whole-pipeline calls, zero executed calls, and the existing 250-call,
 40,000,000-input-token, and 1,000,000-output-token ceilings. Model execution remains stopped
 pending a new bounded approval for the 80-call final-writing phase only.
+
+The approved v17 Luna-high final-writing phase completed all 80 calls under a detached owner.
+All 80 raw responses use the closed four-field schema with no reopen-request field; all 80
+trusted-reload and deterministic validation checks pass; all required dispositions reconcile;
+and all eight chapter writing manifests pass. The canonical profile records 4,703,846 input
+tokens, zero cached input tokens, 320,509 output tokens including 100,066 reasoning-output
+tokens, and 6,126.346563 summed call seconds. Its run-wide ledger reconciles exactly to 80
+completed question-writer reservations with no pending, failed, review, or judging call. The
+PAYG equivalent is $1.325380-$1.560572 and the Codex-credit equivalent is 33.1345; actual
+subscription billing remains unavailable. Focused writing/profile tests and the full test suite
+pass. This checkpoint establishes artifact and execution integrity only: scientific quality
+remains explicitly inconclusive until the separately authorized independent question-review
+phase, and no review or judging has started.
