@@ -708,3 +708,25 @@ the strict per-question schemas measure 4,251,051 complete-request tokens in tot
 would be at most 80 Luna-high Codex-subscription calls, with 40,000,000 input tokens and
 1,000,000 output tokens as run-wide hard ceilings. This checkpoint executes zero model calls
 and does not authorize independent review or judging.
+
+The approved v16 Luna-high writing execution completed all 80 calls under a detached owner.
+All 80 raw prompt-13 responses trusted-reload, all 80 deterministic structural gates pass,
+all required disposition ledgers are exact and ordered, no attached citation falls outside
+its question allowlist, no model-written free text contains an evidence-ID shape, and all
+eight writing manifests validate. Profiling reconciles exactly to 5,485,310 input tokens,
+zero cached input tokens, 340,420 output tokens including 141,221 reasoning-output tokens,
+and 6,552.596612 summed call seconds. The PAYG equivalent is $1.505561-$1.779833 and the
+Codex-credit equivalent is 37.63915; actual subscription billing is not exposed.
+
+Writing nevertheless stops before independent review because 23 answers contain 29 accepted
+reopen requests across chapters 1B and 3B-8B. The trusted full-scope review preflight wrote
+one `question_review_reopen_stop_v1` inventory and executed zero review calls. All 29 IDs are
+valid members of their question's closed compact-candidate list, their saved reasons match
+the candidate summaries, and 28 distinct evidence records are involved (one record is
+requested for two questions). The conservative proposed classification is to promote all 29
+question-specific requests into exact evidence: promotion requires explicit inspection and
+disposition but does not require favorable use, and the exact records preserve temporal,
+publisher, attribution, and adversarial-source limitations. Retaining any request compact
+would preserve a writer-declared material uncertainty and keep the review barrier closed.
+V16 is immutable diagnostic evidence; any authorized completion must bind its preflight,
+packages, eight writing manifests, and 23 accepted answer hashes, then create a fresh release.
