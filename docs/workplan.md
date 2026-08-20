@@ -735,3 +735,14 @@ that lifecycle metadata, and completion loading rejects a second round. The 29 v
 remain immutable diagnostic evidence and are not promoted. A fresh release must reuse the
 already authorized v10 completion, produce final writing under the closed contract, and route
 any later material omission through independent review's separately bounded single return.
+
+The fresh `netanyahu-2023-integrated-luna-sol-v17` zero-call preflight is eligible under the
+closed evidence-discovery contract. It reuses the single authorized v10 completion, marks all
+80 packets closed, exposes no compact-candidate list or reopen-request response field, and
+contains no writing outputs. Prompt version 14, the approved predecessor answers, and each
+strict response schema measure 3,468,718 complete-request tokens in total (mean 43,359;
+maximum 134,072 for `6B.10`), with no
+request above 150,000 tokens. The preflight records one completion, zero material-defect
+returns, 176 planned whole-pipeline calls, zero executed calls, and the existing 250-call,
+40,000,000-input-token, and 1,000,000-output-token ceilings. Model execution remains stopped
+pending a new bounded approval for the 80-call final-writing phase only.
