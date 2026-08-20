@@ -73,6 +73,8 @@ def validate_chapter_question_writing(
         prompts, prompt_hash = load_versioned_question_packet_prompts(
             project_root, request.get("prompt_config_version")
         )
+        if packet.evidence_discovery_complete and prompts.version < 14:
+            raise ValueError("closed evidence discovery requires prompt version 14 or later")
         if request.get("prompt_config_sha256") != prompt_hash:
             raise ValueError("saved question-writer prompt configuration hash differs")
         if prompts.version >= 12:
@@ -84,6 +86,17 @@ def validate_chapter_question_writing(
                 or request.get("predecessor_excluded_evidence_ids") != list(excluded)
             ):
                 raise ValueError("saved predecessor projection metadata differs")
+        if prompts.version >= 14 and (
+            request.get("evidence_discovery_complete")
+            is not packet.evidence_discovery_complete
+            or request.get("reopenable_evidence_ids")
+            != (
+                []
+                if packet.evidence_discovery_complete
+                else list(packet.coverage.reopenable_evidence_ids)
+            )
+        ):
+            raise ValueError("saved writer evidence-discovery metadata differs")
         prompt_hashes.add(prompt_hash)
         expected_prompt = prompt_builder(
             packet, prompts, predecessor[artifact.question_id]

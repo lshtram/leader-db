@@ -15,6 +15,8 @@ from leaders_db.research.question_packet_expansion import (
     load_material_defect_return,
     load_question_packet_expansion,
 )
+from leaders_db.research.question_packet_prompts import load_question_packet_prompts
+from leaders_db.research.question_packet_writer import build_question_writer_prompt
 
 ROOT = Path.cwd()
 RUN = ROOT / "research/runs/netanyahu-2023-cost-opt-step03-question-packets-v1/4B"
@@ -62,6 +64,42 @@ def test_expansion_rejects_non_candidate_id() -> None:
             judge_package_path=JUDGE_PACKAGE,
             additions_by_question={"4B.1": ("UNKNOWN",)},
         )
+
+
+def test_closed_evidence_discovery_hides_remaining_compact_candidates() -> None:
+    package = ChapterQuestionEvidencePackage.model_validate_json(
+        (RUN / "question-evidence-package.json").read_text()
+    )
+    expanded = expand_question_evidence_package(
+        package=package,
+        judge_package_path=JUDGE_PACKAGE,
+        additions_by_question={},
+        close_evidence_discovery=True,
+    )
+    prompts, _ = load_question_packet_prompts(
+        ROOT / "configs/question-packet-prompts.yaml"
+    )
+    packet = expanded.packets[0]
+    prompt = build_question_writer_prompt(packet, prompts)
+
+    assert all(item.evidence_discovery_complete for item in expanded.packets)
+    assert packet.coverage.reopenable_evidence_ids
+    assert "COMPACT CANDIDATE INDEX" not in prompt
+    assert next(
+        item.fact_summary
+        for item in packet.candidate_index
+        if item.evidence_id in packet.coverage.reopenable_evidence_ids
+    ) not in prompt
+
+
+@pytest.mark.parametrize("value", [1, 0, "true", "false"])
+def test_evidence_discovery_state_rejects_coercion(value: object) -> None:
+    payload = json.loads((RUN / "question-evidence-package.json").read_text())
+    for packet in payload["packets"]:
+        packet["evidence_discovery_complete"] = value
+
+    with pytest.raises(ValueError):
+        ChapterQuestionEvidencePackage.model_validate(payload)
 
 
 def test_expansion_rejects_wrong_source_hash() -> None:

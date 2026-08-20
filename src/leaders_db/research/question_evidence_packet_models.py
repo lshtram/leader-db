@@ -5,7 +5,7 @@ from __future__ import annotations
 from hashlib import sha256
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, model_validator
 
 from .corpus_reader_models import BoundEvidence
 
@@ -77,6 +77,9 @@ class QuestionEvidencePacket(BaseModel):
     model_config = ConfigDict(extra="forbid")
     question_id: str
     question: str
+    evidence_discovery_complete: StrictBool = Field(
+        default=False, exclude_if=lambda value: value is False
+    )
     priority_evidence: tuple[BoundEvidence, ...]
     source_routed_priority_evidence_ids: tuple[str, ...] = ()
     selection_added_priority_evidence_ids: tuple[str, ...] = ()
@@ -123,6 +126,8 @@ class ChapterQuestionEvidencePackage(BaseModel):
         }
         if set(self.chapter_candidate_ids) != direct:
             raise ValueError("chapter candidate IDs do not match direct dispositions")
+        if len({packet.evidence_discovery_complete for packet in self.packets}) != 1:
+            raise ValueError("chapter packets mix evidence-discovery lifecycle states")
         for packet in self.packets:
             _validate_packet(packet, set(disposition_ids))
         return self

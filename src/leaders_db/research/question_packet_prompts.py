@@ -14,6 +14,7 @@ class QuestionPacketPrompts(BaseModel):
 
     version: int = Field(ge=1)
     writer_template: str = Field(min_length=100)
+    final_writer_template: str | None = None
     review_template: str = Field(min_length=100)
 
     @model_validator(mode="after")
@@ -22,6 +23,14 @@ class QuestionPacketPrompts(BaseModel):
         writer = shared | {"{predecessor_answer}"}
         if not all(placeholder in self.writer_template for placeholder in writer):
             raise ValueError("writer prompt omits a required placeholder")
+        if self.version >= 14 and (
+            self.final_writer_template is None
+            or not all(
+                placeholder in self.final_writer_template
+                for placeholder in writer - {"{candidate_index}"}
+            )
+        ):
+            raise ValueError("final writer prompt omits a required placeholder")
         if not all(
             placeholder in self.review_template
             for placeholder in shared | {"{candidates}"}

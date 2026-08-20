@@ -34,9 +34,7 @@ from .question_packet_writer_prompt import (
 
 class AnswerEvidenceDisposition(BaseModel):
     """How one required exact record materially affected the answer."""
-
     model_config = ConfigDict(extra="forbid")
-
     evidence_id: str
     role: Literal["supporting", "contrary_or_qualifying", "limitation_only"]
     material_point: str = Field(min_length=20)
@@ -44,7 +42,6 @@ class AnswerEvidenceDisposition(BaseModel):
 
 class _AnswerEvidenceDispositionDetail(BaseModel):
     model_config = ConfigDict(extra="forbid")
-
     role: Literal["supporting", "contrary_or_qualifying", "limitation_only"]
     material_point: str = Field(min_length=20)
 
@@ -60,23 +57,19 @@ _EvidenceFreeText = Annotated[str, AfterValidator(_reject_evidence_id_text)]
 
 class _TransportEvidenceDispositionDetail(BaseModel):
     model_config = ConfigDict(extra="forbid")
-
     role: Literal["supporting", "contrary_or_qualifying", "limitation_only"]
     material_point: _EvidenceFreeText = Field(min_length=20)
 
 
 class _TransportReopenRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
-
     evidence_id: str
     reason: _EvidenceFreeText = Field(min_length=20)
 
 
 class EvidenceReopenRequest(BaseModel):
     """One compact candidate whose exact record may materially change the answer."""
-
     model_config = ConfigDict(extra="forbid")
-
     evidence_id: str
     reason: str
 
@@ -91,9 +84,7 @@ class EvidenceReopenRequest(BaseModel):
 
 class _DiagnosticQuestionAnswerBase(BaseModel):
     """Fields shared by the transport response and canonical saved answer."""
-
     model_config = ConfigDict(extra="forbid")
-
     question_id: str
     answer: str = Field(min_length=30)
     limitations_and_gaps: tuple[str, ...] = ()
@@ -102,7 +93,6 @@ class _DiagnosticQuestionAnswerBase(BaseModel):
 
 class _DiagnosticQuestionAnswerTransportBase(BaseModel):
     """Non-prose fields shared by the current structured transport response."""
-
     model_config = ConfigDict(extra="forbid")
 
     question_id: str
@@ -160,7 +150,12 @@ def write_diagnostic_question_answer(
                 "question_id": packet.question_id,
                 "estimated_input_tokens": estimated_tokens,
                 "required_evidence_ids": list(packet.coverage.required_evidence_ids),
-                "reopenable_evidence_ids": list(packet.coverage.reopenable_evidence_ids),
+                "reopenable_evidence_ids": (
+                    []
+                    if packet.evidence_discovery_complete
+                    else list(packet.coverage.reopenable_evidence_ids)
+                ),
+                "evidence_discovery_complete": packet.evidence_discovery_complete,
                 "predecessor_answer_included": bool(projected_predecessor),
                 "predecessor_excluded_evidence_ids": list(excluded_predecessor_ids),
             },
@@ -183,7 +178,10 @@ def write_diagnostic_question_answer(
     if run_budget_tracker is not None:
         execution_kwargs["run_budget_tracker"] = run_budget_tracker
     try:
-        response_model = _question_answer_response_model(packet.coverage.required_evidence_ids)
+        response_model = _question_answer_response_model(
+            packet.coverage.required_evidence_ids,
+            allow_reopen=not packet.evidence_discovery_complete,
+        )
         response = execute_json_model(
             project_root,
             profile,
@@ -219,12 +217,16 @@ def write_diagnostic_question_answer(
 
 def _question_answer_response_model(
     required_evidence_ids: tuple[str, ...],
+    *,
+    allow_reopen: bool = True,
 ) -> type[BaseModel]:
     """Build a strict response whose prose citations are exact-ID enums."""
 
     if not required_evidence_ids:
         raise ValueError("question writer requires at least one exact evidence ID")
-    digest = sha256("\n".join(required_evidence_ids).encode()).hexdigest()[:12]
+    digest = sha256(
+        (f"allow_reopen={allow_reopen}\n" + "\n".join(required_evidence_ids)).encode()
+    ).hexdigest()[:12]
     citation_id = Literal.__getitem__(required_evidence_ids)
     section = create_model(
         f"CitedAnswerSection_{digest}",
@@ -238,13 +240,17 @@ def _question_answer_response_model(
     ledger = _required_evidence_ledger(
         required_evidence_ids, digest, _TransportEvidenceDispositionDetail
     )
+    fields = {
+        "answer_sections": (tuple[section, ...], Field(min_length=1)),
+        "limitation_sections": (tuple[section, ...], ...),
+        "evidence_dispositions": (ledger, ...),
+    }
+    if allow_reopen:
+        fields["reopen_requests"] = (tuple[_TransportReopenRequest, ...], ())
     return create_model(
         f"DiagnosticQuestionAnswerResponse_{digest}",
         __base__=_DiagnosticQuestionAnswerTransportBase,
-        answer_sections=(tuple[section, ...], Field(min_length=1)),
-        limitation_sections=(tuple[section, ...], ...),
-        reopen_requests=(tuple[_TransportReopenRequest, ...], ()),
-        evidence_dispositions=(ledger, ...),
+        **fields,
     )
 
 
@@ -319,6 +325,8 @@ def normalize_optional_reopen_requests(
     packet: QuestionEvidencePacket, answer: DiagnosticQuestionAnswer
 ) -> tuple[DiagnosticQuestionAnswer, dict[str, object]]:
     """Discard only advisory reopen IDs outside the immutable candidate index."""
+    if packet.evidence_discovery_complete and answer.reopen_requests:
+        raise ValueError("post-completion writing cannot reopen compact evidence")
 
     allowed = set(packet.coverage.reopenable_evidence_ids)
     rejected = tuple(item for item in answer.reopen_requests if item.evidence_id not in allowed)
@@ -340,7 +348,6 @@ def load_normalized_question_answer(
     packet: QuestionEvidencePacket, output_dir: Path
 ) -> DiagnosticQuestionAnswer:
     """Reconstruct and verify the accepted answer from immutable raw output."""
-
     raw_path = output_dir / "output.json"
     accepted_path = output_dir / "accepted-output.json"
     ledger_path = output_dir / "normalization-ledger.json"
@@ -350,11 +357,14 @@ def load_normalized_question_answer(
     prompt_version = request.get("prompt_config_version")
     if type(prompt_version) is not int or prompt_version < 1:
         raise ValueError("question writer request has an invalid prompt version")
+    if packet.evidence_discovery_complete and prompt_version < 14:
+        raise ValueError("closed evidence discovery requires prompt version 14 or later")
     if prompt_version >= 13:
         if "answer_sections" not in payload or "answer" in payload:
             raise ValueError("current question writer raw output uses a legacy transport")
         response_model = _question_answer_response_model(
-            packet.coverage.required_evidence_ids
+            packet.coverage.required_evidence_ids,
+            allow_reopen=not packet.evidence_discovery_complete,
         )
         response = response_model.model_validate_json(raw_text)
         raw = _canonical_question_answer(response, packet.coverage.required_evidence_ids)

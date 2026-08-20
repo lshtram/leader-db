@@ -116,8 +116,13 @@ release. The decision covers every accepted reopen request and records either `p
 source preflight, packages, writing manifests, and accepted answers still match their saved
 hashes. Promoted records become required exact evidence. Reviewed `retain_compact` records
 stay in the complete packet audit inventory but are removed from the next writer's omission
-alarm, preventing an already adjudicated request from recurring. The new release records
-the complete decision and predecessor hashes; the failed source run remains unchanged.
+alarm. Applying that completion closes writer evidence discovery for the ruler-period
+lineage: every resulting packet records the closed state, the final writer receives no
+compact candidate index, and its strict response schema contains no reopen-request field.
+Code rejects a second completion round over a closed package. Any later material omission
+belongs to the separately bounded independent-review return, not another routine writer
+loop. The new release records the complete decision and predecessor hashes; the failed
+source run remains unchanged.
 
 An isolated citation-span prototype can subdivide an immutable extracted unit at existing
 blank-line paragraph boundaries. Each address carries the parent unit number, exact

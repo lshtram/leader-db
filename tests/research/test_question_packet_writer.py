@@ -86,6 +86,33 @@ def test_transport_schema_requires_every_evidence_id_as_an_exact_key() -> None:
         )
 
 
+def test_post_completion_transport_cannot_request_more_evidence() -> None:
+    response_model = _question_answer_response_model(("E-1",), allow_reopen=False)
+    schema = response_model.model_json_schema()
+    make_strict_response_schema(schema)
+
+    assert "reopen_requests" not in schema["properties"]
+    payload = {
+        "question_id": "4B.1",
+        "answer_sections": [
+            {
+                "text": "The final answer is grounded in completed exact evidence.",
+                "citation_ids": ["E-1"],
+            }
+        ],
+        "limitation_sections": [],
+        "evidence_dispositions": {
+            "E-1": {
+                "role": "supporting",
+                "material_point": "The exact record supports the final conclusion.",
+            }
+        },
+    }
+    response_model.model_validate(payload)
+    with pytest.raises(ValidationError, match="extra_forbidden"):
+        response_model.model_validate({**payload, "reopen_requests": []})
+
+
 def test_keyed_transport_ledger_converts_to_canonical_ordered_answer() -> None:
     required = ("BATCH-1", "SRC:42")
     response_model = _question_answer_response_model(required)

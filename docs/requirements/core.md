@@ -364,7 +364,12 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
   ledger shall bind the failed source preflight, question packages, writing manifests, and
   answer artifacts by hash. Promoted records shall become mandatory exact evidence;
   reviewed nonmaterial records shall remain auditable but shall not be presented again as
-  reopenable writer candidates.
+  reopenable writer candidates. Evidence completion may occur only once in a ruler-period
+  lineage. Its fresh packages shall record that writer evidence discovery is complete; the
+  final writer shall receive no compact candidate index and its strict response contract
+  shall contain no reopen-request field. Code shall reject a second completion round over
+  closed packages. A later independently reviewed material omission may use only the
+  separately bounded explicit material-defect return.
 - **REQ-PIPE-008:** An integrated experimental release shall bind its frozen scientific
   inputs and control contracts by hash, construct and validate all expected question
   packages, and inventory every planned model action before execution. If a hard promotion

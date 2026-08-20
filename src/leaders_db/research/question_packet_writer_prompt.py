@@ -23,6 +23,8 @@ def build_question_writer_prompt(
 ) -> str:
     """Serialize one question without unavailable predecessor evidence."""
 
+    if packet.evidence_discovery_complete and prompts.version < 14:
+        raise ValueError("closed evidence discovery requires prompt version 14 or later")
     exact = [
         _writer_evidence_payload(
             item,
@@ -31,7 +33,11 @@ def build_question_writer_prompt(
         )
         for item in packet.priority_evidence
     ]
-    reopenable = set(packet.coverage.reopenable_evidence_ids)
+    reopenable = (
+        set()
+        if packet.evidence_discovery_complete
+        else set(packet.coverage.reopenable_evidence_ids)
+    )
     candidates = [
         item.model_dump(mode="json")
         for item in packet.candidate_index
@@ -42,7 +48,14 @@ def build_question_writer_prompt(
         if prompts.version >= 12
         else predecessor_answer or {}
     )
-    return prompts.writer_template.format(
+    template = (
+        prompts.final_writer_template
+        if packet.evidence_discovery_complete and prompts.version >= 14
+        else prompts.writer_template
+    )
+    if template is None:
+        raise ValueError("post-completion writing requires a final writer prompt")
+    return template.format(
         question_id=packet.question_id,
         question=packet.question,
         predecessor_answer=json.dumps(projected_predecessor, ensure_ascii=False),

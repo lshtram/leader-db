@@ -28,11 +28,14 @@ ROOT = Path.cwd()
 PROFILES = ROOT / "configs/research-models.yaml"
 
 
-def _package(analysis_hash: str = "0" * 64):
+def _package(analysis_hash: str = "0" * 64, *, discovery_complete: bool = False):
     packets = tuple(
         SimpleNamespace(
             question_id=f"4B.{number}",
-            coverage=SimpleNamespace(required_evidence_ids=()),
+            evidence_discovery_complete=discovery_complete,
+            coverage=SimpleNamespace(
+                required_evidence_ids=(), reopenable_evidence_ids=()
+            ),
             model_dump=lambda mode="json", number=number: {"number": number},
         )
         for number in range(1, 11)
@@ -65,6 +68,8 @@ def _write_request_manifest(output_dir: Path, packet, predecessor: dict) -> None
                 "prompt_config_sha256": prompt_hash,
                 "predecessor_answer_included": bool(projected),
                 "predecessor_excluded_evidence_ids": list(excluded),
+                "evidence_discovery_complete": packet.evidence_discovery_complete,
+                "reopenable_evidence_ids": list(packet.coverage.reopenable_evidence_ids),
             }
         )
     )
@@ -277,6 +282,19 @@ def test_chapter_review_is_separate_and_rejects_changed_writer_output(
             profiles_path=PROFILES,
         )
     request_path.write_text(json.dumps(request))
+    request_path.write_text(
+        json.dumps({**request, "evidence_discovery_complete": True})
+    )
+    with pytest.raises(ValueError, match="evidence-discovery metadata"):
+        validate_chapter_question_writing(
+            project_root=ROOT,
+            package=package,
+            output_dir=writing_dir,
+            approved_analysis_path=analysis_path,
+            profile_name="openai-terra-candidate",
+            profiles_path=PROFILES,
+        )
+    request_path.write_text(json.dumps(request))
     first = writing_dir / "questions/4B.1/output.json"
     first.write_text(json.dumps({"tampered": True}))
     with pytest.raises(ValueError):
@@ -288,6 +306,76 @@ def test_chapter_review_is_separate_and_rejects_changed_writer_output(
             output_dir=tmp_path / "review",
             profile_name="openai-sol-supervisor",
             writing_profile_name="openai-terra-candidate",
+            profiles_path=PROFILES,
+        )
+
+
+def test_closed_chapter_writing_rejects_prompt_version_downgrade(
+    monkeypatch, tmp_path: Path
+) -> None:
+    writing_dir = tmp_path / "writing"
+
+    def fake_writer(**kwargs):
+        output_dir = kwargs["output_dir"]
+        output_dir.mkdir(parents=True)
+        _write_request_manifest(output_dir, kwargs["packet"], kwargs["predecessor_answer"])
+        answer = _answer(kwargs["packet"].question_id)
+        (output_dir / "output.json").write_text(answer.model_dump_json())
+        (output_dir / "prompt.txt").write_text("prompt")
+        return answer, {"functional_gate": "pass"}
+
+    monkeypatch.setattr(
+        "leaders_db.research.question_packet_chapter.write_diagnostic_question_answer",
+        fake_writer,
+    )
+    monkeypatch.setattr(
+        "leaders_db.research.question_packet_chapter.validate_question_answer",
+        lambda packet, answer: {"functional_gate": "pass"},
+    )
+    monkeypatch.setattr(
+        "leaders_db.research.question_packet_chapter.build_question_writer_prompt",
+        lambda packet, prompts, predecessor: "prompt",
+    )
+    analysis_path = _analysis_path(tmp_path)
+    package = _package(
+        sha256(analysis_path.read_bytes()).hexdigest(), discovery_complete=True
+    )
+    run_chapter_question_writing(
+        project_root=ROOT,
+        package=package,
+        output_dir=writing_dir,
+        approved_analysis_path=analysis_path,
+        profile_name="openai-terra-candidate",
+        profiles_path=PROFILES,
+    )
+    manifest_path = writing_dir / "writing-manifest.json"
+    manifest = ChapterQuestionPhaseManifest.model_validate_json(manifest_path.read_text())
+    frozen_path = ROOT / "configs/question-packet-prompts-v13.yaml"
+    frozen_hash = sha256(frozen_path.read_bytes()).hexdigest()
+    for artifact in manifest.artifacts:
+        request_path = writing_dir / artifact.artifact_path
+        request_path = request_path.parent / "request-manifest.json"
+        request = json.loads(request_path.read_text())
+        request_path.write_text(
+            json.dumps(
+                {
+                    **request,
+                    "prompt_config_version": 13,
+                    "prompt_config_sha256": frozen_hash,
+                }
+            )
+        )
+    manifest_path.write_text(
+        manifest.model_copy(update={"prompt_config_sha256": frozen_hash}).model_dump_json()
+    )
+
+    with pytest.raises(ValueError, match="closed evidence discovery requires prompt version"):
+        validate_chapter_question_writing(
+            project_root=ROOT,
+            package=package,
+            output_dir=writing_dir,
+            approved_analysis_path=analysis_path,
+            profile_name="openai-terra-candidate",
             profiles_path=PROFILES,
         )
 

@@ -256,8 +256,10 @@ def test_completion_authenticates_every_request_and_partitions_writer_input(
         judge_package_path=tmp_path / "research/runs/failed-v1/judge-package.json",
         additions_by_question=receipt.additions_for("4B"),
         retained_by_question=receipt.retained_for("4B"),
+        close_evidence_discovery=True,
     )
 
+    assert all(item.evidence_discovery_complete for item in expanded.packets)
     assert expanded.packets[0].coverage.required_evidence_ids == required
     assert expanded.packets[0].coverage.adjudicated_nonmaterial_evidence_ids == adjudicated
     assert "E-2" not in expanded.packets[0].coverage.reopenable_evidence_ids
@@ -276,9 +278,8 @@ def test_completion_authenticates_every_request_and_partitions_writer_input(
             ),
             evidence_dispositions=(),
         )
-        normalized, ledger = normalize_optional_reopen_requests(expanded.packets[0], attempted)
-        assert normalized.reopen_requests == ()
-        assert ledger["rejected_reopen_ids"] == ["E-2"]
+        with pytest.raises(ValueError, match="post-completion writing"):
+            normalize_optional_reopen_requests(expanded.packets[0], attempted)
     receipt.verify_unchanged()
 
     answer_path.write_text("{}")
@@ -311,6 +312,64 @@ def test_completion_rejects_an_undispositioned_request(tmp_path: Path) -> None:
     )
 
     with pytest.raises(ValueError, match="invalid question"):
+        load_evidence_completion(
+            project_root=tmp_path, config_path=config_path, active_chapters=("4B",)
+        )
+
+
+def test_completion_rejects_a_second_evidence_discovery_round(tmp_path: Path) -> None:
+    preflight_path, writing_path, package = _source_run(tmp_path)
+    package_path = tmp_path / "research/runs/failed-v1/question-packages/4B/package.json"
+    closed = package.model_copy(
+        update={
+            "packets": tuple(
+                item.model_copy(update={"evidence_discovery_complete": True})
+                for item in package.packets
+            )
+        }
+    )
+    package_path.write_text(closed.model_dump_json())
+    preflight = json.loads(preflight_path.read_text())
+    preflight["question_packages"][0]["sha256"] = _digest(package_path)
+    preflight_path.write_text(json.dumps(preflight))
+    answer_path = (
+        tmp_path
+        / "research/runs/failed-v1/question-writing/4B/questions/4B.1/accepted-output.json"
+    )
+    config_path = tmp_path / "completion.yaml"
+    config_path.write_text(
+        yaml.safe_dump(
+            {
+                "schema_version": "question_evidence_completion_v1",
+                "source_run": "failed-v1",
+                "source_release_id": "failed-v1",
+                "source_preflight_sha256": _digest(preflight_path),
+                "user_authorized": True,
+                "chapters": {
+                    "4B": {
+                        "question_package_sha256": _digest(package_path),
+                        "writing_manifest_sha256": _digest(writing_path),
+                        "questions": {
+                            "4B.1": {
+                                "answer_artifact_sha256": _digest(answer_path),
+                                "items": [
+                                    {
+                                        "evidence_id": "E-2",
+                                        "decision": "promote",
+                                        "reason": (
+                                            "Attempted unauthorized second completion round."
+                                        ),
+                                    }
+                                ],
+                            }
+                        },
+                    }
+                },
+            }
+        )
+    )
+
+    with pytest.raises(ValueError, match="already complete"):
         load_evidence_completion(
             project_root=tmp_path, config_path=config_path, active_chapters=("4B",)
         )

@@ -721,12 +721,17 @@ Codex-credit equivalent is 37.63915; actual subscription billing is not exposed.
 Writing nevertheless stops before independent review because 23 answers contain 29 accepted
 reopen requests across chapters 1B and 3B-8B. The trusted full-scope review preflight wrote
 one `question_review_reopen_stop_v1` inventory and executed zero review calls. All 29 IDs are
-valid members of their question's closed compact-candidate list, their saved reasons match
-the candidate summaries, and 28 distinct evidence records are involved (one record is
-requested for two questions). The conservative proposed classification is to promote all 29
-question-specific requests into exact evidence: promotion requires explicit inspection and
-disposition but does not require favorable use, and the exact records preserve temporal,
-publisher, attribution, and adversarial-source limitations. Retaining any request compact
-would preserve a writer-declared material uncertainty and keep the review barrier closed.
-V16 is immutable diagnostic evidence; any authorized completion must bind its preflight,
-packages, eight writing manifests, and 23 accepted answer hashes, then create a fresh release.
+valid members of their question's compact candidate list, their saved reasons match the
+candidate summaries, and 28 distinct evidence records are involved (one record is requested
+for two questions).
+
+That result exposed a lifecycle defect rather than authorizing a second completion round.
+The original v10 writer already performed the one compact-candidate omission pass, its 72
+requests received explicit completion decisions, and v16 was the post-completion rewrite.
+Generic prompt version 14 therefore records evidence discovery as closed on every package
+produced by an authorized completion or material-defect return. A closed-package final writer
+receives no compact index, its strict schema has no reopen-request field, trusted reload binds
+that lifecycle metadata, and completion loading rejects a second round. The 29 v16 requests
+remain immutable diagnostic evidence and are not promoted. A fresh release must reuse the
+already authorized v10 completion, produce final writing under the closed contract, and route
+any later material omission through independent review's separately bounded single return.

@@ -234,6 +234,8 @@ def _load_chapter(
     ):
         raise ValueError("evidence completion question package changed")
     package = ChapterQuestionEvidencePackage.model_validate_json(package_bytes)
+    if any(packet.evidence_discovery_complete for packet in package.packets):
+        raise ValueError("evidence discovery is already complete for this package")
     saved_package_payload_hash = _payload_hash(json.loads(package_bytes))
     writing_path = _inside(
         source_run, source_run / "question-writing" / chapter_id / "writing-manifest.json"

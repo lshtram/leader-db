@@ -252,6 +252,7 @@ def expand_question_evidence_package(
     judge_package_path: Path,
     additions_by_question: dict[str, tuple[str, ...]],
     retained_by_question: dict[str, tuple[str, ...]] | None = None,
+    close_evidence_discovery: bool = False,
 ) -> ChapterQuestionEvidencePackage:
     """Return the same chapter package with named candidates reopened exactly."""
 
@@ -270,6 +271,7 @@ def expand_question_evidence_package(
             ledger,
             additions_by_question.get(packet.question_id, ()),
             (retained_by_question or {}).get(packet.question_id, ()),
+            close_evidence_discovery,
         )
         for packet in package.packets
     )
@@ -283,6 +285,7 @@ def _expand_packet(
     ledger: dict[str, BoundEvidence],
     additions: tuple[str, ...],
     retained: tuple[str, ...] = (),
+    close_evidence_discovery: bool = False,
 ) -> QuestionEvidencePacket:
     candidate_ids = {item.evidence_id for item in packet.candidate_index}
     existing = {item.evidence_id for item in packet.priority_evidence}
@@ -342,6 +345,9 @@ def _expand_packet(
         packet.model_copy(
             update={
                 "priority_evidence": priority,
+                "evidence_discovery_complete": (
+                    packet.evidence_discovery_complete or close_evidence_discovery
+                ),
                 "source_routed_priority_evidence_ids": source_routed,
                 "selection_added_priority_evidence_ids": selection_added,
                 "coverage": coverage,

@@ -193,6 +193,7 @@ def run_integrated_gate_preflight(
             else None
         ),
         "evidence_completion": config.evidence_completion,
+        "evidence_completion_count": 1 if completion_receipt is not None else 0,
         "evidence_completion_sha256": (
             completion_receipt.config_sha256 if completion_receipt is not None else None
         ),
@@ -285,6 +286,7 @@ def _prepare_question_package(
             judge_package_path=judge_package_path,
             additions_by_question=completion_receipt.additions_for(chapter_id),
             retained_by_question=completion_receipt.retained_for(chapter_id),
+            close_evidence_discovery=True,
         )
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(expanded.model_dump_json(indent=2) + "\n")
@@ -304,6 +306,7 @@ def _prepare_question_package(
         package=package,
         judge_package_path=judge_package_path,
         additions_by_question=additions,
+        close_evidence_discovery=True,
     )
     output_path.write_text(expanded.model_dump_json(indent=2) + "\n")
     return expanded
