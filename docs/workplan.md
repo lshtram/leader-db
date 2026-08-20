@@ -697,3 +697,14 @@ including 18,709 reasoning-output tokens, and 930.813884 summed call seconds. It
 reconciles exactly to ten completed reservations with no pending or failed entry. The next
 decision is whether to authorize a completely fresh 80-question writing release under prompt
 13; independent question review and all judging remain stopped until that writing gate passes.
+
+The fresh `netanyahu-2023-integrated-luna-sol-v16` zero-call writing preflight is now
+eligible and remains unlaunched pending explicit bounded approval. Its eight separately
+materialized question packages are byte-equivalent to the trusted v15 packages, bind all 80
+questions and 72 authorized promotions, and contain no writing output. Prompt version 13 and
+the strict per-question schemas measure 4,251,051 complete-request tokens in total (mean
+53,138; maximum 159,714 for `6B.10`); one request exceeds 150,000 tokens and none exceeds the
+300,000-token ceiling. The same nine unsafe predecessors are excluded. The authorized launch
+would be at most 80 Luna-high Codex-subscription calls, with 40,000,000 input tokens and
+1,000,000 output tokens as run-wide hard ceilings. This checkpoint executes zero model calls
+and does not authorize independent review or judging.
