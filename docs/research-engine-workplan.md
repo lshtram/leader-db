@@ -1,5 +1,9 @@
 # Research Engine Workplan
 
+> Planning status: subsystem reference only. The sole executable queue and current order are in
+> [`workplan.md`](workplan.md), Phase 5. Increment descriptions below retain design and delivered
+> history; “immediate” language does not activate work independently.
+
 ## Goal
 
 Implement the complete research engine described in
@@ -24,9 +28,10 @@ Already available:
 - Superset local integration;
 - GDP-per-capita investigation slice.
 
-## Immediate execution strategy — Slice 1 stabilization
+## Historical immediate strategy — Slice 1 stabilization
 
-Status: active as of 2026-06-29.
+Status: historical checkpoint as of 2026-06-29; remaining work is consolidated into canonical
+Workplan Phase 5.
 
 The research engine now prioritizes reusable vertical-slice execution over
 source-specific expansion. A vertical slice is defined by the research request,

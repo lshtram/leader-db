@@ -7,11 +7,13 @@ from hashlib import sha256
 from pathlib import Path
 
 from .chapter_analysis_models import ResolvedChapterAnalysis
+from .control_flow import load_question_review_experiment_policy
 from .model_profiles import load_research_model_profiles
 from .question_evidence_packet_models import ChapterQuestionEvidencePackage
 from .question_packet_chapter_models import (
     ChapterQuestionArtifact,
     ChapterQuestionPhaseManifest,
+    QuestionUnavailableArtifact,
 )
 from .question_packet_prompts import (
     load_question_packet_prompts,
@@ -64,6 +66,14 @@ def validate_chapter_question_writing(
     for artifact in manifest.artifacts:
         path = inside(output_dir, artifact.artifact_path)
         packet = packets[artifact.question_id]
+        if artifact.status == "unavailable":
+            _validate_unavailable_question(
+                project_root=project_root,
+                packet=packet,
+                artifact=artifact,
+                path=path,
+            )
+            continue
         answer = (
             load_normalized_question_answer(packet, path.parent)
             if path.name == "accepted-output.json"
@@ -81,14 +91,12 @@ def validate_chapter_question_writing(
             projected, excluded = project_predecessor_answer(
                 packet, predecessor[artifact.question_id]
             )
-            if (
-                request.get("predecessor_answer_included") != bool(projected)
-                or request.get("predecessor_excluded_evidence_ids") != list(excluded)
-            ):
+            if request.get("predecessor_answer_included") != bool(projected) or request.get(
+                "predecessor_excluded_evidence_ids"
+            ) != list(excluded):
                 raise ValueError("saved predecessor projection metadata differs")
         if prompts.version >= 14 and (
-            request.get("evidence_discovery_complete")
-            is not packet.evidence_discovery_complete
+            request.get("evidence_discovery_complete") is not packet.evidence_discovery_complete
             or request.get("reopenable_evidence_ids")
             != (
                 []
@@ -98,18 +106,36 @@ def validate_chapter_question_writing(
         ):
             raise ValueError("saved writer evidence-discovery metadata differs")
         prompt_hashes.add(prompt_hash)
-        expected_prompt = prompt_builder(
-            packet, prompts, predecessor[artifact.question_id]
-        )
+        expected_prompt = prompt_builder(packet, prompts, predecessor[artifact.question_id])
         if (path.parent / "prompt.txt").read_bytes() != expected_prompt.encode():
             raise ValueError("saved question-writer prompt differs from current writer input")
         if sha256_file(path) != artifact.artifact_sha256 or (
             question_validator(packet, answer)["functional_gate"] != "pass"
         ):
             raise ValueError("chapter writing child artifact is invalid")
-    if prompt_hashes != {manifest.prompt_config_sha256}:
+    if prompt_hashes and prompt_hashes != {manifest.prompt_config_sha256}:
         raise ValueError("chapter writing manifest mixes prompt configurations")
     return manifest
+
+
+def _validate_unavailable_question(*, project_root, packet, artifact, path) -> None:
+    unavailable = QuestionUnavailableArtifact.model_validate_json(path.read_text())
+    if (
+        unavailable.question_id != artifact.question_id
+        or packet.candidate_index
+        or packet.coverage.required_evidence_ids
+        or unavailable.packet_sha256 != payload_hash(packet.model_dump(mode="json"))
+        or sha256_file(path) != artifact.artifact_sha256
+    ):
+        raise ValueError("unavailable question artifact is not justified by its packet")
+    adjudication = inside(project_root, unavailable.adjudication_path)
+    if sha256_file(adjudication) != unavailable.adjudication_sha256:
+        raise ValueError("unavailable question adjudication hash differs")
+    from .question_packet_chapter import load_trusted_unavailable_adjudication
+
+    load_trusted_unavailable_adjudication(
+        project_root=project_root, path=adjudication, packet=packet
+    )
 
 
 def validate_chapter_question_review(
@@ -123,6 +149,7 @@ def validate_chapter_question_review(
     writing_profile_name: str,
     profiles_path: Path,
     reasoning_effort: str | None = None,
+    experiment_policy_path: Path | None = None,
     blind_review_validator=validate_blind_review_artifacts,
     question_validator=validate_question_answer,
     prompt_builder=build_question_writer_prompt,
@@ -143,7 +170,15 @@ def validate_chapter_question_review(
         prompt_builder=prompt_builder,
     )
     snapshot = load_review_input_snapshot(writing_dir, writing)
-    if any(answer.reopen_requests for answer in snapshot.answers.values()):
+    policy_path = _resolve_review_policy_path(
+        project_root, actual.experiment_policy_sha256, experiment_policy_path
+    )
+    policy = load_question_review_experiment_policy(policy_path) if policy_path else None
+    carries_reopens = (
+        policy is not None
+        and policy.writer_reopen_behavior == "carry_to_review_and_bounded_correction"
+    )
+    if any(answer.reopen_requests for answer in snapshot.answers.values()) and not carries_reopens:
         raise ValueError("question review cannot consume unresolved writer reopen requests")
     analysis_hash = sha256_file(approved_analysis_path)
     if analysis_hash != package.selected_analysis_sha256:
@@ -152,7 +187,26 @@ def validate_chapter_question_review(
     approved = {item.question_id: item.model_dump(mode="json") for item in analysis.answers}
     packets = {item.question_id: item for item in package.packets}
     artifacts = []
+    review_prompt_hashes: set[str] = set()
     for written in writing.artifacts:
+        if written.status == "unavailable":
+            source = inside(writing_dir, written.artifact_path)
+            child = inside(output_dir, written.artifact_path)
+            unavailable = QuestionUnavailableArtifact.model_validate_json(child.read_text())
+            if (
+                unavailable.question_id != written.question_id
+                or child.read_bytes() != source.read_bytes()
+            ):
+                raise ValueError("review unavailable artifact differs from trusted writing gap")
+            artifacts.append(
+                ChapterQuestionArtifact(
+                    question_id=written.question_id,
+                    artifact_path=written.artifact_path,
+                    artifact_sha256=sha256_file(child),
+                    status="unavailable",
+                )
+            )
+            continue
         answer = snapshot.answers[written.question_id]
         review_dir = output_dir / "questions" / written.question_id
         review = blind_review_validator(
@@ -165,6 +219,7 @@ def validate_chapter_question_review(
             profiles_path=profiles_path,
             reasoning_effort=reasoning_effort,
         )
+        review_prompt_hashes.add(review["prompt_config_sha256"])
         child = review_dir / "blind-review-manifest.json"
         artifacts.append(
             ChapterQuestionArtifact(
@@ -174,9 +229,13 @@ def validate_chapter_question_review(
                 status=review["quality_gate"],
             )
         )
-    model, profile_hash, prompt_hash = configuration_binding(
-        project_root, profile_name, profiles_path
-    )
+    model, profile_hash, _ = configuration_binding(project_root, profile_name, profiles_path)
+    if review_prompt_hashes and len(review_prompt_hashes) != 1:
+        raise ValueError("chapter review mixes prompt configurations")
+    prompt_hash = next(iter(review_prompt_hashes), actual.prompt_config_sha256)
+    experiment_policy_sha256 = None
+    if policy_path is not None:
+        experiment_policy_sha256 = sha256_file(policy_path)
     expected = ChapterQuestionPhaseManifest(
         schema_version="diagnostic_chapter_question_review_v1",
         chapter_id=package.chapter_id,
@@ -187,15 +246,40 @@ def validate_chapter_question_review(
         prompt_config_sha256=prompt_hash,
         approved_analysis_sha256=analysis_hash,
         writing_manifest_sha256=snapshot.writing_manifest_sha256,
+        experiment_policy_sha256=experiment_policy_sha256,
         question_count=10,
         artifacts=tuple(artifacts),
-        phase_gate=("pass" if all(item.status == "pass" for item in artifacts) else "fail"),
+        phase_gate=(
+            "pass"
+            if all(item.status in {"pass", "unavailable"} for item in artifacts)
+            else "fail"
+        ),
     )
     if actual != expected:
         raise ValueError("chapter review manifest differs from trusted child reviews")
     return actual
 
 
+def _resolve_review_policy_path(
+    project_root: Path, expected_sha256: str | None, supplied: Path | None
+) -> Path | None:
+    if expected_sha256 is None:
+        if supplied is not None:
+            raise ValueError("review manifest does not bind an experiment policy")
+        return None
+    candidates = tuple(
+        path
+        for path in (
+            supplied,
+            project_root / "configs/research-question-review-experiment.yaml",
+            project_root / "configs/research-question-review-experiment-v1.yaml",
+        )
+        if path is not None and path.is_file()
+    )
+    matches = {path.resolve() for path in candidates if sha256_file(path) == expected_sha256}
+    if len(matches) != 1:
+        raise ValueError("saved review experiment policy is unavailable or ambiguous")
+    return next(iter(matches))
 
 
 def sha256_file(path: Path) -> str:

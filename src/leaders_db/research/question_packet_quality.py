@@ -41,9 +41,7 @@ class BlindCandidateQuality(BaseModel):
     rationale: str = Field(min_length=30)
 
     @model_validator(mode="after")
-    def reject_contradictory_blocking_findings(
-        self, info: ValidationInfo
-    ) -> BlindCandidateQuality:
+    def reject_contradictory_blocking_findings(self, info: ValidationInfo) -> BlindCandidateQuality:
         if info.context and info.context.get("allow_legacy_blocking_findings"):
             return self
         dimensions = (
@@ -91,6 +89,7 @@ def run_blind_question_quality_review(
     reasoning_effort: str | None = None,
     call_coordinator: ModelCallCoordinator | None = None,
     run_budget_tracker: RunUsageBudgetTracker | None = None,
+    publish_quality_failure: bool = True,
 ) -> Path:
     """Compare approved and experimental prose in deterministic blind order."""
 
@@ -113,6 +112,7 @@ def run_blind_question_quality_review(
     prompt = _review_prompt(
         packet, {label: payloads[name] for label, name in labels.items()}, prompts.review_template
     )
+    response_schema = build_blind_review_response_schema(packet)
     tokens = len(tiktoken.get_encoding("o200k_base").encode(prompt))
     if profile.context_window is None or tokens + 12_000 > int(profile.context_window * 0.9):
         raise ValueError("blind question review exceeds context safety margin")
@@ -135,6 +135,7 @@ def run_blind_question_quality_review(
             prompt,
             BlindQuestionQualityReview,
             output_dir,
+            response_schema=response_schema,
             **execution_kwargs,
         )
         _validate_review_identity_and_evidence(review, packet)
@@ -145,7 +146,7 @@ def run_blind_question_quality_review(
         raise
     output_dir.mkdir(parents=True, exist_ok=True)
     manifest = {
-        "schema_version": "diagnostic_question_blind_review_v4",
+        "schema_version": "diagnostic_question_blind_review_v5",
         "production_status": "diagnostic_only",
         "api_key_used": False,
         "profile": profile_name,
@@ -162,7 +163,7 @@ def run_blind_question_quality_review(
         "experimental_answer_sha256": _payload_hash(experimental_answer.model_dump(mode="json")),
         "prompt_sha256": sha256(prompt.encode()).hexdigest(),
         "review_sha256": _payload_hash(review.model_dump(mode="json")),
-        "response_schema_sha256": _saved_schema_hash(output_dir),
+        "response_schema_sha256": _saved_schema_hash(output_dir, packet, constrained=True),
         "preferred_source": (
             labels.get(review.preferred_candidate, "tie")
             if review.preferred_candidate != "tie"
@@ -172,7 +173,11 @@ def run_blind_question_quality_review(
     }
     path = output_dir / "blind-review-manifest.json"
     path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
-    if manifest["quality_gate"] != "pass" and call_coordinator is not None:
+    if (
+        manifest["quality_gate"] != "pass"
+        and call_coordinator is not None
+        and publish_quality_failure
+    ):
         call_coordinator.publish_failure()
     return path
 
@@ -193,6 +198,13 @@ def validate_blind_review_artifacts(
 
     manifest = json.loads((output_dir / manifest_name).read_text())
     prompts, prompt_config_hash = _load_saved_prompt_contract(project_root, manifest)
+    expected_schema_version = (
+        "diagnostic_question_blind_review_v5"
+        if prompts.version >= 15
+        else "diagnostic_question_blind_review_v4"
+    )
+    if manifest.get("schema_version") != expected_schema_version:
+        raise ValueError("blind-review schema version does not match its prompt contract")
     review = BlindQuestionQualityReview.model_validate_json(
         (output_dir / "output.json").read_text(),
         context={"allow_legacy_blocking_findings": prompts.version < 11},
@@ -216,7 +228,7 @@ def validate_blind_review_artifacts(
     _validate_review_identity_and_evidence(review, packet)
     _validate_review_conclusion(review, labels)
     expected = {
-        "schema_version": "diagnostic_question_blind_review_v4",
+        "schema_version": expected_schema_version,
         "production_status": "diagnostic_only",
         "api_key_used": False,
         "profile": profile_name,
@@ -233,7 +245,11 @@ def validate_blind_review_artifacts(
         "experimental_answer_sha256": _payload_hash(experimental_answer.model_dump(mode="json")),
         "prompt_sha256": sha256(prompt.encode()).hexdigest(),
         "review_sha256": _payload_hash(review.model_dump(mode="json")),
-        "response_schema_sha256": _saved_schema_hash(output_dir),
+        "response_schema_sha256": _saved_schema_hash(
+            output_dir,
+            packet,
+            constrained=expected_schema_version == "diagnostic_question_blind_review_v5",
+        ),
         "preferred_source": (
             labels.get(review.preferred_candidate, "tie")
             if review.preferred_candidate != "tie"
@@ -269,9 +285,31 @@ def _validate_saved_prompt(output_dir: Path, reconstructed: str) -> None:
         raise ValueError("saved blind-review prompt differs from reconstructed prompt")
 
 
-def _saved_schema_hash(output_dir: Path) -> str:
+def build_blind_review_response_schema(packet: QuestionEvidencePacket) -> dict:
+    """Build the strict packet-local response contract for one blind review."""
+
+    allowed = sorted({item.evidence_id for item in packet.candidate_index})
+    schema = BlindQuestionQualityReview.model_json_schema()
+    schema["properties"]["question_id"]["const"] = packet.question_id
+    evidence_items = {"enum": allowed}
+    if not allowed:
+        evidence_items["type"] = "string"
+    schema["properties"]["strongest_omitted_evidence_ids"]["items"] = evidence_items
+    candidate = schema["$defs"]["BlindCandidateQuality"]
+    candidate["properties"]["missed_evidence_ids"]["items"] = evidence_items.copy()
+    make_strict_response_schema(schema)
+    return schema
+
+
+def _saved_schema_hash(
+    output_dir: Path, packet: QuestionEvidencePacket, *, constrained: bool
+) -> str:
     saved = json.loads((output_dir / "schema.json").read_text())
-    expected = BlindQuestionQualityReview.model_json_schema()
+    expected = (
+        build_blind_review_response_schema(packet)
+        if constrained
+        else BlindQuestionQualityReview.model_json_schema()
+    )
     make_strict_response_schema(expected)
     if saved != expected:
         raise ValueError("saved blind-review schema differs from the current contract")
@@ -330,4 +368,8 @@ def _review_prompt(packet: QuestionEvidencePacket, candidates: dict, template: s
     )
 
 
-__all__ = ["run_blind_question_quality_review", "validate_blind_review_artifacts"]
+__all__ = [
+    "build_blind_review_response_schema",
+    "run_blind_question_quality_review",
+    "validate_blind_review_artifacts",
+]

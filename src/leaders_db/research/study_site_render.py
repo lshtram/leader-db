@@ -18,7 +18,12 @@ BASE = "/leaders-study"
 
 
 def build_study_site(  # noqa: PLR0912
-    *, project_root: Path, run_dir: Path, output_dir: Path
+    *,
+    project_root: Path,
+    run_dir: Path,
+    output_dir: Path,
+    audit_path: Path | None = None,
+    approved_audit_sha256: str | None = None,
 ) -> Path:
     """Build the complete static site and return its manifest path."""
 
@@ -69,7 +74,12 @@ def build_study_site(  # noqa: PLR0912
         }
         if expected_files != actual_files:
             raise ValueError("study-site ownership inventory is invalid")
-    projection = build_study_site_projection(project_root=project_root, run_dir=run_dir)
+    projection = build_study_site_projection(
+        project_root=project_root,
+        run_dir=run_dir,
+        audit_path=audit_path,
+        approved_audit_sha256=approved_audit_sha256,
+    )
     if output_dir.exists():
         shutil.rmtree(output_dir)
     output_dir.mkdir(parents=True)
@@ -100,6 +110,8 @@ def build_study_site(  # noqa: PLR0912
     manifest = {
         "schema_version": "study_site_manifest_v1",
         "run_id": projection.run_id,
+        "audit_path": projection.audit_path,
+        "audit_sha256": projection.audit_sha256,
         "base_path": f"{BASE}/",
         "files": files,
     }
@@ -143,7 +155,15 @@ def _ruler(ruler: PublicRuler) -> str:
             questions.append(f'<details class="question" id="{question.question_id}"><summary><span>{question.question_id}</span>{_e(question.question)}</summary><div class="question-body"><div class="answer">{_paras(question.answer)}</div>{gaps}{"".join(citations)}</div></details>')
         flag = "" if not chapter.manual_review_required else f'<aside class="notice"><b>Manual review flag</b><p>{_e(chapter.manual_review_reason)}</p></aside>'
         weak = ", ".join(chapter.missing_or_weak_lenses) or "None recorded"
-        chapters.append(f'''<details class="chapter" id="{chapter.chapter_id}"><summary><span class="chapter-code">{chapter.chapter_id}</span><span><b>{_e(chapter.title)}</b><small>Score {chapter.score:g} · confidence {chapter.confidence:g}% · plausible range {chapter.plausible_lower:g}–{chapter.plausible_upper:g}</small></span></summary><div class="chapter-body">{flag}<h3>Chapter judgment</h3>{_paras(chapter.rationale)}<div class="judgment-grid"><div><h4>Ruler attribution</h4>{_paras(chapter.ruler_attribution)}</div><div><h4>Inherited baseline and constraints</h4>{_paras(chapter.inherited_baseline_and_constraints)}</div><div><h4>Calibration</h4>{_paras(chapter.lower_anchor_rejected)}{_paras(chapter.higher_anchor_rejected)}</div><div><h4>Coverage</h4><p>Missing or weak lenses: {_e(weak)}. Missing evidence affects confidence rather than automatically lowering the score.</p></div></div><h3>Ten evidence questions</h3>{''.join(questions)}</div></details>''')
+        reader_judgment = f'<h3>Short answer</h3>{_paras(chapter.summary or chapter.rationale)}'
+        if chapter.exposition:
+            reader_judgment += (
+                f'<h3>What happened during the year</h3>{_paras(chapter.exposition)}'
+            )
+        attribution = ""
+        if not chapter.exposition:
+            attribution = f'<div><h4>Ruler attribution</h4>{_paras(chapter.ruler_attribution)}</div><div><h4>Inherited baseline and constraints</h4>{_paras(chapter.inherited_baseline_and_constraints)}</div>'
+        chapters.append(f'''<details class="chapter" id="{chapter.chapter_id}"><summary><span class="chapter-code">{chapter.chapter_id}</span><span><b>{_e(chapter.title)}</b><small>Score {chapter.score:g} · confidence {chapter.confidence:g}% · plausible range {chapter.plausible_lower:g}–{chapter.plausible_upper:g}</small></span></summary><div class="chapter-body">{flag}{reader_judgment}<div class="judgment-grid">{attribution}<div><h4>Calibration</h4>{_paras(chapter.lower_anchor_rejected)}{_paras(chapter.higher_anchor_rejected)}</div><div><h4>Coverage</h4><p>Missing or weak lenses: {_e(weak)}. Missing evidence affects confidence rather than automatically lowering the score.</p></div></div><h3>Ten evidence questions</h3>{''.join(questions)}</div></details>''')
     content = f'''<header class="hero"><p class="eyebrow"><a href="{BASE}/">2023 results</a> · {ruler.iso3}</p><h1>{_e(ruler.ruler_name)}</h1><p class="lede">Overall mean {ruler.overall_mean:.3f} · shared rank {ruler.shared_rank}. Scores are assigned to chapters; questions are evidence lenses.</p><div class="actions"><button data-expand="all">Expand all</button><button data-expand="none">Collapse all</button></div></header>{''.join(chapters)}'''
     return _page(f"{ruler.ruler_name} — 2023", content)
 

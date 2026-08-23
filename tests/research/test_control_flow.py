@@ -8,13 +8,19 @@ import yaml
 from pydantic import ValidationError
 
 from leaders_db.research.control_flow import (
+    QuestionCorrectionPolicy,
+    QuestionReviewExperimentPolicy,
     ResearchControlFlow,
     load_control_flow,
+    load_question_correction_policy,
+    load_question_review_experiment_policy,
     write_control_flow_inventory,
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CONFIG_PATH = PROJECT_ROOT / "configs/research-control-flow.yaml"
+REVIEW_POLICY_PATH = PROJECT_ROOT / "configs/research-question-review-experiment.yaml"
+CORRECTION_POLICY_PATH = PROJECT_ROOT / "configs/research-question-correction-policy.yaml"
 
 
 def test_active_control_flow_is_straight_through() -> None:
@@ -26,6 +32,36 @@ def test_active_control_flow_is_straight_through() -> None:
     assert flow.control_limits.maximum_explicit_material_defect_returns == 1
     assert flow.control_limits.automatic_retry_rounds == 0
     assert flow.control_limits.automatic_repair_rounds == 0
+
+
+def test_autonomous_review_policy_collects_one_full_round_without_retries() -> None:
+    policy = load_question_review_experiment_policy(REVIEW_POLICY_PATH)
+
+    assert policy == QuestionReviewExperimentPolicy(
+        schema_version="question_review_experiment_policy_v1",
+        quality_failure_behavior="collect_all",
+        maximum_review_rounds=1,
+        maximum_material_defect_returns=0,
+        maximum_automatic_reruns_per_question=0,
+        maximum_infrastructure_retries=0,
+        stop_on_invalid_artifact=True,
+        stop_before_judging=True,
+        writer_reopen_behavior="carry_to_review_and_bounded_correction",
+    )
+
+
+def test_correction_policy_carries_final_concerns_to_confidence() -> None:
+    policy = load_question_correction_policy(CORRECTION_POLICY_PATH)
+
+    assert policy == QuestionCorrectionPolicy(
+        schema_version="question_correction_policy_v1",
+        maximum_corrections_per_failed_question=1,
+        maximum_final_reviews_per_corrected_question=1,
+        residual_concern_behavior="carry_to_judgment_with_lower_confidence",
+        stop_on_residual_quality_failure=False,
+        stop_on_invalid_artifact=True,
+        maximum_infrastructure_retries=0,
+    )
 
 
 def test_control_flow_rejects_review_chains() -> None:

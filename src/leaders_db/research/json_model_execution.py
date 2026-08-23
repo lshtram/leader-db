@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import json
 import subprocess
+from copy import deepcopy
+from hashlib import sha256
 from pathlib import Path
-from typing import Protocol
+from typing import Literal, Protocol
 
 import tiktoken
 from pydantic import BaseModel
@@ -51,10 +53,15 @@ def execute_json_model(
     run_budget_tracker: RunUsageBudgetTracker | None = None,
     process_runner=subprocess.run,
     command_builder=build_codex_exec_command,
+    response_schema: dict | None = None,
+    additional_inputs: tuple[str, ...] = (),
+    isolated_web_research: bool = True,
+    disable_web_search: bool = False,
+    sandbox_mode: Literal["read-only", "danger-full-access"] = "read-only",
 ):
     """Execute one strict-JSON request with stage and run-wide accounting."""
 
-    schema = model.model_json_schema()
+    schema = deepcopy(response_schema) if response_schema is not None else model.model_json_schema()
     make_strict_response_schema(schema)
     run_budget_tracker = resolve_integrated_run_budget(output_dir, run_budget_tracker)
     run_reservation: str | None = None
@@ -64,9 +71,8 @@ def execute_json_model(
     command, return_code = None, None
     started: tuple[str, float] | None = None
     try:
-        schema_text = json.dumps(schema, ensure_ascii=False, sort_keys=True)
-        estimated_input_tokens = len(
-            tiktoken.get_encoding("o200k_base").encode(prompt + schema_text)
+        schema_text, complete_input, estimated_input_tokens = _measure_request(
+            prompt, schema, additional_inputs
         )
         if run_budget_tracker is not None:
             capacity_check = call_coordinator.ensure_open if call_coordinator is not None else None
@@ -74,10 +80,11 @@ def execute_json_model(
                 stage=budget_tracker.stage if budget_tracker is not None else "unspecified",
                 component=request_component,
                 estimated_input_tokens=estimated_input_tokens,
-                output_token_allowance=model_max_output_tokens(profile.model),
+                output_token_allowance=_output_allowance(budget_tracker, profile.model),
                 output_dir=output_dir,
                 wait_for_capacity=True,
                 capacity_check=capacity_check,
+                request_sha256=sha256(complete_input.encode()).hexdigest(),
             )
         call_authorized = _authorize_call(call_coordinator)
         if budget_tracker is not None:
@@ -86,6 +93,7 @@ def execute_json_model(
                 prompt=prompt,
                 response_schema=schema,
                 output_dir=output_dir,
+                additional_inputs=additional_inputs,
             )
         output_dir.mkdir(parents=True, exist_ok=True)
         prompt_path = output_dir / "prompt.txt"
@@ -101,7 +109,9 @@ def execute_json_model(
             schema_path=schema_path,
             final_message_path=output_path,
             writable_dir=output_dir,
-            isolated_web_research=True,
+            isolated_web_research=isolated_web_research,
+            disable_web_search=disable_web_search,
+            sandbox_mode=sandbox_mode,
             reasoning_effort=reasoning_effort,
         )
         with (
@@ -154,7 +164,7 @@ def execute_json_model(
                     request_characters=len(prompt),
                     response_schema_characters=len(schema_text),
                     estimated_input_tokens=estimated_input_tokens,
-                    output_token_allowance=model_max_output_tokens(profile.model),
+                    output_token_allowance=_output_allowance(budget_tracker, profile.model),
                     command=command,
                 )
             )
@@ -167,3 +177,20 @@ def _authorize_call(call_coordinator: CallCoordinator | None) -> bool:
         return False
     call_coordinator.authorize_launch()
     return True
+
+
+def _output_allowance(budget_tracker: StageBudgetTracker | None, model: str) -> int:
+    return (
+        budget_tracker.budget.output_allowance(model)
+        if budget_tracker is not None
+        else model_max_output_tokens(model)
+    )
+
+
+def _measure_request(
+    prompt: str, schema: dict, additional_inputs: tuple[str, ...]
+) -> tuple[str, str, int]:
+    schema_text = json.dumps(schema, ensure_ascii=False, sort_keys=True)
+    complete_input = prompt + schema_text + "".join(additional_inputs)
+    token_count = len(tiktoken.get_encoding("o200k_base").encode(complete_input))
+    return schema_text, complete_input, token_count

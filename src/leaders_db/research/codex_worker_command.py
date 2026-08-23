@@ -17,6 +17,7 @@ def build_codex_exec_command(
     final_message_path: Path,
     writable_dir: Path,
     isolated_web_research: bool = False,
+    disable_web_search: bool = False,
     sandbox_mode: Literal["read-only", "danger-full-access"] = "read-only",
     reasoning_effort: Literal["low", "medium", "high", "xhigh"] | None = None,
 ) -> tuple[str, ...]:
@@ -57,6 +58,8 @@ def build_codex_exec_command(
             "--disable",
             "goals",
         ]
+    if disable_web_search:
+        command[2:2] = ["--config", 'web_search="disabled"']
     if schema_path is not None:
         command.extend(("--output-schema", str(schema_path)))
     config_path = Path(profile.codex_config_path).expanduser()

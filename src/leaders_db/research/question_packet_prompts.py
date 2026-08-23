@@ -15,6 +15,7 @@ class QuestionPacketPrompts(BaseModel):
     version: int = Field(ge=1)
     writer_template: str = Field(min_length=100)
     final_writer_template: str | None = None
+    empty_evidence_instruction: str | None = None
     review_template: str = Field(min_length=100)
 
     @model_validator(mode="after")
@@ -31,9 +32,10 @@ class QuestionPacketPrompts(BaseModel):
             )
         ):
             raise ValueError("final writer prompt omits a required placeholder")
+        if self.version >= 16 and not self.empty_evidence_instruction:
+            raise ValueError("sparse-evidence prompt instruction is required")
         if not all(
-            placeholder in self.review_template
-            for placeholder in shared | {"{candidates}"}
+            placeholder in self.review_template for placeholder in shared | {"{candidates}"}
         ):
             raise ValueError("review prompt omits a required placeholder")
         return self

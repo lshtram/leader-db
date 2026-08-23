@@ -18,6 +18,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from .run_usage_budget import (
     RunUsageBudgetTracker,
     RunUsageLimits,
+    approve_quota_only_continuation,
     model_max_output_tokens,
     resolve_integrated_run_budget,
 )
@@ -30,6 +31,12 @@ class StageBudget(BaseModel):
     max_request_characters: int = Field(gt=0)
     max_request_input_tokens: int = Field(gt=0)
     max_stage_input_tokens: int = Field(gt=0)
+    max_request_output_tokens: int | None = Field(default=None, gt=0)
+
+    def output_allowance(self, model: str) -> int:
+        """Return the stage cap when configured, otherwise the model maximum."""
+
+        return self.max_request_output_tokens or model_max_output_tokens(model)
 
 
 class StageBudgets(BaseModel):
@@ -158,6 +165,7 @@ __all__ = [
     "RunUsageBudgetTracker",
     "RunUsageLimits",
     "StageBudgetTracker",
+    "approve_quota_only_continuation",
     "load_stage_budget_tracker",
     "model_max_output_tokens",
     "resolve_integrated_run_budget",

@@ -1,5 +1,9 @@
 # Model cost optimization implementation plan
 
+> Planning status: historical design/reference only. The accepted/rejected experiments changed
+> this original sequence and promotion targets. The sole current execution order, active v17
+> contract, and hard limits are in [`../workplan.md`](../workplan.md), Phases 1-3.
+
 ## Purpose
 
 This plan reduces model input, output, and repeated-call cost in the ruler-quality

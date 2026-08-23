@@ -1,0 +1,15 @@
+# P1-T2A — autonomous collect-all question-review experiment
+
+- Date closed: 2026-08-20
+- Outcome: REJECTED
+- Starting commit and ending commit: uncommitted working tree based on `ac033fdd53e192bc1e9a9df1af4f17af4c3760f1`; no commit created.
+- Objective and scope executed: implemented and ran a finite configuration-driven review experiment under fresh identity `netanyahu-2023-integrated-luna-sol-v19-autonomous-review`. The policy collected schema-valid scientific failures without user intervention and stopped automatically on an invalid artifact.
+- Decisions and lasting constraints: the initial policy used one review round, zero automatic reruns, zero material-defect returns, zero infrastructure retries, and a stop before judging. This proved collect-all quality handling but exposed a transport defect: the broad review schema permits arbitrary evidence-ID strings and relies on post-response rejection. A prospective fresh contract must constrain selectable IDs to the packet allowlist before another run; v19 is immutable and cannot be resumed or repaired.
+- Files/configs changed: `configs/research-question-review-experiment.yaml`; review control, chapter orchestration, manifest, validation, tests, architecture, requirements, workplan, and runtime artifacts under `research/runs/netanyahu-2023-integrated-luna-sol-v19-autonomous-review/`.
+- Durable artifacts and SHA-256 bindings: `run-result.json` SHA-256 `f256893ed9a24abd072cc246f54d648a22858c52fbf695080867cf3a507e9d33`; preflight SHA-256 `76547587ae7c7cf8e46304e66f91e0506c9cbb3c509f59e0efdd95f7c8ae01d2`; experiment policy SHA-256 `b70b3c299d41ee293af7d05de09205d3159b3e031b9f075aeed142f357ad3c97`; cumulative ledger SHA-256 `ba85e576f3fa8ff5566a28e827ef6728370b5c79315cd0e2e2a0f8939814bac0`.
+- Model provider/model/reasoning/surface; approved maximum and actual calls: OpenAI `gpt-5.6-luna`, high reasoning, Codex subscription; approved maximum 80 calls; actual 19 calls.
+- Input/cached/output/reasoning tokens, elapsed time, billing limitation: 1,176,163 input, 23,808 cached input, 91,905 output, and 80,386 reasoning-output tokens. Actual subscription billing is not exposed; directly billed cost was $0.
+- Focused/full tests, lint, validators, and reviews: focused suites passed, Ruff passed, the full default suite passed, and independent code review was clean after policy-loader/hash-binding findings were fixed. Eighteen child reviews validated; the nineteenth raw response was preserved as invalid; all 19 reservations completed and zero remain unresolved.
+- Failures/findings and disposition: valid quality failures for `2B.2` and `4B.5` were collected without stopping. `2B.3` then named unknown ID `BATCH-0036-E020`, causing the configured invalid-artifact stop. No call followed the stop and no judging, repair, audit, or publication ran.
+- Deferred/optional items (non-blocking): none.
+- Next task activated or exact blocker: no task activated. Another autonomous experiment requires a prospective dynamic allowlist schema (or equivalent constrained-ID transport), focused tests, independent review, fresh preflight, and renewed bounded approval.

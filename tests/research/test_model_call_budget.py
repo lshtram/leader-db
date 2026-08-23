@@ -52,6 +52,18 @@ def test_budget_measures_complete_request_and_reserves_normal_call(tmp_path: Pat
     assert json.loads((tmp_path / "budget-reservation.json").read_text()) == reservation
 
 
+def test_stage_specific_output_allowance_overrides_model_maximum() -> None:
+    budget = StageBudget(
+        max_calls=1,
+        max_request_characters=1_000,
+        max_request_input_tokens=1_000,
+        max_stage_input_tokens=1_000,
+        max_request_output_tokens=12_500,
+    )
+
+    assert budget.output_allowance("gpt-5.6-luna") == 12_500
+
+
 @pytest.mark.parametrize(
     ("overrides", "prompt", "reason"),
     [
@@ -105,9 +117,7 @@ def test_call_count_stop_prevents_execution(tmp_path: Path, monkeypatch) -> None
         )
 
 
-def test_invalid_saved_output_stops_without_automatic_repeat(
-    tmp_path: Path, monkeypatch
-) -> None:
+def test_invalid_saved_output_stops_without_automatic_repeat(tmp_path: Path, monkeypatch) -> None:
     output_dir = tmp_path / "saved"
     output_dir.mkdir()
     (output_dir / "output.json").write_text('{"wrong":"shape"}')
@@ -117,9 +127,7 @@ def test_invalid_saved_output_stops_without_automatic_repeat(
     )
 
     with pytest.raises(ValueError, match="unchanged requests are not retried"):
-        _load_or_execute_json(
-            Path.cwd(), object(), "same prompt", _FixtureOutput, output_dir
-        )
+        _load_or_execute_json(Path.cwd(), object(), "same prompt", _FixtureOutput, output_dir)
     assert not (output_dir / "output.invalid.json").exists()
 
 

@@ -1,5 +1,9 @@
 # Data Table Plan
 
+> Planning status: architecture/reference only. The sole executable queue and current order are
+> in [`workplan.md`](workplan.md), Phases 4-5 and 8. Infrastructure and D-table numbering below
+> describe dependencies; they do not select the next task.
+
 This workplan defines the database tables we want to build and populate so the
 project can answer the methodology questions in
 [`methodology/ranking-evaluation-criteria.md`](methodology/ranking-evaluation-criteria.md).
@@ -929,9 +933,8 @@ Completes/starts: D28-D30.
 
 ## Completion Roadmap To D30
 
-This section records the current dependency order for finishing every remaining
-infrastructure phase and data table. It supersedes earlier slice-specific next
-steps when choosing what to do next.
+This section records the dependency graph that informed canonical Workplan Phase 5. It does
+not choose current work or supersede the executable order in `docs/workplan.md`.
 
 ### Infrastructure Completion Order
 

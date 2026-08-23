@@ -338,6 +338,14 @@ If a reviewer finds that an earlier change introduced junk, the
 fix is to clean up that change **before** proceeding — not to
 add a "cleanup" commit at the end of the project.
 
+## Quota-only continuation
+
+An in-place model-run continuation is permitted only when the terminal condition is solely
+aggregate input/output quota exhaustion. It requires explicit user approval for the new
+bounded quota and an append-only amendment binding the exact settled ledger prefix. Do not
+change the request inventory or call ceiling, and never rerun a settled call. Any other
+failure retains the fresh-release rule.
+
 ## Operational check before commit
 
 Run this before every commit:

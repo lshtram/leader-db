@@ -76,10 +76,57 @@ class ResearchControlFlow(BaseModel):
             raise ValueError(f"control flow does not permit {role} action: {action_id}")
 
 
+class QuestionReviewExperimentPolicy(BaseModel):
+    """Finite autonomous policy for one independent-review experiment."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    schema_version: Literal["question_review_experiment_policy_v1"]
+    quality_failure_behavior: Literal["collect_all"]
+    maximum_review_rounds: Literal[1]
+    maximum_material_defect_returns: Literal[0]
+    maximum_automatic_reruns_per_question: Literal[0]
+    maximum_infrastructure_retries: Literal[0]
+    stop_on_invalid_artifact: Literal[True]
+    stop_before_judging: Literal[True]
+    writer_reopen_behavior: Literal[
+        "stop_before_review", "carry_to_review_and_bounded_correction"
+    ] = "stop_before_review"
+
+
+class QuestionCorrectionPolicy(BaseModel):
+    """Finite correction and residual-confidence policy after question review."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    schema_version: Literal["question_correction_policy_v1"]
+    maximum_corrections_per_failed_question: Literal[1]
+    maximum_final_reviews_per_corrected_question: Literal[1]
+    residual_concern_behavior: Literal["carry_to_judgment_with_lower_confidence"]
+    stop_on_residual_quality_failure: Literal[False]
+    stop_on_invalid_artifact: Literal[True]
+    maximum_infrastructure_retries: Literal[0]
+
 def load_control_flow(path: Path) -> ResearchControlFlow:
     """Load and validate one candidate control-flow contract."""
 
     return ResearchControlFlow.model_validate(yaml.safe_load(path.read_text(encoding="utf-8")))
+
+
+def load_question_review_experiment_policy(path: Path) -> QuestionReviewExperimentPolicy:
+    """Load the bounded autonomous review policy selected before model execution."""
+
+    return QuestionReviewExperimentPolicy.model_validate(
+        yaml.safe_load(path.read_text(encoding="utf-8"))
+    )
+
+
+def load_question_correction_policy(path: Path) -> QuestionCorrectionPolicy:
+    """Load the one-correction residual-confidence policy."""
+
+    return QuestionCorrectionPolicy.model_validate(
+        yaml.safe_load(path.read_text(encoding="utf-8"))
+    )
 
 
 def enforce_model_action(
@@ -131,8 +178,12 @@ def write_control_flow_inventory(*, config_path: Path, output_dir: Path) -> Path
 
 
 __all__ = [
+    "QuestionCorrectionPolicy",
+    "QuestionReviewExperimentPolicy",
     "ResearchControlFlow",
     "enforce_model_action",
     "load_control_flow",
+    "load_question_correction_policy",
+    "load_question_review_experiment_policy",
     "write_control_flow_inventory",
 ]

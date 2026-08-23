@@ -1,5 +1,10 @@
 # Country-Year Chronicle Workplan
 
+> Planning status: subsystem reference only. The sole executable queue, current status, and
+> implementation order are in [`../workplan.md`](../workplan.md), Phase 6. This document retains
+> Chronicle requirements and historical increment detail; its “next action” does not activate
+> work independently.
+
 ## 1. Sub-project name
 
 **Country-Year Chronicle** (`cyc`)
@@ -672,7 +677,7 @@ Recommended process:
 4. Should the locally visible `pwt1001.xlsx` and `p5v2018.sav` be promoted to
    canonical raw sources by writing metadata and updating the active blockers?
 
-## 13. Immediate next action
+## 13. Historical pending-work detail
 
 Resume **Increment 4 — controlled / imperial area design and source vetting**
 (Increment 4 design plan at

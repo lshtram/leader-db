@@ -66,6 +66,16 @@ class ApprovedCorpusProvenance(BaseModel):
     review_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     review_binding_path: str
     review_binding_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    question_handoff_path: str | None = None
+    question_handoff_sha256: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    question_package_path: str | None = None
+    question_package_sha256: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    question_package_preflight_path: str | None = None
+    question_package_preflight_sha256: str | None = Field(
+        default=None, pattern=r"^[0-9a-f]{64}$"
+    )
+    cohort_preflight_path: str | None = None
+    cohort_preflight_sha256: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
 
 
 class ApprovedQuestionAnswer(BaseModel):
@@ -80,12 +90,29 @@ class ApprovedQuestionAnswer(BaseModel):
     limitations_and_gaps: tuple[str, ...]
 
 
+class UnavailableQuestionLens(BaseModel):
+    """A saturated but evidence-empty lens carried into confidence calibration."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    question_id: str
+    reason: Literal["no_admissible_evidence"] = "no_admissible_evidence"
+    adjudication_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    confidence_effect: Literal["missing_lens_lowers_confidence"] = (
+        "missing_lens_lowers_confidence"
+    )
+
+
 class RulerChapterProjection(BaseModel):
     """One chapter-only, non-score-bearing projection of a ruler dossier."""
 
     model_config = ConfigDict(extra="forbid")
 
-    schema_version: Literal["ruler_chapter_projection_v1", "ruler_chapter_projection_v2"]
+    schema_version: Literal[
+        "ruler_chapter_projection_v1",
+        "ruler_chapter_projection_v2",
+        "ruler_chapter_projection_v3",
+    ]
     source_dossier_schema_version: Literal["ruler_evidence_dossier_v2"]
     source_dossier_path: str = Field(min_length=1)
     source_dossier_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
@@ -113,6 +140,9 @@ class RulerChapterProjection(BaseModel):
     run_provenance: ChapterRunProvenance
     approved_corpus_provenance: ApprovedCorpusProvenance | None = None
     approved_question_answers: tuple[ApprovedQuestionAnswer, ...] = ()
+    unavailable_question_lenses: tuple[UnavailableQuestionLens, ...] = Field(
+        default=(), exclude_if=lambda value: not value
+    )
     estimated_input_tokens: int = Field(gt=0)
 
     @model_validator(mode="after")
@@ -162,7 +192,7 @@ class RulerChapterProjection(BaseModel):
         }
         if any(relations != {"context"} for relations in relations_by_evidence.values()):
             raise ValueError("discovery-only evidence may have only contextual chapter mappings")
-        if self.schema_version == "ruler_chapter_projection_v2":
+        if self.schema_version in {"ruler_chapter_projection_v2", "ruler_chapter_projection_v3"}:
             self._validate_approved_answers(expected=expected, known=known)
         return self
 
@@ -174,8 +204,22 @@ class RulerChapterProjection(BaseModel):
         answer_question_ids = tuple(
             item.question_id for item in self.approved_question_answers
         )
-        if answer_question_ids != expected:
-            raise ValueError("v2 projection requires ten approved answers in order")
+        unavailable_ids = tuple(item.question_id for item in self.unavailable_question_lenses)
+        if self.schema_version == "ruler_chapter_projection_v2" and unavailable_ids:
+            raise ValueError("v2 projection cannot contain unavailable lenses")
+        selected_ids = tuple(
+            item
+            for item in expected
+            if item in set(answer_question_ids) | set(unavailable_ids)
+        )
+        if (
+            selected_ids != expected
+            or set(answer_question_ids) & set(unavailable_ids)
+            or len(answer_question_ids) + len(unavailable_ids) != 10
+        ):
+            raise ValueError(
+                "projection requires one reviewed answer or unavailable record per lens"
+            )
         answer_ids = {
             evidence_id
             for answer in self.approved_question_answers

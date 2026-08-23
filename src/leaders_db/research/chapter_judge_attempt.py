@@ -95,7 +95,14 @@ def _initialize_attempt(
     )
     schema_path = attempt_dir / "chapter-judgment.schema.json"
     schema_path.write_text(
-        json.dumps(codex_chapter_judgment_json_schema(), indent=2, sort_keys=True),
+        json.dumps(
+            codex_chapter_judgment_json_schema(
+                str(job["input"]["chapter_id"]),
+                tuple(str(item) for item in job["input"]["dossier_job_keys"]),
+            ),
+            indent=2,
+            sort_keys=True,
+        ),
         encoding="utf-8",
     )
     return ChapterJudgeAttempt(

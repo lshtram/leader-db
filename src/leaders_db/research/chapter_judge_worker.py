@@ -236,7 +236,13 @@ def _run_budgeted_judge(
     run_budget: RunUsageBudgetTracker | None,
     model_name: str,
 ) -> None:
-    schema = codex_chapter_judgment_json_schema()
+    schema = codex_chapter_judgment_json_schema(
+        str(job["input"]["chapter_id"]),
+        tuple(str(item) for item in job["input"]["dossier_job_keys"]),
+    )
+    saved_schema = json.loads(attempt.schema_path.read_text(encoding="utf-8"))
+    if schema != saved_schema:
+        raise ValueError("chapter judge execution schema differs from preflight schema")
     reservation = None
     launched = False
     started = None

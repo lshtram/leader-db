@@ -24,6 +24,37 @@ class _Budget:
         self.reservations += 1
 
 
+def test_executor_persists_caller_supplied_strict_schema(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    output_dir = tmp_path / "constrained"
+    response_schema = _Result.model_json_schema()
+    response_schema["properties"]["value"]["enum"] = ["ok"]
+
+    def fake_run(*args, **kwargs) -> None:
+        (output_dir / "output.json").write_text('{"value":"ok"}', encoding="utf-8")
+
+    monkeypatch.setattr("leaders_db.research.corpus_reader_runner.subprocess.run", fake_run)
+    monkeypatch.setattr(
+        "leaders_db.research.corpus_reader_runner.build_codex_exec_command",
+        lambda **kwargs: ("codex",),
+    )
+
+    result = execute_json_model(
+        tmp_path,
+        SimpleNamespace(model="gpt-5.6-sol"),
+        "prompt",
+        _Result,
+        output_dir,
+        response_schema=response_schema,
+    )
+
+    assert result.value == "ok"
+    saved = json.loads((output_dir / "schema.json").read_text())
+    assert saved["properties"]["value"]["enum"] == ["ok"]
+    assert saved["required"] == ["value"]
+
+
 def test_failure_publication_blocks_late_launch_but_allows_inflight_to_settle() -> None:
     coordinator = ModelCallCoordinator()
     registered = Barrier(2)

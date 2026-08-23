@@ -52,6 +52,8 @@ class PublicChapter(BaseModel):
     plausible_lower: float = Field(ge=1, le=10)
     plausible_upper: float = Field(ge=1, le=10)
     rationale: str
+    summary: str | None = None
+    exposition: str | None = None
     ruler_attribution: str
     inherited_baseline_and_constraints: str
     lower_anchor_rejected: str
@@ -81,6 +83,8 @@ class StudySiteProjection(BaseModel):
     run_id: str
     target_year: int
     audit_decision: str
+    audit_path: str | None = None
+    audit_sha256: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
     pipeline_version_id: str
     methodology_version_id: str
     rulers: list[PublicRuler]

@@ -7,6 +7,7 @@ import tiktoken
 import yaml
 
 from leaders_db.evidence_funnel.execution_schema import make_strict_response_schema
+from leaders_db.research.question_evidence_packet_models import QuestionEvidencePacket
 from leaders_db.research.question_evidence_packets import (
     load_trusted_chapter_question_evidence_package,
 )
@@ -22,10 +23,44 @@ from leaders_db.research.question_packet_quality import (
     _payload_hash,
     _review_prompt,
     _validate_review_conclusion,
+    build_blind_review_response_schema,
     run_blind_question_quality_review,
     validate_blind_review_artifacts,
 )
 from leaders_db.research.question_packet_writer import DiagnosticQuestionAnswer
+
+
+def test_blind_review_schema_for_empty_packet_forbids_evidence_selection() -> None:
+    packet = QuestionEvidencePacket.model_validate(
+        {
+            "question_id": "7B.3",
+            "question": "Synthetic sparse-evidence question",
+            "priority_evidence": [],
+            "source_routed_priority_evidence_ids": [],
+            "selection_added_priority_evidence_ids": [],
+            "candidate_index": [],
+            "direct_evidence_count": 0,
+            "favorable_evidence_ids": [],
+            "adverse_evidence_ids": [],
+            "mixed_or_context_evidence_ids": [],
+            "coverage": {
+                "question_id": "7B.3",
+                "items": [],
+                "required_evidence_ids": [],
+                "reopenable_evidence_ids": [],
+                "adjudicated_nonmaterial_evidence_ids": [],
+                "favorable_available": False,
+                "adverse_available": False,
+                "mixed_or_context_available": False,
+            },
+        }
+    )
+    schema = build_blind_review_response_schema(packet)
+
+    assert schema["properties"]["strongest_omitted_evidence_ids"]["items"] == {
+        "type": "string",
+        "enum": [],
+    }
 
 
 def _candidate(label: str, result: str = "pass") -> BlindCandidateQuality:
@@ -39,6 +74,29 @@ def _candidate(label: str, result: str = "pass") -> BlindCandidateQuality:
         judgeability=result,
         rationale="A sufficiently detailed rationale for deterministic review testing.",
     )
+
+
+def _assert_packet_constrained_schema(schema: dict, packet: QuestionEvidencePacket) -> None:
+    allowed = sorted({item.evidence_id for item in packet.candidate_index})
+    assert schema["properties"]["question_id"]["const"] == packet.question_id
+    assert schema["properties"]["strongest_omitted_evidence_ids"]["items"] == {"enum": allowed}
+    assert schema["$defs"]["BlindCandidateQuality"]["properties"]["missed_evidence_ids"][
+        "items"
+    ] == {"enum": allowed}
+
+
+def _assert_new_review_manifest(manifest: dict) -> dict:
+    assert manifest["reasoning_effort"] == "high"
+    assert manifest["schema_version"] == "diagnostic_question_blind_review_v5"
+    return dict(manifest)
+
+
+def _assert_schema_downgrade_rejected(manifest_path: Path, manifest: dict, arguments: dict) -> None:
+    downgraded = {**manifest, "schema_version": "diagnostic_question_blind_review_v4"}
+    manifest_path.write_text(json.dumps(downgraded))
+    with pytest.raises(ValueError, match="does not match its prompt contract"):
+        validate_blind_review_artifacts(**arguments)
+    manifest_path.write_text(json.dumps(manifest))
 
 
 def test_review_conclusion_is_derived_from_deblinded_findings() -> None:
@@ -169,8 +227,7 @@ def test_trusted_review_reload_rejects_gate_tampering(monkeypatch, tmp_path: Pat
         output_dir.mkdir(parents=True, exist_ok=True)
         (output_dir / "output.json").write_text(review.model_dump_json())
         (output_dir / "prompt.txt").write_text(prompt)
-        strict_schema = BlindQuestionQualityReview.model_json_schema()
-        make_strict_response_schema(strict_schema)
+        strict_schema = kwargs["response_schema"]
         (output_dir / "schema.json").write_text(json.dumps(strict_schema, indent=2))
         return review
 
@@ -189,8 +246,8 @@ def test_trusted_review_reload_rejects_gate_tampering(monkeypatch, tmp_path: Pat
     )
     manifest_path = tmp_path / "blind-review-manifest.json"
     manifest = json.loads(manifest_path.read_text())
-    original_manifest = dict(manifest)
-    assert manifest["reasoning_effort"] == "high"
+    original_manifest = _assert_new_review_manifest(manifest)
+    _assert_packet_constrained_schema(json.loads((tmp_path / "schema.json").read_text()), packet)
     arguments = {
         "packet": packet,
         "approved_answer": approved,
@@ -202,6 +259,8 @@ def test_trusted_review_reload_rejects_gate_tampering(monkeypatch, tmp_path: Pat
         "reasoning_effort": "high",
     }
     assert validate_blind_review_artifacts(**arguments)["quality_gate"] == "pass"
+
+    _assert_schema_downgrade_rejected(manifest_path, manifest, arguments)
 
     schema_path = tmp_path / "schema.json"
     strict_schema = schema_path.read_text()
@@ -272,13 +331,18 @@ def _write_legacy_review_artifacts(
     )
     (output_dir / "output.json").write_text(json.dumps(payload))
     (output_dir / "prompt.txt").write_text(prompt)
+    legacy_schema = BlindQuestionQualityReview.model_json_schema()
+    make_strict_response_schema(legacy_schema)
+    (output_dir / "schema.json").write_text(json.dumps(legacy_schema, indent=2))
     legacy_manifest = {
         **manifest,
+        "schema_version": "diagnostic_question_blind_review_v4",
         "prompt_config_version": 10,
         "prompt_config_sha256": prompt_config_hash,
         "estimated_input_tokens": len(tiktoken.get_encoding("o200k_base").encode(prompt)),
         "prompt_sha256": sha256(prompt.encode()).hexdigest(),
         "review_sha256": _payload_hash(payload),
+        "response_schema_sha256": _payload_hash(legacy_schema),
         "quality_gate": "fail",
     }
     (output_dir / "blind-review-manifest.json").write_text(json.dumps(legacy_manifest))

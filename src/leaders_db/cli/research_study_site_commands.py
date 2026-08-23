@@ -19,6 +19,8 @@ def register_study_site_commands(research_app: typer.Typer) -> None:
 def research_build_study_site_cmd(
     run_dir: Path = typer.Option(..., exists=True, file_okay=False),
     output_dir: Path = typer.Option(..., file_okay=False),
+    audit_path: Path | None = typer.Option(None, exists=True, dir_okay=False),
+    approved_audit_sha256: str | None = typer.Option(None),
 ) -> None:
     """Build a validated public static site from one approved production run."""
 
@@ -27,6 +29,8 @@ def research_build_study_site_cmd(
         project_root=project_root,
         run_dir=run_dir.resolve(),
         output_dir=output_dir.resolve(),
+        audit_path=audit_path.resolve() if audit_path is not None else None,
+        approved_audit_sha256=approved_audit_sha256,
     )
     typer.echo(manifest)
 

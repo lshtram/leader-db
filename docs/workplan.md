@@ -1,761 +1,552 @@
-# Workplan
-
-## Purpose
-
-This document is the operational handoff for the next development session. It records
-only the current production baseline, active decision, remaining tasks, and completion
-criteria. Detailed history through 2026-08-14 is preserved in
-[`archive/workplan/workplan-through-2026-08-14.md`](archive/workplan/workplan-through-2026-08-14.md).
-
-Normative scope and pipeline requirements remain in
-[`requirements/top-level-requirements.md`](requirements/top-level-requirements.md).
-Architecture belongs in [`architecture/overview.md`](architecture/overview.md), tracked
-requirements in [`requirements/core.md`](requirements/core.md), source status in
-[`sources/registry.md`](sources/registry.md), and the detailed cost program in
-[`process/model-cost-optimization-implementation-plan.md`](process/model-cost-optimization-implementation-plan.md).
-
-## Current objective
-
-Use affordable models for the high-volume question work while preserving materially
-accurate factual support, balance, ruler attribution, period handling, and judgeability.
-Do not impose transcription-level precision when a numerical approximation cannot affect
-the eventual human-style judgment. Keep the production flow
-straightforward: one production phase, one dedicated independent quality phase, and no
-automatic model repair or re-review loops inside either phase.
-
-The compact table-row representation, lossless writer transport, stage budgets, and
-straight-through control contract have passed their bounded gates. The 72 unresolved v10
-evidence requests have now been explicitly promoted and the fresh v11 zero-call preflight
-has passed. The next bounded phase is Luna-high writing only; review and judging remain
-stopped until all 80 new answers pass deterministic validation with no reopen requests.
-
-## Current production baseline
-
-- Production release remains `production-2023-v4`; experiments do not mutate it.
-- The approved five-ruler reference is `2023-five-ruler-flow-test-v2`.
-- The approved deep Netanyahu reference is the frozen full-catalogue package and its
-  approved eight-chapter output.
-- The next candidate uses ten ordered Luna-high writes followed by ten Luna-high reviews;
-  Sol-high is reserved for chapter judgment and judgment review. There is no internal critique, repair planner,
-  correction pass, or automatic retry.
-- Each question receives exact selected evidence plus a compact index of other candidates.
-  Evidence dispositions are the single authoritative citation ledger.
-- Corpus fact discovery uses whole extraction units. Deterministic code binds exact source
-  text and hashes; historical evidence records remain valid.
-- Model-cost accounting uses trusted event artifacts and reports API cost, Codex-equivalent
-  usage, and unknown subscription billing separately.
-- Model execution currently uses the Codex subscription. Before any API-key call, obtain
-  user approval for the specific model and estimated token or monetary quota.
-- The temporary module-size exception is closed. `chapter_judge_worker.py`,
-  `corpus_reader_runner.py`, `research_worker_commands.py`, `model_call_budget.py`, and
-  `question_packet_chapter.py` are below the 400-line convention, and their two named
-  oversized focused test modules have been split by responsibility. The original public
-  imports and patchable test seams remain available.
-
-## Decisions already made
-
-| Decision | Outcome |
-|---|---|
-| Canonical cost profiler | Retained and used as the measurement baseline. |
-| Cache-oriented request envelope | Rejected; it increased complexity without reliable quality or cache benefit. |
-| One chapter-wide writing call | Replaced by question packets and ten ordered writes because bounded exact evidence is safer and clearer. |
-| One chapter-wide review call | Rejected; the exact request exceeds the Codex transport limit even after deduplication. Keep ten independent reviews. |
-| Automatic repair and re-review | Rejected from the straight-through path. Fail once and make any later correction an explicit new decision. |
-| Shared repeated-passage table | Rejected; 8.6% serialized saving did not justify another storage contract. |
-| Paragraph-labeled fact discovery | Rejected; it omitted material facts. Whole-unit discovery remains active. |
-| Verifier-selected paragraph citations | Technically sound but not promoted as a saving: the bounded run reduced citation text only 17% and omitted one known comparison during discovery. |
-
-Detailed evidence for these decisions is in the archived workplan and immutable artifacts
-under `research/runs/`.
-
-## Current status of the cost-optimization plan
-
-The numbered source plan remains useful as a design record, but rejected experiments mean
-its original implementation sequence is no longer literal.
-
-| Original step | Status |
-|---|---|
-| 1. Canonical profiling | Complete. |
-| 2. Cache-oriented envelope | Tested and removed. |
-| 3. Chapter synthesis | Goal addressed through deterministic question packets and straight-through per-question writing. |
-| 4. Chapter-scoped review | Tested without a model call and removed because the request is too large. |
-| 5–6. Delta repair and changed-only review | Not adopted; these would recreate the review loops the current design avoids. |
-| 7. Compact research/reading output | Complete for the selected table-row representation; paragraph granularity was rejected. |
-| 8. Stage budgets and stop rules | Complete for the straight-through pipeline. |
-| 9. Integrated one-ruler gate | Rejected after the fresh Terra/Sol comparison and the Luna `xhigh` material omission. |
-| 10. Five-ruler confirmation | Blocked pending an explicit new candidate decision and a passing fresh one-ruler gate. |
-
-## Remaining task sequence
-
-Complete one task per development session. Do not begin the next task until the current
-task has a persisted result, passing focused verification, a clean review, and an updated
-handoff in this document.
-
-### Task 1 — Determine whether table-row citation granularity is viable
-
-Status: **complete — promising for one bounded comparison**
-
-Objective: determine without a model call whether statistical tables can be divided into
-smaller immutable citation units than blank-line paragraphs.
-
-Scope:
-
-- Use frozen extractions, beginning with the Labour Force Survey slice that exposed the
-  paragraph limitation.
-- Identify table rows using deterministic source-text offsets; do not normalize or rewrite
-  the authoritative text.
-- Resolve every row back to the exact original substring with source, unit, offsets, and
-  SHA-256.
-- Measure row coverage, unsplittable content, citation-size distribution, and the potential
-  saving for the known facts.
-- Keep this isolated from the production reader and evidence schema.
-
-Complete when:
-
-- round-trip and tamper tests pass for ordinary text, Unicode, and table-shaped input;
-- every nonblank source character is represented or explicitly classified outside the row
-  grammar;
-- measurements show whether the representation materially improves on paragraph spans;
-- the result is recorded as `promising` or `rejected`, with no ambiguous partial promotion.
-
-Result: exact row addresses covered all 38,936 nonblank characters in the frozen 12-unit
-slice. The three known rows plus every context line from their source units required 1,866
-characters versus a reproducible 39,620-character like-for-like paragraph baseline, a
-95.3% reduction. This is representation evidence only. See
-[`archive/workplan/2026-08-14-table-row-feasibility.md`](archive/workplan/2026-08-14-table-row-feasibility.md).
-
-### Task 2 — Run one bounded table-row quality comparison, only if Task 1 passes
-
-Status: **complete — passed**
-
-Objective: test one frozen source slice through the existing discovery and quality
-boundaries without adding a pipeline phase.
-
-Scope:
-
-- Keep whole-unit fact discovery.
-- Let the existing verifier or a single bounded comparison select/check exact rows.
-- Use a fresh output directory and exactly the calls authorized at session start.
-- Compare against the corrected frozen baseline, including the 60.1% owner-occupied,
-  71.9% rented, and Jewish-Arab employment facts.
-- Stop after one failed result; do not automatically repair or review it again.
-
-Complete when factual coverage and citation integrity pass and citation text is reduced
-enough to justify integration. Otherwise archive the result and close row granularity as
-rejected.
-
-Result: one Codex-subscription `gpt-5.6-sol` call preserved all four corrected employment
-facts, table-column and population meanings, limitations, exact source bindings, and the
-lack of ruler-specific causal attribution. Exact citation text fell from 39,620 to 2,780
-characters, a 93.0% reduction; the complete serialized comparison fell 86.3%. See
-[`archive/workplan/2026-08-14-table-row-quality-comparison.md`](archive/workplan/2026-08-14-table-row-quality-comparison.md).
-
-### Task 3 — Integrate compact citations at one downstream boundary, only if Task 2 passes
-
-Status: **complete — passed**
-
-Objective: prove actual transport savings rather than only representation savings.
-
-Scope:
-
-- Select one consumer with substantial exact-text input, preferably question-packet
-  construction or verification.
-- Preserve the existing whole-unit evidence record during compatibility migration.
-- Reconstruct and validate all compact citations from frozen sources before use.
-- Measure the complete serialized request before and after the change.
-- Do not add a new model phase, review role, or storage abstraction unrelated to the saving.
-
-Complete when the trusted old artifacts still load, the selected consumer uses the compact
-representation safely, and measured request savings are material with no evidence loss.
-
-Result: the diagnostic question writer retains the whole-unit evidence record by default
-and can explicitly project exact table rows only after reconstructing them from frozen
-source units. The corrected like-for-like serialized request fell from 148,462 to 24,983
-characters, an 83.2% reduction, with no model call or evidence loss. See
-[`archive/workplan/2026-08-14-table-row-writer-transport.md`](archive/workplan/2026-08-14-table-row-writer-transport.md).
-
-### Task 4 — Finish stage budgets and explicit stop rules
-
-Status: **complete — passed**
-
-Objective: make model spending predictable without creating recovery loops.
-
-Scope:
-
-- Inventory every production model-bearing stage and its current character/token preflight.
-- Add missing configured budgets and complete-request measurement.
-- Stop before a call when a request is unsafe or a stage budget is exhausted.
-- Resume only from trusted completed artifacts; never retry an unchanged failed request.
-- Report the stage and request component responsible for a stop.
-
-Complete when normal execution, deliberately low budgets, oversized input, and trusted
-resume are covered by focused tests and no automatic repeat call is possible.
-
-Result: the active reader, verifier, question-writer, independent-review, and chapter-judge
-stages now reserve configured complete-request and cumulative stage capacity before
-execution. Stops name the stage, component, and exhausted dimension; trusted completed
-artifacts resume without calls, and invalid saved output cannot trigger an unchanged
-automatic repeat. See
-[`archive/workplan/2026-08-14-stage-budgets-and-stop-rules.md`](archive/workplan/2026-08-14-stage-budgets-and-stop-rules.md).
-
-### Task 5 — Simplify the production control flow
-
-Status: **complete; passed**
-
-Objective: decide which historical review/correction mechanisms can be retired while
-preserving quality.
-
-Scope:
-
-- Map model calls in the active production release from research through publication.
-- Separate deterministic validation from model review.
-- Target one production action followed by one dedicated independent quality action.
-- Permit at most one explicit return for a material defect; it must be user-visible and
-  must not run automatically.
-- Compare any proposed removal on the same frozen case before changing production.
-
-Complete when the active pipeline diagram and call inventory contain no hidden review,
-repair, retry, or supervisor loops, or when each retained loop has a concise evidence-based
-justification.
-
-Result: the candidate contract maps three production/independent-quality pairs, separates
-deterministic validation, disables automatic retry/repair/re-review/supervisor takeover,
-and permits only one user-authorized, non-automatic material-defect return. Frozen
-`production-2023-v4` was hashed and compared without mutation. See
-[`archive/workplan/2026-08-14-production-control-flow-simplification.md`](archive/workplan/2026-08-14-production-control-flow-simplification.md).
-
-### Task 6 — Run the integrated Netanyahu gate
-
-Status: **rejected after fresh Terra/Sol comparison**
-
-Objective: validate the chosen compact and simplified design from frozen acquisition
-through approved answers, judging, audit, and publication.
-
-Use a new experimental release and run ID. Promotion requires complete artifacts, passing
-quality and score/order audits, a validated cited publication, no unresolved jobs, and the
-cost targets in the detailed optimization plan. A cheaper result with a material quality
-regression fails.
-
-Result: the fresh release validated the frozen corpus/selection inputs and built all eight
-question packages (80 questions), then stopped before model execution. The required
-straight-through inventory totals 176 calls, above the below-150 promotion target. Dropping
-an independent quality action would violate Task 5, so no ineligible subscription work was
-started. See
-[`archive/workplan/2026-08-14-integrated-netanyahu-gate-preflight.md`](archive/workplan/2026-08-14-integrated-netanyahu-gate-preflight.md).
-
-Follow-up result: with user approval, the call ceiling was relaxed to 176 and production
-actions were switched to Luna `xhigh`, retaining Sol `high` for independent quality. The
-run stopped at 2B.3 because Luna omitted one of 28 mandatory evidence records. No retry,
-repair, Sol review, judging, or publication followed. See
-[`archive/workplan/2026-08-14-integrated-luna-xhigh-comparison.md`](archive/workplan/2026-08-14-integrated-luna-xhigh-comparison.md).
-
-Terra continuation: the user accepted 176 calls and selected Sol for both judging stages.
-Seventy-seven of 78 completed Terra writes passed. Question 1B.10 covered all 25 mandatory
-records but requested one optional evidence ID outside its packet; two concurrent final
-writes were interrupted when the strict gate stopped. Completion now requires explicit
-authorization for deterministic removal of that optional request and a realized ceiling of
-178 calls. No review or judging call has started.
-
-Fresh general-pipeline result: optional reopen normalization was implemented prospectively,
-with immutable raw output, a reconstructed accepted artifact, and a hash-bound ledger. A
-shared executor-boundary coordinator now prevents post-failure reservations and launches in
-both concurrent writing and review. After focused tests and clean independent review, the
-completely fresh `netanyahu-2023-integrated-terra-sol-v2` run completed 80/80 Terra writes.
-The separate Sol review rejected question 6B.1 after 14 authorized reviews: it preferred the
-frozen approved answer because its claim-level citations and allocation-versus-execution
-distinctions were easier to audit. The reviewer also identified three material evidence
-records omitted by both answers. No repair, retry, judging, or judgment-review call followed.
-The immutable result is
-`research/runs/netanyahu-2023-integrated-terra-sol-v2/run-result.json`. Actual usage was
-6,475,855 input tokens (843,264 cached), 216,148 output tokens, and 94 calls. Task 6 remains
-rejected; Task 7 remains blocked.
-
-No-model follow-up: an all-80-answer audit found that the version 6 prompt produced zero
-inline evidence IDs in Terra prose, while 40 of 80 frozen predecessor answers contained
-773 per-answer inline-ID occurrences. Terra still returned 1,241 complete structured
-dispositions. This supports a general auditability change rather than a 6B.1 repair:
-version 7 requires every exact priority ID inline beside its claim while retaining the
-disposition ledger, and deterministic validation rejects missing or unknown inline IDs.
-The blind gate is unchanged. See
-[`archive/workplan/2026-08-14-terra-citation-audit.md`](archive/workplan/2026-08-14-terra-citation-audit.md).
-
-Fresh version 7 test: `netanyahu-2023-integrated-terra-sol-v3` stopped after 22 Terra
-calls when question 7B.2 used ordinary semicolon-delimited grouped citations. Twenty-one
-answers passed. The validator interpreted each complete bracket group as one ID, reporting
-valid group members as missing and the group string as unknown. No review or downstream
-call started, and the run remains immutable. Version 8 prospectively defines both `[ID]`
-and `[ID-1; ID-2]` and validates every group member independently. This is a general
-citation grammar, not a 7B.2 artifact repair.
-
-Fresh version 8 test: `netanyahu-2023-integrated-terra-sol-v4` stopped after 50 Terra
-calls. Forty-nine answers passed; question 5B.8 returned a complete disposition for
-`BATCH-0028-E005` but did not cite that required ID anywhere in its prose. The validator
-correctly rejected it. No review or downstream call started. This is a genuine writer
-contract miss, so no further parser change, retry, or automatic fresh attempt follows.
-The next decision is whether inline claim-level citation completeness is the intended
-product contract; if it is, Terra medium has not demonstrated sufficient reliability.
-
-Fresh all-Sol test: `netanyahu-2023-integrated-sol-v5` completed 80/80 high-reasoning Sol
-writes, then stopped after 22 independent Sol reviews. Reviews 1B.2 and 8B.2 preferred the
-fresh answers overall but failed mandatory factual-support and citation-entailment gates.
-The first contradicted its cited Lebanon source about avoidance of large-scale escalation;
-the second misattributed Hanegbi's “central mission” characterization to Netanyahu and
-omitted a material inherited home-front baseline. No judging or repair followed. Actual
-usage was 7,135,489 input tokens (598,016 cached) and 554,813 output tokens over 102 calls.
-This exceeded the stated 500,000-output-token run quota, revealing that current controls
-preflight output allowance but do not enforce cumulative observed output across stages.
-Task 6 remains rejected, and another model run requires a general cumulative-usage control
-rather than a case-specific content fix.
-
-General quota-control follow-up: a file-locked run-wide ledger now reserves calls, exact
-serialized input estimates, and the selected model's full provider output maximum before
-stage reservation or subprocess launch. Every model execution beneath an eligible integrated
-preflight automatically derives the same config-hash-bound tracker from that manifest; a
-mismatched explicit tracker is refused. The ledger spans question writing/review and both
-judging paths, counts concurrent outstanding reservations, reconciles trusted completed
-events, retains allowance when usage is unavailable, and releases capacity only for work
-that never launched. Ledger identity and limits cannot change between processes, and a
-single-call observed overage is persisted as a terminal failure. Focused concurrency,
-identity, reconciliation, and launch-boundary tests pass; no model call was used for this
-implementation. Because Sol can emit up to 128,000 tokens per call, the 500,000-token limit
-admits at most three simultaneous Sol calls. The rejected v5 writer stage alone observed
-496,838 output tokens, so a complete all-Sol run cannot reasonably fit that ceiling. A fresh
-run remains blocked until a prospective release chooses a larger honest output limit or a
-different approved production architecture.
-
-Profiling and fresh-run follow-up: the partial `netanyahu-2023-integrated-luna-sol-v6`
-attempt is immutable diagnostic evidence rather than a resumable run. Its seven completed
-Luna-high writing calls reconcile exactly to the run ledger: 346,307 input tokens, 7,936
-cached input tokens, 33,617 output tokens, and 18,736 reasoning-output tokens. The canonical
-profiler now covers all four integrated stages, run reservations and budget breaches,
-preflight limits, per-call timing and transport metadata, validation outcomes, PAYG and
-Codex-credit equivalents, and explicit unknown subscription billing. Independent review
-of the profiler and execution instrumentation is clean, the full suite passes, and fresh
-release `netanyahu-2023-integrated-luna-sol-v7` has an eligible 176-call preflight with
-40,000,000 input-token and 1,000,000 output-token hard ceilings. No v7 model call had been
-made at this checkpoint.
-
-The fresh v7 execution is also now frozen as a failed diagnostic. It launched 28 Luna-high
-question-writing calls before stopping the stage: 28 calls completed and reconciled exactly
-to 1,605,550 input tokens, 7,936 cached input tokens, 142,086 output tokens, and 68,407
-reasoning-output tokens. All 28 calls have measured execution profiles totaling 2,721.462288
-call-seconds; the PAYG equivalent is $0.490183-$0.570066 and the Codex-credit equivalent is
-12.254618, while actual subscription billing remains unavailable. One completed answer
-(`2B.3`) failed deterministic evidence coverage, and the prospective run-wide budget then
-refused `3B.5` because outstanding 128,000-token provider-maximum reservations would exceed
-the one-million-token output ceiling. Review and judging did not run. The ledger itself is
-complete and token reconciliation passes; the integrated scientific gate is inconclusive.
-The general scheduler correction is complete without weakening the ceiling or inventing a
-smaller per-call allowance. When active provider-maximum reservations are the only obstacle,
-new work now waits for reconciliation; permanently exhausted capacity still stops at once.
-The shared failure coordinator is checked before and throughout the wait, a 30-minute bound
-stops a genuinely stuck reservation, and reservation-file failures cancel their unlaunched
-ledger capacity. Focused scheduler, coordinator, question-concurrency, profiling, preflight,
-judge, and judgment-review tests pass, and independent re-review is clean. A fresh v8 may be
-preflighted, but it must use new model outputs and must not resume or alter v7 or repair its
-failed answer.
-
-Fresh v8 is now frozen as a failed diagnostic after its question-writing phase. Its
-zero-call preflight passed with all eight packages and eighty questions, and the repaired
-scheduler behaved correctly: one call waited 22.026149 seconds for temporary capacity, then
-continued; after the scientific failure, one reserved but unlaunched call was cancelled.
-Thirty-one Luna-high calls completed and reconcile exactly to 1,759,628 input tokens, 15,872
-cached input tokens, 152,135 output tokens, and 77,346 reasoning-output tokens. Measured
-call time totals 2,927.983972 seconds; the PAYG equivalent is $0.531631-$0.618820 and the
-Codex-credit equivalent is 13.290766, while actual subscription billing remains unavailable.
-Thirty answers passed and `2B.3` failed. It cited `BATCH-0030-R02-E002` in prose but omitted
-the required machine-readable evidence-disposition entry. v7 had failed on the same record,
-although it had omitted both the prose citation and disposition. The approved predecessor's
-metadata classifies this record as contrary/qualifying for `2B.3`, even though the evidence
-record's own methodology mappings are `2B.5`, `6B.6`, and `8B.9`; its predecessor prose also
-does not cite the record. Review and judging did not run. Before another model call, resolve
-this general producer-contract inconsistency and make the strict response contract enforce
-complete dispositions structurally rather than relying on an unbounded array instruction.
-Do not resume or alter v8 and do not repair either failed output.
-
-The general v8 contract repair is complete in two independently revertible versions. The
-routing audit found 622 selection-added assignments across 76 of 80 questions, so deleting
-cross-mapped records would discard reviewed evidence. Question packets now preserve ordered
-source-routed and selection-added provenance separately; frozen historical base and expanded
-packets upgrade only omitted fields after trusted reconstruction, while explicit clearing or
-tampering fails. Separately, writer prompt version 10 and its dynamic strict JSON schema make
-every required evidence ID a mandatory object key and reject extra or generated internal
-keys. The transport response is deterministically converted to the existing ordered-list
-accepted artifact, and trusted reload supports both the new keyed raw shape and historical
-canonical raw files. Independent review is clean for both versions. No model calls were used
-for these repairs; a completely fresh release is required to test whether the repeated
-`2B.3` omission is eliminated in practice.
-
-Fresh v9 is frozen as a failed diagnostic after independent question review. All eighty
-Luna-high question-writing calls passed, including `2B.3` with all 28 required evidence
-dispositions. This confirms that the dynamic exact-key response contract fixed the repeated
-structural omission. Review then completed twelve calls before `3B.2` failed material
-coverage: the preferred new answer was factual, cited, balanced, period-aware, and usable,
-but did not adequately incorporate `BATCH-0031-E004`, `BATCH-0036-E023`, or
-`BATCH-0009-E005`, which bear materially on personal superior responsibility and detention
-oversight. The fail-stop prevented the other 68 reviews and all judging calls. All 92 calls
-reconcile exactly to the run ledger: 6,193,807 input tokens, 90,624 cached input tokens,
-478,369 output tokens, and 237,131 reasoning-output tokens. Summed call time is
-9,069.232289 seconds; the PAYG equivalent is $1.796495-$2.101654 and the Codex-credit
-equivalent is 44.912297, while actual subscription billing remains unavailable. Diagnose
-the general evidence-selection or answer-coverage contract before a completely fresh v10;
-do not resume, alter, or selectively repair v9.
-
-The general v9 material-coverage return repair is complete without changing the reviewer or
-the failed run. Diagnosis showed that the three omitted `3B.2` records were available only
-in the compact omission index, which the writer is correctly forbidden to cite as exact
-evidence. Integrated preflight can now consume the single explicit user-authorized return
-defined by the control contract and promote only the failed review's named, currently
-reopenable IDs into a completely fresh release. The authorization binds the predecessor
-release and zero-return lineage, predecessor preflight, failed review manifest and output,
-question packet, promoted IDs, and configuration by hash. All return inputs are read into
-one stable snapshot, fresh output may not overlap the failed run, the applied IDs and hashes
-are recorded, and a second descendant return is rejected. Forty-five broader boundary tests
-pass, focused Ruff passes, and independent review is clean. No model call was used for the
-repair. The next step is to create and zero-call preflight a fresh v10 configuration using
-the authorized v9 `3B.2` recommendation; v9 remains immutable.
-
-Fresh v10 now has an eligible zero-call preflight. It binds the single authorized return to
-v9 and constructs all eight packages and eighty questions. `3B.2` contains eleven exact
-required records rather than eight: `BATCH-0031-E004`, `BATCH-0036-E023`, and
-`BATCH-0009-E005` are now full required evidence and are no longer compact-only candidates.
-The preflight records return count one, the predecessor release and preflight hash, the
-failed child-review and output hashes, and the three applied IDs. It inventories 176 planned
-calls under the existing 250-call, 40,000,000-input-token, and 1,000,000-output-token hard
-ceilings. No model call has been made in v10 at this checkpoint.
-
-Fresh v10 is now frozen as a failed diagnostic after independent question review. All
-eighty Luna-high writing calls passed, and the repaired `3B.2` answer substantively used all
-three promoted records and passed independent review. Nine review calls completed before
-the fail-stop settled: six passed and three failed. `2B.2` omitted four compact-only records
-about administrative detention, settlement policy, and the 7 October response. `1B.2`
-compressed the chronology by treating a 3 November statement as preceding the 28 October
-ground-operation announcement. `4B.2` exposed a reviewer-contract inconsistency: every
-quality dimension and the overall rationale said the answer passed, but the reviewer also
-populated `material_regressions`, which deterministic code correctly treats as a failure.
-The lineage permits no second material-defect return, and no judging call ran. All 89 calls
-reconcile exactly to 6,075,388 input tokens, 320,000 cached input tokens, 442,823 output
-tokens, and 201,024 reasoning-output tokens. Summed call time is 8,564.770910 seconds; the
-PAYG equivalent is $1.688864-$1.976636 and the Codex-credit equivalent is 42.221630, while
-actual subscription billing remains unavailable. Do not resume or alter v10. Diagnose the
-reviewer output-contract inconsistency separately, but reject this returned Luna lineage
-rather than attempting another evidence return.
-
-The general reviewer-output inconsistency exposed by v10 `4B.2` is fixed independently of
-the failed run. Prompt version 11 now tells the reviewer that `material_regressions` and
-`unsupported_claims` are blocking fields and requires corresponding failed dimensions;
-non-blocking corrections belong in `material_improvements`. Local cross-field validation
-rejects contradictory fresh JSON. Immutable version-10 reviews remain trusted-loadable via
-a byte-identical frozen v10 prompt configuration and legacy parsing limited to that saved
-version; raw output, prompt, configuration, schema, and full-manifest hashes are still
-reconstructed without rewriting. Thirty focused and adjacent tests pass, Ruff passes, and
-independent review is clean. No model call was used. This repair improves future review
-integrity but cannot reopen the spent v10 lineage or cure its separate `1B.2` and `2B.2`
-content failures.
-
-A review-only Luna-high experiment then ran two independent version-11 passes over the
-same frozen 80 v10 answers. No other pipeline stage ran. The passes agreed on 67 of 80
-outcomes, but both missed the known `1B.2` chronology error; `2B.2` failed only in the
-second pass. Each pass also produced three unavailable evidence IDs, all rejected by the
-validator. Combined use was 160 Luna-high calls, 11,555,462 input tokens, 103,168 cached
-input tokens, 737,315 output tokens, and 642,614 reasoning-output tokens. The duplicate
-two-pass design is rejected as a production gate. The next bounded experiment should make
-pass two a focused Luna verifier of chronology, priority-evidence disposition, allowed IDs,
-and pass-one defect claims. Full results are in
-[`reviews/2026-08-17-luna-high-question-review-two-pass.md`](reviews/2026-08-17-luna-high-question-review-two-pass.md).
-
-A subsequent ten-case diagnostic replaced the duplicate second review with a focused
-Luna-high verifier. It caught both known defects (`1B.2`, `2B.2`), confirmed the repeated
-`1B.1`, `2B.4`, `6B.9`, and `7B.6` failures, preserved the `4B.2` pass, and prevented the
-`8B.9` invalid-ID behavior through a schema allowlist. It passed disputed `2B.1` and failed
-previously repaired `3B.2` on newly identified omissions, so it is not yet approved for an
-80-question gate. All ten calls reconciled exactly to 768,878 input and 76,785 output
-tokens, including 64,168 reasoning tokens. Full results are in
-[`reviews/2026-08-17-focused-luna-question-verifier.md`](reviews/2026-08-17-focused-luna-question-verifier.md).
-
-### Task 7 — Run five-ruler confirmation and decide production promotion
-
-Status: **blocked by a passing Task 6**
-
-Run the same five-ruler cohort as the approved reference with fresh model outputs and
-verified immutable source reuse. Require complete per-ruler and aggregate quality, cost,
-audit, attribution, and publication gates. Promote through a new release; never mutate
-`production-2023-v4`.
-
-## Parallel and deferred work
-
-- Static study-site development is a separate parallel track. Cost-optimization sessions
-  must not edit `research_study_site_commands.py`, `study_site_*`, or
-  `tests/research/test_study_site.py` unless that scope is explicitly transferred.
-- Broader source acquisition, score recalibration, and unrelated visualization work remain
-  outside the current optimization sequence. Their status belongs in their dedicated
-  plans and registries rather than here.
-
-## Session start checklist
-
-1. Read `AGENTS.md`, this file, and the named task's referenced design documents.
-2. Run `git status` and preserve unrelated or parallel changes.
-3. Validate the predecessor task's persisted artifact and completion gate.
-4. Work on only one numbered task.
-5. Before a model call, state the model, execution surface, number of calls, and estimated
-   quota. API-key calls require explicit user approval.
-6. A failed run is immutable diagnostic evidence. Fix only the general pipeline contract,
-   verify it independently, and evaluate the fix in a completely fresh release/run; never
-   patch or resume the failed test into a passing result.
-
-## Session completion handoff
-
-Before ending a task session, update this document with:
+# Leaders Database — Canonical Workplan
+
+## 1. Authority and purpose
+
+This is the only document that selects the next project task or defines execution order.
+Point an implementation session to this file; the active task contract below contains the
+scope, inputs, constraints, deliverables, verification, completion gate, and archival handoff
+needed to do the work without consulting another plan for sequencing.
+
+Other planning documents are design/reference records only. They may explain a subsystem,
+but they do not create active work, change status, reorder tasks, or authorize model calls.
+Normative product and scientific requirements remain authoritative in their own domains:
+
+- [`requirements/top-level-requirements.md`](requirements/top-level-requirements.md)
+- [`requirements/core.md`](requirements/core.md)
+- [`architecture/overview.md`](architecture/overview.md)
+- [`methodology/ranking-evaluation-criteria.md`](methodology/ranking-evaluation-criteria.md)
+- [`methodology/cited-evaluation-calibration.md`](methodology/cited-evaluation-calibration.md)
+- [`process/coding-guidelines.md`](process/coding-guidelines.md)
+- [`process/operational-hygiene.md`](process/operational-hygiene.md)
+
+If one of those documents appears to imply a different implementation order, record the
+conflict here and resolve it before execution. Do not silently create an extra phase.
+
+## 2. Operating rules
+
+### One queue and one active task
+
+- Phases and tasks execute in the order listed in §5.
+- At most one task has status `ACTIVE`.
+- A task begins only when every dependency is complete and its start gate passes.
+- Do not begin the next task in the same session unless the user explicitly requests it.
+- No implementation session may end with an unnamed “next step.”
+
+Use only `ACTIVE`, `READY`, `BLOCKED`, `DEFERRED`, `COMPLETE`, and `REJECTED`.
+
+### No-surprise-task rule
+
+Classify newly discovered work before continuing:
+
+1. A general defect inside the active contract is fixed within that task.
+2. A material expansion is added, with dependencies and an acceptance gate, to an existing
+   phase; obtain user approval if it changes scope.
+3. An optional improvement is recorded as non-blocking in the task archive.
+4. A historical observation goes to the archive, not the active queue.
+
+### Model-run rule
+
+Every model-bearing task starts with a zero-call preflight that measures complete serialized
+requests, validates hashes and artifacts, records exact inventory and hard limits, and proves
+the output directory is unused. A user instruction to execute a named pipeline or experiment
+end to end authorizes all preflighted Codex/subscription stages in that scope without repeated
+phase approvals. The run records provider, model, reasoning, surface, calls, token quotas,
+artifacts, and eligibility; executes under a durable owner; profiles every call; and reconciles
+the ledger. A directly billed API surface, model substitution, material scope expansion, or
+material non-quota failure still requires a stop and fresh authority where applicable. Never
+repair or relabel a failed run into a pass.
+An aggregate-quota-only stop may resume in place under the end-to-end authorization when the
+prospective bounded quota amendment stays within the recorded run envelope; otherwise it
+requires explicit approval of the larger ceiling. Every amendment binds the exact settled ledger prefix. The
+request inventory and call ceiling remain fixed, settled calls are never rerun, and any
+scientific, structural, provenance, identity, transport, or quality failure still requires a
+fresh release.
+
+### Task closeout and archive transition
+
+Closing a task is part of the task. In the same reviewed change:
+
+1. Write `docs/archive/workplan/YYYY-MM-DD-<task-id>-<slug>.md` using §7.
+2. Add it to [`archive/workplan/README.md`](archive/workplan/README.md).
+3. Replace detailed completed-task text here with a one-line result and archive link.
+4. Activate the next dependency-complete task, or name its exact blocker.
+5. Update `Current checkpoint` and the `Completed ledger`.
+6. Synchronize architecture, requirements, registry/attributions, and testing guides affected
+   by the task.
+7. Run task verification, `git diff --check`, hygiene scans, and `git status`.
+
+### Common implementation contract for every queued task
+
+In addition to task-specific inputs, every task reads `AGENTS.md`, this workplan, the
+authoritative requirements, the relevant architecture section, coding guidelines, and
+operational hygiene. Source work also reads the registry, attributions, source requirements,
+and local-data-store rules. Score-bearing work also reads calibration and every applicable
+chapter guide. Public-output work validates exact attribution text.
+
+Every task must produce: a versioned/configuration-driven implementation or documented terminal
+decision; focused boundary tests; persisted reproducibility artifacts; a self-review fixed in
+place; an independent review when required by risk; synchronized normative documentation; and
+the archive/queue transition. Code tasks run focused pytest, Ruff, the applicable integration
+or slow smoke, and the full default suite before promotion. Documentation tasks run link,
+status/dependency, diff, and hygiene checks. A task is not complete merely because code exists;
+its runtime path, CLI/registry boundary when applicable, artifact validation, and failure path
+must be proven.
+
+## 3. Current checkpoint
+
+- Active phase: **Phase 3 — promote and harden the ruler-quality pipeline**.
+- Active task: **P3-T2 — version and activate**.
+- Commit `ac033fdd` records completed v17 final writing.
+- Production remains `production-2023-v4`; experiments never mutate it.
+- Frozen cohort: `research/runs/2023-five-ruler-flow-test-v2/`.
+- Frozen Netanyahu inputs: `research/runs/2023-five-ruler-flow-test-v2/corpus/ISR/`.
+- Active run: `research/runs/netanyahu-2023-integrated-luna-sol-v17/`.
+- v17 writing: 80/80 Luna-high calls validated; 4,703,846 input, zero cached input,
+  320,509 output, and 100,066 reasoning-output tokens. The ledger has 80 completed writer
+  reservations and no unresolved work.
+- Five-ruler v5 writing is complete and trusted-reloads: 400/400 answers across 40 chapters.
+  The quota-only continuation preserved all 306 settled calls, promoted seven already-paid raw
+  outputs without replay, and made only the remaining 94 calls. Cumulative usage is 28,203,395
+  input, 366,080 cached input, 1,745,582 output, and 687,254 reasoning-output tokens under the
+  approved 40,000,000-input / 5,000,000-output / 400-call ceiling.
+- Fresh cohort release `five-ruler-2023-luna-sol-v7` binds the reviewed PRK `7B.3`
+  supplement through PRK release `five-ruler-2023-prk-v2`. Its zero-call preflight is eligible:
+  400/400 complete writer requests measure 21,936,632 input tokens and reserve exactly
+  5,000,000 output tokens under the intended 40,000,000-input ceiling; all five integrated
+  manifests pass, with zero calls and zero reservations. The earlier v6 diagnostic remains
+  preserved with its looser inherited ceiling. This historical checkpoint preceded the user's
+  later end-to-end subscription authorization; the completed execution is recorded below.
+- V7 trusted-import preflight reconstructs and reuses 39/40 complete writing chapters and all
+  16 complete review chapters from v5. The only writing chapter still requiring execution is
+  PRK `7B`: its 10 authorization-bound Luna-high calls completed and trusted-reload using
+  500,568 input, zero cached input, 29,964 output, and 14,942 reasoning-output tokens. The next
+  review preflight imports 160 completed reviews and measures the remaining 240 requests at
+  14,517,174 input tokens and 3,000,000 configured output capacity under per-ruler profiles;
+  this historical zero-call checkpoint was subsequently executed under the end-to-end
+  subscription authorization recorded below.
+- Targeted research established that PRK `7B.3` was an evidence-collection defect, not a true
+  unavailable lens; four source-claim units are preserved in
+  `research/runs/five-ruler-2023-luna-sol-v5-release/research-gaps/PRK-7B.3-targeted-research.md`
+  and now produce a fresh trusted-reloadable v2 package in
+  `research/runs/five-ruler-2023-prk-evidence-v2/question-packages/7B/package.json`. Three units
+  are adverse evidence and the older Treasury record is context-only; raw snapshots, extracted
+  passages, excerpts, limitations, the base package, and the independent review are hash-bound.
+  Generically, an empty packet now stops unless exact search
+  and zero-admissible inventories have an independent, hash-bound saturation pass. A genuine
+  unavailable lens skips question writing/review and remains judge-visible as lower confidence.
+- P1-T1 rejected v17 review launch without a model call: all 80 requests measured
+  4,696,427 input tokens, but chapter 6B requires 1,007,971 tokens against the configured
+  1,000,000-token per-chapter review ceiling. The user subsequently set the prospective
+  question-review ceiling to 1,200,000 tokens; the rejected preflight remains immutable.
+- The fresh v18 review run stopped after five settled calls when `4B.1` failed citation
+  entailment. Four reviews passed; no later review, judgment, audit, or publication ran.
+- The user authorized replacing per-failure decisions with a finite configuration-driven
+  experiment. Its first policy collects one complete review round, performs no rerun or
+  evidence return, stops on invalid infrastructure/artifacts, and stops before judging.
+- The v19 autonomous run completed 19 calls and produced 18 valid reviews, including two
+  scientific failures that did not stop the batch. It then stopped as configured when `2B.3`
+  emitted unknown evidence ID `BATCH-0036-E020`; no reservation remains unresolved.
+- P1-T2B completed the prospective transport fix without a model call. New blind reviews use
+  prompt contract v15 and packet-constrained schema v5; historical v14/v4 artifacts continue
+  to trusted-reload, and schema-version downgrade is rejected.
+- P1-T2C passed a fresh zero-call v20 preflight: 80 packet-bound requests require 4,787,345
+  measured input tokens and 20,370,678 characters; all downstream roots remain unused.
+- P1-T2D completed all 80 constrained reviews with no structural failure. Eight experimental
+  answers failed across chapters 2B-7B; the zero-return policy stopped before judgment with
+  no unresolved reservation.
+- P1-T2E through P1-T5 completed the one-ruler gate: eight bounded corrections and final
+  reviews, eight reviewed judgments, a passing deterministic audit, and a cited experimental
+  publication. The continuation used 35 calls, 12,664,316 input, 8,550,656 cached input,
+  191,649 output, and 100,219 reasoning-output tokens.
+- P2-T2 through P2-T4 completed the five-ruler gate: 400 writings/reviews, 51 bounded
+  corrections/final reviews, 40 evidence-reading first passes, eight five-ruler calibrations,
+  eight independent reviews, and a passing cited publication. The reviewed ordering is USA,
+  ISR, CHN, RUS, PRK by eight-chapter mean. The next active task is production versioning;
+  a separate answer-trusting judge comparison is retained as a requested experiment.
+- Reader-facing review v4 corrected a publication-language defect without changing scores:
+  retained judgments now preserve the calibrated rationale instead of replacing it with terse
+  evidence-ID shorthand. Eight fresh bounded reviews completed under the hash-bound policy;
+  the reader-v2 public build contains 721 validated files and binds its selected audit by path
+  and SHA-256. Historical v3 review and projection artifacts remain reconstructable.
+- Reader-facing review v5 adds a distinct short answer and fuller period account for every one
+  of the 40 chapter judgments. The account names relevant events and affected populations and
+  separates inherited institutions and external constraints from the ruler's own decisions and
+  omissions. All scores, confidence values, plausible ranges, and ruler identities remain
+  unchanged; the reader-v3 build contains 721 hash-bound files.
+
+### Fixed v17 control flow
 
 ```text
-Task:
-Outcome: complete / rejected / blocked
-Decision and plain-language reason:
-Artifacts:
-Model calls and execution surface:
-Input / cached / output tokens:
-Tests and review:
-Known limits:
-Next task:
+80 Luna-high final writes (COMPLETE)
+  -> 80 Luna-high blind independent question reviews
+  -> for each failed review: exactly one Luna-high correction
+     -> exactly one Luna-high final review
+     -> carry any residual concern forward at lower confidence
+  -> 8 Sol-high chapter judgments
+  -> 8 Sol-high independent judgment reviews
+  -> deterministic score/order/citation/attribution audit
+  -> cited experimental publication
+  -> one-ruler promotion decision
 ```
 
-Move the completed task's detailed narrative to a dated file under
-`docs/archive/workplan/` or an appropriate `docs/reviews/` report. Keep only its one-line
-decision, lasting constraints, and next dependency here.
+The focused Luna verifier is an archived diagnostic, not another production stage. The
+authoritative initial question-quality action is `run_all_chapter_question_review`. A failed
+initial review authorizes one configured correction and one mandatory final review; it never
+authorizes a second correction, another final review, or an unbounded repair loop. Residual
+concerns after that review remain judge-visible and lower confidence rather than stopping the
+pipeline.
 
-## Current handoff
+Preflight inventories the exact failed-count-derived path: 176 straight-through calls plus
+two calls for each failed initial review. The realized one-ruler path required 192 calls; the
+prospective maximum is 336 calls if all 80 initial reviews fail. Every run must fit its exact
+inventory within the configured run-wide ceilings before execution; the original v17 ceilings
+were 250 calls, 40,000,000 input tokens, and 1,000,000 output tokens and therefore are not a
+universal ceiling for the expanded worst case. Older goals
+of fewer than 150 calls, 500,000 output tokens, and majority cache rates remain historical
+comparison measures, not current gates: they conflict with the retained 80-write + 80-review
++ 8-judgment + 8-review architecture. Quality remains controlling.
 
-Task: focused Luna-high question-verifier diagnostic
+## 4. Definition of project completion
 
-Outcome: promising but not yet approved for an 80-question gate
+All required phases in §5 must be complete, with:
 
-Decision and plain-language reason: the focused verifier caught both known defects,
-confirmed repeated failures, and eliminated invalid evidence IDs. It also failed repaired
-`3B.2` and passed disputed `2B.1`; those findings must be checked against the exact evidence
-before deciding whether the verifier is accurately stricter or over-sensitive.
+- a promoted versioned pipeline and validated full-scope 2023 run;
+- resolved ruler identities, with genuine ambiguity quarantined;
+- structured and cited/manual evidence with explicit missingness;
+- calibrated ruler scores, confidence, client deltas, and review states without using the
+  client matrix as evidence;
+- complete review-queue and cited publication outputs with exact attribution;
+- reproducible manifests, source locators, hashes, model profiles, and budgets;
+- passing score/order, citation, attribution, tests, lint, and hygiene gates;
+- no required job pending, running, retryable, failed, or undispositioned.
 
-Artifacts: `research/runs/netanyahu-2023-luna-focused-verifier-v1/`,
-`research/runs/netanyahu-2023-luna-focused-verifier-v1-profile-v2/`, and
-`docs/reviews/2026-08-17-focused-luna-question-verifier.md`.
+## 5. Canonical phase and task queue
 
-Model calls and execution surface: 10 Luna-high Codex-subscription verifier calls completed.
-No writing, judging, scoring, audit, or publication call ran. No API key was used.
+### Phase 0 — planning and governance consolidation
 
-Input / cached / output tokens: 768,878 / 0 / 76,785; 64,168 reasoning-output tokens and
-845,663 total tokens. Event and ledger accounting agree exactly.
+Status: `COMPLETE` when this change is archived.
 
-Tests and review: all 10 calls completed, strictified, and trusted-reloaded; 8 failed and 2
-passed. The verifier code's 26-test gate and independent review are clean. The profiler
-integration's 11-test gate and independent review are also clean.
+Outcome: this file becomes the sole executable queue; subsystem plans become reference only;
+the archive/closeout protocol, current v17 state, review contract, and current promotion limits
+are reconciled.
 
-Known limits: local evidence-level adjudication confirmed the focused verifier's `3B.2`
-fail and `2B.1` pass. A fresh repeatability run matched nine of ten final gates: all eight
-first-run failures failed again, `2B.1` passed again, and `4B.2` changed from pass to fail.
-The `4B.2` failure is correct because its answer explicitly records a material National
-Guard reopen request; the first focused run failed to rediscover that structured signal.
-Detailed omission lists varied substantially, including one versus ten additional gaps for
-`3B.2`, and chronology changed for `7B.6` and `8B.9`. The ten cases were selected
-diagnostically and do not estimate the pass rate of all 80 questions. Later stages remain
-unrun.
+### Phase 1 — finish the Netanyahu 2023 one-ruler gate
 
-The focused verifier v2 update now makes accepted writer reopen requests a separate
-deterministic blocking category, removes them from Luna's candidate scan, and derives the
-final gate in code rather than accepting a model gate. Frozen v1 prompt and schema
-semantics trusted-reloaded all 20 earlier focused artifacts exactly. The 33-test focused
-and adjacent gate, Ruff, strict manifest-version tamper regressions, and independent review
-are clean.
+Purpose: prove the simplified lower-cost pipeline preserves scientific quality from frozen
+evidence through publication before cohort expansion.
 
-The fresh v2 control run completed `3B.2` and `4B.2` successfully at the transport and
-trusted-reload levels. Both failed deterministically on their accepted reopen requests;
-neither reopen ID reappeared in Luna's new-omission field. The two calls used 129,496 input
-and 18,051 output tokens (147,547 total), 1.189010 Codex-equivalent credits, and 333.511867
-combined seconds, with exact ledger reconciliation.
+#### P1-T1 — preflight v17 blind independent question review
 
-A zero-call inventory found accepted reopen requests in 56 of 80 frozen answers, covering
-72 unresolved IDs. Those 56 are guaranteed v2 failures, so an 80-call run is not justified.
-The next optional model diagnostic is bounded to the 24 answers without reopen requests;
-the 56 deterministic failures require an upstream selection/completion decision instead.
-Do not treat Luna's variable newly discovered candidate-omission list as authoritative
-without evidence-level adjudication. Task 7 remains blocked.
+Status: `REJECTED` — zero-call preflight found the 6B review inventory 7,971 tokens above its
+configured chapter ceiling; see
+[`archive/workplan/2026-08-20-p1-t1-v17-question-review-preflight.md`](archive/workplan/2026-08-20-p1-t1-v17-question-review-preflight.md).
 
-The general writing-to-review repair is now implemented: a trusted full-scope preflight
-collects accepted writer reopen requests before any independent review worker starts. A
-nonempty set writes a hash-bound `reopen-stop.json` containing every affected question,
-answer hash, and evidence ID, records zero launched review calls, and stops the phase. The
-single-chapter entry point applies the same barrier, and trusted review reload rejects a
-review built over unresolved writer requests. No model call was used for this repair.
+#### P1-T2 — execute v17 blind independent question review
 
-The follow-on zero-call classification is complete. All 72 accepted requests in 56 frozen
-v10 answers name existing dossier records routed to the exact requesting question but left
-out of required exact evidence; 37 are among the first 15 routed candidates and 47 among
-the first 20. No request requires new research. The artifacts establish a general
-selection/completion defect, but do not independently prove that all 72 requests are
-material. The next task is a prospective, hash-bound evidence-completion decision that
-dispositions each request before constructing a completely fresh release. See
-[`reviews/2026-08-17-v10-reopen-request-classification.md`](reviews/2026-08-17-v10-reopen-request-classification.md).
+Status: `REJECTED` — the run stopped after five settled calls when `4B.1` failed citation
+entailment; see
+[`archive/workplan/2026-08-20-p1-t2-v18-question-review.md`](archive/workplan/2026-08-20-p1-t2-v18-question-review.md).
 
-The general evidence-completion contract is implemented and locally verified. The user
-explicitly authorized all 72 accepted v10 requests for promotion. The hash-bound decision
-ledger covers 56 questions in all eight chapters, preserves accepted-output order, and
-promotes every item to required exact evidence; none is retained as compact-only evidence.
+#### P1-T2A — autonomous collect-all question-review experiment
 
-The completely fresh `netanyahu-2023-integrated-luna-sol-v11` zero-call preflight is
-eligible. It verified the frozen source release and all authorized hashes, built eight
-packages containing 80 questions, applied 72 completion items across 56 questions, and
-executed zero model calls. The prospective full pipeline contains 176 calls within its
-250-call ceiling and has no material-defect return. The next phase is limited to the 80
-Luna-high writing calls. Their complete prompts are estimated at 4,160,207 input tokens in
-total (mean 52,003; maximum 156,985 for `6B.10`), with no request above the configured
-300,000-token ceiling. Review, judging, audit, and publication must not start during that
-bounded writing phase.
+Status: `REJECTED` — collect-all scientific failures worked, but `2B.3` produced an invalid
+unknown evidence ID after 19 settled calls; see
+[`archive/workplan/2026-08-20-p1-t2a-v19-autonomous-review.md`](archive/workplan/2026-08-20-p1-t2a-v19-autonomous-review.md).
 
-The approved v11 writing launch is frozen as an incomplete diagnostic after its interactive
-execution owner disappeared at a session boundary. Sixty-two answers completed and passed
-deterministic validation; five launched calls were interrupted with unresolved reservations
-(`2B.7`, `5B.10`, `6B.9`, `7B.10`, and `8B.1`), and thirteen calls never launched. No model
-or validation failure caused the stop, but only three complete chapter manifests exist, so
-v11 cannot pass and must not be resumed or repaired. The completed calls recorded 4,261,555
-input tokens, 285,440 cached input tokens, 321,726 output tokens, and 134,088 reasoning-output
-tokens. A fresh v12 release must use a detached durable execution owner and a new bounded
-approval before repeating question writing; later stages remain stopped.
+#### P1-T2B — constrain blind-review evidence-ID transport
 
-The detached v12 writing run is frozen as a failed diagnostic after a genuine deterministic
-answer failure. Fifty-five Luna-high calls completed; 54 answers passed and `6B.6` failed.
-Its structured disposition ledger covered all 34 required records, but its prose cited
-`BATCH-0036-E019`, which was not available in the current exact-evidence packet. The shared
-fail-stop ended the other chapters without stale reservations, and no review or judging call
-ran. Profiling reconciles exactly to 3,839,477 input tokens, 373,760 cached input tokens,
-289,323 output tokens, 126,678 reasoning-output tokens, and 5,558.512590 summed call seconds;
-the PAYG equivalent is $1.047805-$1.221093 and the Codex-credit equivalent is 26.195155,
-while actual subscription billing remains unavailable.
+Status: `COMPLETE` — packet-constrained schema v5 is bound to prompt contract v15 with
+historical reload and downgrade protection; see
+[`archive/workplan/2026-08-20-p1-t2b-constrained-review-transport.md`](archive/workplan/2026-08-20-p1-t2b-constrained-review-transport.md).
 
-An initial diagnosis attributed the foreign ID to the approved predecessor. Prompt version
-12 consequently added a valid general control: it supplies a predecessor only when every
-referenced evidence ID is current required exact evidence, otherwise replaces the entire
-predecessor with an empty object, and records the exclusion. Before the authorized `6B.6`
-probe launched, exact prompt reconstruction disproved that diagnosis for this failure:
-`BATCH-0036-E019` was absent from the complete v12 prompt. Luna had invented a plausible ID
-inside unrestricted prose. The one-call probe was therefore not spent, and the v13 zero-call
-release below was superseded before writing.
+#### P1-T2C — fresh constrained autonomous-review preflight
 
-Prompt version 13 fixes the actual boundary. Luna now returns ordered prose sections whose
-citation IDs are selected from a dynamic strict-schema enum containing only the current
-required exact IDs. Answer and limitation sections are bounded, separately cited claim
-items; their text cannot contain brackets, newlines, or evidence-ID-shaped text. Disposition
-explanations and reopen reasons likewise reject evidence-ID-shaped text. Deterministic code
-renders the canonical bracketed prose, so a foreign citation cannot reach accepted output.
-This structure proves that attached citation IDs are allowed; it cannot prove that an
-allowed record actually supports the claim or that a model has perfectly separated every
-semantic claim. Deterministic validation and independent review retain those responsibilities.
-The byte-exact v11 and v12 prompts and their legacy keyed/free-text transports remain
-reconstructable. A completely fresh release is required after focused tests and independent
-review; neither v12 nor v13 may be resumed or modified.
+Status: `COMPLETE` — fresh v20 zero-call preflight is eligible for all 80 packet-constrained
+reviews; see
+[`archive/workplan/2026-08-20-p1-t2c-v20-constrained-preflight.md`](archive/workplan/2026-08-20-p1-t2c-v20-constrained-preflight.md).
 
-The `netanyahu-2023-integrated-luna-sol-v13` zero-call preflight was eligible under the
-prompt-v12 predecessor repair. It bound eight packages, 80 questions, all 72
-authorized evidence promotions, and the exact 176-call inventory while executing zero
-calls. The prospective writer includes 71 predecessors and deliberately excludes nine that
-reference ten evidence IDs unavailable in their current exact packets. Its 80 complete
-prompts total 4,144,575 estimated input tokens (mean 51,807; maximum 157,035 for `6B.10`),
-with one request above 150,000 and none above the 300,000-token ceiling. It is superseded
-without a model call because that repair did not address the actual v12 failure. Review and
-judging remain stopped.
+#### P1-T2D — execute the v20 constrained autonomous review
 
-The fresh `netanyahu-2023-integrated-luna-sol-v14` zero-call preflight is eligible under
-prompt version 13. It binds eight packages, 80 questions, all 72 authorized evidence
-promotions, and the exact 176-call inventory while executing zero calls. Before the bounded
-`6B.6` diagnostic, the complete prompt plus strict response schema measures 136,623 input
-tokens (574,464 characters), below the 300,000-token request ceiling and the model context
-safety limit. Its dynamic citation enum contains exactly the question's 34 required evidence
-IDs; both answer and limitation sections use that same closed list. The approved predecessor
-is included because all of its referenced IDs are available in the v14 exact packet. The
-next permitted action is one Luna-high Codex-subscription diagnostic call for `6B.6`; no
-other writing, review, or judging call is authorized by this checkpoint.
+Status: `REJECTED` — all 80 reviews validated, but eight experimental answers failed and the
+frozen zero-return policy stopped before judging; see
+[`archive/workplan/2026-08-21-p1-t2d-v20-constrained-review.md`](archive/workplan/2026-08-21-p1-t2d-v20-constrained-review.md).
 
-That single v14 `6B.6` diagnostic is complete and passes. The raw response used prompt-13
-answer and limitation sections, every attached citation ID belonged to the exact 34-ID
-allowlist, no model-written free-text field contained an evidence-ID-shaped string, and the
-ordered disposition ledger contained all 34 required IDs. Deterministic validation found no
-unknown or missing required citations and returned `pass`; two limitation/qualification
-records were absent from rendered prose but remained explicitly and validly dispositioned.
-Trusted reconstruction from raw output, accepted output, and the normalization ledger also
-passed, and the model requested no evidence reopen. The sole Luna-high call used 151,836
-input tokens, zero cached input tokens, 5,580 output tokens including 1,808 reasoning-output
-tokens, and 133.734149 seconds. The run ledger reconciles one reservation to one completed
-call with no pending capacity. This validates the actual foreign-citation repair on the known
-failure before any broader diagnostic set is authorized.
+#### P1-T2E — one correction and residual-confidence handoff
 
-The fresh v15 bounded writer batch then tested all nine questions whose unsafe predecessors
-are excluded (`2B.3`, `2B.5`, `2B.9`, `2B.10`, `4B.4`, `4B.10`, `6B.4`, `7B.3`, and
-`7B.10`) plus `6B.10`, the largest complete request. All ten Luna-high calls passed
-deterministic validation, trusted raw-to-accepted reconstruction, exact ordered disposition
-coverage, and the closed citation allowlist. No free-text field contained an evidence-ID
-shape, no attached citation was outside its question's required IDs, and no answer requested
-additional evidence. This includes `2B.3`, which had twice failed the older disposition
-contract. The batch used 932,004 input tokens, zero cached input tokens, 46,285 output tokens
-including 18,709 reasoning-output tokens, and 930.813884 summed call seconds. Its run ledger
-reconciles exactly to ten completed reservations with no pending or failed entry. The next
-decision is whether to authorize a completely fresh 80-question writing release under prompt
-13; independent question review and all judging remain stopped until that writing gate passes.
+Status: `COMPLETE` — eight corrections and final reviews produced the trusted 80-answer handoff;
+see [`archive/workplan/2026-08-21-p1-t2e-one-correction-handoff.md`](archive/workplan/2026-08-21-p1-t2e-one-correction-handoff.md).
 
-The fresh `netanyahu-2023-integrated-luna-sol-v16` zero-call writing preflight is now
-eligible and remains unlaunched pending explicit bounded approval. Its eight separately
-materialized question packages are byte-equivalent to the trusted v15 packages, bind all 80
-questions and 72 authorized promotions, and contain no writing output. Prompt version 13 and
-the strict per-question schemas measure 4,251,051 complete-request tokens in total (mean
-53,138; maximum 159,714 for `6B.10`); one request exceeds 150,000 tokens and none exceeds the
-300,000-token ceiling. The same nine unsafe predecessors are excluded. The authorized launch
-would be at most 80 Luna-high Codex-subscription calls, with 40,000,000 input tokens and
-1,000,000 output tokens as run-wide hard ceilings. This checkpoint executes zero model calls
-and does not authorize independent review or judging.
+#### P1-T3 — preflight and execute eight chapter judgments
 
-The approved v16 Luna-high writing execution completed all 80 calls under a detached owner.
-All 80 raw prompt-13 responses trusted-reload, all 80 deterministic structural gates pass,
-all required disposition ledgers are exact and ordered, no attached citation falls outside
-its question allowlist, no model-written free text contains an evidence-ID shape, and all
-eight writing manifests validate. Profiling reconciles exactly to 5,485,310 input tokens,
-zero cached input tokens, 340,420 output tokens including 141,221 reasoning-output tokens,
-and 6,552.596612 summed call seconds. The PAYG equivalent is $1.505561-$1.779833 and the
-Codex-credit equivalent is 37.63915; actual subscription billing is not exposed.
+Status: `COMPLETE` — eight reviewed-answer-bound judgments validated; see
+[`archive/workplan/2026-08-21-p1-t3-chapter-judgments.md`](archive/workplan/2026-08-21-p1-t3-chapter-judgments.md).
 
-Writing nevertheless stops before independent review because 23 answers contain 29 accepted
-reopen requests across chapters 1B and 3B-8B. The trusted full-scope review preflight wrote
-one `question_review_reopen_stop_v1` inventory and executed zero review calls. All 29 IDs are
-valid members of their question's compact candidate list, their saved reasons match the
-candidate summaries, and 28 distinct evidence records are involved (one record is requested
-for two questions).
+#### P1-T4 — preflight and execute eight independent judgment reviews
 
-That result exposed a lifecycle defect rather than authorizing a second completion round.
-The original v10 writer already performed the one compact-candidate omission pass, its 72
-requests received explicit completion decisions, and v16 was the post-completion rewrite.
-Generic prompt version 14 therefore records evidence discovery as closed on every package
-produced by an authorized completion or material-defect return. A closed-package final writer
-receives no compact index, its strict schema has no reopen-request field, trusted reload binds
-that lifecycle metadata, and completion loading rejects a second round. The 29 v16 requests
-remain immutable diagnostic evidence and are not promoted. A fresh release must reuse the
-already authorized v10 completion, produce final writing under the closed contract, and route
-any later material omission through independent review's separately bounded single return.
+Status: `COMPLETE` — all eight judgments received one independent review; see
+[`archive/workplan/2026-08-21-p1-t4-judgment-reviews.md`](archive/workplan/2026-08-21-p1-t4-judgment-reviews.md).
 
-The fresh `netanyahu-2023-integrated-luna-sol-v17` zero-call preflight is eligible under the
-closed evidence-discovery contract. It reuses the single authorized v10 completion, marks all
-80 packets closed, exposes no compact-candidate list or reopen-request response field, and
-contains no writing outputs. Prompt version 14, the approved predecessor answers, and each
-strict response schema measure 3,468,718 complete-request tokens in total (mean 43,359;
-maximum 134,072 for `6B.10`), with no
-request above 150,000 tokens. The preflight records one completion, zero material-defect
-returns, 176 planned whole-pipeline calls, zero executed calls, and the existing 250-call,
-40,000,000-input-token, and 1,000,000-output-token ceilings. Model execution remains stopped
-pending a new bounded approval for the 80-call final-writing phase only.
+#### P1-T5 — final audit, publication, and one-ruler decision
 
-The approved v17 Luna-high final-writing phase completed all 80 calls under a detached owner.
-All 80 raw responses use the closed four-field schema with no reopen-request field; all 80
-trusted-reload and deterministic validation checks pass; all required dispositions reconcile;
-and all eight chapter writing manifests pass. The canonical profile records 4,703,846 input
-tokens, zero cached input tokens, 320,509 output tokens including 100,066 reasoning-output
-tokens, and 6,126.346563 summed call seconds. Its run-wide ledger reconciles exactly to 80
-completed question-writer reservations with no pending, failed, review, or judging call. The
-PAYG equivalent is $1.325380-$1.560572 and the Codex-credit equivalent is 33.1345; actual
-subscription billing remains unavailable. Focused writing/profile tests and the full test suite
-pass. This checkpoint establishes artifact and execution integrity only: scientific quality
-remains explicitly inconclusive until the separately authorized independent question-review
-phase, and no review or judging has started.
+Status: `COMPLETE` — audit and cited experimental publication passed; see
+[`archive/workplan/2026-08-21-p1-t5-audit-publication.md`](archive/workplan/2026-08-21-p1-t5-audit-publication.md).
+
+### Phase 2 — five-ruler confirmation and release decision
+
+Status: `COMPLETE`.
+
+1. **P2-T1 — freeze cohort and zero-call preflight.** `REJECTED` — 399/400 writing requests measured;
+   frozen `PRK` `7B.3` cannot construct the Phase 1 writer schema, and the 5,000,000-token cohort
+   output ceiling cannot cover 51,200,000 tokens of required reservation capacity;
+   see [`archive/workplan/2026-08-21-p2-t1-five-ruler-preflight.md`](archive/workplan/2026-08-21-p2-t1-five-ruler-preflight.md).
+1A. **P2-T1A — generic sparse-question transport.** `COMPLETE` — evidence-empty packets now use a
+   strict evidence-insufficient writer and empty-allowlist review contract; fresh v3 preflight
+   constructs all 400 requests and remains rejected only on output capacity; see
+   [`archive/workplan/2026-08-21-p2-t1a-sparse-question-transport.md`](archive/workplan/2026-08-21-p2-t1a-sparse-question-transport.md).
+1B. **P2-T1B — output-capacity preflight.** `COMPLETE` — the fresh v4 release measures all 400
+   requests and is eligible under the approved 52,000,000-token reservation ceiling; see
+   [`archive/workplan/2026-08-21-p2-t1b-output-capacity-preflight.md`](archive/workplan/2026-08-21-p2-t1b-output-capacity-preflight.md).
+2. **P2-T2 — execute writing and question review.** `COMPLETE` — 400 answers/reviews and 51 bounded
+   correction/final-review branches produced five trusted handoffs; see
+   [`archive/workplan/2026-08-23-p2-t2-five-ruler-writing-review.md`](archive/workplan/2026-08-23-p2-t2-five-ruler-writing-review.md).
+3. **P2-T3 — execute comparative judging and judgment review.** `COMPLETE` — 40 lossless first
+   passes, eight five-ruler calibrations, and eight independent reviews passed; see
+   [`archive/workplan/2026-08-23-p2-t3-comparative-judging.md`](archive/workplan/2026-08-23-p2-t3-comparative-judging.md).
+4. **P2-T4 — aggregate audit, publication, and recommendation.** `COMPLETE` — deterministic audit
+   and corrected-answer-bound cited publication passed; see
+   [`archive/workplan/2026-08-23-p2-t4-audit-publication.md`](archive/workplan/2026-08-23-p2-t4-audit-publication.md).
+
+Exit: a fresh five-ruler release passes every gate or the candidate architecture is rejected
+with a terminal reason.
+
+### Phase 3 — promote and harden the ruler-quality pipeline
+
+Status: `ACTIVE`.
+
+1. **P3-T1 — answer-trusting judgment comparison.** `COMPLETE` — eight answer-only chapter
+   calls preserved the exact five-ruler rank order with 27/40 unchanged scores; see
+   [`archive/workplan/2026-08-23-p3-t1-answer-trusting-comparison.md`](archive/workplan/2026-08-23-p3-t1-answer-trusting-comparison.md).
+2. **P3-T2 — version and activate (`ACTIVE`).** Create a new production config/release with bound prompt,
+   schema, control, and source hashes; retain v4 unchanged; synchronize architecture/requirements.
+3. **P3-T3 — smoke and rollback proof.** Prove release selection, budgets, attribution, and
+   rollback through no-model tests plus the smallest separately authorized model smoke.
+4. **P3-T4 — low-cost search-retrieval waterfall (`DEFERRED`).** Improve
+   evidence discovery without replacing evidence validation or allowing vendor-generated answers
+   to become evidence. Implement and evaluate the following complete prospective contract:
+
+   - Search once per ruler/chapter and reuse deduplicated findings across its ten lenses; do not
+     run eighty isolated research jobs. Begin with local packages, known URLs, and a reusable
+     authority baseline, then issue distinct ruler-conduct, institution/program, audit/judgment,
+     local-language, favorable/remedial, contrary, target-year, and ruler-period query families.
+   - Use free specialist discovery before paid escalation: OpenAlex for scholarship/open PDFs;
+     GDELT or an equivalent validated historical-news route for multilingual leads; direct UN,
+     World Bank, government, court, parliamentary, sanctions, NGO, and archive endpoints; and
+     Common Crawl/Wayback only for known changed or missing URLs. Registry, licensing, temporal
+     coverage, and attribution rules still apply.
+   - Trial Parallel `fast` as the inexpensive general discovery layer (planning price observed
+     2026-08-21: approximately $1/1,000 ten-result searches) and Brave as an independent broad-
+     index fallback (approximately $5/1,000). Use Exa semantic search only for residual conceptual
+     gaps (approximately $7/1,000). Tavily's free allowance may participate in evaluation, but
+     no provider is selected from vendor benchmarks or marketing claims alone. Recheck current
+     prices, terms, index coverage, and retention policy at implementation time.
+   - Integrate through direct, quota-bound APIs for production reproducibility; MCP remains an
+     optional interactive surface. Persist exact query/provider/mode/time, returned URL and
+     snippet hashes, rank, language, cache status, usage, and cost. Deduplicate before retrieval;
+     fetch only promising documents; extract and hash exact passages locally; and keep search
+     snippets and synthesized vendor reports as leads rather than evidence.
+   - Apply a cost-controlled waterfall: primary discovery for every selected chapter, a second
+     independent index only for unresolved or source-concentrated themes, semantic escalation
+     only for the hardest residual gaps, and bounded deep-research tasks only as lead generators.
+     The planning envelope for five rulers is 1,000 primary searches, 300 fallback searches, 100
+     semantic searches, and 1,000 managed page extractions—roughly $4-$5 at the observed prices
+     and below $20 with contingency. Returned-context/model tokens are budgeted separately and
+     controlled by local URL deduplication and bounded passage extraction.
+   - Before adoption, freeze a 40-50-lens repository benchmark containing known collection misses
+     (including PRK `7B.3`), genuinely sparse lenses, multilingual/local-language cases, obscure
+     PDFs, and ordinary well-covered questions. Run identical query families blind across the
+     current search and candidates. Measure admissible source-claim recall, unique primary-source
+     recall, historical/target-year and multilingual fit, PDF retrieval success, source-family
+     diversity, duplicates, misleading snippets, cost per accepted evidence unit, downstream
+     input tokens, latency, and reproducibility. Promote only a waterfall that materially improves
+     repository-specific recall at bounded cost; preserve the benchmark, raw responses, hashes,
+     and decision manifest.
+
+   Exit: the selected search waterfall passes the frozen benchmark and plugs into the existing
+   cited-research notebook and saturation/adjudication contracts without weakening independent
+   evidence review, exact citation verification, local-first reuse, or explicit API-run approval.
+
+Exit: a reviewed, reproducible, tested production candidate is active.
+
+### Phase 4 — structured source and country-year coverage completion
+
+Status: `DEFERRED` until Phase 3. Status evidence comes from `architecture/sources.md` and
+`sources/registry.md`; old ingestion/vetting plans do not override them.
+
+1. **P4-T1 — mapping/lifecycle/precedence hardening.** Close remaining PTS, CIRIGHTS, Freedom
+   House, WGI, CPI, BTI, EIU, territory, aggregate, and historical-state publication gaps with
+   explicit policies and coverage reports. Re-probe or terminally disposition the still-blocked
+   Leader Survival, IMF WEO, COW MID, NTI, and ICOW/dependency sources; user-managed acquisition
+   remains a named blocker, never an inferred download task.
+2. **P4-T2 — economic/social tranche.** Vet and disposition ILO labor, Global Findex, World
+   Inequality Database, and remaining poverty/service concepts, reusing PIP/WDI/Maddison/PWT/
+   UNDP/WHO first.
+3. **P4-T3 — conflict/proxy/arms tranche.** Vet and disposition UCDP external support,
+   Non-State Actor Dataset, Dangerous Companions/NAGs, ATT Monitor, and ACLED for named 2B/3B
+   gaps.
+4. **P4-T4 — nuclear tranche.** Reuse FAS/SIPRI/IAEA/CTBTO first; vet and disposition UNODA,
+   nuclear-test, Ban Monitor, CSIS, CNS/NTI, WNA, and user-managed NTI candidates.
+5. **P4-T5 — effectiveness tranche.** Define cited acquisition for manifestos, budget execution,
+   goal indicators, and audit/oversight reports; keep heterogeneous documents out of bulk Stage 2
+   absent a stable structured contract.
+
+Every candidate ends as implemented, rejected, blocked-user-managed, or unnecessary. Exit when
+required concepts have an implemented or explicit missing/manual route and all registries,
+attributions, manifests, tests, and reviews agree.
+
+### Phase 5 — research engine, answer tables, scoring, and review queue
+
+Status: `DEFERRED` until Phase 4. This consolidates incomplete I5-I11 and D8-D30 work.
+
+1. **P5-T1 — concepts/facts (I5/I6; D8-D17).** Finish units, direction, time/proxy rules,
+   precedence, and harmonized facts while retaining observations/provenance.
+2. **P5-T2 — executable registry (I7; D23).** Register chapter 1-8 and confirm 1B-8B with scope,
+   answer type, strategy, concepts, sources, proxy, handler, review, and internet metadata.
+3. **P5-T3 — generic dispatch/runner (I7.5).** Make question + years + countries/rulers a
+   parameterized, idempotent run over reusable structured/context/manual/hybrid strategies.
+4. **P5-T4 — structured answers (I8; D24).** Build reusable fact-backed answers, explicit gaps,
+   and exact evidence links.
+5. **P5-T5 — ruler-period/cited persistence (I9/I10; D18-D26).** Persist typed goals,
+   implementation, crises, appointments, integrity cases, dossiers, mappings, answers, and
+   calibrated chapter scores through generic tables.
+6. **P5-T6 — audit-complete links (D27).** Require exact observation IDs or cited locators and
+   queryable QA for orphan/bad-period/attribution gaps.
+7. **P5-T7 — aggregation/confidence (I11; D28).** Aggregate only after a sufficient pilot; keep
+   fixed confidence and separate client/proposed/final/delta fields.
+8. **P5-T8 — D29 decision.** Implement country-category scores only if the product needs a layer
+   separate from ruler responsibility; rejection is a valid archived result.
+9. **P5-T9 — review queue (D30).** Build attributed review items from missingness, confidence,
+   conflicts, impact, explicit flags, and thresholds.
+
+Exit: registered questions flow through generic strategies into audit-complete answers, scores,
+confidence, and review items without question-specific orchestration changes.
+
+### Phase 6 — Country-Year Chronicle completion
+
+Status: `DEFERRED` until Phase 5.
+
+1. **P6-T1 — recent-window summary/review artifacts.** Finish all-country 1960-2026 summary,
+   missingness, quality flags, and manual review; validate detailed/condensed CSV, SQLite,
+   attribution, and deterministic reruns.
+2. **P6-T2 — controlled/imperial-area decision.** Recheck ICOW/COW/alternatives; define control
+   semantics and dependency rows; accept a vetted source or retain country-only fallback. Never
+   invent colonial mappings.
+3. **P6-T3 — stabilization/schema decision.** Resolve system-type taxonomy, validate 1900-2026,
+   and decide whether to migrate the stable Chronicle contract into the canonical database.
+
+### Phase 7 — visualization, publication surfaces, and controlled client access
+
+Status: `DEFERRED` until Phase 6; live access also needs user credentials. P7-T4 is an optional
+deployment activation and does not block Phase 8 scientific/product acceptance when the local
+publication surface has passed.
+
+1. **P7-T1 — close reviews.** Independently review generic CLI and investigation slice; verify
+   semantic queries, provenance, attribution, source-series separation, and read-only Superset.
+2. **P7-T2 — expand generic question families.** Publish selected economic, regime/population,
+   tenure, governance, freedom, and coverage outputs through the generic metric layer.
+3. **P7-T3 — validate the static ruler-study projection.** Exercise the production-gated static
+   study builder, year/release registry, client-score exclusion, citation/source excerpt binding,
+   attribution, route/file manifest, and read-only portal integration. Keep public study output
+   separate from operational prompts, logs, raw documents, secrets, and local paths.
+4. **P7-T4 — secure activation.** Blocked on Cloudflare token and email allowlist. Create Access
+   before hostname; verify denial, least privilege, read-only data, HTTPS/session hardening, and
+   recovery.
+
+### Phase 8 — full 2023 production acceptance
+
+Status: `DEFERRED` until required components of Phases 3-7 are complete.
+
+1. **P8-T1 — readiness/transport preflight.** Resolve full cohort; validate sources, identity
+   locks, coverage, request splitting/manifests, budgets, attribution, roots, and durable jobs.
+2. **P8-T2 — execute Stages 0-15.** Run ingestion through publication under one named end-to-end
+   Codex/subscription authorization, with a zero-call bounded preflight at every model-bearing
+   stage and persistence through recoverable work. Obtain new authority only for direct billing,
+   model substitution, material expansion or failure, or a run-envelope increase.
+3. **P8-T3 — acceptance/release.** Require top-level criteria, relevant full/slow tests, lint,
+   independent code/scientific review, citations, attribution, manifests, and no unresolved jobs.
+
+### Phase 9 — historical expansion and maintenance
+
+Status: `DEFERRED` until Phase 8.
+
+1. **P9-T1 — historical pilot.** Run a bounded older-year cohort with explicit missingness,
+   uncertainty, and no silent modern backfill.
+2. **P9-T2 — maintenance.** Define source-version checks, blocked-source re-probes, schema/prompt
+   migration tests, cost drift, backup/restore, and release deprecation with versioned manifests.
+
+## 6. Completed ledger
+
+| Work | Outcome | Archive/reference |
+|---|---|---|
+| Project history through 2026-08-14 | Complete | [`archive/workplan/workplan-through-2026-08-14.md`](archive/workplan/workplan-through-2026-08-14.md) |
+| P0 planning consolidation | Complete; one executable queue established | [`archive/workplan/2026-08-20-p0-plan-consolidation.md`](archive/workplan/2026-08-20-p0-plan-consolidation.md) |
+| Cost optimization Tasks 1-5 | Complete | [`archive/workplan/README.md`](archive/workplan/README.md) |
+| Netanyahu diagnostics through v16 | Rejected/immutable | [`archive/workplan/2026-08-20-netanyahu-integrated-diagnostic-lineage.md`](archive/workplan/2026-08-20-netanyahu-integrated-diagnostic-lineage.md) |
+| Netanyahu v17 final writing | Complete; 80/80 validated | [`archive/workplan/2026-08-20-p1-v17-final-writing.md`](archive/workplan/2026-08-20-p1-v17-final-writing.md) |
+| P1-T1 v17 question-review preflight | Rejected; 6B exceeded its configured stage-input ceiling without a model call | [`archive/workplan/2026-08-20-p1-t1-v17-question-review-preflight.md`](archive/workplan/2026-08-20-p1-t1-v17-question-review-preflight.md) |
+| P1-T2 v18 question review | Rejected; `4B.1` failed citation entailment after five settled calls | [`archive/workplan/2026-08-20-p1-t2-v18-question-review.md`](archive/workplan/2026-08-20-p1-t2-v18-question-review.md) |
+| P1-T2A v19 autonomous review | Rejected; collected valid failures but stopped on an unknown evidence ID after 19 calls | [`archive/workplan/2026-08-20-p1-t2a-v19-autonomous-review.md`](archive/workplan/2026-08-20-p1-t2a-v19-autonomous-review.md) |
+| P1-T2B constrained review transport | Complete; packet-local schema v5, historical reload, and downgrade protection | [`archive/workplan/2026-08-20-p1-t2b-constrained-review-transport.md`](archive/workplan/2026-08-20-p1-t2b-constrained-review-transport.md) |
+| P1-T2C v20 constrained preflight | Complete; 80/80 packet-bound requests eligible with zero calls or reservations | [`archive/workplan/2026-08-20-p1-t2c-v20-constrained-preflight.md`](archive/workplan/2026-08-20-p1-t2c-v20-constrained-preflight.md) |
+| P1-T2D v20 constrained review | Rejected; 80/80 valid reviews found eight material experimental-answer failures | [`archive/workplan/2026-08-21-p1-t2d-v20-constrained-review.md`](archive/workplan/2026-08-21-p1-t2d-v20-constrained-review.md) |
+| P1-T2E bounded correction handoff | Complete; eight corrections/final reviews and trusted 80-answer handoff | [`archive/workplan/2026-08-21-p1-t2e-one-correction-handoff.md`](archive/workplan/2026-08-21-p1-t2e-one-correction-handoff.md) |
+| P1-T3 chapter judgments | Complete; eight validated reviewed-answer-bound judgments | [`archive/workplan/2026-08-21-p1-t3-chapter-judgments.md`](archive/workplan/2026-08-21-p1-t3-chapter-judgments.md) |
+| P1-T4 judgment reviews | Complete; eight independent reviews, one bounded score correction | [`archive/workplan/2026-08-21-p1-t4-judgment-reviews.md`](archive/workplan/2026-08-21-p1-t4-judgment-reviews.md) |
+| P1-T5 audit/publication | Complete; passing audit and production-eligible experimental publication | [`archive/workplan/2026-08-21-p1-t5-audit-publication.md`](archive/workplan/2026-08-21-p1-t5-audit-publication.md) |
+| P2-T1 five-ruler preflight | Rejected; PRK 7B.3 is unwritable and configured output capacity is insufficient | [`archive/workplan/2026-08-21-p2-t1-five-ruler-preflight.md`](archive/workplan/2026-08-21-p2-t1-five-ruler-preflight.md) |
+| P2-T1A sparse-question transport | Complete; all 400 writer requests construct without invented evidence | [`archive/workplan/2026-08-21-p2-t1a-sparse-question-transport.md`](archive/workplan/2026-08-21-p2-t1a-sparse-question-transport.md) |
+| P2-T1B output-capacity preflight | Complete; fresh 400-request writing inventory eligible under 52M reservation capacity | [`archive/workplan/2026-08-21-p2-t1b-output-capacity-preflight.md`](archive/workplan/2026-08-21-p2-t1b-output-capacity-preflight.md) |
+| P2-T2 five-ruler writing/review | Complete; 400 answers/reviews, 51 corrections/final reviews, five handoffs | [`archive/workplan/2026-08-23-p2-t2-five-ruler-writing-review.md`](archive/workplan/2026-08-23-p2-t2-five-ruler-writing-review.md) |
+| P2-T3 comparative judging | Complete; 40 first passes, eight calibrations, eight reviews | [`archive/workplan/2026-08-23-p2-t3-comparative-judging.md`](archive/workplan/2026-08-23-p2-t3-comparative-judging.md) |
+| P2-T4 audit/publication | Complete; passing audit and cited five-ruler publication | [`archive/workplan/2026-08-23-p2-t4-audit-publication.md`](archive/workplan/2026-08-23-p2-t4-audit-publication.md) |
+| P3-T1 answer-trusting comparison | Complete; 8 calls, exact rank order retained, 27/40 scores unchanged | [`archive/workplan/2026-08-23-p3-t1-answer-trusting-comparison.md`](archive/workplan/2026-08-23-p3-t1-answer-trusting-comparison.md) |
+
+## 7. Required task-archive template
+
+```markdown
+# <Task ID> — <title>
+
+- Date closed:
+- Outcome: COMPLETE / REJECTED
+- Starting commit and ending commit:
+- Objective and scope executed:
+- Decisions and lasting constraints:
+- Files/configs changed:
+- Durable artifacts and SHA-256 bindings:
+- Model provider/model/reasoning/surface; approved maximum and actual calls:
+- Input/cached/output/reasoning tokens, elapsed time, billing limitation:
+- Focused/full tests, lint, validators, and reviews:
+- Failures/findings and disposition:
+- Deferred/optional items (non-blocking):
+- Next task activated or exact blocker:
+```
+
+## 8. Start prompt for the active task
+
+```text
+Work in /home/liorshtram/projects/leaders-db.
+
+Read AGENTS.md and docs/workplan.md completely. Execute only the task marked ACTIVE.
+Read its named inputs and validate predecessor artifacts before editing. Follow its boundary,
+deliverables, verification, and completion gate. Do not begin the next task.
+
+For model work, a named end-to-end Codex/subscription instruction authorizes every later stage
+whose zero-call preflight stays within that scope and its recorded run envelope; do not stop for
+another phase approval merely because its exact quota became known during preflight. Request new
+authority only for direct billing, model substitution, material scope expansion or failure, or
+an envelope increase. Use a durable owner, profile every call, and persist until complete or
+genuinely new authority is required.
+
+At completion, archive the task using §7, update the archive index, reduce it to one ledger line,
+activate the next eligible task, synchronize affected normative docs, run required checks, and
+commit only if explicitly requested.
+```

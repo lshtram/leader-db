@@ -1,4 +1,5 @@
 import json
+import shutil
 from hashlib import sha256
 from pathlib import Path
 from types import SimpleNamespace
@@ -7,9 +8,11 @@ import pytest
 import yaml
 
 from leaders_db.research.chapter_analysis_models import ResolvedChapterAnalysis
+from leaders_db.research.control_flow import load_question_review_experiment_policy
 from leaders_db.research.question_packet_chapter import (
     ChapterQuestionPhaseManifest,
     _inside,
+    load_trusted_unavailable_adjudication,
     run_chapter_question_review,
     run_chapter_question_writing,
     validate_chapter_question_review,
@@ -33,9 +36,7 @@ def _package(analysis_hash: str = "0" * 64, *, discovery_complete: bool = False)
         SimpleNamespace(
             question_id=f"4B.{number}",
             evidence_discovery_complete=discovery_complete,
-            coverage=SimpleNamespace(
-                required_evidence_ids=(), reopenable_evidence_ids=()
-            ),
+            coverage=SimpleNamespace(required_evidence_ids=(), reopenable_evidence_ids=()),
             model_dump=lambda mode="json", number=number: {"number": number},
         )
         for number in range(1, 11)
@@ -91,6 +92,39 @@ def _analysis_path(tmp_path: Path) -> Path:
     )
     path.write_text(analysis.model_dump_json())
     return path
+
+
+def _assert_collect_all_review(monkeypatch, tmp_path: Path, arguments: dict[str, object]) -> None:
+    def collect_validate(**kwargs):
+        question_id = kwargs["packet"].question_id
+        return {
+            "quality_gate": "fail" if question_id == "4B.1" else "pass",
+            "prompt_config_sha256": sha256(
+                (ROOT / "configs/question-packet-prompts.yaml").read_bytes()
+            ).hexdigest(),
+        }
+
+    monkeypatch.setattr(
+        "leaders_db.research.question_packet_chapter.validate_blind_review_artifacts",
+        collect_validate,
+    )
+    policy_path = ROOT / "configs/research-question-review-experiment.yaml"
+    collected_path = run_chapter_question_review(
+        **{**arguments, "output_dir": tmp_path / "collected-review"},
+        experiment_policy=load_question_review_experiment_policy(policy_path),
+        experiment_policy_sha256=sha256(policy_path.read_bytes()).hexdigest(),
+    )
+    collected = ChapterQuestionPhaseManifest.model_validate_json(collected_path.read_text())
+    assert collected.question_count == 10
+    assert collected.phase_gate == "fail"
+    assert [item.status for item in collected.artifacts].count("fail") == 1
+    assert (
+        validate_chapter_question_review(
+            **{**arguments, "output_dir": tmp_path / "collected-review"},
+            experiment_policy_path=policy_path,
+        )
+        == collected
+    )
 
 
 def test_chapter_writing_calls_each_question_once(monkeypatch, tmp_path: Path) -> None:
@@ -151,6 +185,141 @@ def test_chapter_writing_calls_each_question_once(monkeypatch, tmp_path: Path) -
             project_root=ROOT,
             package=package,
             output_dir=output_dir,
+            approved_analysis_path=analysis_path,
+            profile_name="openai-terra-candidate",
+            profiles_path=PROFILES,
+        )
+
+
+def test_chapter_writing_marks_true_zero_lens_unavailable_without_model_call(
+    monkeypatch, tmp_path: Path
+) -> None:
+    calls = []
+
+    def fake_writer(**kwargs):
+        calls.append(kwargs["packet"].question_id)
+        output_dir = kwargs["output_dir"]
+        output_dir.mkdir(parents=True)
+        answer = _answer(kwargs["packet"].question_id)
+        (output_dir / "output.json").write_text(answer.model_dump_json())
+        return answer, {"functional_gate": "pass"}
+
+    monkeypatch.setattr(
+        "leaders_db.research.question_packet_chapter.write_diagnostic_question_answer",
+        fake_writer,
+    )
+    analysis_path = _analysis_path(tmp_path)
+    package = _package(sha256(analysis_path.read_bytes()).hexdigest())
+    for index, packet in enumerate(package.packets):
+        packet.candidate_index = () if index == 0 else (object(),)
+    trust_dir = ROOT / "tmp" / tmp_path.name
+    trust_dir.mkdir(parents=True)
+    inventory = trust_dir / "inventory.json"
+    search = trust_dir / "search.json"
+    inventory.write_text(
+        json.dumps(
+            {
+                "schema_version": "question_research_inventory_v1",
+                "question_id": "4B.1",
+                "source_ids": ["https://example.test/source"],
+                "admissible_evidence_ids": [],
+            }
+        )
+    )
+    search.write_text(
+        json.dumps(
+            {
+                "schema_version": "question_targeted_search_manifest_v1",
+                "question_id": "4B.1",
+                "queries": ["targeted query"],
+                "inspected_urls": ["https://example.test/source"],
+                "saturation_review": "pass",
+            }
+        )
+    )
+    review = trust_dir / "review.json"
+    review.write_text(
+        json.dumps(
+            {
+                "schema_version": "question_unavailable_independent_review_v1",
+                "question_id": "4B.1",
+                "research_inventory_sha256": sha256(inventory.read_bytes()).hexdigest(),
+                "targeted_search_manifest_sha256": sha256(search.read_bytes()).hexdigest(),
+                "admissible_evidence_count": 0,
+                "review_gate": "pass",
+            }
+        )
+    )
+    packet_hash = sha256(
+        json.dumps(
+            package.packets[0].model_dump(mode="json"),
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode()
+    ).hexdigest()
+    adjudication = trust_dir / "adjudication.json"
+    adjudication.write_text(
+        json.dumps(
+            {
+                "schema_version": "question_evidence_unavailable_adjudication_v1",
+                "question_id": "4B.1",
+                "packet_sha256": packet_hash,
+                "research_inventory_path": str(inventory.relative_to(ROOT)),
+                "research_inventory_sha256": sha256(inventory.read_bytes()).hexdigest(),
+                "targeted_search_manifest_path": str(search.relative_to(ROOT)),
+                "targeted_search_manifest_sha256": sha256(search.read_bytes()).hexdigest(),
+                "independent_review_path": str(review.relative_to(ROOT)),
+                "independent_review_sha256": sha256(review.read_bytes()).hexdigest(),
+                "targeted_query_count": 1,
+                "inspected_source_count": 1,
+                "admissible_evidence_count": 0,
+                "saturation_review": "pass",
+                "decision": "no_admissible_evidence",
+            }
+        )
+    )
+    try:
+        trusted_adjudication = load_trusted_unavailable_adjudication(
+            project_root=ROOT,
+            path=adjudication,
+            packet=package.packets[0],
+        )
+        manifest_path = run_chapter_question_writing(
+            project_root=ROOT,
+            package=package,
+            output_dir=tmp_path / "writing",
+            approved_analysis_path=analysis_path,
+            profile_name="openai-terra-candidate",
+            profiles_path=PROFILES,
+            unavailable_adjudications={"4B.1": trusted_adjudication},
+        )
+    finally:
+        shutil.rmtree(trust_dir)
+
+    manifest = ChapterQuestionPhaseManifest.model_validate_json(manifest_path.read_text())
+    assert manifest.artifacts[0].status == "unavailable"
+    assert calls == [f"4B.{number}" for number in range(2, 11)]
+    unavailable = json.loads(
+        (tmp_path / "writing/questions/4B.1/unavailable.json").read_text()
+    )
+    assert unavailable["model_call_created"] is False
+
+
+def test_empty_lens_without_saturation_adjudication_stops_before_model_call(
+    monkeypatch, tmp_path: Path
+) -> None:
+    monkeypatch.setattr(
+        "leaders_db.research.question_packet_chapter.write_diagnostic_question_answer",
+        lambda **kwargs: pytest.fail("model call must not start"),
+    )
+    analysis_path = _analysis_path(tmp_path)
+    package = _package(sha256(analysis_path.read_bytes()).hexdigest())
+    package.packets[0].candidate_index = ()
+    with pytest.raises(ValueError, match="no trusted saturation adjudication"):
+        run_chapter_question_writing(
+            project_root=ROOT,
+            package=package,
+            output_dir=tmp_path / "writing",
             approved_analysis_path=analysis_path,
             profile_name="openai-terra-candidate",
             profiles_path=PROFILES,
@@ -266,9 +435,7 @@ def test_chapter_review_is_separate_and_rejects_changed_writer_output(
         json.dumps(
             {
                 **request,
-                "predecessor_answer_included": not request[
-                    "predecessor_answer_included"
-                ],
+                "predecessor_answer_included": not request["predecessor_answer_included"],
             }
         )
     )
@@ -282,9 +449,7 @@ def test_chapter_review_is_separate_and_rejects_changed_writer_output(
             profiles_path=PROFILES,
         )
     request_path.write_text(json.dumps(request))
-    request_path.write_text(
-        json.dumps({**request, "evidence_discovery_complete": True})
-    )
+    request_path.write_text(json.dumps({**request, "evidence_discovery_complete": True}))
     with pytest.raises(ValueError, match="evidence-discovery metadata"):
         validate_chapter_question_writing(
             project_root=ROOT,
@@ -337,9 +502,7 @@ def test_closed_chapter_writing_rejects_prompt_version_downgrade(
         lambda packet, prompts, predecessor: "prompt",
     )
     analysis_path = _analysis_path(tmp_path)
-    package = _package(
-        sha256(analysis_path.read_bytes()).hexdigest(), discovery_complete=True
-    )
+    package = _package(sha256(analysis_path.read_bytes()).hexdigest(), discovery_complete=True)
     run_chapter_question_writing(
         project_root=ROOT,
         package=package,
@@ -432,7 +595,12 @@ def test_chapter_review_calls_each_question_once(monkeypatch, tmp_path: Path) ->
         payload = json.loads((kwargs["output_dir"] / "blind-review-manifest.json").read_text())
         if payload != {}:
             raise ValueError("child review tampered")
-        return {"quality_gate": "pass"}
+        return {
+            "quality_gate": "pass",
+            "prompt_config_sha256": sha256(
+                (ROOT / "configs/question-packet-prompts.yaml").read_bytes()
+            ).hexdigest(),
+        }
 
     monkeypatch.setattr(
         "leaders_db.research.question_packet_chapter.validate_blind_review_artifacts",
@@ -463,6 +631,12 @@ def test_chapter_review_calls_each_question_once(monkeypatch, tmp_path: Path) ->
         "profiles_path": PROFILES,
     }
     assert validate_chapter_question_review(**arguments) == manifest
+
+    _assert_collect_all_review(monkeypatch, tmp_path, arguments)
+    monkeypatch.setattr(
+        "leaders_db.research.question_packet_chapter.validate_blind_review_artifacts",
+        fake_validate,
+    )
 
     manifest_path = tmp_path / "review/review-manifest.json"
     tampered = manifest.model_copy(update={"phase_gate": "fail"})

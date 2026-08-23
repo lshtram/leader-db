@@ -55,13 +55,19 @@ def build_question_writer_prompt(
     )
     if template is None:
         raise ValueError("post-completion writing requires a final writer prompt")
-    return template.format(
+    rendered = template.format(
         question_id=packet.question_id,
         question=packet.question,
         predecessor_answer=json.dumps(projected_predecessor, ensure_ascii=False),
         exact_evidence=json.dumps(exact, ensure_ascii=False),
         candidate_index=json.dumps(candidates, ensure_ascii=False),
     )
+    if not packet.coverage.required_evidence_ids:
+        instruction = prompts.empty_evidence_instruction
+        if instruction is None:
+            raise ValueError("prompt contract does not support an evidence-empty packet")
+        rendered = f"{rendered}\n\nSPARSE-EVIDENCE CONTRACT:\n{instruction}"
+    return rendered
 
 
 def project_predecessor_answer(
@@ -72,9 +78,7 @@ def project_predecessor_answer(
     if predecessor_answer is None:
         return {}, ()
     referenced = _evidence_references(predecessor_answer)
-    unavailable = tuple(
-        sorted(referenced - set(packet.coverage.required_evidence_ids))
-    )
+    unavailable = tuple(sorted(referenced - set(packet.coverage.required_evidence_ids)))
     return ({}, unavailable) if unavailable else (predecessor_answer, ())
 
 
@@ -83,16 +87,10 @@ def _evidence_references(value: object) -> set[str]:
         return set(_EVIDENCE_ID.findall(value))
     if isinstance(value, dict):
         return {
-            evidence_id
-            for nested in value.values()
-            for evidence_id in _evidence_references(nested)
+            evidence_id for nested in value.values() for evidence_id in _evidence_references(nested)
         }
     if isinstance(value, (list, tuple)):
-        return {
-            evidence_id
-            for nested in value
-            for evidence_id in _evidence_references(nested)
-        }
+        return {evidence_id for nested in value for evidence_id in _evidence_references(nested)}
     return set()
 
 

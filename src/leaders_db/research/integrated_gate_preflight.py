@@ -17,6 +17,7 @@ from .question_evidence_completion import (
 )
 from .question_evidence_packet_models import ChapterQuestionEvidencePackage
 from .question_evidence_packets import build_chapter_question_evidence_package
+from .question_evidence_supplement import build_supplemented_question_package
 from .question_packet_expansion import (
     MaterialDefectReturnReceipt,
     expand_question_evidence_package,
@@ -40,6 +41,13 @@ class PromotionLimits(BaseModel):
     maximum_output_tokens_per_ruler: int = Field(gt=0)
 
 
+class EvidenceSupplementConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    base_package: str
+    supplement: str
+
+
 class IntegratedGateConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -60,6 +68,7 @@ class IntegratedGateConfig(BaseModel):
     reasoning_effort: dict[str, str] | None = None
     material_defect_return: str | None = None
     evidence_completion: str | None = None
+    evidence_supplements: dict[str, EvidenceSupplementConfig] = Field(default_factory=dict)
     promotion_limits: PromotionLimits
 
 
@@ -79,6 +88,12 @@ def run_integrated_gate_preflight(
     flow = load_control_flow(flow_path)
     return_receipt = _load_return_receipt(project_root, config, flow)
     completion_receipt = _load_completion_receipt(project_root, config)
+    if not set(config.evidence_supplements).issubset(config.chapters):
+        raise ValueError("evidence supplement targets an inactive chapter")
+    if config.evidence_supplements and (
+        return_receipt is not None or completion_receipt is not None
+    ):
+        raise ValueError("evidence supplements cannot be combined with another packet rewrite")
     _reject_output_overlap(output_dir, return_receipt or completion_receipt)
     budget_path = project_root / config.stage_budgets
     budgets = StageBudgets.model_validate(yaml.safe_load(budget_path.read_text(encoding="utf-8")))
@@ -210,6 +225,15 @@ def run_integrated_gate_preflight(
             if completion_receipt is not None
             else None
         ),
+        "evidence_supplements": {
+            chapter_id: {
+                "base_package": item.base_package,
+                "base_package_sha256": _sha256(project_root / item.base_package),
+                "supplement": item.supplement,
+                "supplement_sha256": _sha256(project_root / item.supplement),
+            }
+            for chapter_id, item in sorted(config.evidence_supplements.items())
+        },
         "planned_calls": planned_calls,
         "maximum_calls_per_ruler": config.promotion_limits.maximum_calls_per_ruler,
         "maximum_input_tokens_per_ruler": (config.promotion_limits.maximum_input_tokens_per_ruler),
@@ -243,15 +267,29 @@ def _build_question_packages(
     packages = []
     for chapter_id in config.chapters:
         package_path = output_dir / "question-packages" / chapter_id / "package.json"
-        package = _prepare_question_package(
-            project_root=project_root,
-            return_receipt=return_receipt,
-            completion_receipt=completion_receipt,
-            judge_package_path=judge_package_path,
-            selection_manifest_path=selection_manifest_path,
-            chapter_id=chapter_id,
-            output_path=package_path,
-        )
+        supplement = config.evidence_supplements.get(chapter_id)
+        if supplement is None:
+            package = _prepare_question_package(
+                project_root=project_root,
+                return_receipt=return_receipt,
+                completion_receipt=completion_receipt,
+                judge_package_path=judge_package_path,
+                selection_manifest_path=selection_manifest_path,
+                chapter_id=chapter_id,
+                output_path=package_path,
+            )
+        else:
+            build_supplemented_question_package(
+                project_root=project_root,
+                base_package_path=project_root / supplement.base_package,
+                judge_package_path=judge_package_path,
+                selection_manifest_path=selection_manifest_path,
+                supplement_path=project_root / supplement.supplement,
+                output_path=package_path,
+            )
+            package = ChapterQuestionEvidencePackage.model_validate_json(
+                package_path.read_bytes()
+            )
         expected = tuple(f"{chapter_id}.{number}" for number in range(1, 11))
         if tuple(item.question_id for item in package.packets) != expected:
             raise ValueError(f"question package is incomplete or unordered: {chapter_id}")

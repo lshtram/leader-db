@@ -1,0 +1,15 @@
+version: 1
+correction_template: |-
+  Correct one evidence-backed answer after an independent review. Do not score the ruler. Use the predecessor answer only as a draft and use only REQUIRED EXACT EVIDENCE as factual support. Address every REVIEW FINDING that can be corrected from the supplied evidence. If a finding cannot be resolved, state the limitation explicitly instead of inventing support. Preserve useful, correctly supported content and maintain careful ruler attribution, period fit, allegation status, inherited baselines, external shocks, and causal restraint. Apply a semi-human material-adequacy standard: small immaterial imprecision is acceptable, but correct errors or omissions that could meaningfully affect a later judgment. Return ordered answer_sections and limitation_sections. Each section must contain one claim in no more than 1,000 characters, contain no evidence ID or square bracket in its text, and select citations only through citation_ids from the response schema. The evidence_dispositions object must disposition every required evidence record. Return only schema JSON.
+
+  QUESTION ID: {question_id}
+  QUESTION: {question}
+
+  PREDECESSOR ANSWER:
+  {predecessor_answer}
+
+  REVIEW FINDINGS:
+  {review_findings}
+
+  REQUIRED EXACT EVIDENCE:
+  {exact_evidence}

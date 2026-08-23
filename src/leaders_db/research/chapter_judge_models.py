@@ -223,12 +223,27 @@ class ChapterJudgmentBatch(BaseModel):
     run_profile: ChapterJudgeRunProfile
 
 
-def codex_chapter_judgment_json_schema() -> dict[str, Any]:
+def codex_chapter_judgment_json_schema(
+    chapter_id: str | None = None, dossier_job_keys: tuple[str, ...] | None = None
+) -> dict[str, Any]:
     """Return a Codex-compatible schema with every property required."""
 
     schema = ChapterJudgmentBatch.model_json_schema()
     _remove_server_owned_usage_fields(schema)
     schema.get("properties", {}).pop("pipeline_provenance", None)
+    if chapter_id is not None:
+        allowed = [f"{chapter_id}.{index}" for index in range(1, 11)]
+        schema.get("properties", {}).get("chapter_id", {})["const"] = chapter_id
+        evaluation = schema.get("$defs", {}).get("RulerChapterJudgment", {})
+        properties = evaluation.get("properties", {})
+        for field_name in ("supported_lenses", "missing_or_weak_lenses"):
+            field = properties.get(field_name)
+            if isinstance(field, dict):
+                field["items"] = {"enum": allowed}
+        if dossier_job_keys is not None:
+            calibrated = properties.get("calibrated_against")
+            if isinstance(calibrated, dict):
+                calibrated["items"] = {"enum": list(dossier_job_keys)}
     _require_every_property(schema)
     return schema
 

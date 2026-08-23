@@ -93,8 +93,21 @@ class QuestionEvidencePacket(BaseModel):
 
 class ChapterQuestionEvidencePackage(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    schema_version: Literal["chapter_question_evidence_package_v1"] = (
+    schema_version: Literal[
+        "chapter_question_evidence_package_v1",
+        "chapter_question_evidence_package_v2",
+    ] = (
         "chapter_question_evidence_package_v1"
+    )
+    base_package_sha256: str | None = Field(
+        default=None,
+        pattern=r"^[0-9a-f]{64}$",
+        exclude_if=lambda value: value is None,
+    )
+    evidence_supplement_sha256: str | None = Field(
+        default=None,
+        pattern=r"^[0-9a-f]{64}$",
+        exclude_if=lambda value: value is None,
     )
     chapter_id: str
     source_package_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
@@ -109,6 +122,16 @@ class ChapterQuestionEvidencePackage(BaseModel):
 
     @model_validator(mode="after")
     def validate_complete_package(self) -> ChapterQuestionEvidencePackage:
+        if self.schema_version == "chapter_question_evidence_package_v1" and (
+            self.base_package_sha256 is not None
+            or self.evidence_supplement_sha256 is not None
+        ):
+            raise ValueError("v1 question package cannot bind an evidence supplement")
+        if self.schema_version == "chapter_question_evidence_package_v2" and (
+            self.base_package_sha256 is None
+            or self.evidence_supplement_sha256 is None
+        ):
+            raise ValueError("v2 question package requires base and supplement hashes")
         expected = {f"{self.chapter_id}.{number}" for number in range(1, 11)}
         if {item.question_id for item in self.packets} != expected:
             raise ValueError("package must contain exactly the chapter's ten questions")

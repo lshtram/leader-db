@@ -15,6 +15,10 @@
 
 This document is the locally tracked REQ-* / NFR-* baseline derived from the authoritative product brief [`top-level-requirements.md`](top-level-requirements.md). Section numbers in parentheses reference the brief.
 
+Requirements define what the product must satisfy. Implementation order, active-task status,
+approval boundaries, and task archival are authoritative only in
+[`../workplan.md`](../workplan.md); subsystem plans cannot create competing execution queues.
+
 ## Functional Requirements
 
 ### Scope and data collection (§2)
@@ -129,6 +133,8 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 - **REQ-LLM-014**: Production research and judging shall require eight reviewed, smoke-tested chapter guides, one for each of 1B–8B. Each guide owns ten evidence lenses and one holistic chapter rubric. Draft guides may be used only by bounded guide-validation pilots and must surface a lifecycle warning.
 - **REQ-LLM-015**: Dossier ingestion shall distinguish evidence-integrity failures from formatting defects. Incorrect identity, invented or missing citation provenance, and ruler/period scope violations remain blockers. Harmless evidence-ID, mapping, coverage-label, optional-field, and extra-field inconsistencies shall be normalized with audit warnings or delegated to a low-cost formatter rather than discarding useful research. A stale dossier job key may be rebound only when exactly one trusted projection matches every immutable ruler-period identity field; citation validation then uses that resolved projection, while ambiguous or conflicting matches fail.
 - **REQ-LLM-016**: Sparse, historical, low-visibility, or closed-information cases shall degrade through lower confidence, wider score ranges, explicit missing lenses, and review flags. Missing evidence for individual lenses shall not mechanically produce a low score or prevent a chapter score when the chapter record is otherwise sufficient.
+- **REQ-LLM-016A**: An evidence-empty question packet is a collection gap, not proof that a lens is unavailable. The pipeline may skip question writing and review only after a hash-bound targeted-search manifest and zero-admissible-evidence inventory receive an independent passing saturation review for that exact packet. The unavailable lens shall remain explicit in the judge handoff, be classified as missing or weak, and lower confidence according to materiality without mechanically lowering the chapter score.
+- **REQ-LLM-016B**: Evidence discovered after a frozen question package shall enter only through a fresh prospective supplement. The supplement shall bind the trusted base package, raw source snapshots, deterministic text extractions, exact excerpts, limitations, and an independent evidence-review decision by hash. Rebuilding and trusted reload shall preserve polarity partitions, distinguish contextual mechanism evidence from ruler-period adverse evidence, and leave the frozen predecessor unchanged.
 - **REQ-LLM-017**: A chapter-judge worker shall consume only completed cited ruler dossiers, independently built and hash-verified chapter-local evidence packages, and the versioned chapter guide. It shall prohibit new discovery; validate exactly one evaluation per available dossier and every referenced web (`E*`) and local (`LF*`/`LS*`) evidence ID against its own provenance family; preserve provider/model/token attribution; atomically persist the complete validated judgment envelope to `chapter_scores`; and complete the owning lease-fenced job in the same database transaction. A numeric ruler score still requires decisive cited web evidence establishing the relevant ruler authority or nexus; country-level local facts and signals cannot determine a ruler score by themselves. Missing or invalid local packages remain explicit and affect confidence when material, but do not erase usable web evidence or automatically make a chapter unjudgeable. Expired or superseded workers shall publish no score rows. A separate score/order reviewer shall then inspect comparative ordering, attribution, missingness, source balance, and rubric drift without discovery. The production reviewer uses Sol at high reasoning, may retain or correct a numeric score by no more than ±1 in half-point increments, may not convert between null and numeric results, and must return revised rationale and anchor explanations for every evaluation. Code validates the complete cohort, evidence IDs, score boundary, and immutable input hashes before applying any review.
 - **REQ-LLM-017A**: Every null chapter judgment shall retain a non-empty insufficiency reason, the full 1–10 plausible range, and a release-blocking manual-review state using the `recoverable_null` taxonomy. A derived release package may normalize missing null-review fields deterministically only when it preserves the immutable source judgment, records every changed field, and binds the source artifact by hash.
 - **REQ-LLM-018**: One segmented ruler-period web-research workflow shall receive one resolved ruler-period and a short parent-produced orientation that summarizes relevant baselines, gaps, and known source families without embedding the complete local fact package or all chapter guides. A separate local-evidence builder owns and retains the complete hashed package. Reconnaissance shall run as an isolated blank-slate web-research role without project-rule, shell, filesystem-read, app, plugin, subagent, or goal access. Its self-contained natural-language prompt shall explain the subject areas, preserve every credible useful source, stop on informational saturation rather than a numerical evidence ceiling, emit one record per source-claim with a shared underlying-fact key for corroborating records, and separate extracted evidence, corroboration, and uninspected leads. After reconnaissance, each chapter shall run in a fresh compact session receiving only that chapter's questions, research note, and a bounded index of already found relevant web resources. The workflow shall process chapters in order, build a broad candidate pool before applying evidence-admissibility filters, open promising underlying sources, and search iteratively until each chapter is reasonably saturated or a specific access blocker is demonstrated. Before any lens is reported empty, the researcher shall run a plain-language lens-specific source-landscape pass across the ruler, period, named mechanisms, primary/legal records, independent monitoring or scholarship, reputable reporting, and adverse or contrary interpretations, preserving queries and candidate dispositions. Historical research shall not use recent-news filters. An evidence reviewer shall inspect every selected chapter and may return deficient chapters to a fresh targeted session for up to three review rounds. Named unfetched sources, snippet-only candidates, or missing source-specific/local-language discovery shall not be treated as saturation. No preselected link packet, evidence-count ceiling, fixed query allowance, predictive marginal-value gate, or three-chapter continuation cap may substitute for researcher-directed search.
@@ -224,6 +230,10 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
   accepted artifact shall retain the stable ordered evidence-disposition representation.
   Historical packets and raw answers may be upgraded only by trusted reconstruction of
   omitted fields; explicitly changed current fields shall fail reconciliation.
+  A packet with no required evidence shall use a versioned sparse-evidence transport that permits
+  no citations or evidence dispositions, requires an explicit limitation, and makes no favorable
+  or adverse factual claim from absence alone. Independent review shall constrain every selectable
+  evidence array to empty for that packet.
 - **REQ-LLM-034**: Chapter-answer quality repair shall preserve every reviewer-bound question route, route every chapter-wide requirement, reopen code-bound exact evidence, and persist exactly one disposition for every `(requirement_id, question_id)` route. Oversized packets shall split without dropping requirements. Independent approval shall use the configured proportional coverage and accuracy standard; minor, contextual, or duplicative omissions remain visible but block judge use only when they could materially change the evidentiary picture. The independent review producer shall persist a metadata artifact binding the exact analysis, complete candidate package, and review output by SHA-256 under the full-index review contract. A complete ruler evidence report shall require exactly chapters 1B–8B and ten unique answers per chapter, reconcile the review binding plus all artifact hashes and evidence IDs, allow-list active URL schemes, include the normative attribution text, and report completed-call usage by phase plus document size, acquisition status, reading-batch membership, and shared batch-input tokens without presenting shared input as an exact per-document charge.
 - **REQ-LLM-035**: A deep-corpus judge run shall consume one approved ruler package per cohort member. The package shall bind the exact target year, dossier, identity-bearing complete reading plan, complete verified corpus, eight selected ten-answer chapter analyses, independent safe-for-judge reviews, and review bindings by SHA-256; corpus source IDs shall reconcile with the bound reading plan and its ruler-period shall reconcile with the dossier. Planning shall reject missing, duplicate, out-of-cohort, or wrong-year packages when this contract is required and persist the hashes of the selected package manifests and release configuration. The judge worker shall revalidate every bound artifact and its semantic approval state, reject post-planning changes, and build its chapter input only from the approved analysis and the code-bound corpus evidence cited by that analysis; it shall never silently fall back to the earlier compact dossier. Context overflow remains an explicit pre-claim failure rather than a reason to omit evidence.
 - **REQ-LLM-024**: Local Evidence Package v4 shall include up to ten available pre-accession years, all available known tenure and interregnum years through the target, a separately labelled target year, and up to three available post-target context years. Known ruler spells shall be reconciled across exact identities and unambiguous surname-only aliases so interrupted tenures are not mislabeled as continuous rule. Every fact shall retain source observation IDs, an explicit period role, and known in-office status. Post-target facts may supply retrospective context or a nearby-year proxy when target data are missing, but they shall remain visibly non-contemporaneous and shall not enter target-period changes, trends, confidence, or scores as though observed by the target date. Legacy facts remain readable as target-year context.
@@ -345,6 +355,47 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
   corrections remain improvements. Trusted historical reload may use the exact frozen
   prompt semantics named by the saved manifest, but shall reconstruct and verify the raw
   output, prompt, configuration, schema, and manifest hashes without rewriting the artifact.
+- **REQ-PIPE-007E:** A bounded autonomous quality experiment shall select its complete policy
+  before execution, including quality-failure behavior, review rounds, material-defect
+  returns, per-question reruns, infrastructure retries, and downstream stopping boundary.
+  A collect-all policy shall treat schema-valid scientific failures as observations and
+  continue the batch, while invalid artifacts, execution failures, and exhausted budgets
+  remain fail-stop. Every model-selectable evidence ID shall be constrained prospectively to
+  the exact packet-local allowlist in the request schema or an equivalently strict transport;
+  post-response rejection alone is not a sufficient production contract. Every round and
+  return shall use a fresh identity; no failed run may be resumed, repaired in place, or
+  relabeled. The sole exception is a stop caused only by exhaustion of an aggregate input or
+  output quota: with explicit user approval, an append-only amendment may increase that quota
+  for the same immutable request inventory. It shall bind the exact settled ledger prefix,
+  preserve cumulative usage, keep the call ceiling fixed, and prohibit replay of settled
+  calls. Any other failure remains ineligible for same-run continuation.
+- **REQ-PIPE-007F:** Each schema-valid question answer shall receive one independent review.
+  A reviewed answer needing improvement may receive exactly one correction under a fresh
+  artifact identity, using the deblinded findings and exact packet-local evidence promoted by
+  deterministic code, followed by exactly one fresh independent review. No second correction
+  is permitted. Remaining schema-valid concerns shall travel to the chapter judge as explicit
+  limitations requiring lower confidence when relevant; they shall not block judgment merely
+  because the final reviewer remains dissatisfied. Invalid structure, provenance, identity, or
+  required artifacts remain terminal.
+- **REQ-PIPE-007G:** A reviewed-answer judge projection shall bind the exact 80-question
+  handoff, remap every cited evidence ID into the projection inventory, include
+  limitation-only evidence as context, constrain chapter-lens and calibration identifiers at
+  transport, and trusted-review all eight judgments before publication.
+- **REQ-PIPE-007H:** An answer-trusting judgment experiment may omit source excerpts only under
+  a distinct non-production contract binding the exact reviewed answers, limitations,
+  identities, guides, visible evidence-ID allowlists, no-tool/no-web transport, and comparison
+  baseline. It shall not replace cited evidence-reading judgments without a separate
+  repeatability, review, audit, attribution, and promotion gate.
+- **REQ-PIPE-007I:** A published chapter rationale shall be self-contained prose for a reader
+  unfamiliar with the ruler-period. It shall identify the affected people and place, explain
+  the relevant event or policy and its scoring significance, and use evidence identifiers only
+  as citations rather than substitutes for facts. Publication shall present a short answer
+  followed by a fuller account of the period, relevant events, ruler-attributable decisions and
+  omissions, and the relationship between those acts and the score. The account shall distinguish
+  inherited institutions and external constraints from the ruler's conduct: functioning
+  institutions are real constraints on the result, not achievements automatically credited to
+  the incumbent. Reader-facing editorial replacement shall use a versioned, hash-bound policy
+  and shall not change a retained score, confidence, or plausible range.
 - **REQ-PIPE-007B:** A diagnostic second-pass question verifier shall use Luna on the Codex
   subscription surface, check chronology separately, disposition every priority evidence
   ID, deterministically block every accepted writer reopen request, constrain model-found
@@ -375,6 +426,11 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
   packages, and inventory every planned model action before execution. If a hard promotion
   limit is already unattainable, the run shall persist a rejected zero-call preflight and
   shall not consume model quota.
+- **REQ-PIPE-008A:** Every model-stage preflight shall measure all complete serialized
+  requests against per-request, per-stage, and run-wide limits before reservation. A rejected
+  preflight and its source release remain immutable. Any ceiling correction shall be
+  calibrated prospectively from complete-request measurements with a safety margin, applied
+  to a fresh release, and verified by a fresh zero-call preflight.
 - **REQ-PIPE-009:** Every integrated model call shall reserve run-wide call, complete-input,
   and output-token capacity in one file-locked ledger before stage reservation or process
   launch. Outstanding calls count at their reserved allowances; completed calls reconcile

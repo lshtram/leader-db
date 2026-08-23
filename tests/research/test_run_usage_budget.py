@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import time
 from concurrent.futures import ThreadPoolExecutor
+from hashlib import sha256
 from pathlib import Path
 
 import pytest
@@ -10,6 +11,7 @@ import pytest
 from leaders_db.research.model_call_budget import (
     RunUsageBudgetTracker,
     RunUsageLimits,
+    approve_quota_only_continuation,
 )
 from leaders_db.research.model_call_coordinator import ModelCallCoordinator
 
@@ -24,6 +26,21 @@ def _tracker(path: Path) -> RunUsageBudgetTracker:
         ),
         config_sha256="a" * 64,
     )
+
+
+def _preflight(path: Path, hashes: tuple[str, ...]) -> Path:
+    path.write_text(
+        json.dumps(
+            {
+                "status": "eligible",
+                "config_sha256": "a" * 64,
+                "request_count": len(hashes),
+                "requests": [{"request_sha256": item} for item in hashes],
+            }
+        ),
+        encoding="utf-8",
+    )
+    return path
 
 
 def test_concurrent_reservations_cannot_oversubscribe_output(tmp_path: Path) -> None:
@@ -47,6 +64,46 @@ def test_concurrent_reservations_cannot_oversubscribe_output(tmp_path: Path) -> 
     saved = json.loads(ledger.read_text(encoding="utf-8"))
     assert len(saved) == 8
     assert {item["status"] for item in saved} == {"reserved"}
+
+
+def test_request_allowlist_rejects_unknown_and_replayed_requests(tmp_path: Path) -> None:
+    allowed = "1" * 64
+    tracker = RunUsageBudgetTracker(
+        ledger_path=tmp_path / "usage.json",
+        limits=RunUsageLimits(
+            max_calls=1,
+            max_input_tokens=1_000,
+            max_output_tokens=100,
+        ),
+        config_sha256="a" * 64,
+        allowed_request_sha256s=frozenset({allowed}),
+    )
+    with pytest.raises(ValueError, match="absent from the authorized"):
+        tracker.reserve(
+            stage="question_writer",
+            component="unknown",
+            estimated_input_tokens=10,
+            output_token_allowance=10,
+            output_dir=tmp_path / "unknown",
+            request_sha256="2" * 64,
+        )
+    tracker.reserve(
+        stage="question_writer",
+        component="allowed",
+        estimated_input_tokens=10,
+        output_token_allowance=10,
+        output_dir=tmp_path / "allowed",
+        request_sha256=allowed,
+    )
+    with pytest.raises(ValueError, match="already been reserved"):
+        tracker.reserve(
+            stage="question_writer",
+            component="replay",
+            estimated_input_tokens=10,
+            output_token_allowance=10,
+            output_dir=tmp_path / "replay",
+            request_sha256=allowed,
+        )
 
 
 def test_reconciliation_releases_unused_allowance_but_not_missing_usage(
@@ -154,6 +211,91 @@ def test_ledger_rejects_different_release_identity(tmp_path: Path) -> None:
             estimated_input_tokens=100,
             output_token_allowance=100,
             output_dir=tmp_path / "second",
+        )
+
+
+def test_explicit_quota_only_amendment_preserves_settled_calls(tmp_path: Path) -> None:
+    tracker = _tracker(tmp_path / "stage-budgets" / "run-usage.json")
+    reservation = tracker.reserve(
+        stage="question_writer",
+        component="1B.1",
+        estimated_input_tokens=100,
+        output_token_allowance=100,
+        output_dir=tmp_path / "first",
+    )
+    with pytest.raises(ValueError, match="run_input_tokens"):
+        tracker.reconcile(reservation, {"input_tokens": 8_100, "output_tokens": 50})
+    (tmp_path / "first" / "prompt.txt").write_text("settled", encoding="utf-8")
+    (tmp_path / "first" / "schema.json").write_text("{}", encoding="utf-8")
+    (tmp_path / "first" / "deterministic-validation.json").write_text(
+        '{"functional_gate":"pass"}', encoding="utf-8"
+    )
+    settled_hash = sha256(b"settled{}").hexdigest()
+
+    amended = approve_quota_only_continuation(
+        tracker,
+        new_limits=RunUsageLimits(8, 16_000, 800),
+        explicit_user_approval="User approved 16k input; do not rerun settled calls.",
+        trusted_preflight_path=_preflight(
+            tmp_path / "cohort-preflight.json", (settled_hash, "2" * 64)
+        ),
+        settled_artifact_root=tmp_path,
+    )
+    second = amended.reserve(
+        stage="question_writer",
+        component="1B.2",
+        estimated_input_tokens=100,
+        output_token_allowance=100,
+        output_dir=tmp_path / "second",
+        request_sha256="2" * 64,
+    )
+
+    saved = json.loads(amended.ledger_path.read_text(encoding="utf-8"))
+    assert len(saved) == 2
+    assert saved[0]["status"] == "limit_exceeded"
+    assert saved[1]["reservation_id"] == second
+    amendment = json.loads(amended.quota_amendment_path.read_text(encoding="utf-8"))
+    assert amendment["rerun_set"] == []
+    assert amendment["settled_reservation_ids"] == [reservation]
+
+    with pytest.raises(ValueError, match="cannot replay"):
+        amended.reserve(
+            stage="question_writer",
+            component="1B.1",
+            estimated_input_tokens=100,
+            output_token_allowance=100,
+            output_dir=tmp_path / "replay",
+            request_sha256=settled_hash,
+        )
+
+
+def test_quota_amendment_rejects_nonquota_failure(tmp_path: Path) -> None:
+    tracker = _tracker(tmp_path / "stage-budgets" / "run-usage.json")
+    reservation = tracker.reserve(
+        stage="question_writer",
+        component="1B.1",
+        estimated_input_tokens=100,
+        output_token_allowance=100,
+        output_dir=tmp_path / "first",
+    )
+    with pytest.raises(ValueError, match="call_output_token_allowance"):
+        tracker.reconcile(reservation, {"input_tokens": 100, "output_tokens": 150})
+    (tmp_path / "first" / "prompt.txt").write_text("settled", encoding="utf-8")
+    (tmp_path / "first" / "schema.json").write_text("{}", encoding="utf-8")
+    (tmp_path / "first" / "deterministic-validation.json").write_text(
+        '{"functional_gate":"pass"}', encoding="utf-8"
+    )
+    settled_hash = sha256(b"settled{}").hexdigest()
+
+    with pytest.raises(ValueError, match="only for run quota exhaustion"):
+        approve_quota_only_continuation(
+            tracker,
+            new_limits=RunUsageLimits(8, 16_000, 800),
+            explicit_user_approval="approved",
+            trusted_preflight_path=_preflight(
+                tmp_path / "cohort-preflight.json", (settled_hash,)
+            ),
+            settled_artifact_root=tmp_path,
         )
 
 

@@ -15,18 +15,34 @@ stages:
     max_request_characters: 900000
     max_request_input_tokens: 300000
     max_stage_input_tokens: 1000000
+    max_request_output_tokens: 12500
   question_review:
     max_calls: 10
     max_request_characters: 900000
     max_request_input_tokens: 300000
-    max_stage_input_tokens: 1000000
+    max_stage_input_tokens: 1200000
+    max_request_output_tokens: 12500
+  question_correction:
+    max_calls: 80
+    max_request_characters: 900000
+    max_request_input_tokens: 300000
+    max_stage_input_tokens: 7200000
+    max_request_output_tokens: 12500
+  question_final_review:
+    max_calls: 80
+    max_request_characters: 900000
+    max_request_input_tokens: 300000
+    max_stage_input_tokens: 8000000
+    max_request_output_tokens: 12500
   chapter_judge:
-    max_calls: 8
-    max_request_characters: 3000000
+    max_calls: 48
+    max_request_characters: 3300000
     max_request_input_tokens: 900000
     max_stage_input_tokens: 7200000
+    max_request_output_tokens: 62500
   chapter_judgment_review:
     max_calls: 8
     max_request_characters: 3000000
     max_request_input_tokens: 900000
     max_stage_input_tokens: 7200000
+    max_request_output_tokens: 62500

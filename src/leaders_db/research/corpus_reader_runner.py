@@ -342,6 +342,7 @@ def execute_json_model(
     reasoning_effort: str | None = None,
     call_coordinator: ModelCallCoordinator | None = None,
     run_budget_tracker: RunUsageBudgetTracker | None = None,
+    response_schema: dict | None = None,
 ):
     return _execute_json_model(
         project_root,
@@ -356,6 +357,7 @@ def execute_json_model(
         run_budget_tracker=run_budget_tracker,
         process_runner=subprocess.run,
         command_builder=build_codex_exec_command,
+        response_schema=response_schema,
     )
 
 

@@ -113,6 +113,85 @@ def test_post_completion_transport_cannot_request_more_evidence() -> None:
         response_model.model_validate({**payload, "reopen_requests": []})
 
 
+def test_evidence_empty_transport_records_uncertainty_without_citations() -> None:
+    response_model = _question_answer_response_model((), allow_reopen=False)
+    schema = response_model.model_json_schema()
+    make_strict_response_schema(schema)
+    response = response_model.model_validate(
+        {
+            "question_id": "7B.3",
+            "answer": "The supplied record is insufficient to assess this question.",
+            "limitations_and_gaps": (
+                "No question-specific evidence was available in the frozen packet.",
+            ),
+            "evidence_dispositions": {},
+        }
+    )
+
+    canonical = _canonical_question_answer(response, ())
+    assert canonical.evidence_dispositions == ()
+    assert canonical.reopen_requests == ()
+    with pytest.raises(ValidationError, match="must not contain evidence IDs"):
+        response_model.model_validate(
+            {
+                **response.model_dump(mode="json", by_alias=True),
+                "answer": "The empty record BATCH-FAKE proves the conclusion is adverse.",
+            }
+        )
+
+
+def test_evidence_empty_v16_transport_trusted_reloads(tmp_path: Path) -> None:
+    packet = QuestionEvidencePacket.model_validate(
+        {
+            "question_id": "7B.3",
+            "question": "Synthetic sparse-evidence question",
+            "priority_evidence": [],
+            "source_routed_priority_evidence_ids": [],
+            "selection_added_priority_evidence_ids": [],
+            "candidate_index": [],
+            "direct_evidence_count": 0,
+            "favorable_evidence_ids": [],
+            "adverse_evidence_ids": [],
+            "mixed_or_context_evidence_ids": [],
+            "coverage": {
+                "question_id": "7B.3",
+                "items": [],
+                "required_evidence_ids": [],
+                "reopenable_evidence_ids": [],
+                "adjudicated_nonmaterial_evidence_ids": [],
+                "favorable_available": False,
+                "adverse_available": False,
+                "mixed_or_context_available": False,
+            },
+            "evidence_discovery_complete": True,
+        }
+    )
+    response = _question_answer_response_model((), allow_reopen=False).model_validate(
+        {
+            "question_id": "7B.3",
+            "answer": "The supplied record is insufficient to assess this question.",
+            "limitations_and_gaps": [
+                "No question-specific evidence was available in the frozen packet."
+            ],
+            "evidence_dispositions": {},
+        }
+    )
+    raw_path = tmp_path / "output.json"
+    raw_path.write_text(response.model_dump_json(by_alias=True), encoding="utf-8")
+    accepted = _canonical_question_answer(response, ())
+    accepted_path = tmp_path / "accepted-output.json"
+    accepted_path.write_text(accepted.model_dump_json(), encoding="utf-8")
+    (tmp_path / "request-manifest.json").write_text(
+        json.dumps({"prompt_config_version": 16}), encoding="utf-8"
+    )
+    _, ledger = normalize_optional_reopen_requests(packet, accepted)
+    ledger["raw_output_sha256"] = sha256(raw_path.read_bytes()).hexdigest()
+    ledger["accepted_output_sha256"] = sha256(accepted_path.read_bytes()).hexdigest()
+    (tmp_path / "normalization-ledger.json").write_text(json.dumps(ledger), encoding="utf-8")
+
+    assert load_normalized_question_answer(packet, tmp_path) == accepted
+
+
 def test_keyed_transport_ledger_converts_to_canonical_ordered_answer() -> None:
     required = ("BATCH-1", "SRC:42")
     response_model = _question_answer_response_model(required)
@@ -155,9 +234,9 @@ def test_keyed_transport_ledger_converts_to_canonical_ordered_answer() -> None:
                     }
                 ],
                 "limitation_sections": [],
-                "evidence_dispositions": response.model_dump(
-                    mode="json", by_alias=True
-                )["evidence_dispositions"],
+                "evidence_dispositions": response.model_dump(mode="json", by_alias=True)[
+                    "evidence_dispositions"
+                ],
             }
         )
     with pytest.raises(ValidationError):
@@ -183,9 +262,9 @@ def test_keyed_transport_ledger_converts_to_canonical_ordered_answer() -> None:
                     }
                 ],
                 "limitation_sections": [],
-                "evidence_dispositions": response.model_dump(
-                    mode="json", by_alias=True
-                )["evidence_dispositions"],
+                "evidence_dispositions": response.model_dump(mode="json", by_alias=True)[
+                    "evidence_dispositions"
+                ],
             }
         )
     for field, foreign_text in (
@@ -198,15 +277,11 @@ def test_keyed_transport_ledger_converts_to_canonical_ordered_answer() -> None:
         if field == "answer":
             payload["answer_sections"][0]["text"] = foreign_text
         elif field == "limitation":
-            payload["limitation_sections"] = [
-                {"text": foreign_text, "citation_ids": ["BATCH-1"]}
-            ]
+            payload["limitation_sections"] = [{"text": foreign_text, "citation_ids": ["BATCH-1"]}]
         elif field == "material_point":
             payload["evidence_dispositions"]["BATCH-1"]["material_point"] = foreign_text
         else:
-            payload["reopen_requests"] = [
-                {"evidence_id": "E-2", "reason": foreign_text}
-            ]
+            payload["reopen_requests"] = [{"evidence_id": "E-2", "reason": foreign_text}]
         with pytest.raises(ValidationError, match="must not contain evidence IDs"):
             response_model.model_validate(payload)
 
@@ -458,16 +533,10 @@ def test_predecessor_projection_checks_every_auxiliary_text_field(field: str) ->
         answer="A sufficiently detailed predecessor grounded in exact evidence [E-1].",
         supporting_evidence_ids=("E-1",),
         contrary_or_qualifying_evidence_ids=(),
-    ).model_copy(
-        update={field: ("This note refers to unavailable BATCH-9999-E999 evidence.",)}
-    )
-    packet = SimpleNamespace(
-        coverage=SimpleNamespace(required_evidence_ids=("E-1",))
-    )
+    ).model_copy(update={field: ("This note refers to unavailable BATCH-9999-E999 evidence.",)})
+    packet = SimpleNamespace(coverage=SimpleNamespace(required_evidence_ids=("E-1",)))
 
-    projected, excluded = project_predecessor_answer(
-        packet, predecessor.model_dump(mode="json")
-    )
+    projected, excluded = project_predecessor_answer(packet, predecessor.model_dump(mode="json"))
 
     assert projected == {}
     assert excluded == ("BATCH-9999-E999",)

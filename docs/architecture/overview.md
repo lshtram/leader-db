@@ -13,6 +13,10 @@ This document defines the system design. The authoritative product brief is
 [`../requirements/top-level-requirements.md`](../requirements/top-level-requirements.md); section numbers below
 reference that document.
 
+Implementation sequencing is authoritative only in
+[`../workplan.md`](../workplan.md). Subsystem roadmaps and historical phase descriptions are
+design references and cannot activate or reorder work.
+
 ## Purpose
 
 `leaders-db` is a local-first Python research prototype that builds an auditable,
@@ -109,6 +113,13 @@ reopen requests. A nonempty inventory writes `reopen-stop.json`, binding each qu
 answer hash, evidence ID, and writing-manifest hash, then launches zero review calls. This
 keeps a known incomplete writing phase from spending review quota or being mislabeled as a
 review failure.
+
+Run-wide accounting permits one narrowly scoped in-place continuation after an aggregate
+quota-only stop. An explicit user approval is persisted as an append-only quota amendment
+bound to the immutable settled ledger prefix. Later reservations use the increased token
+limit while earlier entries and cumulative usage remain unchanged; the planned call count
+does not increase and settled calls cannot be replayed. Structural, provenance, transport,
+identity, scientific, and quality failures do not qualify for this path.
 
 A stopped writing release can feed a separate evidence-completion decision for a new
 release. The decision covers every accepted reopen request and records either `promote` or
@@ -332,7 +343,15 @@ Every generated score must be explainable as:
 5. How were raw values normalized and direction-adjusted?
 6. How were normalized indicators combined into the proposed 1-10 score?
 7. How much did sources agree or conflict?
-8. Was the data direct-year, proxy-year, stale, or unavailable?
+8. Was the data direct-year, proxy-year, stale, or unavailable? An empty question packet
+   remains a collection gap unless a packet-bound targeted-search inventory records zero
+   admissible evidence and an independent saturation review passes. Only then may writing and
+   question review be skipped; the unavailable lens continues into chapter judging as an
+   explicit confidence penalty rather than a synthetic “no data” answer. Evidence found after
+   a package is frozen enters a fresh package through a hash-bound supplement: trusted base,
+   raw snapshots, deterministic extractions, exact excerpts, limitations, and independent
+   evidence review are reconstructed together. Context-only mechanism records remain separate
+   from adverse ruler-period evidence.
 9. Was an LLM used? If yes, what evidence was it given, what did it return, and
    did it perform gated external research?
 10. Why is human review required or not required?
@@ -1374,15 +1393,15 @@ The first prototype is successful when, per §16 and the expanded architecture:
 - it avoids silent overwriting of client values;
 - it avoids unsupported LLM-generated facts.
 
-## Phase Order
+## Implementation order
 
-Work is split into five sequential phases (see [`../workplan.md`](../workplan.md)):
-
-- **A. Infrastructure** — package, CLI, schema, paths, configs, data lake.
-- **B. Source vetting** — source availability/license/coverage probe.
-- **C. Data acquisition** — Stage 0-2 source adapters.
-- **D. Testing** — coverage, boundary tests, smoke pipeline cases.
-- **E. Activation** — Stage 3-15 on the full client 2023 scope.
+The early A-E sequence—Infrastructure, Source Vetting, Data Acquisition, Testing, and
+Activation—is historical architecture vocabulary, not the current queue. The canonical
+workplan uses one Phase 0-9 queue covering planning governance, one-ruler and five-ruler
+gates, production promotion, source coverage, research/data/scoring completion, Chronicle,
+visualization, full 2023 acceptance, and historical maintenance. Only
+[`../workplan.md`](../workplan.md) selects the active task; this architecture defines how the
+selected task must be built.
 # Canonical production evidence pipeline
 
 There is one production path for ruler-quality results: canonical identity lock,
@@ -1409,9 +1428,66 @@ The candidate permits no automatic model retry, repair, re-review, or supervisor
 A material defect can produce one visible research-return request, but execution requires
 an explicit user decision. Task 6 must bind this contract to a fresh experimental release.
 
+An autonomous review experiment may instead select a finite policy before launch. The first
+policy performs one collect-all independent-review round: a valid scientific failure is
+recorded without closing the shared launch coordinator, while invalid artifacts, execution
+errors, and budget failures remain fail-stop conditions. Round count, returns, reruns,
+infrastructure retries, and the downstream stopping boundary are explicit configuration.
+Blind-review transport builds one strict response schema per question packet. The schema fixes
+the question identity and constrains every selectable evidence-ID field to that packet's exact
+candidate allowlist; execution, preflight measurement, persistence, and trusted reload share
+the same builder, while deterministic post-response checks remain independent. Prompt contract
+version 15 requires constrained review schema v5; archived prompt versions retain generic
+schema v4 reload semantics and cannot be selected by relabeling a new manifest.
+
+After the first review, each failed answer may enter one bounded correction round. Deterministic
+code promotes the reviewer's exact packet-local evidence IDs, and a fresh writer receives the
+original answer, deblinded findings, and expanded exact evidence. One fresh independent review
+follows. Residual schema-valid concerns are persisted as judge-visible limitations and lower
+confidence rather than creating another repair loop or a judgment stop; structural validity,
+identity, and provenance remain hard gates.
+
+The Netanyahu 2023 one-ruler gate completed this path on 2026-08-21. Its trusted 80-answer
+handoff fed eight chapter judgments and eight independent judgment reviews; the deterministic
+audit and cited experimental publication passed. The five-ruler confirmation completed on
+2026-08-23 with 400 writings and reviews, 51 exactly-once corrections and final reviews,
+40 ruler-chapter first-pass judgments, eight five-ruler calibrations, eight independent
+judgment reviews, a passing audit, and an attribution-complete cited publication.
+
+Judgment-review application is versioned. Historical review artifacts reconstruct with their
+original replacement semantics. Reader-facing v5 writes a one-paragraph short answer and a
+four-to-seven-paragraph account of the period under an explicit transport marker. It describes
+the affected people, concrete events, ruler-attributable decisions or omissions, and scoring
+significance in complete sentences. It separately treats inherited institutions as constraints
+on what happened rather than achievements automatically credited to the incumbent. Scores,
+confidence, and ranges remain those of the calibrated judgment unless the bounded score-review
+contract changes them. Fresh publication-audit overrides require an approved SHA-256 and are
+recorded by path and hash in the public manifest.
+
+The first five-ruler writing preflight correctly exposed `PRK` `7B.3` as an evidence-collection
+gap. Targeted research added four reviewed, hash-bound records to a v2 question package; the
+generic empty-packet path remains available only after an independently reviewed saturation
+artifact proves zero admissible evidence. The completed release used a configured 12,500-token
+per-call output allowance, reserving 5,000,000 output tokens for its 400 writing calls rather
+than the provider model maximum. Publication binds the exact reviewed 80-answer handoff for
+each ruler, retains limitation-only records as non-decisive context evidence, and transports
+the reviewed PRK supplement through the typed package provenance chain.
+
+A subsequent non-production answer-trusting experiment omitted source excerpts and local
+evidence records while retaining the same reviewed answers, limitations, opaque evidence IDs,
+guides, identities, and five-ruler meter. One web-disabled call per chapter preserved the exact
+ruler ordering, left 27 of 40 chapter scores unchanged, and produced a mean absolute chapter
+delta of 0.175 with a maximum of 1.0. This is a cost/robustness diagnostic, not a promoted
+replacement; the cited evidence-reading v8 result remains authoritative.
+
 Integrated experimental releases perform a deterministic eligibility preflight before any
 model process starts. The preflight validates and hashes the frozen release, corpus,
 selection, and control contracts; constructs all eight question packages; inventories each
-model action; and blocks execution when a promotion ceiling is already impossible. The
+model action; trusted-reloads predecessor artifacts; measures each complete serialized request,
+including its strict response schema; and blocks execution when either a per-request,
+per-stage, or run-wide ceiling is already impossible. A rejected preflight is immutable:
+budget changes apply prospectively to a fresh release and fresh preflight. The
 first Netanyahu integrated release was rejected because its 176 mandatory calls exceeded
-the one-ruler ceiling of 149.
+the then-current one-ruler ceiling of 149. Later reviewed decisions retained all independent
+quality actions and adopted the active experimental limits recorded in the canonical
+workplan. The 149-call ceiling is historical and does not govern v17.

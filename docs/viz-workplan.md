@@ -1,5 +1,9 @@
 # Visualization Workplan
 
+> Planning status: subsystem reference only. The sole executable queue and current order are in
+> [`workplan.md`](workplan.md), Phase 7. Increment records below retain design and implementation
+> history; pending reviews or activation do not run until Phase 7 is active.
+
 ## Purpose
 
 Build a visualization layer for `leaders-db` that supports both:
