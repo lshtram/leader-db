@@ -9,7 +9,13 @@ def make_strict_response_schema(value: object) -> None:
     if isinstance(value, dict):
         properties = value.get("properties")
         if isinstance(properties, dict):
-            value["required"] = list(properties)
+            required = value.get("required")
+            if (
+                not isinstance(required, list)
+                or len(required) != len(properties)
+                or set(required) != set(properties)
+            ):
+                value["required"] = list(properties)
         value.pop("default", None)
         for nested in value.values():
             make_strict_response_schema(nested)

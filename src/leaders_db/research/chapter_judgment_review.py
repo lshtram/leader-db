@@ -8,6 +8,8 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .chapter_judge_models import ChapterJudgmentBatch, RulerChapterJudgment
 
+READER_EXPOSITION_MARKER = "[[reader_summary_and_exposition_v1]]"
+
 
 class JudgmentReviewDecision(BaseModel):
     """One independent decision that preserves or narrowly corrects a judgment."""
@@ -23,6 +25,8 @@ class JudgmentReviewDecision(BaseModel):
     revised_chapter_rationale: str = Field(min_length=1)
     revised_lower_anchor_rejected: str = Field(min_length=1)
     revised_higher_anchor_rejected: str = Field(min_length=1)
+    reader_summary: str | None = Field(default=None, min_length=1)
+    reader_exposition: str | None = Field(default=None, min_length=1)
 
     @model_validator(mode="after")
     def _bounded_score_change(self) -> JudgmentReviewDecision:
@@ -46,7 +50,7 @@ class ChapterJudgmentReview(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    schema_version: Literal["chapter_judgment_review_v1"]
+    schema_version: Literal["chapter_judgment_review_v1", "chapter_judgment_review_v2"]
     chapter_id: str = Field(pattern=r"^[1-8]B$")
     source_job_key: str = Field(min_length=1)
     source_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
@@ -84,13 +88,22 @@ def validate_review(
 
 
 def apply_review(
-    judgment: ChapterJudgmentBatch, review: ChapterJudgmentReview
+    judgment: ChapterJudgmentBatch,
+    review: ChapterJudgmentReview,
+    *,
+    preserve_prose_on_retain: bool = False,
+    apply_reader_exposition: bool = False,
 ) -> ChapterJudgmentBatch:
-    """Return a revised batch while preserving all evidence and audit fields."""
+    """Return a revised batch under the selected versioned prose policy."""
 
     decisions = {item.dossier_job_key: item for item in review.decisions}
     evaluations = tuple(
-        _apply_decision(evaluation, decisions[evaluation.dossier_job_key])
+        _apply_decision(
+            evaluation,
+            decisions[evaluation.dossier_job_key],
+            preserve_prose_on_retain=preserve_prose_on_retain,
+            apply_reader_exposition=apply_reader_exposition,
+        )
         for evaluation in judgment.evaluations
     )
     return judgment.model_copy(
@@ -107,7 +120,11 @@ def apply_review(
 
 
 def _apply_decision(
-    evaluation: RulerChapterJudgment, decision: JudgmentReviewDecision
+    evaluation: RulerChapterJudgment,
+    decision: JudgmentReviewDecision,
+    *,
+    preserve_prose_on_retain: bool,
+    apply_reader_exposition: bool,
 ) -> RulerChapterJudgment:
     score = decision.reviewed_score
     score_range = evaluation.plausible_score_range
@@ -118,15 +135,43 @@ def _apply_decision(
                 "upper": max(score_range.upper, score),
             }
         )
-    return evaluation.model_copy(
-        update={
-            "score_1_to_10": score,
-            "plausible_score_range": score_range,
-            "chapter_rationale": decision.revised_chapter_rationale,
-            "lower_anchor_rejected": decision.revised_lower_anchor_rejected,
-            "higher_anchor_rejected": decision.revised_higher_anchor_rejected,
-        }
-    )
+    updates: dict[str, object] = {
+        "score_1_to_10": score,
+        "plausible_score_range": score_range,
+    }
+    if apply_reader_exposition:
+        if decision.reader_summary is None or decision.reader_exposition is None:
+            raise ValueError("reader exposition policy requires summary and exposition")
+        if "\n" in decision.reader_summary:
+            raise ValueError("reader summary must be exactly one paragraph")
+        paragraphs = [
+            paragraph.strip()
+            for paragraph in decision.reader_exposition.split("\n\n")
+            if paragraph.strip()
+        ]
+        if not 4 <= len(paragraphs) <= 7:
+            raise ValueError("reader exposition must contain four to seven paragraphs")
+        exposition = "\n\n".join(paragraphs)
+        updates["chapter_rationale"] = (
+            f"{READER_EXPOSITION_MARKER}\n{decision.reader_summary.strip()}\n\n"
+            f"{exposition}"
+        )
+        if decision.disposition != "retain":
+            updates.update(
+                {
+                    "lower_anchor_rejected": decision.revised_lower_anchor_rejected,
+                    "higher_anchor_rejected": decision.revised_higher_anchor_rejected,
+                }
+            )
+    elif decision.disposition != "retain" or not preserve_prose_on_retain:
+        updates.update(
+            {
+                "chapter_rationale": decision.revised_chapter_rationale,
+                "lower_anchor_rejected": decision.revised_lower_anchor_rejected,
+                "higher_anchor_rejected": decision.revised_higher_anchor_rejected,
+            }
+        )
+    return evaluation.model_copy(update=updates)
 
 
 def codex_chapter_review_json_schema() -> dict[str, Any]:
@@ -151,6 +196,7 @@ def _require_every_property(node: Any) -> None:
 
 
 __all__ = [
+    "READER_EXPOSITION_MARKER",
     "ChapterJudgmentReview",
     "JudgmentReviewDecision",
     "apply_review",

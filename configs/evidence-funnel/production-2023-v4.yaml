@@ -1,0 +1,64 @@
+schema_version: evidence_pipeline_release_v4
+release_id: production-2023-v4
+status: production
+supersedes: production-2023-v3
+target_year: 2023
+pipeline_version_id: leaders-db-production-pipeline-2023-v4
+methodology_version_id: methodology-2026-08-v2
+model_profile: openai-luna-candidate
+methodology_freeze: configs/evidence-funnel/methodology-2026-08-v2.freeze.yaml
+research_workflow: configs/research-workflow.yaml
+model_profiles: configs/research-models.yaml
+pricing: configs/research-pricing.yaml
+
+stage_versions:
+  - {stage_id: identity, implementation_id: canonical-ruler-lock-v1, contract_id: research-batch-manifest-v1}
+  - {stage_id: source_discovery, implementation_id: chapter-sequential-source-discovery-v1, contract_id: ruler-source-candidate-catalog-v1}
+  - {stage_id: acquisition, implementation_id: complete-catalog-acquisition-v1, contract_id: catalog-acquisition-manifest-v1}
+  - {stage_id: corpus_planning, implementation_id: deduplicated-corpus-reading-plan-v1, contract_id: corpus-reading-plan-v1}
+  - {stage_id: corpus_reading, implementation_id: complete-code-bound-corpus-reader-v2, contract_id: corpus-reading-run-v2}
+  - {stage_id: evidence_packaging, implementation_id: verified-corpus-judge-package-v1, contract_id: corpus-judge-package-v1}
+  - {stage_id: evidence_review, implementation_id: independent-full-index-review-v1, contract_id: independent-full-index-v1}
+  - {stage_id: dossier_formatting, implementation_id: strict-dossier-formatter-v2, contract_id: ruler-evidence-dossier-v2}
+  - {stage_id: ruler_approval, implementation_id: complete-reading-bound-ruler-approval-v3, contract_id: approved-ruler-evidence-package-v3}
+  - {stage_id: chapter_judging, implementation_id: comparative-chapter-judge-v1, contract_id: ruler-chapter-judgment-v1}
+  - {stage_id: score_order_audit, implementation_id: comparative-score-order-audit-v1, contract_id: score-order-audit-v1}
+  - {stage_id: publication, implementation_id: cited-ruler-html-report-v1, contract_id: ruler-html-report-v1}
+
+depth_contract:
+  preserve_complete_candidate_catalogue: true
+  acquire_every_candidate: true
+  queue_every_unique_readable_document: true
+  accept_document_counts_as_profiling_only: true
+  verify_exact_code_bound_passages: true
+  expose_complete_verified_ledger_to_each_chapter: true
+  questions_per_chapter: 10
+  chapters: [1B, 2B, 3B, 4B, 5B, 6B, 7B, 8B]
+
+quality_contract:
+  material_fact_coverage_target: 0.75
+  factual_accuracy_target: 0.90
+  maximum_targeted_repair_rounds: 3
+  use_requirement_led_repairs: true
+  compact_only_when_required: true
+  review_after_compaction: true
+  independent_review_contract: independent-full-index-v1
+
+judge_contract:
+  require_approved_corpus_package: true
+  allow_legacy_dossier_fallback: false
+  require_all_eight_approved_chapters: true
+  require_hash_bound_analysis_review_and_corpus: true
+
+profiling:
+  record_candidate_urls: true
+  record_acquisition_dispositions: true
+  record_queued_documents: true
+  record_extracted_characters_and_source_tokens: true
+  record_model_usage_by_phase: true
+  record_shared_batch_input_without_per_document_cost_allocation: true
+
+change_control: >-
+  This is the sole production path. Every publishable result must bind this exact
+  release, all configured stage identities, the methodology version, approved deep
+  corpus packages, comparative judgments, score/order audit, and cited publication.

@@ -13,10 +13,10 @@ Status: draft; v5 baseline-and-trend questions require controlled rejudgment
 
 The questions are ten mutually reinforcing lenses on whether the ruler used feasible authority to improve people's capabilities, security and dignity. They are not ten separately scored requirements.
 
-Before applying the lenses, establish the inherited level and prior trend in essential
-services and life chances; the ruler’s principal social policies and executed resources;
-material changes across affected groups and regions; major crises and external support;
-and the ruler’s attributable contribution.
+Preliminary focus. Establish the inherited level and prior trend in health, education,
+basic services, protection, dignity and shelter; the ruler’s principal social policies
+and executed resources; material changes across affected groups and regions; major
+crises and external support; and the ruler’s attributable contribution.
 
 ## Ten Evidence Lenses
 
@@ -31,7 +31,7 @@ and the ruler’s attributable contribution.
 | **6B.7 — No political allocation of welfare** | Were benefits and basic needs protected from political favoritism and punishment? | Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
 | **6B.8 — Dignity and equal opportunity** | Did the ruler protect equal dignity and opportunity in everyday life? | Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
 | **6B.9 — Durable social institutions** | Did the ruler build social institutions that could last beyond personal rule? | Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **6B.10 — Lasting life chances** | Did ordinary people finish the period with better life chances? | Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks? | **Outcomes**; **Implementation and operational conduct** |
+| **6B.10 — Durable social outcomes** | Did ordinary people experience durable improvements in health, education, basic services, protection, shelter, and dignity? | Synthesize whether ordinary people, including disadvantaged groups, experienced durable improvements in health, education, basic services, protection, shelter, and dignity compared with the inherited baseline. Account for distribution, policy lag, donor and subnational roles, external shocks, and the ruler’s attributable contribution. | **Outcomes**; **Implementation and operational conduct** |
 
 Priority evidence categories indicate promising evidence, not required coverage or an
 exclusive source list. Missing categories do not invalidate a lens.
@@ -40,7 +40,7 @@ exclusive source list. Missing categories do not invalidate a lens.
 
 Build a reusable cited dossier; do not assign the chapter score. Follow the local-first researcher guide and source-confidence registry. Start with local UNDP, WHO/WDI, education, poverty/inequality and V-Dem equality priors. Add national statistics and household surveys; WHO, UNICEF/JMP, UNESCO, ILO, FAO/WFP, UN-Habitat, UNHCR, World Bank and regional banks; audits and program evaluations; peer-reviewed histories; and credible civil-society/local reporting. Document definitions and time-series breaks.
 
-Collect evidence on revealed welfare priority; effective access, affordability, quality and uptake across health, education, water, sanitation, housing, food and protection; distribution to vulnerable groups; professional administration; measurement and correction; crisis preparation/response; political conditionality or punishment; dignity and opportunity; institutional durability; and inherited-to-left life chances. Separate promises, budgets, delivery and outcomes. Preserve contrary evidence, subnational variation, donor roles and shocks. Evidence may inform several lenses; no formal label vocabulary or complete mapping table is required.
+Collect evidence on revealed welfare priority; effective access, affordability, quality and uptake across health, education, water, sanitation, housing, food and protection; distribution to vulnerable groups; professional administration; measurement and correction; crisis preparation/response; political conditionality or punishment; dignity and opportunity; institutional durability; and durable outcomes across these domains. Separate promises, budgets, delivery and outcomes. Preserve contrary evidence, subnational variation, donor roles and shocks. Evidence may inform several lenses; no formal label vocabulary or complete mapping table is required.
 
 Each evidence item must preserve, in fields or clearly recoverable prose: the factual claim; citation or URL plus source title, publisher and publication date when available; target-year/ruler-period fit; source-confidence assessment and source role; the basis and strength of attribution to the ruler; and material uncertainty or disagreement. Missing bibliographic details may be marked unknown rather than invented. Formatting deviations are normalization work, not grounds to discard otherwise usable evidence.
 
@@ -63,7 +63,7 @@ positive score, but not an 8–9 without broad contribution or consequential pro
 
 One judge applies one meter across all rulers. Weight lenses qualitatively by severity and breadth of suffering or improvement, ruler responsibility, baseline-adjusted magnitude, equity, durability, source strength and period fit. Avoidable famine, mass denial or transformative universal provision can dominate narrower programs. A flagship service cannot stand for the portfolio, but complete evidence across seven services is not required. Professional appointments and measurement matter insofar as they support delivery. `6B.10` synthesizes rather than double-counts.
 
-Question redundancy is a feature: several lenses may corroborate the same welfare orientation and institutional mechanism. State which lenses and service domains are well evidenced, uncertain or unavailable. Judge overall life chances and ruler contribution; do not average lens scores.
+Question redundancy is a feature: several lenses may corroborate the same welfare orientation and institutional mechanism. State which lenses and service domains are well evidenced, uncertain or unavailable. Judge overall social outcomes and ruler contribution; do not average lens scores.
 
 ## One-Chapter 1–10 Rubric
 
@@ -74,7 +74,7 @@ Question redundancy is a feature: several lenses may corroborate the same welfar
 | 4–5 | Some genuine improvement coexists with major gaps, exclusion, patronage, poor quality, crisis failure or weak durability; overall contribution is mixed. |
 | 6–7 | Clear baseline-adjusted gains in ordinary people's welfare and access, with meaningful remaining inequality, quality, coverage or institutional weaknesses. |
 | 8–9 | Large, broad, equitable and durable human-development gains are independently supported, including credible protection of vulnerable groups and crisis resilience. |
-| 10 | Exceptional feasible transformation of life chances and dignity through near-universal effective provision and durable, inclusive institutions beyond personal rule. |
+| 10 | Exceptional feasible improvement in health, education, basic services, protection, shelter, and dignity through near-universal effective provision and durable, inclusive institutions beyond personal rule. |
 
 ## Common Chapter-Judge Output Envelope
 

@@ -25,11 +25,17 @@ def build_ruler_html_report(
     run_dir: Path,
     selection_manifest_path: Path,
     dossier_usage_path: Path,
+    production_run_manifest_path: Path,
     output_path: Path,
 ) -> Path:
     """Write one self-contained, linked HTML report from approved artifacts."""
 
     selection = _load(selection_manifest_path)
+    from .production_run import load_production_run_manifest
+
+    production_run = load_production_run_manifest(
+        production_run_manifest_path, project_root=project_root
+    )
     if not selection["complete_ruler_safe_for_judge_use"]:
         raise ValueError("selection manifest is not approved for complete ruler use")
     package_path = run_dir / "corpus-judge-package.json"
@@ -40,7 +46,14 @@ def build_ruler_html_report(
     phases = usage_profile(run_dir, dossier_usage_path)
     documents = _documents(run_dir)
     content = _render(
-        project_root, selection, chapters, evidence, questions, phases, documents
+        project_root,
+        selection,
+        chapters,
+        evidence,
+        questions,
+        phases,
+        documents,
+        production_run.model_dump(mode="json"),
     )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(content, encoding="utf-8")
@@ -185,7 +198,16 @@ def _batch_input_tokens(reading_dir):
     return totals
 
 
-def _render(project_root, selection, chapters, evidence, questions, phases, documents):
+def _render(
+    project_root,
+    selection,
+    chapters,
+    evidence,
+    questions,
+    phases,
+    documents,
+    production_run,
+):
     totals = {
         key: sum(item[key] for item in phases)
         for key in ("calls", "input", "cached", "output", "reasoning")
@@ -202,6 +224,13 @@ def _render(project_root, selection, chapters, evidence, questions, phases, docu
     )
     attribution = html.escape(
         (project_root / "docs/sources/attributions.md").read_text(encoding="utf-8")
+    )
+    provenance = production_run["pipeline_provenance"]
+    stage_rows = "".join(
+        "<tr><td>" + _e(item["stage_id"]) + "</td><td>"
+        + _e(item["implementation_id"]) + "</td><td>"
+        + _e(item["contract_id"]) + "</td></tr>"
+        for item in provenance["stages"]
     )
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -222,6 +251,12 @@ all 80 evidence questions without assigning ruler scores.</p></header>
 <div><b>{totals['input']:,}</b><span>measured model input tokens</span></div>
 <div><b>{totals['output']:,}</b><span>measured model output tokens</span></div>
 </section>
+<section id="pipeline"><h2>Pipeline identity</h2>
+<p>Run: {_e(production_run['run_id'])} · Pipeline: {_e(provenance['pipeline_version_id'])}
+· Methodology: {_e(provenance['methodology_version_id'])} · Release:
+{_e(provenance['release_id'])} ({_e(provenance['release_sha256'])})</p>
+<table><thead><tr><th>Stage</th><th>Implementation</th><th>Contract</th></tr></thead>
+<tbody>{stage_rows}</tbody></table></section>
 {answer_html}
 {profile_html(phases, totals, selection)}
 {_documents_html(documents)}

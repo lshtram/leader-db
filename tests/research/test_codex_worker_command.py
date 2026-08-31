@@ -62,6 +62,20 @@ def test_other_roles_retain_their_configured_tools(tmp_path: Path) -> None:
     assert "shell_tool" not in command
 
 
+def test_no_tool_command_can_disable_web_search(tmp_path: Path) -> None:
+    command = build_codex_exec_command(
+        profile=_profile(),
+        project_root=tmp_path,
+        schema_path=None,
+        final_message_path=tmp_path / "output.md",
+        writable_dir=tmp_path,
+        isolated_web_research=True,
+        disable_web_search=True,
+    )
+
+    assert 'web_search="disabled"' in command
+
+
 def test_reasoning_effort_is_explicitly_forwarded(tmp_path: Path) -> None:
     command = build_codex_exec_command(
         profile=_profile(),

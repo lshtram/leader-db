@@ -57,7 +57,7 @@ def run_single_pass_chapter_analysis(
             output_dir / "luna-synthesis",
         )
     evidence_ids = set(evidence)
-    result = _normalize_critique_registry(result, evidence_ids)
+    result = _normalize_audit_registries(result, evidence_ids)
     _validate_result(
         result,
         chapter_id=chapter_id,
@@ -88,11 +88,65 @@ def run_single_pass_chapter_analysis(
     return path
 
 
-def _normalize_critique_registry(
+def _normalize_audit_registries(
     result: SelfReviewedChapterAnalysis, evidence_ids: set[str]
 ) -> SelfReviewedChapterAnalysis:
-    """Remove invented audit-only IDs while preserving the critique's substance."""
+    """Remove invented audit-only IDs while preserving the audit's substance."""
 
+    draft_answers = []
+    for answer in result.draft.answers:
+        removed = sorted(
+            set(answer.supporting_evidence_ids + answer.contrary_or_qualifying_evidence_ids)
+            - evidence_ids
+        )
+        limitations = answer.limitations_and_gaps
+        if removed:
+            limitations += (
+                "Code removed unknown draft evidence IDs: " + ", ".join(removed),
+            )
+        draft_answers.append(
+            answer.model_copy(
+                update={
+                    "supporting_evidence_ids": tuple(
+                        item for item in answer.supporting_evidence_ids if item in evidence_ids
+                    ),
+                    "contrary_or_qualifying_evidence_ids": tuple(
+                        item
+                        for item in answer.contrary_or_qualifying_evidence_ids
+                        if item in evidence_ids
+                    ),
+                    "limitations_and_gaps": limitations,
+                }
+            )
+        )
+
+    corrected_answers = []
+    for answer in result.corrected_answers:
+        removed = sorted(
+            set(answer.supporting_evidence_ids + answer.contrary_or_qualifying_evidence_ids)
+            - evidence_ids
+        )
+        corrections = answer.corrections_made
+        if removed:
+            corrections += (
+                "Code removed unknown corrected-answer evidence IDs: "
+                + ", ".join(removed),
+            )
+        corrected_answers.append(
+            answer.model_copy(
+                update={
+                    "supporting_evidence_ids": tuple(
+                        item for item in answer.supporting_evidence_ids if item in evidence_ids
+                    ),
+                    "contrary_or_qualifying_evidence_ids": tuple(
+                        item
+                        for item in answer.contrary_or_qualifying_evidence_ids
+                        if item in evidence_ids
+                    ),
+                    "corrections_made": corrections,
+                }
+            )
+        )
     issues = []
     for issue in result.critique.issues:
         removed = sorted(set(issue.evidence_ids) - evidence_ids)
@@ -111,7 +165,9 @@ def _normalize_critique_registry(
         )
     return result.model_copy(
         update={
-            "critique": result.critique.model_copy(update={"issues": tuple(issues)})
+            "draft": result.draft.model_copy(update={"answers": tuple(draft_answers)}),
+            "critique": result.critique.model_copy(update={"issues": tuple(issues)}),
+            "corrected_answers": tuple(corrected_answers),
         }
     )
 

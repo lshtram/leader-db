@@ -1,5 +1,9 @@
 # Source Vetting Plan — Phase B (historical; living audit trail)
 
+> Planning status: historical procedure/reference only. Current source dispositions live in
+> [`../registry.md`](../registry.md), and new vetting work is activated only by
+> [`../../workplan.md`](../../workplan.md), Phase 4.
+
 This plan gates **Phase C (data acquisition)**. No Stage 2 ingest adapter is written until its source's verdict in `data/outputs/source_vetting_report.{csv,md}` is `vetted_ok` or `vetted_with_caveats`.
 
 Phase A is complete: the package, CLI, schema, paths, configs, data-lake folders, and smoke tests are in place. The Phase A finish line is documented in [`docs/workplan.md`](../../workplan.md). The 6 client-bundle files (5 xlsx + 1 docx) are staged under `data/raw/client_existing/` with a `metadata.json`.

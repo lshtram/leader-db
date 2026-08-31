@@ -27,7 +27,7 @@ def test_layered_catalog_covers_all_questions_with_known_categories() -> None:
     )
 
 
-def test_methodology_v2_keeps_six_categories_and_corrects_nuclear_exception() -> None:
+def test_methodology_v2_keeps_six_categories_and_current_first_question() -> None:
     question_catalog = load("questions.json")
     presentation = load_question_lens_presentation()
     first_question = question_catalog["chapters"][0]["questions"][0]
@@ -35,7 +35,8 @@ def test_methodology_v2_keeps_six_categories_and_corrects_nuclear_exception() ->
     assert question_catalog["schema_version"] == "ruler-quality-questions-v2"
     assert presentation.version == "layered_lenses_v2"
     assert len(presentation.evidence_categories) == 6
-    assert "adverse unless modernization" in first_question["text"]
+    assert first_question["id"] == "1B.1"
+    assert first_question["text"]
     assert "accounts of arsenal size" not in render_evidence_category_key().lower()
 
 

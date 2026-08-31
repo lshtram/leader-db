@@ -63,13 +63,7 @@ def usage_row(label: str, usages: list[dict | None]) -> dict:
 def profile_html(phases: tuple[dict, ...], totals: dict, selection: dict) -> str:
     """Render measured usage using the pricing persisted with this run."""
 
-    pricing = selection["pricing"]
-    input_rate = float(pricing["input_usd_per_million"])
-    output_rate = float(pricing["output_usd_per_million"])
-    payg_equivalent = (
-        totals["input"] * input_rate / 1_000_000
-        + totals["output"] * output_rate / 1_000_000
-    )
+    pricing = selection.get("pricing")
     rows = "".join(
         f'<tr><td>{html.escape(str(x["phase"]))}</td><td>{x["calls"]:,}</td>'
         f'<td>{x["input"]:,}</td><td>{x["cached"]:,}</td>'
@@ -77,13 +71,29 @@ def profile_html(phases: tuple[dict, ...], totals: dict, selection: dict) -> str
         for x in phases
     )
     model_profile = html.escape(selection.get("model_profile", "model not recorded"))
+    if pricing is None:
+        pricing_text = (
+            "No legacy per-report price snapshot was embedded in this approved "
+            "selection, so this report does not infer a cost estimate."
+        )
+    else:
+        input_rate = float(pricing["input_usd_per_million"])
+        output_rate = float(pricing["output_usd_per_million"])
+        payg_equivalent = (
+            totals["input"] * input_rate / 1_000_000
+            + totals["output"] * output_rate / 1_000_000
+        )
+        pricing_text = (
+            f"At the persisted ${input_rate:.2f}/M input and "
+            f"${output_rate:.2f}/M output standard rates, without a separate "
+            "cached-input discount, the conservative PAYG-equivalent is "
+            f"${payg_equivalent:,.2f}."
+        )
     return (
         '<section id="profile"><h2>Measured model profile</h2>'
         f"<p>Persisted run model profile: {model_profile}. Actual billing is not "
-        "exposed; counts below come from completed-call event records. At the persisted "
-        f"${input_rate:.2f}/M input and ${output_rate:.2f}/M output standard rates, "
-        "without a separate cached-input discount, the conservative PAYG-equivalent is "
-        f"${payg_equivalent:,.2f}.</p>"
+        "exposed; counts below come from completed-call event records. "
+        f"{pricing_text}</p>"
         "<table><thead><tr><th>Phase and work performed</th><th>Calls</th>"
         "<th>Input</th><th>Cached input</th><th>Output</th>"
         f'<th>Reasoning output</th></tr></thead><tbody>{rows}'

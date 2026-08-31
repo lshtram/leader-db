@@ -11,6 +11,12 @@ in this repository:
 - **Subagent/search reliability** — constrained subagent delegation and
   project-scoped `glob` / `grep` usage to avoid silent hangs (Always-On
   Rule #17 in [`AGENTS.md`](../../AGENTS.md)).
+- **Long-running completion discipline** — persistent supervision and a
+  persisted-state terminal gate for end-to-end runs (Always-On Rules #18–19
+  in [`AGENTS.md`](../../AGENTS.md)).
+- **Model transport discipline** — serialized-request preflight and lossless
+  partitioning before model calls (Always-On Rule #20 in
+  [`AGENTS.md`](../../AGENTS.md)).
 
 These rules are non-negotiable. They apply to every agent session, every
 mode (Pragmatic Implementation, TDD, Quick Fix, Exploration, Debug),
@@ -292,9 +298,53 @@ Before launching a subagent or broad search, the agent must:
 - Together they form a "no slop, no debt, no silent hang" loop: every change
   lands in a coherent, reviewed state, ready for the next change.
 
+## Rule 4 — Long-Running Completion Discipline
+
+When the user requests an end-to-end run, monitoring, or an explicit terminal
+condition such as “do not return until complete,” the parent session owns the
+outcome rather than merely the process launch.
+
+1. Keep the supervisor session attached and poll it with bounded waits. Quiet
+   output is normal and is not a reason to return.
+2. Inspect the durable job ledger between waits. Renew or recover leases and
+   resume trusted checkpoints when a worker or tool session is interrupted.
+3. Treat tool yield limits, context pressure, turn duration, and response
+   boundaries as continuation events, never as task blockers.
+4. Send progress only through nonterminal commentary. Do not emit a final
+   response while required work remains safely recoverable.
+5. Before the final response, run a persisted-state terminal audit proving:
+   - every requested stage completed;
+   - no required job is pending, running, claimed, or retryable;
+   - all required reviews and approvals passed;
+   - comparative judging and score/order audit passed; and
+   - the requested publication artifact exists and validates.
+6. A final response before that audit passes is an operational failure. If the
+   execution environment interrupts the turn, reconnect first and continue from
+   the durable ledger without asking the user to repeat the request.
+
+## Rule 5 — Model Transport Discipline
+
+Before a model-bound stage starts, measure the complete serialized request,
+including instructions, evidence, metadata, and response schema. Apply a safety
+margin below both provider character and token ceilings. If the request is too
+large, partition it deterministically along stable source units before the first
+call. Every shard must preserve the original source ID, content hash, unit range,
+and locator, and the final manifest must prove complete coverage and deterministic
+merging. Runtime oversize repair is only a safety net; retrying the unchanged
+over-limit request is forbidden. Publication stays blocked until every original
+unit is represented or explicitly dispositioned.
+
 If a reviewer finds that an earlier change introduced junk, the
 fix is to clean up that change **before** proceeding — not to
 add a "cleanup" commit at the end of the project.
+
+## Quota-only continuation
+
+An in-place model-run continuation is permitted only when the terminal condition is solely
+aggregate input/output quota exhaustion. It requires explicit user approval for the new
+bounded quota and an append-only amendment binding the exact settled ledger prefix. Do not
+change the request inventory or call ceiling, and never rerun a settled call. Any other
+failure retains the fresh-release rule.
 
 ## Operational check before commit
 

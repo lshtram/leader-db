@@ -95,6 +95,11 @@ First inspect the whole batch and establish low, middle, high, and edge anchors.
 Then score every available dossier exactly once. Missing lenses reduce confidence
 and widen the plausible range; they do not mechanically lower the score. Use a
 null score only when the chapter as a whole is genuinely not defensibly judgeable.
+An `unavailable_question_lenses` entry is a trusted saturated-search result: do not
+invent an answer for that lens, classify it as missing or weak, and lower confidence
+in proportion to its materiality while continuing the holistic chapter judgment.
+`supported_lenses` and `missing_or_weak_lenses` contain only exact question IDs for
+the active chapter and must be disjoint: classify each lens in at most one array.
 Treat projection coverage statuses and evidence-to-lens mappings as advisory
 bookkeeping, not binding admissibility decisions. Apply every cited chapter evidence
 item to the ten lenses yourself. A projection mapping does not make an item relevant:

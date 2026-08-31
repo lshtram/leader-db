@@ -76,7 +76,7 @@ Researchers should record:
 
 | Existing lens | Main current territory | Spine coverage | Gap to make explicit |
 |---|---|---|---|
-| 1B.1 | Net risk-reduction intent | A, U | Formal strategy, authorization and resource choices |
+| 1B.1 | Catastrophic-risk reduction | A, U | Formal strategy, authorization and resource choices |
 | 1B.2 | Nuclear rhetoric | — | Retain: rhetoric is conduct, but corroborate against formal posture |
 | 1B.3 | Command, custody and safety | I | Safety law, budget, personnel, inspection and incident correction |
 | 1B.4 | Arms control and inspection | F | Ratification, implementing law, funding and compliance |
@@ -84,14 +84,12 @@ Researchers should record:
 | 1B.6 | Proliferation restraint | I | Export-control law, enforcement and correction |
 | 1B.7 | Expertise and institutions | P | Appointment process, qualifications, autonomy and resources |
 | 1B.8 | Crisis de-escalation | I | Orders, channels, procedures and after-action correction |
-| 1B.9 | Other catastrophic risks | F, I | Regulatory safeguards, budgets, enforcement and audit |
+| 1B.9 | Non-conventional warfare risk reduction | F, I | Policy, budgets, safeguards, enforcement and audit |
 | 1B.10 | Inherited-to-left posture | A, U | Institutional durability and implemented change |
 
 ### Proposed ten questions
 
-1. **1B.1** — Did the ruler use their formal authority, strategy, directives and
-   resource choices to reduce nuclear or other existential risk rather than increase
-   prestige, leverage or personal power through escalation?
+1. **1B.1** — Did the ruler try to make catastrophic risks less likely or not?
 2. **1B.2** — Did the ruler use nuclear rhetoric responsibly, and did their formal
    doctrine, orders and operational posture corroborate rather than contradict that
    rhetoric?
@@ -113,9 +111,8 @@ Researchers should record:
 8. **1B.8** — In crises, did the ruler issue and implement de-escalatory decisions,
    preserve communication and decision safeguards, and correct procedures exposed as
    dangerous?
-9. **1B.9** — Did the ruler establish, fund, enforce and transparently review
-   precautionary legal and institutional safeguards for AI, cyber, biological and
-   other catastrophic dual-use risks?
+9. **1B.9** — Did the ruler actively set policies and budgets to reduce the risk of
+   biological, chemical, and other non-conventional warfare technologies?
 10. **1B.10** — Did the ruler leave a demonstrably safer and more durable
     existential-risk posture than inherited, accounting for authority, implementation,
     external shocks and unresolved exposure?
@@ -127,7 +124,7 @@ Researchers should record:
 | Existing lens | Main current territory | Spine coverage | Gap to make explicit |
 |---|---|---|---|
 | 2B.1 | Diplomacy versus force | A | Formal authorizations, votes, orders and rejected alternatives |
-| 2B.2 | Aggression and proxy conflict | U | War powers, annexation law, covert authorization |
+| 2B.2 | Actual initiation or escalation of overseas tensions and conflicts | U | War powers, annexation law, covert authorization |
 | 2B.3 | Defensive necessity and motive | A | Evidence supplied to cabinet, parliament and public |
 | 2B.4 | Civilian protection and law | I | Rules of engagement, training, investigations and remedy |
 | 2B.5 | Proxies and recipients | I | Arms-export law, conditions, monitoring and suspension |
@@ -142,9 +139,9 @@ Researchers should record:
 1. **2B.1** — When credible peaceful alternatives existed, did the ruler use formal
    decisions, diplomatic authority and available legislative or cabinet processes to
    pursue them before authorizing or supporting force?
-2. **2B.2** — Did the ruler initiate, authorize, fund, expand, prolong or legally
-   entrench wars of choice, annexation, cross-border coercion, covert destabilization
-   or proxy conflict beyond defensive necessity?
+2. **2B.2** — Did the ruler initiate, order, authorize, support, allow,
+   expand, or prolong material military or violent action abroad, and what were its
+   scale and consequences?
 3. **2B.3** — Did the ruler present decision-makers and the public with accurate,
    reviewable evidence of defensive need, alternatives and objectives rather than
    manufacture threats, prestige claims or regime-survival justifications?
@@ -332,7 +329,7 @@ Researchers should record:
 | 6B.7 | Political allocation | F, I | Eligibility rules, administrative records and appeals |
 | 6B.8 | Dignity and opportunity | D | Equal-rights protections and enforceable remedy |
 | 6B.9 | Durable institutions | U | Statutory basis, funding, staffing and succession |
-| 6B.10 | Inherited-to-left life chances | A, U | Distribution, lag and external constraints |
+| 6B.10 | Durable social outcomes | A, U | Distribution, lag and external constraints |
 
 ### Proposed ten questions
 
@@ -363,9 +360,10 @@ Researchers should record:
 9. **6B.9** — Did the ruler create durable social institutions with statutory authority,
    reliable funding, professional staffing, transparent standards and resilience beyond
    personal rule?
-10. **6B.10** — Did ordinary people, including disadvantaged groups, finish the period
-    with durably better life chances than inherited, accounting for policy lag,
-    baseline, donor or subnational roles and external shocks?
+10. **6B.10** — Did ordinary people experience durable improvements in health,
+    education, basic services, protection, shelter, and dignity, accounting for the
+    inherited baseline, distribution, policy lag, donor and subnational roles, and
+    external shocks?
 
 ## Chapter 7B — Personal integrity
 
@@ -428,7 +426,7 @@ or correction.
 
 | Existing lens | Main current territory | Spine coverage | Gap to make explicit |
 |---|---|---|---|
-| 8B.1 | Program and goals | A | Freeze goals in dated formal records |
+| 8B.1 | Program and goals | A | Freeze declared or reliably revealed goals in dated records and repeated choices |
 | 8B.2 | Operationalization | F, R, P | Explicit law, budget, timelines and enforcement |
 | 8B.3 | Mobilization | R, I | Execution and state reach |
 | 8B.4 | Implementers | P | Qualifications, authority, retention and replacement |
@@ -437,13 +435,14 @@ or correction.
 | 8B.7 | Goal-relative outcomes | D, U | Baseline, lag, distribution and causal alternatives |
 | 8B.8 | Adaptation | O, C | Audit, evaluation, replacement and reallocation |
 | 8B.9 | Crisis and resistance | A, I | Formal decisions, resources and goal preservation |
-| 8B.10 | Program progress | A, U | Institutionalization and durability |
+| 8B.10 | Goal and power durability | A, U | Institutionalization, power retention and durability |
 
 ### Proposed ten questions
 
 1. **8B.1** — Did the ruler state or reliably reveal a sufficiently clear program in
-   dated speeches, manifestos, strategies, directives or formal acts to freeze and test
-   its policy, ideological, power and international goals?
+   dated speeches, manifestos, strategies, directives or repeated discriminating choices
+   to freeze and test its policy, state-building, power-maintenance, regime-survival
+   and international goals?
 2. **8B.2** — Did the ruler translate that program into enacted laws, budgets,
    appointments, timelines, institutions, regulations and enforcement mechanisms
    within their actual authority?
@@ -459,17 +458,19 @@ or correction.
 6. **8B.6** — Did legislation, budgets and directives become observable enforcement,
    services, projects and institutional practice rather than remain slogans, plans or
    symbolic acts?
-7. **8B.7** — Did outcome and distribution indicators move toward the ruler's frozen
-   goals after accounting for baseline, realistic lag, authority, external shocks and
-   plausible causal alternatives?
+7. **8B.7** — Did outcome and distribution indicators move toward the ruler's declared
+   or reliably revealed goals after accounting for baseline, realistic lag, authority,
+   external shocks and plausible causal alternatives?
 8. **8B.8** — Did audits, evaluations and implementation failures lead the ruler to
    adapt methods, replace implementers, reallocate resources and correct course?
 9. **8B.9** — Did formal decisions and implemented responses to crises, opposition,
    international relations and institutional resistance preserve or advance the
-   ruler's chosen objectives and durable control?
-10. **8B.10** — By the end of the period, had the ruler converted more of the frozen
-    program into durable law, institutions, capacity, state practice and achieved
-    outcomes than at the start, accounting for failures and long-term fragility?
+   ruler's declared or reliably revealed objectives and durable implementation?
+10. **8B.10** — By the end of the period, had the ruler converted more of the declared
+    or reliably revealed program into durable law, institutions, capacity, state
+    practice and achieved outcomes than at the start, accounting for failures and
+    long-term fragility? Power retention or system control counts when evidenced as a
+    goal or necessary means of execution, but survival or control alone is insufficient.
 
 Chapter 8B continues to judge effectiveness at the ruler's own goals, not the moral
 quality of those goals. Harmful effectiveness belongs here as effectiveness; its moral

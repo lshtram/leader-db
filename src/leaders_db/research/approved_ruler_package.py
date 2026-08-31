@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from pathlib import Path
 from typing import Literal
 
@@ -16,6 +17,8 @@ from .chapter_analysis_models import (
 from .corpus_judge_package import CorpusJudgePackage
 from .corpus_reading_plan import CorpusReadingPlan
 from .dossier_models import RulerEvidenceDossier
+from .pipeline_provenance import ProductionPipelineProvenance
+from .production_run import ProductionRunReference
 
 
 class ApprovedChapterArtifact(BaseModel):
@@ -63,9 +66,11 @@ class ApprovedRulerEvidencePackage(BaseModel):
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
-    schema_version: Literal["approved_ruler_evidence_package_v1"] = (
-        "approved_ruler_evidence_package_v1"
+    schema_version: Literal["approved_ruler_evidence_package_v3"] = (
+        "approved_ruler_evidence_package_v3"
     )
+    production_run: ProductionRunReference
+    pipeline_provenance: ProductionPipelineProvenance
     approval_contract: Literal["independent-full-index-v1"]
     dossier_job_key: str
     iso3: str = Field(min_length=3, max_length=3)
@@ -80,6 +85,8 @@ class ApprovedRulerEvidencePackage(BaseModel):
     corpus_package_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     reading_plan_path: str
     reading_plan_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    reading_manifest_path: str
+    reading_manifest_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     chapters: tuple[ApprovedChapterArtifact, ...]
 
     @model_validator(mode="after")
@@ -106,7 +113,9 @@ def build_approved_ruler_package(
     dossier_path: Path,
     corpus_package_path: Path,
     reading_plan_path: Path,
+    reading_manifest_path: Path,
     selection_manifest_path: Path,
+    production_run_manifest_path: Path,
     output_path: Path,
 ) -> Path:
     """Validate and bind a selected complete-ruler package for downstream judging."""
@@ -115,16 +124,39 @@ def build_approved_ruler_package(
     dossier_path = _inside(root, dossier_path)
     corpus_package_path = _inside(root, corpus_package_path)
     reading_plan_path = _inside(root, reading_plan_path)
+    reading_manifest_path = _inside(root, reading_manifest_path)
     selection_manifest_path = _inside(root, selection_manifest_path)
+    production_run_manifest_path = _inside(root, production_run_manifest_path)
+    from .deep_corpus_release import load_deep_corpus_release, pipeline_provenance
+    from .production_run import load_production_run_manifest, production_run_reference
+
+    production_run = load_production_run_manifest(
+        production_run_manifest_path, project_root=root
+    )
+    from .batch_manifest import load_batch_manifest
+
+    production_batch = load_batch_manifest(root / production_run.batch_manifest)
+    release_config_path = root / production_run.release_config
+    release = load_deep_corpus_release(release_config_path)
     dossier = RulerEvidenceDossier.model_validate_json(
         dossier_path.read_text(encoding="utf-8")
     )
+    matching_cases = tuple(
+        case
+        for case in production_batch.cases
+        if case.ruler_year_id == dossier.ruler_year_id
+        and case.iso3 == dossier.iso3
+        and case.ruler_name == dossier.ruler_name
+    )
+    if len(matching_cases) != 1:
+        raise ValueError("dossier identity is not in the production-run batch")
     corpus = CorpusJudgePackage.model_validate_json(
         corpus_package_path.read_text(encoding="utf-8")
     )
     reading_plan = CorpusReadingPlan.model_validate_json(
         reading_plan_path.read_text(encoding="utf-8")
     )
+    _validate_complete_reading_run(reading_plan, reading_manifest_path)
     _validate_corpus_index(corpus)
     _validate_corpus_identity(dossier, corpus, reading_plan)
     corpus_ids = {item.evidence_id for item in corpus.evidence}
@@ -153,6 +185,12 @@ def build_approved_ruler_package(
         for item in selection.chapters
     )
     package = ApprovedRulerEvidencePackage(
+        production_run=production_run_reference(
+            production_run_manifest_path, project_root=root
+        ),
+        pipeline_provenance=pipeline_provenance(
+            release_config_path, release, project_root=root
+        ),
         approval_contract="independent-full-index-v1",
         dossier_job_key=dossier.job_key,
         iso3=dossier.iso3,
@@ -167,6 +205,8 @@ def build_approved_ruler_package(
         corpus_package_sha256=_digest(corpus_package_path),
         reading_plan_path=_relative(root, reading_plan_path),
         reading_plan_sha256=_digest(reading_plan_path),
+        reading_manifest_path=_relative(root, reading_manifest_path),
+        reading_manifest_sha256=_digest(reading_manifest_path),
         chapters=chapters,
     )
     resolved_output = output_path.resolve()
@@ -189,6 +229,40 @@ def load_approved_ruler_package(
     package = ApprovedRulerEvidencePackage.model_validate_json(
         manifest_path.read_text(encoding="utf-8")
     )
+    reading_plan_path = _inside(root, root / package.reading_plan_path)
+    if _digest(reading_plan_path) != package.reading_plan_sha256:
+        raise ValueError("reading plan hash mismatch")
+    reading_plan = CorpusReadingPlan.model_validate_json(
+        reading_plan_path.read_text(encoding="utf-8")
+    )
+    reading_manifest_path = _inside(root, root / package.reading_manifest_path)
+    if _digest(reading_manifest_path) != package.reading_manifest_sha256:
+        raise ValueError("reading manifest hash mismatch")
+    _validate_complete_reading_run(reading_plan, reading_manifest_path)
+    run_path = _inside(root, root / package.production_run.path)
+    if _digest(run_path) != package.production_run.sha256:
+        raise ValueError("production-run manifest hash mismatch")
+    from .production_run import load_production_run_manifest
+
+    production_run = load_production_run_manifest(run_path, project_root=root)
+    if (
+        production_run.run_id != package.production_run.run_id
+        or production_run.batch_manifest_sha256
+        != package.production_run.batch_manifest_sha256
+        or production_run.pipeline_provenance != package.pipeline_provenance
+    ):
+        raise ValueError("approved package differs from its production run")
+    from .deep_corpus_release import validate_release_reference
+
+    release = validate_release_reference(
+        {
+            "path": package.pipeline_provenance.release_path,
+            "sha256": package.pipeline_provenance.release_sha256,
+        },
+        project_root=root,
+    )
+    if release.pipeline_version_id != package.pipeline_provenance.pipeline_version_id:
+        raise ValueError("approved ruler package pipeline version differs from release")
     bound = (
         (package.dossier_path, package.dossier_sha256),
         (package.corpus_package_path, package.corpus_package_sha256),
@@ -247,6 +321,32 @@ def load_approved_ruler_package(
             corpus_ids,
         )
     return package
+
+
+def _validate_complete_reading_run(
+    reading_plan: CorpusReadingPlan, reading_manifest_path: Path
+) -> None:
+    """Reject approval unless every planned corpus batch completed exactly once."""
+
+    payload = json.loads(reading_manifest_path.read_text(encoding="utf-8"))
+    if payload.get("schema_version") != "corpus_reading_run_v1":
+        raise ValueError("unsupported corpus reading manifest")
+    if payload.get("failed_batch_ids"):
+        raise ValueError("corpus reading manifest contains failed batches")
+    expected = [item.batch_id for item in reading_plan.batches]
+    batches = payload.get("batches")
+    if not isinstance(batches, list):
+        raise ValueError("corpus reading manifest lacks batch results")
+    received = [item.get("batch_id") for item in batches if isinstance(item, dict)]
+    if received != expected or len(received) != len(set(received)):
+        raise ValueError("corpus reading manifest does not exactly cover the plan")
+    if any(item.get("status") == "failed" for item in batches):
+        raise ValueError("corpus reading manifest contains a failed batch result")
+    if any(
+        not (reading_manifest_path.parent / item / "verified-evidence.json").is_file()
+        for item in expected
+    ):
+        raise ValueError("corpus reading manifest references missing verified evidence")
 
 
 def _validate_corpus_index(corpus: CorpusJudgePackage) -> None:

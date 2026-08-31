@@ -12,7 +12,7 @@ from leaders_db.research.chapter_analysis_models import (
     SelfReviewedChapterAnalysis,
 )
 from leaders_db.research.single_pass_chapter_analysis import (
-    _normalize_critique_registry,
+    _normalize_audit_registries,
     _normalize_shard_registry,
     _partition_evidence,
     _validate_result,
@@ -92,11 +92,46 @@ def test_critique_registry_removes_unknown_audit_id_and_records_it() -> None:
         }
     )
 
-    normalized = _normalize_critique_registry(result, {"E-1"})
+    normalized = _normalize_audit_registries(result, {"E-1"})
 
     normalized_issue = normalized.critique.issues[0]
     assert normalized_issue.evidence_ids == ("E-1",)
     assert "E-invented" in normalized_issue.explanation
+
+
+def test_draft_registry_removes_unknown_audit_id_and_records_it() -> None:
+    result = _result()
+    answers = list(result.draft.answers)
+    answers[0] = answers[0].model_copy(
+        update={"supporting_evidence_ids": ("E-1", "E-invented")}
+    )
+
+    normalized = _normalize_audit_registries(
+        result.model_copy(
+            update={"draft": result.draft.model_copy(update={"answers": tuple(answers)})}
+        ),
+        {"E-1"},
+    )
+
+    normalized_answer = normalized.draft.answers[0]
+    assert normalized_answer.supporting_evidence_ids == ("E-1",)
+    assert any("E-invented" in item for item in normalized_answer.limitations_and_gaps)
+
+
+def test_corrected_registry_removes_unknown_id_and_records_it() -> None:
+    result = _result()
+    answers = list(result.corrected_answers)
+    answers[0] = answers[0].model_copy(
+        update={"supporting_evidence_ids": ("E-1", "E-invented")}
+    )
+
+    normalized = _normalize_audit_registries(
+        result.model_copy(update={"corrected_answers": tuple(answers)}), {"E-1"}
+    )
+
+    normalized_answer = normalized.corrected_answers[0]
+    assert normalized_answer.supporting_evidence_ids == ("E-1",)
+    assert any("E-invented" in item for item in normalized_answer.corrections_made)
 
 
 def test_evidence_partition_preserves_every_record_once() -> None:

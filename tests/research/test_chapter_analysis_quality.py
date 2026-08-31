@@ -11,8 +11,10 @@ from leaders_db.research.chapter_analysis_models import (
     ResolvedChapterAnalysis,
 )
 from leaders_db.research.chapter_analysis_quality import (
+    _bounded_excerpt,
     _combine_quality_shards,
     _quality_candidate,
+    _quality_cited_evidence,
     _write_review_binding,
 )
 from tests.research.test_corpus_mapping_review import _evidence
@@ -60,6 +62,29 @@ def test_quality_candidate_is_compact_but_period_aware() -> None:
     candidate = _quality_candidate(evidence)
 
     assert set(candidate) == {"evidence_id", "fact_summary", "publisher", "period_fit"}
+
+
+def test_quality_cited_evidence_retains_exact_text_without_transport_metadata() -> None:
+    evidence = _evidence("E-1", "One material fact")
+
+    cited = _quality_cited_evidence(evidence)
+
+    assert cited["evidence_id"] == "E-1"
+    assert cited["exact_excerpt"] == evidence.exact_excerpt
+    assert "raw_sha256" not in cited
+    assert cited["excerpt_sha256"] == evidence.excerpt_sha256
+    assert "url" not in cited
+
+
+def test_bounded_excerpt_marks_and_preserves_both_ends() -> None:
+    excerpt = "A" * 4_000 + "B" * 4_000
+
+    bounded = _bounded_excerpt(excerpt)
+
+    assert len(bounded) < len(excerpt)
+    assert bounded.startswith("A" * 100)
+    assert bounded.endswith("B" * 100)
+    assert "SOURCE CHARACTERS OMITTED FOR TRANSPORT" in bounded
 
 
 def test_quality_review_producer_binds_exact_analysis_review_and_package(tmp_path) -> None:

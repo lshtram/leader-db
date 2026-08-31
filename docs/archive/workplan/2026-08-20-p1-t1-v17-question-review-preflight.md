@@ -1,0 +1,15 @@
+# P1-T1 — preflight v17 blind independent question review
+
+- Date closed: 2026-08-20
+- Outcome: REJECTED
+- Starting commit and ending commit: started from `ac033fdd53e192bc1e9a9df1af4f17af4c3760f1`; ending state is an uncommitted working tree based on that commit.
+- Objective and scope executed: validated the v17 writing checkpoint, trusted-reloaded all eight chapter manifests and 80 accepted answers, checked all 80 closed raw writer outputs, and measured every complete blind-review request without launching review, judging, audit, or publication.
+- Decisions and lasting constraints: the rejected preflight remains immutable. Chapter 6B requires 1,007,971 estimated input tokens, 7,971 above the then-configured 1,000,000-token `question_review` chapter ceiling. The user subsequently set the prospective ceiling to 1,200,000 tokens. Eligibility still requires a fresh zero-call preflight; the rejected artifact is not relabeled.
+- Files/configs changed: `src/leaders_db/research/question_review_preflight.py`, `tests/research/test_question_review_preflight.py`, `docs/workplan.md`, `docs/archive/workplan/README.md`, `docs/architecture/overview.md`, and `docs/requirements/core.md`. No v17 writing input was changed.
+- Durable artifacts and SHA-256 bindings: `research/runs/netanyahu-2023-integrated-luna-sol-v17/question-review-preflight.json`, SHA-256 `f7d75dc44a50aca6678756a0db1430affc52f9abe6a5fbff37e938d90944d27e`; it binds the integrated config, prior preflight, control flow, stage budgets, model profiles, prompt configuration, run ledger, eight writing manifests, 80 packets, and both compared answers per request. The unchanged run ledger SHA-256 is `34eedecf6541c455d3e7f3bf8537c5be395b3e0e5f366a28cb6910090a600192`.
+- Model provider/model/reasoning/surface; approved maximum and actual calls: planned OpenAI `gpt-5.6-luna`, high reasoning, Codex subscription; no execution approval requested because preflight rejected; maximum review calls 80, actual calls 0.
+- Input/cached/output/reasoning tokens, elapsed time, billing limitation: measured review input 4,696,427 tokens and 20,179,884 characters; no review token use. Prior writing use remained 4,703,846 input, zero cached input, 320,509 output, and 100,066 reasoning-output tokens. Subscription billing is not exposed.
+- Focused/full tests, lint, validators, and reviews: 53 focused review-preflight, chapter, concurrency, budget, and profiler tests passed; focused Ruff passed. All 80 writing artifacts trusted-reloaded; raw reopen fields and normalized reopen requests were both zero; downstream roots were unused; model-event count and reservation ledger remained 80 and unchanged.
+- Failures/findings and disposition: only `6B:stage_input_tokens`; the rejected preflight is preserved and no unchanged retry or v17 repair was attempted.
+- Deferred/optional items (non-blocking): none.
+- Next task activated or exact blocker: P1-T2 remains blocked until a fresh zero-call preflight passes under the 1,200,000-token review-stage budget and receives explicit bounded approval.

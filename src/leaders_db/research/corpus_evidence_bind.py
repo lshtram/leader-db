@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
-import json
 from hashlib import sha256
 from pathlib import Path
 
-from .corpus_reader_models import BatchFactOutput, BoundEvidence
+from .citation_spans import CitationSpan, paragraph_spans, resolve_citation_span
+from .corpus_extraction import load_validated_extraction
+from .corpus_reader_models import BatchFactOutput, BoundEvidence, EvidenceCitation
 from .corpus_reading_plan import CorpusReadingPlan, ReadingBatch
 
 
@@ -40,10 +41,19 @@ def bind_batch_evidence(
         document = documents[intent.source_id]
         if document.extracted_path is None or document.raw_sha256 is None:
             raise ValueError(f"queued document lacks extraction identity: {intent.source_id}")
-        extraction = json.loads(
-            (acquisition_dir / document.extracted_path).read_text(encoding="utf-8")
+        rows = load_validated_extraction(
+            acquisition_dir / document.extracted_path,
+            expected_source_id=intent.source_id,
+            expected_raw_sha256=document.raw_sha256,
         )
-        units = {int(item["unit"]): item for item in extraction["units"]}
+        units = {int(item["unit"]): item for item in rows}
+        batch_range = batch.unit_ranges.get(intent.source_id)
+        if (
+            batch_range is None
+            or intent.start_unit < batch_range[0]
+            or intent.end_unit > batch_range[1]
+        ):
+            raise ValueError(f"reader cited outside batch range for {intent.source_id}")
         selected = [
             units[number]
             for number in range(intent.start_unit, intent.end_unit + 1)
@@ -52,6 +62,7 @@ def bind_batch_evidence(
         if len(selected) != intent.end_unit - intent.start_unit + 1:
             raise ValueError(f"reader cited unavailable unit range for {intent.source_id}")
         excerpt = "\n\n".join(str(item["text"]) for item in selected).strip()
+        citations = _resolve_citations(intent.citation_span_ids, selected)
         if not excerpt:
             raise ValueError(f"reader cited an empty unit range for {intent.source_id}")
         number = len(evidence) + 1
@@ -74,6 +85,7 @@ def bind_batch_evidence(
                 locator=_locator(selected),
                 exact_excerpt=excerpt,
                 excerpt_sha256=sha256(excerpt.encode()).hexdigest(),
+                citations=citations,
             )
         )
     return tuple(evidence)
@@ -83,6 +95,36 @@ def _locator(units: list[dict[str, object]]) -> str:
     first = str(units[0]["locator"])
     last = str(units[-1]["locator"])
     return first if first == last else f"{first} through {last}"
+
+
+def _resolve_citations(
+    span_ids: tuple[str, ...], units: list[dict[str, object]]
+) -> tuple[EvidenceCitation, ...]:
+    if not span_ids:
+        return ()
+    if len(span_ids) != len(set(span_ids)):
+        raise ValueError("reader cited a duplicate paragraph span")
+    available: dict[str, tuple[CitationSpan, str]] = {}
+    for item in units:
+        unit = int(item["unit"])
+        text = str(item["text"])
+        for number, span in enumerate(paragraph_spans(unit, text), start=1):
+            available[f"U{unit}-P{number}"] = (span, text)
+    if not set(span_ids).issubset(available):
+        raise ValueError("reader cited an unavailable paragraph span")
+    citations = []
+    for span_id in span_ids:
+        span, text = available[span_id]
+        excerpt = resolve_citation_span(text, span)
+        citations.append(
+            EvidenceCitation(
+                span_id=span_id,
+                span=span,
+                exact_excerpt=excerpt,
+                excerpt_sha256=sha256(excerpt.encode()).hexdigest(),
+            )
+        )
+    return tuple(citations)
 
 
 __all__ = ["bind_batch_evidence"]

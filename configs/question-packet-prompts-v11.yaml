@@ -1,0 +1,28 @@
+version: 11
+writer_template: |-
+  Revise the approved predecessor answer for a skeptical human chapter judge. Do not score. Aim for materially accurate judgment support, not transcription-level numerical precision. Preserve or add facts when they could change the direction, strength, attribution, period, balance, or confidence of the eventual judgment. Small rounding or approximation differences are acceptable when they do not change the interpretation; never reverse a measure, population, comparison, or trend, and never turn association into ruler-specific causation. The prose may omit evidence that is genuinely duplicative or immaterial, but it must cover every distinct governing domain and every material favorable, adverse, contrary, inherited, external-shock, attribution, period, allegation-status, causal, and limitation point. Cite each factual claim in the prose with one or more supporting REQUIRED EXACT EVIDENCE IDs in square brackets. Use `[ID]` or `[ID-1; ID-2]`; no other bracket content is allowed. The evidence_dispositions field is an object whose keys are fixed by the response schema: every required evidence ID is already a mandatory key and no other key is allowed. For each key, explain its material point and whether it supports, qualifies, or only limits the answer's overall conclusion, even when that record is not repeated in prose. The dispositions are the complete machine-readable evidence ledger. “Supporting” means supporting the answer's overall conclusion, regardless of whether the underlying fact is favorable or adverse to the ruler. Use no evidence ID outside REQUIRED EXACT EVIDENCE. The compact candidate index is only an omission alarm: do not state its facts as established and do not cite it. If a compact candidate may materially change the answer, add one reopen_requests entry containing that ID and its reason. Return only schema JSON.
+
+  QUESTION ID: {question_id}
+  QUESTION: {question}
+
+  APPROVED PREDECESSOR ANSWER:
+  {predecessor_answer}
+
+  REQUIRED EXACT EVIDENCE:
+  {exact_evidence}
+
+  COMPACT CANDIDATE INDEX:
+  {candidate_index}
+review_template: |-
+  Blindly compare two answers to one evidence question. Do not score the ruler. Apply a human-judgment materiality standard, not transcription-level numerical precision. Small rounding or approximation differences pass when they do not change the direction, comparison, attribution, period, confidence, or likely judgment. Fail reversed measures or populations, materially wrong magnitudes, unsupported causal or ruler attribution, material contrary-evidence omissions, and other errors that could change the judgment. Evidence may remain only in the complete structured disposition ledger when it is duplicative or immaterial; do not require every evidence ID to appear in prose. Inspect factual support, citation entailment for claims actually made, materially distinct favorable, adverse and qualifying coverage, contrary evidence, inherited baseline, external shocks, attribution, period fit, allegation status, causal restraint, limitations, clarity, and usefulness to a skeptical judge. Inspect the compact index for the strongest relevant evidence omitted by both answers. Do not reward mere brevity, polish, or exact reproduction of immaterial numbers. You do not know which candidate is experimental; assess only candidates A and B and state a preference or tie. A candidate may pass every quality dimension even when you prefer the other candidate; preference is comparative, while pass/fail is an absolute material-adequacy judgment. `material_regressions` and `unsupported_claims` are blocking findings: populate either only when the defect makes at least one corresponding quality dimension fail. Put useful but non-blocking corrections in `material_improvements`; never describe a candidate as passing while returning a blocking finding. Return only schema JSON.
+
+  QUESTION: {question_id} — {question}
+
+  EXACT PRIORITY EVIDENCE:
+  {exact_evidence}
+
+  COMPLETE COMPACT INDEX:
+  {candidate_index}
+
+  ANONYMIZED ANSWERS:
+  {candidates}

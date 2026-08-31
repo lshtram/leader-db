@@ -1,5 +1,10 @@
 # Source Ingestion Plan
 
+> Planning status: prototype/reference only. Current source status is authoritative in
+> [`../architecture/sources.md`](../architecture/sources.md) and [`registry.md`](registry.md);
+> execution order lives only in [`../workplan.md`](../workplan.md), Phase 4. Stale blocked or
+> future labels below must not override newer implemented-source records.
+
 > **Prototype / legacy reference (updated 2026-06-23):** This document records
 > the source-by-source plan that guided the prototype `src/leaders_db/ingest/`
 > work and the PWT shared-adapter experiment. Future source-interface work is
@@ -492,8 +497,9 @@ These should not be implemented before a source-specific design note and reviewe
 
 ## Recommended execution order
 
-This section is retained as prototype history. The authoritative execution order
-for the clean source-system reset begins in [`docs/architecture/sources.md`](../architecture/sources.md#9-first-milestones).
+This section is retained as prototype history. Current source facts are recorded in
+[`docs/architecture/sources.md`](../architecture/sources.md#9-first-milestones), while the sole
+execution order is canonical Workplan Phase 4.
 
 PWT is already implemented and wired (shared `SourceAdapter` Protocol + production per-source package + CLI dispatch wiring), so the remaining sequence now starts with the next priorities below:
 

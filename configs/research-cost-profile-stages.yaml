@@ -1,0 +1,63 @@
+schema_version: research_cost_stage_rules_v1
+event_filename: events.jsonl
+rules:
+  - artifact_type: corpus_reading_call
+    stage: reading
+    path_pattern: reading/*/events.jsonl
+    selection_mode: all_completed
+  - artifact_type: chapter_analysis_call
+    stage: chapter-analysis
+    path_pattern: chapter-analysis/*/**/events.jsonl
+    selection_mode: selected_chapter_artifact
+  - artifact_type: chapter_review_call
+    stage: chapter-review
+    path_pattern: chapter-quality*/**/events.jsonl
+    selection_mode: selected_chapter_artifact
+  - artifact_type: chapter_revision_call
+    stage: chapter-repair
+    path_pattern: chapter-repair-*/**/events.jsonl
+    selection_mode: selected_chapter_artifact
+  - artifact_type: chapter_remediation_call
+    stage: chapter-repair
+    path_pattern: chapter-remediation*/**/events.jsonl
+    selection_mode: selected_chapter_artifact
+  - artifact_type: chapter_compaction_call
+    stage: chapter-compaction
+    path_pattern: chapter-compaction/**/events.jsonl
+    selection_mode: selected_chapter_artifact
+  - artifact_type: chapter_coverage_review_call
+    stage: chapter-review
+    path_pattern: chapter-coverage-quality/**/events.jsonl
+    selection_mode: selected_chapter_artifact
+  - artifact_type: chapter_coverage_repair_call
+    stage: chapter-repair
+    path_pattern: chapter-coverage-repair/**/events.jsonl
+    selection_mode: selected_chapter_artifact
+  - artifact_type: chapter_revision_call_legacy
+    stage: chapter-repair
+    path_pattern: chapter-revisions/**/events.jsonl
+    selection_mode: selected_chapter_artifact
+  - artifact_type: chapter_revision_review_call
+    stage: chapter-review
+    path_pattern: chapter-revision-quality/**/events.jsonl
+    selection_mode: selected_chapter_artifact
+  - artifact_type: question_writer_call
+    stage: question-writing
+    path_pattern: question-writing/*/questions/*/events.jsonl
+    selection_mode: all_completed
+  - artifact_type: question_review_call
+    stage: question-review
+    path_pattern: question-review/*/questions/*/events.jsonl
+    selection_mode: all_completed
+  - artifact_type: chapter_judge_call
+    stage: chapter-judging
+    path_pattern: chapter-judging/jobs/*/attempts/*/codex-events.jsonl
+    selection_mode: all_completed
+  - artifact_type: chapter_judge_trusted_call
+    stage: chapter-judging
+    path_pattern: chapter-judging/jobs/*/trusted/*/codex-events.jsonl
+    selection_mode: all_completed
+  - artifact_type: chapter_judgment_review_call
+    stage: chapter-judgment-review
+    path_pattern: chapter-judgment-review/*/review-events.jsonl
+    selection_mode: all_completed

@@ -1,8 +1,21 @@
 # Architecture — Leaders Database Prototype
 
+## Public study-site projection
+
+The public ruler-study website is a derived static projection of an audit-approved
+production run. The projection validates approved ruler packages, reviewed chapter
+judgments, question answers, and cited evidence before rendering. It emits physical
+routes beneath `/leaders-study/` plus a SHA-256 file manifest. Public pages contain
+chapter scores and cited excerpts while excluding client scores, raw acquired documents,
+operational logs, prompts, and local filesystem paths.
+
 This document defines the system design. The authoritative product brief is
 [`../requirements/top-level-requirements.md`](../requirements/top-level-requirements.md); section numbers below
 reference that document.
+
+Implementation sequencing is authoritative only in
+[`../workplan.md`](../workplan.md). Subsystem roadmaps and historical phase descriptions are
+design references and cannot activate or reorder work.
 
 ## Purpose
 
@@ -30,6 +43,156 @@ shared selector are the only navigation files updated when another year is relea
 The customer/client matrix is a **validation/test reference only**. It is not
 ground truth, not an evidence source, and never contributes to source agreement,
 source authority, factual claims, leader identity, or category scoring.
+
+### Canonical model-cost profiles
+
+The read-only research cost profiler scans trusted completed-call event logs using
+the versioned artifact-type registry in `configs/research-cost-profile-stages.yaml`.
+It records per-call input, cached input, uncached input, output, and reasoning output;
+classifies chapter and shared work; and separates selected, superseded, and failed
+attempts using the selected-chapter manifest. Each run emits deterministic JSON, CSV,
+and Markdown artifacts. Profile comparison is allowed only when both inputs bind the
+same stage-rule version and hash.
+
+The cache-oriented request-envelope experiment was removed after repeated outputs failed
+substantive equivalence and the Codex subscription surface reported no cache reuse. The
+established chapter-analysis path remains the only active implementation. Immutable run
+diagnostics preserve the failed experiment for audit without leaving an unused alternate
+mechanism in production code.
+
+The replacement optimization begins with deterministic question-evidence packages. For
+each of a chapter's ten questions, code carries forward the exact records cited by the
+selected approved answer and provides a compact index of every other directly routed
+candidate. A complete-ledger disposition proves that no record disappeared during the
+projection. This package is an input-planning artifact only; the established answer
+writer remains unchanged until a later blind quality gate passes.
+Each question packet also carries a deterministic coverage checklist. Approved citations
+are mandatory context; other routed candidates remain reopenable. The checklist records
+evidence-balance availability and whether priority records carry attribution, period, and
+limitation fields. It does not decide factual importance or generate prose.
+The diagnostic question writer must disposition every exact priority record. Its single
+citation ledger states the evidence ID, material point, and whether the record supports,
+qualifies, or limits the answer. The prose places evidence IDs beside the factual claims
+it makes so a reader can audit them without cross-matching an unlocated list. Brackets contain either one ID or a
+semicolon-delimited group. Code rejects missing or unknown inline IDs and
+missing, duplicate, or unknown ledger records before blind quality review. Compact
+candidates cannot be cited as facts until a later bounded reopening step restores their
+exact source text.
+The prospective affordable question path applies a human-judgment materiality standard.
+Every exact priority record still receives one structured disposition, but duplicative or
+immaterial records need not be repeated in prose. Claims actually made remain cited.
+Harmless rounding and approximation may pass when they cannot affect direction, comparison,
+attribution, period, confidence, or the likely chapter judgment. Reversed measures or
+populations, materially wrong magnitudes, unsupported causation or ruler attribution, and
+judgment-changing omissions remain failures. Comparative preference between two adequate
+answers does not by itself fail the candidate.
+The chapter diagnostic keeps production and quality phases separate: ten ordered
+question writes complete before ten independent blind reviews begin. It has no internal
+critique or repair loop. The first full 4B test showed that this control flow is viable
+but that using only predecessor citations as exact input is not sufficient; material
+compact candidates must be selected upstream before another chapter test. The subsequent
+4B cycle selected those candidates upstream, revised the approved predecessor, and passed
+all ten comparisons. The gate requires six passing quality dimensions, no unsupported
+claims, and blind preference or a tie; reviewer tradeoff comments remain visible.
+
+A diagnostic focused-verifier extension tests whether a second Luna call can improve this
+quality phase without repeating the broad blind comparison. It receives the experimental
+answer, every exact priority record, only the compact IDs that remain reopenable, and the
+first review's proposed blocking findings. Its strict schema requires an ordered check for
+every priority record, constrains any new omission to the reopenable-ID allowlist, and
+requires a separate chronology decision. An accepted writer reopen request is carried into
+the canonical verification as an unresolved deterministic blocker and removed from the
+candidate list sent back to Luna. Deterministic code derives the final gate. Trusted reload
+reconstructs the versioned raw response, strict schema, prompt, canonical output, and
+manifest; the frozen v1 prompt preserves exact reload of earlier diagnostics. This remains
+an isolated diagnostic until a bounded known-defect gate passes.
+
+The writing-to-review boundary has a deterministic reopen barrier. Before any independent
+review call begins, it validates the complete writing scope and inventories accepted writer
+reopen requests. A nonempty inventory writes `reopen-stop.json`, binding each question,
+answer hash, evidence ID, and writing-manifest hash, then launches zero review calls. This
+keeps a known incomplete writing phase from spending review quota or being mislabeled as a
+review failure.
+
+Run-wide accounting permits one narrowly scoped in-place continuation after an aggregate
+quota-only stop. An explicit user approval is persisted as an append-only quota amendment
+bound to the immutable settled ledger prefix. Later reservations use the increased token
+limit while earlier entries and cumulative usage remain unchanged; the planned call count
+does not increase and settled calls cannot be replayed. Structural, provenance, transport,
+identity, scientific, and quality failures do not qualify for this path.
+
+A stopped writing release can feed a separate evidence-completion decision for a new
+release. The decision covers every accepted reopen request and records either `promote` or
+`retain_compact` with a reason. It is accepted only when explicitly authorized and when the
+source preflight, packages, writing manifests, and accepted answers still match their saved
+hashes. Promoted records become required exact evidence. Reviewed `retain_compact` records
+stay in the complete packet audit inventory but are removed from the next writer's omission
+alarm. Applying that completion closes writer evidence discovery for the ruler-period
+lineage: every resulting packet records the closed state, the final writer receives no
+compact candidate index, and its strict response schema contains no reopen-request field.
+Code rejects a second completion round over a closed package. Any later material omission
+belongs to the separately bounded independent-review return, not another routine writer
+loop. The new release records the complete decision and predecessor hashes; the failed
+source run remains unchanged.
+
+An isolated citation-span prototype can subdivide an immutable extracted unit at existing
+blank-line paragraph boundaries. Each address carries the parent unit number, exact
+character offsets, and a substring hash; deterministic resolution copies the original
+text and rejects source drift. This is not yet part of corpus reading or evidence
+publication. A frozen one-source diagnostic preserved all material facts and limitations
+while reducing cited text by 62.2%; its reader and comparison artifacts are exactly
+reconstructable, and the comparison gate is derived deterministically. Production
+integration remains a separate decision rather than an automatic pipeline change.
+An isolated exact-row extension addresses nonblank physical table lines with the same
+source/unit/Unicode-offset/UTF-8-hash contract. A one-call frozen Labour Force Survey gate
+showed that explicitly selected source, header, population, percentage, and data-row lines
+preserve corrected table meanings and limitations while materially reducing citation text.
+Numeric-line classification remains a navigation heuristic; it does not decide which
+headers are necessary. Whole-unit discovery remains unchanged. The diagnostic question
+writer is the first compact consumer: its default remains the whole-unit record, while an
+explicit table mode reconstructs every cited line from frozen source units before omitting
+the duplicate whole-unit excerpt from that request. The compatibility record retains the
+whole-unit excerpt and hash, and other consumers are unchanged.
+The active frozen-corpus model stages share a versioned pre-call budget contract. Reader,
+verifier, question-writer, independent-question-review, comparative-judge, and final
+judgment-review calls reserve exact
+prompt-plus-schema characters and tokens plus cumulative stage calls and tokens before
+execution. Integrated releases additionally share one file-locked run-usage ledger across
+writing, question review, chapter judging, and judgment review. Every execution boundary
+under an eligible integrated preflight automatically resolves the same tracker from the
+manifest and refuses a mismatched explicit tracker. Each call reserves measured input and
+the configured model's full provider output maximum before its stage reservation, then
+reconciles against trusted completed event usage. When only active reservations make
+capacity temporarily unavailable, a new call waits for reconciliation and rechecks the
+shared failure coordinator before reserving or launching. It stops immediately when even
+the best case after active calls settle cannot fit, and a bounded wait stops if a worker
+never reconciles. Outstanding or usage-unavailable calls retain their full allowance; only
+an unlaunched call can cancel its reservation. This prevents concurrent workers or separate
+stages from independently consuming the same remaining run capacity.
+File-backed judge projections are measured from their exact serialized text.
+Successful and refused reservations persist their stage/component decision; judge workers
+share a locked run ledger, and invalid saved output stops instead of automatically
+repeating an unchanged request.
+The established corpus evidence record now has an optional list of exact paragraph
+citations beside its unchanged whole-unit excerpt. This compatibility boundary lets the
+current pipeline retain historical records while downstream consumers migrate to
+independently hashed substrings; non-contiguous support remains separate citations.
+Question packets preserve two ordered provenance partitions for required evidence:
+source-routed records from the corpus question map and selection-added records introduced
+by the independently reviewed approved analysis. Historical packets omit these fields and
+are upgraded only after exact trusted reconstruction; explicitly cleared or changed fields
+fail reconciliation. The question-writer transport schema represents required dispositions
+as an object with every exact evidence ID as a mandatory key. Deterministic conversion then
+writes the established ordered-list artifact for downstream compatibility.
+New corpus-reading plans apply both token and rendered-character budgets before calls.
+The existing fact-discovery prompt is versioned, retains whole-unit labels after a
+paragraph-labeled discovery test reduced material coverage, and persists its configuration
+and request hashes per batch. Historical records continue through the same whole-unit path.
+The existing passage verifier receives deterministic paragraph candidates for each
+whole-unit fact, selects the supporting IDs as part of its normal verdict, and code binds
+the exact substrings. Historical verifier artifacts retain an explicit legacy path. New
+verifier requests bind candidates, partitions, prompts, schema, profile, and model, and a
+failed citation selection stops rather than launching an automatic second call.
 
 Controlled cohort evaluations are frozen separately from production releases. The
 evaluation manifest binds the ruler cohort, preserved baselines, model/workflow
@@ -180,7 +343,15 @@ Every generated score must be explainable as:
 5. How were raw values normalized and direction-adjusted?
 6. How were normalized indicators combined into the proposed 1-10 score?
 7. How much did sources agree or conflict?
-8. Was the data direct-year, proxy-year, stale, or unavailable?
+8. Was the data direct-year, proxy-year, stale, or unavailable? An empty question packet
+   remains a collection gap unless a packet-bound targeted-search inventory records zero
+   admissible evidence and an independent saturation review passes. Only then may writing and
+   question review be skipped; the unavailable lens continues into chapter judging as an
+   explicit confidence penalty rather than a synthetic “no data” answer. Evidence found after
+   a package is frozen enters a fresh package through a hash-bound supplement: trusted base,
+   raw snapshots, deterministic extractions, exact excerpts, limitations, and independent
+   evidence review are reconstructed together. Context-only mechanism records remain separate
+   from adverse ruler-period evidence.
 9. Was an LLM used? If yes, what evidence was it given, what did it return, and
    did it perform gated external research?
 10. Why is human review required or not required?
@@ -822,6 +993,23 @@ source-level extracted-size plus shared reading-batch input accounting. The revi
 persists a separate metadata artifact binding the selected analysis, complete candidate
 package, and review output by SHA-256; report selection verifies that binding rather than
 trusting paths or approval labels alone.
+If that independent review finds a material omission that exists only in the compact
+candidate index, the straight-through run stops. A later fresh release may use the one
+explicit user-authorized material-defect return to promote exactly the review-named IDs
+into full question evidence. Preflight accepts that return only from a predecessor with
+zero prior returns; binds the predecessor release, preflight, failed child review, output,
+question packet, and authorization by hash; requires every promoted ID to be currently
+reopenable; snapshots all inputs once; and rejects any fresh output path overlapping the
+failed run. The new preflight records the return ordinal, applied IDs, and every source
+hash. No failed artifact is edited or resumed, and no second descendant return is allowed.
+Question-review prompt version 11 also makes the deterministic blocking rule explicit:
+`material_regressions` may be populated only with a failed quality dimension, and
+`unsupported_claims` only with failed factual support or citation entailment. Non-blocking
+corrections belong in `material_improvements`. Local cross-field validation rejects a fresh
+contradictory response before it can receive a gate. Immutable version-10 reviews retain
+their original semantics through a byte-identical frozen prompt configuration selected only
+by trusted saved-artifact reload; their raw output and prompt/config/schema hashes are
+reconstructed and verified without rewriting or normalization.
 Before a deep-corpus package can enter comparative judging, a deterministic approval
 boundary validates all eight selected analyses, their independent reviews, the complete
 question index, cited evidence IDs, and every review-binding hash. It emits one
@@ -1205,12 +1393,101 @@ The first prototype is successful when, per §16 and the expanded architecture:
 - it avoids silent overwriting of client values;
 - it avoids unsupported LLM-generated facts.
 
-## Phase Order
+## Implementation order
 
-Work is split into five sequential phases (see [`../workplan.md`](../workplan.md)):
+The early A-E sequence—Infrastructure, Source Vetting, Data Acquisition, Testing, and
+Activation—is historical architecture vocabulary, not the current queue. The canonical
+workplan uses one Phase 0-9 queue covering planning governance, one-ruler and five-ruler
+gates, production promotion, source coverage, research/data/scoring completion, Chronicle,
+visualization, full 2023 acceptance, and historical maintenance. Only
+[`../workplan.md`](../workplan.md) selects the active task; this architecture defines how the
+selected task must be built.
+# Canonical production evidence pipeline
 
-- **A. Infrastructure** — package, CLI, schema, paths, configs, data lake.
-- **B. Source vetting** — source availability/license/coverage probe.
-- **C. Data acquisition** — Stage 0-2 source adapters.
-- **D. Testing** — coverage, boundary tests, smoke pipeline cases.
-- **E. Activation** — Stage 3-15 on the full client 2023 scope.
+There is one production path for ruler-quality results: canonical identity lock,
+versioned question and methodology freeze, source discovery, acquisition of every
+catalogue candidate or an explicit disposition, deduplicated reading of every readable
+document, code-bound evidence packaging, independent full-index chapter review,
+hash-bound ruler approval, comparative chapter judging, score/order audit, and cited
+HTML publication. A direct researcher dossier is an intermediate discovery artifact;
+it is never judge-ready or publishable by itself.
+
+The production release under `configs/evidence-funnel/` assigns a unique pipeline
+version and implementation/contract ID to every stage. Approved ruler packages,
+judge jobs, audits, and publications carry the complete release-bound provenance.
+Changing any scientific stage requires a new release ID and pipeline version.
+Corpus completion is strict: an undispositioned document or failed reading batch keeps
+the run incomplete, and the approval boundary revalidates exact plan-to-run coverage
+and every verified-evidence artifact rather than trusting a completion label.
+
+The candidate control contract in `configs/research-control-flow.yaml` does not mutate the
+production release. It defines three model-bearing production/independent-quality pairs:
+corpus reading/verification, question writing/review, and chapter judging/judgment review.
+Hash, schema, citation, completion, score/order, and publication checks remain deterministic.
+The candidate permits no automatic model retry, repair, re-review, or supervisor takeover.
+A material defect can produce one visible research-return request, but execution requires
+an explicit user decision. Task 6 must bind this contract to a fresh experimental release.
+
+An autonomous review experiment may instead select a finite policy before launch. The first
+policy performs one collect-all independent-review round: a valid scientific failure is
+recorded without closing the shared launch coordinator, while invalid artifacts, execution
+errors, and budget failures remain fail-stop conditions. Round count, returns, reruns,
+infrastructure retries, and the downstream stopping boundary are explicit configuration.
+Blind-review transport builds one strict response schema per question packet. The schema fixes
+the question identity and constrains every selectable evidence-ID field to that packet's exact
+candidate allowlist; execution, preflight measurement, persistence, and trusted reload share
+the same builder, while deterministic post-response checks remain independent. Prompt contract
+version 15 requires constrained review schema v5; archived prompt versions retain generic
+schema v4 reload semantics and cannot be selected by relabeling a new manifest.
+
+After the first review, each failed answer may enter one bounded correction round. Deterministic
+code promotes the reviewer's exact packet-local evidence IDs, and a fresh writer receives the
+original answer, deblinded findings, and expanded exact evidence. One fresh independent review
+follows. Residual schema-valid concerns are persisted as judge-visible limitations and lower
+confidence rather than creating another repair loop or a judgment stop; structural validity,
+identity, and provenance remain hard gates.
+
+The Netanyahu 2023 one-ruler gate completed this path on 2026-08-21. Its trusted 80-answer
+handoff fed eight chapter judgments and eight independent judgment reviews; the deterministic
+audit and cited experimental publication passed. The five-ruler confirmation completed on
+2026-08-23 with 400 writings and reviews, 51 exactly-once corrections and final reviews,
+40 ruler-chapter first-pass judgments, eight five-ruler calibrations, eight independent
+judgment reviews, a passing audit, and an attribution-complete cited publication.
+
+Judgment-review application is versioned. Historical review artifacts reconstruct with their
+original replacement semantics. Reader-facing v5 writes a one-paragraph short answer and a
+four-to-seven-paragraph account of the period under an explicit transport marker. It describes
+the affected people, concrete events, ruler-attributable decisions or omissions, and scoring
+significance in complete sentences. It separately treats inherited institutions as constraints
+on what happened rather than achievements automatically credited to the incumbent. Scores,
+confidence, and ranges remain those of the calibrated judgment unless the bounded score-review
+contract changes them. Fresh publication-audit overrides require an approved SHA-256 and are
+recorded by path and hash in the public manifest.
+
+The first five-ruler writing preflight correctly exposed `PRK` `7B.3` as an evidence-collection
+gap. Targeted research added four reviewed, hash-bound records to a v2 question package; the
+generic empty-packet path remains available only after an independently reviewed saturation
+artifact proves zero admissible evidence. The completed release used a configured 12,500-token
+per-call output allowance, reserving 5,000,000 output tokens for its 400 writing calls rather
+than the provider model maximum. Publication binds the exact reviewed 80-answer handoff for
+each ruler, retains limitation-only records as non-decisive context evidence, and transports
+the reviewed PRK supplement through the typed package provenance chain.
+
+A subsequent non-production answer-trusting experiment omitted source excerpts and local
+evidence records while retaining the same reviewed answers, limitations, opaque evidence IDs,
+guides, identities, and five-ruler meter. One web-disabled call per chapter preserved the exact
+ruler ordering, left 27 of 40 chapter scores unchanged, and produced a mean absolute chapter
+delta of 0.175 with a maximum of 1.0. This is a cost/robustness diagnostic, not a promoted
+replacement; the cited evidence-reading v8 result remains authoritative.
+
+Integrated experimental releases perform a deterministic eligibility preflight before any
+model process starts. The preflight validates and hashes the frozen release, corpus,
+selection, and control contracts; constructs all eight question packages; inventories each
+model action; trusted-reloads predecessor artifacts; measures each complete serialized request,
+including its strict response schema; and blocks execution when either a per-request,
+per-stage, or run-wide ceiling is already impossible. A rejected preflight is immutable:
+budget changes apply prospectively to a fresh release and fresh preflight. The
+first Netanyahu integrated release was rejected because its 176 mandatory calls exceeded
+the then-current one-ruler ceiling of 149. Later reviewed decisions retained all independent
+quality actions and adopted the active experimental limits recorded in the canonical
+workplan. The 149-call ceiling is historical and does not govern v17.
